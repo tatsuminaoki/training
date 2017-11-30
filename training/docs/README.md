@@ -69,6 +69,35 @@
   - レビューに対する対応と修正が一通りできること
 - 不明な点を適切なタイミングでチームメンバーや関係者に（今回はメンターになります）口頭やチャットなどで質問ができること
 
+## テーブルスキーマ
+
+#### Tasks
+ - **id** [unsigned int] [not null] [primary key]
+ - **user_id** [unsigned int] [not null] [index]
+ - **name** [string] [not null] []
+ - **desctiption** [text] [null] []
+ - **priority** [unsigned tiny int] [not null] [0 低 ,1 中 ,2 高]
+ - **status** [unsigned tiny int] [not null] [0 未着手 ,1 着手 ,2 完了]
+ - **label_id** [unsigned int] [null] []
+ - **end_data** [data] [null] []
+ - **created_at** [datatime] [not null] []
+ - **updated_at** [datatime] [not null] []
+
+#### Labels
+ - **id** [unsigned int] [not null] [primary key]
+ - **name** [string] [not null] [unique]
+ - **created_at** [datatime] [not null] []
+ - **updated_at** [datatime] [not null] []
+#### Users
+ - **id** [unsigned int] [not null] [primary key]
+ - **name** [string] [not null] []
+ - **email** [string] [not null] [unique]
+ - **password** [string] [not null] []
+ - **created_at** [datatime] [not null] []
+ - **updated_at** [datatime] [not null] []
+
+(削除処理は　物理削除)
+
 ## 課題ステップ
 
 ### ステップ1: Railsの開発環境を構築しよう
