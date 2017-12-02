@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    # todo 編集画面の実装
+    @task = Task.find(params[:id])
   end
 
   def new
@@ -24,7 +24,16 @@ class TasksController < ApplicationController
       # todo flashの実装
     else
       render :new
-      # todo 異常系のテスト
+    end
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update_attributes(task_params)
+      redirect_to @task, notice: '更新しました'
+      # todo flashの実装
+    else
+      render :edit
     end
   end
 
