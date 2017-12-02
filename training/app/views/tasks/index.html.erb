@@ -1,2 +1,10 @@
-index
-<%= @tasks.inspect %>
+<div>
+  <h1>タスク一覧</h1>
+</div>
+<div>
+  <% @tasks.each do |task| %>
+    <h4><%= task.name %></h4>
+    <p>説明：<%= task.description %></p>
+    <hr />
+  <% end %>
+</div>
