@@ -5,3 +5,6 @@
   <h4><%= @task.name %></h4>
   <p>説明：<%= @task.description %></p>
 </div>
+<div>
+  <%= link_to('一覧', tasks_path) %> / <%= link_to('編集', edit_task_path(@task)) %>
+</div>

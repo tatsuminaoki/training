@@ -1,5 +1,5 @@
 <div>
-  <h1>タスク作成</h1>
+  <h1>タスク編集</h1>
 </div>
 <%= form_for(@task) do |f| %>
   <%= f.label :name %>
@@ -10,8 +10,8 @@
   <%= f.text_area :description %>
   <br/>
 
-  <%= f.submit 'タスク作成', data: { disable_with: '作成中...'} %>
+  <%= f.submit '更新', data: { disable_with: '更新中...'} %>
 <% end %>
 <div>
-  <%= link_to('一覧', tasks_path) %>
+  <%= link_to('一覧', tasks_path) %> / <%= link_to('詳細', task_path(@task)) %>
 </div>
