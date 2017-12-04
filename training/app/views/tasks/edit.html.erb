@@ -1,0 +1,9 @@
+<div>
+  <h1>タスク編集</h1>
+</div>
+
+<%= render partial: 'task_form' %>
+
+<div>
+  <%= link_to('一覧', tasks_path) %> / <%= link_to('詳細', task_path(@task)) %>
+</div>
