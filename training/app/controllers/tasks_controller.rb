@@ -9,7 +9,6 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    #処理の共通化（パーシャル）
   end
 
   def new
@@ -21,7 +20,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to @task, notice: '作成しました'
     else
-      #バリデーションの追加
       render :new
     end
   end

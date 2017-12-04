@@ -1,28 +1,9 @@
 <div>
   <h1>タスク編集</h1>
 </div>
-<%= form_for(@task) do |f| %>
 
-  <% if @task.errors.any?%>
-    <div>
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render partial: 'task_form' %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br/>
-
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <br/>
-
-  <%= f.submit '更新', data: { disable_with: '更新中...'} %>
-<% end %>
 <div>
   <%= link_to('一覧', tasks_path) %> / <%= link_to('詳細', task_path(@task)) %>
 </div>
