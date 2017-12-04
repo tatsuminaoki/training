@@ -3,8 +3,6 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
-  # todo page移動ボタンの実装
-
   def show
     @task = Task.find(params[:id])
   end
@@ -21,7 +19,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       redirect_to @task, notice: '作成しました'
-      # todo flashの実装
     else
       render :new
     end
@@ -31,7 +28,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update_attributes(task_params)
       redirect_to @task, notice: '更新しました'
-      # todo flashの実装
     else
       render :edit
     end
