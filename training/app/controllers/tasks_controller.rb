@@ -18,8 +18,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.create_task(task_params)
-    if @task.present?
+    @task = Task.new(task_params)
+    if @task.save
       redirect_to @task, notice: '作成しました'
       # todo flashの実装
     else
