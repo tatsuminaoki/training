@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'validation' do
     describe 'name' do
-      let(:task) { FactoryBot.create(:task, name: name) }
-      let!(:task2) { Task.create!(name: 'hoge', description: 'aaa') }
+      let(:task) { FactoryBot.build(:task, name: name) }
       subject { task.valid? }
 
       context '入力が正しい場合' do
