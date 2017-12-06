@@ -1,17 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe 'Task', type: :feature do
-  before do
-  end
+  let(:task) { FactoryBot.create(:task) }
 
   describe 'ユーザーがタスク一覧にアクセスする' do
+    before do
+      visit tasks_path
+    end
+
     context 'タスクの作成をクリックしたとき' do
       it 'タスク作成ページに遷移する' do
+        click_on 'タスクの作成'
+        expect(current_path).to eq new_task_path
       end
     end
 
     context 'タスク名をクリックしたとき' do
-      it 'タスク詳細が表示される' do
+      it 'タスク詳細ページに遷移する' do
+        save_and_open_page
+        click_on task.name
+        expect(current_path).to eq task_path
       end
     end
   end
