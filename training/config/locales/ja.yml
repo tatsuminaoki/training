@@ -3,6 +3,7 @@ ja:
   tasks:
     view:
       index:
+        title: タスクの作成
       new:
       edit:
       show:
