@@ -7,8 +7,19 @@ ja:
         new_task: タスクの作成
         description: 説明
       new:
+        title: タスク作成
+        index_page: 一覧
       edit:
+        title: タスク編集
+        index_page: 一覧
+        show_page: 詳細
       show:
+        title: タスク詳細
+        description: 説明
+        index_page: 一覧
+        edit_page: 編集
+        delete: 削除
+        delete_confirm: 削除しますか？
       partial:
         create: 作成
         creating: 作成中

@@ -1,9 +1,9 @@
 <div>
-  <h1>タスク作成</h1>
+  <h1><%= I18n.t('tasks.view.new.title') %></h1>
 </div>
 
 <%= render partial: 'task_form' %>
 
 <div>
-  <%= link_to('一覧', tasks_path) %>
+  <%= link_to(I18n.t('tasks.view.new.index_page'), tasks_path) %>
 </div>
