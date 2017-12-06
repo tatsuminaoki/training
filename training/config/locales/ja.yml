@@ -1,5 +1,17 @@
 ---
 ja:
+  tasks:
+    view:
+      index:
+      new:
+      edit:
+      show:
+      partial:
+    model:
+      messages:
+        created: 作成しました
+        updated: 更新しました
+        deleted: 削除しました
   attributes:
     name: 名前
     description: 説明
