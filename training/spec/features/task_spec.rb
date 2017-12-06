@@ -32,8 +32,8 @@ RSpec.describe 'Task', type: :feature do
     context 'タスク情報を入力して作成する' do
       before do
         visit new_task_path
-        fill_in 'Name', with: 'hoge'
-        fill_in 'Description', with: 'fuga'
+        fill_in I18n.t("attributes.name"), with: 'hoge'
+        fill_in I18n.t("attributes.description"), with: 'fuga'
         click_on '作成'
       end
 
@@ -57,7 +57,7 @@ RSpec.describe 'Task', type: :feature do
     context 'タスク情報を入力して更新する' do
       let(:update_name) { 'abcde' }
       before do
-        fill_in 'Name', with: update_name
+        fill_in I18n.t("attributes.name"), with: update_name
         click_on '更新'
       end
 
