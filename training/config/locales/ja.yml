@@ -7,6 +7,10 @@ ja:
       edit:
       show:
       partial:
+        create: 作成
+        creating: 作成中
+        update: 更新
+        updating: 更新中
     controller:
       messages:
         created: 作成しました
