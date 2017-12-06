@@ -44,7 +44,7 @@ RSpec.describe 'Task', type: :feature do
       end
 
       it '作成しました　とメッセージが表示される' do
-        expect(page).to have_content I18n.t("tasks.controller.messages.created")
+        expect(page).to have_content '作成しました'
       end
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe 'Task', type: :feature do
       end
 
       it '更新しました　とメッセージが表示される' do
-        expect(page).to have_content I18n.t("tasks.controller.messages.updated")
+        expect(page).to have_content '更新しました'
       end
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe 'Task', type: :feature do
         expect(current_path).to eq tasks_path
       end
       it '削除しました　とメッセージが表示される' do
-        expect(page).to have_content I18n.t("tasks.controller.messages.deleted")
+        expect(page).to have_content '削除しました'
       end
     end
   end
