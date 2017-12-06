@@ -18,5 +18,9 @@
   <%= f.text_area :description %>
   <br/>
 
-  <%= f.submit '更新', data: { disable_with: '更新中...'} %>
+  <% if request.path_info == new_task_path %>
+    <%= f.submit '作成', data: { disable_with: '作成中...'} %>
+  <% else %>
+    <%= f.submit '更新', data: { disable_with: '更新中...'} %>
+  <% end %>
 <% end %>

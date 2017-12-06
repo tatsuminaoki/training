@@ -22,7 +22,6 @@ RSpec.describe 'Task', type: :feature do
 
     context 'タスク名をクリックしたとき' do
       it 'タスク詳細ページに遷移する' do
-        # save_and_open_page
         click_on task.name
         expect(current_path).to eq task_path(task.id)
       end
@@ -35,7 +34,7 @@ RSpec.describe 'Task', type: :feature do
         visit new_task_path
         fill_in 'Name', with: 'hoge'
         fill_in 'Description', with: 'fuga'
-        click_on '更新'# Todo fix
+        click_on '作成'
       end
 
       it 'タスク詳細ページに遷移する' do
