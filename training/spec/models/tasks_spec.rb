@@ -16,9 +16,21 @@ RSpec.describe Task, type: :model do
         it { is_expected.to be false }
       end
 
-      context '長さが255以上の場合' do
-        let(:name) { 'a' * 256 }
-        it { is_expected.to be false }
+      context '文字列の長さ' do
+        context '254以下の場合' do
+          let(:name) { 'a' * 254 }
+          it { is_expected.to be true }
+        end
+
+        context '255の場合' do
+          let(:name) { 'a' * 255 }
+          it { is_expected.to be true }
+        end
+
+        context '256以上の場合' do
+          let(:name) { 'a' * 256 }
+          it { is_expected.to be false }
+        end
       end
     end
   end
