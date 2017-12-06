@@ -7,7 +7,7 @@ ja:
       edit:
       show:
       partial:
-    model:
+    controller:
       messages:
         created: 作成しました
         updated: 更新しました
