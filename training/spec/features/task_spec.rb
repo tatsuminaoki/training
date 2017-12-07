@@ -13,6 +13,18 @@ RSpec.describe 'Task', type: :feature do
       expect(page).to have_content task.description
     end
 
+    context '複数のタスクが登録されているとき' do
+      # 処理速度の関係で後から作ってもtaskと同じ作成日時になるので意図的に1秒後を指定する
+      let!(:task_new) { FactoryBot.create(:task, name: 'test_new', created_at: Time.now + 1.second) }
+
+      it '作成日時の降順ソートで表示される' do
+        visit current_path
+        expect(task_new.created_at.time > task.created_at.time).to be true
+        expect(all('h4')[0]).to have_content task_new.name
+        expect(all('h4')[1]).to have_content task.name
+      end
+    end
+
     context 'タスクの作成をクリックしたとき' do
       it 'タスク作成ページに遷移する' do
         click_on I18n.t('tasks.view.index.new_task')
