@@ -15,7 +15,7 @@ RSpec.describe 'Task', type: :feature do
 
     context 'タスクの作成をクリックしたとき' do
       it 'タスク作成ページに遷移する' do
-        click_on 'タスクの作成'
+        click_on I18n.t('tasks.view.index.new_task')
         expect(current_path).to eq new_task_path
       end
     end
@@ -32,9 +32,9 @@ RSpec.describe 'Task', type: :feature do
     context 'タスク情報を入力して作成する' do
       before do
         visit new_task_path
-        fill_in I18n.t("attributes.name"), with: 'hoge'
-        fill_in I18n.t("attributes.description"), with: 'fuga'
-        click_on '作成'
+        fill_in I18n.t('attributes.name'), with: 'hoge'
+        fill_in I18n.t('attributes.description'), with: 'fuga'
+        click_on I18n.t('tasks.view.partial.create')
       end
 
       it 'タスク詳細ページに遷移する' do
@@ -44,7 +44,7 @@ RSpec.describe 'Task', type: :feature do
       end
 
       it '作成しました　とメッセージが表示される' do
-        expect(page).to have_content '作成しました'
+        expect(page).to have_content I18n.t('tasks.controller.messages.created')
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe 'Task', type: :feature do
       let(:update_name) { 'abcde' }
       before do
         fill_in I18n.t("attributes.name"), with: update_name
-        click_on '更新'
+        click_on I18n.t('tasks.view.partial.update')
       end
 
       it '詳細ページに遷移する' do
@@ -67,7 +67,7 @@ RSpec.describe 'Task', type: :feature do
       end
 
       it '更新しました　とメッセージが表示される' do
-        expect(page).to have_content '更新しました'
+        expect(page).to have_content I18n.t('tasks.controller.messages.updated')
       end
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '一覧ボタンをクリックしたとき' do
-      before { click_on '一覧' }
+      before { click_on I18n.t('tasks.view.show.index_page') }
 
       it '一覧ページに遷移する' do
         expect(current_path).to eq tasks_path
@@ -86,7 +86,7 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '編集ボタンをクリックしたとき' do
-      before { click_on '編集' }
+      before { click_on I18n.t('tasks.view.show.edit_page') }
 
       it '編集ページに遷移する' do
         expect(current_path).to eq edit_task_path(task.id)
@@ -94,13 +94,13 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '削除ボタンをクリックしたとき' do
-      before { click_on '削除' }
+      before { click_on I18n.t('tasks.view.show.delete') }
 
       it '一覧ページに遷移する' do
         expect(current_path).to eq tasks_path
       end
       it '削除しました　とメッセージが表示される' do
-        expect(page).to have_content '削除しました'
+        expect(page).to have_content I18n.t('tasks.controller.messages.deleted')
       end
     end
   end
