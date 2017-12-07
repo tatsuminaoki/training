@@ -14,12 +14,14 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '複数のタスクが登録されているとき' do
-      let!(:task_new) { FactoryBot.create(:task, name: 'test_new') }
+      # 処理速度の関係で後から作ってもtaskと同じ作成日時になるので意図的に1秒後を指定する
+      let!(:task_new) { FactoryBot.create(:task, name: 'test_new', created_at: Time.now + 1.second) }
 
-      it 'id降順ソートで表示される' do
+      it '作成日時の降順ソートで表示される' do
         visit current_path
-        expect(all('h4')[0]).to have_link task_new.name, href: task_path(task_new.id)
-        expect(all('h4')[1]).to have_link task.name, href: task_path(task.id)
+        expect(task_new.created_at.time > task.created_at.time).to be true
+        expect(all('h4')[0]).to have_content task_new.name
+        expect(all('h4')[1]).to have_content task.name
       end
     end
 
