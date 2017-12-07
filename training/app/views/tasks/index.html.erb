@@ -1,13 +1,13 @@
 <div>
-  <h1>タスク一覧</h1>
+  <h1><%= I18n.t('tasks.view.index.title') %></h1>
 </div>
 <div>
-  <%= link_to('タスクの作成', new_task_path) %>
+  <%= link_to(I18n.t('tasks.view.index.new_task'), new_task_path) %>
 </div>
 <div>
   <% @tasks.each do |task| %>
     <h4><%= link_to(task.name, task_path(task)) %></h4>
-    <p>説明：<%= task.description %></p>
+    <p><%= I18n.t('tasks.view.index.description') %> : <%= task.description %></p>
     <hr />
   <% end %>
 </div>

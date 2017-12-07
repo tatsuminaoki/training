@@ -1,10 +1,11 @@
 <div>
-  <h1>タスク詳細</h1>
+  <h1><%= I18n.t('tasks.view.show.title') %></h1>
 </div>
 <div>
   <h4><%= @task.name %></h4>
-  <p>説明：<%= @task.description %></p>
+  <p><%= I18n.t('tasks.view.show.description') %> : <%= @task.description %></p>
 </div>
 <div>
-  <%= link_to('一覧', tasks_path) %> / <%= link_to('編集', edit_task_path(@task)) %> / <%= link_to('削除', task_path(@task), method: :delete, data: { confirm: '削除しますか？' } ) %>
+  <%= link_to(I18n.t('tasks.view.show.index_page'), tasks_path) %> / <%= link_to(I18n.t('tasks.view.show.edit_page'), edit_task_path(@task)) %> / 
+  <%= link_to(I18n.t('tasks.view.show.delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('tasks.view.show.delete_confirm') } ) %>
 </div>

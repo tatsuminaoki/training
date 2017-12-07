@@ -1,9 +1,9 @@
 <div>
-  <h1>タスク編集</h1>
+  <h1><%= I18n.t('tasks.view.edit.title') %></h1>
 </div>
 
 <%= render partial: 'task_form' %>
 
 <div>
-  <%= link_to('一覧', tasks_path) %> / <%= link_to('詳細', task_path(@task)) %>
+  <%= link_to(I18n.t('tasks.view.edit.index_page'), tasks_path) %> / <%= link_to(I18n.t('tasks.view.edit.show_page'), task_path(@task)) %>
 </div>
