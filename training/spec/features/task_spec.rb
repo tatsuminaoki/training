@@ -13,6 +13,16 @@ RSpec.describe 'Task', type: :feature do
       expect(page).to have_content task.description
     end
 
+    context '複数のタスクが登録されているとき' do
+      let!(:task_new) { FactoryBot.create(:task, name: 'test_new') }
+
+      it 'id降順ソートで表示される' do
+        visit current_path
+        expect(all('h4')[0]).to have_link task_new.name, href: task_path(task_new.id)
+        expect(all('h4')[1]).to have_link task.name, href: task_path(task.id)
+      end
+    end
+
     context 'タスクの作成をクリックしたとき' do
       it 'タスク作成ページに遷移する' do
         click_on I18n.t('tasks.view.index.new_task')
