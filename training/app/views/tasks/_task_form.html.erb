@@ -18,6 +18,13 @@
   <%= f.text_area :description %>
   <br/>
 
+  <% #DB制約を実装した関係で値が必要なのでダミー値をセット　-> 今後の機能実装に合わせて解放する %>
+  <%= f.hidden_field :user_id, value: 0 %>
+  <%= f.hidden_field :priority, value: 0 %>
+  <%= f.hidden_field :status, value: 0 %>
+  <%= f.hidden_field :label_id, value: 0 %>
+  <%= f.hidden_field :end_data, value: Time.now %>
+
   <% if request.path_info == new_task_path %>
     <%= f.submit I18n.t('tasks.view.partial.create'), data: { disable_with: I18n.t('tasks.view.partial.creating')} %>
   <% else %>
