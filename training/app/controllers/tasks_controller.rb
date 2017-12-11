@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.order({created_at: :desc})
+    Rails.logger.error(params)
+    if params[:end_date].present?
+      @tasks = Task.order("end_date #{params[:end_date]}")
+    else
+      @tasks = Task.order({created_at: :desc})
+    end
   end
 
   def show

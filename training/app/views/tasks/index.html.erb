@@ -3,6 +3,12 @@
 </div>
 <div>
   <%= link_to(I18n.t('tasks.view.index.new_task'), new_task_path) %>
+  <hr />
+</div>
+<div>
+  <h3><%= I18n.t('tasks.view.index.sort') %></h3>
+  <%= I18n.t('tasks.view.index.end_date') %>　: <%= link_to( '▲', tasks_path(end_date: 'asc')) %>　<%= link_to( '▼', tasks_path(end_date: 'desc')) %>
+  <hr />
 </div>
 <div>
   <% @tasks.each do |task| %>
