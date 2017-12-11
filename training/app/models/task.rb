@@ -9,8 +9,9 @@ class Task < ApplicationRecord
   private
 
   def end_date_valid
-    # ActiveRecordによって強制的にcastされる値('abc'など)は入力として正しく無いのでエラーにする
-    unless end_date_before_type_cast.to_s == end_date.to_s
+    # ActiveRecordによって強制的にcastされる値('abc'など)はnilになるので
+    # end_date_before_type_castが存在してend_dateがnullなら不正な値として除外する
+    if end_date_before_type_cast.present? && end_date.blank?
       errors.add(:end_date, I18n.t('errors.messages.end_date.invalid'))
       return false
     end
