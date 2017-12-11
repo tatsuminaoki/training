@@ -145,7 +145,7 @@ RSpec.describe Task, type: :model do
 
       context '入力が正しい場合' do
         context '日付が設定されている場合' do
-          let(:end_date) { '2017-1-1' }
+          let(:end_date) { '2017-01-01' }
           it { is_expected.to be true }
         end
 
