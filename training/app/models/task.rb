@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   def end_date_valid
     # ActiveRecordによって強制的にcastされる値('abc'など)は入力として正しく無いのでエラーにする
     unless end_date_before_type_cast.to_s == end_date.to_s
-      errors.add(:end_date, ": 入力された日付が正しくありません")
+      errors.add(:end_date, I18n.t('errors.messages.end_date.invalid'))
       return false
     end
 
@@ -19,8 +19,7 @@ class Task < ApplicationRecord
     Rails.logger.error(end_date)
     Rails.logger.error(date_valid?(end_date).class)
     unless date_valid?(end_date)
-      # Todo i18n化する
-      errors.add(:end_date, ": 入力された日付は存在しません")
+      errors.add(:end_date, I18n.t('errors.messages.end_date.not_exist'))
       return false
     end
   end
