@@ -6,6 +6,6 @@ FactoryBot.define do
     priority 0
     status 0
     label_id 0 # ラベル機能実装時に修正する
-    end_data Time.now
+    end_date Time.zone.today
   end
 end

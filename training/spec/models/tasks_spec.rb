@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'validation' do
     describe 'name' do
-      let(:task) { FactoryBot.build(:task, name: name) }
+      let!(:task) { FactoryBot.build(:task, name: name) }
       subject { task.valid? }
 
       context '入力が正しい場合' do
@@ -139,32 +139,37 @@ RSpec.describe Task, type: :model do
       end
     end
 
-    describe 'end_data' do
-      let(:task) { FactoryBot.build(:task, end_data: end_data) }
+    describe 'end_date' do
+      let(:task) { FactoryBot.build(:task, end_date: end_date) }
       subject { task.valid? }
 
       context '入力が正しい場合' do
         context '日付が設定されている場合' do
-          let(:end_data) { Time.now }
+          let(:end_date) { '2017-1-1' }
           it { is_expected.to be true }
         end
 
         context '空欄の場合' do
-          let(:end_data) { '' }
+          let(:end_date) { '' }
           it { is_expected.to be true }
         end
       end
 
       context '日付でない場合' do
         context '数値の場合' do
-          let(:end_data) { 123 }
+          let(:end_date) { 123 }
           it { is_expected.to be false }
         end
 
         context '文字列の場合' do
-          let(:end_data) { 'abc' }
+          let(:end_date) { 'abc' }
           it { is_expected.to be false }
         end
+      end
+
+      context '存在しない日付の場合' do
+        let(:end_date) { '2017-2-31' }
+        it { is_expected.to be false }
       end
     end
   end
