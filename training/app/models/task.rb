@@ -4,5 +4,5 @@ class Task < ApplicationRecord
   validates :priority, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :status, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :label_id, :numericality => { :greater_than_or_equal_to => 0, :allow_blank => true }
-
+  validates :end_date, date: true
 end

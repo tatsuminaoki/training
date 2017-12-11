@@ -28,5 +28,8 @@ module Training
 
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
+
+    # add custom validators path
+    config.autoload_paths += Dir["#{config.root}/app/validators"]
   end
 end
