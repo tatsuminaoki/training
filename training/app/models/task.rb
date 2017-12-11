@@ -16,8 +16,6 @@ class Task < ApplicationRecord
     end
 
     return true if end_date.blank? || end_date.instance_of?(Date)
-    Rails.logger.error(end_date)
-    Rails.logger.error(date_valid?(end_date).class)
     unless date_valid?(end_date)
       errors.add(:end_date, I18n.t('errors.messages.end_date.not_exist'))
       return false

@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20171208052520) do
     t.integer "priority", limit: 1, null: false, unsigned: true
     t.integer "status", limit: 1, null: false, unsigned: true
     t.integer "label_id", unsigned: true
-    t.date "end_data"
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
