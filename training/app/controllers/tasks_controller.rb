@@ -48,7 +48,7 @@ class TasksController < ApplicationController
       :priority,
       :status,
       :label_id,
-      :end_data,
+      :end_date,
     )
   end
 end

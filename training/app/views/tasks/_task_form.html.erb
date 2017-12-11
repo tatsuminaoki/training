@@ -23,7 +23,7 @@
   <%= f.hidden_field :priority, value: 0 %>
   <%= f.hidden_field :status, value: 0 %>
   <%= f.hidden_field :label_id, value: 0 %>
-  <%= f.hidden_field :end_data, value: Time.now %>
+  <%= f.hidden_field :end_date, value: Time.now %>
 
   <% if request.path_info == new_task_path %>
     <%= f.submit I18n.t('tasks.view.partial.create'), data: { disable_with: I18n.t('tasks.view.partial.creating')} %>
