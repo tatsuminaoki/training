@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
     Rails.logger.error(params)
-    if params[:end_date].present?
+    if params[:end_date] == 'asc' || params[:end_date] == 'desc' 
       @tasks = Task.order("end_date #{params[:end_date]}")
     else
       @tasks = Task.order({created_at: :desc})
