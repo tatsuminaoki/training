@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :convert_params_to_enum
+
   def index
     Rails.logger.error(params)
     if params[:end_date] == 'asc' || params[:end_date] == 'desc' 
@@ -55,5 +57,12 @@ class TasksController < ApplicationController
       :label_id,
       :end_date,
     )
+  end
+
+  def convert_params_to_enum
+    return false if params[:task].nil?
+    params[:task][:status] = Integer(params[:task][:status]) if params[:task][:status].present?
+  rescue ArgumentError
+    return false
   end
 end
