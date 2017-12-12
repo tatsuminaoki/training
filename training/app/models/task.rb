@@ -4,11 +4,11 @@ class Task < ApplicationRecord
   validates :priority, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :status, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :label_id, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
-  validate :end_date_valid
+  validate :end_date_valid?
 
   private
 
-  def end_date_valid
+  def end_date_valid?
     # ActiveRecordによって強制的にcastされる値('abc'など)はnilになるので
     # end_date_before_type_castが存在してend_dateがnullなら不正な値として除外する
     if end_date_before_type_cast.present? && end_date.nil?
