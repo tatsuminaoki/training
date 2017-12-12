@@ -16,14 +16,16 @@ class Task < ApplicationRecord
       return false
     end
 
-    return true if end_date.nil? || end_date.instance_of?(Date)
-    unless date_valid?(end_date)
+    if date_valid?(end_date)
+      return true
+    else
       errors.add(:end_date, I18n.t('errors.messages.end_date.not_exist'))
       return false
     end
   end
 
-  def date_valid?(str)
-    !! Date.parse(str) rescue false
+  def date_valid?(date)
+    return true if date.nil? || date.instance_of?(Date)
+    !! Date.parse(date) rescue false
   end
 end
