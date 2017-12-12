@@ -33,6 +33,11 @@ ja:
   attributes:
     name: 名前
     description: 説明
+    user_id: ユーザー番号
+    priority: 優先順位
+    status: ステータス
+    label_id: ラベル番号
+    end_date: 終了期限
   activerecord:
     errors:
       messages:
@@ -166,6 +171,9 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
+      end_date:
+        invalid: に入力された日付が正しくありません
+        not_exist: に入力された日付は存在しません
     template:
       body: 次の項目を確認してください
       header:

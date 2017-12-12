@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'validation' do
     describe 'name' do
-      let(:task) { FactoryBot.build(:task, name: name) }
+      let!(:task) { FactoryBot.build(:task, name: name) }
       subject { task.valid? }
 
       context '入力が正しい場合' do
@@ -31,6 +31,145 @@ RSpec.describe Task, type: :model do
           let(:name) { 'a' * 256 }
           it { is_expected.to be false }
         end
+      end
+    end
+
+    describe 'user_id' do
+      let(:task) { FactoryBot.build(:task, user_id: user_id) }
+      subject { task.valid? }
+
+      # TODO : User機能実装時にIDが存在することを検証する
+      context '入力が正しい場合' do
+        let(:user_id) { 1 }
+        it { is_expected.to be true }
+      end
+
+      context '空欄の場合' do
+        let(:user_id) { '' }
+        it { is_expected.to be false }
+      end
+
+      context '数値でない場合' do
+        let(:user_id) { 'abc' }
+        it { is_expected.to be false }
+      end
+
+      context '負の数値の場合' do
+        let(:user_id) { -1 }
+        it { is_expected.to be false }
+      end
+    end
+
+    describe 'priority' do
+      let(:task) { FactoryBot.build(:task, priority: priority) }
+      subject { task.valid? }
+
+      context '入力が正しい場合' do
+        let(:priority) { 1 }
+        it { is_expected.to be true }
+      end
+
+      context '空欄の場合' do
+        let(:priority) { '' }
+        it { is_expected.to be false }
+      end
+
+      context '数値でない場合' do
+        let(:priority) { 'abc' }
+        it { is_expected.to be false }
+      end
+
+      context '負の数値の場合' do
+        let(:priority) { -1 }
+        it { is_expected.to be false }
+      end
+    end
+
+    describe 'status' do
+      let(:task) { FactoryBot.build(:task, status: status) }
+      subject { task.valid? }
+
+      context '入力が正しい場合' do
+        let(:status) { 1 }
+        it { is_expected.to be true }
+      end
+
+      context '空欄の場合' do
+        let(:status) { '' }
+        it { is_expected.to be false }
+      end
+
+      context '数値でない場合' do
+        let(:status) { 'abc' }
+        it { is_expected.to be false }
+      end
+
+      context '負の数値の場合' do
+        let(:status) { -1 }
+        it { is_expected.to be false }
+      end
+    end
+
+    describe 'label_id' do
+      let(:task) { FactoryBot.build(:task, label_id: label_id) }
+      subject { task.valid? }
+
+      context '入力が正しい場合' do
+
+        # TODO : Label機能実装時にIDが存在することを検証する
+        context '数値が設定されている場合' do
+          let(:label_id) { 1 }
+          it { is_expected.to be true }
+        end
+
+        context '空欄の場合' do
+          let(:label_id) { '' }
+          it { is_expected.to be true }
+        end
+      end
+
+      context '数値でない場合' do
+        let(:label_id) { 'abc' }
+        it { is_expected.to be false }
+      end
+
+      context '負の数値の場合' do
+        let(:label_id) { -1 }
+        it { is_expected.to be false }
+      end
+    end
+
+    describe 'end_date' do
+      let(:task) { FactoryBot.build(:task, end_date: end_date) }
+      subject { task.valid? }
+
+      context '入力が正しい場合' do
+        context '日付が設定されている場合' do
+          let(:end_date) { '2017-01-01' }
+          it { is_expected.to be true }
+        end
+
+        context '空欄の場合' do
+          let(:end_date) { '' }
+          it { is_expected.to be true }
+        end
+      end
+
+      context '日付でない場合' do
+        context '数値の場合' do
+          let(:end_date) { 123 }
+          it { is_expected.to be false }
+        end
+
+        context '文字列の場合' do
+          let(:end_date) { 'abc' }
+          it { is_expected.to be false }
+        end
+      end
+
+      context '存在しない日付の場合' do
+        let(:end_date) { '2017-2-31' }
+        it { is_expected.to be false }
       end
     end
   end
