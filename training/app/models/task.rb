@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   validates :label_id, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   validate :end_date_valid?
 
+  before_validation :set_dummy_value
+
   private
 
   def end_date_valid?
@@ -27,5 +29,14 @@ class Task < ApplicationRecord
   def date_valid?(date)
     return true if date.nil? || date.instance_of?(Date)
     !! Date.parse(date) rescue false
+  end
+
+  def set_dummy_value
+    #DB制約を実装した関係で値が必要なのでダミー値をセット　-> 今後の機能実装に合わせて解放する
+    if Rails.env == "development"
+      self.user_id = 0
+      self.priority = 0
+      self.status = 0
+    end
   end
 end
