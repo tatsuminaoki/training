@@ -38,7 +38,6 @@ class Task < ApplicationRecord
     if Rails.env == "development"
       self.user_id = 0
       self.priority = 0
-      self.status = 0
     end
   end
 end
