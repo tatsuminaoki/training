@@ -6,6 +6,10 @@ ja:
         not_started: 未着手
         underway: 着手中
         done: 完了
+      priority:
+        low: 低
+        middle: 中
+        high: 高
     view:
       index:
         title: タスク一覧
@@ -17,6 +21,7 @@ ja:
         name: タスク名
         description: 説明
         status: ステータス
+        priority: 優先順位
         end_date: 終了期限
       new:
         title: タスク作成
@@ -29,6 +34,7 @@ ja:
         title: タスク詳細
         description: 説明
         status: ステータス
+        priority: 優先順位
         end_date: 終了期限
         index_page: 一覧
         edit_page: 編集

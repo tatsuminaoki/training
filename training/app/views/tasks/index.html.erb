@@ -30,6 +30,7 @@
     <h4><%= link_to(task.name, task_path(task)) %></h4>
     <p><%= I18n.t('tasks.view.index.description') %> : <%= task.description %></p>
     <p><%= I18n.t('tasks.view.index.status') %> : <%= I18n.t("tasks.model.status.#{task.status}") %></p>
+    <p><%= I18n.t('tasks.view.index.priority') %> : <%= I18n.t("tasks.model.priority.#{task.priority}") %></p>
     <p><%= I18n.t('tasks.view.index.end_date') %> : <%= task.end_date %></p>
     <hr />
   <% end %>

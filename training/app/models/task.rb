@@ -55,7 +55,6 @@ class Task < ApplicationRecord
     #DB制約を実装した関係で値が必要なのでダミー値をセット　-> 今後の機能実装に合わせて解放する
     if Rails.env == "development"
       self.user_id = 0
-      self.priority = 0
     end
   end
 end
