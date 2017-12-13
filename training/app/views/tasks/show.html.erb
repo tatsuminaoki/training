@@ -4,6 +4,7 @@
 <div>
   <h4><%= @task.name %></h4>
   <p><%= I18n.t('tasks.view.show.description') %> : <%= @task.description %></p>
+  <p><%= I18n.t('tasks.view.show.end_date') %> : <%= @task.end_date %></p>
 </div>
 <div>
   <%= link_to(I18n.t('tasks.view.show.index_page'), tasks_path) %> / <%= link_to(I18n.t('tasks.view.show.edit_page'), edit_task_path(@task)) %> / 

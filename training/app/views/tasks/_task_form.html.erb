@@ -18,6 +18,10 @@
   <%= f.text_area :description %>
   <br/>
 
+  <%= f.label :end_date %>
+  <%= f.date_select :end_date %>
+  <br/>
+
   <% if request.path_info == new_task_path %>
     <%= f.submit I18n.t('tasks.view.partial.create'), data: { disable_with: I18n.t('tasks.view.partial.creating')} %>
   <% else %>

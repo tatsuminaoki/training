@@ -4,8 +4,10 @@ ja:
     view:
       index:
         title: タスク一覧
+        sort: ソート
         new_task: タスクの作成
         description: 説明
+        end_date: 終了期限
       new:
         title: タスク作成
         index_page: 一覧
@@ -16,6 +18,7 @@ ja:
       show:
         title: タスク詳細
         description: 説明
+        end_date: 終了期限
         index_page: 一覧
         edit_page: 編集
         delete: 削除
