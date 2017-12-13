@@ -10,6 +10,22 @@ class Task < ApplicationRecord
 
   before_validation :set_dummy_value
 
+  def self.search(params)
+    result = Task
+    result = result.where('status = ?', params[:status]) if params[:status].present?
+    result = result.where('name = ?', params[:name]) if params[:name].present?
+
+    # memo : 初回読み込み時にorderがnilでinclude?が実行できないので先にpresent?で確認
+    #      : 現状ではend_dateのみなのでinclude?使わなくても判定できるが
+    #      : 次のstepで優先順位検索を実装する時の為にあえてinclude?を利用（step15実装時にこのメモを消す）
+    result = if params[:order].present? && params[:order].include?('end_date')
+               order_option = params[:order] == 'end_date_asc' ? :asc : :desc
+               result.order(end_date: order_option)
+             else
+               result.order(created_at: :desc)
+             end
+  end
+
   private
 
   def end_date_valid?
