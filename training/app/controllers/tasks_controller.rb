@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @status = params[:status]
     @order = params[:order]
 
-    @tasks = Task.search(params)
+    @tasks = Task.search(params).page(params[:page])
   end
 
   def show
