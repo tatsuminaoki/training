@@ -25,7 +25,7 @@ class Task < ApplicationRecord
                result.order(priority: order_option(params[:order]))
              else
                result.order(created_at: :desc)
-             end 
+             end
   end
 
   private

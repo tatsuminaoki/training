@@ -243,14 +243,36 @@ RSpec.describe Task, type: :model do
     end
 
     context 'ソートロジック' do
-      let!(:task_0) { FactoryBot.create(:task, end_date: '2017-02-02', created_at: '2017-01-02') }
-      let!(:task_1) { FactoryBot.create(:task, end_date: '2017-02-01', created_at: '2017-01-01') }
+      let!(:task_0) { FactoryBot.create(:task, end_date: '2017-02-03', priority: 0, created_at: '2017-01-03') }
+      let!(:task_1) { FactoryBot.create(:task, end_date: '2017-02-02', priority: 1, created_at: '2017-01-02') }
+      let!(:task_2) { FactoryBot.create(:task, end_date: '2017-02-01', priority: 2, created_at: '2017-01-01') }
 
       context '指定しない場合' do
         let(:params) { {} }
         it '作成日時の降順ソートになる' do
           expect(subject[0]).to eq task_0
           expect(subject[1]).to eq task_1
+          expect(subject[2]).to eq task_2
+        end
+      end
+
+      context '優先順位ソートの場合' do
+        context '昇順' do
+          let(:params) { { order: 'priority_asc' } }
+          it '優先順位の昇順ソートになる' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+            expect(subject[2]).to eq task_2
+          end
+        end
+
+        context '降順' do
+          let(:params) { { order: 'priority_desc' } }
+          it '優先順位の降順ソートになる' do
+            expect(subject[0]).to eq task_2
+            expect(subject[1]).to eq task_1
+            expect(subject[2]).to eq task_0
+          end
         end
       end
 
@@ -258,8 +280,9 @@ RSpec.describe Task, type: :model do
         context '昇順' do
           let(:params) { { order: 'end_date_asc' } }
           it '終了期限の昇順ソートになる' do
-            expect(subject[0]).to eq task_1
-            expect(subject[1]).to eq task_0
+            expect(subject[0]).to eq task_2
+            expect(subject[1]).to eq task_1
+            expect(subject[2]).to eq task_0
           end
         end
 
@@ -268,6 +291,7 @@ RSpec.describe Task, type: :model do
           it '終了期限の降順ソートになる' do
             expect(subject[0]).to eq task_0
             expect(subject[1]).to eq task_1
+            expect(subject[2]).to eq task_2
           end
         end
       end
