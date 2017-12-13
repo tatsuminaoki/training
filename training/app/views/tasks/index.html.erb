@@ -16,9 +16,14 @@
     
     <h3><%= I18n.t('tasks.view.index.sort') %></h3>
     <%= label_tag :order, I18n.t('tasks.view.index.not_sort') %> : <%= radio_button_tag :order, '', @order.blank? %>
+    <br/>
     <%= I18n.t('tasks.view.index.end_date') %> : 
     <%= label_tag :order, '▲' %> <%= radio_button_tag :order, 'end_date_asc', @order == 'end_date_asc' %> / 
     <%= label_tag :order, '▼' %> <%= radio_button_tag :order, 'end_date_desc', @order == 'end_date_desc' %>
+    <br/>
+    <%= I18n.t('tasks.view.index.priority') %> : 
+    <%= label_tag :order, '▲' %> <%= radio_button_tag :order, 'priority_asc', @order == 'priority_asc' %> / 
+    <%= label_tag :order, '▼' %> <%= radio_button_tag :order, 'priority_desc', @order == 'priority_desc' %>
 
     <br/>
     <%= submit_tag I18n.t('tasks.view.index.submit') %>
