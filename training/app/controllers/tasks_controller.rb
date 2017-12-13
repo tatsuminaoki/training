@@ -2,23 +2,10 @@ class TasksController < ApplicationController
   before_action :convert_params_to_enum
 
   def index
+    @name = params[:name]
+    @status = params[:status]
 
-    case params[:end_date]
-      when 'asc'
-        @tasks = Task.order(end_date: :asc)
-      when 'desc' 
-        @tasks = Task.order(end_date: :desc)
-      else
-        @tasks = Task.order({created_at: :desc})
-    end
-    if params[:status].present?
-      @tasks = Task.where('status = ?', params[:status])
-    end
-    if params[:name].present?
-      @tasks = Task.where('name = ?', params[:name])
-    end
-    #todo and検索実装する
-    #todo 検索した単語の持ち回し機能
+    @tasks = search(params)
   end
 
   def show
@@ -68,6 +55,20 @@ class TasksController < ApplicationController
       :label_id,
       :end_date,
     )
+  end
+
+  def search(params)
+    result = Task
+    result = result.where('status = ?', params[:status]) if params[:status].present?
+    result = result.where('name = ?', params[:name]) if params[:name].present?
+
+    # memo:優先順位検索実装する時にcaseに変更する
+    result = if params[:end_date].present?
+      order_option = params[:end_date] == 'asc' ? :asc : :desc
+      result.order(end_date: order_option)
+    else
+      result.order(created_at: :desc)
+    end
   end
 
   def convert_params_to_enum

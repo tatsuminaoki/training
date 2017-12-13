@@ -9,7 +9,7 @@
   <h3><%= I18n.t('tasks.view.index.search') %></h3>
   <%= form_tag({action: :index}, {method: :get}) do %>
     <%= label_tag :status, I18n.t('tasks.view.index.status') %>
-    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [I18n.t("tasks.model.status.#{k}"), v] }), include_blank: true %>
+    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [I18n.t("tasks.model.status.#{k}"), v] }, selected: @status), include_blank: true %>
     <br/>
     <%= label_tag :name, I18n.t('tasks.view.index.name') %>
     <%= text_field_tag :name, @name %>
