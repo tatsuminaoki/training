@@ -60,6 +60,7 @@ class TasksController < ApplicationController
 
   def convert_params_to_enum
     return false if params[:task].nil?
+    params[:task][:priority] = Integer(params[:task][:priority]) if params[:task][:priority].present?
     params[:task][:status] = Integer(params[:task][:status]) if params[:task][:status].present?
   rescue ArgumentError
     return false

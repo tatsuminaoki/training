@@ -76,12 +76,12 @@ RSpec.describe Task, type: :model do
 
       context '数値でない場合' do
         let(:priority) { 'abc' }
-        it { is_expected.to be false }
+        it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context '負の数値の場合' do
         let(:priority) { -1 }
-        it { is_expected.to be false }
+        it { expect { subject }.to raise_error(ArgumentError) }
       end
     end
 

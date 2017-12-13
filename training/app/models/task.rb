@@ -1,12 +1,14 @@
 class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :user_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :priority, presence: true, numericality: { greater_than_or_equal_to: 0 }  
   validates :label_id, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   validate :end_date_valid?
 
   enum status: { not_started: 0, underway: 1, done: 2 }
   validates :status, presence: true, inclusion: {in: Task.statuses.keys}
+
+  enum priority: { low: 0, middle: 1, high: 2 }
+  validates :priority, presence: true, inclusion: {in: Task.priorities.keys}
 
   before_validation :set_dummy_value
 
