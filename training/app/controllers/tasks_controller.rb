@@ -1,12 +1,10 @@
 class TasksController < ApplicationController
   def index
-    case params[:end_date]
-      when 'asc'
-        @tasks = Task.order(end_date: :asc)
-      when 'desc' 
-        @tasks = Task.order(end_date: :desc)
-      else
-        @tasks = Task.order({created_at: :desc})
+    @tasks = if params[:end_date].present?
+      order_option = params[:end_date] == 'asc' ? :asc : :desc
+      Task.order(end_date: order_option)
+    else
+      Task.order(created_at: :desc)
     end
   end
 
