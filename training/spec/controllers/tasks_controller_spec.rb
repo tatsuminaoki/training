@@ -21,7 +21,7 @@ RSpec.describe TasksController, type: :controller do
       let!(:task_2) { FactoryBot.create(:task, end_date: '2017-01-02') }
 
       context '昇順の場合' do
-        let(:params) { {end_date: 'asc'} }
+        let(:params) { {order: 'end_date_asc'} }
 
         it '@tasks にソートされた情報を持っている' do
           get :index, params: params
@@ -31,7 +31,7 @@ RSpec.describe TasksController, type: :controller do
       end
 
       context '降順の場合' do
-        let(:params) { {end_date: 'desc'} }
+        let(:params) { {order: 'end_date_desc'} }
 
         it '@tasks にソートされた情報を持っている' do
           get :index, params: params

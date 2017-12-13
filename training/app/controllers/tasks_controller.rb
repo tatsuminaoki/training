@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     @name = params[:name]
     @status = params[:status]
+    @order = params[:order]
 
     @tasks = search(params)
   end
@@ -62,13 +63,15 @@ class TasksController < ApplicationController
     result = result.where('status = ?', params[:status]) if params[:status].present?
     result = result.where('name = ?', params[:name]) if params[:name].present?
 
-    # memo:優先順位検索実装する時にcaseに変更する
-    result = if params[:end_date].present?
-      order_option = params[:end_date] == 'asc' ? :asc : :desc
-      result.order(end_date: order_option)
-    else
-      result.order(created_at: :desc)
-    end
+    # memo : 初回読み込み時にorderがnilでinclude?が実行できないので先にpresent?で確認
+    #      : 現状ではend_dateのみなのでinclude?使わなくても判定できるが
+    #      : 次のstepで優先順位検索を実装する時の為にあえてinclude?を利用（step15実装時にこのメモを消す）
+    result = if params[:order].present? && params[:order].include?('end_date')
+               order_option = params[:order] == 'end_date_asc' ? :asc : :desc
+               result.order(end_date: order_option)
+             else
+               result.order(created_at: :desc)
+             end
   end
 
   def convert_params_to_enum
