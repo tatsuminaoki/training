@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :convert_params_to_enum
 
   def index
+
     case params[:end_date]
       when 'asc'
         @tasks = Task.order(end_date: :asc)
@@ -10,6 +11,14 @@ class TasksController < ApplicationController
       else
         @tasks = Task.order({created_at: :desc})
     end
+    if params[:status].present?
+      @tasks = Task.where('status = ?', params[:status])
+    end
+    if params[:name].present?
+      @tasks = Task.where('name = ?', params[:name])
+    end
+    #todo and検索実装する
+    #todo 検索した単語の持ち回し機能
   end
 
   def show
