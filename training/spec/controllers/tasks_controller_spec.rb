@@ -81,7 +81,8 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'POST #create' do
     context 'データが正しい場合' do
-      let(:params) { {task: FactoryBot.attributes_for(:task)} }
+      let(:user) { FactoryBot.create(:user) }
+      let(:params) { {task: FactoryBot.attributes_for(:task, user_id: user.id)} }
 
       it 'タスクが新たに作成される' do
         expect{

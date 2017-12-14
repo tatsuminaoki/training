@@ -40,8 +40,14 @@ RSpec.describe Task, type: :model do
 
       # TODO : User機能実装時にIDが存在することを検証する
       context '入力が正しい場合' do
-        let(:user_id) { 1 }
+        let(:user) { FactoryBot.create(:user) }
+        let(:user_id) { user.id }
         it { is_expected.to be true }
+      end
+
+      context '存在しないIDを指定した場合' do
+        let(:user_id) { 123 }
+        it { is_expected.to be false }
       end
 
       context '空欄の場合' do
