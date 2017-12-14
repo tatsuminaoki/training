@@ -60,8 +60,6 @@ class TasksController < ApplicationController
 
   def convert_params_to_int
     return false if params[:task].nil?
-    params[:task][:status] = Integer(params[:task][:status]) if params[:task][:status].present?
-  rescue ArgumentError
-    return false
+    params[:task][:status] = params[:task][:status].to_i
   end
 end
