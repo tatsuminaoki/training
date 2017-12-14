@@ -13,16 +13,12 @@ class Task < ApplicationRecord
   before_validation :set_dummy_value
 
   def self.search(params)
-    result = Task
-    result = result.where('status = ?', params[:status]) if params[:status].present?
-    result = result.where('name = ?', params[:name]) if params[:name].present?
-
     params[:order] ||= ''
     result = case
              when params[:order].include?('end_date')
-               result.order(end_date: order_option(params[:order]))
+               self.order(end_date: order_option(params[:order]))
              when params[:order].include?('priority')
-               result.order(priority: order_option(params[:order]))
+               self.order(priority: order_option(params[:order]))
              else
                self.order(created_at: :desc)
              end
