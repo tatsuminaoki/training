@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   validates :status, presence: true, inclusion: { in: Task.statuses.keys }
 
   enum priority: { low: 0, middle: 1, high: 2 }
-  validates :priority, presence: true, inclusion: {in: Task.priorities.keys}
+  validates :priority, presence: true, inclusion: { in: Task.priorities.keys }
 
   before_validation :set_dummy_value
 
