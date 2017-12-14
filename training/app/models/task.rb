@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   validate :end_date_valid?
 
   enum status: { not_started: 0, underway: 1, done: 2 }
-  validates :status, presence: true, inclusion: {in: Task.statuses.keys}
+  validates :status, presence: true, inclusion: { in: Task.statuses.keys }
 
   enum priority: { low: 0, middle: 1, high: 2 }
   validates :priority, presence: true, inclusion: {in: Task.priorities.keys}
@@ -24,8 +24,12 @@ class Task < ApplicationRecord
              when params[:order].include?('priority')
                result.order(priority: order_option(params[:order]))
              else
-               result.order(created_at: :desc)
+               self.order(created_at: :desc)
              end
+
+    result = result.where('status = ?', params[:status]) if params[:status].present?
+    result = result.where('name = ?', params[:name]) if params[:name].present?
+    result
   end
 
   private

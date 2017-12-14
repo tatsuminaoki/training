@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :convert_params_to_enum
+  before_action :convert_params_to_int, only: %i(create update)
 
   def index
     @name = params[:name]
@@ -58,11 +58,9 @@ class TasksController < ApplicationController
     )
   end
 
-  def convert_params_to_enum
+  def convert_params_to_int
     return false if params[:task].nil?
+    params[:task][:status] = params[:task][:status].to_i
     params[:task][:priority] = Integer(params[:task][:priority]) if params[:task][:priority].present?
-    params[:task][:status] = Integer(params[:task][:status]) if params[:task][:status].present?
-  rescue ArgumentError
-    return false
   end
 end
