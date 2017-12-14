@@ -10,7 +10,11 @@ ja:
       index:
         title: タスク一覧
         sort: ソート
+        not_sort: 並び替えない
+        search: 検索
+        submit: 検索する
         new_task: タスクの作成
+        name: タスク名
         description: 説明
         status: ステータス
         end_date: 終了期限

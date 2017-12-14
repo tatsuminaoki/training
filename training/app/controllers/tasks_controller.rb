@@ -2,12 +2,11 @@ class TasksController < ApplicationController
   before_action :convert_params_to_enum
 
   def index
-    Rails.logger.error(params)
-    if params[:end_date] == 'asc' || params[:end_date] == 'desc' 
-      @tasks = Task.order("end_date #{params[:end_date]}")
-    else
-      @tasks = Task.order({created_at: :desc})
-    end
+    @name = params[:name]
+    @status = params[:status]
+    @order = params[:order]
+
+    @tasks = Task.search(params)
   end
 
   def show

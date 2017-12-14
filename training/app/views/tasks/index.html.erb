@@ -6,9 +6,24 @@
   <hr />
 </div>
 <div>
-  <h3><%= I18n.t('tasks.view.index.sort') %></h3>
-  <%= I18n.t('tasks.view.index.end_date') %>　: <%= link_to( '▲', tasks_path(end_date: 'asc')) %>　<%= link_to( '▼', tasks_path(end_date: 'desc')) %>
-  <hr />
+  <%= form_tag({action: :index}, {method: :get}) do %>
+    <h3><%= I18n.t('tasks.view.index.search') %></h3>
+    <%= label_tag :status, I18n.t('tasks.view.index.status') %>
+    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [I18n.t("tasks.model.status.#{k}"), v] }, selected: @status), include_blank: true %>
+    <br/>
+    <%= label_tag :name, I18n.t('tasks.view.index.name') %>
+    <%= text_field_tag :name, @name %>
+    
+    <h3><%= I18n.t('tasks.view.index.sort') %></h3>
+    <%= label_tag :order, I18n.t('tasks.view.index.not_sort') %> : <%= radio_button_tag :order, '', @order.blank? %>
+    <%= I18n.t('tasks.view.index.end_date') %> : 
+    <%= label_tag :order, '▲' %> <%= radio_button_tag :order, 'end_date_asc', @order == 'end_date_asc' %> / 
+    <%= label_tag :order, '▼' %> <%= radio_button_tag :order, 'end_date_desc', @order == 'end_date_desc' %>
+
+    <br/>
+    <%= submit_tag I18n.t('tasks.view.index.submit') %>
+    <hr/>
+  <% end %>
 </div>
 <div>
   <% @tasks.each do |task| %>
