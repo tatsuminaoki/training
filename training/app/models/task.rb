@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validate :end_date_valid?
 
   enum status: { not_started: 0, underway: 1, done: 2 }
-  validates :status, presence: true, inclusion: {in: Task.statuses.keys}
+  validates :status, presence: true, inclusion: { in: Task.statuses.keys }
 
   before_validation :set_dummy_value
 
