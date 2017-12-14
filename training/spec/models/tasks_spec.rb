@@ -101,12 +101,12 @@ RSpec.describe Task, type: :model do
 
       context '数値でない場合' do
         let(:status) { 'abc' }
-        it { is_expected.to be false }
+        it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context '負の数値の場合' do
         let(:status) { -1 }
-        it { is_expected.to be false }
+        it { expect { subject }.to raise_error(ArgumentError) }
       end
     end
 
@@ -170,6 +170,106 @@ RSpec.describe Task, type: :model do
       context '存在しない日付の場合' do
         let(:end_date) { '2017-2-31' }
         it { is_expected.to be false }
+      end
+    end
+  end
+
+  describe '#search' do
+    subject { Task.search(params) }
+
+    context '検索ロジック' do
+      context 'ステータス検索' do
+        let!(:task_0) { FactoryBot.create(:task, status: 0, created_at: '2017-01-03') }
+        let!(:task_1) { FactoryBot.create(:task, status: 1, created_at: '2017-01-02') }
+        let!(:task_2) { FactoryBot.create(:task, status: 2, created_at: '2017-01-01') }
+
+        context '指定しない場合' do
+          let(:params) { {} }
+          it '全てのタスクが出力される' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+            expect(subject[2]).to eq task_2
+          end
+        end
+
+        context '未着手の場合' do
+          let(:params) { { status: 0 } }
+          it '未着手のタスクが絞り込まれる' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to be nil
+            expect(subject[2]).to be nil
+          end
+        end
+
+        context '着手中の場合' do
+          let(:params) { { status: 1 } }
+          it '着手中のタスクが絞り込まれる' do
+            expect(subject[0]).to eq task_1
+            expect(subject[1]).to be nil
+            expect(subject[2]).to be nil
+          end
+        end
+
+        context '完了の場合' do
+          let(:params) { { status: 2 } }
+          it '完了のタスクが絞り込まれる' do
+            expect(subject[0]).to eq task_2
+            expect(subject[1]).to be nil
+            expect(subject[2]).to be nil
+          end
+        end
+      end
+
+      context 'タスク名検索' do
+        let!(:task_0) { FactoryBot.create(:task, name: 'hoge', created_at: '2017-01-02') }
+        let!(:task_1) { FactoryBot.create(:task, name: 'fuga', created_at: '2017-01-01') }
+
+        context '指定しない場合' do
+          let(:params) { {} }
+          it '全てのタスクが出力される' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+          end
+        end
+
+        context '指定した場合' do
+          let(:params) { { name: 'hoge' } }
+          it '全てのタスクが出力される' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to be nil
+          end
+        end
+      end
+    end
+
+    context 'ソートロジック' do
+      let!(:task_0) { FactoryBot.create(:task, end_date: '2017-02-02', created_at: '2017-01-02') }
+      let!(:task_1) { FactoryBot.create(:task, end_date: '2017-02-01', created_at: '2017-01-01') }
+
+      context '指定しない場合' do
+        let(:params) { {} }
+        it '作成日時の降順ソートになる' do
+          expect(subject[0]).to eq task_0
+          expect(subject[1]).to eq task_1
+        end
+      end
+
+      context '終了期限ソートの場合' do
+        context '昇順' do
+          let(:params) { { order: 'end_date_asc' } }
+          it '終了期限の昇順ソートになる' do
+            expect(subject[0]).to eq task_1
+            expect(subject[1]).to eq task_0
+          end
+        end
+
+        context '降順' do
+          let(:params) { { order: 'end_date_desc' } }
+          it '終了期限の降順ソートになる' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+          end
+        end
       end
     end
   end

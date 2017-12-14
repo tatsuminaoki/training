@@ -1,12 +1,22 @@
 ---
 ja:
   tasks:
+    model:
+      status:
+        not_started: 未着手
+        underway: 着手中
+        done: 完了
     view:
       index:
         title: タスク一覧
         sort: ソート
+        not_sort: 並び替えない
+        search: 検索
+        submit: 検索する
         new_task: タスクの作成
+        name: タスク名
         description: 説明
+        status: ステータス
         end_date: 終了期限
       new:
         title: タスク作成
@@ -18,6 +28,7 @@ ja:
       show:
         title: タスク詳細
         description: 説明
+        status: ステータス
         end_date: 終了期限
         index_page: 一覧
         edit_page: 編集

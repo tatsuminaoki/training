@@ -25,6 +25,38 @@ RSpec.describe 'Task', type: :feature do
       end
     end
 
+    context '検索機能でタスクを絞り込む' do
+      let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, end_date: '2010-01-01') }
+      let!(:task_saerch_2) { FactoryBot.create(:task, name: 'fuga', status: 1, end_date: '2010-01-02') }
+
+      context 'ステータス　着手中　で検索したとき' do
+        it '対象のタスクのみが表示される' do
+          select '着手中', from: 'ステータス'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_2.name
+          expect(all('h4')[1]).to be nil
+        end
+      end
+
+      context 'タスク名 hoge で検索したとき' do
+        it '対象のタスクのみが表示される' do
+          fill_in 'タスク名', with: 'hoge'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_1.name
+          expect(all('h4')[1]).to be nil
+        end
+      end
+
+      context '終了期限 昇順 でソートしたとき' do
+        it '終了期限の昇順でタスクが表示される' do
+          choose 'order_end_date_asc'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_1.name
+          expect(all('h4')[1]).to have_content task_saerch_2.name
+        end
+      end
+    end
+
     context 'タスクの作成をクリックしたとき' do
       it 'タスク作成ページに遷移する' do
         click_on I18n.t('tasks.view.index.new_task')

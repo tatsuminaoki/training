@@ -4,6 +4,7 @@
 <div>
   <h4><%= @task.name %></h4>
   <p><%= I18n.t('tasks.view.show.description') %> : <%= @task.description %></p>
+  <p><%= I18n.t('tasks.view.show.status') %> : <%= I18n.t("tasks.model.status.#{@task.status}") %></p>
   <p><%= I18n.t('tasks.view.show.end_date') %> : <%= @task.end_date %></p>
 </div>
 <div>

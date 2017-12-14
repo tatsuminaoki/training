@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
+  before_action :convert_params_to_int, only: %i(create update)
+
   def index
-    @tasks = if params[:end_date].present?
-      order_option = params[:end_date] == 'asc' ? :asc : :desc
-      Task.order(end_date: order_option)
-    else
-      Task.order(created_at: :desc)
-    end
+    @name = params[:name]
+    @status = params[:status]
+    @order = params[:order]
+
+    @tasks = Task.search(params)
   end
 
   def show
@@ -55,5 +56,10 @@ class TasksController < ApplicationController
       :label_id,
       :end_date,
     )
+  end
+
+  def convert_params_to_int
+    return false if params[:task].nil?
+    params[:task][:status] = params[:task][:status].to_i
   end
 end
