@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe 'dependent destroy' do
+    context 'ユーザーが削除された場合' do
+      let!(:user) { FactoryBot.create(:user) }
+      let!(:task) { FactoryBot.create(:task, user_id: user.id) }
+
+      it '紐づいているタスクも削除される' do
+        expect(Task.find(task.id)).to eq task
+        user.destroy
+        expect{ Task.find(task.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   describe 'validation' do
     describe 'name' do
       let(:user) { FactoryBot.build(:user, name: name) }
