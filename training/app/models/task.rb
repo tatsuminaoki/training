@@ -13,11 +13,10 @@ class Task < ApplicationRecord
   before_validation :set_dummy_value
 
   def self.search(params)
-    params[:order] ||= ''
-    result = case
-             when params[:order].include?('end_date')
+    result = case params[:order]
+             when 'end_date_asc', 'end_date_desc' 
                self.order(end_date: order_option(params[:order]))
-             when params[:order].include?('priority')
+             when 'priority_asc', 'priority_desc'
                self.order(priority: order_option(params[:order]))
              else
                self.order(created_at: :desc)
@@ -52,7 +51,7 @@ class Task < ApplicationRecord
   end
 
   def self.order_option(str)
-    str.include?('asc') ? :asc : :desc
+    %w(end_date_asc priority_asc).include?(str) ? :asc : :desc
   end
 
   def set_dummy_value
