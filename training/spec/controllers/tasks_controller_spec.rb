@@ -2,15 +2,43 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   describe 'GET #index' do
-    let!(:task) { FactoryBot.create(:task) }
-    it '@tasks にタスク情報を持っている' do
-      get :index
-      expect(assigns(:tasks)[0]).to eq task
+    context 'ソートしない場合' do
+      let!(:task) { FactoryBot.create(:task) }
+
+      it '@tasks にタスク情報を持っている' do
+        get :index
+        expect(assigns(:tasks)[0]).to eq task
+      end
+
+      it 'index テンプレートを表示する' do
+        get :index
+        expect(response).to render_template :index
+      end
     end
 
-    it 'index テンプレートを表示する' do
-      get :index
-      expect(response).to render_template :index
+    context '終了期限でソートをする場合' do
+      let!(:task_1) { FactoryBot.create(:task, end_date: '2017-01-01') }
+      let!(:task_2) { FactoryBot.create(:task, end_date: '2017-01-02') }
+
+      context '昇順の場合' do
+        let(:params) { {end_date: 'asc'} }
+
+        it '@tasks にソートされた情報を持っている' do
+          get :index, params: params
+          expect(assigns(:tasks)[0]).to eq task_1
+          expect(assigns(:tasks)[1]).to eq task_2
+        end
+      end
+
+      context '降順の場合' do
+        let(:params) { {end_date: 'desc'} }
+
+        it '@tasks にソートされた情報を持っている' do
+          get :index, params: params
+          expect(assigns(:tasks)[0]).to eq task_2
+          expect(assigns(:tasks)[1]).to eq task_1
+        end
+      end
     end
   end
 
