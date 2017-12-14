@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :convert_params_to_int
+  before_action :convert_params_to_int, only: [:create , :update]
 
   def index
     @name = params[:name]
