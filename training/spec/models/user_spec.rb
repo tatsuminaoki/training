@@ -161,19 +161,20 @@ RSpec.describe User, type: :model do
           end
         end
 
+        # has_secure_passwordは標準で最大文字数:72 を検証する
         context '最大文字数' do
-          context '254以下の場合' do
-            let(:password) { 'a' * 254 }
+          context '71以下の場合' do
+            let(:password) { 'a' * 71 }
             it { is_expected.to be true }
           end
 
-          context '255の場合' do
-            let(:password) { 'a' * 255 }
+          context '72の場合' do
+            let(:password) { 'a' * 72 }
             it { is_expected.to be true }
           end
 
-          context '256以上の場合' do
-            let(:password) { 'a' * 256 }
+          context '73以上の場合' do
+            let(:password) { 'a' * 73 }
             it { is_expected.to be false }
           end
         end       

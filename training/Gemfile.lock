@@ -41,6 +41,7 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    bcrypt (3.1.7)
     bindex (0.5.0)
     builder (3.2.3)
     bullet (5.7.0)
@@ -221,6 +222,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   bullet
   byebug
   capybara (~> 2.13)
