@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
     name 'test_task'
-    user_id 0 # ユーザー機能実装時に修正する
+    user
     description 'description'
     priority 0
     status Task.statuses[:not_started]
