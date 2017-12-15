@@ -22,6 +22,10 @@
   <%= f.select :status, Task.statuses.map { |k, v| [I18n.t("tasks.model.status.#{k}"), v] }, selected: @task.status_before_type_cast %>
   <br/>
 
+  <%= f.label :priority %>
+  <%= f.select :priority, Task.priorities.map { |k, v| [I18n.t("tasks.model.priority.#{k}"), v] }, selected: @task.priority_before_type_cast %>
+  <br/>
+
   <%= f.label :end_date %>
   <%= f.date_select :end_date %>
   <br/>

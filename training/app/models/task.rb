@@ -1,22 +1,23 @@
 class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :user_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :priority, presence: true, numericality: { greater_than_or_equal_to: 0 }  
   validates :label_id, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   validate :end_date_valid?
 
   enum status: { not_started: 0, underway: 1, done: 2 }
   validates :status, presence: true, inclusion: { in: Task.statuses.keys }
 
+  enum priority: { low: 0, middle: 1, high: 2 }
+  validates :priority, presence: true, inclusion: { in: Task.priorities.keys }
+
   before_validation :set_dummy_value
 
   def self.search(params)
-    # memo : 初回読み込み時にorderがnilでinclude?が実行できないので先にpresent?で確認
-    #      : 現状ではend_dateのみなのでinclude?使わなくても判定できるが
-    #      : 次のstepで優先順位検索を実装する時の為にあえてinclude?を利用（step15実装時にこのメモを消す）
-    result = if params[:order].present? && params[:order].include?('end_date')
-               order_option = params[:order] == 'end_date_asc' ? :asc : :desc
-               self.order(end_date: order_option)
+    result = case params[:order]
+             when 'end_date_asc', 'end_date_desc' 
+               self.order(end_date: order_option(params[:order]))
+             when 'priority_asc', 'priority_desc'
+               self.order(priority: order_option(params[:order]))
              else
                self.order(created_at: :desc)
              end
@@ -49,11 +50,14 @@ class Task < ApplicationRecord
     !! Date.parse(date) rescue false
   end
 
+  def self.order_option(str)
+    %w(end_date_asc priority_asc).include?(str) ? :asc : :desc
+  end
+
   def set_dummy_value
     #DB制約を実装した関係で値が必要なのでダミー値をセット　-> 今後の機能実装に合わせて解放する
     if Rails.env == "development"
       self.user_id = 0
-      self.priority = 0
     end
   end
 end

@@ -61,5 +61,6 @@ class TasksController < ApplicationController
   def convert_params_to_int
     return false if params[:task].nil?
     params[:task][:status] = params[:task][:status].to_i
+    params[:task][:priority] = params[:task][:priority].to_i
   end
 end
