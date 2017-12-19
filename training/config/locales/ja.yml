@@ -62,6 +62,9 @@ ja:
         logged_in: ログインしました
         invalid: メールアドレスまたは、パスワードが違います
         logged_out: ログアウトしました
+  application:
+    view:
+      logged_out: ログアウトする
   attributes:
     name: 名前
     description: 説明

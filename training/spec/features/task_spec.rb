@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Task', type: :feature do
+  let!(:user) { FactoryBot.create(:user) }
   let!(:task) { FactoryBot.create(:task) }
+
+  before do
+    visit logins_new_path
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    click_on I18n.t('logins.view.new.submit')
+  end
 
   describe 'ユーザーがタスク一覧にアクセスする' do
     before do
@@ -156,6 +164,54 @@ RSpec.describe 'Task', type: :feature do
       end
       it '削除しました　とメッセージが表示される' do
         expect(page).to have_content I18n.t('tasks.controller.messages.deleted')
+      end
+    end
+  end
+
+  describe 'ログイン機能' do
+    describe 'ユーザーがログインページにアクセスする' do
+      before do
+        visit logins_new_path
+      end
+
+      context '既にログインしている場合' do
+        it '一覧ページへ移動する' do
+          expect(current_path).to eq root_path
+        end
+      end
+    end
+
+    describe 'ユーザーが一覧ページからログアウトする' do
+      before do
+        visit tasks_path
+      end
+
+      context 'ログアウトをクリックしたとき' do
+        before { click_on I18n.t('application.view.logged_out') }
+        it 'ログアウトしてログインページに移動する' do
+          expect(current_path).to eq logins_new_path
+        end
+      end
+    end
+
+    describe 'ユーザーがログインページにアクセスする' do
+      before do
+        #既にログインしているので事前にログアウトする
+        visit tasks_path
+        click_on I18n.t('application.view.logged_out')
+        visit logins_new_path
+      end
+
+      context 'ユーザー情報を入れてログインをクリックしたとき' do
+        before do
+          fill_in 'email', with: user.email
+          fill_in 'password', with: user.password
+          click_on I18n.t('logins.view.new.submit')
+        end
+
+        it 'タスク一覧ページに移動する' do
+          expect(current_path).to eq root_path
+        end
       end
     end
   end
