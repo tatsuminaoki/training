@@ -1,5 +1,5 @@
 class LoginsController < ApplicationController
-  include LoginHelper
+  skip_before_action :require_login, only: [:new, :create]
 
   def new
     redirect_to root_path, notice: I18n.t('logins.controller.messages.logged_in') if logged_in?
