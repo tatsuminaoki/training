@@ -50,6 +50,18 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+  logins:
+    view:
+      new:
+        title: ログイン
+        submit: ログインする
+        email: メールアドレス
+        password: パスワード
+    controller:
+      messages:
+        logged_in: ログインしました
+        invalid: メールアドレスまたは、パスワードが違います
+        logged_out: ログアウトしました
   attributes:
     name: 名前
     description: 説明
