@@ -10,7 +10,7 @@
 
   <body>
     <header>
-      <% if login? %>
+      <% if logged_in? %>
         <%= link_to('ログアウトする', logins_destroy_path, method: :delete ) %>
       <% end %>
     </header>

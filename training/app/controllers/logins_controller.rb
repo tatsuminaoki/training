@@ -1,8 +1,8 @@
 class LoginsController < ApplicationController
-  include UserAuthenticationHelper
+  include LoginHelper
 
   def new
-    redirect_to root_path, notice: I18n.t('logins.controller.messages.logged_in') if login?
+    redirect_to root_path, notice: I18n.t('logins.controller.messages.logged_in') if logged_in?
   end
 
   def create
