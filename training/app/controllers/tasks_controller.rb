@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     @name = params[:name]
     @status = params[:status]
     @order = params[:order]
+    @user = params[:user][:only_self_task] if params[:user].present?
 
     @tasks = Task.search(params).page(params[:page])
   end

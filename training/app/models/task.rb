@@ -26,6 +26,9 @@ class Task < ApplicationRecord
 
     result = result.where('status = ?', params[:status]) if params[:status].present?
     result = result.where('name = ?', params[:name]) if params[:name].present?
+    if params[:user].present?
+      result = result.where('user_id = ?', params[:user][:only_self_task]) if params[:user][:only_self_task].present?
+    end
     result
   end
 

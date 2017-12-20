@@ -23,6 +23,7 @@ ja:
         status: ステータス
         priority: 優先順位
         end_date: 終了期限
+        self_task: 自分のタスクのみ表示
       new:
         title: タスク作成
         index_page: 一覧
