@@ -157,7 +157,7 @@ RSpec.describe TasksController, type: :controller do
 
     describe 'POST #update' do
       let(:task) { FactoryBot.create(:task) }
-      let(:params) { {task: FactoryBot.attributes_for(:task, name: name), id: task.id } }
+      let(:params) { {task: FactoryBot.attributes_for(:task, name: name, user_id: get_user_session), id: task.id } }
 
       context 'データが正しい場合' do
         let(:name) {'hoge'}

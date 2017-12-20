@@ -63,5 +63,6 @@ class TasksController < ApplicationController
     return false if params[:task].nil?
     params[:task][:status] = params[:task][:status].to_i
     params[:task][:priority] = params[:task][:priority].to_i
+    params[:task][:user_id] = params[:task][:user_id].to_i
   end
 end

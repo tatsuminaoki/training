@@ -99,9 +99,7 @@ RSpec.describe 'Task', type: :feature do
   end
 
   describe 'ユーザーがタスク作成ページにアクセスする' do
-    # Taskモデルのset_dummy_valueがdevelopmentでしか動かないので、このテストが落ちる
-    # 今後の機能実装が進んでset_dummy_valueが不要になった時点でskipを外す
-    skip 'タスク情報を入力して作成する' do
+    describe 'タスク情報を入力して作成する' do
       before do
         visit new_task_path
         fill_in I18n.t('attributes.name'), with: 'hoge'
