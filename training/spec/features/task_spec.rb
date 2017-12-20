@@ -34,7 +34,7 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '検索機能でタスクを絞り込む' do
-      let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, priority: 1, end_date: '2010-01-01') }
+      let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, priority: 1, end_date: '2010-01-01', user_id: user.id) }
       let!(:task_saerch_2) { FactoryBot.create(:task, name: 'fuga', status: 1, priority: 2, end_date: '2010-01-02') }
 
       context 'ステータス　着手中　で検索したとき' do
@@ -49,6 +49,15 @@ RSpec.describe 'Task', type: :feature do
       context 'タスク名 hoge で検索したとき' do
         it '対象のタスクのみが表示される' do
           fill_in 'タスク名', with: 'hoge'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_1.name
+          expect(all('h4')[1]).to be nil
+        end
+      end
+
+      context '自分のタスクのみ表示　で検索したとき' do
+        it '自分のタスクのみが表示される' do
+          check 'user[only_self_task]'
           click_button '検索する'
           expect(all('h4')[0]).to have_content task_saerch_1.name
           expect(all('h4')[1]).to be nil
