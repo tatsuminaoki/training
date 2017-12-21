@@ -4,6 +4,6 @@ module Admin::UsersHelper
   end
 
   def new_page?
-    request.path_info == new_admin_user_path
+    request.path_info.in?([new_admin_user_path, admin_users_path])
   end
 end
