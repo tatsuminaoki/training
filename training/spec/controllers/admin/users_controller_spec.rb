@@ -51,7 +51,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     describe 'GET #index' do
       let!(:user) { FactoryBot.create(:user) }
 
-      it '@users にタスク情報を持っている' do
+      it '@users にユーザー情報を持っている' do
         get :index
         #ログインユーザー情報も表示に含まれるので1を指定
         expect(assigns(:users)[1]).to eq user
@@ -67,7 +67,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       let(:user) { FactoryBot.create(:user) }
       let(:params) { {id: user.id} }
 
-      it '@user にタスク情報を持っている' do
+      it '@user にユーザー情報を持っている' do
         get :show, params: params
         expect(assigns(:user)).to eq user
       end
@@ -83,7 +83,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       let(:user) { FactoryBot.create(:user) }
       let(:params) { {id: user.id} }
 
-      it '@user にタスク情報を持っている' do
+      it '@user にユーザー情報を持っている' do
         get :edit, params: params
         expect(assigns(:user)).to eq user
       end
