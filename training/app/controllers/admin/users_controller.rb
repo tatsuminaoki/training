@@ -19,7 +19,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to [:admin, @user], notice: I18n.t('tasks.controller.messages.created')
+      redirect_to [:admin, @user], notice: I18n.t('admin.controller.messages.created')
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(update_params)
-      redirect_to [:admin, @user], notice: I18n.t('tasks.controller.messages.updated')
+      redirect_to [:admin, @user], notice: I18n.t('admin.controller.messages.updated')
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy!
-    redirect_to admin_users_path, notice: I18n.t('tasks.controller.messages.deleted')
+    redirect_to admin_users_path, notice: I18n.t('admin.controller.messages.deleted')
   end
 
   private

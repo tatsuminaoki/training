@@ -23,13 +23,13 @@
   <%= f.label :password %>
   <%= f.text_field :password %>
   <% unless new_page? %>
-    <p>※パスワードは変更時のみ入力</p>
+    <p><%= I18n.t('admin.view.partial.password_guide') %></p>
   <% end %>
   <br/>
 
   <% if new_page? %>
-    <%= f.submit I18n.t('helpers.submit.create'), data: { disable_with: I18n.t('tasks.view.partial.creating')} %>
+    <%= f.submit I18n.t('admin.view.partial.create'), data: { disable_with: I18n.t('admin.view.partial.creating')} %>
   <% else %>
-    <%= f.submit I18n.t('helpers.submit.update'), data: { disable_with: I18n.t('tasks.view.partial.updating')} %>
+    <%= f.submit I18n.t('admin.view.partial.update'), data: { disable_with: I18n.t('admin.view.partial.updating')} %>
   <% end %>
 <% end %>
