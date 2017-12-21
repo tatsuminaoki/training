@@ -65,7 +65,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe 'GET #show' do
       let(:user) { FactoryBot.create(:user) }
-      let(:params) { {id: user.id} }
+      let(:params) { { id: user.id } }
 
       it '@user にユーザー情報を持っている' do
         get :show, params: params
@@ -81,7 +81,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe 'GET #edit' do
       let(:user) { FactoryBot.create(:user) }
-      let(:params) { {id: user.id} }
+      let(:params) { { id: user.id } }
 
       it '@user にユーザー情報を持っている' do
         get :edit, params: params
@@ -104,7 +104,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe 'POST #create' do
       context 'データが正しい場合' do
-        let(:params) { {user: FactoryBot.attributes_for(:user)} }
+        let(:params) { { user: FactoryBot.attributes_for(:user) } }
 
         it 'userが新たに作成される' do
           expect{
@@ -114,7 +114,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
 
       context 'データが不正な場合' do
-        let(:params) { {user: FactoryBot.attributes_for(:user, name: '')} }
+        let(:params) { { user: FactoryBot.attributes_for(:user, name: '') } }
 
         it 'userは作成されない' do
           expect{
@@ -131,14 +131,14 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe 'POST #update' do
       let(:user) { FactoryBot.create(:user) }
-      let(:params) { {user: FactoryBot.attributes_for(:user, name: name, email: email, password: password), id: user.id } }
+      let(:params) { { user: FactoryBot.attributes_for(:user, name: name, email: email, password: password), id: user.id } }
 
       context 'データが正しい場合' do
-        let(:name) {'hoge'}
-        let(:email) {'hoge@fuga.com'}
+        let(:name) { 'hoge' }
+        let(:email) { 'hoge@fuga.com' }
 
         context 'パスワードを更新する場合' do
-          let(:password) {'abcdefghijk'}
+          let(:password) { 'abcdefghijk' }
 
           it 'userが更新される' do
             expect(User.find(user.id)).to eq user
@@ -150,7 +150,7 @@ RSpec.describe Admin::UsersController, type: :controller do
         end
 
         context 'パスワードを更新しない場合' do
-          let(:password) {''}
+          let(:password) { '' }
 
           it 'userが更新される' do
             expect(User.find(user.id)).to eq user
@@ -164,9 +164,9 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       context 'データが不正な場合' do
         context 'パスワード以外が間違っている場合' do
-          let(:name) {''}
-          let(:email) {''}
-          let(:password) {'abcdefghijk'}
+          let(:name) { '' }
+          let(:email) { '' }
+          let(:password) { 'abcdefghijk' }
 
           it 'userは更新されない' do
             expect(User.find(user.id)).to eq user
@@ -183,9 +183,9 @@ RSpec.describe Admin::UsersController, type: :controller do
         end
 
         context 'パスワードのみが間違っている場合' do
-          let(:name) {'test_name'}
-          let(:email) {'test@test.co.jp'}
-          let(:password) {'###'}
+          let(:name) { 'test_name' }
+          let(:email) { 'test@test.co.jp' }
+          let(:password) { '###' }
 
           it 'userは更新されない' do
             expect(User.find(user.id)).to eq user
@@ -205,7 +205,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe 'DELETE #destroy' do
       let(:user) { FactoryBot.create(:user) }
-      let(:params) { {id: user.id} }
+      let(:params) { { id: user.id } }
       let!(:task) { FactoryBot.create(:task, user_id: user.id) }
 
       it 'userを削除する' do

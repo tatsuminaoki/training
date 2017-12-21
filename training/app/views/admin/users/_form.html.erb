@@ -28,8 +28,8 @@
   <br/>
 
   <% if new_page? %>
-    <%= f.submit I18n.t('admin.view.partial.create'), data: { disable_with: I18n.t('admin.view.partial.creating')} %>
+    <%= f.submit I18n.t('admin.view.partial.create'), data: { disable_with: I18n.t('admin.view.partial.creating') } %>
   <% else %>
-    <%= f.submit I18n.t('admin.view.partial.update'), data: { disable_with: I18n.t('admin.view.partial.updating')} %>
+    <%= f.submit I18n.t('admin.view.partial.update'), data: { disable_with: I18n.t('admin.view.partial.updating') } %>
   <% end %>
 <% end %>
