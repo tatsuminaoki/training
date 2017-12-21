@@ -1,0 +1,21 @@
+<h1>ユーザー詳細</h1>
+
+<br/>
+
+<h1>ユーザー情報</h1>
+<div>
+<p>ユーザーID : <%= @user.id %></p>
+<p>ユーザー名 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>作成日 : <%= convert_date_format(@user.created_at) %></p>
+<p>更新日 : <%= convert_date_format(@user.updated_at) %></p>
+</div>
+<br/>
+
+<hr/>
+<h1>タスク情報</h1>
+<div></div>
+<br/>
+
+<%= link_to '編集', edit_admin_user_path(@user.id) %> |
+<%= link_to '一覧', admin_users_path %>

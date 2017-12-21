@@ -1,0 +1,35 @@
+<%= form_for [:admin, @user] do |f| %>
+
+  <% if @user.errors.any?%>
+    <div>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :id, :value => @user.id %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br/>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <br/>
+
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+  <% unless new_page? %>
+    <p>※パスワードは変更時のみ入力</p>
+  <% end %>
+  <br/>
+
+  <% if new_page? %>
+    <%= f.submit I18n.t('helpers.submit.create'), data: { disable_with: I18n.t('tasks.view.partial.creating')} %>
+  <% else %>
+    <%= f.submit I18n.t('helpers.submit.update'), data: { disable_with: I18n.t('tasks.view.partial.updating')} %>
+  <% end %>
+<% end %>
