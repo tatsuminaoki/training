@@ -69,6 +69,7 @@ ja:
         title: ユーザー 一覧
         name: ユーザー名
         email: メールアドレス
+        task_count: タスク数
         created_at: 作成日
         show_page: 詳細
         edit_page: 編集
