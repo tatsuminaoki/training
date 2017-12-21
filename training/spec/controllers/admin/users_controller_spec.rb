@@ -206,11 +206,18 @@ RSpec.describe Admin::UsersController, type: :controller do
     describe 'DELETE #destroy' do
       let(:user) { FactoryBot.create(:user) }
       let(:params) { {id: user.id} }
+      let!(:task) { FactoryBot.create(:task, user_id: user.id) }
 
       it 'userを削除する' do
         expect(User.find(user.id)).to eq user
         delete :destroy, params: params
         expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it 'userが作成したタスクも削除される' do
+        expect(Task.find(task.id)).to eq task
+        delete :destroy, params: params
+        expect{ Task.find(task.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
