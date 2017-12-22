@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     @name = params[:name]
     @status = params[:status]
     @order = params[:order]
+    @user = params[:user][:only_self_task] if params[:user].present?
 
     @tasks = Task.search(params).page(params[:page])
   end
@@ -62,5 +63,6 @@ class TasksController < ApplicationController
     return false if params[:task].nil?
     params[:task][:status] = params[:task][:status].to_i
     params[:task][:priority] = params[:task][:priority].to_i
+    params[:task][:user_id] = params[:task][:user_id].to_i
   end
 end

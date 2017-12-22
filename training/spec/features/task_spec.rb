@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Task', type: :feature do
+  let!(:user) { FactoryBot.create(:user) }
   let!(:task) { FactoryBot.create(:task) }
+
+  before do
+    visit logins_new_path
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    click_on I18n.t('logins.view.new.submit')
+  end
 
   describe 'ユーザーがタスク一覧にアクセスする' do
     before do
@@ -26,7 +34,7 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '検索機能でタスクを絞り込む' do
-      let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, priority: 1, end_date: '2010-01-01') }
+      let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, priority: 1, end_date: '2010-01-01', user_id: user.id) }
       let!(:task_saerch_2) { FactoryBot.create(:task, name: 'fuga', status: 1, priority: 2, end_date: '2010-01-02') }
 
       context 'ステータス　着手中　で検索したとき' do
@@ -41,6 +49,15 @@ RSpec.describe 'Task', type: :feature do
       context 'タスク名 hoge で検索したとき' do
         it '対象のタスクのみが表示される' do
           fill_in 'タスク名', with: 'hoge'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_1.name
+          expect(all('h4')[1]).to be nil
+        end
+      end
+
+      context '自分のタスクのみ表示　で検索したとき' do
+        it '自分のタスクのみが表示される' do
+          check 'user[only_self_task]'
           click_button '検索する'
           expect(all('h4')[0]).to have_content task_saerch_1.name
           expect(all('h4')[1]).to be nil
@@ -82,9 +99,7 @@ RSpec.describe 'Task', type: :feature do
   end
 
   describe 'ユーザーがタスク作成ページにアクセスする' do
-    # Taskモデルのset_dummy_valueがdevelopmentでしか動かないので、このテストが落ちる
-    # 今後の機能実装が進んでset_dummy_valueが不要になった時点でskipを外す
-    skip 'タスク情報を入力して作成する' do
+    describe 'タスク情報を入力して作成する' do
       before do
         visit new_task_path
         fill_in I18n.t('attributes.name'), with: 'hoge'
@@ -156,6 +171,54 @@ RSpec.describe 'Task', type: :feature do
       end
       it '削除しました　とメッセージが表示される' do
         expect(page).to have_content I18n.t('tasks.controller.messages.deleted')
+      end
+    end
+  end
+
+  describe 'ログイン機能' do
+    describe 'ユーザーがログインページにアクセスする' do
+      before do
+        visit logins_new_path
+      end
+
+      context '既にログインしている場合' do
+        it '一覧ページへ移動する' do
+          expect(current_path).to eq root_path
+        end
+      end
+    end
+
+    describe 'ユーザーが一覧ページからログアウトする' do
+      before do
+        visit tasks_path
+      end
+
+      context 'ログアウトをクリックしたとき' do
+        before { click_on I18n.t('application.view.logged_out') }
+        it 'ログアウトしてログインページに移動する' do
+          expect(current_path).to eq logins_new_path
+        end
+      end
+    end
+
+    describe 'ユーザーがログインページにアクセスする' do
+      before do
+        #既にログインしているので事前にログアウトする
+        visit tasks_path
+        click_on I18n.t('application.view.logged_out')
+        visit logins_new_path
+      end
+
+      context 'ユーザー情報を入れてログインをクリックしたとき' do
+        before do
+          fill_in 'email', with: user.email
+          fill_in 'password', with: user.password
+          click_on I18n.t('logins.view.new.submit')
+        end
+
+        it 'タスク一覧ページに移動する' do
+          expect(current_path).to eq root_path
+        end
       end
     end
   end

@@ -13,7 +13,10 @@
     <br/>
     <%= label_tag :name, I18n.t('tasks.view.index.name') %>
     <%= text_field_tag :name, @name %>
-    
+    <br/>
+    <%= I18n.t('tasks.view.index.self_task') %>
+    <%= check_box 'user', 'only_self_task', { checked: @user.to_i == current_user.id }, current_user.id, '' %>
+
     <h3><%= I18n.t('tasks.view.index.sort') %></h3>
     <%= label_tag :order, I18n.t('tasks.view.index.not_sort') %> : <%= radio_button_tag :order, '', @order.blank? %>
     <br/>

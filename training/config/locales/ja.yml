@@ -23,6 +23,7 @@ ja:
         status: ステータス
         priority: 優先順位
         end_date: 終了期限
+        self_task: 自分のタスクのみ表示
       new:
         title: タスク作成
         index_page: 一覧
@@ -50,6 +51,21 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+  logins:
+    view:
+      new:
+        title: ログイン
+        submit: ログインする
+        email: メールアドレス
+        password: パスワード
+    controller:
+      messages:
+        logged_in: ログインしました
+        invalid: メールアドレスまたは、パスワードが違います
+        logged_out: ログアウトしました
+  application:
+    view:
+      logged_out: ログアウトする
   attributes:
     name: 名前
     description: 説明

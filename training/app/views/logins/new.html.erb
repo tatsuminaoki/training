@@ -1,0 +1,18 @@
+<div>
+  <h1><%= I18n.t('logins.view.new.title') %></h1>
+</div>
+
+<%= form_tag({ action: :login }, { method: :post }) do %>
+
+  <%= label_tag :emial, I18n.t('logins.view.new.email') %>
+  <%= text_field_tag :email, @email %>
+  <br/>
+
+  <%= label_tag :password, I18n.t('logins.view.new.password') %>
+  <%= text_field_tag :password, @password %>
+  <br/>
+  <br/>
+
+  <%= submit_tag I18n.t('logins.view.new.submit') %>
+
+<% end %>

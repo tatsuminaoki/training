@@ -12,8 +12,6 @@ class Task < ApplicationRecord
   enum priority: { low: 0, middle: 1, high: 2 }
   validates :priority, presence: true, inclusion: { in: Task.priorities.keys }
 
-  before_validation :set_dummy_value
-
   def self.search(params)
     result = case params[:order]
              when 'end_date_asc', 'end_date_desc' 
@@ -24,8 +22,11 @@ class Task < ApplicationRecord
                self.order(created_at: :desc)
              end
 
-    result = result.where('status = ?', params[:status]) if params[:status].present?
-    result = result.where('name = ?', params[:name]) if params[:name].present?
+    result = result.where(status: params[:status]) if params[:status].present?
+    result = result.where(name: params[:name]) if params[:name].present?
+    if params[:user].present?
+      result = result.where(user_id: params[:user][:only_self_task]) if params[:user][:only_self_task].present?
+    end
     result
   end
 
@@ -54,12 +55,5 @@ class Task < ApplicationRecord
 
   def self.order_option(str)
     %w(end_date_asc priority_asc).include?(str) ? :asc : :desc
-  end
-
-  def set_dummy_value
-    #DB制約を実装した関係で値が必要なのでダミー値をセット　-> 今後の機能実装に合わせて解放する
-    if Rails.env == "development"
-      self.user_id = 0
-    end
   end
 end

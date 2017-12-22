@@ -246,6 +246,27 @@ RSpec.describe Task, type: :model do
           end
         end
       end
+
+      context '作成ユーザー絞り込み検索' do
+        let!(:user) { FactoryBot.create(:user) }
+        let!(:task_0) { FactoryBot.create(:task) }
+        let!(:task_1) { FactoryBot.create(:task, user_id: user.id) }
+
+        context '有効にした場合' do
+          let(:params) { { user: { only_self_task: user.id } } }
+          it '自分の作成タスクのみに絞り込まれる' do
+            expect(subject[0]).to eq task_1
+            expect(subject[1]).to be_nil
+          end
+        end
+        context '無効にした場合' do
+          let(:params) { {} }
+          it '全てのタスクが出力される' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+          end
+        end
+      end
     end
 
     context 'ソートロジック' do
