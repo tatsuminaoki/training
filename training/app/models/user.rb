@@ -9,4 +9,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :password, on: :create, presence: true, length: { in: 8..72 }, format: { with: VALID_PASSWORD_REGEX }
   validates :password, on: :update, presence: true, length: { in: 8..72 }, format: { with: VALID_PASSWORD_REGEX }, allow_blank: true
+
+  enum role: { normal: 0, admin: 1 }
+  validates :role, presence: true, inclusion: { in: User.roles.keys }
 end
