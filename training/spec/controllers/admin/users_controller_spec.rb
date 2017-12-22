@@ -43,9 +43,55 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe 'ログインしている場合' do
+  describe 'ログインしているが管理者権限がない場合' do
     before do
       set_user_session
+    end
+
+    subject { response }
+
+    #params を検証する前にログインを要求するのでダミーの値を指定する
+    let(:params) { { id: 'dummy' } }
+
+    describe 'GET #index' do
+      before { get :index }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'GET #show' do
+      before { get :show, params: params }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'GET #new' do
+      before { get :new }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'GET #edit' do
+      before { get :edit, params: params }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'POST #create' do
+      before { post :create, params: params }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'POST #update' do
+      before { post :update, params: params }
+      it { is_expected.to require_admin_role }
+    end
+
+    describe 'DELETE #destroy' do
+      before { delete :destroy, params: params }
+      it { is_expected.to require_admin_role }
+    end
+  end
+
+  describe '管理者権限でログインしている場合' do
+    before do
+      set_admin_user_session
     end
 
     describe 'GET #index' do
