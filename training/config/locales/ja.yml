@@ -108,6 +108,9 @@ ja:
   application:
     view:
       logged_out: ログアウトする
+    controller:
+      messages:
+        role_error: 管理画面を利用するには管理者権限が必要です
   attributes:
     name: 名前
     description: 説明
