@@ -1,11 +1,11 @@
 class LoginsController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create]
+  skip_before_action :require_login, only: [:new, :login]
 
   def new
     redirect_to root_path, notice: I18n.t('logins.controller.messages.logged_in') if logged_in?
   end
 
-  def create
+  def login
     @email = params[:email]
     @password = params[:password]
 
@@ -19,7 +19,7 @@ class LoginsController < ApplicationController
     end
   end
 
-  def destroy
+  def logout
     session[:user_id] = nil
     redirect_to logins_new_path, notice: I18n.t('logins.controller.messages.logged_out')
   end

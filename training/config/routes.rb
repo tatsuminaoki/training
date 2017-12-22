@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :tasks
 
   get 'logins/new'
-  post 'logins/create'
-  delete 'logins/destroy'
+  post 'logins/login'
+  delete 'logins/logout'
 end
