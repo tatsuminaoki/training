@@ -102,7 +102,7 @@ RSpec.describe 'Admin::User', type: :feature do
     context 'ユーザー情報を変更して更新をクリックしたとき' do
       before do
         fill_in I18n.t('attributes.name'), with: 'hogefuga'
-        fill_in I18n.t('attributes.email'), with: 'fuga@fuga.jp'
+        fill_in I18n.t('attributes.email'), with: 'fuga@example.com'
         click_on I18n.t('admin.view.partial.update')
       end
 
@@ -130,7 +130,7 @@ RSpec.describe 'Admin::User', type: :feature do
     context 'ユーザー情報を入力して作成をクリックしたとき' do
       before do
         fill_in I18n.t('attributes.name'), with: 'hogefuga'
-        fill_in I18n.t('attributes.email'), with: 'fuga@fuga.jp'
+        fill_in I18n.t('attributes.email'), with: 'fuga@example.com'
         fill_in I18n.t('attributes.password'), with: 'test1234'
         click_on I18n.t('admin.view.partial.create')
       end
