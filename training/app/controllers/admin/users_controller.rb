@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :require_admin_role
+  before_action :convert_params_to_int, only: %i(create update)
 
   def index
     @users = User.all
@@ -51,6 +52,7 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(
       :name,
       :email,
+      :role,
       :password,
     )
   end
@@ -59,6 +61,12 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(
       :name,
       :email,
+      :role,
     )
+  end
+
+  def convert_params_to_int
+    return false if params[:user].nil?
+    params[:user][:role] = params[:user][:role].to_i
   end
 end
