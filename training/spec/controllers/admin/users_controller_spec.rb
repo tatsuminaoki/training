@@ -247,6 +247,29 @@ RSpec.describe Admin::UsersController, type: :controller do
           end
         end
       end
+
+      context '管理ユーザーの情報変更を行う場合' do
+        let(:params) { { user: FactoryBot.attributes_for(:user, role: role), id: get_user_session } }
+        let(:role) { User.roles[:normal] }
+
+        context '管理ユーザーが１名だけの場合' do
+          it 'ユーザー権限を変更できない' do
+            expect(User.find(get_user_session).admin?).to be true
+            patch :update, params: params
+            expect(User.find(get_user_session).admin?).not_to be false
+          end
+        end
+
+        context '管理ユーザーが１名以上の場合' do
+          let!(:user) { FactoryBot.create(:user, role: User.roles[:admin]) }
+
+          it 'ユーザー権限を変更できる' do
+            expect(User.find(get_user_session).admin?).to be true
+            patch :update, params: params
+            expect(User.find(get_user_session).admin?).to be false
+          end
+        end
+      end
     end
 
     describe 'DELETE #destroy' do

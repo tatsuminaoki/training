@@ -12,8 +12,10 @@ class User < ApplicationRecord
 
   enum role: { normal: 0, admin: 1 }
   validates :role, presence: true, inclusion: { in: User.roles.keys }
-  validate :change_role_valid?
+  validate :change_role_valid?, on: :update
 
+  # 管理ユーザーが1ユーザーのみの状態で編集画面から権限を変更すると
+  # 管理ユーザーが居ない状態に出来てしまう為、update時にバリデーションを行う
   private def change_role_valid?
     return true if User.admin.count > 1
     return true if self.admin?
