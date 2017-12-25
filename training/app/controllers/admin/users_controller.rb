@@ -73,7 +73,7 @@ class Admin::UsersController < ApplicationController
 
   def check_admin_deletion
     return unless User.find(params[:id]).admin?
-    if User.where(role: User.roles[:admin]).count == 1
+    if User.admin.count == 1
       redirect_to admin_users_path, notice: I18n.t('admin.controller.messages.admin_delete_error')
     end
   end
