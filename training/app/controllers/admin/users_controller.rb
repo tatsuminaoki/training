@@ -23,7 +23,8 @@ class Admin::UsersController < ApplicationController
     else
       render :new
     end
-  rescue
+  rescue => e
+    Rails.logger.error(e)
     flash.now[:alert] = I18n.t('admin.controller.messages.create_failed')
     render :new
   end
@@ -36,7 +37,8 @@ class Admin::UsersController < ApplicationController
     else
       render :edit
     end
-  rescue
+  rescue => e
+    Rails.logger.error(e)
     flash.now[:alert] = I18n.t('admin.controller.messages.update_failed')
     render :edit
   end
@@ -44,7 +46,8 @@ class Admin::UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy!
     redirect_to admin_users_path, notice: I18n.t('admin.controller.messages.deleted')
-  rescue
+  rescue => e
+    Rails.logger.error(e)
     redirect_to admin_users_path, alert: I18n.t('admin.controller.messages.delete_failed')
   end
 
