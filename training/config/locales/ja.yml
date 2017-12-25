@@ -112,6 +112,7 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+        admin_delete_error: 管理ユーザーは少なくとも１ユーザー必要です
   application:
     view:
       logged_out: ログアウトする
