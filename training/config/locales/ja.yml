@@ -113,6 +113,9 @@ ja:
         updated: 更新しました
         deleted: 削除しました
         admin_delete_error: 管理ユーザーは少なくとも１ユーザー必要です
+        create_failed: ユーザーの作成に失敗しました
+        update_failed: ユーザーの更新に失敗しました
+        delete_failed: ユーザーの削除に失敗しました
   application:
     view:
       logged_out: ログアウトする
