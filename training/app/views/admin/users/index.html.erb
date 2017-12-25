@@ -6,6 +6,7 @@
       <th><%= I18n.t('admin.view.index.name') %></th>
       <th><%= I18n.t('admin.view.index.email') %></th>
       <th><%= I18n.t('admin.view.index.task_count') %></th>
+      <th><%= I18n.t('admin.view.index.role') %></th>
       <th><%= I18n.t('admin.view.index.created_at') %></th>
       <th colspan="3" ></th>
     </tr>
@@ -17,6 +18,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.tasks.count %></td>
+        <td><%= I18n.t("users.model.role.#{user.role}") %></td>
         <td><%= convert_date_format(user.created_at) %></td>
         <td><%= link_to I18n.t('admin.view.index.show_page'), admin_user_path(user.id) %></td>
         <td><%= link_to I18n.t('admin.view.index.edit_page'), edit_admin_user_path(user) %></td>

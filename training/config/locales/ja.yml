@@ -51,6 +51,11 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+  users:
+    model:
+      role:
+        normal: 通常ユーザー
+        admin: 管理ユーザー
   logins:
     view:
       new:
@@ -69,6 +74,7 @@ ja:
         title: ユーザー 一覧
         name: ユーザー名
         email: メールアドレス
+        role: ユーザー権限
         task_count: タスク数
         created_at: 作成日
         show_page: 詳細
@@ -86,6 +92,7 @@ ja:
         user_id: ユーザーID
         name: ユーザー名
         email: メールアドレス
+        role: ユーザー権限
         created_at: 作成日
         updated_at: 更新日  
         index_page: 一覧
@@ -121,6 +128,7 @@ ja:
     end_date: 終了期限
     email: メールアドレス
     password: パスワード
+    role: ユーザー権限
   activerecord:
     errors:
       messages:
