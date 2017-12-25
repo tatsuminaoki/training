@@ -105,6 +105,9 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+        create_failed: ユーザーの作成に失敗しました
+        update_failed: ユーザーの更新に失敗しました
+        delete_failed: ユーザーの削除に失敗しました
   application:
     view:
       logged_out: ログアウトする
