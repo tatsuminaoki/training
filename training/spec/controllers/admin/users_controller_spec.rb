@@ -250,20 +250,45 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     describe 'DELETE #destroy' do
-      let(:user) { FactoryBot.create(:user) }
-      let(:params) { { id: user.id } }
-      let!(:task) { FactoryBot.create(:task, user_id: user.id) }
+      context '通常ユーザーの場合' do
+        let(:user) { FactoryBot.create(:user) }
+        let(:params) { { id: user.id } }
+        let!(:task) { FactoryBot.create(:task, user_id: user.id) }
 
-      it 'userを削除する' do
-        expect(User.find(user.id)).to eq user
-        delete :destroy, params: params
-        expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        it 'userを削除する' do
+          expect(User.find(user.id)).to eq user
+          delete :destroy, params: params
+          expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it 'userが作成したタスクも削除される' do
+          expect(Task.find(task.id)).to eq task
+          delete :destroy, params: params
+          expect{ Task.find(task.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
 
-      it 'userが作成したタスクも削除される' do
-        expect(Task.find(task.id)).to eq task
-        delete :destroy, params: params
-        expect{ Task.find(task.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      context '管理ユーザーの場合' do
+        let(:user) { User.find(get_user_session) }
+        let(:params) { { id: user.id } }
+
+        context '管理ユーザーが１名だけの場合' do
+          it '管理ユーザーを削除できない' do
+            expect(User.find(user.id)).to eq user
+            delete :destroy, params: params
+            expect(User.find(user.id)).to eq user
+          end
+        end
+
+        context '管理ユーザーが１名以上の場合' do
+          before { FactoryBot.create(:user, role: User.roles[:admin]) }
+
+          it '管理ユーザーを削除できる' do
+            expect(User.find(user.id)).to eq user
+            delete :destroy, params: params
+            expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
       end
     end
   end
