@@ -37,17 +37,17 @@ RSpec.describe 'Admin::User', type: :feature do
       end
     end
 
-    # 削除テストにバグがありログインしている管理者ユーザーのアカウントを削除してしまってテストが落ちる　後で修正する
-    skip '管理者がユーザーを削除する' do
+    context '管理者がユーザーを削除する' do
       context '削除をクリックしたとき' do
         let!(:user_2) { FactoryBot.create(:user) }
 
         it 'ユーザーが削除される' do
-          click_on I18n.t('admin.view.index.delete')
+          visit current_path
+          all('tbody tr')[1].click_on I18n.t('admin.view.index.delete')
           expect(current_path).to eq admin_users_path
           expect(page).to have_content I18n.t('admin.controller.messages.deleted')
-          expect(page).not_to have_content user.email
-          expect(page).to have_content user_2.email
+          expect(page).to have_content user.email
+          expect(page).not_to have_content user_2.email
         end
       end
     end
@@ -100,8 +100,7 @@ RSpec.describe 'Admin::User', type: :feature do
       expect(current_path).to eq edit_admin_user_path(user.id)
     end
 
-    # 入力フォームがないのでUserの管理者権限が戻ってテストが落ちるのでフォーム実装までskip
-    skip 'ユーザー情報を変更して更新をクリックしたとき' do
+    context 'ユーザー情報を変更して更新をクリックしたとき' do
       before do
         fill_in I18n.t('attributes.name'), with: 'hogefuga'
         fill_in I18n.t('attributes.email'), with: 'fuga@example.com'
