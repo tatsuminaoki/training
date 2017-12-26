@@ -23,10 +23,10 @@ class Task < ApplicationRecord
                self.order(created_at: :desc)
              end
 
-    result = result.where('status = ?', params[:status]) if params[:status].present?
-    result = result.where('name = ?', params[:name]) if params[:name].present?
+    result = result.where(status: params[:status]) if params[:status].present?
+    result = result.where(name: params[:name]) if params[:name].present?
     if params[:user].present?
-      result = result.where('user_id = ?', params[:user][:only_self_task]) if params[:user][:only_self_task].present?
+      result = result.where(user_id: params[:user][:only_self_task]) if params[:user][:only_self_task].present?
     end
     result
   end
