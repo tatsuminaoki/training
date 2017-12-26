@@ -5,5 +5,6 @@ FactoryBot.define do
       "test#{n}@example.com"
     end
     password 'test1234'
+    role User.roles[:normal]
   end
 end

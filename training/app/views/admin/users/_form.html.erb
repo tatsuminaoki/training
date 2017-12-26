@@ -27,6 +27,10 @@
   <% end %>
   <br/>
 
+  <%= f.label :role %>
+  <%= f.select :role, User.roles.map { |k, v| [I18n.t("users.model.role.#{k}"), v] }, selected: @user.role_before_type_cast %>
+  <br/>
+
   <% if new_page? %>
     <%= f.submit I18n.t('admin.view.partial.create'), data: { disable_with: I18n.t('admin.view.partial.creating') } %>
   <% else %>

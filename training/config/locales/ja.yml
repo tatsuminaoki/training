@@ -51,6 +51,11 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+  users:
+    model:
+      role:
+        normal: 通常ユーザー
+        admin: 管理ユーザー
   logins:
     view:
       new:
@@ -69,6 +74,7 @@ ja:
         title: ユーザー 一覧
         name: ユーザー名
         email: メールアドレス
+        role: ユーザー権限
         task_count: タスク数
         created_at: 作成日
         show_page: 詳細
@@ -86,6 +92,7 @@ ja:
         user_id: ユーザーID
         name: ユーザー名
         email: メールアドレス
+        role: ユーザー権限
         created_at: 作成日
         updated_at: 更新日  
         index_page: 一覧
@@ -105,12 +112,16 @@ ja:
         created: 作成しました
         updated: 更新しました
         deleted: 削除しました
+        admin_delete_error: 管理ユーザーは少なくとも１ユーザー必要です
         create_failed: ユーザーの作成に失敗しました
         update_failed: ユーザーの更新に失敗しました
         delete_failed: ユーザーの削除に失敗しました
   application:
     view:
       logged_out: ログアウトする
+    controller:
+      messages:
+        role_error: 管理画面を利用するには管理者権限が必要です
   attributes:
     name: 名前
     description: 説明
@@ -121,6 +132,7 @@ ja:
     end_date: 終了期限
     email: メールアドレス
     password: パスワード
+    role: ユーザー権限
   activerecord:
     errors:
       messages:
@@ -257,6 +269,8 @@ ja:
       end_date:
         invalid: に入力された日付が正しくありません
         not_exist: に入力された日付は存在しません
+      role:
+        require_least_one: に指定する管理ユーザーは少なくとも１ユーザー必要です
     template:
       body: 次の項目を確認してください
       header:

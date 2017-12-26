@@ -180,5 +180,30 @@ RSpec.describe User, type: :model do
         end       
       end
     end
+
+    describe 'role' do
+      let(:user) { FactoryBot.build(:user, role: role) }
+      subject { user.valid? }
+
+      context '入力が正しい場合' do
+        let(:role) { User.roles[:admin] }
+        it { is_expected.to be true }
+      end
+
+      context '空欄の場合' do
+        let(:role) { '' }
+        it { is_expected.to be false }
+      end
+
+      context '文字列の場合' do
+        let(:role) { 'hoge' }
+        it { expect{ subject }.to raise_error(ArgumentError) }
+      end
+
+      context 'enumに含まれない数値の場合' do
+        let(:role) { 123 }
+        it { expect{ subject }.to raise_error(ArgumentError) }
+      end
+    end
   end
 end

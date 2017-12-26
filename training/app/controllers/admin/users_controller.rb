@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+  before_action :require_admin_role
+  before_action :convert_params_to_int, only: %i(create update)
+  before_action :check_admin_deletion, only: :destroy
 
   def index
     @users = User.all
@@ -61,6 +64,7 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(
       :name,
       :email,
+      :role,
       :password,
     )
   end
@@ -69,6 +73,19 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(
       :name,
       :email,
+      :role,
     )
+  end
+
+  def convert_params_to_int
+    return if params[:user].nil?
+    params[:user][:role] = params[:user][:role].to_i
+  end
+
+  def check_admin_deletion
+    return unless User.find(params[:id]).admin?
+    if User.admin.count == 1
+      redirect_to admin_users_path, notice: I18n.t('admin.controller.messages.admin_delete_error')
+    end
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 include Admin::UsersHelper
 
 RSpec.describe 'Admin::User', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: User.roles[:admin]) }
 
   before do
     visit logins_new_path
@@ -37,16 +37,17 @@ RSpec.describe 'Admin::User', type: :feature do
       end
     end
 
-    describe '管理者がユーザーを削除する' do
+    context '管理者がユーザーを削除する' do
       context '削除をクリックしたとき' do
         let!(:user_2) { FactoryBot.create(:user) }
 
         it 'ユーザーが削除される' do
-          click_on I18n.t('admin.view.index.delete')
+          visit current_path
+          all('tbody tr')[1].click_on I18n.t('admin.view.index.delete')
           expect(current_path).to eq admin_users_path
           expect(page).to have_content I18n.t('admin.controller.messages.deleted')
-          expect(page).not_to have_content user.email
-          expect(page).to have_content user_2.email
+          expect(page).to have_content user.email
+          expect(page).not_to have_content user_2.email
         end
       end
     end
