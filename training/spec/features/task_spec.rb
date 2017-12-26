@@ -34,8 +34,9 @@ RSpec.describe 'Task', type: :feature do
     end
 
     context '検索機能でタスクを絞り込む' do
+      let!(:label) { FactoryBot.create(:label) }
       let!(:task_saerch_1) { FactoryBot.create(:task, name: 'hoge', status: 0, priority: 1, end_date: '2010-01-01', user_id: user.id) }
-      let!(:task_saerch_2) { FactoryBot.create(:task, name: 'fuga', status: 1, priority: 2, end_date: '2010-01-02') }
+      let!(:task_saerch_2) { FactoryBot.create(:task, name: 'fuga', status: 1, priority: 2, end_date: '2010-01-02', label_id: label.id) }
 
       context 'ステータス　着手中　で検索したとき' do
         it '対象のタスクのみが表示される' do
@@ -51,6 +52,16 @@ RSpec.describe 'Task', type: :feature do
           fill_in 'タスク名', with: 'hoge'
           click_button '検索する'
           expect(all('h4')[0]).to have_content task_saerch_1.name
+          expect(all('h4')[1]).to be nil
+        end
+      end
+
+      context 'ラベル名で検索したとき' do
+        it '対象のタスクのみが表示される' do
+          visit current_path
+          select label.name, from: 'label_id'
+          click_button '検索する'
+          expect(all('h4')[0]).to have_content task_saerch_2.name
           expect(all('h4')[1]).to be nil
         end
       end
@@ -134,6 +145,25 @@ RSpec.describe 'Task', type: :feature do
       it '詳細ページに遷移する' do
         expect(current_path).to eq task_path(task.id)
         expect(page).to have_content update_name
+      end
+
+      it '更新しました　とメッセージが表示される' do
+        expect(page).to have_content I18n.t('tasks.controller.messages.updated')
+      end
+    end
+
+    context 'ラベル情報を追加する' do
+      let!(:label) { FactoryBot.create(:label) }
+
+      before do
+        visit current_path
+        select label.name, from: 'task_label_id'
+        click_on I18n.t('tasks.view.partial.update')
+      end
+
+      it '詳細ページに遷移する' do
+        expect(current_path).to eq task_path(task.id)
+        expect(page).to have_content label.name
       end
 
       it '更新しました　とメッセージが表示される' do
