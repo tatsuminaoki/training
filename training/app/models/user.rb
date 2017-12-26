@@ -24,6 +24,7 @@ class User < ApplicationRecord
       errors.add(:role, I18n.t('errors.messages.role.require_least_one'))
       return false
     end
+
     true
   end
 end
