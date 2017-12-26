@@ -159,7 +159,7 @@ ja:
     user_id: ユーザー番号
     priority: 優先順位
     status: ステータス
-    label_id: ラベル番号
+    label_id: ラベル
     end_date: 終了期限
     email: メールアドレス
     password: パスワード
