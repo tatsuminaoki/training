@@ -7,6 +7,7 @@
   <p><%= I18n.t('tasks.view.show.status') %> : <%= I18n.t("tasks.model.status.#{@task.status}") %></p>
   <p><%= I18n.t('tasks.view.show.priority') %> : <%= I18n.t("tasks.model.priority.#{@task.priority}") %></p>
   <p><%= I18n.t('tasks.view.show.end_date') %> : <%= @task.end_date %></p>
+  <p><%= I18n.t('tasks.view.show.label_id') %> : <%= label_name(@task.label_id) %></p>
 </div>
 <div>
   <%= link_to(I18n.t('tasks.view.show.index_page'), tasks_path) %> / <%= link_to(I18n.t('tasks.view.show.edit_page'), edit_task_path(@task)) %> / 

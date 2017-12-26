@@ -52,6 +52,7 @@ ja:
         status: ステータス
         priority: 優先順位
         end_date: 終了期限
+        label_id: ラベル
         self_task: 自分のタスクのみ表示
       new:
         title: タスク作成
@@ -68,6 +69,7 @@ ja:
         end_date: 終了期限
         index_page: 一覧
         edit_page: 編集
+        label_id: ラベル
         delete: 削除
         delete_confirm: 削除しますか？
       partial:

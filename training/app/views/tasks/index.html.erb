@@ -14,7 +14,7 @@
     <%= label_tag :name, I18n.t('tasks.view.index.name') %>
     <%= text_field_tag :name, @name %>
     <br/>
-    <%= label_tag :label_id, 'ラベル' %>
+    <%= label_tag :label_id, I18n.t('tasks.view.index.label_id') %>
     <%= select_tag :label_id, options_for_select(Label.all.pluck(:name,:id) { |n, i| [n.name, i.id] }, selected: @label_id), include_blank: true %>
     <br/>
     <%= I18n.t('tasks.view.index.self_task') %>
@@ -44,6 +44,7 @@
     <p><%= I18n.t('tasks.view.index.status') %> : <%= I18n.t("tasks.model.status.#{task.status}") %></p>
     <p><%= I18n.t('tasks.view.index.priority') %> : <%= I18n.t("tasks.model.priority.#{task.priority}") %></p>
     <p><%= I18n.t('tasks.view.index.end_date') %> : <%= task.end_date %></p>
+    <p><%= I18n.t('tasks.view.index.label_id') %> : <%= label_name(task.label_id) %></p>
     <hr />
   <% end %>
   <%= paginate @tasks %>

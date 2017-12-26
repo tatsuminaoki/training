@@ -23,6 +23,7 @@
       <th><%= I18n.t('tasks.view.index.status') %></th>
       <th><%= I18n.t('tasks.view.index.priority') %></th>
       <th><%= I18n.t('tasks.view.index.end_date') %></th>
+      <th><%= I18n.t('tasks.view.index.label_id') %></th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,7 @@
         <td><%= I18n.t("tasks.model.status.#{task.status}") %></td>
         <td><%= I18n.t("tasks.model.priority.#{task.priority}") %></td>
         <td><%= task.end_date %></td>
+        <td><%= label_name(task.label_id) %></td>
       </tr>
     <% end %>
   </tbody>
