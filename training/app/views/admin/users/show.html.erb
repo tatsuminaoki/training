@@ -1,0 +1,42 @@
+<h1><%= I18n.t('admin.view.show.title') %></h1>
+
+<br/>
+
+<h1><%= I18n.t('admin.view.show.user_info') %></h1>
+<div>
+<p><%= I18n.t('admin.view.show.user_id') %> : <%= @user.id %></p>
+<p><%= I18n.t('admin.view.show.name') %> : <%= @user.name %></p>
+<p><%= I18n.t('admin.view.show.email') %> : <%= @user.email %></p>
+<p><%= I18n.t('admin.view.show.created_at') %> : <%= convert_date_format(@user.created_at) %></p>
+<p><%= I18n.t('admin.view.show.updated_at') %> : <%= convert_date_format(@user.updated_at) %></p>
+</div>
+<br/>
+
+<hr/>
+<h1><%= I18n.t('admin.view.show.task_info') %></h1>
+<table>
+  <thead>
+    <tr>
+      <th><%= I18n.t('tasks.view.index.name') %></th>
+      <th><%= I18n.t('tasks.view.index.description') %></th>
+      <th><%= I18n.t('tasks.view.index.status') %></th>
+      <th><%= I18n.t('tasks.view.index.priority') %></th>
+      <th><%= I18n.t('tasks.view.index.end_date') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.tasks.each do |task| %>
+      <tr>
+        <td><%= link_to(task.name, task_path(task)) %></td>
+        <td><%= task.description %></td>
+        <td><%= I18n.t("tasks.model.status.#{task.status}") %></td>
+        <td><%= I18n.t("tasks.model.priority.#{task.priority}") %></td>
+        <td><%= task.end_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+
+<%= link_to I18n.t('admin.view.show.edit_page'), edit_admin_user_path(@user.id) %> |
+<%= link_to I18n.t('admin.view.show.index_page'), admin_users_path %>

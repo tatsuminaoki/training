@@ -63,6 +63,51 @@ ja:
         logged_in: ログインしました
         invalid: メールアドレスまたは、パスワードが違います
         logged_out: ログアウトしました
+  admin:
+    view:
+      index:
+        title: ユーザー 一覧
+        name: ユーザー名
+        email: メールアドレス
+        task_count: タスク数
+        created_at: 作成日
+        show_page: 詳細
+        edit_page: 編集
+        new_page: ユーザーを追加する
+        delete: 削除
+        delete_confirm: 本当に削除しますか？
+      new:
+        title: ユーザー作成
+        index_page: 一覧
+      show:
+        title: ユーザー詳細
+        user_info: ユーザー情報
+        task_info: タスク情報
+        user_id: ユーザーID
+        name: ユーザー名
+        email: メールアドレス
+        created_at: 作成日
+        updated_at: 更新日  
+        index_page: 一覧
+        edit_page: 編集
+      edit:
+        title: ユーザー編集
+        index_page: 一覧
+        show_page: 詳細
+      partial:
+        password_guide: ※パスワードは変更時のみ入力
+        create: 作成
+        creating: 作成中
+        update: 更新
+        updating: 更新中
+    controller:
+      messages:
+        created: 作成しました
+        updated: 更新しました
+        deleted: 削除しました
+        create_failed: ユーザーの作成に失敗しました
+        update_failed: ユーザーの更新に失敗しました
+        delete_failed: ユーザーの削除に失敗しました
   application:
     view:
       logged_out: ログアウトする
@@ -74,6 +119,8 @@ ja:
     status: ステータス
     label_id: ラベル番号
     end_date: 終了期限
+    email: メールアドレス
+    password: パスワード
   activerecord:
     errors:
       messages:

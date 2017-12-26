@@ -1,0 +1,6 @@
+<h1><%= I18n.t('admin.view.edit.title') %></h1>
+
+<%= render 'form' %>
+
+<%= link_to I18n.t('admin.view.edit.show_page'), admin_user_path(@user.id) %> |
+<%= link_to I18n.t('admin.view.edit.index_page'), admin_users_path %>
