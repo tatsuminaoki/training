@@ -148,7 +148,7 @@ RSpec.describe LabelsController, type: :controller do
       let(:params) { { label: FactoryBot.attributes_for(:label, name: name), id: label.id } }
 
       context 'データが正しい場合' do
-        let(:name) {'hoge'}
+        let(:name) { 'hoge' }
 
         it 'ラベルが更新される' do
           expect(Label.find(label.id)).to eq label
@@ -158,7 +158,7 @@ RSpec.describe LabelsController, type: :controller do
       end
 
       context 'データが不正な場合' do
-        let(:name) {''}
+        let(:name) { '' }
 
         it 'ラベルは更新されない' do
           expect(Label.find(label.id)).to eq label
@@ -175,7 +175,7 @@ RSpec.describe LabelsController, type: :controller do
 
     describe 'DELETE #destroy' do
       let(:label) { FactoryBot.create(:label) }
-      let(:params) { {id: label.id} }
+      let(:params) { { id: label.id } }
 
       it 'ラベルを削除する' do
         expect(Label.find(label.id)).to eq label
