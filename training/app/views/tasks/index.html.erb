@@ -14,6 +14,9 @@
     <%= label_tag :name, I18n.t('tasks.view.index.name') %>
     <%= text_field_tag :name, @name %>
     <br/>
+    <%= label_tag :label_id, 'ラベル' %>
+    <%= select_tag :label_id, options_for_select(Label.all.pluck(:name,:id) { |n, i| [n.name, i.id] }, selected: @label_id), include_blank: true %>
+    <br/>
     <%= I18n.t('tasks.view.index.self_task') %>
     <%= check_box 'user', 'only_self_task', { checked: @user.to_i == current_user.id }, current_user.id, '' %>
 
