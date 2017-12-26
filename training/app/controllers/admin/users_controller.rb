@@ -78,7 +78,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def convert_params_to_int
-    return false if params[:user].nil?
+    return if params[:user].nil?
     params[:user][:role] = params[:user][:role].to_i
   end
 
