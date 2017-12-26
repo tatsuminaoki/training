@@ -2,7 +2,7 @@
   <h1><%= I18n.t('logins.view.new.title') %></h1>
 </div>
 
-<%= form_tag({action: :create}, {method: :post}) do %>
+<%= form_tag({ action: :login }, { method: :post }) do %>
 
   <%= label_tag :emial, I18n.t('logins.view.new.email') %>
   <%= text_field_tag :email, @email %>

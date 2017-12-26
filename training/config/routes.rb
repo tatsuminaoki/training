@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   end
 
   get 'logins/new'
-  post 'logins/create'
-  delete 'logins/destroy'
+  post 'logins/login'
+  delete 'logins/logout'
 end
