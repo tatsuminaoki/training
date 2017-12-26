@@ -127,8 +127,8 @@ RSpec.describe LabelsController, type: :controller do
       end
 
       context 'データが重複する場合' do
-        let!(:label) { FactoryBot.create(:label) }
-        let(:params) { { label: FactoryBot.attributes_for(:label) } }
+        let!(:label) { FactoryBot.create(:label, name: 'hoge') }
+        let(:params) { { label: FactoryBot.attributes_for(:label, name: 'hoge') } }
 
         it 'ラベルは作成されない' do
           expect{

@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  belongs_to :label, optional: true
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :user_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
