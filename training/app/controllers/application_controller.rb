@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
 
   def _render_404(e = nil)
     Rails.logger.error "404 error: #{e.message}" if e
-    render template: 'errors/error_404', status: 404
+    render template: 'errors/error_404', status: :not_found
   end
 
   def _render_500(e = nil)
     Rails.logger.error "500 error: #{e.message}" if e
-    render template: 'errors/error_500', status: 500
+    render template: 'errors/error_500', status: :internal_server_error
   end
 end
