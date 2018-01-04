@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  belongs_to :label, optional: true
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :user_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
@@ -24,6 +25,7 @@ class Task < ApplicationRecord
 
     result = result.where(status: params[:status]) if params[:status].present?
     result = result.where(name: params[:name]) if params[:name].present?
+    result = result.where(label_id: params[:label_id]) if params[:label_id].present?
     if params[:user].present?
       result = result.where(user_id: params[:user][:only_self_task]) if params[:user][:only_self_task].present?
     end

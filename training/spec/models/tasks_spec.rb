@@ -247,6 +247,35 @@ RSpec.describe Task, type: :model do
         end
       end
 
+      context 'ラベル検索' do
+        let!(:label) { FactoryBot.create(:label) }
+        let!(:task_0) { FactoryBot.create(:task, label_id: label.id) }
+        let!(:task_1) { FactoryBot.create(:task) }
+
+        context '指定しない場合' do
+          let(:params) { {} }
+          it '全てのタスクが出力される' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to eq task_1
+          end
+        end
+
+        context 'ラベルを指定した場合' do
+          let(:params) { { label_id: label.id } }
+          it '対象のタスクが絞り込まれる' do
+            expect(subject[0]).to eq task_0
+            expect(subject[1]).to be nil
+          end
+        end
+
+        context '存在しないラベルを指定した場合' do
+          let(:params) { { label_id: 0 } }
+          it '何も出力されない' do
+            expect(subject[0]).to be_nil
+          end
+        end
+      end
+
       context '作成ユーザー絞り込み検索' do
         let!(:user) { FactoryBot.create(:user) }
         let!(:task_0) { FactoryBot.create(:task) }

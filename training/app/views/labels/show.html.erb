@@ -1,0 +1,10 @@
+<h1><%= I18n.t('labels.view.show.title') %></h1>
+
+<div>
+  <h4><%= @label.name %></h4>
+  <p><%= I18n.t('labels.view.show.created_at') %> : <%= convert_date_format(@label.created_at) %></p>
+  <p><%= I18n.t('labels.view.show.updated_at') %> : <%= convert_date_format(@label.updated_at) %></p>
+</div>
+
+<%= link_to I18n.t('labels.view.page.edit_page'), edit_label_path(@label) %> |
+<%= link_to I18n.t('labels.view.page.index_page'), labels_path %>

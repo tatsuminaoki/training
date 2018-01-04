@@ -1,0 +1,22 @@
+<%= form_for(@label) do |f| %>
+
+  <% if @label.errors.any?%>
+    <div>
+      <ul>
+      <% @label.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br/>
+
+  <% if request.path_info == new_label_path %>
+    <%= f.submit I18n.t('labels.view.partial.create'), data: { disable_with: I18n.t('labels.view.partial.creating')} %>
+  <% else %>
+    <%= f.submit I18n.t('labels.view.partial.update'), data: { disable_with: I18n.t('labels.view.partial.updating')} %>
+  <% end %>
+<% end %>
