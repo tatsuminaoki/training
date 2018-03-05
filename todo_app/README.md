@@ -1,24 +1,82 @@
-# README
+# todo-site
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+todo-siteはユーザーのタスク管理システムを実装する。[株式会社Fablicの新入社員教育用カリキュラム](https://github.com/Fablic/training)の要件に基づき機能を実装する。
 
-Things you may want to cover:
+# 仕様書
 
-* Ruby version
+docs/Specification.mdに仕様を記載する。
 
-* System dependencies
+# TODO
 
-* Configuration
+## Day1
 
-* Database creation
+- [x] 開発環境構築
+    - [x] rbenv, ruby, rails, mysql
+- [x] リポジトリ作成
+    - [x] ブランチ作成（Githubアカウント名）
+- [ ] 設計
+    - [ ] 画面設計書
+    - [ ] データ構造設計
+- [ ] アプリケーション設定
+    - [ ] DB接続設定
+    - [ ] タイムゾーン設定 : 日本(東京)
+- [ ] 実装
+    - [ ] タスク登録画面
+    - [ ] テストコード
+    - [ ] タスク一覧画面
+    - [ ] テストコード
 
-* Database initialization
+## Day2
+- [ ] 実装
+    - [ ] i18n導入
+    - [ ] タスク一覧画面のソート機能追加：作成日順
+    - [ ] タスク登録画面のバリデーション処理の実装
+    - [ ] 終了期限機能の追加
+        - [ ] タスク登録画面の修正
+        - [ ] タスク一覧画面の修正
+    - [ ] ステータス機能の追加
+        - [ ] タスク登録画面の修正
+        - [ ] タスク一覧画面の修正
 
-* How to run the test suite
+## Day3
+- [ ] 実装
+    - [ ] 優先順位機能の追加
+        - [ ] タスク登録画面の修正
+        - [ ] タスク一覧画面の修正
+    - [ ] ページネーション機能の追加
+        - [ ] タスク一覧画面の修正
 
-* Services (job queues, cache servers, search engines, etc.)
+## Day4
+- [ ] 実装
+    - [ ] デザイン変更
+        - [ ] タスク登録画面の修正
+        - [ ] タスク一覧画面の修正
 
-* Deployment instructions
+## Day5-6
+- [ ] 実装
+    - [ ] ユーザーモデルの導入
+        - [ ] ログイン/ログアウト機能の実装
+        - [ ] タスク登録時処理の変更
+        - [ ] 一覧取得処理の変更
 
-* ...
+## Day7
+- [ ] 実装
+    - [ ] ユーザー管理機能の実装
+        - [ ] ユーザー管理画面の作成
+    - [ ] ユーザーロール機能の実装
+        - [ ] ユーザー管理画面の変更
+        - [ ] ユーザー管理画面のアクセス機能追加
+
+## Day8
+- [ ] 実装
+    - [ ] タスクラベル機能の実装
+        - [ ] タスク登録画面の変更
+        - [ ] タスク一覧画面の変更
+
+## Day9
+- [ ] 実装
+    - [ ] エラーページの設定
+        - [ ] エラー画面の作成
+
+## Day10
+- 予備
