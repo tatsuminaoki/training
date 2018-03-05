@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20180305074452) do
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", limit: 50, null: false
     t.string "description"
-    t.date "deadline", null: false
+    t.datetime "deadline", null: false
     t.string "status", limit: 10, null: false
     t.string "priority", limit: 10, null: false
     t.datetime "created_at", null: false
