@@ -1,0 +1,21 @@
+<%= bootstrap_form_for(@task) do |t| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited
+        this article from being saved:</h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= t.text_field :title %>
+  <%= t.text_area :description %>
+  <%= t.datetime_select :deadline %>
+  <%= t.select :status, [["未着手", 1], ["進行中", 2], ["完了", 3]], { label: "ステータスを選択してください" } %>
+  <%= t.select :priority, [["低い", 1], ["通常", 2], ["早めに", 3], ["急いで", 4], ["今すぐ", 5]], { label: "優先度を選択してください" } %>
+  <%= t.submit "Register", class: "btn btn-success" %>
+
+<% end %>
