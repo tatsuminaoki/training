@@ -54,11 +54,11 @@ group :development, :test do
 end
 
 group :test do
+
   # Rspec test
   gem 'faker'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'selenium-webdriver'
 end
 
 group :development do
