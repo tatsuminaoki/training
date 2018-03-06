@@ -1,16 +1,17 @@
-<h1>タスク一覧画面</h1>
-
-<table border="1">
+<h1>[WIP]タスク一覧画面</h1>
+<table class="table">
+  <thead>
   <tr>
     <th>ステータス</th>
     <th>タイトル</th>
   </tr>
-
+  </thead>
+  <tbody>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.status %></td>
       <td><%= task.title %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
-
