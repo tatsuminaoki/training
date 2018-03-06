@@ -1,4 +1,9 @@
 <h1>[WIP]タスク一覧画面</h1>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
+  </div>
+<% end %>
 <table class="table">
   <thead>
   <tr>
