@@ -16,6 +16,13 @@
   <%= t.datetime_select :deadline %>
   <%= t.select :status, [["未着手", 1], ["進行中", 2], ["完了", 3]], { label: "ステータスを選択してください" } %>
   <%= t.select :priority, [["低い", 1], ["通常", 2], ["早めに", 3], ["急いで", 4], ["今すぐ", 5]], { label: "優先度を選択してください" } %>
-  <%= t.submit "Register", class: "btn btn-success" %>
 
+  <% if request.path_info == new_task_path %>
+    <%= t.submit "Register", class: "btn btn-success" %>
+    <%= link_to "Cancel", tasks_path, {:class=>"btn btn-default"} %>
+  <% else %>
+    <%= t.submit "Update", class: "btn btn-success" %>
+    <%= link_to "Cancel", tasks_path, {:class=>"btn btn-default"} %>
+    <%= button_to "削除", { :action => "destroy", :id => @task.id }, :confirm => "本当に削除しますか?", :method => :delete, class: "btn btn-danger" %>
+  <% end %>
 <% end %>
