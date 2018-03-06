@@ -17,10 +17,11 @@ docs/Specification.mdに仕様を記載する。
 - [x] 設計
     - [x] 画面設計書
     - [x] データ構造設計
-- [ ] アプリケーション設定
-    - [ ] DB接続設定
+- [x] アプリケーション設定
+    - [x] DB接続設定
     - [ ] タイムゾーン設定 : 日本(東京)
 - [ ] 実装
+    - [x] タスクモデルの作成
     - [ ] タスク登録画面
     - [ ] テストコード
     - [ ] タスク一覧画面
@@ -80,3 +81,16 @@ docs/Specification.mdに仕様を記載する。
 
 ## Day10
 - 予備
+
+# Usage
+
+## DBユーザーの作成
+
+mysqlのインストール後、以下のコマンドを実行しDBユーザーを作成してください。
+
+```sh
+$ mysql -u root
+[mysql> CREATE USER 'todo_app'@localhost IDENTIFIED BY 'admin001';
+[mysql> grant create, drop on *.* to 'todo_app'@'localhost';
+[mysql> grant select,update,insert,delete on *.* to 'todo_app'@'localhost';
+```
