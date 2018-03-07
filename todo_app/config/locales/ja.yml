@@ -7,6 +7,19 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      task: タスク
+    attributes:
+      task/status:
+        not_start: 未着手
+        progress: 進行中
+        done: 完了
+      task/priority:
+        low: 低い
+        normal: 通常
+        high: 高い
+        quickly: 急いで
+        right_now: 今すぐ
   date:
     abbr_day_names:
     - 日
@@ -106,6 +119,8 @@ ja:
       month: 月
       second: 秒
       year: 年
+  confirm:
+    ok?: 本当によろしいですか？
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -138,13 +153,23 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+  success:
+    create: "%{it}を作成しました。"
+    update: "%{it}を更新しました。"
+    delete: "%{it}を削除しました。"
   helpers:
     select:
       prompt: 選択してください
+      prompt_with_title: "%{title}を選択してください"
     submit:
-      create: 登録する
-      submit: 保存する
-      update: 更新する
+      add: 追加
+      create: 登録
+      submit: 保存
+      edit: 編集
+      update: 更新
+      delete: 削除
+      cancel: キャンセル
+      back: 戻る
   number:
     currency:
       format:
@@ -203,3 +228,19 @@ ja:
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+  page:
+    common:
+      login: ログイン
+      logout: ログアウト
+    task:
+      title:
+        list: タスク一覧
+        new: タスク登録
+        edit: タスク編集
+        show: タスク参照
+      label:
+        title: タスク
+        description: 内容
+        deadline: 期日
+        status: ステータス
+        priority: 優先度

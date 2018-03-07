@@ -1,7 +1,7 @@
 <div id="todo_app_task_list">
-  <h1>タスク一覧画面</h1>
+<h1><%= I18n.t('page.task.title.list') %></h1>
 
-  <%= button_to "作成", new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+<%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
 
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>">
@@ -9,31 +9,31 @@
     </div>
   <% end %>
 
-  <table id="task_table" class="table">
-    <thead>
+<table id="task_table" class="table">
+  <thead>
+  <tr>
+    <th><%= I18n.t('page.task.label.status') %></th>
+    <th><%= I18n.t('page.task.label.title') %></th>
+    <th><%= I18n.t('helpers.submit.edit') %></th>
+    <th><%= I18n.t('helpers.submit.delete') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |task| %>
     <tr>
-      <th>ステータス</th>
-      <th>タイトル</th>
-      <th>編集</th>
-      <th>削除</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.status %></td>
-        <td><%= link_to task.title, task_path(task) %></td>
-        <td>
-          <%= link_to edit_task_path(task), class: "edit-button" do %>
-            <%= fa_icon "edit" %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to task_path(task),
-                        method: :delete, data: { confirm: 'Are you sure?' }, class: "trash-button" do %>
-            <%= fa_icon "trash-o" %>
-          <% end %>
-        </td>
+      <td><%= status_value task.status %></td>
+      <td><%= link_to task.title, task_path(task) %></td>
+      <td>
+        <%= link_to edit_task_path(task), class: "edit-button" do %>
+          <%= fa_icon "edit" %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to task_path(task),
+                      method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
+          <%= fa_icon "trash-o" %>
+        <% end %>
+      </td>
       </tr>
     <% end %>
     </tbody>

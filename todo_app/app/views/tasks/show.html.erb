@@ -1,30 +1,30 @@
 <div id="show_task">
-  <h1>タスク参照画面</h1>
+  <h1><%= I18n.t('page.task.title.show') %></h1>
 
   <table class="table">
     <tbody>
       <tr>
-        <td>タイトル</td>
+        <td><%= I18n.t('page.task.label.title') %></td>
         <td><%= @task.title%> </td>
       </tr>
       <tr>
-        <td>説明</td>
+        <td><%= I18n.t('page.task.label.description') %></td>
         <td><%= @task.description %></td>
       </tr>
       <tr>
-        <td>期日</td>
+        <td><%= I18n.t('page.task.label.deadline') %></td>
         <td><%= @task.deadline %></td>
       </tr>
       <tr>
-        <td>ステータス</td>
-        <td><%= @task.status%></td>
+        <td><%= I18n.t('page.task.label.status') %></td>
+        <td><%= status_value @task.status%></td>
       </tr>
       <tr>
-        <td>優先度</td>
-        <td><%= @task.priority%></td>
+        <td><%= I18n.t('page.task.label.priority') %></td>
+        <td><%= priority_value @task.priority%></td>
       </tr>
     </tbody>
   </table>
 
-  <%= link_to "戻る", tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to I18n.t('helpers.submit.back'), tasks_path, {:class=>"btn btn-default"} %>
 </div>

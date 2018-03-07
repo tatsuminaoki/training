@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      flash[:success] = 'タスクを作成しました。'
+      flash[:success] = I18n.t('success.create', it: Task.model_name.human)
       redirect_to tasks_path
     else
       render 'new'
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      flash[:success] = 'タスクを更新しました。'
+      flash[:success] = I18n.t('success.update', it: Task.model_name.human)
       redirect_to tasks_path
     else
       render 'edit'
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.delete
 
-    flash[:success] = 'タスクを削除しました。'
+    flash[:success] = I18n.t('success.delete', it: Task.model_name.human)
     redirect_to tasks_path
   end
 
