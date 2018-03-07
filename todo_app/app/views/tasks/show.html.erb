@@ -16,11 +16,11 @@
     </tr>
     <tr>
       <td><%= I18n.t('page.task.label.status') %></td>
-      <td><%= @task.status%></td>
+      <td><%= status_value @task.status%></td>
     </tr>
     <tr>
       <td><%= I18n.t('page.task.label.priority') %></td>
-      <td><%= @task.priority%></td>
+      <td><%= priority_value @task.priority%></td>
     </tr>
   </tbody>
 </table>

@@ -18,4 +18,12 @@ module TasksHelper
   def priority_pull_down
     PriorityType.all.map { |key| [PriorityType.human_attribute_name(key), key] }
   end
+
+  def status_value(key)
+    StatusType.human_attribute_name(key)
+  end
+
+  def priority_value(key)
+    PriorityType.human_attribute_name(key)
+  end
 end
