@@ -1,7 +1,5 @@
 module TasksHelper
   def submit_btn_name
-    puts request.path_info
-    puts request.url
     if request.path_info == new_task_path
       return I18n.t('helpers.submit.create')
     else
@@ -10,20 +8,18 @@ module TasksHelper
   end
 
   def status_pull_down
-    StatusType.all.map do |key|
-      [StatusType.human_attribute_name(key), key]
-    end
+    Task.statuses.keys.map { |key| [Task.human_attribute_name("status.#{key}"), key]}
   end
 
   def priority_pull_down
-    PriorityType.all.map { |key| [PriorityType.human_attribute_name(key), key] }
+    Task.priorities.keys.map { |key| [Task.human_attribute_name("priority.#{key}"), key]}
   end
 
   def status_value(key)
-    StatusType.human_attribute_name(key)
+    Task.human_attribute_name("status.#{key}")
   end
 
   def priority_value(key)
-    PriorityType.human_attribute_name(key)
+    Task.human_attribute_name("priority.#{key}")
   end
 end

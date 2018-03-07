@@ -9,14 +9,12 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       task: タスク
-      status_type: ステータス
-      priority_type: 優先度
     attributes:
-      status_type:
+      task/status:
         not_start: 未着手
-        in_progress: 進行中
+        progress: 進行中
         done: 完了
-      priority_type:
+      task/priority:
         low: 低い
         normal: 通常
         high: 高い
