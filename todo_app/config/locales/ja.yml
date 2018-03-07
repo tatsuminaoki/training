@@ -12,6 +12,12 @@ ja:
         not_start: 未着手
         in_progress: 進行中
         done: 完了
+      priority_type:
+        low: 低い
+        normal: 通常
+        high: 高い
+        quickly: 急いで
+        right_now: 今すぐ
   date:
     abbr_day_names:
     - 日
