@@ -8,11 +8,11 @@ module TasksHelper
   end
 
   def status_pull_down
-    Task.statuses.keys.map { |key| [Task.human_attribute_name("status.#{key}"), key]}
+    Task.statuses.keys.map { |key| [status_value(key), key]}
   end
 
   def priority_pull_down
-    Task.priorities.keys.map { |key| [Task.human_attribute_name("priority.#{key}"), key]}
+    Task.priorities.keys.map { |key| [priority_value(key), key]}
   end
 
   def status_value(key)

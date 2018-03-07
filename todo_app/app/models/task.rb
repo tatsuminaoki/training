@@ -4,6 +4,6 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :priority, presence: true
 
-  enum status: {not_start: "not_start", progress: "progress",  done: "done"}.freeze
-  enum priority: {low: "low", normal: "normal", high: "high", quickly: "quickly", right_now: "right_now" }.freeze
+  enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
+  enum priority: Hash[%i[low normal high quickly right_now].map { |sym| [sym, sym.to_s] }].freeze
 end
