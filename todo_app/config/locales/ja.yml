@@ -7,6 +7,9 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      status_type: ステータス
+      priority_type: 優先度
     attributes:
       status_type:
         not_start: 未着手
@@ -152,10 +155,14 @@ ja:
   helpers:
     select:
       prompt: 選択してください
+      prompt_with_title: "%{title}を選択してください"
     submit:
+      add: 追加する
       create: 登録する
       submit: 保存する
       update: 更新する
+      cancel: キャンセル
+      back: 戻る
   number:
     currency:
       format:
