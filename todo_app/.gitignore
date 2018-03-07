@@ -21,6 +21,9 @@
 /node_modules
 /yarn-error.log
 
+# Ignore minitest
+/test/*
+
 .byebug_history
 
 # RubyMine project files
