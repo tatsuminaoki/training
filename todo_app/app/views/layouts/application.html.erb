@@ -1,14 +1,18 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TodoApp</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>TODO APP</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
-</html>
+<body>
+  <%= render "layouts/shared/header" %>
+  <div class="container">
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
+</body>

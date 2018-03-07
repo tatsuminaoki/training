@@ -24,6 +24,10 @@ module TodoApp
                      request_specs: false
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
+
+    config.generators do |g|
+        g.assets false
+    end
   end
 end
 
