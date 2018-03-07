@@ -1,28 +1,30 @@
-<h1>タスク参照画面</h1>
+<div id="show_task">
+  <h1>タスク参照画面</h1>
 
-<table class="table">
-  <tbody>
-    <tr>
-      <td>タイトル</td>
-      <td><%= @task.title%> </td>
-    </tr>
-    <tr>
-      <td>説明</td>
-      <td><%= @task.description %></td>
-    </tr>
-    <tr>
-      <td>期日</td>
-      <td><%= @task.deadline %></td>
-    </tr>
-    <tr>
-      <td>ステータス</td>
-      <td><%= @task.status%></td>
-    </tr>
-    <tr>
-      <td>優先度</td>
-      <td><%= @task.priority%></td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>タイトル</td>
+        <td><%= @task.title%> </td>
+      </tr>
+      <tr>
+        <td>説明</td>
+        <td><%= @task.description %></td>
+      </tr>
+      <tr>
+        <td>期日</td>
+        <td><%= @task.deadline %></td>
+      </tr>
+      <tr>
+        <td>ステータス</td>
+        <td><%= @task.status%></td>
+      </tr>
+      <tr>
+        <td>優先度</td>
+        <td><%= @task.priority%></td>
+      </tr>
+    </tbody>
+  </table>
 
-<%= link_to "戻る", tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to "戻る", tasks_path, {:class=>"btn btn-default"} %>
+</div>
