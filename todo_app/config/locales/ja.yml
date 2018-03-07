@@ -8,6 +8,7 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
+      task: タスク
       status_type: ステータス
       priority_type: 優先度
     attributes:
@@ -152,6 +153,10 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+  success:
+    create: "%{it}を作成しました。"
+    update: "%{it}を更新しました。"
+    delete: "%{it}を削除しました。"
   helpers:
     select:
       prompt: 選択してください
