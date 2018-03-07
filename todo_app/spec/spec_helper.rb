@@ -17,10 +17,12 @@ require 'capybara/rspec'
 require 'selenium-webdriver'
 
 Capybara.configure do |config|
-  config.run_server = false
+  #config.run_server = false
   config.default_driver = :selenium
   config.default_max_wait_time = 10
-  config.app_host = 'http://0.0.0.0:3000/' # localhost(rails s)
+  config.app_host = 'http://localhost:3100/'
+  config.server_host = "localhost"
+  config.server_port = 3100
 end
 
 RSpec.configure do |config|
