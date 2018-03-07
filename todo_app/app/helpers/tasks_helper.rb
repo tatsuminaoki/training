@@ -3,9 +3,19 @@ module TasksHelper
     puts request.path_info
     puts request.url
     if request.path_info == new_task_path
-      return '登録'
+      return I18n.t('helpers.submit.create')
     else
-      return '更新'
+      return I18n.t('helpers.submit.update')
     end
+  end
+
+  def status_pull_down
+    StatusType.all.map do |key|
+      [StatusType.human_attribute_name(key), key]
+    end
+  end
+
+  def priority_pull_down
+    PriorityType.all.map { |key| [PriorityType.human_attribute_name(key), key] }
   end
 end

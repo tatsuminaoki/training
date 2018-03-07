@@ -15,10 +15,12 @@
   <%= t.text_field :title %>
   <%= t.text_area :description %>
   <%= t.datetime_select :deadline %>
-  <%= t.select :status, StatusType.all.map { |key| [StatusType.human_attribute_name(key), key] }, { label: "ステータスを選択してください" } %>
-  <%= t.select :priority, PriorityType.all.map { |key| [PriorityType.human_attribute_name(key), key] }, { label: "優先度を選択してください" } %>
+  <%= t.select :status, status_pull_down,
+               { label: I18n.t('helpers.select.prompt_with_title', title: StatusType.model_name.human) } %>
+  <%= t.select :priority,priority_pull_down,
+               { label: I18n.t('helpers.select.prompt_with_title', title: PriorityType.model_name.human) } %>
 
   <%= t.submit submit_btn_name, class: "btn btn-success" %>
-  <%= link_to "キャンセル", tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to I18n.t('helpers.submit.cancel'), tasks_path, {:class=>"btn btn-default"} %>
 
 <% end %>
