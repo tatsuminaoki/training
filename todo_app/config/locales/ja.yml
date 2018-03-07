@@ -121,6 +121,8 @@ ja:
       month: 月
       second: 秒
       year: 年
+  confirm:
+    ok?: 本当によろしいですか？
   errors:
     format: "%{attribute}%{message}"
     messages:

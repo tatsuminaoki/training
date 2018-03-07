@@ -29,7 +29,7 @@
       </td>
       <td>
         <%= link_to task_path(task),
-                      method: :delete, data: { confirm: 'Are you sure?' }, class: "trash-button" do %>
+                      method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
           <%= fa_icon "trash-o" %>
         <% end %>
       </td>
