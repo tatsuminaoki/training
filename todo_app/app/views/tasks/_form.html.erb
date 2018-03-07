@@ -12,13 +12,15 @@
     </div>
   <% end %>
 
-  <%= t.text_field :title %>
-  <%= t.text_area :description %>
-  <%= t.datetime_select :deadline %>
-  <%= t.select :status, [["未着手", 1], ["進行中", 2], ["完了", 3]], { label: "ステータスを選択してください" } %>
-  <%= t.select :priority, [["低い", 1], ["通常", 2], ["早めに", 3], ["急いで", 4], ["今すぐ", 5]], { label: "優先度を選択してください" } %>
+  <%= t.text_field :title, label: I18n.t('page.task.label.title') %>
+  <%= t.text_area :description, label: I18n.t('page.task.label.description')  %>
+  <%= t.datetime_select :deadline, label: I18n.t('page.task.label.deadline')  %>
+  <%= t.select :status, status_pull_down,
+               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.label.status')) } %>
+  <%= t.select :priority,priority_pull_down,
+               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.label.priority')) } %>
 
   <%= t.submit submit_btn_name, class: "btn btn-success" %>
-  <%= link_to "キャンセル", tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to I18n.t('helpers.submit.cancel'), tasks_path, {:class=>"btn btn-default"} %>
 
 <% end %>
