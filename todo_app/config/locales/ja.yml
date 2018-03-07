@@ -164,10 +164,12 @@ ja:
       prompt: 選択してください
       prompt_with_title: "%{title}を選択してください"
     submit:
-      add: 追加する
-      create: 登録する
-      submit: 保存する
-      update: 更新する
+      add: 追加
+      create: 登録
+      submit: 保存
+      edit: 編集
+      update: 更新
+      delete: 削除
       cancel: キャンセル
       back: 戻る
   number:
@@ -241,4 +243,3 @@ ja:
         deadline: 期日
         status: ステータス
         priority: 優先度
-
