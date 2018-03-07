@@ -12,9 +12,9 @@
     </div>
   <% end %>
 
-  <%= t.text_field :title %>
-  <%= t.text_area :description %>
-  <%= t.datetime_select :deadline %>
+  <%= t.text_field :title, label: I18n.t('page.task.label.title') %>
+  <%= t.text_area :description, label: I18n.t('page.task.label.description')  %>
+  <%= t.datetime_select :deadline, label: I18n.t('page.task.label.deadline')  %>
   <%= t.select :status, status_pull_down,
                { label: I18n.t('helpers.select.prompt_with_title', title: StatusType.model_name.human) } %>
   <%= t.select :priority,priority_pull_down,
