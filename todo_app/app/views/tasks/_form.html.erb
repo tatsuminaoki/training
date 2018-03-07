@@ -19,6 +19,6 @@
   <%= t.select :priority, [["低い", 1], ["通常", 2], ["早めに", 3], ["急いで", 4], ["今すぐ", 5]], { label: "優先度を選択してください" } %>
 
   <%= t.submit submit_btn_name, class: "btn btn-success" %>
-  <%= link_to "Cancel", tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to "キャンセル", tasks_path, {:class=>"btn btn-default"} %>
 
 <% end %>
