@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rails_helper'
 
 describe 'タスク詳細画面', type: :feature do
@@ -46,7 +45,6 @@ describe 'タスク詳細画面', type: :feature do
   end
 
   describe '一覧画面への遷移', type: :feature do
-
     it '戻るボタンが表示されていること' do
       expect(find_link(I18n.t('helpers.submit.back')).visible?).to be_truthy
     end
@@ -59,7 +57,6 @@ describe 'タスク詳細画面', type: :feature do
   end
 
   describe 'ステータスの登録値のパターンテスト', type: :feature do
-
     it '未着手と表示されること' do
       show_task 'not_start'
       tr = find(:css, 'table tbody').all('tr')[3]
@@ -85,7 +82,6 @@ describe 'タスク詳細画面', type: :feature do
   end
 
   describe '優先度の登録値のパターンテスト', type: :feature do
-
     it '低いと表示されること' do
       show_task 'low'
       tr = find(:css, 'table tbody').all('tr')[4]
