@@ -86,7 +86,7 @@ end
 describe 'タスクの削除処理', type: :feature do
   before { create(:task, title: 'Rspec test 1' ) }
 
-  it 'タスク処理をキャンセルする' do
+  it '削除処理をキャンセルする' do
     visit '/'
 
     expect(page).to have_css('table#task_table tbody tr', count: 1)
@@ -96,7 +96,7 @@ describe 'タスクの削除処理', type: :feature do
     expect(page).to have_css('table#task_table tbody tr', count: 1)
   end
 
-  it 'タスク処理を実行する' do
+  it '削除処理を実行する' do
     visit '/'
 
     expect(page).to have_css('table#task_table tbody tr', count: 1)
