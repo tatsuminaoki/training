@@ -73,8 +73,6 @@ describe 'タスク一覧画面から別画面に遷移する', type: :feature d
     expect(page).to have_selector(:css, '#show_task')
   end
 
-  before { create(:task, title: 'Rspec test 1' ) }
-
   it 'タスク編集画面への遷移' do
     visit '/'
     first(:css, 'table#task_table tbody tr').find('td a.edit-button').click
