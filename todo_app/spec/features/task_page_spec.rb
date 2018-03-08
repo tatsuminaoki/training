@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'タスク一覧画面', type: :feature do
-
   describe '画面にアクセス' do
     it 'ルートパスでアクセスできること' do
       visit '/'
@@ -56,7 +55,6 @@ describe 'タスク一覧画面', type: :feature do
   end
 
   context 'タスクを登録したい場合' do
-
     it '作成ボタンが表示されること' do
       visit '/'
       expect(page).to have_button('add_task_button')
