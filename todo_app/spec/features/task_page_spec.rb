@@ -67,7 +67,7 @@ describe 'タスク一覧画面から別画面に遷移する', type: :feature d
     expect(page).to have_selector(:css, '#add_task')
   end
 
-  it 'タスク登録画面への遷移' do
+  it 'タスク詳細画面への遷移' do
     visit '/'
     first(:css, 'table#task_table tbody tr').find_link('Rspec test 1').click
     expect(page).to have_selector(:css, '#show_task')
@@ -75,7 +75,7 @@ describe 'タスク一覧画面から別画面に遷移する', type: :feature d
 
   before { create(:task, title: 'Rspec test 1' ) }
 
-  it 'タスク登録画面への遷移' do
+  it 'タスク編集画面への遷移' do
     visit '/'
     first(:css, 'table#task_table tbody tr').find('td a.edit-button').click
     expect(page).to have_selector(:css, '#edit_task')
