@@ -1,14 +1,15 @@
+<div id="todo_app_task_list">
 <h1><%= I18n.t('page.task.title.list') %></h1>
 
-<%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, class: "btn btn-success"  %>
+<%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
 
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
-    <%= value %>
-  </div>
-<% end %>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
 
-<table class="table">
+<table id="task_table" class="table">
   <thead>
   <tr>
     <th><%= I18n.t('page.task.label.status') %></th>
@@ -33,7 +34,8 @@
           <%= fa_icon "trash-o" %>
         <% end %>
       </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

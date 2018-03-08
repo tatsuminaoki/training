@@ -1,28 +1,30 @@
-<h1><%= I18n.t('page.task.title.show') %></h1>
+<div id="show_task">
+  <h1><%= I18n.t('page.task.title.show') %></h1>
 
-<table class="table">
-  <tbody>
-    <tr>
-      <td><%= I18n.t('page.task.label.title') %></td>
-      <td><%= @task.title%> </td>
-    </tr>
-    <tr>
-      <td><%= I18n.t('page.task.label.description') %></td>
-      <td><%= @task.description %></td>
-    </tr>
-    <tr>
-      <td><%= I18n.t('page.task.label.deadline') %></td>
-      <td><%= @task.deadline %></td>
-    </tr>
-    <tr>
-      <td><%= I18n.t('page.task.label.status') %></td>
-      <td><%= status_value @task.status%></td>
-    </tr>
-    <tr>
-      <td><%= I18n.t('page.task.label.priority') %></td>
-      <td><%= priority_value @task.priority%></td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td><%= I18n.t('page.task.label.title') %></td>
+        <td><%= @task.title%> </td>
+      </tr>
+      <tr>
+        <td><%= I18n.t('page.task.label.description') %></td>
+        <td><%= @task.description %></td>
+      </tr>
+      <tr>
+        <td><%= I18n.t('page.task.label.deadline') %></td>
+        <td><%= @task.deadline %></td>
+      </tr>
+      <tr>
+        <td><%= I18n.t('page.task.label.status') %></td>
+        <td><%= status_value @task.status%></td>
+      </tr>
+      <tr>
+        <td><%= I18n.t('page.task.label.priority') %></td>
+        <td><%= priority_value @task.priority%></td>
+      </tr>
+    </tbody>
+  </table>
 
-<%= link_to I18n.t('helpers.submit.back'), tasks_path, {:class=>"btn btn-default"} %>
+  <%= link_to I18n.t('helpers.submit.back'), tasks_path, {:class=>"btn btn-default"} %>
+</div>
