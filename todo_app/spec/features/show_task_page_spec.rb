@@ -53,7 +53,6 @@ describe 'タスク詳細画面', type: :feature do
       click_on (I18n.t('helpers.submit.back'))
       expect(page).to have_css('#todo_app_task_list')
     end
-
   end
 
   describe 'ステータスの登録値のパターンテスト', type: :feature do
