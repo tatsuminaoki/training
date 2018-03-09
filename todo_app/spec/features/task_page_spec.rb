@@ -45,9 +45,9 @@ describe 'タスク一覧画面', type: :feature do
       expect(page).to have_css('table#task_table tbody tr', count: 10)
     end
 
-    it 'id順で昇順ソートされていること' do
+    it 'id順で降順ソートされていること' do
       visit '/'
-      all('table#task_table tbody tr').each.with_index do |td, idx|
+      all('table#task_table tbody tr').reverse_each.with_index do |td, idx|
         # 作成時に登録順でインクリメントしているので、idでソートされていると名前も昇順になっている
         expect(td).to have_selector('a', text: "Rspec test #{idx+1}")
       end
