@@ -8,7 +8,7 @@ end
 describe 'タスク編集画面' , type: :feature do
   let(:task) do
     create(:task, title: 'before task title', description: 'before task description',
-           deadline: '2017/01/01 01:01:01', status: 'not_start', priority: 'low')
+           deadline: Time.new(2017, 1, 1, 1, 1, 1), status: 'not_start', priority: 'low')
   end
 
   before { visit edit_task_path(task) }
