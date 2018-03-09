@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+describe Task, type: :model do
   describe 'インスタンスの状態' do
     context '有効な場合' do
       it 'タイトル、期日、ステータス、優先度があれば有効な状態であること' do
