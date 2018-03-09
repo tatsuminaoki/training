@@ -45,13 +45,13 @@ RSpec.describe Task, type: :model do
         expect(task.title).to eq 'Rspec test 0123'
         expect(task.description).to eq 'This is a sample description'
         expect(task.deadline.strftime('%Y/%m/%d %H:%M:%S')).to eq '2018/03/01 00:00:00'
-        expect(task.status).to eq 'progress' #=> should enum key not array index
-        expect(task.priority).to eq 'high' #=> should enum key not array index
+        expect(task.status).to eq 'progress' #=> should be enum key not array index
+        expect(task.priority).to eq 'high' #=> should be enum key not array index
       end
     end
 
     context 'タスクの更新' do
-      it '取得したTaskの内容を更新できること' do
+      it '取得したタスクの内容を更新できること' do
         create(:task)
 
         task = Task.find_by(title: 'Rspec test 0123')
