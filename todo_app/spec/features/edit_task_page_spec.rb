@@ -6,12 +6,12 @@ RSpec.configure do |config|
 end
 
 describe 'タスク編集画面' , type: :feature do
-  before do
-    @task = Task.new(title: 'before task title', description: 'before task description',
-                     deadline: '2017/01/01 01:01:01', status: 'not_start', priority: 'low')
-    @task.save
-    visit edit_task_path(@task)
+  let(:task) do
+    create(:task, title: 'before task title', description: 'before task description',
+           deadline: '2017/01/01 01:01:01', status: 'not_start', priority: 'low')
   end
+
+  before { visit edit_task_path(task) }
 
   describe 'アクセス' do
     it '画面が表示されていること' do
@@ -21,27 +21,27 @@ describe 'タスク編集画面' , type: :feature do
 
   describe '登録されているタスク情報を表示する' do
     it 'タスク名が表示されていること' do
-      expect(page.find_by_id('task_title').value).to eq @task.title
+      expect(page.find_by_id('task_title').value).to eq task.title
     end
 
     it '説明が表示されていること' do
-      expect(page.find_by_id('task_description').value).to eq @task.description
+      expect(page.find_by_id('task_description').value).to eq task.description
     end
 
     it '期日が表示されていること' do
-      expect(page.find_by_id('task_deadline_1i').value).to eq @task.deadline.strftime('%Y')
-      expect(page.find_by_id('task_deadline_2i').value).to eq @task.deadline.strftime('%-m')
-      expect(page.find_by_id('task_deadline_3i').value).to eq @task.deadline.strftime('%-d')
-      expect(page.find_by_id('task_deadline_4i').value).to eq @task.deadline.strftime('%H')
-      expect(page.find_by_id('task_deadline_5i').value).to eq @task.deadline.strftime('%M')
+      expect(page.find_by_id('task_deadline_1i').value).to eq task.deadline.strftime('%Y')
+      expect(page.find_by_id('task_deadline_2i').value).to eq task.deadline.strftime('%-m')
+      expect(page.find_by_id('task_deadline_3i').value).to eq task.deadline.strftime('%-d')
+      expect(page.find_by_id('task_deadline_4i').value).to eq task.deadline.strftime('%H')
+      expect(page.find_by_id('task_deadline_5i').value).to eq task.deadline.strftime('%M')
     end
 
     it 'ステータスが表示されていること' do
-      expect(page.find_by_id('task_status').value).to eq @task.status
+      expect(page.find_by_id('task_status').value).to eq task.status
     end
 
     it '優先度が表示されていること' do
-      expect(page.find_by_id('task_priority').value).to eq @task.priority
+      expect(page.find_by_id('task_priority').value).to eq task.priority
     end
   end
 
