@@ -70,7 +70,7 @@ describe 'タスク編集画面' , type: :feature do
               fill_in I18n.t('page.task.label.title'), with: ''
               fill_in I18n.t('page.task.label.description'), with: 'after task title description'
               fill_in_datetime_select(
-                  DateTime.strptime('2018/02/03 04:05:06', '%Y/%m/%d %H:%M:%S'),
+                  Time.new(2018, 2, 3, 4, 5, 6),
                   'task_deadline')
               select '進行中', from: 'task_status'
               select '高い', from: 'task_priority'
