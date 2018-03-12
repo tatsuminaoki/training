@@ -45,8 +45,8 @@ describe 'タスク一覧画面', type: :feature do
       expect(page).to have_css('table#task_table tbody tr', count: 10)
     end
 
-    context '作成日が異なる場合' do
-      it '作成日の降順で表がソートされていること' do
+    context 'created_atが異なる場合' do
+      it 'created_atの降順で表がソートされていること' do
         visit '/'
         all('table#task_table tbody tr').reverse_each.with_index do |td, idx|
           # 作成時に登録順でインクリメントしているので、idでソートされていると名前も昇順になっている
@@ -55,7 +55,7 @@ describe 'タスク一覧画面', type: :feature do
       end
     end
 
-    context '作成日が同一場合' do
+    context 'created_atが同一場合' do
       it 'idの降順で表がソートされていること' do
         Task.update_all(created_at:  '2018/1/1 0:0:0')
         visit '/'
