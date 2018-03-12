@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
 
   def index
-    @tasks = Task.all.order(created_at: :desc, id: :desc)
+    @selected_sort = params[:sort]
+    @tasks = Task.search(params)
   end
 
   def new

@@ -171,6 +171,7 @@ ja:
       delete: 削除
       cancel: キャンセル
       back: 戻る
+      search: 検索
   number:
     currency:
       format:
@@ -233,6 +234,11 @@ ja:
     common:
       login: ログイン
       logout: ログアウト
+    sort:
+      title: ソート
+      type:
+        created_at: 新着順
+        deadline: 期日が近い順
     task:
       title:
         list: タスク一覧

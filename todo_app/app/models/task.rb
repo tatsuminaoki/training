@@ -17,4 +17,10 @@ class Task < ApplicationRecord
   def valid_datetime?
     DateTime.parse(deadline.to_s).present? rescue false
   end
+
+  def self.search(params)
+    sort = params[:sort].present? ? params[:sort] : :created_at
+    all.order(sort.to_sym).order(:id).reverse_order
+  end
+
 end

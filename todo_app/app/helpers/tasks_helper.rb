@@ -15,6 +15,10 @@ module TasksHelper
     Task.priorities.keys.map { |key| [priority_value(key), key]}
   end
 
+  def sort_pull_down
+    I18n.t('page.sort.type').map { |key, val| [val, key]}
+  end
+
   def status_value(key)
     Task.human_attribute_name("status.#{key}")
   end

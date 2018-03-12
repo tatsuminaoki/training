@@ -1,7 +1,24 @@
 <div id="todo_app_task_list">
-<h1><%= I18n.t('page.task.title.list') %></h1>
+  <h1><%= I18n.t('page.task.title.list') %></h1>
 
-<%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+  <div class="tool-bar">
+    <div class="tool-bar-right tool-bar-item">
+      <%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">検索フォーム</h4>
+      <div class="card-text">
+        <%= bootstrap_form_tag url: tasks_path, method: :get, enforce_utf8: false  do |f| %>
+          <%= f.select :sort, options_for_select(sort_pull_down, selected: @selected_sort),
+                       { label: I18n.t('page.sort.title') } %>
+          <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>">
