@@ -7,6 +7,16 @@ describe Task, type: :model do
         task = build(:task)
         expect(task).to be_valid
       end
+
+      it 'タイトルが50文字以下であれば有効な状態であること' do
+        task = build(:task, title:  (1..50).to_a.map { |i| 'a' }.join)
+        expect(task).to be_valid
+      end
+
+      it '説明が255文字以下であれば有効な状態であること' do
+        task = build(:task, description:  (1..255).to_a.map { |i| 'a' }.join)
+        expect(task).to be_valid
+      end
     end
 
     context '無効な場合' do
@@ -15,11 +25,25 @@ describe Task, type: :model do
         expect(task).to be_invalid
       end
 
+      it 'タイトルが51文字以上の場合、無効な状態であること' do
+        task = build(:task, title:  (1..51).to_a.map { |i| 'a' }.join)
+        expect(task).to be_invalid
+      end
+
+      it '説明が256文字以上の場合、無効な状態であること' do
+        task = build(:task, description:  (1..256).to_a.map { |i| 'a' }.join)
+        expect(task).to be_invalid
+      end
+
       it '期日がなければ無効な状態であること' do
         task = build(:task, deadline: nil)
         expect(task).to be_invalid
       end
 
+      it '期日のフォーマットが不正な場合、無効な状態であること' do
+        task = build(:task, deadline: 'invalid datetime format')
+        expect(task).to be_invalid
+      end
       it 'ステータスがなければ無効な状態であること' do
         task = build(:task, status: nil)
         expect(task).to be_invalid
