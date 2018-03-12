@@ -15,6 +15,6 @@ class Task < ApplicationRecord
   end
 
   def valid_datetime?
-    !! DateTime.parse(deadline.to_s) rescue false
+    DateTime.parse(deadline.to_s).present? rescue false
   end
 end
