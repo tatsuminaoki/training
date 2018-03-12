@@ -23,35 +23,44 @@ describe Task, type: :model do
       it 'タイトルがなければ無効な状態であること' do
         task = build(:task, title: nil)
         expect(task).to be_invalid
+        expect(task.errors[:title][0]).to eq I18n.t('errors.messages.empty')
       end
 
       it 'タイトルが51文字以上の場合、無効な状態であること' do
         task = build(:task, title:  'a' * 51)
         expect(task).to be_invalid
+        expect(task.errors[:title][0]).to eq I18n.t('errors.messages.too_long', count: 50)
       end
 
       it '説明が256文字以上の場合、無効な状態であること' do
         task = build(:task, description:  'a' * 256)
         expect(task).to be_invalid
+        expect(task.errors[:description][0]).to eq I18n.t('errors.messages.too_long', count: 255)
       end
 
       it '期日がなければ無効な状態であること' do
         task = build(:task, deadline: nil)
         expect(task).to be_invalid
+        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.empty')
       end
 
       it '期日のフォーマットが不正な場合、無効な状態であること' do
-        task = build(:task, deadline: 'invalid datetime format')
+        task = build(:task, deadline: 'Invalid datetime format')
         expect(task).to be_invalid
+        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.empty')
+        expect(task.errors[:deadline][1]).to eq I18n.t('errors.messages.invalid')
       end
+
       it 'ステータスがなければ無効な状態であること' do
         task = build(:task, status: nil)
         expect(task).to be_invalid
+        expect(task.errors[:status][0]).to eq I18n.t('errors.messages.empty')
       end
 
       it '優先度がなければ無効な状態であること' do
         task = build(:task, priority: nil)
         expect(task).to be_invalid
+        expect(task.errors[:priority][0]).to eq I18n.t('errors.messages.empty')
       end
     end
 

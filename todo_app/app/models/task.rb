@@ -12,6 +12,10 @@ class Task < ApplicationRecord
   private
 
   def valid_datetime?
-    errors.add(:deadline, I18n.t('errors.messages.invalid')) unless !! DateTime.parse(deadline) rescue false
+    errors.add(:deadline, I18n.t('errors.messages.invalid')) unless can_parse_datetime
+  end
+
+  def can_parse_datetime
+    !! DateTime.parse(deadline.to_s) rescue false
   end
 end
