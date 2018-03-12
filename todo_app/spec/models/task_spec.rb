@@ -41,14 +41,13 @@ describe Task, type: :model do
       it '期日がなければ無効な状態であること' do
         task = build(:task, deadline: nil)
         expect(task).to be_invalid
-        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.empty')
+        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.invalid_datetime')
       end
 
       it '期日のフォーマットが不正な場合、無効な状態であること' do
         task = build(:task, deadline: 'Invalid datetime format')
         expect(task).to be_invalid
-        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.empty')
-        expect(task.errors[:deadline][1]).to eq I18n.t('errors.messages.invalid')
+        expect(task.errors[:deadline][0]).to eq I18n.t('errors.messages.invalid_datetime')
       end
 
       it 'ステータスがなければ無効な状態であること' do
