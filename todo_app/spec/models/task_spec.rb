@@ -9,12 +9,12 @@ describe Task, type: :model do
       end
 
       it 'タイトルが50文字以下であれば有効な状態であること' do
-        task = build(:task, title:  (1..50).to_a.map { |i| 'a' }.join)
+        task = build(:task, title:  'a' * 50)
         expect(task).to be_valid
       end
 
       it '説明が255文字以下であれば有効な状態であること' do
-        task = build(:task, description:  (1..255).to_a.map { |i| 'a' }.join)
+        task = build(:task, description:  'a' * 255)
         expect(task).to be_valid
       end
     end
@@ -26,12 +26,12 @@ describe Task, type: :model do
       end
 
       it 'タイトルが51文字以上の場合、無効な状態であること' do
-        task = build(:task, title:  (1..51).to_a.map { |i| 'a' }.join)
+        task = build(:task, title:  'a' * 51)
         expect(task).to be_invalid
       end
 
       it '説明が256文字以上の場合、無効な状態であること' do
-        task = build(:task, description:  (1..256).to_a.map { |i| 'a' }.join)
+        task = build(:task, description:  'a' * 256)
         expect(task).to be_invalid
       end
 
