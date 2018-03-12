@@ -19,8 +19,13 @@ class Task < ApplicationRecord
   end
 
   def self.search(params)
-    sort = params[:sort].present? ? params[:sort] : :created_at
+    sort = params[:sort].present? && valid_column_name?(params[:sort]) ? params[:sort] : :created_at
     all.order(sort.to_sym).order(:id).reverse_order
   end
 
+  private
+
+  def self.valid_column_name?(column_name)
+    Task.columns.map { |col| col.name.to_sym }.include?(column_name.to_sym)
+  end
 end

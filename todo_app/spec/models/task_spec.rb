@@ -102,6 +102,48 @@ describe Task, type: :model do
         expect(task.destroy.title).to eq 'Rspec test 0123'
       end
     end
+
+  end
+
+  describe 'タスクの取得操作' do
+    before do
+      (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}" )}
+    end
+
+    context '作成時刻順に取得したい場合' do
+      it 'created_atの降順で取得できること' do
+        task = Task.search(sort: :created_at).first
+        expect(task.title).to eq 'Rspec test 10'
+      end
+
+      context 'created_atが同一の場合' do
+        it 'idの降順で取得できること' do
+          task = Task.search(sort: :created_at).first
+          expect(task.title).to eq 'Rspec test 10'
+        end
+      end
+    end
+
+    context '期日順に取得したい場合' do
+      it 'deadlineの降順で取得できること' do
+        task = Task.search(sort: :deadline).first
+        expect(task.title).to eq 'Rspec test 1'
+      end
+
+      context 'deadlinetが同一の場合' do
+        it 'idの降順で取得できること' do
+          task = Task.search(sort: :deadline).first
+          expect(task.title).to eq 'Rspec test 1'
+        end
+      end
+    end
+
+    context '存在しないカラム名でソート順を指定した場合' do
+      it 'デフォルトでcreated_atの降順で取得されること' do
+        task = Task.search(sort: :invalid_column).first
+        expect(task.title).to eq 'Rspec test 10'
+      end
+    end
   end
 
   describe 'enum' do
