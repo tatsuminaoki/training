@@ -245,6 +245,7 @@ ja:
         new: タスク登録
         edit: タスク編集
         show: タスク参照
+        search: 検索
       label:
         title: タスク
         description: 内容
