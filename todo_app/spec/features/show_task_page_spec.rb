@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'タスク詳細画面', type: :feature do
   before do
-    task = create(:task, title: 'Rspec test 1' )
+    task = create(:task, title: 'Rspec test 1')
     visit task_path(task)
   end
 
@@ -50,11 +52,8 @@ describe 'タスク詳細画面', type: :feature do
     end
 
     it '戻るボタンクリックで一覧画面に遷移すること' do
-      click_on (I18n.t('helpers.submit.back'))
+      click_on I18n.t('helpers.submit.back')
       expect(page).to have_css('#todo_app_task_list')
     end
   end
 end
-
-
-

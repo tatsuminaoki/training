@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'features/test_helpers'
 
@@ -5,7 +7,7 @@ RSpec.configure do |config|
   config.include TestHelpers
 end
 
-describe 'タスク登録画面' , type: :feature do
+describe 'タスク登録画面', type: :feature do
   before do
     visit new_task_path
   end

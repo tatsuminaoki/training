@@ -1,5 +1,6 @@
-class TasksController < ApplicationController
+# frozen_string_literal: true
 
+class TasksController < ApplicationController
   def index
     @selected_sort = params[:sort]
     @tasks = Task.search(sort: @selected_sort)

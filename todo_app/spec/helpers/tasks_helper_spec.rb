@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TasksHelper, type: :helper do
@@ -8,7 +10,7 @@ RSpec.describe TasksHelper, type: :helper do
       end
 
       it '未着手 / 進行中 / 完了が存在すること' do
-        expected = [%w(未着手 not_start), %w(進行中 progress), %w(完了 done)]
+        expected = [%w[未着手 not_start], %w[進行中 progress], %w[完了 done]]
         expect(status_pull_down).to eq expected
       end
     end
@@ -19,7 +21,7 @@ RSpec.describe TasksHelper, type: :helper do
       end
 
       it '低い / 通常 / 高い / 急いで / 今すぐが存在すること' do
-        expected = [%w(低い low), %w(通常 normal), %w(高い high), %w(急いで quickly), %w(今すぐ right_now)]
+        expected = [%w[低い low], %w[通常 normal], %w[高い high], %w[急いで quickly], %w[今すぐ right_now]]
         expect(priority_pull_down).to eq expected
       end
     end
