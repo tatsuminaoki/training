@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
   enum priority: Hash[%i[low normal high quickly right_now].map { |sym| [sym, sym.to_s] }].freeze
 
-  SORT_KIND = %i(created_at deadline).freeze
+  SORT_KINDS = %i(created_at deadline).freeze
 
   class << self
     def search(sort: 'created_at')
@@ -17,7 +17,7 @@ class Task < ApplicationRecord
 
     def sort_column(value)
       return :created_at unless value.present?
-      SORT_KIND.find { |column| column == value.to_sym } || :created_at
+      SORT_KINDS.find { |column| column == value.to_sym } || :created_at
     end
   end
 

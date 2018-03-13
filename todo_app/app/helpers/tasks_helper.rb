@@ -16,7 +16,7 @@ module TasksHelper
   end
 
   def sort_pull_down
-    Task::SORT_KIND.map { |key| [Task.human_attribute_name("sort_kind.#{key}"), key]}
+    Task::SORT_KINDS.map { |key| [Task.human_attribute_name("sort_kind.#{key}"), key]}
   end
 
   def status_value(key)
