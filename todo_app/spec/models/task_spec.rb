@@ -197,23 +197,23 @@ describe Task, type: :model do
       end
 
       it '低いがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:low]).to eq 'low'
+        expect(Task.priorities[:low]).to eq 0
       end
 
       it '普通がhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:normal]).to eq 'normal'
+        expect(Task.priorities[:normal]).to eq 1
       end
 
       it '高いがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:high]).to eq 'high'
+        expect(Task.priorities[:high]).to eq 2
       end
 
       it '急いでがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:quickly]).to eq 'quickly'
+        expect(Task.priorities[:quickly]).to eq 3
       end
 
       it '今すぐがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:right_now]).to eq 'right_now'
+        expect(Task.priorities[:right_now]).to eq 4
       end
     end
   end
