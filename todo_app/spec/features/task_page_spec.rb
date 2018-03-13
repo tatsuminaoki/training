@@ -94,64 +94,52 @@ describe 'タスク一覧画面', type: :feature do
     end
 
     describe '一覧を絞り込む' do
-      before do
-        (1..10).to_a.each {|i| create(:task,
-                                      title: "Rspec test #{i}",
-                                      deadline: "2018/1/#{11 - i} 01:01:01",
-                                      status: (i.even? ? 'not_start' : 'done'),
-                                      created_at: "2018/1/1 0:0:#{i}" )}
-      end
-
       context 'タスク名で絞り込みたい場合' do
-        it '入力値に完全に一致するタスクのみ表示されていること' do
+        before do
+          (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}")}
+
           visit '/'
 
           within('.card-text') do
             fill_in I18n.t('page.task.label.title'), with: 'Rspec test 2'
           end
           click_on I18n.t('helpers.submit.search')
+        end
 
+        it '入力値に完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
-          visit '/'
-
-          within('.card-text') do
-            fill_in I18n.t('page.task.label.title'), with: 'Rspec test 2'
-          end
-          click_on I18n.t('helpers.submit.search')
-
           expect(page.find_by_id('title').value).to eq 'Rspec test 2'
         end
       end
 
       context 'ステータスで絞り込みたい場合' do
-        it '選択したタスクに完全に一致するタスクのみ表示されていること' do
+        before do
+          (1..10).to_a.each {|i| create(:task, status: (i.even? ? 'not_start' : 'done'))}
+
           visit '/'
 
           within('.card-text') do
             select Task.human_attribute_name('status.done'), from: 'status'
           end
           click_on I18n.t('helpers.submit.search')
+        end
 
+        it '選択したタスクに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 5)
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
-          visit '/'
-
-          within('.card-text') do
-            select Task.human_attribute_name('status.done'), from: 'status'
-          end
-          click_on I18n.t('helpers.submit.search')
-
           expect(page.find_by_id('status').value).to eq 'done'
         end
       end
 
       context 'タスク名とステータスで絞り込みたい場合' do
-        it '選択したタスク名とステータスに完全に一致するタスクのみ表示されていること' do
+        before do
+          (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done'))}
+
           visit '/'
 
           within('.card-text') do
@@ -159,7 +147,9 @@ describe 'タスク一覧画面', type: :feature do
             select Task.human_attribute_name('status.done'), from: 'status'
           end
           click_on I18n.t('helpers.submit.search')
+        end
 
+        it '選択したタスク名とステータスに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
         end
       end
