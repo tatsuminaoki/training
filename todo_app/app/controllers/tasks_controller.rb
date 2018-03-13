@@ -4,10 +4,9 @@ class TasksController < ApplicationController
     @input_title = params[:title]
     @selected_status = params[:status]
     @selected_sort = params[:sort]
-
-    @tasks = Task.search(params)
+    @tasks = Task.search(sort: @selected_sort)
   end
-
+git
   def new
     @task = Task.new
   end

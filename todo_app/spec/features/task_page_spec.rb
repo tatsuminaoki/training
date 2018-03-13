@@ -41,7 +41,7 @@ describe 'タスク一覧画面', type: :feature do
     end
 
     context '初期表示の場合' do
-      it '複数行がテーブルに表示されていること' do
+      it '絞り込み条件なしで全てのデータがテーブルに表示されていること' do
         visit '/'
         expect(page).to have_css('table#task_table tbody tr', count: 10)
       end
@@ -59,21 +59,21 @@ describe 'タスク一覧画面', type: :feature do
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
       before do
-        (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}" )}
+        (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", deadline: "2018/2/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}" )}
+
+        visit '/'
+        within('.card-text') do
+          select Task.human_attribute_name("sort_kind.#{sort}"), from: 'sort'
+        end
+        click_on I18n.t('helpers.submit.search')
       end
 
       context '新着順でソートしたい場合' do
+        let (:sort) {'created_at'}
+
         it 'created_atの降順で表示されていること' do
-          visit '/'
-
-          within('.card-text') do
-            select I18n.t('page.sort.type.created_at'), from: 'sort'
-          end
-          click_on I18n.t('helpers.submit.search')
-
-          all('table#task_table tbody tr').reverse_each.with_index do |td, idx|
-            # 作成時に登録順でインクリメントしているので、idでソートされていると名前も昇順になっている
-            expect(td).to have_selector('a', text: "Rspec test #{idx+1}")
+          all('table#task_table tbody tr').each.with_index do |td, idx|
+            expect(td).to have_content("2018/01/01 00:00:#{format('%02d',10 - idx)}")
           end
 
           expect(page.find_by_id('sort').value).to eq 'created_at'
@@ -81,17 +81,11 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       context '期日が近い順でソートしたい場合' do
+        let (:sort) {'deadline'}
+
         it 'deadlineの降順で表示されていること' do
-          visit '/'
-
-          within('.card-text') do
-            select I18n.t('page.sort.type.deadline'), from: 'sort'
-          end
-          click_on I18n.t('helpers.submit.search')
-
           all('table#task_table tbody tr').each.with_index do |td, idx|
-            # 期日はidが後ろなほどタイトルの番号を若くしている
-            expect(td).to have_selector('a', text: "Rspec test #{idx+1}")
+            expect(td).to have_content("2018/02/#{format('%02d',10 - idx)} 01:01:01")
           end
 
           expect(page.find_by_id('sort').value).to eq 'deadline'

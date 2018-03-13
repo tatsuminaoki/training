@@ -16,7 +16,7 @@
           <%= f.select :status, options_for_select(status_pull_down, selected: @selected_status),
                        { label: I18n.t('page.task.label.status') } %>
           <%= f.select :sort, options_for_select(sort_pull_down, selected: @selected_sort),
-                       { label: I18n.t('page.sort.title') } %>
+                       { label: I18n.t('page.task.label.sort') } %>
           <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
 
         <% end %>
@@ -35,6 +35,8 @@
   <tr>
     <th><%= I18n.t('page.task.label.status') %></th>
     <th><%= I18n.t('page.task.label.title') %></th>
+    <th><%= I18n.t('page.task.label.deadline') %></th>
+    <th><%= I18n.t('page.task.label.created_at') %></th>
     <th><%= I18n.t('helpers.submit.edit') %></th>
     <th><%= I18n.t('helpers.submit.delete') %></th>
   </tr>
@@ -44,6 +46,8 @@
     <tr>
       <td><%= status_value task.status %></td>
       <td><%= link_to task.title, task_path(task) %></td>
+      <td><%= task.deadline.to_s %></td>
+      <td><%= task.created_at.to_s %></td>
       <td>
         <%= link_to edit_task_path(task), class: "edit-button" do %>
           <%= fa_icon "edit" %>
