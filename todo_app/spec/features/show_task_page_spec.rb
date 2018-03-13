@@ -28,7 +28,7 @@ describe 'タスク詳細画面', type: :feature do
     it '期日が表示されていること' do
       tr = find(:css, 'table tbody').all('tr')[2]
       expect(tr).to have_content(I18n.t('page.task.label.deadline'))
-      expect(tr).to have_content('2018-03-01')
+      expect(tr).to have_content('2018/03/01 00:00:00')
     end
 
     it 'ステータスが表示されていること' do
