@@ -20,6 +20,9 @@ ja:
         high: 高い
         quickly: 急いで
         right_now: 今すぐ
+      task/sort_kind:
+        created_at: 新着順
+        deadline: 期日が近い順
   date:
     abbr_day_names:
     - 日
@@ -234,11 +237,6 @@ ja:
     common:
       login: ログイン
       logout: ログアウト
-    sort:
-      title: ソート
-      type:
-        created_at: 新着順
-        deadline: 期日が近い順
     task:
       title:
         list: タスク一覧
@@ -252,3 +250,4 @@ ja:
         deadline: 期日
         status: ステータス
         priority: 優先度
+        sort: ソート

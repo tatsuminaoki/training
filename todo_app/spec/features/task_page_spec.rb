@@ -67,7 +67,7 @@ describe 'タスク一覧画面', type: :feature do
           visit '/'
 
           within('.card-text') do
-            select I18n.t('page.sort.type.created_at'), from: 'sort'
+            select Task.human_attribute_name("sort_kind.created_at"), from: 'sort'
           end
           click_on I18n.t('helpers.submit.search')
 
@@ -85,7 +85,7 @@ describe 'タスク一覧画面', type: :feature do
           visit '/'
 
           within('.card-text') do
-            select I18n.t('page.sort.type.deadline'), from: 'sort'
+            select Task.human_attribute_name("sort_kind.deadline"), from: 'sort'
           end
           click_on I18n.t('helpers.submit.search')
 

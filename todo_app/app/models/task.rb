@@ -8,6 +8,8 @@ class Task < ApplicationRecord
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
   enum priority: Hash[%i[low normal high quickly right_now].map { |sym| [sym, sym.to_s] }].freeze
 
+  SORT_KIND = %i(created_at deadline).freeze
+
   private
 
   def validate_datetime
