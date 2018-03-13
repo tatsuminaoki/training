@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 
   def index
     @selected_sort = params[:sort]
-    @tasks = Task.search(params)
+    @tasks = Task.search(sort: @selected_sort)
   end
 
   def new

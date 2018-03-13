@@ -10,6 +10,17 @@ class Task < ApplicationRecord
 
   SORT_KIND = %i(created_at deadline).freeze
 
+  class << self
+    def search(sort: 'created_at')
+      order(sort_column(sort) => :desc, :id => :desc)
+    end
+
+    def sort_column(value)
+      return :created_at unless value.present?
+      SORT_KIND.find { |column| column == value.to_sym } || :created_at
+    end
+  end
+
   private
 
   def validate_datetime
@@ -20,14 +31,6 @@ class Task < ApplicationRecord
     DateTime.parse(deadline.to_s).present? rescue false
   end
 
-  def self.search(params)
-    sort = params[:sort].present? && valid_column_name?(params[:sort]) ? params[:sort] : :created_at
-    all.order(sort.to_sym).order(:id).reverse_order
-  end
 
-  private
 
-  def self.valid_column_name?(column_name)
-    Task.columns.map { |col| col.name.to_sym }.include?(column_name.to_sym)
-  end
 end
