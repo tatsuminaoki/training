@@ -250,4 +250,5 @@ ja:
         deadline: 期日
         status: ステータス
         priority: 優先度
+        created_at: 作成日時
         sort: ソート
