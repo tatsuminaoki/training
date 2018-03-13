@@ -49,8 +49,8 @@ describe 'タスク編集画面' , type: :feature do
     context '正常に更新できる場合' do
       it '値を変更して更新できること' do
         within('.edit_task') do
-          fill_in I18n.t('page.task.label.title'), with: 'after task title'
-          fill_in I18n.t('page.task.label.description'), with: 'after task title description'
+          fill_in I18n.t('page.task.labels.title'), with: 'after task title'
+          fill_in I18n.t('page.task.labels.description'), with: 'after task title description'
           fill_in_datetime_select(
               Time.new(2018, 2, 3, 4, 5, 6),
               'task_deadline')
@@ -67,8 +67,8 @@ describe 'タスク編集画面' , type: :feature do
         context 'タスク名が空の場合' do
           it 'エラーメッセージが表示されること' do
             within('.edit_task') do
-              fill_in I18n.t('page.task.label.title'), with: ''
-              fill_in I18n.t('page.task.label.description'), with: 'after task title description'
+              fill_in I18n.t('page.task.labels.title'), with: ''
+              fill_in I18n.t('page.task.labels.description'), with: 'after task title description'
               fill_in_datetime_select(
                   Time.new(2018, 2, 3, 4, 5, 6),
                   'task_deadline')

@@ -20,8 +20,8 @@ describe 'タスク登録画面' , type: :feature do
     context '正常に登録できる場合' do
       it 'タスクが登録できること' do
         within('#new_task') do
-          fill_in I18n.t('page.task.label.title'), with: 'Test task'
-          fill_in I18n.t('page.task.label.description'), with: 'This is test description'
+          fill_in I18n.t('page.task.labels.title'), with: 'Test task'
+          fill_in I18n.t('page.task.labels.description'), with: 'This is test description'
           fill_in_datetime_select(
               DateTime.strptime('2017/01/01 01:01:01', '%Y/%m/%d %H:%M:%S'),
               'task_deadline')
@@ -39,8 +39,8 @@ describe 'タスク登録画面' , type: :feature do
       context 'タスク名が空の場合' do
         it 'エラーメッセージが表示されること' do
           within('#new_task') do
-            fill_in I18n.t('page.task.label.title'), with: ''
-            fill_in I18n.t('page.task.label.description'), with: 'This is test description'
+            fill_in I18n.t('page.task.labels.title'), with: ''
+            fill_in I18n.t('page.task.labels.description'), with: 'This is test description'
             fill_in_datetime_select(
                 DateTime.strptime('2017/01/01 01:01:01', '%Y/%m/%d %H:%M:%S'),
                 'task_deadline')

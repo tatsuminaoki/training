@@ -1,5 +1,5 @@
 <div id="todo_app_task_list">
-  <h1><%= I18n.t('page.task.title.list') %></h1>
+  <h1><%= I18n.t('page.task.titles.list') %></h1>
 
   <div class="tool-bar">
     <div class="tool-bar-right tool-bar-item">
@@ -9,11 +9,11 @@
 
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title"><%= I18n.t('page.task.title.search') %></h4>
+      <h4 class="card-title"><%= I18n.t('page.task.titles.search') %></h4>
       <div class="card-text">
         <%= bootstrap_form_tag url: tasks_path, method: :get, enforce_utf8: false do |f| %>
           <%= f.select :sort, options_for_select(sort_pull_down, selected: @selected_sort),
-                       { label: I18n.t('page.task.label.sort') } %>
+                       { label: I18n.t('page.task.labels.sort') } %>
           <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
         <% end %>
       </div>
@@ -29,10 +29,10 @@
 <table id="task_table" class="table">
   <thead>
   <tr>
-    <th><%= I18n.t('page.task.label.status') %></th>
-    <th><%= I18n.t('page.task.label.title') %></th>
-    <th><%= I18n.t('page.task.label.deadline') %></th>
-    <th><%= I18n.t('page.task.label.created_at') %></th>
+    <th><%= I18n.t('page.task.labels.status') %></th>
+    <th><%= I18n.t('page.task.labels.title') %></th>
+    <th><%= I18n.t('page.task.labels.deadline') %></th>
+    <th><%= I18n.t('page.task.labels.created_at') %></th>
     <th><%= I18n.t('helpers.submit.edit') %></th>
     <th><%= I18n.t('helpers.submit.delete') %></th>
   </tr>
