@@ -28,37 +28,37 @@ RSpec.describe TasksHelper, type: :helper do
   describe '名称の取得' do
     context 'ステータス表示名のパターンテスト' do
       it '未着手が返却されること' do
-        expect(status_value('not_start')).to eq Task.human_attribute_name('status.not_start')
+        expect(status_value('not_start')).to eq Task.human_attribute_name('statuses.not_start')
       end
 
       it '進行中が返却されること' do
-        expect(status_value('progress')).to eq Task.human_attribute_name('status.progress')
+        expect(status_value('progress')).to eq Task.human_attribute_name('statuses.progress')
       end
 
       it '完了が返却されること' do
-        expect(status_value('done')).to eq Task.human_attribute_name('status.done')
+        expect(status_value('done')).to eq Task.human_attribute_name('statuses.done')
       end
     end
 
     context '優先順位表示名のパターンテスト' do
       it '低いが返却されること' do
-        expect(priority_value('low')).to eq Task.human_attribute_name('priority.low')
+        expect(priority_value('low')).to eq Task.human_attribute_name('priorities.low')
       end
 
       it '通常が返却されること' do
-        expect(priority_value('normal')).to eq Task.human_attribute_name('priority.normal')
+        expect(priority_value('normal')).to eq Task.human_attribute_name('priorities.normal')
       end
 
       it '高いが返却されること' do
-        expect(priority_value('high')).to eq Task.human_attribute_name('priority.high')
+        expect(priority_value('high')).to eq Task.human_attribute_name('priorities.high')
       end
 
       it '急いでが返却されること' do
-        expect(priority_value('quickly')).to eq Task.human_attribute_name('priority.quickly')
+        expect(priority_value('quickly')).to eq Task.human_attribute_name('priorities.quickly')
       end
 
       it '今すぐが返却されること' do
-        expect(priority_value('right_now')).to eq Task.human_attribute_name('priority.right_now')
+        expect(priority_value('right_now')).to eq Task.human_attribute_name('priorities.right_now')
       end
     end
   end

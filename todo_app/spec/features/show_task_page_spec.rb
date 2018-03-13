@@ -34,13 +34,13 @@ describe 'タスク詳細画面', type: :feature do
     it 'ステータスが表示されていること' do
       tr = find(:css, 'table tbody').all('tr')[3]
       expect(tr).to have_content(I18n.t('page.task.label.status'))
-      expect(tr).to have_content(Task.human_attribute_name('status.progress'))
+      expect(tr).to have_content(Task.human_attribute_name('statuses.progress'))
     end
 
     it '優先度が表示されていること' do
       tr = find(:css, 'table tbody').all('tr')[4]
       expect(tr).to have_content(I18n.t('page.task.label.priority'))
-      expect(tr).to have_content(Task.human_attribute_name('priority.high'))
+      expect(tr).to have_content(Task.human_attribute_name('priorities.high'))
     end
   end
 

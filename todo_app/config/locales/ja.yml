@@ -10,17 +10,17 @@ ja:
     models:
       task: タスク
     attributes:
-      task/status:
+      task/statuses:
         not_start: 未着手
         progress: 進行中
         done: 完了
-      task/priority:
+      task/priorities:
         low: 低い
         normal: 通常
         high: 高い
         quickly: 急いで
         right_now: 今すぐ
-      task/sort_kind:
+      task/sort_kinds:
         created_at: 新着順
         deadline: 期日が近い順
   date:

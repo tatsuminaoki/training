@@ -63,7 +63,7 @@ describe 'タスク一覧画面', type: :feature do
 
         visit '/'
         within('.card-text') do
-          select Task.human_attribute_name("sort_kind.#{sort}"), from: 'sort'
+          select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'sort'
         end
         click_on I18n.t('helpers.submit.search')
       end

@@ -16,14 +16,14 @@ module TasksHelper
   end
 
   def sort_pull_down
-    Task::SORT_KINDS.map { |key| [Task.human_attribute_name("sort_kind.#{key}"), key]}
+    Task::SORT_KINDS.map { |key| [Task.human_attribute_name("sort_kinds.#{key}"), key]}
   end
 
   def status_value(key)
-    Task.human_attribute_name("status.#{key}")
+    Task.human_attribute_name("statuses.#{key}")
   end
 
   def priority_value(key)
-    Task.human_attribute_name("priority.#{key}")
+    Task.human_attribute_name("priorities.#{key}")
   end
 end
