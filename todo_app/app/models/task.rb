@@ -19,8 +19,14 @@ class Task < ApplicationRecord
   end
 
   def self.search(params)
+    query = self
+    query = query.where(title: params[:title]) if params[:title].present?
+    query = query.where(status: params[:status]) if params[:status].present?
+
     sort = params[:sort].present? && valid_column_name?(params[:sort]) ? params[:sort] : :created_at
-    all.order(sort.to_sym).order(:id).reverse_order
+    query = query.all.order(sort.to_sym).order(:id).reverse_order
+
+    query
   end
 
   private
