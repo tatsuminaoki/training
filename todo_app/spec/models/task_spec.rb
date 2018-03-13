@@ -110,7 +110,7 @@ describe Task, type: :model do
       (1..10).to_a.each {|i| create(:task,
                                     title: "Rspec test #{i}",
                                     deadline: "2018/1/#{11 - i} 01:01:01",
-                                    status: (i%2 == 0 ? 'not_start' : 'done'),
+                                    status: (i.even? ? 'not_start' : 'done'),
                                     created_at: "2018/1/1 0:0:#{i}" )}
     end
 
