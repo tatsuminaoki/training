@@ -18,7 +18,6 @@
           <%= f.select :search_sort, options_for_select(sort_pull_down, selected: @search_sort),
                        { label: I18n.t('page.task.labels.sort') } %>
           <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
-
         <% end %>
       </div>
     </div>
