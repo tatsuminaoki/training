@@ -110,6 +110,7 @@ describe 'タスク一覧画面', type: :feature do
 
         it '入力値に完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
+          expect(first('table#task_table tbody tr')).to have_link('Rspec test 1')
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
@@ -131,6 +132,9 @@ describe 'タスク一覧画面', type: :feature do
 
         it '選択したステータスに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 5)
+          all('table#task_table tbody tr').each do |td|
+            expect(td).to have_content(Task.human_attribute_name('statuses.done'))
+          end
         end
 
         it '入力したステータスが検索後の画面で表示されていること' do
@@ -153,6 +157,8 @@ describe 'タスク一覧画面', type: :feature do
 
         it '選択したタスク名とステータスに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
+          expect(first('table#task_table tbody tr')).to have_link('Rspec test 1')
+          expect(first('table#task_table tbody tr')).to have_content(Task.human_attribute_name('statuses.done'))
         end
       end
     end
