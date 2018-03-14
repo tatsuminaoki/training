@@ -88,7 +88,7 @@ describe 'タスク一覧画面', type: :feature do
     end
 
     describe '一覧を絞り込む' do
-      context 'タスク名で絞り込みたい場合' do
+      context 'タイトルで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
@@ -101,7 +101,7 @@ describe 'タスク一覧画面', type: :feature do
           expect(first('table#task_table tbody tr')).to have_link('Rspec test 1')
         end
 
-        it '入力したタスク名が検索後の画面で表示されていること' do
+        it '入力したタイトルが検索後の画面で表示されていること' do
           expect(page.find('#search_title').value).to eq 'Rspec test 1'
         end
       end
@@ -126,7 +126,7 @@ describe 'タスク一覧画面', type: :feature do
         end
       end
 
-      context 'タスク名とステータスで絞り込みたい場合' do
+      context 'タイトルとステータスで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
@@ -137,7 +137,7 @@ describe 'タスク一覧画面', type: :feature do
           click_on I18n.t('helpers.submit.search')
         end
 
-        it '選択したタスク名とステータスに完全に一致するタスクのみ表示されていること' do
+        it '選択したタイトルとステータスに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
           expect(first('table#task_table tbody tr')).to have_link('Rspec test 1')
           expect(first('table#task_table tbody tr')).to have_content(Task.human_attribute_name('statuses.done'))
