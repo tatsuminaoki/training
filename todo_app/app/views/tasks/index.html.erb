@@ -12,10 +12,10 @@
       <h4 class="card-title"><%= I18n.t('page.task.titles.search') %></h4>
       <div class="card-text">
         <%= bootstrap_form_tag url: tasks_path, method: :get, enforce_utf8: false do |f| %>
-          <%= f.text_field :title, value: @input_title, label: I18n.t('page.task.labels.title') %>
-          <%= f.select :status, options_for_select(status_pull_down, selected: @selected_status),
+          <%= f.text_field :search_title, value: @search_title, label: I18n.t('page.task.labels.title') %>
+          <%= f.select :search_status, options_for_select(status_pull_down, selected: @search_status),
                        { label: I18n.t('page.task.labels.status') } %>
-          <%= f.select :sort, options_for_select(sort_pull_down, selected: @selected_sort),
+          <%= f.select :search_sort, options_for_select(sort_pull_down, selected: @search_sort),
                        { label: I18n.t('page.task.labels.sort') } %>
           <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
 

@@ -65,7 +65,7 @@ describe 'タスク一覧画面', type: :feature do
 
         visit '/'
         within('.card-text') do
-          select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'sort'
+          select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort'
         end
         click_on I18n.t('helpers.submit.search')
       end
@@ -78,7 +78,7 @@ describe 'タスク一覧画面', type: :feature do
             expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 10 - idx)}")
           end
 
-          expect(page.find('#sort').value).to eq 'created_at'
+          expect(page.find('#search_sort').value).to eq 'created_at'
         end
       end
 
@@ -90,7 +90,7 @@ describe 'タスク一覧画面', type: :feature do
             expect(td).to have_content("2018/02/#{format('%02d', 10 - idx)} 01:01:01")
           end
 
-          expect(page.find('#sort').value).to eq 'deadline'
+          expect(page.find('#search_sort').value).to eq 'deadline'
         end
       end
     end
@@ -113,7 +113,7 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
-          expect(page.find('#title').value).to eq 'Rspec test 1'
+          expect(page.find('#search_title').value).to eq 'Rspec test 1'
         end
       end
 
@@ -124,7 +124,7 @@ describe 'タスク一覧画面', type: :feature do
           visit '/'
 
           within('.card-text') do
-            select Task.human_attribute_name('statuses.done'), from: 'status'
+            select Task.human_attribute_name('statuses.done'), from: 'search_status'
           end
           click_on I18n.t('helpers.submit.search')
         end
@@ -134,7 +134,7 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したステータスが検索後の画面で表示されていること' do
-          expect(page.find('#status').value).to eq 'done'
+          expect(page.find('#search_status').value).to eq 'done'
         end
       end
 
@@ -146,7 +146,7 @@ describe 'タスク一覧画面', type: :feature do
 
           within('.card-text') do
             fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
-            select Task.human_attribute_name('statuses.done'), from: 'status'
+            select Task.human_attribute_name('statuses.done'), from: 'search_status'
           end
           click_on I18n.t('helpers.submit.search')
         end
