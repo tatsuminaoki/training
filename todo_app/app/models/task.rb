@@ -17,8 +17,7 @@ class Task < ApplicationRecord
       query = self
       query = query.where(title: title) if title.present?
       query = query.where(status: status) if status.present?
-      query = query.order(sort_column(sort) => :desc, :id => :desc)
-      query
+      query.order(sort_column(sort) => :desc, :id => :desc)
     end
 
     def sort_column(value)
