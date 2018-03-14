@@ -109,7 +109,7 @@ describe Task, type: :model do
   describe 'タスクの取得操作' do
     describe 'ソート順' do
       context '作成時刻順に取得したい場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+        before { (1..10).to_a.reverse_each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
 
         it 'created_atの降順で取得できること' do
           task = Task.search(sort: :created_at).first
@@ -118,8 +118,9 @@ describe Task, type: :model do
 
         context 'created_atが同一の場合' do
           it 'idの降順で取得できること' do
+            Task.update_all(created_at: "2018/1/1 01:01:01")
             task = Task.search(sort: :created_at).first
-            expect(task.title).to eq 'Rspec test 10'
+            expect(task.title).to eq 'Rspec test 1'
           end
         end
       end
@@ -134,8 +135,26 @@ describe Task, type: :model do
 
         context 'deadlineが同一の場合' do
           it 'idの降順で取得できること' do
+            Task.update_all(deadline: "2018/1/1 01:01:01")
             task = Task.search(sort: :deadline).first
-            expect(task.title).to eq 'Rspec test 1'
+            expect(task.title).to eq 'Rspec test 10'
+          end
+        end
+      end
+
+      context '優先度順に取得したい場合' do
+        before { (0..4).to_a.reverse_each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
+
+        it 'priorityの降順で取得できること' do
+          task = Task.search(sort: :priority).first
+          expect(task.title).to eq 'Rspec test 4'
+        end
+
+        context 'priorityが同一の場合' do
+          it 'idの降順で取得できること' do
+            Task.update_all(priority: 0)
+            task = Task.search(sort: :priority).first
+            expect(task.title).to eq 'Rspec test 0'
           end
         end
       end

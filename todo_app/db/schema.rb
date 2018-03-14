@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20180313023549) do
     t.string "description"
     t.datetime "deadline", null: false
     t.string "status", limit: 10, null: false
-    t.integer "priority", limit: 1
+    t.integer "priority", limit: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_tasks_on_status"
