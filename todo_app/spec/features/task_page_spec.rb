@@ -129,11 +129,11 @@ describe 'タスク一覧画面', type: :feature do
           click_on I18n.t('helpers.submit.search')
         end
 
-        it '選択したタスクに完全に一致するタスクのみ表示されていること' do
+        it '選択したステータスに完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 5)
         end
 
-        it '入力したタスク名が検索後の画面で表示されていること' do
+        it '入力したステータスが検索後の画面で表示されていること' do
           expect(page.find('#status').value).to eq 'done'
         end
       end
