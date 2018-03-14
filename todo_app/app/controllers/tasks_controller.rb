@@ -5,7 +5,8 @@ class TasksController < ApplicationController
     @search_title = params[:search_title]
     @search_status = params[:search_status]
     @search_sort = params[:search_sort]
-    @tasks = Task.search(title: @search_title, status: @search_status, sort: @search_sort)
+    @page = params[:page]
+    @tasks = Task.search(title: @search_title, status: @search_status, sort: @search_sort, page: @page)
   end
 
   def new
