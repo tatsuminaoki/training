@@ -109,15 +109,18 @@ describe Task, type: :model do
   describe 'タスクの取得操作' do
     describe 'ソート順' do
       context '作成時刻順に取得したい場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{11 - i}") }
+        end
 
         it 'created_atの降順で取得できること' do
           task = Task.search(sort: :created_at).first
-          expect(task.title).to eq 'Rspec test 10'
+          expect(task.title).to eq 'Rspec test 1'
         end
 
         context 'created_atが同一の場合' do
           it 'idの降順で取得できること' do
+            Task.update_all(created_at: "2018/1/1 01:01:01")
             task = Task.search(sort: :created_at).first
             expect(task.title).to eq 'Rspec test 10'
           end
@@ -125,27 +128,30 @@ describe Task, type: :model do
       end
 
       context '期日順に取得したい場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") } }
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") }
+        end
 
         it 'deadlineの降順で取得できること' do
           task = Task.search(sort: :deadline).first
           expect(task.title).to eq 'Rspec test 1'
         end
 
-        context 'deadlineが同一の場合' do
+        context 'deadlinetが同一の場合' do
           it 'idの降順で取得できること' do
+            Task.update_all(deadline: "2018/1/1 01:01:01")
             task = Task.search(sort: :deadline).first
-            expect(task.title).to eq 'Rspec test 1'
+            expect(task.title).to eq 'Rspec test 10'
           end
         end
-      end
 
-      context '存在しないカラム名でソート順を指定した場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+        context '存在しないカラム名でソート順を指定した場合' do
+          before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
 
-        it 'デフォルトでcreated_atの降順で取得されること' do
-          task = Task.search(sort: :invalid_column).first
-          expect(task.title).to eq 'Rspec test 10'
+          it 'デフォルトでcreated_atの降順で取得されること' do
+            task = Task.search(sort: :invalid_column).first
+            expect(task.title).to eq 'Rspec test 10'
+          end
         end
       end
     end
@@ -168,6 +174,17 @@ describe Task, type: :model do
           expect(num).to eq 5
           task = Task.search(status: 'done').first
           expect(task.title).to eq 'Rspec test 9'
+        end
+      end
+
+      context '存在しないカラム名でソート順を指定した場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
+        end
+
+        it 'デフォルトでcreated_atの降順で取得されること' do
+          task = Task.search(sort: :invalid_column).first
+          expect(task.title).to eq 'Rspec test 10'
         end
       end
     end
