@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Task, type: :model do
@@ -9,12 +11,12 @@ describe Task, type: :model do
       end
 
       it 'タイトルが50文字以下であれば有効な状態であること' do
-        task = build(:task, title:  'a' * 50)
+        task = build(:task, title: 'a' * 50)
         expect(task).to be_valid
       end
 
       it '説明が255文字以下であれば有効な状態であること' do
-        task = build(:task, description:  'a' * 255)
+        task = build(:task, description: 'a' * 255)
         expect(task).to be_valid
       end
     end
@@ -27,7 +29,7 @@ describe Task, type: :model do
       end
 
       it 'タイトルが51文字以上の場合、無効な状態であること' do
-        task = build(:task, title:  'a' * 51)
+        task = build(:task, title: 'a' * 51)
         expect(task).to be_invalid
         expect(task.errors[:title][0]).to eq I18n.t('errors.messages.too_long', count: 50)
       end
@@ -102,20 +104,13 @@ describe Task, type: :model do
         expect(task.destroy.title).to eq 'Rspec test 0123'
       end
     end
-
   end
 
   describe 'タスクの取得操作' do
-    before do
-      (1..10).to_a.each {|i| create(:task,
-                                    title: "Rspec test #{i}",
-                                    deadline: "2018/1/#{11 - i} 01:01:01",
-                                    status: (i%2 == 0 ? 'not_start' : 'done'),
-                                    created_at: "2018/1/1 0:0:#{i}" )}
-    end
-
     describe 'ソート順' do
       context '作成時刻順に取得したい場合' do
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+
         it 'created_atの降順で取得できること' do
           task = Task.search(sort: :created_at).first
           expect(task.title).to eq 'Rspec test 10'
@@ -130,12 +125,14 @@ describe Task, type: :model do
       end
 
       context '期日順に取得したい場合' do
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") } }
+
         it 'deadlineの降順で取得できること' do
           task = Task.search(sort: :deadline).first
           expect(task.title).to eq 'Rspec test 1'
         end
 
-        context 'deadlinetが同一の場合' do
+        context 'deadlineが同一の場合' do
           it 'idの降順で取得できること' do
             task = Task.search(sort: :deadline).first
             expect(task.title).to eq 'Rspec test 1'
@@ -144,6 +141,8 @@ describe Task, type: :model do
       end
 
       context '存在しないカラム名でソート順を指定した場合' do
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+
         it 'デフォルトでcreated_atの降順で取得されること' do
           task = Task.search(sort: :invalid_column).first
           expect(task.title).to eq 'Rspec test 10'
@@ -152,6 +151,8 @@ describe Task, type: :model do
     end
 
     describe '絞り込み' do
+      before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) } }
+
       context 'タイトルでの絞り込み' do
         it 'タイトルに完全に一致する内容を取得できること' do
           num = Task.search(title: 'Rspec test 1').count

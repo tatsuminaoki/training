@@ -12,13 +12,13 @@
     </div>
   <% end %>
 
-  <%= t.text_field :title, label: I18n.t('page.task.label.title') %>
-  <%= t.text_area :description, label: I18n.t('page.task.label.description')  %>
-  <%= t.datetime_select :deadline, label: I18n.t('page.task.label.deadline')  %>
+  <%= t.text_field :title, label: I18n.t('page.task.labels.title') %>
+  <%= t.text_area :description, label: I18n.t('page.task.labels.description')  %>
+  <%= t.datetime_select :deadline, label: I18n.t('page.task.labels.deadline')  %>
   <%= t.select :status, status_pull_down,
-               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.label.status')) } %>
+               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.status')) } %>
   <%= t.select :priority,priority_pull_down,
-               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.label.priority')) } %>
+               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.priority')) } %>
 
   <%= t.submit submit_btn_name, class: "btn btn-success" %>
   <%= link_to I18n.t('helpers.submit.cancel'), tasks_path, {:class=>"btn btn-default"} %>
