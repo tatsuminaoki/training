@@ -1,12 +1,13 @@
-class TasksController < ApplicationController
+# frozen_string_literal: true
 
+class TasksController < ApplicationController
   def index
     @input_title = params[:title]
     @selected_status = params[:status]
     @selected_sort = params[:sort]
-    @tasks = Task.search(sort: @selected_sort)
+    @tasks = Task.search(title: @input_title, status: @selected_status, sort: @selected_sort)
   end
-git
+
   def new
     @task = Task.new
   end

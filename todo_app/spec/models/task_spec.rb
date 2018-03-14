@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Task, type: :model do
@@ -9,12 +11,12 @@ describe Task, type: :model do
       end
 
       it 'タイトルが50文字以下であれば有効な状態であること' do
-        task = build(:task, title:  'a' * 50)
+        task = build(:task, title: 'a' * 50)
         expect(task).to be_valid
       end
 
       it '説明が255文字以下であれば有効な状態であること' do
-        task = build(:task, description:  'a' * 255)
+        task = build(:task, description: 'a' * 255)
         expect(task).to be_valid
       end
     end
@@ -27,7 +29,7 @@ describe Task, type: :model do
       end
 
       it 'タイトルが51文字以上の場合、無効な状態であること' do
-        task = build(:task, title:  'a' * 51)
+        task = build(:task, title: 'a' * 51)
         expect(task).to be_invalid
         expect(task.errors[:title][0]).to eq I18n.t('errors.messages.too_long', count: 50)
       end
@@ -102,16 +104,17 @@ describe Task, type: :model do
         expect(task.destroy.title).to eq 'Rspec test 0123'
       end
     end
-
   end
 
   describe 'タスクの取得操作' do
     before do
-      (1..10).to_a.each {|i| create(:task,
-                                    title: "Rspec test #{i}",
-                                    deadline: "2018/1/#{11 - i} 01:01:01",
-                                    status: (i.even? ? 'not_start' : 'done'),
-                                    created_at: "2018/1/1 0:0:#{i}" )}
+      (1..10).to_a.each do |i|
+        create(:task,
+               title: "Rspec test #{i}",
+               deadline: "2018/1/#{11 - i} 01:01:01",
+               status: (i.even? ? 'not_start' : 'done'),
+               created_at: "2018/1/1 0:0:#{i}")
+      end
     end
 
     describe 'ソート順' do

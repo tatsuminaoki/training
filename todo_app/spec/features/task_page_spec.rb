@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'タスク一覧画面', type: :feature do
@@ -37,7 +39,7 @@ describe 'タスク一覧画面', type: :feature do
 
   context '複数のタスクが登録されている場合', type: :feature do
     before do
-      (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}" )}
+      (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
     end
 
     context '初期表示の場合' do
@@ -50,7 +52,7 @@ describe 'タスク一覧画面', type: :feature do
         visit '/'
         all('table#task_table tbody tr').reverse_each.with_index do |td, idx|
           # 作成時に登録順でインクリメントしているので、idでソートされていると名前も昇順になっている
-          expect(td).to have_selector('a', text: "Rspec test #{idx+1}")
+          expect(td).to have_selector('a', text: "Rspec test #{idx + 1}")
         end
       end
     end
@@ -59,36 +61,36 @@ describe 'タスク一覧画面', type: :feature do
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
       before do
-        (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", deadline: "2018/2/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}" )}
+        (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/2/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}") }
 
         visit '/'
         within('.card-text') do
-          select Task.human_attribute_name("sort_kind.#{sort}"), from: 'sort'
+          select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'sort'
         end
         click_on I18n.t('helpers.submit.search')
       end
 
       context '新着順でソートしたい場合' do
-        let (:sort) {'created_at'}
+        let (:sort) { 'created_at' }
 
         it 'created_atの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
-            expect(td).to have_content("2018/01/01 00:00:#{format('%02d',10 - idx)}")
+            expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 10 - idx)}")
           end
 
-          expect(page.find_by_id('sort').value).to eq 'created_at'
+          expect(page.find('#sort').value).to eq 'created_at'
         end
       end
 
       context '期日が近い順でソートしたい場合' do
-        let (:sort) {'deadline'}
+        let (:sort) { 'deadline' }
 
         it 'deadlineの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
-            expect(td).to have_content("2018/02/#{format('%02d',10 - idx)} 01:01:01")
+            expect(td).to have_content("2018/02/#{format('%02d', 10 - idx)} 01:01:01")
           end
 
-          expect(page.find_by_id('sort').value).to eq 'deadline'
+          expect(page.find('#sort').value).to eq 'deadline'
         end
       end
     end
@@ -96,12 +98,12 @@ describe 'タスク一覧画面', type: :feature do
     describe '一覧を絞り込む' do
       context 'タスク名で絞り込みたい場合' do
         before do
-          (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}")}
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
 
           visit '/'
 
           within('.card-text') do
-            fill_in I18n.t('page.task.label.title'), with: 'Rspec test 2'
+            fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
           end
           click_on I18n.t('helpers.submit.search')
         end
@@ -111,18 +113,18 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
-          expect(page.find_by_id('title').value).to eq 'Rspec test 2'
+          expect(page.find('#title').value).to eq 'Rspec test 1'
         end
       end
 
       context 'ステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each {|i| create(:task, status: (i.even? ? 'not_start' : 'done'))}
+          (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
 
           visit '/'
 
           within('.card-text') do
-            select Task.human_attribute_name('status.done'), from: 'status'
+            select Task.human_attribute_name('statuses.done'), from: 'status'
           end
           click_on I18n.t('helpers.submit.search')
         end
@@ -132,19 +134,19 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したタスク名が検索後の画面で表示されていること' do
-          expect(page.find_by_id('status').value).to eq 'done'
+          expect(page.find('#status').value).to eq 'done'
         end
       end
 
       context 'タスク名とステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each {|i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done'))}
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
 
           visit '/'
 
           within('.card-text') do
-            fill_in I18n.t('page.task.label.title'), with: 'Rspec test 1'
-            select Task.human_attribute_name('status.done'), from: 'status'
+            fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
+            select Task.human_attribute_name('statuses.done'), from: 'status'
           end
           click_on I18n.t('helpers.submit.search')
         end
@@ -186,7 +188,7 @@ describe 'タスク一覧画面', type: :feature do
   end
 
   context 'タスクの削除したい場合', type: :feature do
-    before { create(:task, title: 'Rspec test 1' ) }
+    before { create(:task, title: 'Rspec test 1') }
 
     context '確認ダイアログでキャンセルボタンを押した場合' do
       it '対象行は削除されないこと' do

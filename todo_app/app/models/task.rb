@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
@@ -8,16 +10,20 @@ class Task < ApplicationRecord
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
   enum priority: Hash[%i[low normal high quickly right_now].map { |sym| [sym, sym.to_s] }].freeze
 
-  SORT_KIND = %i(created_at deadline).freeze
+  SORT_KINDS = %i[created_at deadline].freeze
 
   class << self
-    def search(sort: 'created_at')
-      order(sort_column(sort) => :desc, :id => :desc)
+    def search(title: nil, status: nil, sort: 'created_at')
+      query = self
+      query = query.where(title: title) if title.present?
+      query = query.where(status: status) if status.present?
+      query = query.order(sort_column(sort) => :desc, :id => :desc)
+      query
     end
 
     def sort_column(value)
-      return :created_at unless value.present?
-      SORT_KIND.find { |column| column == value.to_sym } || :created_at
+      return :created_at if value.blank?
+      SORT_KINDS.find { |column| column == value.to_sym } || :created_at
     end
   end
 
@@ -28,17 +34,8 @@ class Task < ApplicationRecord
   end
 
   def valid_datetime?
-    DateTime.parse(deadline.to_s).present? rescue false
+    DateTime.parse(deadline.to_s).getlocal.present?
+  rescue
+    false
   end
-
-  # def self.search(params)
-  #   query = self
-  #   query = query.where(title: params[:title]) if params[:title].present?
-  #   query = query.where(status: params[:status]) if params[:status].present?
-  #
-  #   sort = params[:sort].present? && valid_column_name?(params[:sort]) ? params[:sort] : :created_at
-  #   query = query.all.order(sort.to_sym).order(:id).reverse_order
-  #
-  #   query
-  # end
 end
