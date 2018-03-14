@@ -13,7 +13,7 @@ class Task < ApplicationRecord
   SORT_KINDS = %i[created_at deadline priority].freeze
 
   class << self
-    def search(title: nil, status: nil, sort: 'created_at', page: 0)
+    def search(title: nil, status: nil, sort: 'created_at', page: 1)
       query = self
       query = query.where(title: title) if title.present?
       query = query.where(status: status) if status.present?

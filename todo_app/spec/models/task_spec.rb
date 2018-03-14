@@ -205,6 +205,28 @@ describe Task, type: :model do
         end
       end
     end
+
+    describe 'ページングの仕組み' do
+      before { (1..20).to_a.each { |i| create(:task, title: "Rspec test #{i}") } }
+
+      context 'ページ番号を指定しない場合' do
+        it '1~10件目のデータが取得できること' do
+          tasks = Task.search
+          expect(tasks.size).to eq 10
+          # created_atでソートされるのでtitleは20スタート
+          tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{20 - i}" }
+        end
+      end
+
+      context 'ページ番号を指定した場合' do
+        it '2を指定すると11~20件目のデータが取得できること' do
+          tasks = Task.search(page: 2)
+          expect(tasks.size).to eq 10
+          # created_atでソートされるのでtitleは10スタート
+          tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{10 - i}" }
+        end
+      end
+    end
   end
 
   describe 'enum' do
