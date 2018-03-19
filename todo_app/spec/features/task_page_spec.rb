@@ -123,7 +123,7 @@ describe 'タスク一覧画面', type: :feature do
           end
         end
 
-        it '入力したステータスが検索後の画面で表示されていること' do
+        it '入力したステータスが検索後の画面で選択されていること' do
           expect(page.find('#search_status').value).to eq 'done'
         end
       end
