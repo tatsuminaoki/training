@@ -151,7 +151,7 @@ describe Task, type: :model do
 
         it 'priorityの降順で取得できること' do
           task = Task.search(sort: :priority).first
-          expect(task.title).to eq 'Rspec test 4'
+          expect(task.priority).to eq 'right_now'
         end
 
         context 'priorityが同一の場合' do
