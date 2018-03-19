@@ -144,14 +144,31 @@ describe Task, type: :model do
             expect(task.title).to eq 'Rspec test 10'
           end
         end
+      end
 
-        context '存在しないカラム名でソート順を指定した場合' do
-          before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+      context '優先度順に取得したい場合' do
+        before { (0..4).to_a.each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
 
-          it 'デフォルトでcreated_atの降順で取得されること' do
-            task = Task.search(sort: :invalid_column).first
-            expect(task.title).to eq 'Rspec test 10'
+        it 'priorityの降順で取得できること' do
+          task = Task.search(sort: :priority).first
+          expect(task.priority).to eq 'right_now'
+        end
+
+        context 'priorityが同一の場合' do
+          it 'idの降順で取得できること' do
+            Task.update_all(priority: 0)
+            task = Task.search(sort: :priority).first
+            expect(task.title).to eq 'Rspec test 4'
           end
+        end
+      end
+
+      context '存在しないカラム名でソート順を指定した場合' do
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+
+        it 'デフォルトでcreated_atの降順で取得されること' do
+          task = Task.search(sort: :invalid_column).first
+          expect(task.title).to eq 'Rspec test 10'
         end
       end
     end
@@ -215,23 +232,23 @@ describe Task, type: :model do
       end
 
       it '低いがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:low]).to eq 'low'
+        expect(Task.priorities[:low]).to eq 0
       end
 
       it '普通がhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:normal]).to eq 'normal'
+        expect(Task.priorities[:normal]).to eq 1
       end
 
       it '高いがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:high]).to eq 'high'
+        expect(Task.priorities[:high]).to eq 2
       end
 
       it '急いでがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:quickly]).to eq 'quickly'
+        expect(Task.priorities[:quickly]).to eq 3
       end
 
       it '今すぐがhashで同一key:val名で存在すること' do
-        expect(Task.priorities[:right_now]).to eq 'right_now'
+        expect(Task.priorities[:right_now]).to eq 4
       end
     end
   end

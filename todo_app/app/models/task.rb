@@ -8,9 +8,9 @@ class Task < ApplicationRecord
   validate :validate_datetime
 
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
-  enum priority: Hash[%i[low normal high quickly right_now].map { |sym| [sym, sym.to_s] }].freeze
+  enum priority: %i[low normal high quickly right_now].freeze
 
-  SORT_KINDS = %i[created_at deadline].freeze
+  SORT_KINDS = %i[created_at deadline priority].freeze
 
   class << self
     def search(title: nil, status: nil, sort: 'created_at')

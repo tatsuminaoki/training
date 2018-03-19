@@ -34,6 +34,7 @@
   <tr>
     <th><%= I18n.t('page.task.labels.status') %></th>
     <th><%= I18n.t('page.task.labels.title') %></th>
+    <th><%= I18n.t('page.task.labels.priority') %></th>
     <th><%= I18n.t('page.task.labels.deadline') %></th>
     <th><%= I18n.t('page.task.labels.created_at') %></th>
     <th><%= I18n.t('helpers.submit.edit') %></th>
@@ -45,6 +46,7 @@
     <tr>
       <td><%= status_value task.status %></td>
       <td><%= link_to task.title, task_path(task) %></td>
+      <td><%= priority_value task.priority %></td>
       <td><%= task.deadline.to_s %></td>
       <td><%= task.created_at.to_s %></td>
       <td>
