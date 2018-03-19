@@ -16,7 +16,7 @@ describe 'タスク一覧画面', type: :feature do
       visit root_path
     end
 
-    let!(:record) { first(:css, 'table#task_table tbody tr') }
+    let(:record) { first(:css, 'table#task_table tbody tr') }
 
     it '登録した1件のタスクがテーブルに表示されていること' do
       expect(page).to have_css('table#task_table tbody tr', count: 1)
@@ -88,21 +88,23 @@ describe 'タスク一覧画面', type: :feature do
     end
 
     describe '一覧を絞り込む' do
+      let(:task_title) { 'Rspec test 1' }
+
       context 'タイトルで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
-          within('.card-text') { fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1' }
+          within('.card-text') { fill_in I18n.t('page.task.labels.title'), with: task_title }
           click_on I18n.t('helpers.submit.search')
         end
 
         it '入力値に完全に一致するタスクのみ表示されていること' do
           expect(page).to have_css('table#task_table tbody tr', count: 1)
-          expect(first('table#task_table tbody tr')).to have_link('Rspec test 1')
+          expect(first('table#task_table tbody tr')).to have_link(task_title)
         end
 
         it '入力したタイトルが検索後の画面で表示されていること' do
-          expect(page.find('#search_title').value).to eq 'Rspec test 1'
+          expect(page.find('#search_title').value).to eq task_title
         end
       end
 
