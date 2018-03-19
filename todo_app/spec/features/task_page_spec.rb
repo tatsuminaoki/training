@@ -66,7 +66,7 @@ describe 'タスク一覧画面', type: :feature do
       context '新着順でソートしたい場合' do
         before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
 
-        let!(:sort) { 'created_at' }
+        let(:sort) { 'created_at' }
 
         it 'created_atの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
@@ -79,7 +79,7 @@ describe 'タスク一覧画面', type: :feature do
       context '期日が近い順でソートしたい場合' do
         before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{i} 01:01:01") } }
 
-        let!(:sort) { 'deadline' }
+        let(:sort) { 'deadline' }
 
         it 'deadlineの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
@@ -92,7 +92,7 @@ describe 'タスク一覧画面', type: :feature do
       context '優先度が高い順でソートしたい場合' do
         before { (0..4).to_a.each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
 
-        let!(:sort) { 'priority' }
+        let(:sort) { 'priority' }
 
         let(:priorities) { Task.priorities.keys.reverse }
 
