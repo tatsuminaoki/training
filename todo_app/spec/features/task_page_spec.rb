@@ -94,7 +94,7 @@ describe 'タスク一覧画面', type: :feature do
 
         let!(:sort) { 'priority' }
 
-        let!(:priorities) { Task.priorities.keys.reverse }
+        let(:priorities) { Task.priorities.keys.reverse }
 
         it 'priorityの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
