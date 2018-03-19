@@ -38,9 +38,10 @@ describe 'タスク一覧画面', type: :feature do
   context '複数のタスクが登録されている場合', type: :feature do
     before do
       (1..100).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: Time.new('2018/01/01 00:00:00').getlocal + i) }
-      @last_create_at = Time.new('2018/01/01 00:00:00').getlocal + 100
       visit root_path
     end
+
+    let!(:last_create_at) { Time.new('2018/01/01 00:00:00').getlocal + 100 }
 
     context '初期表示の場合' do
       it '絞り込み条件なしで上位10件のデータがテーブルに表示されていること' do
@@ -49,14 +50,14 @@ describe 'タスク一覧画面', type: :feature do
 
       it 'created_atの降順で表示されていること' do
         all('table#task_table tbody tr').each.with_index do |td, idx|
-          expect(td).to have_content((@last_create_at - idx).to_s)
+          expect(td).to have_content((last_create_at - idx).to_s)
         end
       end
 
       it 'ページをクリックすると次の10件が取得できること' do
         find_link('次').click
         all('table#task_table tbody tr').each.with_index do |td, idx|
-          expect(td).to have_content((@last_create_at - idx - 10).to_s)
+          expect(td).to have_content((last_create_at - idx - 10).to_s)
         end
       end
     end
