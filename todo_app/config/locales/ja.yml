@@ -10,16 +10,19 @@ ja:
     models:
       task: タスク
     attributes:
-      task/status:
+      task/statuses:
         not_start: 未着手
         progress: 進行中
         done: 完了
-      task/priority:
+      task/priorities:
         low: 低い
         normal: 通常
         high: 高い
         quickly: 急いで
         right_now: 今すぐ
+      task/sort_kinds:
+        created_at: 新着順
+        deadline: 期日が近い順
   date:
     abbr_day_names:
     - 日
@@ -171,6 +174,7 @@ ja:
       delete: 削除
       cancel: キャンセル
       back: 戻る
+      search: 検索
   number:
     currency:
       format:
@@ -234,14 +238,17 @@ ja:
       login: ログイン
       logout: ログアウト
     task:
-      title:
+      titles:
         list: タスク一覧
         new: タスク登録
         edit: タスク編集
         show: タスク参照
-      label:
+        search: 検索
+      labels:
         title: タスク
         description: 内容
         deadline: 期日
         status: ステータス
         priority: 優先度
+        created_at: 作成日時
+        sort: ソート

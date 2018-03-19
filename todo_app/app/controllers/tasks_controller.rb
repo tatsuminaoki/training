@@ -1,7 +1,9 @@
-class TasksController < ApplicationController
+# frozen_string_literal: true
 
+class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc, id: :desc)
+    @selected_sort = params[:sort]
+    @tasks = Task.search(sort: @selected_sort)
   end
 
   def new

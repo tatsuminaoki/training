@@ -1,6 +1,20 @@
 .row {
   display: block !important;
   flex-wrap: nowrap !important;
+
+  .tool-bar {
+    height: 70px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .tool-bar-right {
+      float: right;
+    }
+
+    .tool-bar-item {
+      margin: 5px;
+    }
+  }
 }
 a.trash-button {
   color: red !important;
