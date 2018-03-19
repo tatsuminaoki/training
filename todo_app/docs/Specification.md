@@ -46,7 +46,7 @@ Google Chrome最新版をサポートする
 
 ERは以下の通り
 
-![image](images/ER_todo_app_v1.png)
+![image](images/ER_todo_app_v2.png)
 
 **補足事項**
 
@@ -54,5 +54,3 @@ ERは以下の通り
 - labelsテーブルは、タスク登録画面でラベルを登録した際に永続化する
 - タスク登録画面でラベルを削除した場合、labels_relationを消してlabelsテーブルは残したままとする
     - 次回使いたいときに再利用するため
-
-    

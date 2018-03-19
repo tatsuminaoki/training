@@ -147,18 +147,18 @@ describe Task, type: :model do
       end
 
       context '優先度順に取得したい場合' do
-        before { (0..4).to_a.reverse_each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
+        before { (0..4).to_a.each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
 
         it 'priorityの降順で取得できること' do
           task = Task.search(sort: :priority).first
-          expect(task.title).to eq 'Rspec test 4'
+          expect(task.priority).to eq 'right_now'
         end
 
         context 'priorityが同一の場合' do
           it 'idの降順で取得できること' do
             Task.update_all(priority: 0)
             task = Task.search(sort: :priority).first
-            expect(task.title).to eq 'Rspec test 0'
+            expect(task.title).to eq 'Rspec test 4'
           end
         end
       end
