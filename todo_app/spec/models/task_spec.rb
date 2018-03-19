@@ -107,52 +107,85 @@ describe Task, type: :model do
   end
 
   describe 'タスクの取得操作' do
-    context '作成時刻順に取得したい場合' do
-      before do
-        (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{11 - i}") }
-      end
+    describe 'ソート順' do
+      context '作成時刻順に取得したい場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{11 - i}") }
+        end
 
-      it 'created_atの降順で取得できること' do
-        task = Task.search(sort: :created_at).first
-        expect(task.title).to eq 'Rspec test 1'
-      end
-
-      context 'created_atが同一の場合' do
-        it 'idの降順で取得できること' do
-          Task.update_all(created_at: "2018/1/1 01:01:01")
+        it 'created_atの降順で取得できること' do
           task = Task.search(sort: :created_at).first
-          expect(task.title).to eq 'Rspec test 10'
+          expect(task.title).to eq 'Rspec test 1'
+        end
+
+        context 'created_atが同一の場合' do
+          it 'idの降順で取得できること' do
+            Task.update_all(created_at: "2018/1/1 01:01:01")
+            task = Task.search(sort: :created_at).first
+            expect(task.title).to eq 'Rspec test 10'
+          end
         end
       end
-    end
 
-    context '期日順に取得したい場合' do
-      before do
-        (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") }
-      end
+      context '期日順に取得したい場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") }
+        end
 
-      it 'deadlineの降順で取得できること' do
-        task = Task.search(sort: :deadline).first
-        expect(task.title).to eq 'Rspec test 1'
-      end
-
-      context 'deadlinetが同一の場合' do
-        it 'idの降順で取得できること' do
-          Task.update_all(deadline: "2018/1/1 01:01:01")
+        it 'deadlineの降順で取得できること' do
           task = Task.search(sort: :deadline).first
-          expect(task.title).to eq 'Rspec test 10'
+          expect(task.title).to eq 'Rspec test 1'
+        end
+
+        context 'deadlinetが同一の場合' do
+          it 'idの降順で取得できること' do
+            Task.update_all(deadline: "2018/1/1 01:01:01")
+            task = Task.search(sort: :deadline).first
+            expect(task.title).to eq 'Rspec test 10'
+          end
+        end
+
+        context '存在しないカラム名でソート順を指定した場合' do
+          before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+
+          it 'デフォルトでcreated_atの降順で取得されること' do
+            task = Task.search(sort: :invalid_column).first
+            expect(task.title).to eq 'Rspec test 10'
+          end
         end
       end
     end
 
-    context '存在しないカラム名でソート順を指定した場合' do
-      before do
-        (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
+    describe '絞り込み' do
+      before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) } }
+
+      context 'タイトルでの絞り込み' do
+        it 'タイトルに完全に一致する内容を取得できること' do
+          num = Task.search(title: 'Rspec test 1').count
+          expect(num).to eq 1
+          task = Task.search(title: 'Rspec test 1').first
+          expect(task.present?).to be_truthy
+        end
       end
 
-      it 'デフォルトでcreated_atの降順で取得されること' do
-        task = Task.search(sort: :invalid_column).first
-        expect(task.title).to eq 'Rspec test 10'
+      context 'ステータスでの絞り込み' do
+        it 'ステータスに完全に一致する内容を取得できること' do
+          num = Task.search(status: 'done').count
+          expect(num).to eq 5
+          task = Task.search(status: 'done').first
+          expect(task.title).to eq 'Rspec test 9'
+        end
+      end
+
+      context '存在しないカラム名でソート順を指定した場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
+        end
+
+        it 'デフォルトでcreated_atの降順で取得されること' do
+          task = Task.search(sort: :invalid_column).first
+          expect(task.title).to eq 'Rspec test 10'
+        end
       end
     end
   end

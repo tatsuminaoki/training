@@ -2,8 +2,10 @@
 
 class TasksController < ApplicationController
   def index
-    @selected_sort = params[:sort]
-    @tasks = Task.search(sort: @selected_sort)
+    @search_title = params[:search_title]
+    @search_status = params[:search_status]
+    @search_sort = params[:search_sort]
+    @tasks = Task.search(title: @search_title, status: @search_status, sort: @search_sort)
   end
 
   def new

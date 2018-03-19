@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305074452) do
+ActiveRecord::Schema.define(version: 20180313012945) do
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", limit: 50, null: false
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20180305074452) do
     t.string "priority", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_tasks_on_status"
+    t.index ["title"], name: "index_tasks_on_title"
   end
 
 end

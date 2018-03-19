@@ -245,7 +245,7 @@ ja:
         show: タスク参照
         search: 検索
       labels:
-        title: タスク
+        title: タイトル
         description: 内容
         deadline: 期日
         status: ステータス

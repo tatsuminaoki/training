@@ -13,8 +13,11 @@ class Task < ApplicationRecord
   SORT_KINDS = %i[created_at deadline].freeze
 
   class << self
-    def search(sort: 'created_at')
-      order(sort_column(sort) => :desc, :id => :desc)
+    def search(title: nil, status: nil, sort: 'created_at')
+      query = self
+      query = query.where(title: title) if title.present?
+      query = query.where(status: status) if status.present?
+      query.order(sort_column(sort) => :desc, :id => :desc)
     end
 
     def sort_column(value)

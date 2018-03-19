@@ -54,6 +54,10 @@ group :development, :test do
   gem 'rspec-rails'
   # Rubocop
   gem 'fablicop', require: false
+  # Debug
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
 end
 
 group :test do
