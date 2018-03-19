@@ -103,6 +103,6 @@ mysqlのインストール後、以下のコマンドを実行しDBユーザー�
 ```sh
 $ mysql -u root
 [mysql> CREATE USER 'todo_app'@localhost IDENTIFIED BY 'admin001';
-[mysql> grant create, drop on *.* to 'todo_app'@'localhost';
+[mysql> grant create, drop, alter, inde on *.* to 'todo_app'@'localhost';
 [mysql> grant select,update,insert,delete on *.* to 'todo_app'@'localhost';
 ```
