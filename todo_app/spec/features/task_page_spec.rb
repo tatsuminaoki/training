@@ -58,14 +58,15 @@ describe 'タスク一覧画面', type: :feature do
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
       before do
-        (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/2/#{11 - i} 01:01:01", created_at: "2018/1/1 0:0:#{i}") }
         visit root_path
         within('.card-text') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
         click_on I18n.t('helpers.submit.search')
       end
 
       context '新着順でソートしたい場合' do
-        let (:sort) { 'created_at' }
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
+
+        let!(:sort) { 'created_at' }
 
         it 'created_atの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
@@ -76,13 +77,30 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       context '期日が近い順でソートしたい場合' do
-        let (:sort) { 'deadline' }
+        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{i} 01:01:01") } }
+
+        let!(:sort) { 'deadline' }
 
         it 'deadlineの降順で表示されていること' do
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content("2018/02/#{format('%02d', 10 - idx)} 01:01:01")
           end
           expect(page.find('#search_sort').value).to eq 'deadline'
+        end
+      end
+
+      context '優先度が高い順でソートしたい場合' do
+        before { (0..4).to_a.each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
+
+        let!(:sort) { 'priority' }
+
+        let!(:priorities) { Task.priorities.keys.reverse }
+
+        it 'priorityの降順で表示されていること' do
+          all('table#task_table tbody tr').each.with_index do |td, idx|
+            expect(td).to have_content(Task.human_attribute_name("priorities.#{priorities[idx]}"))
+          end
+          expect(page.find('#search_sort').value).to eq 'priority'
         end
       end
     end
