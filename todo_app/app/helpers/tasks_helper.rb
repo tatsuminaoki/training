@@ -25,4 +25,15 @@ module TasksHelper
   def priority_value(key)
     Task.human_attribute_name("priorities.#{key}")
   end
+
+  def status_badge(key)
+    case key
+    when Task.statuses.keys[0]
+      'badge-warning'
+    when Task.statuses.keys[1]
+      'badge-info'
+    when Task.statuses.keys[2]
+      'badge-success'
+    end
+  end
 end

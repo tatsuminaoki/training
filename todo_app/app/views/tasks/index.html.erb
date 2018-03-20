@@ -1,68 +1,82 @@
-<div id="todo_app_task_list">
-  <h1><%= I18n.t('page.task.titles.list') %></h1>
+<div id="todo_app_task_list" class="row">
+  <%= render 'left_menu_wrapper' %>
 
-  <div class="tool-bar">
-    <div class="tool-bar-right tool-bar-item">
-      <%= button_to I18n.t('helpers.submit.add'), new_task_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+  <div id="task_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+
+    <div class="tool-bar">
+      <div class="tool-bar-right tool-bar-item">
+        <%= button_to new_task_path, method: :get, id: "add_task_button", class: "btn btn-success" do %>
+          <%= fa_icon "plus-circle" %>
+        <% end %>
+      </div>
+      <div class="tool-bar-right tool-bar-item">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+          <%= fa_icon "search" %>
+        </button>
+      </div>
     </div>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+    <table id="task_table" class="table">
+      <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><span class="badge <%= status_badge task.status%>"><%= status_value task.status %></span></td>
+          <td><%= link_to task.title, task_path(task) %>
+
+            <br>
+            <p class="detail_info">
+              <span class="text"><%= I18n.t('page.task.labels.priority') %>&#058;<strong><%= priority_value task.priority %></strong></span>
+              <span class="text"><%= I18n.t('page.task.labels.deadline') %>&#058;<strong><%= task.deadline.to_s %></strong></span>
+              <span class="text"><%= I18n.t('page.task.labels.created_at') %>&#058;<strong><%= task.created_at.to_s %></strong></span>
+            </p>
+
+          </td>
+          <td>
+            <%= link_to edit_task_path(task), class: "edit-button" do %>
+              <%= fa_icon "edit" %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to task_path(task),
+                          method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
+              <%= fa_icon "trash-o" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tasks %>
   </div>
 
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title"><%= I18n.t('page.task.titles.search') %></h4>
-      <div class="card-text">
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchModalLabel"><%= I18n.t('page.task.titles.search') %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <%= bootstrap_form_tag url: tasks_path, method: :get, enforce_utf8: false do |f| %>
-          <%= f.text_field :search_title, value: @search_title, label: I18n.t('page.task.labels.title') %>
-          <%= f.select :search_status, options_for_select(status_pull_down, selected: @search_status),
-                       { label: I18n.t('page.task.labels.status') } %>
-          <%= f.select :search_sort, options_for_select(sort_pull_down, selected: @search_sort),
-                       { label: I18n.t('page.task.labels.sort') } %>
-          <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
+          <div class="modal-body">
+            <%= f.text_field :search_title, value: @search_title, label: I18n.t('page.task.labels.title') %>
+            <%= f.select :search_status, options_for_select(status_pull_down, selected: @search_status),
+                         { label: I18n.t('page.task.labels.status') } %>
+            <%= f.select :search_sort, options_for_select(sort_pull_down, selected: @search_sort),
+                         { label: I18n.t('page.task.labels.sort') } %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= I18n.t('helpers.submit.cancel') %></button>
+            <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
         <% end %>
+        </div>
       </div>
     </div>
   </div>
-
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>">
-      <%= value %>
-    </div>
-  <% end %>
-
-<table id="task_table" class="table">
-  <thead>
-  <tr>
-    <th><%= I18n.t('page.task.labels.status') %></th>
-    <th><%= I18n.t('page.task.labels.title') %></th>
-    <th><%= I18n.t('page.task.labels.priority') %></th>
-    <th><%= I18n.t('page.task.labels.deadline') %></th>
-    <th><%= I18n.t('page.task.labels.created_at') %></th>
-    <th><%= I18n.t('helpers.submit.edit') %></th>
-    <th><%= I18n.t('helpers.submit.delete') %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= status_value task.status %></td>
-      <td><%= link_to task.title, task_path(task) %></td>
-      <td><%= priority_value task.priority %></td>
-      <td><%= task.deadline.to_s %></td>
-      <td><%= task.created_at.to_s %></td>
-      <td>
-        <%= link_to edit_task_path(task), class: "edit-button" do %>
-          <%= fa_icon "edit" %>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to task_path(task),
-                      method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
-          <%= fa_icon "trash-o" %>
-        <% end %>
-      </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <%= paginate @tasks %>
 </div>
