@@ -226,6 +226,27 @@ describe Task, type: :model do
           tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{10 - i}" }
         end
       end
+
+      context '不正なページ番号を指定した場合' do
+        it '文字列のページ番号を指定しても数値に変換されて値が取得できること' do
+          tasks = Task.search(page: '2')
+          expect(tasks.size).to eq 10
+          # created_atでソートされるのでtitleは10スタート
+          tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{10 - i}" }
+        end
+
+        it '数値に変換できない値を指定した場合、1ページ目のデータが返却されること' do
+          tasks = Task.search(page: 'a')
+          expect(tasks.size).to eq 10
+          tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{20 - i}" }
+        end
+
+        it '負数を指定した場合、1ページ目のデータが返却されること' do
+          tasks = Task.search(page: -1)
+          expect(tasks.size).to eq 10
+          tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{20 - i}" }
+        end
+      end
     end
   end
 
