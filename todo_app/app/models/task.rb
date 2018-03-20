@@ -16,7 +16,7 @@ class Task < ApplicationRecord
     def search(title: nil, status: nil, sort: 'created_at', page: 1)
       query = self
       query = query.where(title: title) if title.present?
-      query = query.where(status: status) if status.present?
+      query = query.where(status: status) if (Task.statuses.keys & [status]).present?
       query = query.order(sort_column(sort) => :desc, :id => :desc)
       query.page(page)
     end
