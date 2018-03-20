@@ -132,9 +132,9 @@ describe Task, type: :model do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") }
         end
 
-        it 'deadlineの降順で取得できること' do
+        it 'deadlineの昇順で取得できること' do
           task = Task.search(sort: :deadline).first
-          expect(task.title).to eq 'Rspec test 1'
+          expect(task.title).to eq 'Rspec test 10'
         end
 
         context 'deadlinetが同一の場合' do
