@@ -68,7 +68,7 @@ describe 'タスク一覧画面', type: :feature do
       before do
         visit root_path
         find(:css, '.fa-search').click
-        within('#searchModal .modal-body') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
+        within('#search_modal .modal-body') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
         click_on I18n.t('helpers.submit.search')
       end
 
@@ -122,7 +122,7 @@ describe 'タスク一覧画面', type: :feature do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
           find(:css, '.fa-search').click
-          within('#searchModal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1' }
+          within('#search_modal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1' }
           click_on I18n.t('helpers.submit.search')
         end
 
@@ -141,7 +141,7 @@ describe 'タスク一覧画面', type: :feature do
           (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
-          within('#searchModal .modal-body') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
+          within('#search_modal .modal-body') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
           click_on I18n.t('helpers.submit.search')
         end
 
@@ -162,7 +162,7 @@ describe 'タスク一覧画面', type: :feature do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
-          within('#searchModal .modal-body') do
+          within('#search_modal .modal-body') do
             fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
             select Task.human_attribute_name('statuses.done'), from: 'search_status'
           end
