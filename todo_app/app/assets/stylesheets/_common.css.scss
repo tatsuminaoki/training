@@ -7,14 +7,45 @@ $accent-color: #ED6100;
 $breakpoint-large: 768px;
 $breakpoint-small: 767px;
 
+$screen-smart-phone: 576px;
+$screen-small-tablet: 768px;
+$screen-large-tablet: 992px;
+$screen-pc: 1200px;
+
+$width-smart-phone: 540px;
+$width-small-tablet: 720px;
+$width-large-table: 960px;
+$width-pc: 1140px;
+
 body {
   background-color: $sub-color;
 }
 
-.navbar-custom {
-  height: 45px;
-  background-color: $base-color-1 !important;
-  color: white;
+.navbar-wrapper {
+  background-color: $base-color-1;
+
+  .navbar-custom {
+    height: 45px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: $base-color-1 !important;
+    color: white;
+    @include min-screen($screen-smart-phone) {
+      max-width: $width-smart-phone;
+    }
+    @include min-screen($screen-small-tablet) {
+      max-width: $width-small-tablet;
+    }
+    @include min-screen($screen-large-tablet) {
+      max-width: $width-large-table;
+    }
+    @include min-screen($screen-pc) {
+      max-width: $width-pc;
+    }
+  }
 }
 
 .row {
@@ -98,6 +129,8 @@ a.edit-button {
 }
 
 #task_list {
+  padding-right: 0px;
+
   .detail_info {
     font-size: 80%;
     margin-bottom: 0;
