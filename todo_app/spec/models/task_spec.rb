@@ -228,7 +228,7 @@ describe Task, type: :model do
       end
 
       context '不正なページ番号を指定した場合' do
-        it '文字列のページ番号を指定しても数値に変換されて値が取得できること' do
+        it '文字列のページ番号を指定した場合、数値に変換されてデータが返却されること' do
           tasks = Task.search(page: '2')
           expect(tasks.size).to eq 10
           # created_atでソートされるのでtitleは10スタート
