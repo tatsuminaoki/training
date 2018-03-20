@@ -16,7 +16,7 @@ RSpec.describe TasksHelper, type: :helper do
     end
 
     context '空白付きステータスの場合' do
-      it '3件であること' do
+      it '4件であること' do
         expect(status_pull_down_with_all.size).to eq 4
       end
 
