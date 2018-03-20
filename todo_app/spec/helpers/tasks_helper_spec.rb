@@ -15,6 +15,17 @@ RSpec.describe TasksHelper, type: :helper do
       end
     end
 
+    context '空白付きステータスの場合' do
+      it '3件であること' do
+        expect(status_pull_down_with_all.size).to eq 4
+      end
+
+      it '全て / 未着手 / 進行中 / 完了が存在すること' do
+        expected = [['', 'all'], %w[未着手 not_start], %w[進行中 progress], %w[完了 done]]
+        expect(status_pull_down_with_all).to eq expected
+      end
+    end
+
     context '優先度の場合' do
       it '5件であること' do
         expect(priority_pull_down.size).to eq 5

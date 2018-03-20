@@ -217,9 +217,25 @@ describe 'タスク一覧画面', type: :feature do
             expect(td).to have_content(Task.human_attribute_name('statuses.done'))
           end
         end
+        it '空白行を選択した場合、絞り込みが行われず全てのタスクが表示されていること' do
+        end
 
         it '入力したステータスが検索後の画面で表示されていること' do
           expect(page.find('#search_status', visible: false).value).to eq 'done'
+        end
+      end
+
+      context 'ステータスで絞り込まない場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
+          visit root_path
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { select '', from: 'search_status' }
+          click_on I18n.t('helpers.submit.search')
+        end
+
+        it '空白行を選択した場合、絞り込みが行われず全てのタスクが表示されていること' do
+          expect(page).to have_css('table#task_table tbody tr', count: 10)
         end
       end
 

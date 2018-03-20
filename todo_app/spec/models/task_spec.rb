@@ -192,6 +192,21 @@ describe Task, type: :model do
           task = Task.search(status: 'done').first
           expect(task.title).to eq 'Rspec test 9'
         end
+
+        it '存在しないステータスを指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: 'a').count
+          expect(num).to eq 10
+        end
+
+        it 'nilを指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: nil).count
+          expect(num).to eq 10
+        end
+
+        it '空文字を指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: '').count
+          expect(num).to eq 10
+        end
       end
 
       context '存在しないカラム名でソート順を指定した場合' do
