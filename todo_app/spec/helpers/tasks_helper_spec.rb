@@ -64,4 +64,24 @@ RSpec.describe TasksHelper, type: :helper do
       end
     end
   end
+
+  describe 'バッヂの種類取得' do
+    context '未着手の場合' do
+      it 'badge-warningのclassが返却されること' do
+        expect(status_badge('not_start')).to eq 'badge-warning'
+      end
+    end
+
+    context '進行中の場合' do
+      it 'badge-infoのclassが返却されること' do
+        expect(status_badge('progress')).to eq 'badge-info'
+      end
+    end
+
+    context '完了の場合' do
+      it 'badge-successのclassが返却されること' do
+        expect(status_badge('done')).to eq 'badge-success'
+      end
+    end
+  end
 end
