@@ -62,6 +62,72 @@ describe 'タスク一覧画面', type: :feature do
       end
     end
   end
+  describe 'ページングのカスタマイズ部分の確認' do
+    before do
+      (1..100).to_a.each { |i| create(:task, title: "Rspec test #{i}") }
+      visit root_path
+    end
+
+    let(:label) { ApplicationController.helpers.sanitize(I18n.t("views.pagination.#{target}")) }
+
+    context 'firstボタンの挙動' do
+      let(:target) { 'first' }
+
+      it '1ページ目を表示した際、非活性状態になっていること' do
+        expect(all('.pagination li.disabled')[0]).to have_content(label)
+      end
+
+      it '2ページ目を表示した際、活性状態になっていること' do
+        find('.pagination').find_link('2').click
+        expect(all('.pagination li')[0]).to have_content(label)
+      end
+    end
+
+    context 'previousボタンの挙動' do
+      let(:target) { 'previous' }
+
+      it '1ページ目を表示した際、非活性状態になっていること' do
+        expect(all('.pagination li.disabled')[1]).to have_content(label)
+      end
+
+      it '2ページ目を表示した際、活性状態になっていること' do
+        find('.pagination').find_link('2').click
+        expect(all('.pagination li')[1]).to have_content(label)
+      end
+    end
+
+    context 'nextボタンの挙動' do
+      let(:target) { 'next' }
+
+      it '1ページ目を表示した際、活性状態になっていること' do
+        list = all('.pagination li')
+        expect(list[list.size - 2]).to have_content(label)
+      end
+
+      it '最後のページ目を表示した際、非活性状態になっていること' do
+        list = all('.pagination li')
+        list[list.size - 1].click
+
+        disable_list = all('.pagination li.disabled')
+        expect(disable_list[disable_list.size - 2]).to have_content(label)
+      end
+    end
+
+    context 'lastボタンの挙動' do
+      let(:target) { 'last' }
+
+      it '1ページ目を表示した際、活性状態になっていること' do
+        list = all('.pagination li')
+        expect(list[list.size - 1]).to have_content(label)
+      end
+
+      it '最後のページ目を表示した際、非活性状態になっていること' do
+        find('.pagination').find_link(label).click
+        list = all('.pagination li.disabled')
+        expect(list[list.size - 1]).to have_content(label)
+      end
+    end
+  end
 
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
