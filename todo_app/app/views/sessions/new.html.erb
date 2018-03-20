@@ -1,0 +1,13 @@
+<div class="form-signin">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+  <%= bootstrap_form_for(:sessions, url:login_path) do |t| %>
+    <h1 class="h4 mb-3 font-weight-normal">TODO APPにログイン</h1>
+    <%= t.text_field :name, hide_label: true, placeholder: 'ユーザー名' %>
+    <%= t.password_field :password, hide_label: true, placeholder: 'パスワード' %>
+    <%= t.submit 'Log in', class: 'btn btn-lg btn-primary btn-block' %>
+  <% end %>
+</div>
