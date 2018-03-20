@@ -217,8 +217,6 @@ describe 'タスク一覧画面', type: :feature do
             expect(td).to have_content(Task.human_attribute_name('statuses.done'))
           end
         end
-        it '空白行を選択した場合、絞り込みが行われず全てのタスクが表示されていること' do
-        end
 
         it '入力したステータスが検索後の画面で表示されていること' do
           expect(page.find('#search_status', visible: false).value).to eq 'done'
