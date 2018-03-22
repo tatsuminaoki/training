@@ -1,4 +1,5 @@
 user = User.create(name: 'admin', password: 'foobar', password_confirmation: 'foobar')
+User.create(name: 'fake', password: 'foobar', password_confirmation: 'foobar')
 
 1000.times do |i|
   Task.create!(
