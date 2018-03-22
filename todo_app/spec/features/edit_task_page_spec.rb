@@ -17,11 +17,24 @@ describe 'タスク編集画面', type: :feature do
            priority: 'low')
   end
 
-  before { visit edit_task_path(task) }
+  before do
+    login
+    visit edit_task_path(task)
+  end
 
   describe 'アクセス' do
-    it '画面が表示されていること' do
-      expect(page).to have_css('#edit_task')
+    context '非ログイン状態でアクセスした場合' do
+      it 'ログイン画面が表示されること' do
+        logout
+        visit edit_task_path(task)
+        expect(page).to have_css('.form-signin')
+      end
+    end
+
+    context 'ログイン状態でアクセスした場合' do
+      it 'タスク編集画面が表示されること' do
+        expect(page).to have_css('#edit_task')
+      end
     end
   end
 

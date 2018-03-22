@@ -1,22 +1,40 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'features/test_helpers'
+
+RSpec.configure do |config|
+  config.include TestHelpers
+end
 
 describe 'タスク一覧画面', type: :feature do
-  describe '画面にアクセス' do
-    it 'ルートパスでアクセスできること' do
-      visit root_path
-      expect(page).to have_css('#todo_app_task_list')
+  before do
+    login
+  end
+
+  describe 'アクセス' do
+    before { visit root_path }
+
+    context '非ログイン状態でアクセスした場合' do
+      it 'ログイン画面が表示されること' do
+        logout
+        expect(page).to have_css('.form-signin')
+      end
+    end
+
+    context 'ログイン状態でアクセスした場合' do
+      it 'タスク一覧画面が表示されること' do
+        expect(page).to have_css('#todo_app_task_list')
+      end
     end
   end
 
   context '1件タスクが登録されている場合' do
+    let(:record) { first(:css, 'table#task_table tbody tr') }
     before do
       create(:task, title: 'Rspec test 1')
       visit root_path
     end
-
-    let(:record) { first(:css, 'table#task_table tbody tr') }
 
     it '登録した1件のタスクがテーブルに表示されていること' do
       expect(page).to have_css('table#task_table tbody tr', count: 1)
@@ -119,7 +137,6 @@ describe 'タスク一覧画面', type: :feature do
       context 'タイトルで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
-          visit root_path
           within('.card-text') { fill_in I18n.t('page.task.labels.title'), with: task_title }
           click_on I18n.t('helpers.submit.search')
         end
@@ -137,7 +154,6 @@ describe 'タスク一覧画面', type: :feature do
       context 'ステータスで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
-          visit root_path
           within('.card-text') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
           click_on I18n.t('helpers.submit.search')
         end
@@ -157,7 +173,6 @@ describe 'タスク一覧画面', type: :feature do
       context 'タイトルとステータスで絞り込みたい場合' do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
-          visit root_path
           within('.card-text') do
             fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
             select Task.human_attribute_name('statuses.done'), from: 'search_status'
@@ -174,58 +189,57 @@ describe 'タスク一覧画面', type: :feature do
     end
   end
 
-  context 'タスクを登録したい場合' do
-    before { visit root_path }
-    it '作成ボタンが表示されること' do
-      expect(page).to have_button('add_task_button')
-    end
-
-    it 'タスク登録画面へ遷移できること' do
-      click_on 'add_task_button'
-      expect(page).to have_selector(:css, '#add_task')
-    end
-  end
-
-  describe 'タスクの詳細・編集画面への遷移' do
+  describe 'タスクの操作' do
     before do
       create(:task, title: 'Rspec test 1')
       visit root_path
     end
 
-    context 'タスク詳細画面へ遷移したい場合' do
-      it 'タスク名のリンククリックで遷移できること' do
-        first(:css, 'table#task_table tbody tr').find_link('Rspec test 1').click
-        expect(page).to have_selector(:css, '#show_task')
+    context 'タスクを登録したい場合' do
+      it '作成ボタンが表示されること' do
+        expect(page).to have_button('add_task_button')
+      end
+
+      it 'タスク登録画面へ遷移できること' do
+        click_on 'add_task_button'
+        expect(page).to have_selector(:css, '#add_task')
       end
     end
 
-    context 'タスク編集画面へ遷移したい場合' do
-      it '編集アイコンをクリックで遷移できること' do
-        first(:css, 'table#task_table tbody tr').find('td a.edit-button').click
-        expect(page).to have_selector(:css, '#edit_task')
+    describe 'タスクの詳細・編集画面への遷移' do
+      context 'タスク詳細画面へ遷移したい場合' do
+        it 'タスク名のリンククリックで遷移できること' do
+          first(:css, 'table#task_table tbody tr').find_link('Rspec test 1').click
+          expect(page).to have_selector(:css, '#show_task')
+        end
       end
-    end
-  end
 
-  context 'タスクの削除したい場合', type: :feature do
-    before do
-      create(:task, title: 'Rspec test 1')
-      visit root_path
-      first(:css, 'table#task_table tbody tr').find('td a.trash-button').click
-    end
-
-    context '確認ダイアログでキャンセルボタンを押した場合' do
-      it '対象行は削除されないこと' do
-        page.dismiss_confirm
-        expect(page).to have_css('table#task_table tbody tr', count: 1)
+      context 'タスク編集画面へ遷移したい場合' do
+        it '編集アイコンをクリックで遷移できること' do
+          first(:css, 'table#task_table tbody tr').find('td a.edit-button').click
+          expect(page).to have_selector(:css, '#edit_task')
+        end
       end
     end
 
-    context '確認ダイアログで確認ボタンを押した場合' do
-      it '処理が実行されタスクが削除されること' do
-        page.accept_confirm
-        expect(page).to have_css('.alert-success')
-        expect(page).to have_css('table#task_table tbody tr', count: 0)
+    context 'タスクの削除したい場合', type: :feature do
+      before do
+        first(:css, 'table#task_table tbody tr').find('td a.trash-button').click
+      end
+
+      context '確認ダイアログでキャンセルボタンを押した場合' do
+        it '対象行は削除されないこと' do
+          page.dismiss_confirm
+          expect(page).to have_css('table#task_table tbody tr', count: 1)
+        end
+      end
+
+      context '確認ダイアログで確認ボタンを押した場合' do
+        it '処理が実行されタスクが削除されること' do
+          page.accept_confirm
+          expect(page).to have_css('.alert-success')
+          expect(page).to have_css('table#task_table tbody tr', count: 0)
+        end
       end
     end
   end

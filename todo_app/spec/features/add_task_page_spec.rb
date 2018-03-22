@@ -9,12 +9,23 @@ end
 
 describe 'タスク登録画面', type: :feature do
   before do
+    login
     visit new_task_path
   end
 
   describe 'アクセス' do
-    it '画面が表示されていること' do
-      expect(page).to have_css('#add_task')
+    context '非ログイン状態でアクセスした場合' do
+      it 'ログイン画面が表示されること' do
+        logout
+        visit new_task_path
+        expect(page).to have_css('.form-signin')
+      end
+    end
+
+    context 'ログイン状態でアクセスした場合' do
+      it 'タスク登録画面が表示されること' do
+        expect(page).to have_css('#add_task')
+      end
     end
   end
 
