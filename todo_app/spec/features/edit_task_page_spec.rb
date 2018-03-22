@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'features/test_helpers'
-
-RSpec.configure do |config|
-  config.include TestHelpers
-end
 
 describe 'タスク編集画面', type: :feature do
   let(:task) do

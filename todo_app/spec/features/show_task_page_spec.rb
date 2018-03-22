@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'features/test_helpers'
-
-RSpec.configure do |config|
-  config.include TestHelpers
-end
 
 describe 'タスク詳細画面', type: :feature do
   let!(:task) { create(:task, title: 'Rspec test 1') }
