@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :require_login
+
   def index
     @search_title = params[:search_title]
     @search_status = params[:search_status]
@@ -55,5 +57,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :deadline, :status, :priority)
+  end
+
+  def require_login
+    redirect_to login_path unless current_user?
   end
 end

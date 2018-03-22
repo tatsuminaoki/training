@@ -2,7 +2,7 @@
 
 module SessionsHelper
   def log_in(id)
-    session[:user_id] = user.id unless id
+    session[:user_id] = id if id
   end
 
   def log_out
