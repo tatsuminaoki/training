@@ -7,6 +7,7 @@ class Task < ApplicationRecord
   validates :description, length: { maximum: 255 }
   validates :status, presence: true
   validates :priority, presence: true
+  validates :user_id, presence: true, numericality: true
   validate :validate_datetime
 
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
@@ -15,8 +16,9 @@ class Task < ApplicationRecord
   SORT_KINDS = %i[created_at deadline priority].freeze
 
   class << self
-    def search(title: nil, status: nil, sort: 'created_at', page: 1)
+    def search(user_id: nil, title: nil, status: nil, sort: 'created_at', page: 1)
       query = self
+      query = query.where(user_id: user_id) if user_id.present?
       query = query.where(title: title) if title.present?
       query = query.where(status: status) if status.present?
       query = query.order(sort_column(sort) => :desc, :id => :desc)
