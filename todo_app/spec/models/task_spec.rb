@@ -146,9 +146,9 @@ describe Task, type: :model do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{11 - i} 01:01:01") }
         end
 
-        it 'deadlineの降順で取得できること' do
+        it 'deadlineの昇順で取得できること' do
           task = Task.search(sort: :deadline).first
-          expect(task.title).to eq 'Rspec test 1'
+          expect(task.title).to eq 'Rspec test 10'
         end
 
         context 'deadlinetが同一の場合' do
@@ -205,6 +205,21 @@ describe Task, type: :model do
           expect(num).to eq 5
           task = Task.search(status: 'done').first
           expect(task.title).to eq 'Rspec test 9'
+        end
+
+        it '存在しないステータスを指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: 'a').count
+          expect(num).to eq 10
+        end
+
+        it 'nilを指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: nil).count
+          expect(num).to eq 10
+        end
+
+        it '空文字を指定した場合、絞り込みが行われないこと' do
+          num = Task.search(status: '').count
+          expect(num).to eq 10
         end
       end
 

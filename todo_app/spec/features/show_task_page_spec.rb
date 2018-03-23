@@ -28,33 +28,23 @@ describe 'タスク詳細画面', type: :feature do
 
   describe 'タスクの登録内容の表示確認' do
     it 'タスク名が表示されていること' do
-      tr = find(:css, 'table tbody').all('tr')[0]
-      expect(tr).to have_content(I18n.t('page.task.labels.title'))
-      expect(tr).to have_content('Rspec test 1')
+      expect(find('#task_title').value).to eq 'Rspec test 1'
     end
 
     it '内容が表示されていること' do
-      tr = find(:css, 'table tbody').all('tr')[1]
-      expect(tr).to have_content(I18n.t('page.task.labels.description'))
-      expect(tr).to have_content('This is a sample description')
+      expect(find('#task_description').value).to eq 'This is a sample description'
     end
 
     it '期日が表示されていること' do
-      tr = find(:css, 'table tbody').all('tr')[2]
-      expect(tr).to have_content(I18n.t('page.task.labels.deadline'))
-      expect(tr).to have_content('2018/03/01 00:00:00')
+      expect(find('#task_deadline').value).to eq '2018/03/01 00:00:00'
     end
 
     it 'ステータスが表示されていること' do
-      tr = find(:css, 'table tbody').all('tr')[3]
-      expect(tr).to have_content(I18n.t('page.task.labels.status'))
-      expect(tr).to have_content(Task.human_attribute_name('statuses.progress'))
+      expect(find('#task_status').value).to eq Task.human_attribute_name('statuses.progress')
     end
 
     it '優先度が表示されていること' do
-      tr = find(:css, 'table tbody').all('tr')[4]
-      expect(tr).to have_content(I18n.t('page.task.labels.priority'))
-      expect(tr).to have_content(Task.human_attribute_name('priorities.high'))
+      expect(find('#task_priority').value).to eq Task.human_attribute_name('priorities.high')
     end
   end
 

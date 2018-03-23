@@ -33,7 +33,14 @@ module TestHelpers
   end
 
   def click_sort_pulldown(sort_type)
-    within('.card-text') { select Task.human_attribute_name("sort_kinds.#{sort_type}"), from: 'search_sort' }
+    find(:css, '.fa-search').click
+    within('#search_modal .modal-body') { select Task.human_attribute_name("sort_kinds.#{sort_type}"), from: 'search_sort' }
+    click_on I18n.t('helpers.submit.search')
+  end
+
+  def title_search(title)
+    find(:css, '.fa-search').click
+    within('#search_modal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: title }
     click_on I18n.t('helpers.submit.search')
   end
 end
