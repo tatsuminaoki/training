@@ -275,3 +275,4 @@ ja:
         user_name: ユーザー名
         password: パスワード
         created_at: 登録日時
+        task_num: タスク数

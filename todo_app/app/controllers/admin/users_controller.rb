@@ -6,6 +6,10 @@ module Admin
       @users = User.search_all
     end
 
+    def tasks
+      @tasks = Task.search(user_id: params[:id])
+    end
+
     def new
       @user = User.new
     end
