@@ -178,6 +178,7 @@ ja:
       cancel: キャンセル
       back: 戻る
       search: 検索
+      list: 一覧へ
   number:
     currency:
       format:
@@ -267,7 +268,9 @@ ja:
         status: ステータス
         priority: 優先度
         created_at: 作成日時
+        last_created_at: 最終作成日
         sort: ソート
+        task_num: タスク数
     user:
       titles:
         list: ユーザー一覧
@@ -275,4 +278,3 @@ ja:
         user_name: ユーザー名
         password: パスワード
         created_at: 登録日時
-        task_num: タスク数

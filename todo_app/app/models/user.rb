@@ -12,7 +12,7 @@ class User < ApplicationRecord
     def search_by_id(user_id, sort: 'name', page: 1)
       where(id: user_id)
         .order_by(sort: sort)
-        .page(page)
+        .first
     end
 
     def search_all(sort: 'name', page: 1)

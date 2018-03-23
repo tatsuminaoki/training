@@ -27,6 +27,14 @@ class Task < ApplicationRecord
       query.page(page)
     end
 
+    def user_summary(user_id)
+      where(user_id: user_id).select(<<-SELECT)
+          MAX(created_at) as last_created_at,
+          COUNT(*) as task_num
+        SELECT
+        .first
+    end
+
     def sort_column(value)
       return :created_at if value.blank?
       SORT_KINDS.find { |column| column == value.to_sym } || :created_at

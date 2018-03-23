@@ -1,8 +1,31 @@
-<div id="todo_app_task_list" class="row">
-  <div id="user_info" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+<div id="task_list" class="row">
+  <div id="user_info" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <div class="card" style="width: 100%;">
+      <span class="submit-btn-wrapper text-left">
+        <%= link_to I18n.t('helpers.submit.list'), admin_users_path, {:class=>"btn btn-info"} %>
+      </span>
+    </div>
+    <div class="card" style="width: 100%;">
+      <div class="user-icon">
+        <%= fa_icon 'user' %>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= @user.name %></h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-right">
+            <span class="subheading text-muted"><%= I18n.t('page.task.labels.task_num') %>&#058;</span><%= @user_summary.task_num.to_i %>
+          </li>
+          <li class="list-group-item text-right">
+            <span class="subheading text-muted"><%= I18n.t('page.task.labels.last_created_at') %>&#058;</span><%= @user_summary.last_created_at.to_s %>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
-  <div id="item_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+  <div id="item_list" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 main-content">
+    <%= render partial: 'layouts/shared/task_search', :locals => { buttons: %i[search], post_url: admin_user_tasks_path } %>
+
     <table id="task_table" class="table">
       <tbody>
       <% @tasks.each do |task| %>

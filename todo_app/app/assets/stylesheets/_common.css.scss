@@ -72,6 +72,7 @@ body {
 }
 
 .main-content {
+  margin-top: 5px;
   background-color: white;
 }
 
@@ -162,6 +163,11 @@ a.edit-button {
   }
 }
 
+.subheading {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
 .form-wrapper{
   margin: auto;
   padding: 50px 5px 5px 5px;
@@ -169,8 +175,21 @@ a.edit-button {
   form{
     width: 100%;
   }
+}
 
-  .submit-btn-wrapper {
-    margin-top: 30px;
+.submit-btn-wrapper {
+  margin: 15px;
+}
+
+#user_info {
+  .card {
+    margin-top: 5px;
+    border: 0;
+
+    .user-icon {
+      padding: 10px;
+      text-align: center;
+      font-size: 5rem;
+    }
   }
 }

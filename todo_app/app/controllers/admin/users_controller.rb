@@ -7,7 +7,10 @@ module Admin
     end
 
     def tasks
-      @tasks = Task.search(user_id: params[:id])
+      set_search_params
+      @user = User.search_by_id(params[:id])
+      @user_summary = Task.user_summary(params[:id])
+      @tasks = Task.search(user_id: params[:id], title: @search_title, status: @search_status, sort: @search_sort, page: @page)
     end
 
     def new
@@ -56,6 +59,13 @@ module Admin
 
     def user_params
       params.require(:user).permit(:name, :password)
+    end
+
+    def set_search_params
+      @search_title = params[:search_title]
+      @search_status = params[:search_status]
+      @search_sort = params[:search_sort]
+      @page = params[:page]
     end
 
     def require_login
