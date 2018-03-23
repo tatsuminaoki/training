@@ -11,12 +11,12 @@ module TestHelpers
 
   def visit_after_login(user: nil, visit_path: nil)
     login(user: user)
-    visit visit_path unless visit_path
+    visit visit_path if visit_path
   end
 
   def visit_without_login(visit_path: nil)
     logout
-    visit visit_path unless visit_path
+    visit visit_path if visit_path
   end
 
   def logout
