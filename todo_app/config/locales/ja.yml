@@ -9,6 +9,7 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task/statuses:
         not_start: 未着手
@@ -267,3 +268,10 @@ ja:
         priority: 優先度
         created_at: 作成日時
         sort: ソート
+    user:
+      titles:
+        list: ユーザー一覧
+      labels:
+        user_name: ユーザー名
+        password: パスワード
+        created_at: 登録日時

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TasksHelper
-  def submit_btn_name
-    return I18n.t('helpers.submit.create') if request.path_info == new_task_path
+  def submit_btn_name(path: new_task_path)
+    return I18n.t('helpers.submit.create') if request.path_info == path
     I18n.t('helpers.submit.update')
   end
 

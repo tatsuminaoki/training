@@ -1,0 +1,49 @@
+<div id="users_list">
+
+  <%= render 'left_menu_wrapper' %>
+
+  <div id="task_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+    <div class="tool-bar">
+      <div class="tool-bar-right tool-bar-item">
+        <%= button_to I18n.t('helpers.submit.add'), new_admin_user_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+      </div>
+    </div>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+
+  <table id="user_table" class="table">
+    <thead>
+    <tr>
+      <th><%= I18n.t('page.user.labels.user_name') %></th>
+      <th><%= I18n.t('page.user.labels.created_at') %></th>
+      <th><%= I18n.t('helpers.submit.edit') %></th>
+      <th><%= I18n.t('helpers.submit.delete') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.created_at.to_s %></td>
+        <td>
+          <%= link_to edit_admin_user_path(user), class: "edit-button" do %>
+            <%= fa_icon "edit" %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_user_path(user),
+                        method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
+            <%= fa_icon "trash-o" %>
+          <% end %>
+        </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @users %>
+  </div>
+</div>
