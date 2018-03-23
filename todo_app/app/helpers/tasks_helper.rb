@@ -10,6 +10,10 @@ module TasksHelper
     Task.statuses.keys.map { |key| [status_value(key), key] }
   end
 
+  def status_pull_down_with_all
+    [['', 'all']] | status_pull_down
+  end
+
   def priority_pull_down
     Task.priorities.keys.map { |key| [priority_value(key), key] }
   end
