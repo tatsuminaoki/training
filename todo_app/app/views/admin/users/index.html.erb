@@ -1,11 +1,13 @@
-<div id="users_list">
+<div id="users_list" class="row">
 
   <%= render 'left_menu_wrapper' %>
 
   <div id="task_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
     <div class="tool-bar">
       <div class="tool-bar-right tool-bar-item">
-        <%= button_to I18n.t('helpers.submit.add'), new_admin_user_path, method: :get, id: "add_task_button", class: "btn btn-success"  %>
+        <%= button_to new_admin_user_path, method: :get, id: "add_user_button", class: "btn btn-success" do %>
+          <%= fa_icon "plus-circle" %>
+        <% end %>
       </div>
     </div>
 
