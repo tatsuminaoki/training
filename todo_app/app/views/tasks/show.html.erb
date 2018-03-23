@@ -1,30 +1,35 @@
-<div id="show_task">
-  <h1><%= I18n.t('page.task.titles.show') %></h1>
+<div id="show_task" class="row form-wrapper">
+  <div class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 task-edit-area">
+      <div class="form-group">
+        <label class="control-label required" for="task_title"><%= I18n.t('page.task.labels.title') %></label>
+        <input class="form-control" readonly type="text" value="<%= @task.title%>" id="task_title" />
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="task_description"><%= I18n.t('page.task.labels.description') %></label>
+        <textarea rows="10" readonly class="form-control" id="task_description"><%= @task.description %></textarea>
+      </div>
+    </div>
 
-  <table class="table">
-    <tbody>
-      <tr>
-        <td><%= I18n.t('page.task.labels.title') %></td>
-        <td><%= @task.title%> </td>
-      </tr>
-      <tr>
-        <td><%= I18n.t('page.task.labels.description') %></td>
-        <td><%= @task.description %></td>
-      </tr>
-      <tr>
-        <td><%= I18n.t('page.task.labels.deadline') %></td>
-        <td><%= @task.deadline %></td>
-      </tr>
-      <tr>
-        <td><%= I18n.t('page.task.labels.status') %></td>
-        <td><%= status_value @task.status%></td>
-      </tr>
-      <tr>
-        <td><%= I18n.t('page.task.labels.priority') %></td>
-        <td><%= priority_value @task.priority%></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <%= link_to I18n.t('helpers.submit.back'), tasks_path, {:class=>"btn btn-default"} %>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 task-edit-area">
+      <div class="form-group">
+        <label class="control-label required" for="task_deadline"><%= I18n.t('page.task.labels.deadline') %></label>
+        <input class="form-control" readonly type="text" value="<%= @task.deadline.to_s %>" id="task_deadline" />
+      </div>
+      <div class="form-group">
+        <label class="control-label required" for="task_status"><%= I18n.t('page.task.labels.status') %></label>
+        <input class="form-control" readonly type="text" value="<%= status_value @task.status%>" id="task_status" />
+      </div>
+      <div class="form-group">
+        <label class="control-label required" for="task_priority"><%= I18n.t('page.task.labels.priority') %></label>
+        <input class="form-control" readonly type="text" value="<%= priority_value @task.priority%>" id="task_priority" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 submit-btn-wrapper">
+      <%= link_to I18n.t('helpers.submit.edit'), edit_task_path(@task), class: "btn btn-success" %>
+      <%= link_to I18n.t('helpers.submit.back'), tasks_path, {:class=>"btn btn-secondary"} %>
+    </div>
+  </div>
 </div>

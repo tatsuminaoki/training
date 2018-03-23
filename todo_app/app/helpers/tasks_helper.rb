@@ -10,6 +10,10 @@ module TasksHelper
     Task.statuses.keys.map { |key| [status_value(key), key] }
   end
 
+  def status_pull_down_with_all
+    [['', 'all']] | status_pull_down
+  end
+
   def priority_pull_down
     Task.priorities.keys.map { |key| [priority_value(key), key] }
   end
@@ -24,5 +28,16 @@ module TasksHelper
 
   def priority_value(key)
     Task.human_attribute_name("priorities.#{key}")
+  end
+
+  def status_badge(key)
+    case key
+    when Task.statuses.keys[0]
+      'badge-warning'
+    when Task.statuses.keys[1]
+      'badge-info'
+    when Task.statuses.keys[2]
+      'badge-success'
+    end
   end
 end

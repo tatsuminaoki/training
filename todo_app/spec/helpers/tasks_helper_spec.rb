@@ -15,6 +15,17 @@ RSpec.describe TasksHelper, type: :helper do
       end
     end
 
+    context '空白付きステータスの場合' do
+      it '4件であること' do
+        expect(status_pull_down_with_all.size).to eq 4
+      end
+
+      it '全て / 未着手 / 進行中 / 完了が存在すること' do
+        expected = [['', 'all'], %w[未着手 not_start], %w[進行中 progress], %w[完了 done]]
+        expect(status_pull_down_with_all).to eq expected
+      end
+    end
+
     context '優先度の場合' do
       it '5件であること' do
         expect(priority_pull_down.size).to eq 5
@@ -61,6 +72,26 @@ RSpec.describe TasksHelper, type: :helper do
 
       it '今すぐが返却されること' do
         expect(priority_value('right_now')).to eq Task.human_attribute_name('priorities.right_now')
+      end
+    end
+  end
+
+  describe 'バッヂの種類取得' do
+    context '未着手の場合' do
+      it 'badge-warningのclassが返却されること' do
+        expect(status_badge('not_start')).to eq 'badge-warning'
+      end
+    end
+
+    context '進行中の場合' do
+      it 'badge-infoのclassが返却されること' do
+        expect(status_badge('progress')).to eq 'badge-info'
+      end
+    end
+
+    context '完了の場合' do
+      it 'badge-successのclassが返却されること' do
+        expect(status_badge('done')).to eq 'badge-success'
       end
     end
   end

@@ -55,10 +55,76 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       it 'ページをクリックすると次の10件が取得できること' do
-        find_link('次').click
+        first('.page-item a[rel="next"]').click
         all('table#task_table tbody tr').each.with_index do |td, idx|
           expect(td).to have_content((last_create_at - idx - 10).to_s)
         end
+      end
+    end
+  end
+  describe 'ページングのカスタマイズ部分の確認' do
+    before do
+      (1..100).to_a.each { |i| create(:task, title: "Rspec test #{i}") }
+      visit root_path
+    end
+
+    let(:label) { ApplicationController.helpers.sanitize(I18n.t("views.pagination.#{target}")) }
+
+    context 'firstボタンの挙動' do
+      let(:target) { 'first' }
+
+      it '1ページ目を表示した際、非活性状態になっていること' do
+        expect(all('.pagination li.disabled')[0]).to have_content(label)
+      end
+
+      it '2ページ目を表示した際、活性状態になっていること' do
+        find('.pagination').find_link('2').click
+        expect(all('.pagination li')[0]).to have_content(label)
+      end
+    end
+
+    context 'previousボタンの挙動' do
+      let(:target) { 'previous' }
+
+      it '1ページ目を表示した際、非活性状態になっていること' do
+        expect(all('.pagination li.disabled')[1]).to have_content(label)
+      end
+
+      it '2ページ目を表示した際、活性状態になっていること' do
+        find('.pagination').find_link('2').click
+        expect(all('.pagination li')[1]).to have_content(label)
+      end
+    end
+
+    context 'nextボタンの挙動' do
+      let(:target) { 'next' }
+
+      it '1ページ目を表示した際、活性状態になっていること' do
+        list = all('.pagination li')
+        expect(list[list.size - 2]).to have_content(label)
+      end
+
+      it '最後のページ目を表示した際、非活性状態になっていること' do
+        list = all('.pagination li')
+        list[list.size - 1].click
+
+        disable_list = all('.pagination li.disabled')
+        expect(disable_list[disable_list.size - 2]).to have_content(label)
+      end
+    end
+
+    context 'lastボタンの挙動' do
+      let(:target) { 'last' }
+
+      it '1ページ目を表示した際、活性状態になっていること' do
+        list = all('.pagination li')
+        expect(list[list.size - 1]).to have_content(label)
+      end
+
+      it '最後のページ目を表示した際、非活性状態になっていること' do
+        find('.pagination').find_link(label).click
+        list = all('.pagination li.disabled')
+        expect(list[list.size - 1]).to have_content(label)
       end
     end
   end
@@ -67,7 +133,8 @@ describe 'タスク一覧画面', type: :feature do
     describe 'ソート順を変更する' do
       before do
         visit root_path
-        within('.card-text') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
+        find(:css, '.fa-search').click
+        within('#search_modal .modal-body') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
         click_on I18n.t('helpers.submit.search')
       end
 
@@ -80,7 +147,7 @@ describe 'タスク一覧画面', type: :feature do
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 10 - idx)}")
           end
-          expect(page.find('#search_sort').value).to eq 'created_at'
+          expect(page.find('#search_sort', visible: false).value).to eq 'created_at'
         end
       end
 
@@ -93,7 +160,7 @@ describe 'タスク一覧画面', type: :feature do
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content("2018/02/#{format('%02d', 10 - idx)} 01:01:01")
           end
-          expect(page.find('#search_sort').value).to eq 'deadline'
+          expect(page.find('#search_sort', visible: false).value).to eq 'deadline'
         end
       end
 
@@ -108,7 +175,7 @@ describe 'タスク一覧画面', type: :feature do
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content(Task.human_attribute_name("priorities.#{priorities[idx]}"))
           end
-          expect(page.find('#search_sort').value).to eq 'priority'
+          expect(page.find('#search_sort', visible: false).value).to eq 'priority'
         end
       end
     end
@@ -120,7 +187,8 @@ describe 'タスク一覧画面', type: :feature do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
-          within('.card-text') { fill_in I18n.t('page.task.labels.title'), with: task_title }
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1' }
           click_on I18n.t('helpers.submit.search')
         end
 
@@ -130,7 +198,7 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したタイトルが検索後の画面で表示されていること' do
-          expect(page.find('#search_title').value).to eq task_title
+          expect(page.find('#search_title', visible: false).value).to eq 'Rspec test 1'
         end
       end
 
@@ -138,7 +206,8 @@ describe 'タスク一覧画面', type: :feature do
         before do
           (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
-          within('.card-text') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
           click_on I18n.t('helpers.submit.search')
         end
 
@@ -149,8 +218,22 @@ describe 'タスク一覧画面', type: :feature do
           end
         end
 
-        it '入力したステータスが検索後の画面で選択されていること' do
-          expect(page.find('#search_status').value).to eq 'done'
+        it '入力したステータスが検索後の画面で表示されていること' do
+          expect(page.find('#search_status', visible: false).value).to eq 'done'
+        end
+      end
+
+      context 'ステータスで絞り込まない場合' do
+        before do
+          (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
+          visit root_path
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { select '', from: 'search_status' }
+          click_on I18n.t('helpers.submit.search')
+        end
+
+        it '空白行を選択した場合、絞り込みが行われず全てのタスクが表示されていること' do
+          expect(page).to have_css('table#task_table tbody tr', count: 10)
         end
       end
 
@@ -158,7 +241,8 @@ describe 'タスク一覧画面', type: :feature do
         before do
           (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
-          within('.card-text') do
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') do
             fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1'
             select Task.human_attribute_name('statuses.done'), from: 'search_status'
           end
