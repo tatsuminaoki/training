@@ -3,16 +3,14 @@
 require 'rails_helper'
 
 describe 'タスク一覧画面', type: :feature do
-  before do
-    login
-  end
+  let!(:user) { create(:user_association) }
+
+  before { visit_after_login(user: user, visit_path: root_path) }
 
   describe 'アクセス' do
-    before { visit root_path }
-
     context '非ログイン状態でアクセスした場合' do
       it 'ログイン画面が表示されること' do
-        logout
+        visit_without_login(visit_path: root_path)
         expect(page).to have_css('.form-signin')
       end
     end
@@ -24,41 +22,55 @@ describe 'タスク一覧画面', type: :feature do
     end
   end
 
-  context '1件タスクが登録されている場合' do
+  describe 'タスクの表示権限の検証' do
     let(:record) { first(:css, 'table#task_table tbody tr') }
+
     before do
-      create(:task, title: 'Rspec test 1')
+      create(:task, user_id: user.id, title: 'Rspec test 1', status: 'not_start')
       visit root_path
     end
 
-    it '登録した1件のタスクがテーブルに表示されていること' do
-      expect(page).to have_css('table#task_table tbody tr', count: 1)
+    context 'タスクの登録ユーザーの場合' do
+      it '登録した1件のタスクがテーブルに表示されていること' do
+        expect(page).to have_css('table#task_table tbody tr', count: 1)
+      end
     end
 
-    it 'タイトル列に参照画面のリンクが表示されていること' do
-      expect(record).to have_selector('a', text: 'Rspec test 1')
-    end
-
-    it '編集列の編集画面のリンクが表示されていること' do
-      expect(record).to have_selector('a.edit-button')
-    end
-
-    it '削除列に削除ボタンが表示されていること' do
-      expect(record).to have_selector('a.trash-button')
+    context 'タスクの非登録ユーザーの場合' do
+      it '自分が登録していないタスクは閲覧できないこと' do
+        user = User.create(name: 'some', password: 'foobar', password_confirmation: 'foobar')
+        login(user: user)
+        visit root_path
+        expect(page).to have_css('table#task_table tbody tr', count: 0)
+      end
     end
   end
 
-  context '複数のタスクが登録されている場合', type: :feature do
+  describe 'タスクの表示内容の検証' do
     before do
-      (1..100).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: Time.new('2018/01/01 00:00:00').getlocal + i) }
+      (1..100).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: Time.new('2018/01/01 00:00:00').getlocal + i) }
       visit root_path
     end
 
     let!(:last_create_at) { Time.new('2018/01/01 00:00:00').getlocal + 100 }
 
+    let(:record) { first(:css, 'table#task_table tbody tr') }
+
     context '初期表示の場合' do
       it '絞り込み条件なしで上位10件のデータがテーブルに表示されていること' do
         expect(page).to have_css('table#task_table tbody tr', count: 10)
+      end
+
+      it 'タイトル列に参照画面のリンクが表示されていること' do
+        expect(record).to have_selector('a', text: 'Rspec test 1')
+      end
+
+      it '編集列の編集画面のリンクが表示されていること' do
+        expect(record).to have_selector('a.edit-button')
+      end
+
+      it '削除列に削除ボタンが表示されていること' do
+        expect(record).to have_selector('a.trash-button')
       end
 
       it 'created_atの降順で表示されていること' do
@@ -75,9 +87,10 @@ describe 'タスク一覧画面', type: :feature do
       end
     end
   end
+
   describe 'ページングのカスタマイズ部分の確認' do
     before do
-      (1..100).to_a.each { |i| create(:task, title: "Rspec test #{i}") }
+      (1..100).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}") }
       visit root_path
     end
 
@@ -144,19 +157,16 @@ describe 'タスク一覧画面', type: :feature do
 
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
-      before do
-        visit root_path
-        find(:css, '.fa-search').click
-        within('#search_modal .modal-body') { select Task.human_attribute_name("sort_kinds.#{sort}"), from: 'search_sort' }
-        click_on I18n.t('helpers.submit.search')
-      end
+      let!(:user) { create(:user_association) }
 
       context '新着順でソートしたい場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") } }
-
-        let(:sort) { 'created_at' }
+        before do
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
+          visit root_path
+        end
 
         it 'created_atの降順で表示されていること' do
+          click_sort_pulldown('created_at')
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 10 - idx)}")
           end
@@ -165,26 +175,30 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       context '期日が近い順でソートしたい場合' do
-        before { (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", deadline: "2018/1/#{i} 01:01:01") } }
+        before do
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", deadline: "2018/2/#{i} 01:01:01") }
+          visit root_path
+        end
 
-        let(:sort) { 'deadline' }
-
-        it 'deadlineの降順で表示されていること' do
+        it 'deadlineの昇順で表示されていること' do
+          click_sort_pulldown('deadline')
           all('table#task_table tbody tr').each.with_index do |td, idx|
-            expect(td).to have_content("2018/02/#{format('%02d', 10 - idx)} 01:01:01")
+            expect(td).to have_content("2018/02/#{format('%02d', idx + 1)} 01:01:01")
           end
           expect(page.find('#search_sort', visible: false).value).to eq 'deadline'
         end
       end
 
       context '優先度が高い順でソートしたい場合' do
-        before { (0..4).to_a.each { |i| create(:task, title: "Rspec test #{i}", priority: i) } }
-
-        let(:sort) { 'priority' }
+        before do
+          (0..4).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", priority: i) }
+          visit root_path
+        end
 
         let(:priorities) { Task.priorities.keys.reverse }
 
         it 'priorityの降順で表示されていること' do
+          click_sort_pulldown('priority')
           all('table#task_table tbody tr').each.with_index do |td, idx|
             expect(td).to have_content(Task.human_attribute_name("priorities.#{priorities[idx]}"))
           end
@@ -198,11 +212,9 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'タイトルで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: 'not_start') }
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
-          find(:css, '.fa-search').click
-          within('#search_modal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: 'Rspec test 1' }
-          click_on I18n.t('helpers.submit.search')
+          title_search(task_title)
         end
 
         it '入力値に完全に一致するタスクのみ表示されていること' do
@@ -211,13 +223,13 @@ describe 'タスク一覧画面', type: :feature do
         end
 
         it '入力したタイトルが検索後の画面で表示されていること' do
-          expect(page.find('#search_title', visible: false).value).to eq 'Rspec test 1'
+          expect(page.find('#search_title', visible: false).value).to eq task_title
         end
       end
 
       context 'ステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
@@ -238,7 +250,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'ステータスで絞り込まない場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, status: (i.even? ? 'not_start' : 'done')) }
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') { select '', from: 'search_status' }
@@ -252,7 +264,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'タイトルとステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
+          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') do
@@ -273,7 +285,7 @@ describe 'タスク一覧画面', type: :feature do
 
   describe 'タスクの操作' do
     before do
-      create(:task, title: 'Rspec test 1')
+      create(:task, user_id: user.id, title: 'Rspec test 1')
       visit root_path
     end
 
