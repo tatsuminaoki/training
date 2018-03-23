@@ -1,26 +1,35 @@
 <%= bootstrap_form_for(@task) do |t| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 task-edit-area">
+      <% if @task.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@task.errors.count, "error") %> prohibited
+            this article from being saved:</h2>
+          <ul>
+            <% @task.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited
-        this article from being saved:</h2>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+      <%= t.text_field :title, label: I18n.t('page.task.labels.title') %>
+      <%= t.text_area :description, label: I18n.t('page.task.labels.description')  , rows: '10'%>
     </div>
-  <% end %>
 
-  <%= t.text_field :title, label: I18n.t('page.task.labels.title') %>
-  <%= t.text_area :description, label: I18n.t('page.task.labels.description')  %>
-  <%= t.datetime_select :deadline, label: I18n.t('page.task.labels.deadline')  %>
-  <%= t.select :status, status_pull_down,
-               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.status')) } %>
-  <%= t.select :priority,priority_pull_down,
-               { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.priority')) } %>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 task-edit-area">
+      <%= t.datetime_select :deadline, label: I18n.t('page.task.labels.deadline')  %>
+      <%= t.select :status, status_pull_down,
+                   { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.status')) } %>
+      <%= t.select :priority,priority_pull_down,
+                   { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.priority')) } %>
+    </div>
+  </div>
 
-  <%= t.submit submit_btn_name, class: "btn btn-success" %>
-  <%= link_to I18n.t('helpers.submit.cancel'), tasks_path, {:class=>"btn btn-default"} %>
-
+  <div class="row">
+    <div class="col-12 submit-btn-wrapper">
+      <%= t.submit submit_btn_name, class: "btn btn-success" %>
+      <%= link_to I18n.t('helpers.submit.cancel'), tasks_path, {:class=>"btn btn-secondary"} %>
+    </div>
+  </div>
 <% end %>

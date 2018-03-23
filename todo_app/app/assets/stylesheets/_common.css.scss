@@ -1,31 +1,152 @@
-.navbar {
-  .dropdown-menu-custom {
-    left: auto;
-    right: 0;
+@import 'mixins';
+
+$base-color-1: #0068A2;
+$sub-color: #fafafa;
+$accent-color: #ED6100;
+
+$breakpoint-large: 768px;
+$breakpoint-small: 767px;
+
+$screen-smart-phone: 576px;
+$screen-small-tablet: 768px;
+$screen-large-tablet: 992px;
+$screen-pc: 1200px;
+
+$width-smart-phone: 540px;
+$width-small-tablet: 720px;
+$width-large-table: 960px;
+$width-pc: 1140px;
+
+body {
+  background-color: $sub-color;
+}
+
+.navbar-wrapper {
+  background-color: $base-color-1;
+
+  .navbar-custom {
+    height: 45px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: $base-color-1 !important;
+    color: white;
+    @include min-screen($screen-smart-phone) {
+      max-width: $width-smart-phone;
+    }
+    @include min-screen($screen-small-tablet) {
+      max-width: $width-small-tablet;
+    }
+    @include min-screen($screen-large-tablet) {
+      max-width: $width-large-table;
+    }
+    @include min-screen($screen-pc) {
+      max-width: $width-pc;
+    }
   }
 }
 
 .row {
-  display: block !important;
-  flex-wrap: nowrap !important;
-
-  .tool-bar {
-    height: 70px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-
-    .tool-bar-right {
-      float: right;
-    }
-
-    .tool-bar-item {
-      margin: 5px;
-    }
-  }
+  width: 100%;
 }
+
+.main-content {
+  background-color: white;
+}
+
 a.trash-button {
   color: red !important;
 }
+
 a.edit-button {
   color: green !important;
+}
+
+.tool-bar {
+  height: 60px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  .tool-bar-right {
+    float: right;
+  }
+
+  .tool-bar-item {
+    margin: 5px;
+  }
+}
+
+#left_menu {
+  padding-top: 30px;
+
+  i.fa {
+    margin-right: 5px;
+  }
+
+  .list-group-item-custom {
+    background-color: $sub-color !important;
+    border: 0 !important;
+  }
+  .list-group-item-custom.active {
+    color: $accent-color;
+    font-weight: bold;
+  }
+
+  #small_window_menu {
+    @include min-screen($breakpoint-small) {
+      display: none;
+    }
+
+    @include max-screen($breakpoint-large) {
+      display: block;
+    }
+
+    #open_button {
+      background-color: $accent-color;
+      color: white;
+    }
+
+    #collapse_menu {
+      padding-bottom: 20px;
+    }
+  }
+
+  #large_window_menu {
+    @include min-screen($breakpoint-small) {
+      display: block;
+    }
+
+    @include max-screen($breakpoint-large) {
+      display: none;
+    }
+  }
+}
+
+#todo_app_task_list.row {
+  margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
+}
+
+#task_list {
+  padding-right: 0px;
+
+  .detail_info {
+    font-size: 80%;
+    margin-bottom: 0;
+    padding-top: 5px;
+
+    .text {
+      margin-right: 10px;
+    }
+  }
+}
+
+.form-wrapper{
+  margin: auto;
+  padding: 50px 5px 5px 5px;
+
+  form{
+    width: 100%;
+  }
 }
