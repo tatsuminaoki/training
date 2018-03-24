@@ -109,14 +109,20 @@ a.edit-button {
   .list-group-item-custom {
     border: 0 !important;
     color: #212529;
-    background-color: white;
+    background-color: $sub-color;
     border-radius: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 0.9rem;
+    line-height: 15px;
+
+    a {
+      color: inherit !important;
+    }
   }
 
   .list-group-item-custom.active {
+    background-color: white;
     font-weight: bold;
   }
 

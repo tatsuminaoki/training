@@ -1,3 +1,10 @@
 <ul class="list-group list-group-flush">
-  <li class="list-group-item list-group-item-custom active"><%= fa_icon "users" %><%= I18n.t('page.user.titles.list')%></li>
+  <li class="list-group-item list-group-item-custom active">
+    <%= fa_icon "users" %>
+    <%= link_to I18n.t('page.user.titles.list'), admin_users_path %>
+  </li>
+  <li class="list-group-item list-group-item-custom">
+    <%= fa_icon "user-plus" %>
+    <%= link_to I18n.t('page.user.titles.new'), new_admin_user_path %>
+  </li>
 </ul>

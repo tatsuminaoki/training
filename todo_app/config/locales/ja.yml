@@ -276,7 +276,8 @@ ja:
         done_count: 完了
     user:
       titles:
-        list: ユーザー一覧
+        list: ユーザー
+        new: ユーザー登録
       labels:
         user_num: ユーザー数
         user_name: ユーザー名
