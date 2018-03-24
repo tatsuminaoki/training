@@ -235,6 +235,29 @@ describe Task, type: :model do
       end
     end
 
+    describe 'タスクの集計' do
+      context 'ステータス別のタスク数を集計したい場合' do
+        let!(:user) { create(:user) }
+        let!(:dummy) { create(:user) }
+
+        before do
+          (1..3).to_a.each { |i| create(:task, user_id: user.id, status: :not_start) }
+          (1..6).to_a.each { |i| create(:task, user_id: user.id, status: :progress) }
+          (1..9).to_a.each { |i| create(:task, user_id: user.id, status: :done) }
+        end
+
+        it 'ユーザーに紐づくステータス別のタスク数が取得できること' do
+          task_count = Task.task_count_group_by(user.id)
+          expect(task_count['not_start']).to eq 3
+          expect(task_count['progress']).to eq 6
+          expect(task_count['done']).to eq 9
+
+          nil_obj = Task.task_count_group_by(dummy.id)
+          expect(nil_obj.empty?).to be_truthy
+        end
+      end
+    end
+
     describe 'ページングの仕組み' do
       before { (1..20).to_a.each { |i| create(:task, title: "Rspec test #{i}") } }
 
