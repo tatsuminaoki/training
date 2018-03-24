@@ -4,7 +4,8 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :name, presence: true, length: { maximum: 20 }
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
+  validates :password, presence: true, length: { minimum: 6 }, if: Proc.new { |user| user.password.present? }, on: :update
 
   SORT_KINDS = %i[created_at name].freeze
 
@@ -20,12 +21,12 @@ class User < ApplicationRecord
     end
 
     def search_by_name(name)
-      find_by(name: name)
+      where(name: name)
     end
 
     def order_by(sort: 'name')
       sort ||= :name
-      order(sort_column(sort) => :desc, :id => :desc)
+      order(sort_column(sort) => :asc, :id => :desc)
     end
 
     def sort_column(value)

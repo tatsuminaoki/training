@@ -46,6 +46,13 @@ describe User, type: :model do
     end
   end
 
+  describe 'ユーザーの更新' do
+    it 'パスワード未設定でも更新できること' do
+      user = create(:user)
+      expect(user.update(name: 'dummy')).to be_truthy
+    end
+  end
+
   describe 'ユーザーの取得操作' do
     describe '絞り込み検索' do
       before { (1..10).each { |i| create(:user, id: i, name: "User #{i}") } }
@@ -64,7 +71,7 @@ describe User, type: :model do
 
       context 'ユーザー名での絞り込み' do
         it '指定したユーザー名に完全一致する情報が取得できること' do
-          user = User.search_by_name('User 1')
+          user = User.search_by_name('User 1').first
           expect(user.name.to_s).to eq 'User 1'
         end
       end
@@ -76,9 +83,9 @@ describe User, type: :model do
       end
 
       context '作成時刻順に取得したい場合' do
-        it 'created_atの降順で取得できること' do
+        it 'created_atの昇順で取得できること' do
           user = User.order_by(sort: :created_at).first
-          expect(user.created_at.to_s).to eq '2018/01/01 00:00:10'
+          expect(user.created_at.to_s).to eq '2018/01/01 00:00:01'
         end
 
         context 'created_atが同一の場合' do
@@ -91,9 +98,9 @@ describe User, type: :model do
       end
 
       context 'ユーザー名順に取得したい場合' do
-        it 'nameの降順で取得できること' do
+        it 'nameの照準で取得できること' do
           user = User.order_by(sort: :name).first
-          expect(user.name).to eq 'User 9'
+          expect(user.name).to eq 'User 1'
         end
 
         context 'nameが同一の場合' do
@@ -106,14 +113,14 @@ describe User, type: :model do
       end
 
       context 'created_at、nameカラム以外ででソート順を指定した場合' do
-        it '不正なカラム名を指定した場合、デフォルトでnameの降順で取得されること' do
+        it '不正なカラム名を指定した場合、デフォルトでnameの昇順で取得されること' do
           user = User.order_by(sort: :password_digest).first
-          expect(user.created_at.to_s).to eq '2018/01/01 00:00:09'
+          expect(user.created_at.to_s).to eq '2018/01/01 00:00:01'
         end
 
-        it 'nilを指定した場合、、デフォルトでnameの降順で取得されること' do
+        it 'nilを指定した場合、、デフォルトでnameの昇順で取得されること' do
           user = User.order_by(sort: nil).first
-          expect(user.created_at.to_s).to eq '2018/01/01 00:00:09'
+          expect(user.created_at.to_s).to eq '2018/01/01 00:00:01'
         end
       end
     end
@@ -125,7 +132,7 @@ describe User, type: :model do
         it '1~10件目のデータが取得できること' do
           users = User.search_all
           expect(users.size).to eq 10
-          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', 20 - i)}" }
+          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', i + 1)}" }
         end
       end
 
@@ -133,7 +140,7 @@ describe User, type: :model do
         it '2を指定すると11~20件目のデータが取得できること' do
           users = User.search_all(page: 2)
           expect(users.size).to eq 10
-          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', 10 - i)}" }
+          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', i + 11)}" }
         end
       end
 
@@ -141,19 +148,19 @@ describe User, type: :model do
         it '文字列のページ番号を指定した場合、数値に変換されてデータが返却されること' do
           users = User.search_all(page: '2')
           expect(users.size).to eq 10
-          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', 10 - i)}" }
+          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', i + 11)}" }
         end
 
         it '数値に変換できない値を指定した場合、1ページ目のデータが返却されること' do
           users = User.search_all(page: 'a')
           expect(users.size).to eq 10
-          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', 20 - i)}" }
+          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', i + 1)}" }
         end
 
         it '負数を指定した場合、1ページ目のデータが返却されること' do
           users = User.search_all(page: -1)
           expect(users.size).to eq 10
-          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', 20 - i)}" }
+          users.each.with_index { |user, i| expect(user.name).to eq "User #{format('%02d', i + 1)}" }
         end
       end
     end
