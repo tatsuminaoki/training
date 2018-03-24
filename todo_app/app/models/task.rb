@@ -27,12 +27,8 @@ class Task < ApplicationRecord
       query.page(page)
     end
 
-    def user_summary(user_id)
-      where(user_id: user_id).select(<<-SELECT)
-          MAX(created_at) as last_created_at,
-          COUNT(*) as task_num
-        SELECT
-        .first
+    def task_count_group_by(user_id)
+      where(user_id: user_id).group(:status).count
     end
 
     def sort_column(value)

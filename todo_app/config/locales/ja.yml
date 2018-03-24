@@ -270,11 +270,15 @@ ja:
         created_at: 作成日時
         last_created_at: 最終作成日
         sort: ソート
-        task_num: タスク数
+        total_count: タスク数
+        not_start_count: 未着手
+        progress_count: 進行中
+        done_count: 完了
     user:
       titles:
         list: ユーザー一覧
       labels:
+        user_num: ユーザー数
         user_name: ユーザー名
         password: パスワード
         created_at: 登録日時

@@ -9,7 +9,7 @@ module Admin
     def tasks
       set_search_params
       @user = User.search_by_id(params[:id])
-      @user_summary = Task.user_summary(params[:id])
+      @task_count = Task.task_count_group_by(params[:id])
       @tasks = Task.search(user_id: params[:id], title: @search_title, status: @search_status, sort: @search_sort, page: @page)
     end
 
