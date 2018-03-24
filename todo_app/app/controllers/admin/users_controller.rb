@@ -3,7 +3,9 @@ module Admin
     before_action :require_login
 
     def index
+      @search_name = params[:search_name]
       @users = User.search_all
+      @users = @users.search_by_name(@search_name) if @search_name.present?
     end
 
     def tasks

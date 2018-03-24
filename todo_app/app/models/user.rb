@@ -20,6 +20,10 @@ class User < ApplicationRecord
         .page(page)
     end
 
+    def search_by_name(name)
+      where(name: name)
+    end
+
     def order_by(sort: 'name')
       sort ||= :name
       order(sort_column(sort) => :desc, :id => :desc)
