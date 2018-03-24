@@ -1,6 +1,8 @@
+<%= render 'left_menu_wrapper' %>
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
  <%= bootstrap_form_for(@user, url: user_form_path) do |t| %>
- <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 task-edit-area">
+ <div class="row right-area-form">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 task-edit-area">
       <% if @user.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@user.errors.count, "error") %> prohibited
@@ -12,7 +14,7 @@
           </ul>
         </div>
       <% end %>
-
+ 
       <%= t.text_field :name, label: I18n.t('page.user.labels.user_name') %>
       <%= t.password_field :password, label: I18n.t('page.user.labels.password')  %>
     </div>
@@ -24,4 +26,5 @@
       <%= link_to I18n.t('helpers.submit.cancel'), admin_users_path, {:class=>"btn btn-default"} %>
     </div>
   </div>
-<% end %>
+  <% end %>
+</div>
