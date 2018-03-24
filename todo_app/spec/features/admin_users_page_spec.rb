@@ -23,7 +23,7 @@ describe 'ユーザー一覧画面', type: :feature do
     end
   end
 
-  describe 'タスクの表示内容の検証' do
+  describe 'ユーザーの表示内容の検証' do
     before { visit_after_login(user: admin, visit_path: admin_users_path) }
 
     describe '初期表示の描画確認' do
@@ -44,7 +44,7 @@ describe 'ユーザー一覧画面', type: :feature do
 
       context '一覧表の検証' do
         before do
-          (0..10).each { create(:task, user_id: first_user.id) }
+          10.times { create(:task, user_id: first_user.id) }
           visit admin_users_path
         end
 

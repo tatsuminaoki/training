@@ -86,7 +86,12 @@ describe Task, type: :model do
       end
 
       it '登録した値を取得できること' do
-        create(:task)
+        create(:task,
+               title: 'Rspec test 0123',
+               description: 'This is a sample description',
+               deadline: '2018/03/01 00:00:00',
+               status: :progress,
+               priority: :high)
 
         task = Task.find_by(title: 'Rspec test 0123')
 
@@ -100,7 +105,12 @@ describe Task, type: :model do
 
     context 'タスクの更新' do
       it '取得したタスクの内容を更新できること' do
-        create(:task)
+        create(:task,
+               title: 'Rspec test 0123',
+               description: 'This is a sample description',
+               deadline: '2018/03/01 00:00:00',
+               status: :progress,
+               priority: :high)
 
         task = Task.find_by(title: 'Rspec test 0123')
         task.update(status: 'progress')
@@ -112,7 +122,12 @@ describe Task, type: :model do
 
     context 'タスクの削除' do
       it '取得したタスクを削除できること' do
-        create(:task)
+        create(:task,
+               title: 'Rspec test 0123',
+               description: 'This is a sample description',
+               deadline: '2018/03/01 00:00:00',
+               status: :progress,
+               priority: :high)
 
         task = Task.find_by(title: 'Rspec test 0123')
         expect(task.destroy.title).to eq 'Rspec test 0123'

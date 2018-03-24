@@ -28,15 +28,15 @@ describe 'タスク詳細画面', type: :feature do
 
   describe 'タスクの登録内容の表示確認' do
     it 'タスク名が表示されていること' do
-      expect(find('#task_title').value).to eq 'Rspec test 1'
+      expect(find('#task_title').value).to eq task.title
     end
 
     it '内容が表示されていること' do
-      expect(find('#task_description').value).to eq 'This is a sample description'
+      expect(find('#task_description').value).to eq task.description
     end
 
     it '期日が表示されていること' do
-      expect(find('#task_deadline').value).to eq '2018/03/01 00:00:00'
+      expect(find('#task_deadline').value).to eq task.deadline.to_s
     end
 
     it 'ステータスが表示されていること' do

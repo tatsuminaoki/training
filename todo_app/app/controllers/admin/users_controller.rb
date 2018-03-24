@@ -26,7 +26,7 @@ module Admin
         flash[:success] = I18n.t('success.create', it: User.model_name.human)
         redirect_to admin_users_path
       else
-        render 'new'
+        render :new
       end
     end
 
@@ -41,7 +41,7 @@ module Admin
         flash[:success] = I18n.t('success.update', it: User.model_name.human)
         redirect_to admin_users_path
       else
-        render 'edit'
+        render :edit
       end
     end
 

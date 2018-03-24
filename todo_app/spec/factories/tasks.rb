@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :task do
-    title 'Rspec test 0123'
+    sequence(:title) { |n| "Rspec test #{n}" }
     description 'This is a sample description'
-    deadline '2018/03/01'
+    sequence(:deadline) { |n| Time.now.getlocal + n }
     status 'progress'
     priority 'high'
+    sequence(:created_at) { |n| Time.now.getlocal + n }
     association :user, factory: :user_association
   end
 
