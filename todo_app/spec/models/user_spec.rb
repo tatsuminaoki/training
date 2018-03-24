@@ -52,7 +52,7 @@ describe User, type: :model do
 
       context 'idでの絞り込み' do
         it 'idを指定した場合、合致するユーザー情報が取得できること' do
-          user = User.search_by_id(10).first
+          user = User.search_by_id(10)
           expect(user.name.to_s).to eq 'User 10'
         end
 
