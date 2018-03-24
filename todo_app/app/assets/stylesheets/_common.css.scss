@@ -100,18 +100,23 @@ a.edit-button {
 }
 
 #left_menu {
-  padding-top: 30px;
+  padding-top: 5px;
 
   i.fa {
     margin-right: 5px;
   }
 
   .list-group-item-custom {
-    background-color: $sub-color !important;
     border: 0 !important;
+    color: #212529;
+    background-color: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.9rem;
   }
+
   .list-group-item-custom.active {
-    color: $accent-color;
     font-weight: bold;
   }
 
