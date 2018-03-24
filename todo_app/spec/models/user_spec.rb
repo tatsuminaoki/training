@@ -61,6 +61,13 @@ describe User, type: :model do
           expect(users.size).to eq 10
         end
       end
+
+      context 'ユーザー名での絞り込み' do
+        it '指定したユーザー名に完全一致する情報が取得できること' do
+          user = User.search_by_name('User 1')
+          expect(user.name.to_s).to eq 'User 1'
+        end
+      end
     end
 
     describe 'ソート順' do

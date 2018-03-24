@@ -10,9 +10,8 @@ class User < ApplicationRecord
 
   class << self
     def search_by_id(user_id, sort: 'name', page: 1)
-      where(id: user_id)
-        .order_by(sort: sort)
-        .first
+      order_by(sort: sort)
+        .find(user_id)
     end
 
     def search_all(sort: 'name', page: 1)
@@ -21,7 +20,7 @@ class User < ApplicationRecord
     end
 
     def search_by_name(name)
-      where(name: name)
+      find_by(name: name)
     end
 
     def order_by(sort: 'name')
