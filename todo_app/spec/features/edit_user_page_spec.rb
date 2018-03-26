@@ -15,7 +15,7 @@ describe 'ユーザー編集画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
-      it 'ユーザー一覧画面が表示されること' do
+      it 'ユーザー編集画面が表示されること' do
         visit_after_login(user: admin, visit_path: edit_admin_user_path(edit_user))
         expect(page).to have_css('#edit_user')
       end

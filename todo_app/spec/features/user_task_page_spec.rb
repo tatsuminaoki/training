@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'ユーザー一覧画面', type: :feature do
+describe 'ユーザータスク一覧画面', type: :feature do
   let!(:user) { create(:user) }
   before do
     (1..1000).each { |i| create(:task, title: "Not start Task #{i}", user_id: user.id, status: :not_start) }
@@ -19,7 +19,7 @@ describe 'ユーザー一覧画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
-      it 'ユーザー一覧画面が表示されること' do
+      it 'ユーザータスク一覧画面が表示されること' do
         visit_after_login(user: user, visit_path: admin_user_tasks_path(user))
         expect(page).to have_css('#task_list')
       end
