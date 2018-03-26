@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'タスク一覧画面', type: :feature do
-  let!(:user) { create(:user_association) }
+  let!(:user) { create(:user) }
 
   before { visit_after_login(user: user, visit_path: root_path) }
 
@@ -157,7 +157,7 @@ describe 'タスク一覧画面', type: :feature do
 
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
-      let!(:user) { create(:user_association) }
+      let!(:user) { create(:user) }
 
       context '新着順でソートしたい場合' do
         before do

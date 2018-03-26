@@ -5,12 +5,6 @@ FactoryBot.define do
     deadline '2018/03/01'
     status 'progress'
     priority 'high'
-    association :user, factory: :user_association
-  end
-
-  factory :user_association, class: User do
-    name 'task_user'
-    password 'foobar'
-    password_confirmation 'foobar'
+    association :user, factory: :user
   end
 end
