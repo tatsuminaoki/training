@@ -52,7 +52,7 @@ describe 'ユーザー編集画面', type: :feature do
         expect(page).to have_content I18n.t('success.update', it: User.model_name.human)
       end
 
-      it 'ユーザー名を変更して更新できること' do
+      it 'パスワードを変更して更新できること' do
         within('#edit_user') do
           fill_in I18n.t('page.user.labels.password'), with: 'hogehoge'
         end
