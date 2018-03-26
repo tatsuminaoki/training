@@ -38,8 +38,8 @@ describe 'タスク一覧画面', type: :feature do
 
     context 'タスクの非登録ユーザーの場合' do
       it '自分が登録していないタスクは閲覧できないこと' do
-        user = User.create(name: 'some', password: 'foobar', password_confirmation: 'foobar')
-        login(user: user)
+        tmp_user = create(:user, name: 'some')
+        login(user: tmp_user)
         visit root_path
         expect(page).to have_css('table#task_table tbody tr', count: 0)
       end
