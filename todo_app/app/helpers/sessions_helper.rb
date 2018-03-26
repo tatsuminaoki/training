@@ -14,8 +14,8 @@ module SessionsHelper
     @current_user ||= User.find_by(id: stored_user_id)
   end
 
-  def current_user?
-    !current_user.nil?
+  def logged_in?
+    current_user.present?
   end
 
   private
