@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
-  validates :password, presence: true, length: { minimum: 6 }, if: Proc.new { |user| user.password.present? }, on: :update
+  validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 
   SORT_KINDS = %i[created_at name].freeze
 
