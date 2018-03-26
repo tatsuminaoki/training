@@ -7,6 +7,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :password, presence: true, length: { minimum: 6 }, if: Proc.new { |user| user.password.present? }, on: :update
 
+  enum role: %i[general administrator].freeze
+
   SORT_KINDS = %i[created_at name].freeze
 
   class << self
