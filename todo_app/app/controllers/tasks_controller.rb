@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :set_available_labels, only: %i[new edit]
+
   def index
     @search_title = params[:search_title]
     @search_status = params[:search_status]
@@ -13,7 +15,7 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  def create
+  def create 
     @task = Task.new(task_params)
 
     if @task.save
@@ -54,6 +56,10 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :description, :deadline, :status, :priority, :label_list)
+  end
+
+  def set_available_labels
+    @available_labels = ActsAsTaggableOn::Tag.all.pluck(:name).to_json.html_safe
   end
 end

@@ -23,6 +23,7 @@
                    { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.status')) } %>
       <%= t.select :priority,priority_pull_down,
                    { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.priority')) } %>
+      <%= t.text_field :label_list, label: I18n.t('page.task.labels.label_list'), value: @task.label_list.join(',') %>
     </div>
   </div>
 
@@ -33,3 +34,13 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#task_label_list").tagit({
+          availableTags: <%= @available_labels ||= [] %>,
+          fieldName:   'task[label_list]',
+          singleField: true
+        });
+    });
+</script>

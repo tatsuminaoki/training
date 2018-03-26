@@ -259,4 +259,5 @@ ja:
         status: ステータス
         priority: 優先度
         created_at: 作成日時
+        label_list: ラベル
         sort: ソート

@@ -24,6 +24,10 @@
         <label class="control-label required" for="task_priority"><%= I18n.t('page.task.labels.priority') %></label>
         <input class="form-control" readonly type="text" value="<%= priority_value @task.priority%>" id="task_priority" />
       </div>
+      <div class="form-group">
+        <label class="control-label required" for="task_label_list"><%= I18n.t('page.task.labels.label_list') %></label>
+        <input class="form-control" readonly type="text" value="<%= @task.label_list.join(',') %>" id="task_label_list" />
+      </div>
     </div>
   </div>
   <div class="row">
@@ -33,3 +37,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#task_label_list").tagit({
+          readOnly: true
+        });
+    });
+</script>
