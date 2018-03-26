@@ -60,7 +60,7 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:name, :password)
+      params.require(:user).permit(:name, :password, :role)
     end
 
     def set_search_params

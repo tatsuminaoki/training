@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'ユーザー一覧画面', type: :feature do
+describe 'ユーザータスク一覧画面', type: :feature do
   let!(:user) { create(:user) }
   before do
     (1..1000).each { |i| create(:task, title: "Not start Task #{i}", user_id: user.id, status: :not_start) }

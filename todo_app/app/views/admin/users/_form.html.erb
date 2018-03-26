@@ -18,6 +18,8 @@
  
       <%= t.text_field :name, label: I18n.t('page.user.labels.user_name') %>
       <%= t.password_field :password, label: I18n.t('page.user.labels.password')  %>
+      <%= t.select :role, role_pull_down,
+              { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.user.labels.role')) } %>
     </div>
   </div>
 

@@ -284,5 +284,6 @@ ja:
       labels:
         user_num: ユーザー数
         user_name: ユーザー名
+        role: ロール
         password: パスワード
         created_at: 登録日時

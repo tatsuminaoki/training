@@ -5,14 +5,14 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
-  validates :password, presence: true, length: { minimum: 6 }, if: Proc.new { |user| user.password.present? }, on: :update
+  validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 
   enum role: %i[general administrator].freeze
 
   SORT_KINDS = %i[created_at name].freeze
 
   class << self
-    def search_by_id(user_id, sort: 'name', page: 1)
+    def search_by_id(user_id, sort: 'name')
       order_by(sort: sort)
         .find(user_id)
     end
