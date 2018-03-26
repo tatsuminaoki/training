@@ -59,6 +59,26 @@ describe User, type: :model do
     end
   end
 
+  describe 'ユーザーの削除' do
+    let!(:user) { create(:user) }
+    context '管理者が1名の場合' do
+      it '削除できないこと' do
+        user.destroy
+        expect(User.count).to eq 1
+        expect(user.errors[:base][0]).to eq I18n.t('errors.messages.at_least_one_administrator')
+      end
+    end
+
+    context '管理者が2名の場合' do
+      it '削除できること' do
+        create(:user) #=> another administrator
+        user.destroy
+        expect(User.count).to eq 1
+        expect(user.errors.blank?).to be_truthy
+      end
+    end
+  end
+
   describe 'ユーザーの取得操作' do
     describe '絞り込み検索' do
       before { (1..10).each { |i| create(:user, id: i, name: "User #{i}") } }

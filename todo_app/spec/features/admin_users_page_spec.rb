@@ -122,20 +122,40 @@ describe 'ユーザー一覧画面', type: :feature do
       let!(:record) { all('#user_table tbody tr').first }
       let!(:initial_count) { User.count }
 
-      before { record.find('a.trash-button').click }
+      context '管理者ユーザーが2人いる場合' do
+        before { record.find('a.trash-button').click }
 
-      context '確認ダイアログでキャンセルボタンを押した場合' do
-        it '対象行は削除されないこと' do
-          page.dismiss_confirm
-          expect(User.count).to eq initial_count
+        context '確認ダイアログでキャンセルボタンを押した場合' do
+          it '対象行は削除されないこと' do
+            page.dismiss_confirm
+            expect(User.count).to eq initial_count
+          end
+        end
+
+        context '確認ダイアログで確認ボタンを押した場合' do
+          it '処理が実行されタスクが削除されること' do
+            page.accept_confirm
+            expect(page).to have_css('.alert-success')
+            expect(User.count).to eq (initial_count - 1)
+          end
         end
       end
 
-      context '確認ダイアログで確認ボタンを押した場合' do
-        it '処理が実行されタスクが削除されること' do
+      context '管理者ユーザーが一人の場合' do
+        before { User.where.not(id: admin.id).each { |user| user.update(role: User.roles['general']) } }
+        before do
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { fill_in I18n.t('page.user.labels.user_name'), with: admin.name }
+          click_on I18n.t('helpers.submit.search')
+
+          record = all('#user_table tbody tr').first
+          record.find('a.trash-button').click
+        end
+
+        it '削除できないこと' do
           page.accept_confirm
-          expect(page).to have_css('.alert-success')
-          expect(User.count).to eq (initial_count - 1)
+          expect(page).to have_css('.alert-danger')
+          expect(page).to have_content(I18n.t('errors.messages.at_least_one_administrator'))
         end
       end
     end
