@@ -51,9 +51,11 @@ module Admin
 
     def destroy
       @user = User.find(params[:id])
-      @user.delete
-
-      flash[:success] = I18n.t('success.delete', it: User.model_name.human)
+      if @user.destroy
+        flash[:success] = I18n.t('success.delete', it: User.model_name.human)
+      else
+        flash[:danger] = @user.errors[:base][0]
+      end
       redirect_to admin_users_path
     end
 
