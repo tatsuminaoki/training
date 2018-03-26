@@ -61,6 +61,16 @@ describe 'ユーザー編集画面', type: :feature do
         expect(page).to have_css('#users_list')
         expect(page).to have_content I18n.t('success.update', it: User.model_name.human)
       end
+
+      it 'ロールを変更して更新できること' do
+        within('#edit_user') do
+          select User.human_attribute_name('roles.general'), from: 'user_role'
+        end
+        click_on I18n.t('helpers.submit.update')
+
+        expect(page).to have_css('#users_list')
+        expect(page).to have_content I18n.t('success.update', it: User.model_name.human)
+      end
     end
 
     context '更新に失敗する場合' do

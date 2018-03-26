@@ -43,6 +43,12 @@ describe User, type: :model do
         expect(user).to be_invalid
         expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_long', count: 72)
       end
+
+      it 'ロールがなければ無効な状態であること' do
+        user = build(:user, role: nil)
+        expect(user).to be_invalid
+        expect(user.errors[:role][0]).to eq I18n.t('errors.messages.empty')
+      end
     end
   end
 
@@ -79,7 +85,7 @@ describe User, type: :model do
 
     describe 'ソート順' do
       before do
-        (1..10).each { |i| User.create(name: "User #{i}", password: "password#{i}", password_confirmation: "password#{i}", created_at: "2018/1/1 0:0:#{i}") }
+        (1..10).each { |i| User.create(name: "User #{i}", role: 'administrator', password: "password#{i}", password_confirmation: "password#{i}", created_at: "2018/1/1 0:0:#{i}") }
       end
 
       context '作成時刻順に取得したい場合' do
