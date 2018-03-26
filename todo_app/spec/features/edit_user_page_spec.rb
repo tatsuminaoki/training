@@ -97,6 +97,23 @@ describe 'ユーザー編集画面', type: :feature do
           expect(page).to have_content('Passwordは6文字以上で入力してください')
         end
       end
+
+      context 'ロールのバリデーション' do
+        before do
+          edit_user.update(role: User.roles['general'])
+          visit edit_admin_user_path(admin)
+        end
+
+        it '管理者が1名しか存在しない場合には一般ユーザーに変更できないこと' do
+          within('#edit_user') do
+            select User.human_attribute_name('roles.general'), from: 'user_role'
+          end
+          click_on I18n.t('helpers.submit.update')
+
+          expect(page).to have_css('#edit_user')
+          expect(page).to have_content(I18n.t('errors.messages.at_least_one_administrator'))
+        end
+      end
     end
 
     context '登録をやめたい場合' do

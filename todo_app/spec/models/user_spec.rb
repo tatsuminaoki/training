@@ -53,9 +53,26 @@ describe User, type: :model do
   end
 
   describe 'ユーザーの更新' do
+    let!(:user) { create(:user) }
     it 'パスワード未設定でも更新できること' do
-      user = create(:user)
       expect(user.update(name: 'dummy')).to be_truthy
+    end
+
+    context '管理者が1名の場合' do
+      it 'ロールを一般ユーザーに変更できないこと' do
+        ret = user.update(role: User.roles['general'])
+        expect(ret).to be_falsey
+        expect(user.errors[:base][0]).to eq I18n.t('errors.messages.at_least_one_administrator')
+      end
+    end
+
+    context '管理者が2名の場合' do
+      it 'ロールを一般ユーザーに変更できること' do
+        create(:user) #=> another administrator
+        ret = user.update(role: User.roles['general'])
+        expect(ret).to be_truthy
+        expect(user.errors.blank?).to be_truthy
+      end
     end
   end
 

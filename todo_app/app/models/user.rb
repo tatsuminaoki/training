@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :role, presence: true
+  validate :administrator_must_be_exist_at_least_one, if: proc { |user| user.role == User.roles.keys[0] }, on: :update
   validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 
   enum role: %i[general administrator].freeze
