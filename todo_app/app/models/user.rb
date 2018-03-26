@@ -10,7 +10,7 @@ class User < ApplicationRecord
   SORT_KINDS = %i[created_at name].freeze
 
   class << self
-    def search_by_id(user_id, sort: 'name', page: 1)
+    def search_by_id(user_id, sort: 'name')
       order_by(sort: sort)
         .find(user_id)
     end
