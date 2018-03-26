@@ -36,5 +36,9 @@ class User < ApplicationRecord
     end
   end
 
+  def administorator?
+    User.roles.keys[1] == role
+  end
+
   private_class_method :sort_column
 end
