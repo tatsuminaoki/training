@@ -16,6 +16,11 @@ describe 'ユーザー一覧画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
+      it '一般ユーザーの場合、タスク一覧ページにリダイレクトすること' do
+        visit_after_login(user: create(:user, role: User.roles['general']), visit_path: admin_users_path)
+        expect(page).to have_css('#todo_app_task_list')
+      end
+
       it 'ユーザー一覧画面が表示されること' do
         visit_after_login(user: admin, visit_path: admin_users_path)
         expect(page).to have_css('#users_list')

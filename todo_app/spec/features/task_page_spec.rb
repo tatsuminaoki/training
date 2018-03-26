@@ -22,6 +22,20 @@ describe 'タスク一覧画面', type: :feature do
     end
   end
 
+  describe 'グローバルメニューの検証' do
+    context 'ユーザー管理画面へのリンク表示' do
+      it '管理ユーザーの場合、表示されること' do
+        expect(page).to have_selector('a[href="/admin/users"]')
+      end
+
+      it '一般ユーザーの場合、表示されないこと' do
+        logout
+        visit_after_login(user: create(:user, role: User.roles['general']), visit_path: root_path)
+        expect(page).to have_no_selector('a[href="/admin/users"]')
+      end
+    end
+  end
+
   describe 'タスクの表示権限の検証' do
     let(:record) { first(:css, 'table#task_table tbody tr') }
 

@@ -11,6 +11,7 @@ FactoryBot.define do
 
   factory :user_association, class: User do
     name 'task_user'
+    role 'administrator'
     password 'foobar'
     password_confirmation 'foobar'
   end
