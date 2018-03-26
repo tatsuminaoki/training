@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SessionsHelper
+module Sessions
   def log_in(id)
     session[:user_id] = id if id
   end
