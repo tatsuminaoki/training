@@ -47,7 +47,7 @@ describe 'ユーザー登録画面', type: :feature do
           click_on I18n.t('helpers.submit.create')
 
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Nameを入力してください')
+          expect(page).to have_content('ユーザー名を入力してください')
         end
       end
 
@@ -60,7 +60,7 @@ describe 'ユーザー登録画面', type: :feature do
           click_on I18n.t('helpers.submit.create')
 
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Passwordを入力してください')
+          expect(page).to have_content('パスワードを入力してください')
         end
 
         it '6文字以下の場合、エラーメッセージが表示されること' do
@@ -71,7 +71,7 @@ describe 'ユーザー登録画面', type: :feature do
           click_on I18n.t('helpers.submit.create')
 
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Passwordは6文字以上で入力してください')
+          expect(page).to have_content('パスワードは6文字以上で入力してください')
         end
       end
     end

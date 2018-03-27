@@ -25,6 +25,9 @@ ja:
         created_at: 新着順
         deadline: 期日が近い順
         priority: 優先度が高い順
+      user:
+        name: ユーザー名
+        password: パスワード
   date:
     abbr_day_names:
     - 日

@@ -67,7 +67,7 @@ describe 'ユーザー編集画面', type: :feature do
           click_on I18n.t('helpers.submit.update')
 
           expect(page).to have_css('#edit_user')
-          expect(page).to have_content('Nameを入力してください')
+          expect(page).to have_content('ユーザー名を入力してください')
         end
       end
 
@@ -79,7 +79,7 @@ describe 'ユーザー編集画面', type: :feature do
           click_on I18n.t('helpers.submit.update')
 
           expect(page).to have_css('#edit_user')
-          expect(page).to have_content('Passwordは6文字以上で入力してください')
+          expect(page).to have_content('パスワードは6文字以上で入力してください')
         end
       end
     end
