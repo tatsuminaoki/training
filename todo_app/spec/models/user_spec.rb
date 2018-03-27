@@ -120,7 +120,7 @@ describe User, type: :model do
           expect(user.created_at.to_s).to eq '2018/01/01 00:00:00'
         end
 
-        it 'nilを指定した場合、、デフォルトでnameの昇順で取得されること' do
+        it 'nilを指定した場合、デフォルトでnameの昇順で取得されること' do
           user = User.order_by(sort: nil).first
           expect(user.created_at.to_s).to eq '2018/01/01 00:00:00'
         end
