@@ -2,6 +2,13 @@
 
 require 'rails_helper'
 
+shared_examples 'ログイン画面のメッセージ確認' do
+  it 'エラーメッセージが表示されること' do
+    expect(page).to have_css('.form-signin')
+    expect(page).to have_content(I18n.t('errors.messages.invalid_login'))
+  end
+end
+
 describe 'ログイン画面', type: :feature do
   before { visit login_path }
 
@@ -9,8 +16,8 @@ describe 'ログイン画面', type: :feature do
     it 'ログイン画面が表示できること' do
       expect(page).to have_css('.form-signin')
       expect(page).to have_content(I18n.t('page.login.labels.title', app_name: I18n.t('page.common.app_name')))
-      expect(page).to have_selector("input[placeholder=#{I18n.t('page.login.labels.user_name')}]")
-      expect(page).to have_selector("input[placeholder=#{I18n.t('page.login.labels.password')}]")
+      expect(page).to have_selector('#sessions_name')
+      expect(page).to have_selector('#sessions_password')
     end
   end
 
@@ -22,9 +29,9 @@ describe 'ログイン画面', type: :feature do
     end
 
     context 'ログインに成功する場合' do
-      let!(:user) { create(:user) }
-      let!(:name) { user.name }
-      let!(:password) { user.password }
+      let(:user) { create(:user) }
+      let(:name) { user.name }
+      let(:password) { user.password }
 
       it 'ユーザー名、パスワードを入力してログイン後、タスク一覧画面に遷移すること' do
         expect(page).to have_css('#todo_app_task_list')
@@ -33,46 +40,34 @@ describe 'ログイン画面', type: :feature do
 
     context 'ログインに失敗する場合' do
       context '存在しないユーザーの場合' do
-        let!(:name) { 'someone' }
-        let!(:password) { 'somepassword' }
+        let(:name) { 'someone' }
+        let(:password) { 'somepassword' }
 
-        it 'ログイン画面にエラーメッセージが表示されること' do
-          expect(page).to have_css('.form-signin')
-          expect(page).to have_content(I18n.t('errors.messages.invalid_login'))
-        end
+        it_behaves_like 'ログイン画面のメッセージ確認'
       end
 
       context '存在するユーザーのユーザー名を間違えた場合' do
-        let!(:user) { create(:user) }
-        let!(:name) { user.name + 'a' }
-        let!(:password) { user.password }
+        let(:user) { create(:user) }
+        let(:name) { user.name + 'a' }
+        let(:password) { user.password }
 
-        it 'ログイン画面にエラーメッセージが表示されること' do
-          expect(page).to have_css('.form-signin')
-          expect(page).to have_content(I18n.t('errors.messages.invalid_login'))
-        end
+        it_behaves_like 'ログイン画面のメッセージ確認'
       end
 
       context '存在するユーザーのパスワードを間違えた場合' do
-        let!(:user) { create(:user) }
-        let!(:name) { user.name }
-        let!(:password) { user.password + 'a' }
+        let(:user) { create(:user) }
+        let(:name) { user.name }
+        let(:password) { user.password + 'a' }
 
-        it 'ログイン画面にエラーメッセージが表示されること' do
-          expect(page).to have_css('.form-signin')
-          expect(page).to have_content(I18n.t('errors.messages.invalid_login'))
-        end
+        it_behaves_like 'ログイン画面のメッセージ確認'
       end
 
       context '存在するユーザーのパスワードが空白の場合' do
         let(:user) { create(:user) }
-        let!(:name) { user.name }
-        let!(:password) { nil }
+        let(:name) { user.name }
+        let(:password) { nil }
 
-        it 'ログイン画面にエラーメッセージが表示されること' do
-          expect(page).to have_css('.form-signin')
-          expect(page).to have_content(I18n.t('errors.messages.invalid_login'))
-        end
+        it_behaves_like 'ログイン画面のメッセージ確認'
       end
     end
   end

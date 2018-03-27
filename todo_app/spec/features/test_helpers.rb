@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module TestHelpers
-  def login(user: nil)
-    user ||= create(:user)
+  def login(user: create(:user))
     visit login_path
     fill_in I18n.t('page.login.labels.user_name'), with: user.name
     fill_in I18n.t('page.login.labels.password'), with: user.password
