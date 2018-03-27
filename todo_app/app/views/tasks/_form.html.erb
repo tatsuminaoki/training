@@ -14,6 +14,7 @@
       <% end %>
 
       <%= t.text_field :title, label: I18n.t('page.task.labels.title') %>
+      <%= t.text_field :label_list, label: I18n.t('page.task.placeholders.label_list'), value: @task.label_list.join(',') %>
       <%= t.text_area :description, label: I18n.t('page.task.labels.description')  , rows: '10'%>
     </div>
 
@@ -23,7 +24,6 @@
                    { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.status')) } %>
       <%= t.select :priority,priority_pull_down,
                    { label: I18n.t('helpers.select.prompt_with_title', title: I18n.t('page.task.labels.priority')) } %>
-      <%= t.text_field :label_list, label: I18n.t('page.task.labels.label_list'), value: @task.label_list.join(',') %>
     </div>
   </div>
 
@@ -40,7 +40,8 @@
         $("#task_label_list").tagit({
           availableTags: <%= @available_labels ||= [] %>,
           fieldName:   'task[label_list]',
-          singleField: true
+          singleField: true,
+          tagLimit: 5
         });
     });
 </script>

@@ -268,3 +268,5 @@ ja:
         created_at: 作成日時
         label_list: ラベル
         sort: ソート
+      placeholders:
+        label_list: タスクを分類するラベルをスペース区切りで5つまで指定可

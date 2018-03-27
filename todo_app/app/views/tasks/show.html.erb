@@ -6,6 +6,10 @@
         <input class="form-control" readonly type="text" value="<%= @task.title%>" id="task_title" />
       </div>
       <div class="form-group">
+        <label class="control-label required" for="task_label_list"><%= I18n.t('page.task.labels.label_list') %></label>
+        <input class="form-control" readonly type="text" value="<%= @task.label_list.join(',') %>" id="task_label_list" />
+      </div>
+      <div class="form-group">
         <label class="control-label" for="task_description"><%= I18n.t('page.task.labels.description') %></label>
         <textarea rows="10" readonly class="form-control" id="task_description"><%= @task.description %></textarea>
       </div>
@@ -23,10 +27,6 @@
       <div class="form-group">
         <label class="control-label required" for="task_priority"><%= I18n.t('page.task.labels.priority') %></label>
         <input class="form-control" readonly type="text" value="<%= priority_value @task.priority%>" id="task_priority" />
-      </div>
-      <div class="form-group">
-        <label class="control-label required" for="task_label_list"><%= I18n.t('page.task.labels.label_list') %></label>
-        <input class="form-control" readonly type="text" value="<%= @task.label_list.join(',') %>" id="task_label_list" />
       </div>
     </div>
   </div>

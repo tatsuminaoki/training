@@ -170,3 +170,24 @@ a.edit-button {
 .ui-helper-hidden-accessible {
   display:none;
 }
+
+.tagit.ui-widget.ui-widget-content {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+ul.tagit li.tagit-choice {
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+
+  .tagit-label {
+    color: #004085 !important;
+  }
+}
+
+#show_task {
+  .tagit.ui-widget.ui-widget-content{
+    background-color: #e9ecef;
+  }
+}
