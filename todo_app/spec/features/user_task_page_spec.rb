@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 describe 'ユーザータスク一覧画面', type: :feature do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
+
   before do
-    (1..1000).each { |i| create(:task, title: "Not start Task #{i}", user_id: user.id, status: :not_start) }
-    (1..5).each { |i| create(:task, title: "Progress Task #{i}", user_id: user.id, status: :progress) }
-    (1..2).each { |i| create(:task, title: "Done Task #{i}", user_id: user.id, status: :done) }
+    1000.times { |i| create(:task, title: "Not start Task #{i}", user_id: user.id, status: :not_start) }
+    5.times { |i| create(:task, title: "Progress Task #{i}", user_id: user.id, status: :progress) }
+    2.times { |i| create(:task, title: "Done Task #{i}", user_id: user.id, status: :done) }
   end
 
   describe 'アクセス' do
@@ -30,7 +31,7 @@ describe 'ユーザータスク一覧画面', type: :feature do
     before { visit_after_login(user: user, visit_path: admin_user_tasks_path(user)) }
 
     context 'ユーザー情報の検証' do
-      let!(:user_info) { find('#user_info .card-body') }
+      let(:user_info) { find('#user_info .card-body') }
 
       it 'ユーザー名が表示されていること' do
         expect(user_info).to have_content(user.name)
@@ -114,7 +115,7 @@ describe 'ユーザータスク一覧画面', type: :feature do
     end
 
     describe '一覧を絞り込む' do
-      let!(:target) { Task.first }
+      let(:target) { Task.first }
 
       context 'タイトルで絞り込みたい場合' do
         before { title_search(target.title) }

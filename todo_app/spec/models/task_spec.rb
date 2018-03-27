@@ -88,7 +88,7 @@ describe Task, type: :model do
       it '登録した値を取得できること' do
         create(:task,
                title: 'Rspec test 0123',
-               description: 'This is a sample description',
+               description: 'This is a test description',
                deadline: '2018/03/01 00:00:00',
                status: :progress,
                priority: :high)
@@ -96,7 +96,7 @@ describe Task, type: :model do
         task = Task.find_by(title: 'Rspec test 0123')
 
         expect(task.title).to eq 'Rspec test 0123'
-        expect(task.description).to eq 'This is a sample description'
+        expect(task.description).to eq 'This is a test description'
         expect(task.deadline.strftime('%Y/%m/%d %H:%M:%S')).to eq '2018/03/01 00:00:00'
         expect(task.status).to eq 'progress' #=> should be enum key not array index
         expect(task.priority).to eq 'high' #=> should be enum key not array index
@@ -105,12 +105,7 @@ describe Task, type: :model do
 
     context 'タスクの更新' do
       it '取得したタスクの内容を更新できること' do
-        create(:task,
-               title: 'Rspec test 0123',
-               description: 'This is a sample description',
-               deadline: '2018/03/01 00:00:00',
-               status: :progress,
-               priority: :high)
+        create(:task, title: 'Rspec test 0123', status: :not_start)
 
         task = Task.find_by(title: 'Rspec test 0123')
         task.update(status: 'progress')
@@ -122,12 +117,7 @@ describe Task, type: :model do
 
     context 'タスクの削除' do
       it '取得したタスクを削除できること' do
-        create(:task,
-               title: 'Rspec test 0123',
-               description: 'This is a sample description',
-               deadline: '2018/03/01 00:00:00',
-               status: :progress,
-               priority: :high)
+        create(:task, title: 'Rspec test 0123')
 
         task = Task.find_by(title: 'Rspec test 0123')
         expect(task.destroy.title).to eq 'Rspec test 0123'
@@ -252,13 +242,13 @@ describe Task, type: :model do
 
     describe 'タスクの集計' do
       context 'ステータス別のタスク数を集計したい場合' do
-        let!(:user) { create(:user) }
-        let!(:dummy) { create(:user) }
+        let(:user) { create(:user) }
+        let(:dummy) { create(:user) }
 
         before do
-          (1..3).to_a.each { |i| create(:task, user_id: user.id, status: :not_start) }
-          (1..6).to_a.each { |i| create(:task, user_id: user.id, status: :progress) }
-          (1..9).to_a.each { |i| create(:task, user_id: user.id, status: :done) }
+          3.times { create(:task, user_id: user.id, status: :not_start) }
+          6.times { create(:task, user_id: user.id, status: :progress) }
+          9.times { create(:task, user_id: user.id, status: :done) }
         end
 
         it 'ユーザーに紐づくステータス別のタスク数が取得できること' do
