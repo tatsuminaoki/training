@@ -55,7 +55,7 @@ describe User, type: :model do
   end
 
   describe 'ユーザーの更新' do
-    let!(:user) { create(:user) }
+    let(:user) { create(:user) }
     it 'パスワード未設定でも更新できること' do
       expect(user.update(name: 'dummy')).to be_truthy
     end
@@ -79,7 +79,7 @@ describe User, type: :model do
   end
 
   describe 'ユーザーの削除' do
-    let!(:user) { create(:user) }
+    let(:user) { create(:user) }
     context '管理者が1名の場合' do
       it '削除できないこと' do
         user.destroy
