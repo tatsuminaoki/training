@@ -3,14 +3,26 @@
 require 'rails_helper'
 
 describe 'タスク詳細画面', type: :feature do
+  let!(:task) { create(:task, title: 'Rspec test 1') }
+
   before do
-    task = create(:task, title: 'Rspec test 1')
+    login
     visit task_path(task)
   end
 
   describe 'アクセス' do
-    it '画面が表示されていること' do
-      expect(page).to have_css('#show_task')
+    context '非ログイン状態でアクセスした場合' do
+      it 'ログイン画面が表示されること' do
+        logout
+        visit task_path(task)
+        expect(page).to have_css('.form-signin')
+      end
+    end
+
+    context 'ログイン状態でアクセスした場合' do
+      it 'タスク詳細画面が表示されること' do
+        expect(page).to have_css('#show_task')
+      end
     end
   end
 

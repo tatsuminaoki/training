@@ -8,6 +8,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'features/test_helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -59,4 +60,7 @@ RSpec.configure do |config|
 
   # Factory bot configuration
   config.include FactoryBot::Syntax::Methods
+
+  # Original test helper
+  config.include TestHelpers
 end

@@ -1,0 +1,13 @@
+<div class="form-signin">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+  <%= bootstrap_form_for(:sessions, url:login_path) do |t| %>
+    <h1 class="h4 mb-3 font-weight-normal"><%= I18n.t('page.login.labels.title', app_name: I18n.t('page.common.app_name')) %></h1>
+    <%= t.text_field :name, hide_label: true, placeholder: I18n.t('page.login.labels.user_name'), autofocus: true %>
+    <%= t.password_field :password, hide_label: true, placeholder: I18n.t('page.login.labels.password') %>
+    <%= t.submit I18n.t('page.common.login'), class: 'btn btn-lg btn-primary btn-block' %>
+  <% end %>
+</div>
