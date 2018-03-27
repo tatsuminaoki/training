@@ -1,0 +1,16 @@
+<div id="todo_app_task_list" class="row">
+  <%= render 'layouts/shared/task_left_menu_wrapper' %>
+
+  <div id="label_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+    <div class="tool-bar"></div>
+    <table id="label_table" class="table">
+      <tbody>
+      <% @lables.each do |label| %>
+        <tr>
+          <td><%= link_to label, tasks_path(search_label: label), class: "badge badge-info label-badge" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

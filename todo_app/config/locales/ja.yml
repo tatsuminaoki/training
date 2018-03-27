@@ -270,3 +270,6 @@ ja:
         sort: ソート
       placeholders:
         label_list: タスクを分類するラベルをスペース区切りで5つまで指定可
+    label:
+      titles:
+        list: ラベル一覧
