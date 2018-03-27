@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 20180326105139) do
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id", null: false
     t.string "title", limit: 50, null: false
     t.string "description"
     t.datetime "deadline", null: false
     t.string "status", limit: 10, null: false
     t.integer "priority", limit: 1, null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_tasks_on_status"
