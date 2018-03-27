@@ -67,7 +67,7 @@ module Admin
     end
 
     def require_login
-      redirect_to login_path unless current_user?
+      redirect_to login_path unless logged_in?
     end
   end
 end
