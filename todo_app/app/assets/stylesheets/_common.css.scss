@@ -163,7 +163,8 @@ a.edit-button {
   }
 }
 
-#todo_app_task_list.row {
+#todo_app_task_list.row, #users_list.row, #task_list.row,
+#add_user.row, #edit_user.row {
   margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
 }
 
