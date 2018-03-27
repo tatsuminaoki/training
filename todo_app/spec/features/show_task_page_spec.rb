@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'タスク詳細画面', type: :feature do
-  let!(:task) { create(:task, title: 'Rspec test 1') }
+  let!(:task) { create(:task, title: 'Rspec test 1', label_list: 'label1,label2') }
 
   before do
     login
@@ -33,6 +33,11 @@ describe 'タスク詳細画面', type: :feature do
 
     it '内容が表示されていること' do
       expect(find('#task_description').value).to eq 'This is a sample description'
+    end
+
+    it 'ラベルが表示されていること' do
+      expect(find('.tagit')).to have_content('label1')
+      expect(find('.tagit')).to have_content('label2')
     end
 
     it '期日が表示されていること' do

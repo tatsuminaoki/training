@@ -42,4 +42,16 @@ module TestHelpers
     within('#search_modal .modal-body') { fill_in I18n.t('page.task.labels.title'), with: title }
     click_on I18n.t('helpers.submit.search')
   end
+
+  def add_label(id, labels)
+    labels.each do |label|
+      page.execute_script("$('#{id}').tagit('createTag', '#{label}')")
+    end
+  end
+
+  def delete_label(id, labels)
+    labels.each do |label|
+      page.execute_script("$('#{id}').tagit('removeTagByLabel', '#{label}')")
+    end
+  end
 end

@@ -70,4 +70,34 @@ describe 'タスク登録画面', type: :feature do
       end
     end
   end
+
+  describe 'ラベルの登録処理' do
+    let(:label_area) { '#task_label_list' }
+
+    before do
+      within('#new_task') do
+        fill_in I18n.t('page.task.labels.title'), with: 'Label test'
+      end
+      add_label(label_area, labels)
+      click_on I18n.t('helpers.submit.create')
+    end
+
+    context 'POSTで受け渡したリストの登録検証' do
+      let(:labels) { ['Label1', 'ラベル2', 'ラベル らべる3'] }
+
+      it 'タスクに紐づいて保存できていること' do
+        task = Task.find_by(title: 'Label test')
+        expect(task.label_list).to match_array labels
+      end
+    end
+
+    context 'ラベルのバリデーション' do
+      let(:labels) { %w[Label1 Label2 Label3 Label4 Label5 Label6] }
+
+      it 'ラベルは5つ以上入力できないこと' do
+        task = Task.find_by(title: 'Label test')
+        expect(task.label_list).to contain_exactly(labels[0], labels[1], labels[2], labels[3], labels[4])
+      end
+    end
+  end
 end
