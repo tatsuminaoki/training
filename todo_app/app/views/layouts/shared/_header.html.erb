@@ -1,8 +1,13 @@
 <div class="navbar-wrapper">
   <nav class="navbar navbar-custom navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">TODO_APP</a>
-    <form class="form-inline">
-      <%= fa_icon "user-circle" %>
-    </form>
+    <a class="navbar-brand"><%= I18n.t('page.common.app_name') %></a>
+    <div class="dropdown">
+      <button class="btn btn-secondary user-icon dropdown-toggle" type="button" id="dropdown_menu_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= fa_icon "user-circle" %>
+      </button>
+      <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdown_menu_button">
+        <%= link_to I18n.t('page.common.logout'), logout_path, method: :delete, class: 'dropdown-item'%>
+      </div>
+    </div>
   </nav>
 </div>
