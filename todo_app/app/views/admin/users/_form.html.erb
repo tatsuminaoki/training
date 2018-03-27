@@ -3,7 +3,7 @@
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
  <%= bootstrap_form_for(@user, url: post_url) do |t| %>
  <div class="row right-area-form">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 task-edit-area">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <% if @user.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@user.errors.count, "error") %> prohibited

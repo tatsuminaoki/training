@@ -29,19 +29,19 @@
 
     <table id="task_table" class="table">
       <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><span class="badge <%= status_badge task.status%>"><%= status_value task.status %></span></td>
-          <td><%= task.title %>
-            <br>
-            <p class="detail_info">
-              <span class="text"><%= I18n.t('page.task.labels.priority') %>&#058;<strong><%= priority_value task.priority %></strong></span>
-              <span class="text"><%= I18n.t('page.task.labels.deadline') %>&#058;<strong><%= task.deadline.to_s %></strong></span>
-              <span class="text"><%= I18n.t('page.task.labels.created_at') %>&#058;<strong><%= task.created_at.to_s %></strong></span>
-            </p>
-          </td>
-        </tr>
-      <% end %>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><span class="badge <%= status_badge task.status%>"><%= status_value task.status %></span></td>
+            <td><%= task.title %>
+              <br>
+              <p class="detail_info">
+                <span class="text"><%= I18n.t('page.task.labels.priority') %>&#058;<strong><%= priority_value task.priority %></strong></span>
+                <span class="text"><%= I18n.t('page.task.labels.deadline') %>&#058;<strong><%= task.deadline.to_s %></strong></span>
+                <span class="text"><%= I18n.t('page.task.labels.created_at') %>&#058;<strong><%= task.created_at.to_s %></strong></span>
+              </p>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
     <%= paginate @tasks %>
