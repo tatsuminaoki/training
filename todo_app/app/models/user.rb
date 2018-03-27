@@ -45,7 +45,7 @@ class User < ApplicationRecord
   private
 
   def administrator_must_be_exist_at_least_one
-    return true if User.where(role: 1).where.not(id: id).count.positive?
+    return true if User.where(role: User.roles[:administrator]).where.not(id: id).count.positive?
 
     errors.add(:base, I18n.t('errors.messages.at_least_one_administrator'))
     throw :abort
