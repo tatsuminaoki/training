@@ -13,6 +13,8 @@ describe User, type: :model do
         expect(user).to be_valid
       end
 
+      # has_secure_passwordのvalidation仕様
+      # @see http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
       it 'パスワードが72文字以下であれば有効な状態であること' do
         user = build(:user, password: 'a' * 72, password_confirmation: 'a' * 72)
         expect(user).to be_valid
@@ -169,6 +171,11 @@ describe User, type: :model do
   describe 'ユーザーが作成したタスクの関係性' do
     let(:user1) { create(:user) }
     let(:user2) { create(:user, name: 'user2') }
+
+    it 'タスクにユーザーを紐付けて登録できること' do
+      create(:task, user_id: user1.id)
+      expect(user1.tasks.count).to eq 1
+    end
 
     it 'ユーザー削除時に自身に関連づくタスクのみが全て削除されること' do
       2.times { |i| create(:task, title: "#{user1.name} task #{i}", user_id: user1.id) }
