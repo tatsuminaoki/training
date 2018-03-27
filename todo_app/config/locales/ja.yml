@@ -153,6 +153,7 @@ ja:
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
       invalid_datetime: は有効な日付時刻を入力してください
+      invalid_login: ユーザー名またはパスワードが正しくありません。
     template:
       body: 次の項目を確認してください
       header:
@@ -243,8 +244,14 @@ ja:
       truncate: "..."
   page:
     common:
+      app_name: TODO APP
       login: ログイン
       logout: ログアウト
+    login:
+      labels:
+        title: "%{app_name}にログイン"
+        user_name: ユーザー名
+        password: パスワード
     task:
       titles:
         list: タスク一覧

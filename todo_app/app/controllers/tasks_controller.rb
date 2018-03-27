@@ -2,13 +2,14 @@
 
 class TasksController < ApplicationController
   before_action :set_available_labels, only: %i[new edit]
+  before_action :require_login
 
   def index
     @search_title = params[:search_title]
     @search_status = params[:search_status]
     @search_sort = params[:search_sort]
     @page = params[:page]
-    @tasks = Task.search(title: @search_title, status: @search_status, sort: @search_sort, page: @page)
+    @tasks = Task.search(user_id: current_user.id, title: @search_title, status: @search_status, sort: @search_sort, page: @page)
   end
 
   def new
@@ -17,6 +18,7 @@ class TasksController < ApplicationController
 
   def create 
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
 
     if @task.save
       flash[:success] = I18n.t('success.create', it: Task.model_name.human)
@@ -61,5 +63,9 @@ class TasksController < ApplicationController
 
   def set_available_labels
     @available_labels = ActsAsTaggableOn::Tag.all.pluck(:name).to_json.html_safe
+  end
+
+  def require_login
+    redirect_to login_path unless logged_in?
   end
 end

@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Task, type: :model do
   describe 'インスタンスの状態' do
     context '有効な場合' do
-      it 'タイトル、期日、ステータス、優先度があれば有効な状態であること' do
+      it 'タイトル、期日、ステータス、優先度、ユーザーIDがあれば有効な状態であること' do
         task = build(:task)
         expect(task).to be_valid
       end
@@ -63,11 +63,25 @@ describe Task, type: :model do
         expect(task).to be_invalid
         expect(task.errors[:priority][0]).to eq I18n.t('errors.messages.empty')
       end
+
+      it 'ユーザーIDがなければ無効な状態であること' do
+        task = build(:task, user_id: nil)
+        expect(task).to be_invalid
+        expect(task.errors[:user_id][0]).to eq I18n.t('errors.messages.empty')
+      end
+
+      it 'ユーザーIDが数値以外の場合、無効な状態であること' do
+        task = build(:task, user_id: 'a')
+        expect(task).to be_invalid
+        expect(task.errors[:user_id][0]).to eq I18n.t('errors.messages.not_a_number')
+      end
     end
 
     context 'タスクの保存' do
       it 'タスクを1件登録できること' do
-        expect(Task.create(attributes_for(:task))).to be_truthy
+        # attributes_for(:task)はassociationで指定した内容を生成してれない
+        task = build(:task)
+        expect(Task.create(task.attributes.merge(user_id: task.user_id))).to be_truthy
         expect(Task.count).to eq 1
       end
 

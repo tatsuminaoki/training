@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  belongs_to :user, required: false
+  belongs_to :user
 
   acts_as_taggable_on :labels
 
@@ -9,6 +9,7 @@ class Task < ApplicationRecord
   validates :description, length: { maximum: 255 }
   validates :status, presence: true
   validates :priority, presence: true
+  validates :user_id, presence: true, numericality: true
   validate :validate_datetime
 
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
@@ -19,8 +20,9 @@ class Task < ApplicationRecord
   SORT_KINDS = (SORT_KINDS_DESC | SORT_KINDS_ASC).freeze
 
   class << self
-    def search(title: nil, status: nil, sort: 'created_at', page: 1)
+    def search(user_id: nil, title: nil, status: nil, sort: 'created_at', page: 1)
       query = self
+      query = query.where(user_id: user_id) if user_id.present?
       query = query.where(title: title) if title.present?
       query = query.where(status: status) if (Task.statuses.keys & [status]).present?
       query = query.order(sort_column(sort) => sort_order(sort), :id => :desc)
