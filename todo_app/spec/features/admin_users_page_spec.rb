@@ -55,6 +55,10 @@ describe 'ユーザー一覧画面', type: :feature do
 
         let(:record) { all('#user_table tbody tr').first }
 
+        it 'ロール欄にロールが表示されていること' do
+          expect(record).to have_content(User.human_attribute_name("roles.#{first_user.name}"))
+        end
+
         it 'ユーザー名欄にユーザー名が表示されていること' do
           expect(record).to have_content(first_user.name)
         end

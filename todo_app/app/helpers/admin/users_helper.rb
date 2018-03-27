@@ -7,5 +7,14 @@ module Admin
     def role_value(key)
       User.human_attribute_name("roles.#{key}")
     end
+
+    def role_badge(key)
+      case key
+      when User.roles.keys[0]
+        'badge-info'
+      when User.roles.keys[1]
+        'badge-warning'
+      end
+    end
   end
 end
