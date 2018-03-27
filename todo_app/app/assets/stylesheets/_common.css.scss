@@ -137,7 +137,7 @@ a.edit-button {
   }
 }
 
-#todo_app_task_list.row {
+#todo_app_task_list.row, #todo_app_label_list.row {
   margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
 }
 
