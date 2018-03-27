@@ -6,13 +6,6 @@ FactoryBot.define do
     status 'progress'
     priority 'high'
     sequence(:created_at) { |n| Time.now.getlocal + n }
-    association :user, factory: :user_association
-  end
-
-  factory :user_association, class: User do
-    name 'task_user'
-    role 'administrator'
-    password 'foobar'
-    password_confirmation 'foobar'
+    association :user, factory: :user
   end
 end

@@ -45,10 +45,6 @@ module Admin
       end
     end
 
-    def show
-      @user = User.find(params[:id])
-    end
-
     def destroy
       @user = User.find(params[:id])
       if @user.destroy
@@ -73,7 +69,7 @@ module Admin
     end
 
     def require_login
-      redirect_to login_path unless current_user?
+      redirect_to login_path unless logged_in?
     end
 
     def require_administrator

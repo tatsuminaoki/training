@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'タスク一覧画面', type: :feature do
-  let!(:user) { create(:user_association) }
+  let(:user) { create(:user) }
 
   before { visit_after_login(user: user, visit_path: root_path) }
 
@@ -52,8 +52,8 @@ describe 'タスク一覧画面', type: :feature do
 
     context 'タスクの非登録ユーザーの場合' do
       it '自分が登録していないタスクは閲覧できないこと' do
-        user = User.create(name: 'some', role: User.roles['administrator'], password: 'foobar', password_confirmation: 'foobar')
-        login(user: user)
+        tmp_user = create(:user, name: 'some')
+        login(user: tmp_user)
         visit root_path
         expect(page).to have_css('table#task_table tbody tr', count: 0)
       end
@@ -62,11 +62,11 @@ describe 'タスク一覧画面', type: :feature do
 
   describe 'タスクの表示内容の検証' do
     before do
-      (1..100).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: Time.new('2018/01/01 00:00:00').getlocal + i) }
+      100.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: Time.new('2018/01/01 00:00:00').getlocal + i) }
       visit root_path
     end
 
-    let!(:last_create_at) { Time.new('2018/01/01 00:00:00').getlocal + 100 }
+    let(:last_create_at) { Time.new('2018/01/01 00:00:00').getlocal + 99 }
 
     let(:record) { first(:css, 'table#task_table tbody tr') }
 
@@ -76,7 +76,7 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       it 'タイトル列に参照画面のリンクが表示されていること' do
-        expect(record).to have_selector('a', text: 'Rspec test 1')
+        expect(record).to have_selector('a', text: 'Rspec test 99')
       end
 
       it '編集列の編集画面のリンクが表示されていること' do
@@ -104,7 +104,7 @@ describe 'タスク一覧画面', type: :feature do
 
   describe 'ページングのカスタマイズ部分の確認' do
     before do
-      (1..100).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}") }
+      100.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}") }
       visit root_path
     end
 
@@ -171,18 +171,18 @@ describe 'タスク一覧画面', type: :feature do
 
   describe '画面の表示内容を変更する' do
     describe 'ソート順を変更する' do
-      let!(:user) { create(:user_association) }
+      let(:user) { create(:user) }
 
       context '新着順でソートしたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
+          10.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", created_at: "2018/1/1 0:0:#{i}") }
           visit root_path
         end
 
         it 'created_atの降順で表示されていること' do
           click_sort_pulldown('created_at')
           all('table#task_table tbody tr').each.with_index do |td, idx|
-            expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 10 - idx)}")
+            expect(td).to have_content("2018/01/01 00:00:#{format('%02d', 9 - idx)}")
           end
           expect(page.find('#search_sort', visible: false).value).to eq 'created_at'
         end
@@ -190,7 +190,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context '期日が近い順でソートしたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", deadline: "2018/2/#{i} 01:01:01") }
+          10.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", deadline: "2018/2/#{i + 1} 01:01:01") }
           visit root_path
         end
 
@@ -205,7 +205,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context '優先度が高い順でソートしたい場合' do
         before do
-          (0..4).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", priority: i) }
+          5.times  { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", priority: i) }
           visit root_path
         end
 
@@ -226,7 +226,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'タイトルで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: 'not_start') }
+          10.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: 'not_start') }
           visit root_path
           title_search(task_title)
         end
@@ -243,7 +243,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'ステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
+          10.times { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') { select Task.human_attribute_name('statuses.done'), from: 'search_status' }
@@ -264,7 +264,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'ステータスで絞り込まない場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
+          10.times { |i| create(:task, user_id: user.id, status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') { select '', from: 'search_status' }
@@ -278,7 +278,7 @@ describe 'タスク一覧画面', type: :feature do
 
       context 'タイトルとステータスで絞り込みたい場合' do
         before do
-          (1..10).to_a.each { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
+          10.times { |i| create(:task, user_id: user.id, title: "Rspec test #{i}", status: (i.even? ? 'not_start' : 'done')) }
           visit root_path
           find(:css, '.fa-search').click
           within('#search_modal .modal-body') do
@@ -336,15 +336,18 @@ describe 'タスク一覧画面', type: :feature do
       end
 
       context '確認ダイアログでキャンセルボタンを押した場合' do
-        it '対象行は削除されないこと' do
+        it '対象行は削除されず、一覧画面に戻ること' do
           page.dismiss_confirm
+          expect(page).to have_css('#todo_app_task_list')
+          expect(page).to have_no_css('.alert-success')
           expect(page).to have_css('table#task_table tbody tr', count: 1)
         end
       end
 
       context '確認ダイアログで確認ボタンを押した場合' do
-        it '処理が実行されタスクが削除されること' do
+        it '削除処理が実行されタスク一覧画面に成功メッセージが表示されること' do
           page.accept_confirm
+          expect(page).to have_css('#todo_app_task_list')
           expect(page).to have_css('.alert-success')
           expect(page).to have_css('table#task_table tbody tr', count: 0)
         end

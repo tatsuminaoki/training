@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'ユーザー登録画面', type: :feature do
-  let!(:admin) { create(:user) }
+  let(:admin) { create(:user) }
 
   describe 'アクセス' do
     context '非ログイン状態でアクセスした場合' do
@@ -28,6 +28,7 @@ describe 'ユーザー登録画面', type: :feature do
 
   describe 'ユーザーを登録する' do
     before { visit_after_login(user: admin, visit_path: new_admin_user_path) }
+
     context '正常に登録できる場合' do
       it 'ユーザーが登録できること' do
         within('#add_user') do
@@ -51,7 +52,7 @@ describe 'ユーザー登録画面', type: :feature do
           click_on I18n.t('helpers.submit.create')
 
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Nameを入力してください')
+          expect(page).to have_content('ユーザー名を入力してください')
         end
       end
 
@@ -64,7 +65,7 @@ describe 'ユーザー登録画面', type: :feature do
           click_on I18n.t('helpers.submit.create')
 
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Passwordを入力してください')
+          expect(page).to have_content('パスワードを入力してください')
         end
 
         it '6文字以下の場合、エラーメッセージが表示されること' do
@@ -73,9 +74,9 @@ describe 'ユーザー登録画面', type: :feature do
             fill_in I18n.t('page.user.labels.password'), with: 'fooba'
           end
           click_on I18n.t('helpers.submit.create')
-  
+
           expect(page).to have_css('#add_user')
-          expect(page).to have_content('Passwordは6文字以上で入力してください')
+          expect(page).to have_content('パスワードは6文字以上で入力してください')
         end
       end
     end

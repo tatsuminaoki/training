@@ -25,6 +25,9 @@ ja:
         created_at: 新着順
         deadline: 期日が近い順
         priority: 優先度が高い順
+      user:
+        name: ユーザー名
+        password: パスワード
       user/roles:
         general: 一般ユーザー
         administrator: 管理者

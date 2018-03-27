@@ -4,6 +4,8 @@ $base-color-1: #0068A2;
 $sub-color: #fafafa;
 $accent-color: #ED6100;
 
+$base-font-color: #212529;
+
 $breakpoint-large: 768px;
 $breakpoint-small: 767px;
 
@@ -113,7 +115,7 @@ a.edit-button {
 
   .list-group-item-custom {
     border: 0 !important;
-    color: #212529;
+    color: $base-font-color;
     background-color: $sub-color;
     border-radius: 5px;
     padding-top: 10px;
@@ -161,7 +163,8 @@ a.edit-button {
   }
 }
 
-#todo_app_task_list.row {
+#todo_app_task_list.row, #users_list.row, #task_list.row,
+#add_user.row, #edit_user.row {
   margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
 }
 
@@ -201,6 +204,10 @@ a.edit-button {
   form{
     width: 100%;
   }
+}
+
+.help-block {
+  display: none;
 }
 
 .submit-btn-wrapper {

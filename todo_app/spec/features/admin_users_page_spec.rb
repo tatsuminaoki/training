@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe 'ユーザー一覧画面', type: :feature do
-  let!(:created_users) { (1..100).map { create(:user) } }
-  let!(:admin) { created_users.first }
-  let!(:first_user) { created_users.sort_by(&:name).first }
+  let(:created_users) { (1..5).map { create(:user) } }
+  let(:admin) { created_users.first }
+  let(:first_user) { created_users.sort_by(&:name).first }
 
   describe 'アクセス' do
     context '非ログイン状態でアクセスした場合' do
@@ -53,7 +53,7 @@ describe 'ユーザー一覧画面', type: :feature do
           visit admin_users_path
         end
 
-        let!(:record) { all('#user_table tbody tr').first }
+        let(:record) { all('#user_table tbody tr').first }
 
         it 'ユーザー名欄にユーザー名が表示されていること' do
           expect(record).to have_content(first_user.name)
@@ -93,7 +93,7 @@ describe 'ユーザー一覧画面', type: :feature do
         expect(first('#user_table tbody tr')).to have_content(first_user.name)
       end
 
-      it '入力したタイトルが検索後の画面で表示されていること' do
+      it '入力したユーザー名が検索後の画面で表示されていること' do
         expect(page.find('#search_name', visible: false).value).to eq first_user.name
       end
     end
@@ -101,7 +101,7 @@ describe 'ユーザー一覧画面', type: :feature do
 
   describe 'ユーザーの操作' do
     before { visit_after_login(user: admin, visit_path: admin_users_path) }
-    let!(:record) { all('#user_table tbody tr').first }
+    let(:record) { all('#user_table tbody tr').first }
 
     it 'ユーザー登録画面に遷移できること' do
       all('.list-group-item')[1].click
@@ -119,7 +119,7 @@ describe 'ユーザー一覧画面', type: :feature do
     end
 
     context 'ユーザーを削除したい場合', type: :feature do
-      let!(:record) { all('#user_table tbody tr').first }
+      let(:record) { all('#user_table tbody tr')[1] }
       let!(:initial_count) { User.count }
 
       context '管理者ユーザーが2人いる場合' do
@@ -128,15 +128,18 @@ describe 'ユーザー一覧画面', type: :feature do
         context '確認ダイアログでキャンセルボタンを押した場合' do
           it '対象行は削除されないこと' do
             page.dismiss_confirm
-            expect(User.count).to eq initial_count
+            expect(page).to have_css('#users_list')
+            expect(page).to have_no_css('.alert-success')
+            expect(page).to have_css('#user_table tbody tr', count: initial_count)
           end
         end
 
         context '確認ダイアログで確認ボタンを押した場合' do
           it '処理が実行されタスクが削除されること' do
             page.accept_confirm
+            expect(page).to have_css('#users_list')
             expect(page).to have_css('.alert-success')
-            expect(User.count).to eq (initial_count - 1)
+            expect(page).to have_css('#user_table tbody tr', count: initial_count - 1)
           end
         end
       end
