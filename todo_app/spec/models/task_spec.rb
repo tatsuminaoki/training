@@ -252,12 +252,12 @@ describe Task, type: :model do
         end
 
         it 'ユーザーに紐づくステータス別のタスク数が取得できること' do
-          task_count = Task.task_count_group_by(user.id)
+          task_count = Task.count_by_status(user.id)
           expect(task_count['not_start']).to eq 3
           expect(task_count['progress']).to eq 6
           expect(task_count['done']).to eq 9
 
-          nil_obj = Task.task_count_group_by(dummy.id)
+          nil_obj = Task.count_by_status(dummy.id)
           expect(nil_obj.empty?).to be_truthy
         end
       end

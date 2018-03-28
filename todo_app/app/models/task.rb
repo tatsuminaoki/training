@@ -27,7 +27,7 @@ class Task < ApplicationRecord
       query.page(page)
     end
 
-    def task_count_group_by(user_id)
+    def count_by_status(user_id)
       where(user_id: user_id).group(:status).count
     end
 
