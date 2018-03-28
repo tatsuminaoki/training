@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'ユーザー一覧画面', type: :feature do
-  let(:created_users) { (1..5).map { create(:user) } }
+  let(:created_users) { create_list(:user, 5) }
   let(:admin) { created_users.first }
   let(:first_user) { created_users.sort_by(&:name).first }
 
@@ -44,7 +44,7 @@ describe 'ユーザー一覧画面', type: :feature do
 
       context '一覧表の検証' do
         before do
-          10.times { create(:task, user_id: first_user.id) }
+          create_list(:task, 10, user_id: first_user.id)
           visit admin_users_path
         end
 

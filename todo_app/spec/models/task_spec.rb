@@ -246,9 +246,9 @@ describe Task, type: :model do
         let(:dummy) { create(:user) }
 
         before do
-          3.times { create(:task, user_id: user.id, status: :not_start) }
-          6.times { create(:task, user_id: user.id, status: :progress) }
-          9.times { create(:task, user_id: user.id, status: :done) }
+          create_list(:task, 3, user_id: user.id, status: :not_start)
+          create_list(:task, 6, user_id: user.id, status: :progress)
+          create_list(:task, 9, user_id: user.id, status: :done)
         end
 
         it 'ユーザーに紐づくステータス別のタスク数が取得できること' do
