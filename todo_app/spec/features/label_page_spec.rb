@@ -6,10 +6,7 @@ describe 'ラベル一覧画面', type: :feature do
   let!(:user) { create(:user) }
 
   describe 'アクセス' do
-    before do
-      login(user: user)
-      visit labels_path
-    end
+    before { visit_after_login(user: user, visit_path: labels_path) }
 
     context '非ログイン状態でアクセスした場合' do
       it 'ログイン画面が表示されること' do
@@ -26,38 +23,45 @@ describe 'ラベル一覧画面', type: :feature do
   end
 
   describe 'タスクの表示内容の検証' do
-    let(:task) { create(:task) }
+    let!(:tasks) { create_list(:task_with_label, 3) }
     let(:records) { all('#label_table tbody tr') }
 
-    before do
-      create(:task, label_list: 'label1, label3')
-      create(:task, label_list: 'label2, label4')
-      login(user: user)
-      visit labels_path
-    end
+    before { visit_after_login(user: user, visit_path: labels_path) }
 
     it '登録されている全てのラベルが表示されること' do
-      expect(records.size).to eq 4
+      expect(records.size).to eq 3
     end
 
     it 'ラベル名でソートされていること' do
-      records.each.with_index do |r, i|
-        expect(r).to have_content("label#{i + 1}")
-      end
+      expected_tasks = ActsAsTaggableOn::Tag.order(:name).pluck(:name)
+      actual_tasks = all('table#label_table tbody tr').map { |tr| tr.all('td')[0].find('a').text }
+      expect(expected_tasks).to match actual_tasks
+    end
+  end
+
+  describe '表示件数の検証' do
+    let(:user) { create(:user) }
+    let!(:tasks) { create_list(:task_with_label, 15, user_id: user.id) }
+    let(:records) { all('#label_table tbody tr') }
+
+    before { visit_after_login(user: user, visit_path: labels_path) }
+
+    it '最大は10件表示されること' do
+      expect(records.size).to eq 10
+    end
+
+    it 'ページをクリックすると次の最大10件が取得できること' do
+      first('.page-item a[rel="next"]').click
+      expect(records.size).to eq 5
     end
   end
 
   describe 'タスク一覧画面への遷移' do
-    before do
-      5.times { |i| create(:task, title: "task #{i}", user_id: user.id, label_list: 'label1') }
-      4.times { |i| create(:task, title: "task #{i}", user_id: user.id, label_list: 'label2') }
-      3.times { |i| create(:task, title: "task #{i}", user_id: user.id, label_list: 'label3') }
-
-      login(user: user)
-      visit labels_path
-    end
-
+    let!(:label1_group) { create_list(:task_with_label, 2, label_list: 'label1', user_id: user.id) }
+    let!(:label2_group) { create_list(:task_with_label, 2, label_list: 'label2', user_id: user.id) }
     let(:record) { all('#label_table tbody tr').first }
+
+    before { visit_after_login(user: user, visit_path: labels_path) }
 
     it 'タスク一覧画面に遷移できること' do
       record.find('a').click
@@ -65,9 +69,12 @@ describe 'ラベル一覧画面', type: :feature do
     end
 
     it '選択したラベルに紐付くタスクのみ表示されていること' do
+      label = ActsAsTaggableOn::Tag.order(:name).limit(1).first.name
+      expected_tasks = Task.tagged_with(label).map(&:title)
+
       record.find('a').click
-      tasks = all('table#task_table tbody tr').map { |tr| tr.all('td')[1].find('a').text }
-      expect(tasks).to match_array((0..4).map { |i| "task #{i}" })
+      actual_tasks = all('table#task_table tbody tr').map { |tr| tr.all('td')[1].find('a').text }
+      expect(expected_tasks).to match_array(actual_tasks)
     end
   end
 end

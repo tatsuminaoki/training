@@ -279,6 +279,45 @@ describe Task, type: :model do
     end
   end
 
+  describe 'ラベルの関連付け' do
+    let(:user) { create(:user) }
+    let(:expected_label) { ActsAsTaggableOn::Tag.order(:name).limit(10).offset(offset).pluck(:name) }
+
+    context 'ラベルを取得したい場合' do
+      let!(:tasks) { create_list(:task_with_label, 5, user_id: user.id) }
+      let(:offset) { 0 }
+
+      it 'タスクに関連づけられている全てのラベルが取得できること' do
+        expect(Task.label_all.size).to eq 5
+      end
+
+      it '取得結果が名前でソートされていること' do
+        actual = Task.label_all.map(&:name)
+        expect(expected_label).to match actual
+      end
+    end
+
+    context 'ページングのデフォルト値' do
+      let!(:tasks) { create_list(:task_with_label, 15, user_id: user.id) }
+      let(:offset) { 0 }
+
+      it '未指定の場合、1ページ目の10件が取得できること' do
+        actual = Task.label_all.map(&:name)
+        expect(expected_label).to match actual
+      end
+
+    end
+
+    context 'ページの指定' do
+      let(:offset) { 10 }
+
+      it '引数にページ番号を指定できること' do
+        actual = Task.label_all(page: 2).map(&:name)
+        expect(expected_label).to match actual
+      end
+    end
+  end
+
   describe 'enum' do
     context 'statusの場合' do
       it '3つの値が保持されていること' do
