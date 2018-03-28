@@ -1,0 +1,28 @@
+<%= render 'left_menu_wrapper' %>
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+ <%= bootstrap_form_for(@user, url: post_url) do |t| %>
+ <div class="row right-area-form">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <% if @user.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+ 
+      <%= t.text_field :name, label: I18n.t('page.user.labels.user_name') %>
+      <%= t.password_field :password, label: I18n.t('page.user.labels.password')  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 submit-btn-wrapper">
+      <%= t.submit submit_btn_name(type: type), class: "btn btn-success" %>
+      <%= link_to I18n.t('helpers.submit.cancel'), admin_users_path, {:class=>"btn btn-default"} %>
+    </div>
+  </div>
+  <% end %>
+</div>

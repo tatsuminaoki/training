@@ -86,12 +86,17 @@ describe Task, type: :model do
       end
 
       it '登録した値を取得できること' do
-        create(:task)
+        create(:task,
+               title: 'Rspec test 0123',
+               description: 'This is a test description',
+               deadline: '2018/03/01 00:00:00',
+               status: :progress,
+               priority: :high)
 
         task = Task.find_by(title: 'Rspec test 0123')
 
         expect(task.title).to eq 'Rspec test 0123'
-        expect(task.description).to eq 'This is a sample description'
+        expect(task.description).to eq 'This is a test description'
         expect(task.deadline.strftime('%Y/%m/%d %H:%M:%S')).to eq '2018/03/01 00:00:00'
         expect(task.status).to eq 'progress' #=> should be enum key not array index
         expect(task.priority).to eq 'high' #=> should be enum key not array index
@@ -100,7 +105,7 @@ describe Task, type: :model do
 
     context 'タスクの更新' do
       it '取得したタスクの内容を更新できること' do
-        create(:task)
+        create(:task, title: 'Rspec test 0123', status: :not_start)
 
         task = Task.find_by(title: 'Rspec test 0123')
         task.update(status: 'progress')
@@ -112,7 +117,7 @@ describe Task, type: :model do
 
     context 'タスクの削除' do
       it '取得したタスクを削除できること' do
-        create(:task)
+        create(:task, title: 'Rspec test 0123')
 
         task = Task.find_by(title: 'Rspec test 0123')
         expect(task.destroy.title).to eq 'Rspec test 0123'
@@ -231,6 +236,29 @@ describe Task, type: :model do
         it 'デフォルトでcreated_atの降順で取得されること' do
           task = Task.search(sort: :invalid_column).first
           expect(task.title).to eq 'Rspec test 10'
+        end
+      end
+    end
+
+    describe 'タスクの集計' do
+      context 'ステータス別のタスク数を集計したい場合' do
+        let(:user) { create(:user) }
+        let(:dummy) { create(:user) }
+
+        before do
+          create_list(:task, 3, user_id: user.id, status: :not_start)
+          create_list(:task, 6, user_id: user.id, status: :progress)
+          create_list(:task, 9, user_id: user.id, status: :done)
+        end
+
+        it 'ユーザーに紐づくステータス別のタスク数が取得できること' do
+          task_count = Task.count_by_status(user.id)
+          expect(task_count['not_start']).to eq 3
+          expect(task_count['progress']).to eq 6
+          expect(task_count['done']).to eq 9
+
+          dummy_task_count = Task.count_by_status(dummy.id)
+          expect(dummy_task_count).to be_empty
         end
       end
     end

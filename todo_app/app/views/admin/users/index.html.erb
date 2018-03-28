@@ -1,0 +1,47 @@
+<div id="users_list" class="row">
+
+  <%= render 'left_menu_wrapper' %>
+
+  <div id="item_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+    <%= render partial: 'shared/user_search', :locals => { buttons: %i[search], post_url: admin_users_path } %>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+
+    <table id="user_table" class="table">
+      <thead>
+        <tr>
+          <th><%= I18n.t('page.user.labels.user_name') %></th>
+          <th><%= I18n.t('page.task.labels.total_count') %></th>
+          <th><%= I18n.t('page.user.labels.created_at') %></th>
+          <th><%= I18n.t('helpers.submit.edit') %></th>
+          <th><%= I18n.t('helpers.submit.delete') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= link_to number_with_delimiter(user.tasks.count), admin_user_tasks_path(user) %></td>
+            <td><%= user.created_at.to_s %></td>
+            <td>
+              <%= link_to edit_admin_user_path(user), class: "edit-button" do %>
+                <%= fa_icon "edit" %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to admin_user_path(user),
+                            method: :delete, data: { confirm: I18n.t('confirm.ok?') }, class: "trash-button" do %>
+                <%= fa_icon "trash-o" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @users %>
+  </div>
+</div>

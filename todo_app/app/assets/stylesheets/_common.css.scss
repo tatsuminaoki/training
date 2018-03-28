@@ -4,6 +4,8 @@ $base-color-1: #0068A2;
 $sub-color: #fafafa;
 $accent-color: #ED6100;
 
+$base-font-color: #212529;
+
 $breakpoint-large: 768px;
 $breakpoint-small: 767px;
 
@@ -17,15 +19,20 @@ $width-small-tablet: 720px;
 $width-large-table: 960px;
 $width-pc: 1140px;
 
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background-color: $sub-color;
 }
 
 .navbar-wrapper {
+  margin-bottom: 15px;
   background-color: $base-color-1;
 
   .navbar-custom {
-    height: 45px;
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
@@ -33,6 +40,7 @@ body {
     margin-left: auto;
     background-color: $base-color-1 !important;
     color: white;
+
     @include min-screen($screen-smart-phone) {
       max-width: $width-smart-phone;
     }
@@ -44,6 +52,12 @@ body {
     }
     @include min-screen($screen-pc) {
       max-width: $width-pc;
+    }
+
+    .navbar-nav {
+      .nav-lisk-custom {
+        color: white;
+      }
     }
 
     .user-icon {
@@ -66,6 +80,7 @@ body {
 }
 
 .main-content {
+  margin-top: 5px;
   background-color: white;
 }
 
@@ -92,18 +107,29 @@ a.edit-button {
 }
 
 #left_menu {
-  padding-top: 30px;
+  padding-top: 5px;
 
   i.fa {
     margin-right: 5px;
   }
 
   .list-group-item-custom {
-    background-color: $sub-color !important;
     border: 0 !important;
+    color: $base-font-color;
+    background-color: $sub-color;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.9rem;
+    line-height: 15px;
+
+    a {
+      color: inherit !important;
+    }
   }
+
   .list-group-item-custom.active {
-    color: $accent-color;
+    background-color: white;
     font-weight: bold;
   }
 
@@ -137,12 +163,14 @@ a.edit-button {
   }
 }
 
-#todo_app_task_list.row {
+#todo_app_task_list.row, #users_list.row, #task_list.row,
+#add_user.row, #edit_user.row {
   margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
 }
 
-#task_list {
-  padding-right: 0px;
+#item_list {
+  padding: 10px;
+  width: 100%;
 
   .detail_info {
     font-size: 80%;
@@ -155,11 +183,46 @@ a.edit-button {
   }
 }
 
+.subheading {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.right-area-form {
+  margin: auto;
+  padding: 30px 5px 5px 5px;
+
+  form{
+    width: 100%;
+  }
+}
+
 .form-wrapper{
   margin: auto;
   padding: 50px 5px 5px 5px;
 
   form{
     width: 100%;
+  }
+}
+
+.help-block {
+  display: none;
+}
+
+.submit-btn-wrapper {
+  margin: 15px;
+}
+
+#user_info {
+  .card {
+    margin-top: 5px;
+    border: 0;
+
+    .user-icon {
+      padding: 10px;
+      text-align: center;
+      font-size: 5rem;
+    }
   }
 }
