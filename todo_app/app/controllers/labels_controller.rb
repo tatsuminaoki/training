@@ -2,7 +2,8 @@ class LabelsController < ApplicationController
   before_action :require_login
 
   def index
-    @lables = ActsAsTaggableOn::Tag.order(:name).pluck(:name)
+    @page = params[:page]
+    @labels = Task.label_all(page: @page)
   end
 
   private

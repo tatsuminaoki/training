@@ -29,6 +29,10 @@ class Task < ApplicationRecord
       query.page(page)
     end
 
+    def label_all(page: 1)
+      tag_counts_on(:labels).order(:name).page(page)
+    end
+
     def sort_column(value)
       return :created_at if value.blank?
       SORT_KINDS.find { |column| column == value.to_sym } || :created_at

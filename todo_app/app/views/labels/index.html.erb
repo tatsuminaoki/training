@@ -5,12 +5,13 @@
     <div class="tool-bar"></div>
     <table id="label_table" class="table">
       <tbody>
-      <% @lables.each do |label| %>
+      <% @labels.each do |label| %>
         <tr>
-          <td><%= link_to label, tasks_path(search_label: label), class: "badge badge-info label-badge" %></td>
+          <td><%= link_to label.name, tasks_path(search_label: label.name), class: "badge badge-info label-badge" %></td>
         </tr>
       <% end %>
       </tbody>
     </table>
+    <%= paginate @labels %>
   </div>
 </div>
