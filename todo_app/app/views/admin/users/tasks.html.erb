@@ -10,15 +10,11 @@
           <li class="list-group-item text-right">
             <span class="subheading text-muted"><%= I18n.t('page.task.labels.total_count') %>&#058;</span><%= number_with_delimiter(@task_counts.values&.inject(:+)) %>
           </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.not_start_count') %>&#058;</span><%= number_with_delimiter(@task_counts["not_start"]) %>
-          </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.progress_count') %>&#058;</span><%= number_with_delimiter(@task_counts["progress"]) %>
-          </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.done_count') %>&#058;</span><%= number_with_delimiter(@task_counts["done"]) %>
-          </li>
+          <% Task.statuses.keys.each do |key| %>
+            <li class="list-group-item text-right">
+              <span class="subheading text-muted"><%= I18n.t("page.task.labels.#{key}_count") %>&#058;</span><%= number_with_delimiter(@task_counts[key] || 0) %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
