@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 

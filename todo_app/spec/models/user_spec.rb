@@ -34,6 +34,13 @@ describe User, type: :model do
         expect(user.errors[:name][0]).to eq I18n.t('errors.messages.too_long', count: 20)
       end
 
+      it '名前が重複する場合、無効な状態であること' do
+        create(:user, name: 'hogehoge')
+        user = build(:user, name: 'hogehoge')
+        expect(user).to be_invalid
+        expect(user.errors[:name][0]).to eq I18n.t('errors.messages.taken')
+      end
+
       it 'パスワードがなければ無効な状態であること' do
         user = build(:user, password: nil)
         expect(user).to be_invalid
@@ -103,14 +110,6 @@ describe User, type: :model do
         it 'nameの照準で取得できること' do
           user = User.order_by(sort: :name).first
           expect(user.name).to eq 'User 0'
-        end
-
-        context 'nameが同一の場合' do
-          it 'idの降順で取得できること' do
-            User.update_all(name: 'User X')
-            user = User.order_by(sort: :name).first
-            expect(user.created_at.to_s).to eq '2018/01/01 00:00:09'
-          end
         end
       end
 
