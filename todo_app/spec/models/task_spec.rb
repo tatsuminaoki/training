@@ -257,8 +257,8 @@ describe Task, type: :model do
           expect(task_count['progress']).to eq 6
           expect(task_count['done']).to eq 9
 
-          nil_obj = Task.count_by_status(dummy.id)
-          expect(nil_obj.empty?).to be_truthy
+          dummy_task_count = Task.count_by_status(dummy.id)
+          expect(dummy_task_count).to be_empty
         end
       end
     end
