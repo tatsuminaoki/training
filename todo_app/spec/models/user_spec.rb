@@ -56,9 +56,25 @@ describe User, type: :model do
   end
 
   describe 'ユーザーの更新' do
-    it 'パスワード未設定でも更新できること' do
-      user = create(:user)
-      expect(user.update(name: 'dummy')).to be_truthy
+    context '有効な場合' do
+      it 'パスワード未設定でも更新できること' do
+        user = create(:user)
+        expect(user.update(name: 'dummy')).to be_truthy
+      end
+    end
+
+    context '無効な場合' do
+      it 'パスワード変更時に6文字以下の場合、無効であること' do
+        user = create(:user)
+        expect(user.update(password: 'foo')).to be_falsey
+        expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_short', count: 6)
+      end
+
+      it 'パスワード変更時に73文字以上の場合、無効であること' do
+        user = create(:user)
+        expect(user.update(password: 'a' * 73)).to be_falsey
+        expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_long', count: 72)
+      end
     end
   end
 
