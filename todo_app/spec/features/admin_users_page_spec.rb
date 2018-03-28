@@ -115,6 +115,7 @@ describe 'ユーザー一覧画面', type: :feature do
 
     context 'ユーザーを削除したい場合', type: :feature do
       let(:record) { all('#user_table tbody tr')[1] }
+      let!(:delete_user) { created_users.sort_by(&:name)[1] }
       let!(:initial_count) { User.count }
 
       before { record.find('a.trash-button').click }
@@ -129,11 +130,14 @@ describe 'ユーザー一覧画面', type: :feature do
       end
 
       context '確認ダイアログで確認ボタンを押した場合' do
+        let!(:user_task) { create(:task, user_id: delete_user.id) }
+
         it '削除処理が実行され、タスク一覧画面に成功メッセージが表示されること' do
           page.accept_confirm
           expect(page).to have_css('#users_list')
           expect(page).to have_css('.alert-success')
           expect(page).to have_css('#user_table tbody tr', count: initial_count - 1)
+          expect(Task.where(user_id: delete_user.id).count.zero?).to be_truthy
         end
       end
     end
