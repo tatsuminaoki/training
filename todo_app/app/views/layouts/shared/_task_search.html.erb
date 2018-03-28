@@ -1,12 +1,5 @@
 <div class="tool-bar">
-  <% if buttons.include?(:new) then %>
-    <div class="tool-bar-right tool-bar-item">
-      <%= button_to new_task_path, method: :get, id: "add_task_button", class: "btn btn-success" do %>
-        <%= fa_icon "plus-circle" %>
-      <% end %>
-    </div>
-  <% end %>
-  <% if buttons.include?(:search) then %>
+  <% if buttons.include?(:search) %>
     <div class="tool-bar-right tool-bar-item">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#search_modal">
         <%= fa_icon "search" %>
