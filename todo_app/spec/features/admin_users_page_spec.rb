@@ -141,7 +141,7 @@ describe 'ユーザー一覧画面', type: :feature do
 
         context '確認ダイアログで確認ボタンを押した場合' do
           let!(:user_task) { create(:task, user_id: delete_user.id) }
-  
+
           it '削除処理が実行され、タスク一覧画面に成功メッセージが表示されること' do
             page.accept_confirm
             expect(page).to have_css('#users_list')

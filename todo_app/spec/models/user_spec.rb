@@ -84,6 +84,8 @@ describe User, type: :model do
     end
 
     context '管理者が1名の場合' do
+      let(:user) { create(:user) }
+
       it 'ロールを一般ユーザーに変更できないこと' do
         ret = user.update(role: User.roles['general'])
         expect(ret).to be_falsey
@@ -92,6 +94,8 @@ describe User, type: :model do
     end
 
     context '管理者が2名の場合' do
+      let(:user) { create(:user) }
+
       it 'ロールを一般ユーザーに変更できること' do
         create(:user) #=> another administrator
         ret = user.update(role: User.roles['general'])
