@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 module TasksHelper
-  def submit_btn_name(path: new_task_path)
-    return I18n.t('helpers.submit.create') if request.path_info == path
-    I18n.t('helpers.submit.update')
-  end
-
   def status_pull_down
     Task.statuses.keys.map { |key| [status_value(key), key] }
   end

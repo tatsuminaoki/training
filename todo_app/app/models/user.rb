@@ -3,13 +3,14 @@ class User < ApplicationRecord
 
   has_secure_password
 
+
   before_destroy :administrator_must_exist_at_least_one
 
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
+  validates :password, length: { minimum: 6 }, if: :password, on: :update
   validates :role, presence: true
   validate :administrator_must_exist_at_least_one, if: :general?, on: :update
-  validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 
   enum role: %i[general administrator].freeze
 

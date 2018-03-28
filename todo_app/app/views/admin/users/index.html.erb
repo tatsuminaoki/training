@@ -3,7 +3,7 @@
   <%= render 'left_menu_wrapper' %>
 
   <div id="item_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
-    <%= render partial: 'layouts/shared/user_search', :locals => { buttons: %i[search], post_url: admin_users_path } %>
+    <%= render partial: 'shared/user_search', :locals => { buttons: %i[search], post_url: admin_users_path } %>
 
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
@@ -27,7 +27,7 @@
           <tr>
             <td><span class="badge <%= role_badge user.role %>"><%= role_value user.role %></span></td>
             <td><%= user.name %></td>
-            <td><%= link_to user.tasks.count.to_i, admin_user_tasks_path(user) %></td>
+            <td><%= link_to number_with_delimiter(user.tasks.count), admin_user_tasks_path(user) %></td>
             <td><%= user.created_at.to_s %></td>
             <td>
               <%= link_to edit_admin_user_path(user), class: "edit-button" do %>

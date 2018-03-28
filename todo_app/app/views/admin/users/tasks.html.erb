@@ -8,24 +8,20 @@
         <h5 class="card-title text-center"><%= @user.name %></h5>
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.total_count') %>&#058;</span><%= @task_count.values&.inject(:+)&.to_s(:delimited) %>
+            <span class="subheading text-muted"><%= I18n.t('page.task.labels.total_count') %>&#058;</span><%= number_with_delimiter(@task_counts.values&.inject(:+)) %>
           </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.not_start_count') %>&#058;</span><%= @task_count["not_start"]&.to_s(:delimited) %>
-          </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.progress_count') %>&#058;</span><%= @task_count["progress"]&.to_s(:delimited) %>
-          </li>
-          <li class="list-group-item text-right">
-            <span class="subheading text-muted"><%= I18n.t('page.task.labels.done_count') %>&#058;</span><%= @task_count["done"]&.to_s(:delimited) %>
-          </li>
+          <% Task.statuses.keys.each do |key| %>
+            <li class="list-group-item text-right">
+              <span class="subheading text-muted"><%= I18n.t("page.task.labels.#{key}_count") %>&#058;</span><%= number_with_delimiter(@task_counts[key] || 0) %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
   </div>
 
   <div id="item_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
-    <%= render partial: 'layouts/shared/task_search', :locals => { buttons: %i[search], post_url: admin_user_tasks_path } %>
+    <%= render partial: 'shared/task_search', :locals => { buttons: %i[search], post_url: admin_user_tasks_path } %>
 
     <table id="task_table" class="table">
       <tbody>

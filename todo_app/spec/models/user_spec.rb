@@ -34,6 +34,13 @@ describe User, type: :model do
         expect(user.errors[:name][0]).to eq I18n.t('errors.messages.too_long', count: 20)
       end
 
+      it '名前が重複する場合、無効な状態であること' do
+        create(:user, name: 'hogehoge')
+        user = build(:user, name: 'hogehoge')
+        expect(user).to be_invalid
+        expect(user.errors[:name][0]).to eq I18n.t('errors.messages.taken')
+      end
+
       it 'パスワードがなければ無効な状態であること' do
         user = build(:user, password: nil)
         expect(user).to be_invalid
@@ -55,9 +62,25 @@ describe User, type: :model do
   end
 
   describe 'ユーザーの更新' do
-    let(:user) { create(:user) }
-    it 'パスワード未設定でも更新できること' do
-      expect(user.update(name: 'dummy')).to be_truthy
+    context '有効な場合' do
+      it 'パスワード未設定でも更新できること' do
+        user = create(:user)
+        expect(user.update(name: 'dummy')).to be_truthy
+      end
+    end
+
+    context '無効な場合' do
+      it 'パスワード変更時に6文字以下の場合、無効であること' do
+        user = create(:user)
+        expect(user.update(password: 'foo')).to be_falsey
+        expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_short', count: 6)
+      end
+
+      it 'パスワード変更時に73文字以上の場合、無効であること' do
+        user = create(:user)
+        expect(user.update(password: 'a' * 73)).to be_falsey
+        expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_long', count: 72)
+      end
     end
 
     context '管理者が1名の場合' do
@@ -146,14 +169,6 @@ describe User, type: :model do
         it 'nameの昇順で取得できること' do
           user = User.order_by(sort: :name).first
           expect(user.name).to eq 'User 0'
-        end
-
-        context 'nameが同一の場合' do
-          it 'idの降順で取得できること' do
-            User.update_all(name: 'User X')
-            user = User.order_by(sort: :name).first
-            expect(user.created_at.to_s).to eq '2018/01/01 00:00:09'
-          end
         end
       end
 

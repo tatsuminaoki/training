@@ -22,7 +22,7 @@
 
   <div class="row">
     <div class="col-12 submit-btn-wrapper">
-      <%= t.submit submit_btn_name(path: new_admin_user_path), class: "btn btn-success" %>
+      <%= t.submit submit_btn_name(type: type), class: "btn btn-success" %>
       <%= link_to I18n.t('helpers.submit.cancel'), admin_users_path, {:class=>"btn btn-default"} %>
     </div>
   </div>

@@ -11,7 +11,7 @@ module Admin
     def tasks
       set_search_params
       @user = User.search_by_id(params[:id])
-      @task_count = Task.task_count_group_by(params[:id])
+      @task_counts = Task.count_by_status(params[:id])
       @tasks = Task.search(user_id: params[:id], title: @search_title, status: @search_status, sort: @search_sort, page: @page)
     end
 
@@ -52,6 +52,7 @@ module Admin
       else
         flash[:danger] = @user.errors[:base][0]
       end
+
       redirect_to admin_users_path
     end
 
