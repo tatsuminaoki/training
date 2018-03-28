@@ -38,11 +38,11 @@ describe 'ユーザータスク一覧画面', type: :feature do
       end
 
       it 'ユーザーのタスクの集計値が表示されていること' do
-        task_infos = user_info.all('.list-group-item')
-        expect(task_infos[0]).to have_content('1,007')
-        expect(task_infos[1]).to have_content('1,000')
-        expect(task_infos[2]).to have_content('5')
-        expect(task_infos[3]).to have_content('2')
+        task_info = user_info.all('.list-group-item')
+        expect(task_info[0]).to have_content('1,007')
+        expect(task_info[1]).to have_content('1,000')
+        expect(task_info[2]).to have_content('5')
+        expect(task_info[3]).to have_content('2')
       end
     end
 
