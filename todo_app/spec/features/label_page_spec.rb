@@ -22,7 +22,7 @@ describe 'ラベル一覧画面', type: :feature do
     end
   end
 
-  describe 'タスクの表示内容の検証' do
+  describe 'ラベルの表示内容の検証' do
     let!(:tasks) { create_list(:task_with_label, 3) }
     let(:records) { all('#label_table tbody tr') }
 
