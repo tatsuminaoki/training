@@ -4,6 +4,8 @@ $base-color-1: #0068A2;
 $sub-color: #fafafa;
 $accent-color: #ED6100;
 
+$base-font-color: #212529;
+
 $breakpoint-large: 768px;
 $breakpoint-small: 767px;
 
@@ -94,6 +96,10 @@ a.edit-button {
 #left_menu {
   padding-top: 30px;
 
+  a {
+    color: inherit;
+  }
+
   i.fa {
     margin-right: 5px;
   }
@@ -102,6 +108,7 @@ a.edit-button {
     background-color: $sub-color !important;
     border: 0 !important;
   }
+
   .list-group-item-custom.active {
     color: $accent-color;
     font-weight: bold;
