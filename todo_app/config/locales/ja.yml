@@ -28,6 +28,9 @@ ja:
       user:
         name: ユーザー名
         password: パスワード
+      user/roles:
+        general: 一般ユーザー
+        administrator: 管理者
   date:
     abbr_day_names:
     - 日
@@ -158,6 +161,7 @@ ja:
       other_than: は%{count}以外の値にしてください
       invalid_datetime: は有効な日付時刻を入力してください
       invalid_login: ユーザー名またはパスワードが正しくありません。
+      at_least_one_administrator: 管理者権限をもつユーザーは1人以上存在する必要があります
     template:
       body: 次の項目を確認してください
       header:
@@ -284,5 +288,6 @@ ja:
       labels:
         user_num: ユーザー数
         user_name: ユーザー名
+        role: ロール
         password: パスワード
         created_at: 登録日時

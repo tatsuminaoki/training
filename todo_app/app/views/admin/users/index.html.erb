@@ -14,6 +14,7 @@
     <table id="user_table" class="table">
       <thead>
         <tr>
+          <th><%= I18n.t('page.user.labels.role') %></th>
           <th><%= I18n.t('page.user.labels.user_name') %></th>
           <th><%= I18n.t('page.task.labels.total_count') %></th>
           <th><%= I18n.t('page.user.labels.created_at') %></th>
@@ -24,6 +25,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
+            <td><span class="badge <%= role_badge user.role %>"><%= role_value user.role %></span></td>
             <td><%= user.name %></td>
             <td><%= link_to number_with_delimiter(user.tasks.count), admin_user_tasks_path(user) %></td>
             <td><%= user.created_at.to_s %></td>

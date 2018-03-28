@@ -15,7 +15,12 @@ describe 'ユーザー編集画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
-      it 'ユーザー編集画面が表示されること' do
+      it '一般ユーザーの場合、タスク一覧ページにリダイレクトすること' do
+        visit_after_login(user: create(:user, role: User.roles['general']), visit_path: edit_admin_user_path(edit_user))
+        expect(page).to have_css('#todo_app_task_list')
+      end
+
+      it 'ユーザー一覧画面が表示されること' do
         visit_after_login(user: admin, visit_path: edit_admin_user_path(edit_user))
         expect(page).to have_css('#edit_user')
       end
@@ -56,6 +61,16 @@ describe 'ユーザー編集画面', type: :feature do
         expect(page).to have_css('#users_list')
         expect(page).to have_content I18n.t('success.update', it: User.model_name.human)
       end
+
+      it 'ロールを変更して更新できること' do
+        within('#edit_user') do
+          select User.human_attribute_name('roles.general'), from: 'user_role'
+        end
+        click_on I18n.t('helpers.submit.update')
+
+        expect(page).to have_css('#users_list')
+        expect(page).to have_content I18n.t('success.update', it: User.model_name.human)
+      end
     end
 
     context '更新に失敗する場合' do
@@ -80,6 +95,23 @@ describe 'ユーザー編集画面', type: :feature do
 
           expect(page).to have_css('#edit_user')
           expect(page).to have_content('パスワードは6文字以上で入力してください')
+        end
+      end
+
+      context 'ロールのバリデーション' do
+        before do
+          edit_user.update(role: User.roles['general'])
+          visit edit_admin_user_path(admin)
+        end
+
+        it '管理者が1名しか存在しない場合には一般ユーザーに変更できないこと' do
+          within('#edit_user') do
+            select User.human_attribute_name('roles.general'), from: 'user_role'
+          end
+          click_on I18n.t('helpers.submit.update')
+
+          expect(page).to have_css('#edit_user')
+          expect(page).to have_content(I18n.t('errors.messages.at_least_one_administrator'))
         end
       end
     end

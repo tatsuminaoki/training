@@ -1,6 +1,6 @@
 module Admin
   class UsersController < ApplicationController
-    before_action :require_login
+    before_action :require_login, :require_administrator
 
     def index
       @search_name = params[:search_name]
@@ -47,16 +47,19 @@ module Admin
 
     def destroy
       @user = User.find(params[:id])
-      @user.destroy
+      if @user.destroy
+        flash[:success] = I18n.t('success.delete', it: User.model_name.human)
+      else
+        flash[:danger] = @user.errors[:base][0]
+      end
 
-      flash[:success] = I18n.t('success.delete', it: User.model_name.human)
       redirect_to admin_users_path
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:name, :password)
+      params.require(:user).permit(:name, :password, :role)
     end
 
     def set_search_params
@@ -68,6 +71,10 @@ module Admin
 
     def require_login
       redirect_to login_path unless logged_in?
+    end
+
+    def require_administrator
+      redirect_to root_path unless current_user.administrator?
     end
   end
 end

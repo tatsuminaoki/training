@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20180328034101) do
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", limit: 20, null: false
+    t.integer "role", limit: 1, default: 0, null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

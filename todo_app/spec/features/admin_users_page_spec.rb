@@ -16,6 +16,11 @@ describe 'ユーザー一覧画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
+      it '一般ユーザーの場合、タスク一覧ページにリダイレクトすること' do
+        visit_after_login(user: create(:user, role: User.roles['general']), visit_path: admin_users_path)
+        expect(page).to have_css('#todo_app_task_list')
+      end
+
       it 'ユーザー一覧画面が表示されること' do
         visit_after_login(user: admin, visit_path: admin_users_path)
         expect(page).to have_css('#users_list')
@@ -49,6 +54,10 @@ describe 'ユーザー一覧画面', type: :feature do
         end
 
         let(:record) { all('#user_table tbody tr').first }
+
+        it 'ロール欄にロールが表示されていること' do
+          expect(record).to have_content(User.human_attribute_name("roles.#{first_user.name}"))
+        end
 
         it 'ユーザー名欄にユーザー名が表示されていること' do
           expect(record).to have_content(first_user.name)
@@ -118,26 +127,46 @@ describe 'ユーザー一覧画面', type: :feature do
       let!(:delete_user) { created_users.sort_by(&:name)[1] }
       let!(:initial_count) { User.count }
 
-      before { record.find('a.trash-button').click }
+      context '管理者ユーザーが2人いる場合' do
+        before { record.find('a.trash-button').click }
 
-      context '確認ダイアログでキャンセルボタンを押した場合' do
-        it '対象行は削除されず、一覧画面に戻ること' do
-          page.dismiss_confirm
-          expect(page).to have_css('#users_list')
-          expect(page).to have_no_css('.alert-success')
-          expect(page).to have_css('#user_table tbody tr', count: initial_count)
+        context '確認ダイアログでキャンセルボタンを押した場合' do
+          it '対象行は削除されないこと' do
+            page.dismiss_confirm
+            expect(page).to have_css('#users_list')
+            expect(page).to have_no_css('.alert-success')
+            expect(page).to have_css('#user_table tbody tr', count: initial_count)
+          end
+        end
+
+        context '確認ダイアログで確認ボタンを押した場合' do
+          let!(:user_task) { create(:task, user_id: delete_user.id) }
+
+          it '削除処理が実行され、タスク一覧画面に成功メッセージが表示されること' do
+            page.accept_confirm
+            expect(page).to have_css('#users_list')
+            expect(page).to have_css('.alert-success')
+            expect(page).to have_css('#user_table tbody tr', count: initial_count - 1)
+            expect(Task.where(user_id: delete_user.id).count.zero?).to be_truthy
+          end
         end
       end
 
-      context '確認ダイアログで確認ボタンを押した場合' do
-        let!(:user_task) { create(:task, user_id: delete_user.id) }
+      context '管理者ユーザーが一人の場合' do
+        before { User.where.not(id: admin.id).each { |user| user.update(role: User.roles['general']) } }
+        before do
+          find(:css, '.fa-search').click
+          within('#search_modal .modal-body') { fill_in I18n.t('page.user.labels.user_name'), with: admin.name }
+          click_on I18n.t('helpers.submit.search')
 
-        it '削除処理が実行され、タスク一覧画面に成功メッセージが表示されること' do
+          record = all('#user_table tbody tr').first
+          record.find('a.trash-button').click
+        end
+
+        it '削除できないこと' do
           page.accept_confirm
-          expect(page).to have_css('#users_list')
-          expect(page).to have_css('.alert-success')
-          expect(page).to have_css('#user_table tbody tr', count: initial_count - 1)
-          expect(Task.where(user_id: delete_user.id).count.zero?).to be_truthy
+          expect(page).to have_css('.alert-danger')
+          expect(page).to have_content(I18n.t('errors.messages.at_least_one_administrator'))
         end
       end
     end

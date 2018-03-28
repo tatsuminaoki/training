@@ -52,6 +52,12 @@ describe User, type: :model do
         expect(user).to be_invalid
         expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_long', count: 72)
       end
+
+      it 'ロールがなければ無効な状態であること' do
+        user = build(:user, role: nil)
+        expect(user).to be_invalid
+        expect(user.errors[:role][0]).to eq I18n.t('errors.messages.empty')
+      end
     end
   end
 
@@ -74,6 +80,47 @@ describe User, type: :model do
         user = create(:user)
         expect(user.update(password: 'a' * 73)).to be_falsey
         expect(user.errors[:password][0]).to eq I18n.t('errors.messages.too_long', count: 72)
+      end
+    end
+
+    context '管理者が1名の場合' do
+      let(:user) { create(:user) }
+
+      it 'ロールを一般ユーザーに変更できないこと' do
+        ret = user.update(role: User.roles['general'])
+        expect(ret).to be_falsey
+        expect(user.errors[:base][0]).to eq I18n.t('errors.messages.at_least_one_administrator')
+      end
+    end
+
+    context '管理者が2名の場合' do
+      let(:user) { create(:user) }
+
+      it 'ロールを一般ユーザーに変更できること' do
+        create(:user) #=> another administrator
+        ret = user.update(role: User.roles['general'])
+        expect(ret).to be_truthy
+        expect(user.errors.blank?).to be_truthy
+      end
+    end
+  end
+
+  describe 'ユーザーの削除' do
+    let(:user) { create(:user) }
+    context '管理者が1名の場合' do
+      it '削除できないこと' do
+        user.destroy
+        expect(User.count).to eq 1
+        expect(user.errors[:base][0]).to eq I18n.t('errors.messages.at_least_one_administrator')
+      end
+    end
+
+    context '管理者が2名の場合' do
+      it '削除できること' do
+        create(:user) #=> another administrator
+        user.destroy
+        expect(User.count).to eq 1
+        expect(user.errors.blank?).to be_truthy
       end
     end
   end
@@ -115,7 +162,7 @@ describe User, type: :model do
 
         context 'created_atが同一の場合' do
           it 'idの降順で取得できること' do
-            User.all.each { |u| u.update(created_at: '2018/1/1 01:01:01') }
+            User.update_all(created_at: '2018/1/1 01:01:01')
             user = User.order_by(sort: :created_at).first
             expect(user.name).to eq 'User 9'
           end
@@ -123,7 +170,7 @@ describe User, type: :model do
       end
 
       context 'ユーザー名順に取得したい場合' do
-        it 'nameの照準で取得できること' do
+        it 'nameの昇順で取得できること' do
           user = User.order_by(sort: :name).first
           expect(user.name).to eq 'User 0'
         end

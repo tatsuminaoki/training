@@ -14,7 +14,12 @@ describe 'ユーザー登録画面', type: :feature do
     end
 
     context 'ログイン状態でアクセスした場合' do
-      it 'ユーザー登録画面が表示されること' do
+      it '一般ユーザーの場合、タスク一覧ページにリダイレクトすること' do
+        visit_after_login(user: create(:user, role: User.roles['general']), visit_path: new_admin_user_path)
+        expect(page).to have_css('#todo_app_task_list')
+      end
+
+      it 'ユーザー一覧画面が表示されること' do
         visit_after_login(user: admin, visit_path: new_admin_user_path)
         expect(page).to have_css('#add_user')
       end

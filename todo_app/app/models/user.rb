@@ -3,9 +3,16 @@ class User < ApplicationRecord
 
   has_secure_password
 
+
+  before_destroy :administrator_must_exist_at_least_one
+
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :password, length: { minimum: 6 }, if: :password, on: :update
+  validates :role, presence: true
+  validate :administrator_must_exist_at_least_one, if: :general?, on: :update
+
+  enum role: %i[general administrator].freeze
 
   SORT_KINDS = %i[created_at name].freeze
 
@@ -35,4 +42,13 @@ class User < ApplicationRecord
   end
 
   private_class_method :sort_column
+
+  private
+
+  def administrator_must_exist_at_least_one
+    return true if User.administrator.where.not(id: id).exists?
+
+    errors.add(:base, I18n.t('errors.messages.at_least_one_administrator'))
+    throw :abort
+  end
 end
