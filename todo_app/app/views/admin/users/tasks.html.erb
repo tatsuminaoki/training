@@ -1,0 +1,45 @@
+<div id="task_list" class="row">   
+  <div id="user_info" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="card" style="width: 100%;">
+      <div class="user-icon">
+        <%= fa_icon 'user' %>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title text-center"><%= @user.name %></h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-right">
+            <span class="subheading text-muted"><%= I18n.t('page.task.labels.total_count') %>&#058;</span><%= number_with_delimiter(@task_counts.values&.inject(:+)) %>
+          </li>
+          <% Task.statuses.keys.each do |key| %>
+            <li class="list-group-item text-right">
+              <span class="subheading text-muted"><%= I18n.t("page.task.labels.#{key}_count") %>&#058;</span><%= number_with_delimiter(@task_counts[key] || 0) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="item_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+    <%= render partial: 'shared/task_search', :locals => { buttons: %i[search], post_url: admin_user_tasks_path } %>
+
+    <table id="task_table" class="table">
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><span class="badge <%= status_badge task.status%>"><%= status_value task.status %></span></td>
+            <td><%= task.title %>
+              <br>
+              <p class="detail_info">
+                <span class="text"><%= I18n.t('page.task.labels.priority') %>&#058;<strong><%= priority_value task.priority %></strong></span>
+                <span class="text"><%= I18n.t('page.task.labels.deadline') %>&#058;<strong><%= task.deadline.to_s %></strong></span>
+                <span class="text"><%= I18n.t('page.task.labels.created_at') %>&#058;<strong><%= task.created_at.to_s %></strong></span>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tasks %>
+  </div>
+</div>

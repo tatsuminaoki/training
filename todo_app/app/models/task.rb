@@ -33,6 +33,10 @@ class Task < ApplicationRecord
       tag_counts_on(:labels).order(:name).page(page)
     end
 
+    def count_by_status(user_id)
+      where(user_id: user_id).group(:status).count
+    end
+
     def sort_column(value)
       return :created_at if value.blank?
       SORT_KINDS.find { |column| column == value.to_sym } || :created_at

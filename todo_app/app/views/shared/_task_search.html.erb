@@ -1,0 +1,35 @@
+<div class="tool-bar">
+  <% if buttons.include?(:search) %>
+    <div class="tool-bar-right tool-bar-item">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#search_modal">
+        <%= fa_icon "search" %>
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-labelledby="search_modal_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="search_modal_label"><%= I18n.t('page.task.titles.search') %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= bootstrap_form_tag url: post_url, method: :get, enforce_utf8: false do |f| %>
+        <div class="modal-body">
+          <%= f.text_field :search_title, value: @search_title, label: I18n.t('page.task.labels.title') %>
+          <%= f.select :search_status, options_for_select(status_pull_down_with_all, selected: @search_status),
+                        { label: I18n.t('page.task.labels.status') } %>
+          <%= f.select :search_sort, options_for_select(sort_pull_down, selected: @search_sort),
+                        { label: I18n.t('page.task.labels.sort') } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= I18n.t('helpers.submit.cancel') %></button>
+          <%= f.submit I18n.t('helpers.submit.search'), class: "btn btn-success", :name => nil %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

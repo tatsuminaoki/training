@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   resources :tasks
   get 'tasks/index'
   get 'labels' => 'labels#index'
+
+  namespace :admin do
+    resources :users
+    get 'users/:id/tasks' => 'users#tasks', as: :user_tasks
+  end
 end

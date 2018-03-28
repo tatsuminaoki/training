@@ -1,12 +1,31 @@
 <div class="navbar-wrapper">
-  <nav class="navbar navbar-custom navbar-light bg-light justify-content-between">
+  <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand"><%= I18n.t('page.common.app_name') %></a>
-    <div class="dropdown">
-      <button class="btn btn-secondary user-icon dropdown-toggle" type="button" id="dropdown_menu_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= fa_icon "user-circle" %>
-      </button>
-      <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdown_menu_button">
-        <%= link_to I18n.t('page.common.logout'), logout_path, method: :delete, class: 'dropdown-item'%>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_toggle" aria-controls="navbar_toggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar_toggle">
+      
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <%= link_to Task.model_name.human, tasks_path, class: 'nav-link nav-lisk-custom'%>
+        </li>
+        <% if administrator? %>
+          <li class="nav-item">
+            <%= link_to User.model_name.human, admin_users_path, class: 'nav-link nav-lisk-custom'%>
+          </li>
+        <% end %>
+      </ul>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary user-icon dropdown-toggle" type="button" id="dropdown_menu_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= fa_icon "user-circle" %>
+        </button>
+        <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdown_menu_button">
+          <%= link_to I18n.t('page.common.logout'), logout_path, method: :delete, class: 'dropdown-item'%>
+        </div>
       </div>
     </div>
   </nav>
