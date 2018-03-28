@@ -2,7 +2,7 @@ User.create(name: 'fake', password: 'foobar', password_confirmation: 'foobar') u
 
 user = User.find_by(name: 'admin')
 user ||= User.create(name: 'admin', password: 'foobar', password_confirmation: 'foobar')
-user.update(role: 'administrator')
+user.administrator!
 
 if user.tasks.size.zero?
   1000.times do |i|

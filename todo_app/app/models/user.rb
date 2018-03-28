@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :role, presence: true
-  validate :administrator_must_exist_at_least_one, if: proc { |user| user.role == User.roles.keys[0] }, on: :update
+  validate :administrator_must_exist_at_least_one, if: :general?, on: :update
   validates :password, presence: true, length: { minimum: 6 }, if: proc { |user| user.password.present? }, on: :update
 
   enum role: %i[general administrator].freeze
@@ -45,7 +45,7 @@ class User < ApplicationRecord
   private
 
   def administrator_must_exist_at_least_one
-    return true if User.where(role: User.roles[:administrator]).where.not(id: id).count.positive?
+    return true if User.administrator.where.not(id: id).exists?
 
     errors.add(:base, I18n.t('errors.messages.at_least_one_administrator'))
     throw :abort
