@@ -41,7 +41,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#task_label_list").tagit({
-          readOnly: true
+          readOnly: true,
+          onTagClicked: function(e, param) {
+            location.href = '<%= tasks_path %>?search_label=' + param.tagLabel;
+          }
         });
     });
 </script>

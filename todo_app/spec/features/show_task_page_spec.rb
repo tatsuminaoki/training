@@ -3,18 +3,17 @@
 require 'rails_helper'
 
 describe 'タスク詳細画面', type: :feature do
-  let!(:task) { create(:task, title: 'Rspec test 1', label_list: 'label1,label2') }
+  let(:user) { create(:user) }
+  let!(:task) { create(:task, user_id: user.id, title: 'Rspec test 1', label_list: 'label1,label2') }
 
   before do
-    login
-    visit task_path(task)
+    visit_after_login(user: user, visit_path: task_path(task))
   end
 
   describe 'アクセス' do
     context '非ログイン状態でアクセスした場合' do
       it 'ログイン画面が表示されること' do
-        logout
-        visit task_path(task)
+        visit_without_login(visit_path: task_path(task))
         expect(page).to have_css('.form-signin')
       end
     end
@@ -54,13 +53,23 @@ describe 'タスク詳細画面', type: :feature do
   end
 
   describe '一覧画面への遷移', type: :feature do
-    it '戻るボタンが表示されていること' do
-      expect(find_link(I18n.t('helpers.submit.back')).visible?).to be_truthy
+    context '戻るボタン' do
+      it '戻るボタンが表示されていること' do
+        expect(find_link(I18n.t('helpers.submit.back')).visible?).to be_truthy
+      end
+
+      it '戻るボタンクリックで一覧画面に遷移すること' do
+        click_on I18n.t('helpers.submit.back')
+        expect(page).to have_css('#todo_app_task_list')
+      end
+
     end
 
-    it '戻るボタンクリックで一覧画面に遷移すること' do
-      click_on I18n.t('helpers.submit.back')
-      expect(page).to have_css('#todo_app_task_list')
+    it 'ラベルをクリックでタスク一覧に遷移し、絞り込み検索が行われていること' do
+      first('.tagit-label').click
+      uri = URI.parse(current_url)
+      expect(uri.path).to eq tasks_path
+      expect(uri.query).to eq 'search_label=label1'
     end
   end
 end
