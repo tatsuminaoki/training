@@ -33,7 +33,7 @@ describe 'ラベル一覧画面', type: :feature do
     end
 
     it 'ラベル名でソートされていること' do
-      expected_tasks = ActsAsTaggableOn::Tag.order(:name).pluck(:name)
+      expected_tasks = Task.tag_counts_on(:labels).order(:name).map { |label| "#{label.name} (#{label.taggings_count})" }
       actual_tasks = all('table#label_table tbody tr').map { |tr| tr.all('td')[0].find('a').text }
       expect(expected_tasks).to match actual_tasks
     end

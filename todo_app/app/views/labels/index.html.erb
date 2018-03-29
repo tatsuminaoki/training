@@ -7,7 +7,12 @@
       <tbody>
       <% @labels.each do |label| %>
         <tr>
-          <td><%= link_to label.name, tasks_path(search_label: label.name), class: "badge badge-info label-badge" %></td>
+          <td>
+            <%= link_to tasks_path(search_label: label.name), class: "badge badge-info label-badge" do %>
+              <span><%= label.name %></span>
+              <span class="label-count">(<%= label.taggings_count %>)</span>
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>
