@@ -19,6 +19,11 @@ describe Task, type: :model do
         task = build(:task, description: 'a' * 255)
         expect(task).to be_valid
       end
+
+      it 'ラベルが5つ以下であれば有効な状態であること' do
+        task = build(:task, label_list: 'a,b,c,d,e')
+        expect(task).to be_valid
+      end
     end
 
     context '無効な場合' do
@@ -74,6 +79,12 @@ describe Task, type: :model do
         task = build(:task, user_id: 'a')
         expect(task).to be_invalid
         expect(task.errors[:user_id][0]).to eq I18n.t('errors.messages.not_a_number')
+      end
+
+      it 'ラベルが5つ以上の場合、向こうな状態であること' do
+        task = build(:task, label_list: 'a,b,c,d,e,f')
+        expect(task).to be_invalid
+        expect(task.errors[:label_list][0]).to eq I18n.t('errors.messages.too_long', count: 5)
       end
     end
 

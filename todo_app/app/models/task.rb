@@ -10,6 +10,7 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :priority, presence: true
   validates :user_id, presence: true, numericality: true
+  validates :label_list, length: { maximum: 5 }
   validate :validate_datetime
 
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
