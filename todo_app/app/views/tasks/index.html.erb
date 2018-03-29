@@ -27,7 +27,11 @@
         <tr>
           <td><span class="badge <%= status_badge task.status%>"><%= status_value task.status %></span></td>
           <td><%= link_to task.title, task_path(task) %>
-
+            <span class="horizontal-label-list">
+              <% labels_up_to_three!(task.all_labels_list).each do |label| %>
+              <span class="badge badge-secondary" ><%= "#{label}" %></span>
+              <% end %>
+            </span>
             <br>
             <p class="detail_info">
               <span class="text"><%= I18n.t('page.task.labels.priority') %>&#058;<strong><%= priority_value task.priority %></strong></span>
