@@ -142,7 +142,7 @@ describe 'タスク編集画面', type: :feature do
           click_on I18n.t('helpers.submit.update')
 
           t = Task.find(task.id)
-          expect(t.label_list).to contain_exactly(old[0])
+          expect(t.label_list).to contain_exactly(old.first)
         end
       end
 
@@ -153,7 +153,7 @@ describe 'タスク編集画面', type: :feature do
           click_on I18n.t('helpers.submit.update')
 
           t = Task.find(task.id)
-          expect(t.label_list).to contain_exactly(old[0], new[0], new[1], new[2])
+          expect(t.label_list).to contain_exactly(old.first, *new.first(3))
         end
       end
     end

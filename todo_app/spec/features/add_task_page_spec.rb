@@ -96,7 +96,7 @@ describe 'タスク登録画面', type: :feature do
 
       it 'ラベルは5つ以上入力できないこと' do
         task = Task.find_by(title: 'Label test')
-        expect(task.label_list).to contain_exactly(labels[0], labels[1], labels[2], labels[3], labels[4])
+        expect(task.label_list).to contain_exactly(*labels.first(5))
       end
     end
   end
