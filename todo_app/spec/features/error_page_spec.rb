@@ -11,7 +11,7 @@ describe 'エラー画面', type: :feature do
 
     it '404エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '4O4')
-      expect(page).to have_selector('.text-muted', text: 'Sorry, this page isn\'t available.')
+      expect(page).to have_selector('.text-muted', text: 'お探しのページは見つかりませんでした。')
       expect(page).to have_link('HOME PAGE', href: '/')
     end
   end
@@ -21,7 +21,7 @@ describe 'エラー画面', type: :feature do
 
     it '404エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '4O4')
-      expect(page).to have_selector('.text-muted', text: 'Sorry, this page isn\'t available.')
+      expect(page).to have_selector('.text-muted', text: 'お探しのページは見つかりませんでした。')
       expect(page).to have_link('HOME PAGE', href: '/')
     end
   end
@@ -31,7 +31,7 @@ describe 'エラー画面', type: :feature do
 
     it '422エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '422')
-      expect(page).to have_selector('.text-muted', text: 'The change you wanted was rejected.')
+      expect(page).to have_selector('.text-muted', text: 'このページは表示できません。')
       expect(page).to have_link('HOME PAGE', href: '/')
     end
   end
@@ -41,7 +41,7 @@ describe 'エラー画面', type: :feature do
 
     it '500エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '500')
-      expect(page).to have_selector('.text-muted', text: 'Sorry, but something went wrong.')
+      expect(page).to have_selector('.text-muted', text: 'ページが表示できません。')
       expect(page).to have_link('HOME PAGE', href: '/')
     end
   end
