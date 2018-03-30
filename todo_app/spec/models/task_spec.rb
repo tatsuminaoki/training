@@ -81,7 +81,7 @@ describe Task, type: :model do
         expect(task.errors[:user_id][0]).to eq I18n.t('errors.messages.not_a_number')
       end
 
-      it 'ラベルが5つ以上の場合、向こうな状態であること' do
+      it 'ラベルが5つ以上の場合、無効な状態であること' do
         task = build(:task, label_list: 'a,b,c,d,e,f')
         expect(task).to be_invalid
         expect(task.errors[:label_list][0]).to eq I18n.t('errors.messages.too_long', count: 5)
