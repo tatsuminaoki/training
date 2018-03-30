@@ -19,6 +19,11 @@ describe Task, type: :model do
         task = build(:task, description: 'a' * 255)
         expect(task).to be_valid
       end
+
+      it 'ラベルが5つ以下であれば有効な状態であること' do
+        task = build(:task, label_list: 'a,b,c,d,e')
+        expect(task).to be_valid
+      end
     end
 
     context '無効な場合' do
@@ -74,6 +79,12 @@ describe Task, type: :model do
         task = build(:task, user_id: 'a')
         expect(task).to be_invalid
         expect(task.errors[:user_id][0]).to eq I18n.t('errors.messages.not_a_number')
+      end
+
+      it 'ラベルが5つ以上の場合、無効な状態であること' do
+        task = build(:task, label_list: 'a,b,c,d,e,f')
+        expect(task).to be_invalid
+        expect(task.errors[:label_list][0]).to eq I18n.t('errors.messages.too_long', count: 5)
       end
     end
 
@@ -303,6 +314,45 @@ describe Task, type: :model do
           expect(tasks.size).to eq 10
           tasks.each.with_index { |task, i| expect(task.title).to eq "Rspec test #{20 - i}" }
         end
+      end
+    end
+  end
+
+  describe 'ラベルの関連付け' do
+    let(:user) { create(:user) }
+    let(:expected_label) { ActsAsTaggableOn::Tag.order(:name).limit(10).offset(offset).pluck(:name) }
+
+    context 'ラベルを取得したい場合' do
+      let!(:tasks) { create_list(:task_with_label, 5, user_id: user.id) }
+      let(:offset) { 0 }
+
+      it 'タスクに関連づけられている全てのラベルが取得できること' do
+        expect(Task.label_all.size).to eq 5
+      end
+
+      it '取得結果が名前でソートされていること' do
+        actual = Task.label_all.map(&:name)
+        expect(expected_label).to match actual
+      end
+    end
+
+    context 'ページングのデフォルト値' do
+      let!(:tasks) { create_list(:task_with_label, 15, user_id: user.id) }
+      let(:offset) { 0 }
+
+      it '未指定の場合、1ページ目の10件が取得できること' do
+        actual = Task.label_all.map(&:name)
+        expect(expected_label).to match actual
+      end
+
+    end
+
+    context 'ページの指定' do
+      let(:offset) { 10 }
+
+      it '引数にページ番号を指定できること' do
+        actual = Task.label_all(page: 2).map(&:name)
+        expect(expected_label).to match actual
       end
     end
   end

@@ -35,4 +35,9 @@ module TasksHelper
       'badge-success'
     end
   end
+
+  def labels_up_to_three!(labels)
+    return labels if labels.size < 4
+    labels.first(3) << "+#{labels.size - 3}"
+  end
 end

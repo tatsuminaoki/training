@@ -109,6 +109,10 @@ a.edit-button {
 #left_menu {
   padding-top: 5px;
 
+  a {
+    color: inherit;
+  }
+
   i.fa {
     margin-right: 5px;
   }
@@ -164,7 +168,7 @@ a.edit-button {
 }
 
 #todo_app_task_list.row, #users_list.row, #task_list.row,
-#add_user.row, #edit_user.row {
+#add_user.row, #edit_user.row, #todo_app_label_list.row {
   margin: 0px 1px 0px 1px; //極端に幅を狭めた時の左側のpadding崩れ防止
 }
 
@@ -181,6 +185,20 @@ a.edit-button {
       margin-right: 10px;
     }
   }
+
+  .horizontal-label-list {
+    margin-left: 2rem;
+  }
+}
+
+#label_list {
+  .label-badge {
+    font-size: 1.3rem;
+  }
+  .label-count {
+    font-size: 1.1rem;
+    margin-left: 0.3rem;
+  }
 }
 
 .subheading {
@@ -192,7 +210,7 @@ a.edit-button {
   margin: auto;
   padding: 30px 5px 5px 5px;
 
-  form{
+  form {
     width: 100%;
   }
 }
@@ -203,6 +221,34 @@ a.edit-button {
 
   form{
     width: 100%;
+  }
+}
+
+/**
+* tag-it message disable.
+*/
+.ui-helper-hidden-accessible {
+  display:none;
+}
+
+.tagit.ui-widget.ui-widget-content {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+ul.tagit li.tagit-choice {
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+
+  .tagit-label {
+    color: #004085 !important;
+  }
+}
+
+#show_task {
+  .tagit.ui-widget.ui-widget-content {
+    background-color: #e9ecef;
   }
 }
 

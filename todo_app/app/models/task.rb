@@ -3,11 +3,14 @@
 class Task < ApplicationRecord
   belongs_to :user
 
+  acts_as_taggable_on :labels
+
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
   validates :status, presence: true
   validates :priority, presence: true
   validates :user_id, presence: true, numericality: true
+  validates :label_list, length: { maximum: 5 }
   validate :validate_datetime
 
   enum status: Hash[%i[not_start progress done].map { |sym| [sym, sym.to_s] }].freeze
@@ -25,6 +28,10 @@ class Task < ApplicationRecord
       query = query.where(status: status) if (Task.statuses.keys & [status]).present?
       query = query.order(sort_column(sort) => sort_order(sort), :id => :desc)
       query.page(page)
+    end
+
+    def label_all(page: 1)
+      tag_counts_on(:labels).order(:name).page(page)
     end
 
     def count_by_status(user_id)

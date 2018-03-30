@@ -1,0 +1,22 @@
+<div id="todo_app_label_list" class="row">
+  <%= render 'shared/task_left_menu_wrapper' %>
+
+  <div id="label_list" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 main-content">
+    <div class="tool-bar"></div>
+    <table id="label_table" class="table">
+      <tbody>
+      <% @labels.each do |label| %>
+        <tr>
+          <td>
+            <%= link_to tasks_path(search_label: label.name), class: "badge badge-info label-badge" do %>
+              <span><%= label.name %></span>
+              <span class="label-count">(<%= label.taggings_count %>)</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @labels %>
+  </div>
+</div>

@@ -105,4 +105,57 @@ describe 'タスク編集画面', type: :feature do
       end
     end
   end
+
+  describe 'ラベルの更新処理' do
+    let(:old) { %w[old1 old2] }
+    let(:new) { %w[new1 new2 new3] }
+    let(:all) { old + new }
+    let(:label_area) { '#task_label_list' }
+
+    before do
+      task.label_list.add(old.join(','))
+      task.save
+      visit edit_task_path(task)
+    end
+
+    context '既に登録済みのラベルがある場合' do
+      it '表示されていること' do
+        expect(find('.tagit')).to have_content('old1')
+        expect(find('.tagit')).to have_content('old2')
+      end
+    end
+
+    describe 'ラベルの変更検証' do
+      context 'ラベルを追加したい場合' do
+        it '追加できること' do
+          add_label(label_area, new)
+          click_on I18n.t('helpers.submit.update')
+
+          t = Task.find(task.id)
+          expect(t.label_list).to match_array all
+        end
+      end
+
+      context 'ラベルを削除したい場合' do
+        it '削除できること' do
+          delete_label(label_area, %w[old2])
+          click_on I18n.t('helpers.submit.update')
+
+          t = Task.find(task.id)
+          expect(t.label_list).to contain_exactly(old.first)
+        end
+      end
+
+      context 'ラベルの削除と追加を同時に行いたい場合' do
+        it '差分が保持されていること' do
+          add_label(label_area, new)
+          delete_label(label_area, %w[old2])
+          click_on I18n.t('helpers.submit.update')
+
+          t = Task.find(task.id)
+          expect(t.label_list).to contain_exactly(old.first, *new.first(3))
+        end
+      end
+    end
+  end
 end

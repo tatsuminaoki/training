@@ -95,4 +95,27 @@ RSpec.describe TasksHelper, type: :helper do
       end
     end
   end
+
+  describe 'バッジの個数制御' do
+    context '3つ以内の場合' do
+      it 'リストに変更がなく返却されること' do
+        labels = %w[aaa bbb ccc]
+        expect(labels_up_to_three!(labels)).to match(labels)
+      end
+    end
+
+    context '4つ以上の場合' do
+      let(:labels) { %w[aaa bbb ccc ddd eee fff ggg] }
+
+      it '最初の3つの要素と+1が返却されること' do
+        expected = labels.first(3) << '+1'
+        expect(labels_up_to_three!(labels.first(4))).to match(expected)
+      end
+
+      it '最初の3つの要素と+2が返却されること' do
+        expected = labels.first(3) << '+2'
+        expect(labels_up_to_three!(labels.first(5))).to match(expected)
+      end
+    end
+  end
 end

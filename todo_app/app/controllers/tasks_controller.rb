@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :set_available_labels, only: %i[new edit]
   before_action :require_login
+  before_action :set_search_param
 
   def index
-    @search_title = params[:search_title]
-    @search_status = params[:search_status]
-    @search_sort = params[:search_sort]
-    @page = params[:page]
     @tasks = Task.search(user_id: current_user.id, title: @search_title, status: @search_status, sort: @search_sort, page: @page)
+    @tasks = @tasks.tagged_with(@search_label) if @search_label.present?
   end
 
   def new
@@ -57,7 +56,19 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :description, :deadline, :status, :priority, :label_list)
+  end
+
+  def set_search_param
+    @search_title = params[:search_title]
+    @search_status = params[:search_status]
+    @search_sort = params[:search_sort]
+    @search_label = params[:search_label]
+    @page = params[:page]
+  end
+
+  def set_available_labels
+    @available_labels = ActsAsTaggableOn::Tag.all.pluck(:name).to_json.html_safe
   end
 
   def require_login

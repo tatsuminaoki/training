@@ -3,6 +3,10 @@
 module ApplicationHelper
   include Sessions
 
+  def active_controller(controller)
+    return 'active' if controller == params[:controller]
+  end
+
   def active_action(*action)
     return 'active' if action.include?(params[:action])
   end

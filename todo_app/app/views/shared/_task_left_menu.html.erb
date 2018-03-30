@@ -1,0 +1,10 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item list-group-item-custom <%= active_controller('tasks') %>">
+    <%= fa_icon "list-ol" %>
+    <%= link_to I18n.t('page.task.titles.list'), tasks_path %>
+  </li>
+  <li class="list-group-item list-group-item-custom <%= active_controller('labels') %>">
+    <%= fa_icon "tags" %>
+    <%= link_to I18n.t('page.label.titles.list'), labels_path %>
+  </li>
+</ul>
