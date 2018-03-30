@@ -26,10 +26,10 @@ describe 'エラー画面', type: :feature do
     end
   end
 
-  context '/404へアクセスした場合' do
+  context '/422へアクセスした場合' do
     let(:path) { '/422' }
 
-    it '404エラー画面へ遷移すること' do
+    it '422エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '422')
       expect(page).to have_selector('.text-muted', text: 'The change you wanted was rejected.')
       expect(page).to have_link('HOME PAGE', href: '/')
@@ -39,7 +39,7 @@ describe 'エラー画面', type: :feature do
   context '/500へアクセスした場合' do
     let(:path) { '/500' }
 
-    it '404エラー画面へ遷移すること' do
+    it '500エラー画面へ遷移すること' do
       expect(page).to have_selector('.error-title', text: '500')
       expect(page).to have_selector('.text-muted', text: 'Sorry, but something went wrong.')
       expect(page).to have_link('HOME PAGE', href: '/')
