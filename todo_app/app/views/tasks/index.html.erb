@@ -29,7 +29,7 @@
           <td><%= link_to task.title, task_path(task) %>
             <span class="horizontal-label-list">
               <% labels_up_to_three!(task.all_labels_list).each do |label| %>
-              <span class="badge badge-secondary" ><%= "#{label}" %></span>
+                <span class="badge badge-secondary" ><%= "#{label}" %></span>
               <% end %>
             </span>
             <br>
