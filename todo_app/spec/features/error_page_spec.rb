@@ -6,7 +6,7 @@ require 'features/test_helpers'
 shared_examples_for 'エラー画面の検証' do |status_code, description|
   before { visit_after_login(user: user, visit_path: path) }
 
-  it 'エラー画面が表示されていることを' do
+  it "#{status_code.to_s}のエラー画面が表示されていること" do
     expect(page).to have_selector('.error-title', text: status_code.to_s)
     expect(page).to have_selector('.text-muted', text: description.to_s)
     expect(page).to have_link('HOME PAGE', href: '/')
@@ -45,6 +45,16 @@ describe 'エラー画面', type: :feature do
     context 'StandardError' do
       let(:error) { StandardError }
       it_should_behave_like 'エラー画面の検証', 500, 'ページが表示できません。'
+    end
+
+    context 'ActionController::InvalidCrossOriginRequest' do
+      let(:error) { ActiveRecord::RecordInvalid }
+      it_should_behave_like 'エラー画面の検証', 422, 'このページは表示できません。'
+    end
+
+    context 'ActiveRecord::RecordInvalid' do
+      let(:error) { ActiveRecord::RecordInvalid }
+      it_should_behave_like 'エラー画面の検証', 422, 'このページは表示できません。'
     end
   end
 end

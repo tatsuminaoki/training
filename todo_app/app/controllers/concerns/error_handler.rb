@@ -8,12 +8,18 @@ module ErrorHandler
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionView::MissingTemplate, with: :render_404
+    rescue_from ActionController::InvalidCrossOriginRequest, with: :render_422
+    rescue_from ActiveRecord::RecordInvalid, with: :render_422
   end
 
   private
 
   def render_404
     render file: Rails.root.join('public', '404.html'), layout: false, status: :not_found, content_type: 'text/html'
+  end
+
+  def render_422
+    render file: Rails.root.join('public', '422.html'), layout: false, status: :not_found, content_type: 'text/html'
   end
 
   def render_500
