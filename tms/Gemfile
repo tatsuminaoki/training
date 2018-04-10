@@ -44,6 +44,8 @@ group :development, :test do
 
   # For RSpec
   gem 'rspec-rails', '~> 3.7.2'
+  # For creating test data
+  gem 'factory_girl_rails', '4.8.0'
 end
 
 group :development do
