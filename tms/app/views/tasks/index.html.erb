@@ -25,8 +25,8 @@
         <td><%= status_flg(task.status) %></td>
         <td><%= task.user_id %></td>
         <td><%= link_to "#{t("page.task.link.detail")}".html_safe, task %></td>
-	<td><%= link_to "#{t("page.task.link.edit")}".html_safe, edit_task_path(task) %></td>
-	<td><%= link_to "#{t("page.task.link.delete")}".html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "#{t("page.task.link.edit")}".html_safe, edit_task_path(task) %></td>
+        <td><%= link_to "#{t("page.task.link.delete")}".html_safe, task, method: :delete, data: { confirm: t("dialog") } %></td>
       </tr>
     <% end %>
   </tbody>

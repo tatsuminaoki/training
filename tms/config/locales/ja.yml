@@ -29,6 +29,12 @@ ja:
         low: "低"
         middle: "中"
         high: "高"
+  flash:
+    task:
+      create: "タスクが作成されました。"
+      update: "タスクが更新されました。"
+      destroy: "タスクが削除されました。"
+  dialog: "本当によろしいでしょうか？"
   activerecord:
     errors:
       messages:
