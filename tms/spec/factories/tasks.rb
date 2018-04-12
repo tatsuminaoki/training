@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :task do
     title "Setup DEV ENV"
     description "Setup development environment on localhost"
