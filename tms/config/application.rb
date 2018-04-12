@@ -18,6 +18,9 @@ module Tms
     # Set Japanese as default language for i18n
     config.i18n.default_locale = :ja
 
+    # Timezone
+    config.time_zone = 'Tokyo'
+
     # Generator setting for RSpec
     config.generators do |g|
       g.test_framework :rspec,
