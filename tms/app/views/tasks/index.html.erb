@@ -1,16 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1><%= t("page.task.title.list") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Due date</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>User</th>
+      <th><%= t("page.task.thead.title") %></th>
+      <th><%= t("page.task.thead.description") %></th>
+      <th><%= t("page.task.thead.due_date") %></th>
+      <th><%= t("page.task.thead.priority") %></th>
+      <th><%= t("page.task.thead.status") %></th>
+      <th><%= t("page.task.thead.user") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,12 +21,12 @@
         <td><%= task.title %></td>
         <td><%= task.description %></td>
         <td><%= task.due_date %></td>
-        <td><%= task.priority %></td>
-        <td><%= task.status %></td>
+        <td><%= priority_flg(task.priority) %></td>
+        <td><%= status_flg(task.status) %></td>
         <td><%= task.user_id %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "#{t("page.task.link.detail")}".html_safe, task %></td>
+	<td><%= link_to "#{t("page.task.link.edit")}".html_safe, edit_task_path(task) %></td>
+	<td><%= link_to "#{t("page.task.link.delete")}".html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to "#{t("page.task.link.new")}".html_safe, new_task_path %>
