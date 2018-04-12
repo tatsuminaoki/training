@@ -12,32 +12,32 @@
   <% end %>
 
   <div class="field">
-    <%= form.label t("page.task.thead.title") %>
+    <%= form.label :title, t("page.task.thead.title") %>
     <%= form.text_field :title, id: :task_title %>
   </div>
 
   <div class="field">
-    <%= form.label t("page.task.thead.description") %>
+    <%= form.label :description, t("page.task.thead.description") %>
     <%= form.text_area :description, id: :task_description %>
   </div>
 
   <div class="field">
-    <%= form.label t("page.task.thead.due_date") %>
+    <%= form.label :due_date, t("page.task.thead.due_date") %>
     <%= form.text_field :due_date, id: :task_due_date %>
   </div>
 
   <div class="field">
-    <%= form.label t("page.task.thead.priority") %>
+    <%= form.label :priority, t("page.task.thead.priority") %>
     <%= form.number_field :priority, id: :task_priority %>
   </div>
 
   <div class="field">
-    <%= form.label t("page.task.thead.status") %>
+    <%= form.label :status, t("page.task.thead.status") %>
     <%= form.number_field :status, id: :task_status %>
   </div>
 
   <div class="field">
-    <%= form.label t("page.task.thead.user") %>
+    <%= form.label :user_id, t("page.task.thead.user") %>
     <%= form.number_field :user_id, id: :task_user_id %>
   </div>
 
