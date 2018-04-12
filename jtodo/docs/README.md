@@ -1,7 +1,9 @@
 # 仕様を考える
 ## 画面一覧
 ### 一般メニュー
-![General Views](./1_1_general.png)
+![General Views](./1_1_general.png "general_view")
 ### 管理メニュー
-![Admin Views](./1_2_admin.png)
+![Admin Views](./1_2_admin.png "admin_view")
+## ER図
+![ER Diagram](./1_3_erd.png "er_diagram")
 
