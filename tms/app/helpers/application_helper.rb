@@ -1,21 +1,21 @@
 module ApplicationHelper
-  def status_flg(sts)
-    if sts == 0
-      return %{#{t("page.task.status.open")}}.html_safe
-    elsif sts == 1
-      return %{#{t("page.task.status.inprogress")}}.html_safe
+  def status_name(status)
+    if status == 0
+      t('page.task.status.open')
+    elsif status == 1
+      t('page.task.status.inprogress')
     else
-      return %{#{t("page.task.status.done")}}.html_safe
+      t('page.task.status.done')
     end
   end
 
-  def priority_flg(priority)
+  def priority_name(priority)
     if priority == 0
-      return %{#{t("page.task.priority.low")}}.html_safe
+      t('page.task.priority.low')
     elsif priority == 1
-      return %{#{t("page.task.priority.middle")}}.html_safe
+      t('page.task.priority.middle')
     else
-      return %{#{t("page.task.priority.high")}}.html_safe
+      t('page.task.priority.high')
     end
   end
 end
