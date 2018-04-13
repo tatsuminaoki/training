@@ -1,34 +1,36 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= t('page.task.title.detail') %></h1>
+
 <p>
-  <strong>Title:</strong>
+<strong><%= t('page.task.thead.title') %>:</strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+<strong><%= t('page.task.thead.description') %>:</strong>
   <%= @task.description %>
 </p>
 
 <p>
-  <strong>Due date:</strong>
+<strong><%= t('page.task.thead.due_date') %>:</strong>
   <%= @task.due_date %>
 </p>
 
 <p>
-  <strong>Priority:</strong>
-  <%= @task.priority %>
+<strong><%= t('page.task.thead.priority') %>:</strong>
+  <%= priority_name(@task.priority) %>
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @task.status %>
+<strong><%= t('page.task.thead.status') %>:</strong>
+  <%= status_name(@task.status) %>
 </p>
 
 <p>
-  <strong>User:</strong>
+<strong><%= t('page.task.thead.user') %>:</strong>
   <%= @task.user_id %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('page.task.link.edit'), edit_task_path(@task) %> |
+<%= link_to t('page.task.link.back'), tasks_path %>

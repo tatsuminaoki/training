@@ -14,6 +14,13 @@ module Tms
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Set Japanese as default language for i18n
+    config.i18n.default_locale = :ja
+
+    # Timezone
+    config.time_zone = 'Tokyo'
+
     # Generator setting for RSpec
     config.generators do |g|
       g.test_framework :rspec,
