@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   # GET /tasks/1
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: t("flash.task.create") }
+        format.html { redirect_to @task, notice: t('flash.task.create') }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: t("flash.task.update") }
+        format.html { redirect_to @task, notice: t('flash.task.update') }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: t("flash.task.destroy") }
+      format.html { redirect_to tasks_url, notice: t('flash.task.destroy') }
       format.json { head :no_content }
     end
   end
