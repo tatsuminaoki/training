@@ -16,7 +16,7 @@ class TasksTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @task.description
     fill_in "Due Date", with: @task.due_date
-    fill_in "Finkished Date", with: @task.finkished_date
+    fill_in "Finished Date", with: @task.finished_date
     fill_in "Priority", with: @task.priority
     fill_in "Start Date", with: @task.start_date
     fill_in "Status", with: @task.status
@@ -33,7 +33,7 @@ class TasksTest < ApplicationSystemTestCase
 
     fill_in "Description", with: @task.description
     fill_in "Due Date", with: @task.due_date
-    fill_in "Finkished Date", with: @task.finkished_date
+    fill_in "Finished Date", with: @task.finished_date
     fill_in "Priority", with: @task.priority
     fill_in "Start Date", with: @task.start_date
     fill_in "Status", with: @task.status
