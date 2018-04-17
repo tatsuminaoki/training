@@ -29,6 +29,9 @@ ja:
         low: 低
         middle: 中
         high: 高
+      due_date:
+        desc: 終了期限 降順でソート
+        asc: 終了期限 昇順でソート
   flash:
     task:
       create: タスクが作成されました
