@@ -11,7 +11,11 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(due_date: :asc)
       @due_date_desc = 'false'
     else
-      @tasks = Task.all.order(created_at: :desc)
+      if params[:status].present?
+        @tasks = Task.where(status: params[:status]).order(created_at: :desc)
+      else
+        @tasks = Task.all.order(created_at: :desc)
+      end
     end
   end
 

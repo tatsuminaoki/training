@@ -8,6 +8,18 @@
   <%= link_to t('page.task.due_date.asc'), controller: 'tasks', action: 'index', due_date_desc: false %>
 <% end %>
 
+<br><br>
+
+<%= form_tag({ :controller => 'tasks', :action => 'index' }, { :method => 'GET' }) do %>
+  <%= select_tag 'status', options_for_select([[t('page.task.status.open'), 0],
+                                               [t('page.task.status.inprogress'), 1],
+                                               [t('page.task.status.done'), 2]]),
+                                               prompt: t('page.task.status.prompt') %>
+  <%= submit_tag t('page.task.link.search.status') %>
+<% end %>
+
+<br>
+
 <table>
   <thead>
     <tr>

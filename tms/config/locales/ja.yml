@@ -13,6 +13,8 @@ ja:
         edit: 編集
         delete: 削除
         back: 戻る
+        search:
+          status: ステータス検索
       thead:
         title: タイトル
         description: 説明文
@@ -25,6 +27,7 @@ ja:
         open: 未着手
         inprogress: 進行中
         done: 完了
+        prompt: ステータスを選択してください
       priority:
         low: 低
         middle: 中
