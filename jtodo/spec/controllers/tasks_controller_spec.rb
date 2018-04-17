@@ -40,7 +40,7 @@ RSpec.describe TasksController, type: :controller do
       @task = create(:task)
       patch :update, params: {id: @task, task: attributes_for(:newly_titled_task)}
       @task.reload
-      expect(@task.title).to eq("Updated Title")
+      expect(@task.title).to eq('Updated Title')
     end
   end
   describe 'DELETE #destroy' do
