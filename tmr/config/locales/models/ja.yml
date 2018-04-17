@@ -29,5 +29,16 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+ja:
+  activerecord: &activerecord
+    models:
+      task: "タスク"
+    attributes:
+      task:
+        title: "タスク名"
+        description: "説明"
+        status: "ステータス"
+        priority: "優先度"
+        due_date: "期限"
+        start_date: "開始日時"
+        finished_date: "完了日時"

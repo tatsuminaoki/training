@@ -1,0 +1,51 @@
+en:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d"
+      long: "%Y-%m-%d (%a)"
+
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Tue, Fri, Sat]
+
+    month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      short: "%y/%m/%d %H:%M"
+      long: "%Y-%m-%d (%a) %H:%M:%S. %Z"
+    am: "AM"
+    pm: "PM"
+
+  titles :
+    task:
+      new: "New Task"
+      edit: "Editing Task"
+      list: "Task list"
+
+  buttons:
+    show: "Show"
+    new: "New"
+    edit: "Edit"
+    delete: "Delete"
+    back: "Back"
+
+  helpers:
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+
+  notices:
+    created: "%{model} was successfully created."
+    updated: "%{model} was successfully updated."
+    deleted: "%{model} was successfully deleted."
+
+  confirmations:
+    delete: "Are you sure?"
