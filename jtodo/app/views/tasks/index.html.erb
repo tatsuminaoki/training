@@ -1,30 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1><%= t('tasks.page.index') %></h1>
 
+<%= link_to t('tasks.action.new'), new_task_path %>
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>Due date</th>
-      <th colspan="3"></th>
+      <th><%= t('tasks.label.status') %></th>
+      <th><%= t('tasks.label.title') %></th>
+      <th><%= t('tasks.label.priority')%></th>
+      <th><%= t('tasks.label.due_date')%></th>
     </tr>
   </thead>
 
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.priority %></td>
         <td><%= task.status %></td>
+        <td><%= link_to task.title, task %></td>
+        <td><%= task.priority %></td>
         <td><%= task.due_date %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +27,3 @@
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
