@@ -1,6 +1,6 @@
-<h1>Editing Task</h1>
+<h1><%=t 'titles.task.edit' %></h1>
 
 <%= render 'form', task: @task %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to "#{t 'buttons.show'}", @task %> |
+<%= link_to "#{t 'buttons.back'}", tasks_path %>
