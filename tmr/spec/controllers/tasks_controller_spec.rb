@@ -102,15 +102,21 @@ RSpec.describe TasksController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) {{
+        title:'Test title',
+        description:'Test description',
+        status:1,
+        priority:2,
+        due_date:Date.new(2018, 4 ,16),
+        start_date:Date.new(2018, 4 ,16),
+        finished_date:Date.new(2018, 4 ,16)
+      }}
 
       it "updates the requested task" do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: new_attributes}, session: valid_session
         task.reload
-        skip("Add assertions for updated state")
+        # skip("Add assertions for updated state")
       end
 
       it "redirects to the task" do
