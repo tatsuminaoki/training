@@ -28,12 +28,18 @@
 
   <div class="field">
     <%= form.label :priority, t('page.task.thead.priority') %>
-    <%= form.number_field :priority, id: :task_priority %>
+    <%= form.select :priority, [[t('page.task.priority.low'), 0],
+                                [t('page.task.priority.middle'), 1],
+                                [t('page.task.priority.high'), 2]
+                               ], id: :task_priority %>
   </div>
 
   <div class="field">
     <%= form.label :status, t('page.task.thead.status') %>
-    <%= form.number_field :status, id: :task_status %>
+    <%= form.select :status, [[t('page.task.status.open'), 0],
+                              [t('page.task.status.inprogress'), 1],
+                              [t('page.task.status.done'), 2]
+                             ], id: :task_status %>
   </div>
 
   <div class="field">
