@@ -20,5 +20,5 @@
 </p>
 
 <%= link_to t('tasks.action.edit'), edit_task_path(@task) %> |
-<%= link_to t('tasks.action.destroy'), @task, method: :delete, data: { confirm: t('tasks.message.sure') } %></td> | 
+<%= link_to t('tasks.action.delete'), @task, method: :delete, data: { confirm: t('tasks.message.sure') } %></td> | 
 <%= link_to t('tasks.action.back'), tasks_path %>

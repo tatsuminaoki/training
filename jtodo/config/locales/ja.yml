@@ -224,9 +224,16 @@ ja:
       show: 詳細
       back: 戻る
       edit: 修正
-      destroy: 削除
+      delete: 削除
     page:
       index: 'タスク一覧'
       show: 'タスク詳細'
       edit: 'タスク修正'
       new: 'タスク作成'
+    message:
+      create:
+        success: 'タスクを無事登録しました。'
+      update:
+        success: 'タスクを無事更新しました。'
+      destroy:
+        success: 'タスクを無事削除しました。'
