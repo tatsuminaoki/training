@@ -4,7 +4,15 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    if params[:due_date_desc] == 'true'
+      @tasks = Task.all.order(due_date: :desc)
+      @due_date_desc = 'true'
+    elsif params[:due_date_desc] == 'false'
+      @tasks = Task.all.order(due_date: :asc)
+      @due_date_desc = 'false'
+    else
+      @tasks = Task.all.order(created_at: :desc)
+    end
   end
 
   # GET /tasks/1

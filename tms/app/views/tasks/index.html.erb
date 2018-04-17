@@ -2,6 +2,12 @@
 
 <h1><%= t('page.task.title.list') %></h1>
 
+<% if @due_date_desc.blank? or @due_date_desc == 'false' %>
+  <%= link_to t('page.task.due_date.desc'), controller: 'tasks', action: 'index', due_date_desc: true %>
+<% else %>
+  <%= link_to t('page.task.due_date.asc'), controller: 'tasks', action: 'index', due_date_desc: false %>
+<% end %>
+
 <table>
   <thead>
     <tr>
