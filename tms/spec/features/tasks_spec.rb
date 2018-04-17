@@ -4,8 +4,8 @@ RSpec.feature 'Tasks', type: :feature do
   describe 'Tasks list' do
     let!(:task) { FactoryBot.create(:task) }
     let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2',
-                                               created_at: Time.now + 1.days,
-                                               due_date: Time.zone.today + 2.days) }
+                                               created_at: 1.day.since,
+                                               due_date: 2.days.since.to_date) }
 
     context 'When user visit tasks list without any sort' do
       it 'User can see tasks in descending order of created time' do
