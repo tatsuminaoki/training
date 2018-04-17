@@ -14,7 +14,11 @@ class TasksController < ApplicationController
       if params[:status].present?
         @tasks = Task.where(status: params[:status]).order(created_at: :desc)
       else
-        @tasks = Task.all.order(created_at: :desc)
+        if params[:title].present?
+          @tasks = Task.where('title like ?', '%'+params[:title]+'%').order(created_at: :desc)
+        else
+          @tasks = Task.all.order(created_at: :desc)
+        end
       end
     end
   end

@@ -15,6 +15,7 @@ ja:
         back: 戻る
         search:
           status: ステータス検索
+          title: タイトル検索
       thead:
         title: タイトル
         description: 説明文

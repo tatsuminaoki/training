@@ -20,6 +20,13 @@
 
 <br>
 
+<%= form_tag({ :controller => 'tasks', :action => 'index' }, { :method => 'GET' }) do %>
+  <%= text_field_tag 'title' %>
+  <%= submit_tag t('page.task.link.search.title') %>
+<% end %>
+
+<br>
+
 <table>
   <thead>
     <tr>
