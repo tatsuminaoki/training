@@ -1,29 +1,24 @@
 <p id="notice"><%= notice %></p>
+<h1><%= t('tasks.page.show') %></h1>
+<br/>
+<h2><%= @task.title %></h2>
+<%= @task.description %>
 
 <p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
+  <strong><%= t('tasks.label.priority') %>:</strong>
   <%= @task.priority %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong><%= t('tasks.label.status') %>:</strong>
   <%= @task.status %>
 </p>
 
 <p>
-  <strong>Due date:</strong>
+  <strong><%= t('tasks.label.due_date') %>:</strong>
   <%= @task.due_date %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('tasks.action.edit'), edit_task_path(@task) %> |
+<%= link_to t('tasks.action.destroy'), @task, method: :delete, data: { confirm: t('tasks.message.sure') } %></td> | 
+<%= link_to t('tasks.action.back'), tasks_path %>

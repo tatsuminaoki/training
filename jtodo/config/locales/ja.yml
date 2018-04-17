@@ -1,12 +1,5 @@
 ---
 ja:
-  activerecord:
-    errors:
-      messages:
-        record_invalid: "バリデーションに失敗しました: %{errors}"
-        restrict_dependent_destroy:
-          has_one: "%{record}が存在しているので削除できません"
-          has_many: "%{record}が存在しているので削除できません"
   date:
     abbr_day_names:
     - 日
@@ -138,13 +131,6 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
-  helpers:
-    select:
-      prompt: 選択してください
-    submit:
-      create: 登録する
-      submit: 保存する
-      update: 更新する
   number:
     currency:
       format:
@@ -203,3 +189,44 @@ ja:
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
     pm: 午後
+  helpers:
+    select:
+      prompt: 選択してください
+    submit:
+      create: 登録する
+      submit: 保存する
+      update: 更新する
+  activerecord:
+    models:
+      task: タスク  #g
+    attributes:
+      task:
+        description: 説明  #g
+        due_date: 終了期限  #g
+        priority: 優先度  #g
+        status: ステータス  #g
+        title: タイトル  #g
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+  tasks:
+    label:
+      description: 説明  #g
+      due_date: 終了期限  #g
+      priority: 優先度  #g
+      status: ステータス  #g
+      title: タイトル  #g
+    action:
+      new: 新規タスク
+      show: 詳細
+      back: 戻る
+      edit: 修正
+      destroy: 削除
+    page:
+      index: 'タスク一覧'
+      show: 'タスク詳細'
+      edit: 'タスク修正'
+      new: 'タスク作成'
