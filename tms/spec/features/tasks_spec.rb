@@ -3,13 +3,35 @@ require 'rails_helper'
 RSpec.feature 'Tasks', type: :feature do
   describe 'Tasks list' do
     let!(:task) { FactoryBot.create(:task) }
+    let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2',
+                                               created_at: Time.now + 1.days,
+                                               due_date: Time.zone.today + 2.days) }
 
-    context 'When user visit tasks list' do
-      let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2', created_at: Time.now + 1.days) }
-
+    context 'When user visit tasks list without any sort' do
       it 'User can see tasks in descending order of created time' do
         visit root_path
         expect(new_task.created_at.time > task.created_at.time).to be true
+        expect(all('b')[0]).to have_content new_task.title
+        expect(all('b')[1]).to have_content task.title
+      end
+    end
+
+    context 'When user click 終了期限 降順でソート link' do
+      it 'User can see tasks in descending order of due_date' do
+        visit root_path
+        click_link '終了期限 降順でソート'
+        expect(all('b')[0]).to have_content new_task.title
+        expect(all('b')[1]).to have_content task.title
+      end
+    end
+
+    context 'When user click 終了期限 昇順でソート link' do
+      it 'User can see tasks in ascending order of due_date' do
+        visit root_path
+        click_link '終了期限 降順でソート'
+        click_link '終了期限 昇順でソート'
+        expect(all('b')[0]).to have_content task.title
+        expect(all('b')[1]).to have_content new_task.title
       end
     end
 

@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :task do
     title "Test Task 1"
     description "Setup development environment on localhost"
-    due_date "2018-04-17"
+    due_date Time.zone.today
     priority 0
     status 0
     user_id 1
