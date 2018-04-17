@@ -198,14 +198,14 @@ ja:
       update: 更新する
   activerecord:
     models:
-      task: タスク  #g
+      task: タスク
     attributes:
       task:
-        description: 説明  #g
-        due_date: 終了期限  #g
-        priority: 優先度  #g
-        status: ステータス  #g
-        title: タイトル  #g
+        description: 説明
+        due_date: 終了期限
+        priority: 優先度
+        status: ステータス
+        title: タイトル
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -214,11 +214,11 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
   tasks:
     label:
-      description: 説明  #g
-      due_date: 終了期限  #g
-      priority: 優先度  #g
-      status: ステータス  #g
-      title: タイトル  #g
+      description: 説明
+      due_date: 終了期限
+      priority: 優先度
+      status: ステータス
+      title: タイトル
     action:
       new: 新規タスク
       show: 詳細
