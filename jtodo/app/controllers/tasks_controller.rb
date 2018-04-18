@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    if params.has_key?(:sort) then
+    if params.has_key?(:sort)
       @tasks = Task.order(params[:sort])
     else
       @tasks = Task.order(:created_at)
