@@ -8,9 +8,9 @@ describe Task do
         description:'Test description',
         status:1,
         priority:2,
-        due_date:Date.new(2018, 4 ,16),
-        start_date:Date.new(2018, 4 ,16),
-        finished_date:Date.new(2018, 4 ,16)
+        due_date:Time.new(2018, 4 , 16) + 2.days,
+        start_date:Time.new(2018, 4 , 16) - 1.day,
+        finished_date:Time.new(2018, 4 , 16)
       }
     end
     it '指定したタイトルでタスクが生成されること' do

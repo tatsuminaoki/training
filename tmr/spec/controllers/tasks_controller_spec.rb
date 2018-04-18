@@ -25,6 +25,11 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
 
+  # Common Request Headers
+  before(:each) do
+    request.env['HTTP_ACCEPT_LANGUAGE'] = "ja,en-US;q=0.9,en;q=0.8"
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
@@ -33,13 +38,21 @@ RSpec.describe TasksController, type: :controller do
     description:'Test description',
     status:1,
     priority:2,
-    due_date:Date.new(2018, 4 ,16),
-    start_date:Date.new(2018, 4 ,16),
-    finished_date:Date.new(2018, 4 ,16)
+    due_date:Date.today + 2.days,
+    start_date:Date.today - 1.day,
+    finished_date:Date.today
   }}
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
+  }
+
+  let(:tasklist) {
+    [
+      valid_attributes.clone.merge!(title: '1111', created_at: Date.today - 1.day),
+      valid_attributes.clone.merge!(title: '2222', created_at: Date.today - 5.days),
+      valid_attributes.clone.merge!(title: '3333', created_at: Date.today - 2.days)
+    ]
   }
 
   # This should return the minimal set of values that should be in the session
@@ -48,11 +61,40 @@ RSpec.describe TasksController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "returns a success response" do
-      task = Task.create! valid_attributes
+    render_views
+
+    before do
+      for task in tasklist do
+        Task.create! task
+      end
+
       get :index, params: {}, session: valid_session
+    end
+
+    it "returns a success response" do
       expect(response).to be_success
     end
+
+    it "should have 3 tasks" do
+      expect(assigns(:tasks).length).to eq tasklist.length
+    end
+
+    it "tasks sould be orderd by created_at" do
+      newest = nil
+      for task in assigns(:tasks) do
+        if newest then
+          expect(task.created_at).to be <= newest.created_at
+          newest = task
+        end
+      end
+    end
+
+    it "should have all tasks" do
+      for task in tasklist do
+        expect(response.body).to include(task[:title])
+      end
+    end
+
   end
 
   describe "GET #show" do
@@ -103,13 +145,13 @@ RSpec.describe TasksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {{
-        title:'Test title',
-        description:'Test description',
-        status:1,
-        priority:2,
-        due_date:Date.new(2018, 4 ,16),
-        start_date:Date.new(2018, 4 ,16),
-        finished_date:Date.new(2018, 4 ,16)
+        title:'New title',
+        description:'New description',
+        status:0,
+        priority:1,
+        due_date:Date.today,
+        start_date:Date.today,
+        finished_date:Date.today
       }}
 
       it "updates the requested task" do
