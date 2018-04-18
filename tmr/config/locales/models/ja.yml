@@ -35,6 +35,7 @@ ja:
       task: "タスク"
     attributes:
       task:
+        user: "ユーザ"
         title: "タスク名"
         description: "説明"
         status: "ステータス"
