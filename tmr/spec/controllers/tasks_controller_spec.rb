@@ -34,6 +34,7 @@ RSpec.describe TasksController, type: :controller do
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {{
+    user_id: 1,
     title:'Test title',
     description:'Test description',
     status:1,
@@ -145,6 +146,7 @@ RSpec.describe TasksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {{
+        user_id:2,
         title:'New title',
         description:'New description',
         status:0,
