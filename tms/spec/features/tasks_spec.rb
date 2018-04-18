@@ -4,6 +4,7 @@ RSpec.feature 'Tasks', type: :feature do
   describe 'Tasks list' do
     let!(:task) { FactoryBot.create(:task) }
     let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2',
+                                               status: 1,
                                                created_at: 1.day.since,
                                                due_date: 2.days.since.to_date) }
 
@@ -32,6 +33,48 @@ RSpec.feature 'Tasks', type: :feature do
         click_link '終了期限 昇順でソート'
         expect(all('b')[0]).to have_content task.title
         expect(all('b')[1]).to have_content new_task.title
+      end
+    end
+
+    context 'When user search with ステータス' do
+      context 'If user select 未着手' do
+        it 'shows only target status' do
+          visit root_path
+          select I18n.t('page.task.status.open'), from: 'status'
+          click_button I18n.t('page.task.link.search.status')
+          expect(all('b')[0]).to have_content task.title
+          expect(all('b')[1]).to have_content nil
+        end
+      end
+
+      context 'If user does not select any status' do
+        it 'shows all status' do
+          visit root_path
+          click_button I18n.t('page.task.link.search.status')
+          expect(all('b')[0]).to have_content new_task.title
+          expect(all('b')[1]).to have_content task.title
+        end
+      end
+    end
+
+    context 'When user search with タイトル' do
+      context 'If user input 1' do
+        it 'shows only target status' do
+          visit root_path
+          fill_in 'title', with: '1'
+          click_button I18n.t('page.task.link.search.title')
+          expect(all('b')[0]).to have_content task.title
+          expect(all('b')[1]).to have_content nil
+        end
+      end
+
+      context 'If user does not input any words' do
+        it 'shows all tasks' do
+          visit root_path
+          click_button I18n.t('page.task.link.search.title')
+          expect(all('b')[0]).to have_content new_task.title
+          expect(all('b')[1]).to have_content task.title
+        end
       end
     end
 
