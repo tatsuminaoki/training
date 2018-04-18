@@ -5,6 +5,7 @@ RSpec.feature 'Tasks', type: :feature do
     let!(:task) { FactoryBot.create(:task) }
     let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2',
                                                status: 1,
+                                               priority: 1,
                                                created_at: 1.day.since,
                                                due_date: 2.days.since.to_date) }
 
@@ -31,6 +32,25 @@ RSpec.feature 'Tasks', type: :feature do
         visit root_path
         click_link '終了期限 降順でソート'
         click_link '終了期限 昇順でソート'
+        expect(all('b')[0]).to have_content task.title
+        expect(all('b')[1]).to have_content new_task.title
+      end
+    end
+
+    context 'When user click 優先度 降順でソート link' do
+      it 'User can see tasks in descending order of priority' do
+        visit root_path
+        click_link '優先度 降順でソート'
+        expect(all('b')[0]).to have_content new_task.title
+        expect(all('b')[1]).to have_content task.title
+      end
+    end
+
+    context 'When user click 優先度 昇順でソート link' do
+      it 'User can see tasks in ascending order of priority' do
+        visit root_path
+        click_link '優先度 降順でソート'
+        click_link '優先度 昇順でソート'
         expect(all('b')[0]).to have_content task.title
         expect(all('b')[1]).to have_content new_task.title
       end

@@ -8,6 +8,12 @@
   <%= link_to t('page.task.due_date.asc'), controller: 'tasks', action: 'index', due_date_desc: false %>
 <% end %>
 
+<% if @priority_desc.blank? or @priority_desc == 'false' %>
+  <%= link_to t('page.task.priority.desc'), controller: 'tasks', action: 'index', priority_desc: true %>
+<% else %>
+  <%= link_to t('page.task.priority.asc'), controller: 'tasks', action: 'index', priority_desc: false %>
+<% end %>
+
 <br><br>
 
 <%= form_tag({ controller: :tasks, action: :index }, { method: :GET }) do %>

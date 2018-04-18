@@ -10,6 +10,12 @@ class TasksController < ApplicationController
     elsif params[:due_date_desc] == 'false'
       @tasks = Task.all.order(due_date: :asc)
       @due_date_desc = 'false'
+    elsif params[:priority_desc] == 'true'
+      @tasks = Task.all.order(priority: :desc)
+      @priority_desc = 'true'
+    elsif params[:priority_desc] == 'false'
+      @tasks = Task.all.order(priority: :asc)
+      @priority_desc = 'false'
     else
       if params[:status].present?
         @tasks = Task.where(status: params[:status]).order(created_at: :desc)
