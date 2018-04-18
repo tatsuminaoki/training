@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature do
   background do
-    FactoryBot.create(:task, :due_date => '2018-05-01')
-    FactoryBot.create(:task, :due_date => '2018-06-01')
-    FactoryBot.create(:task, :due_date => '2018-05-15')
+    FactoryBot.create(:task, due_date: '2018-05-01')
+    FactoryBot.create(:task, due_date: '2018-06-01')
+    FactoryBot.create(:task, due_date: '2018-05-15')
   end
   scenario 'ソートリンクがちゃんと機能している' do
     visit 'tasks'
