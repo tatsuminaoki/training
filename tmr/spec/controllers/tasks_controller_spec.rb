@@ -79,7 +79,7 @@ RSpec.describe TasksController, type: :controller do
       expect(assigns(:tasks).length).to eq tasklist.length
     end
 
-    it "tasks sould be orderd by created_at" do
+    it "tasks sould be ordered by created_at" do
       newest = nil
       for task in assigns(:tasks) do
         if newest then
