@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 5 #Number of records per page
 
   # GET /tasks
   # GET /tasks.json
@@ -23,7 +24,7 @@ class TasksController < ApplicationController
         if params[:title].present?
           @tasks = Task.where('title like ?', '%'+params[:title]+'%').order(created_at: :desc)
         else
-          @tasks = Task.all.order(created_at: :desc)
+          @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(PER)
         end
       end
     end
