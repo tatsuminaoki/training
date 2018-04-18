@@ -30,7 +30,6 @@ RSpec.feature 'Tasks', type: :feature do
     context 'When user click 終了期限 昇順でソート link' do
       it 'User can see tasks in ascending order of due_date' do
         visit root_path
-        click_link '終了期限 降順でソート'
         click_link '終了期限 昇順でソート'
         expect(all('b')[0]).to have_content task.title
         expect(all('b')[1]).to have_content new_task.title
@@ -49,7 +48,6 @@ RSpec.feature 'Tasks', type: :feature do
     context 'When user click 優先度 昇順でソート link' do
       it 'User can see tasks in ascending order of priority' do
         visit root_path
-        click_link '優先度 降順でソート'
         click_link '優先度 昇順でソート'
         expect(all('b')[0]).to have_content task.title
         expect(all('b')[1]).to have_content new_task.title
