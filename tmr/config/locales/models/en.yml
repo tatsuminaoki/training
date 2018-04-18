@@ -35,6 +35,7 @@ en:
       task: "Task"
     attributes:
       task:
+        user_id: "User"
         user: "User"
         title: "Title"
         description: "Description"
@@ -43,3 +44,7 @@ en:
         due_date: "Due Date"
         start_date: "Start Date"
         finished_date: "Finished Date"
+    errors:
+      messages:
+        blank: "is required."
+        too_long: "must be less than %{count} characters."
