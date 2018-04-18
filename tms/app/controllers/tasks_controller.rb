@@ -1,23 +1,30 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 5 #Number of records per page
 
   # GET /tasks
   # GET /tasks.json
   def index
     if params[:due_date_desc] == 'true'
-      @tasks = Task.all.order(due_date: :desc)
+      @tasks = Task.all.order(due_date: :desc).page(params[:page]).per(PER)
       @due_date_desc = 'true'
     elsif params[:due_date_desc] == 'false'
-      @tasks = Task.all.order(due_date: :asc)
+      @tasks = Task.all.order(due_date: :asc).page(params[:page]).per(PER)
       @due_date_desc = 'false'
+    elsif params[:priority_desc] == 'true'
+      @tasks = Task.all.order(priority: :desc).page(params[:page]).per(PER)
+      @priority_desc = 'true'
+    elsif params[:priority_desc] == 'false'
+      @tasks = Task.all.order(priority: :asc).page(params[:page]).per(PER)
+      @priority_desc = 'false'
     else
       if params[:status].present?
-        @tasks = Task.where(status: params[:status]).order(created_at: :desc)
+        @tasks = Task.where(status: params[:status]).order(created_at: :desc).page(params[:page]).per(PER)
       else
         if params[:title].present?
-          @tasks = Task.where('title like ?', '%'+params[:title]+'%').order(created_at: :desc)
+          @tasks = Task.where('title like ?', '%'+params[:title]+'%').order(created_at: :desc).page(params[:page]).per(PER)
         else
-          @tasks = Task.all.order(created_at: :desc)
+          @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(PER)
         end
       end
     end

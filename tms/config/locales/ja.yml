@@ -33,6 +33,8 @@ ja:
         low: 低
         middle: 中
         high: 高
+        desc: 優先度 降順でソート
+        asc: 優先度 昇順でソート
       due_date:
         desc: 終了期限 降順でソート
         asc: 終了期限 昇順でソート
