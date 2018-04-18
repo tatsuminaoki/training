@@ -9,7 +9,7 @@ module TasksHelper
         link_to_elements[1] = label_name;
       end
     end
-    link_to link_to_elements[0], { sort: link_to_elements[1] }, { :id => link_to_elements[2] }
+    link_to link_to_elements[0], { sort: link_to_elements[1] }, { id: link_to_elements[2] }
   end
 
 end
