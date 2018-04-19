@@ -90,7 +90,7 @@ RSpec.describe Task, type: :model do
 
     context 'search feature' do
       context 'In case of ステータス検索' do
-        let!(:task_0) { FactoryBot.create(:task, status: 0, created_at: Time.now) }
+        let!(:task_0) { FactoryBot.create(:task, status: 0, created_at: Time.current) }
         let!(:task_1) { FactoryBot.create(:task, status: 1, created_at: 1.day.since) }
         let!(:task_2) { FactoryBot.create(:task, status: 2, created_at: 2.days.since) }
 
@@ -132,7 +132,7 @@ RSpec.describe Task, type: :model do
       end
 
       context 'In case of title search' do
-        let!(:task_0) { FactoryBot.create(:task, title: 'Test Task 1', created_at: Time.now) }
+        let!(:task_0) { FactoryBot.create(:task, title: 'Test Task 1', created_at: Time.current) }
         let!(:task_1) { FactoryBot.create(:task, title: 'Test Task 2', created_at: 1.day.since) }
 
         context 'non title' do
@@ -154,7 +154,7 @@ RSpec.describe Task, type: :model do
     end
 
     context 'order feature' do
-      let!(:task_0) { FactoryBot.create(:task, due_date: Time.now, priority: 0, created_at: Time.now) }
+      let!(:task_0) { FactoryBot.create(:task, due_date: Time.current, priority: 0, created_at: Time.current) }
       let!(:task_1) { FactoryBot.create(:task, due_date: 1.day.since.to_date, priority: 1, created_at: 1.day.since) }
       let!(:task_2) { FactoryBot.create(:task, due_date: 2.days.since.to_date, priority: 2, created_at: 2.days.since) }
 
