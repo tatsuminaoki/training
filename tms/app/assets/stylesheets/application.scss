@@ -14,3 +14,15 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// Table Header
+th {
+    background-color: #0099cc;
+    color: white;
+    text-align: center;
+}
+
+// Table Record
+.table tbody > tr > td {
+    text-align: center;
+}
