@@ -23,8 +23,7 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li></li>
-          <li></li>
+          <li><%= link_to "<span class='glyphicon glyphicon-list-alt'></span> #{t('page.task.title.list')}".html_safe, tasks_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> Sign in".html_safe, "/" %></li>
@@ -32,6 +31,7 @@
       </div>
     </div>
     <div class="container">
+      <%= render 'layouts/messages' %>
       <%= yield %>
 
       <footer>

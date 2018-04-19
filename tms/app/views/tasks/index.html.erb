@@ -1,36 +1,54 @@
-<p id='notice'><%= notice %></p>
-
-<h1><%= t('page.task.title.list') %></h1>
-
-<%= link_to t('page.task.link.new'), new_task_path %>
-
-<br><br>
-
-<%= link_to t('page.task.due_date.desc'), controller: 'tasks', action: 'index', due_date_desc: true %>
-<%= link_to t('page.task.due_date.asc'), controller: 'tasks', action: 'index', due_date_desc: false %>
-<%= link_to t('page.task.priority.desc'), controller: 'tasks', action: 'index', priority_desc: true %>
-<%= link_to t('page.task.priority.asc'), controller: 'tasks', action: 'index', priority_desc: false %>
+<div class="row">
+  <div class="col-md-6">
+    <h1><%= t('page.task.title.list') %></h1>
+  </div>
+  <div class="col-md-6">
+    <h1><%= link_to "<span class='glyphicon glyphicon-plus'></span> #{t('page.task.link.new')}".html_safe, new_task_path, class: 'btn btn-info' %></h1>
+  </div>
+</div>
 
 <br><br>
 
-<%= form_tag({ controller: :tasks, action: :index }, { method: :GET }) do %>
-  <%= select_tag 'status', options_for_select([[t('page.task.status.open'), 0],
-                                               [t('page.task.status.inprogress'), 1],
-                                               [t('page.task.status.done'), 2]]),
-                                               prompt: t('page.task.status.prompt') %>
-  <%= submit_tag t('page.task.link.search.status', id: :task_search_status) %>
-<% end %>
+<div class="alert alert-success" role="alert">
+  <div class="row">
+    <div class="col-md-3">
+      <%= link_to "<span class='glyphicon glyphicon-sort-by-order-alt'></span> #{t('page.task.due_date.desc')}".html_safe, tasks_path(due_date_desc: true), class: 'btn btn-success btn-xs' %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "<span class='glyphicon glyphicon-sort-by-order'></span> #{t('page.task.due_date.asc')}".html_safe, tasks_path(due_date_desc: false), class: 'btn btn-success btn-xs' %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> #{t('page.task.priority.desc')}".html_safe, tasks_path(priority_desc: true), class: 'btn btn-success btn-xs' %>
+    </div>
+    <div class="col-md-3">
+    <%= link_to "<span class='glyphicon glyphicon-sort-by-attributes'></span> #{t('page.task.priority.asc')}".html_safe, tasks_path(priority_desc: false), class: 'btn btn-success btn-xs' %>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_tag({ controller: :tasks, action: :index }, { method: :GET }) do %>
+        <%= select_tag 'status', options_for_select([[t('page.task.status.open'), 0],
+                                                     [t('page.task.status.inprogress'), 1],
+                                                     [t('page.task.status.done'), 2]]),
+                                                     prompt: t('page.task.status.prompt') %>
+        <%= submit_tag t('page.task.link.search.status'), id: :task_search_status, class: 'btn btn-primary btn-xs' %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= form_tag({ controller: :tasks, action: :index }, { method: :GET }) do %>
+        <%= text_field_tag 'title' %>
+        <%= submit_tag t('page.task.link.search.title'), id: :task_search_title, class: 'btn btn-primary btn-xs' %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <br>
 
-<%= form_tag({ controller: :tasks, action: :index }, { method: :GET }) do %>
-  <%= text_field_tag 'title' %>
-  <%= submit_tag t('page.task.link.search.title', id: :task_search_title) %>
-<% end %>
-
-<br>
-
-<table>
+<table class="table table-bordered table-striped table-hover table-condensed">
   <thead>
     <tr>
       <th><%= t('page.task.thead.title') %></th>
@@ -54,9 +72,9 @@
         <td><%= status_name(task.status) %></td>
         <td><%= task.user_id %></td>
         <td><%= task.created_at %></td>
-        <td><%= link_to t('page.task.link.detail'), task %></td>
-        <td><%= link_to t('page.task.link.edit'), edit_task_path(task) %></td>
-        <td><%= link_to t('page.task.link.delete'), task, method: :delete, data: { confirm: t('dialog') } %></td>
+        <td><%= link_to "<span class='glyphicon glyphicon-zoom-in'></span> #{t('page.task.link.detail')}".html_safe, task, class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to "<span class='glyphicon glyphicon-pencil'></span> #{t('page.task.link.edit')}".html_safe, edit_task_path(task), class: 'btn btn-warning btn-xs' %></td>
+        <td><%= link_to "<span class='glyphicon glyphicon-trash'></span> #{t('page.task.link.delete')}".html_safe, task, method: :delete, data: { confirm: t('dialog') }, class: 'btn btn-danger btn-xs' %></td>
       </tr>
     <% end %>
   </tbody>

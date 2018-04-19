@@ -1,41 +1,35 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= t('page.task.title.detail') %></h1>
 
-<p>
-<strong><%= t('page.task.thead.title') %>:</strong>
-  <%= @task.title %>
-</p>
+<table class="table table-bordered table-striped table-hover table-condensed">
+  <tr>
+    <th><%= t('page.task.thead.title') %></th>
+    <td><%= @task.title %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.description') %></th>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.due_date') %></th>
+    <td><%= @task.due_date %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.priority') %></th>
+    <td><%= priority_name(@task.priority) %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.status') %></th>
+    <td><%= status_name(@task.status) %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.user') %></th>
+    <td><%= @task.user_id %></td>
+  </tr>
+  <tr>
+    <th><%= t('page.task.thead.created_at') %></th>
+    <td><%= @task.created_at %></td>
+  </tr>
+</table>
 
-<p>
-<strong><%= t('page.task.thead.description') %>:</strong>
-  <%= @task.description %>
-</p>
-
-<p>
-<strong><%= t('page.task.thead.due_date') %>:</strong>
-  <%= @task.due_date %>
-</p>
-
-<p>
-<strong><%= t('page.task.thead.priority') %>:</strong>
-  <%= priority_name(@task.priority) %>
-</p>
-
-<p>
-<strong><%= t('page.task.thead.status') %>:</strong>
-  <%= status_name(@task.status) %>
-</p>
-
-<p>
-<strong><%= t('page.task.thead.user') %>:</strong>
-  <%= @task.user_id %>
-</p>
-
-<p>
-<strong><%= t('page.task.thead.created_at') %>:</strong>
-  <%= @task.created_at %>
-</p>
-
-<%= link_to t('page.task.link.edit'), edit_task_path(@task) %> |
-<%= link_to t('page.task.link.back'), tasks_path %>
+<%= link_to "<span class='glyphicon glyphicon-pencil'></span> #{t('page.task.link.edit')}".html_safe, edit_task_path(@task), class: 'btn btn-warning btn-sm' %>
+<%= link_to "<span class='glyphicon glyphicon-arrow-left'></span> #{t('page.task.link.back')}".html_safe, tasks_path, class: 'btn btn-default btn-sm' %>
