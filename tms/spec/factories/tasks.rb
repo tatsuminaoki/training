@@ -6,6 +6,6 @@ FactoryBot.define do
     priority 0
     status 0
     user_id 1
-    created_at Time.now
+    created_at Time.current
   end
 end
