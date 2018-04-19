@@ -38,6 +38,9 @@ gem 'jbuilder', '~> 2.5'
 # Use kaminari for pagination
 gem 'kaminari'
 
+# Adapt kaminari to bootstrap
+gem 'kaminari-bootstrap', '~> 3.0.1'
+
 # Use bootstrap for css
 gem 'bootstrap-sass', '~> 3.3.7'
 
