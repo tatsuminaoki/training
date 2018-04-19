@@ -33,16 +33,29 @@ RSpec.describe TasksController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
+
   let(:valid_attributes) {{
     user_id: 1,
     title:'Test title',
     description:'Test description',
     status:1,
     priority:2,
-    due_date:Date.today + 2.days,
-    start_date:Date.today - 1.day,
-    finished_date:Date.today
+    due_date:2.days.since,
+    start_date:1.day.ago,
+    finished_date:Time.current
   }}
+
+
+  # let(:valid_attributes) {{
+  #   user_id:1,
+  #   title:'Test title',
+  #   description:'Test description',
+  #   status:1,
+  #   priority:2,
+  #   due_date:Time.new(2018, 4 , 16) + 2.days,
+  #   start_date:Time.new(2018, 4 , 16) - 1.day,
+  #   finished_date:Time.new(2018, 4 , 16)
+  # }}
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
