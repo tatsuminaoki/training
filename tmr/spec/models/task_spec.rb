@@ -8,9 +8,9 @@ describe Task do
     description:'Test description',
     status:1,
     priority:2,
-    due_date:2.days.since.to_date.to_time,
-    start_date:1.day.ago.to_date.to_time,
-    finished_date:Date.today.to_time
+    due_date:Date.today.midnight + 2.days,
+    start_date:Date.today.midnight - 1.day,
+    finished_date:Date.today.midnight
   }}
 
   describe '#生成' do
