@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tms</title>
     <%= csrf_meta_tags %>
 
@@ -9,6 +12,32 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="navbar navbar-default">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">TMS</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> Sign in".html_safe, "/" %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <%= yield %>
+
+      <footer>
+        <hr>
+        <p>Copyright &copy; 2018 TMS All Rights Reserved</p>
+      </footer>
+    </div>
   </body>
 </html>
