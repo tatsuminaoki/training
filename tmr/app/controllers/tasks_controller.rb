@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  include SortUtility
+
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @sort = sort_column
+    @sort = sort_column Task, 'created_at'
     @order = sort_order
     @tasks = Task.order("#{@sort} #{@order}")
   end
@@ -72,15 +74,5 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:user_id, :title, :description, :status, :priority, :due_date, :start_date, :finished_date)
-    end
-
-    # get sort order from parameter
-    def sort_order
-      'desc'.casecmp(params[:order]) == 0 ? 'DESC' : 'ASC'
-    end
-
-    # get sort column from parameter
-    def sort_column
-      Task.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
     end
 end
