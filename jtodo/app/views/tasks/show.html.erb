@@ -11,7 +11,7 @@
 
 <p>
   <strong><%= t('tasks.label.status') %>:</strong>
-  <%= @task.status %>
+  <%= @task.human_enum_name('status') %>
 </p>
 
 <p>
