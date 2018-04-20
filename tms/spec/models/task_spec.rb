@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'validation' do
+    let!(:user) { FactoryBot.create(:user) }
     it 'has a valid factory' do
       expect(FactoryBot.build(:task)).to be_valid
     end
@@ -86,7 +87,8 @@ RSpec.describe Task, type: :model do
   end
 
   describe '#search' do
-    subject { Task.search(params) }
+    let!(:user) { FactoryBot.create(:user) }
+    subject { Task.includes(:user).search(params) }
 
     context 'search feature' do
       context 'In case of ステータス検索' do
