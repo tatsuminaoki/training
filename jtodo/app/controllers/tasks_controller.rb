@@ -5,13 +5,13 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
-    if params.has_key?(:search)
+    if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
-    if params.has_key?(:status)
+    if params[:status].present?
       @tasks = @tasks.where(status: params[:status])
     end
-    if params.has_key?(:sort)
+    if Task.sortable.include? params[:sort].split(' ')[0]
       sort_param = params[:sort]
     else
       sort_param = :created_at
