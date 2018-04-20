@@ -35,6 +35,8 @@ ja:
       task: "タスク"
     attributes:
       task:
+        user_id: "ユーザ"
+        user: "ユーザ"
         title: "タスク名"
         description: "説明"
         status: "ステータス"
@@ -42,3 +44,7 @@ ja:
         due_date: "期限"
         start_date: "開始日時"
         finished_date: "完了日時"
+    errors:
+      messages:
+        blank: "は必須です"
+        too_long: "は%{count}文字以内で入力してください"
