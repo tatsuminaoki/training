@@ -6,7 +6,7 @@
 
 <p>
   <strong><%= t('tasks.label.priority') %>:</strong>
-  <%= @task.priority %>
+  <%= @task.human_enum_name('priority') %>
 </p>
 
 <p>
