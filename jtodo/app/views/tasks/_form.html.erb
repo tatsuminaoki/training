@@ -22,12 +22,12 @@
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.number_field :priority %>
+    <%= form.select :priority, Task.priorities.keys.collect {|key| [t('activerecord.attributes.task/priority.'+key), key]}%>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.select :status, Task.statuses.keys.collect {|key| [t('activerecord.attributes.task/status.'+key), key]} %>
   </div>
 
   <div class="field">
