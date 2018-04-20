@@ -23,8 +23,8 @@
         <td><%= task.user_id %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
-        <td><%= task.status %></td>
-        <td><%= task.priority %></td>
+        <td><%= Status.find(task.status).status %></td>
+        <td><%= Priority.find(task.priority).priority %></td>
         <td><%= task.due_date %></td>
         <td><%= task.start_date %></td>
         <td><%= task.finished_date %></td>

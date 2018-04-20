@@ -19,12 +19,12 @@
 
 <p>
   <strong><%=t 'activerecord.attributes.task.status' %> : </strong>
-  <%= @task.status %>
+  <%= Status.find(@task.status).status %>
 </p>
 
 <p>
   <strong><%=t 'activerecord.attributes.task.priority' %> : </strong>
-  <%= @task.priority %>
+  <%= Priority.find(@task.priority).priority %>
 </p>
 
 <p>

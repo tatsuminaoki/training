@@ -28,12 +28,12 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.collection_select :status, Status.all, :id, :status %>
   </div>
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.number_field :priority %>
+    <%= form.collection_select :priority, Priority.all, :id, :priority %>
   </div>
 
   <div class="field">
