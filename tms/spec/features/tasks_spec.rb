@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
   describe 'Tasks list' do
+    let!(:user) { FactoryBot.create(:user) }
     let!(:task) { FactoryBot.create(:task) }
     let!(:new_task) { FactoryBot.create(:task, title: 'Test Task 2',
                                                status: 1,
