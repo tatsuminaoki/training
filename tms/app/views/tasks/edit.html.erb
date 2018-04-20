@@ -2,5 +2,7 @@
 
 <%= render 'form', task: @task %>
 
-<%= link_to t('page.task.link.detail'), @task %> |
-<%= link_to t('page.task.link.back'), tasks_path %>
+<br>
+
+<%= link_to "<span class='glyphicon glyphicon-zoom-in'></span> #{t('page.task.link.detail')}".html_safe, @task, class: 'btn btn-success btn-sm' %>
+<%= link_to "<span class='glyphicon glyphicon-arrow-left'></span> #{t('page.task.link.back')}".html_safe, tasks_path, class: 'btn btn-default btn-sm' %>

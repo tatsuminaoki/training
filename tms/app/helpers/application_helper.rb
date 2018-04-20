@@ -1,21 +1,21 @@
 module ApplicationHelper
   def status_name(status)
     if status == 0
-      t('page.task.status.open')
+      %{<span class="label label-primary">#{t('page.task.status.open')}</span>}.html_safe
     elsif status == 1
-      t('page.task.status.inprogress')
+      %{<span class="label label-warning">#{t('page.task.status.inprogress')}</span>}.html_safe
     else
-      t('page.task.status.done')
+      %{<span class="label label-success">#{t('page.task.status.done')}</span>}.html_safe
     end
   end
 
   def priority_name(priority)
     if priority == 0
-      t('page.task.priority.low')
+      %{<span class="label label-success">#{t('page.task.priority.low')}</span>}.html_safe
     elsif priority == 1
-      t('page.task.priority.middle')
+      %{<span class="label label-warning">#{t('page.task.priority.middle')}</span>}.html_safe
     else
-      t('page.task.priority.high')
+      %{<span class="label label-danger">#{t('page.task.priority.high')}</span>}.html_safe
     end
   end
 end

@@ -11,43 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title, t('page.task.thead.title') %>
-    <%= form.text_field :title, id: :task_title %>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered table-striped table-hover table-condensed">
+        <tr>
+          <th><%= form.label :title, t('page.task.thead.title') %></th>
+          <td><%= form.text_field :title, id: :task_title %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :description, t('page.task.thead.description') %></th>
+          <td><%= form.text_area :description, id: :task_description %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :due_date, t('page.task.thead.due_date') %></th>
+          <td><%= form.text_field :due_date, id: :task_due_date %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :priority, t('page.task.thead.priority') %></th>
+          <td><%= form.select :priority, [[t('page.task.priority.low'), 0],
+                                          [t('page.task.priority.middle'), 1],
+                                          [t('page.task.priority.high'), 2]
+                                         ], id: :task_priority %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :status, t('page.task.thead.status') %></th>
+          <td><%= form.select :status, [[t('page.task.status.open'), 0],
+                                        [t('page.task.status.inprogress'), 1],
+                                        [t('page.task.status.done'), 2]
+                                       ], id: :task_status %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :user_id, t('page.task.thead.user') %></th>
+          <td><%= form.number_field :user_id, id: :task_user_id %></td>
+        </tr>
+      </table>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :description, t('page.task.thead.description') %>
-    <%= form.text_area :description, id: :task_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :due_date, t('page.task.thead.due_date') %>
-    <%= form.text_field :due_date, id: :task_due_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :priority, t('page.task.thead.priority') %>
-    <%= form.select :priority, [[t('page.task.priority.low'), 0],
-                                [t('page.task.priority.middle'), 1],
-                                [t('page.task.priority.high'), 2]
-                               ], id: :task_priority %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status, t('page.task.thead.status') %>
-    <%= form.select :status, [[t('page.task.status.open'), 0],
-                              [t('page.task.status.inprogress'), 1],
-                              [t('page.task.status.done'), 2]
-                             ], id: :task_status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id, t('page.task.thead.user') %>
-    <%= form.number_field :user_id, id: :task_user_id %>
-  </div>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-info btn-sm' %>
   </div>
 <% end %>
