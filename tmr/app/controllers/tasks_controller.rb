@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   include SortUtility
 
+  helper_method :sort_column, :sort_order
+
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks

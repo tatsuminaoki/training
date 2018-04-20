@@ -8,9 +8,9 @@
       <th><%=t 'activerecord.attributes.task.user' %></th>
       <th><%=t 'activerecord.attributes.task.title' %></th>
       <th><%=t 'activerecord.attributes.task.description' %></th>
-      <th><%=t 'activerecord.attributes.task.status' %></th>
-      <th><%=t 'activerecord.attributes.task.priority' %></th>
-      <th><%=t 'activerecord.attributes.task.due_date' %></th>
+      <th><%=sortable Task, 'status', t('activerecord.attributes.task.status') %></th>
+      <th><%=sortable Task, 'priority', t('activerecord.attributes.task.priority') %></th>
+      <th><%=sortable Task, 'due_date', t('activerecord.attributes.task.due_date') %></th>
       <th><%=t 'activerecord.attributes.task.start_date' %></th>
       <th><%=t 'activerecord.attributes.task.finished_date' %></th>
       <th colspan="3"></th>
