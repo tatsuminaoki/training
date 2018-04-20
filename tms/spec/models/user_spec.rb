@@ -23,8 +23,13 @@ RSpec.describe User, type: :model do
     end
 
     it 'is invalid with less than 6 characters as password' do
-      user = FactoryBot.build(:user, password: 'pswd')
+      user = FactoryBot.build(:user, password: 'pswdX')
       expect(user).to be_invalid
+    end
+
+    it 'is valid with more than 6 characters as password' do
+      user = FactoryBot.build(:user, password: 'pswrdO')
+      expect(user).to be_valid
     end
   end
 end
