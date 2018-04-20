@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.search(params)
+    @tasks = Task.includes(:user).search(params)
   end
 
   # GET /tasks/1

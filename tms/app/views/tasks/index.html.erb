@@ -70,7 +70,7 @@
         <td><%= task.due_date %></td>
         <td><%= priority_name(task.priority) %></td>
         <td><%= status_name(task.status) %></td>
-        <td><%= task.user_id %></td>
+        <td><%= task.user.name %></td>
         <td><%= task.created_at %></td>
         <td><%= link_to "<span class='glyphicon glyphicon-zoom-in'></span> #{t('page.task.link.detail')}".html_safe, task, class: 'btn btn-success btn-xs' %></td>
         <td><%= link_to "<span class='glyphicon glyphicon-pencil'></span> #{t('page.task.link.edit')}".html_safe, edit_task_path(task), class: 'btn btn-warning btn-xs' %></td>
