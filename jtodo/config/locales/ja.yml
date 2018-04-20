@@ -246,3 +246,6 @@ ja:
         success: 'タスクを無事更新しました。'
       destroy:
         success: 'タスクを無事削除しました。'
+  general:
+    word:
+      all: 'すべて'
