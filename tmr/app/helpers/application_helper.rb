@@ -8,6 +8,6 @@ module ApplicationHelper
 
     title += (order == 'asc') ? ' ▲' : ' ▼'
 
-    link_to title, {:sort => column, :order => to_order}, {:class => css_class}
+    link_to title, {sort: column, order: to_order}, {class: css_class}
   end
 end
