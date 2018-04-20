@@ -206,6 +206,14 @@ ja:
         priority: 優先度
         status: ステータス
         title: タイトル
+      task/status:
+        waiting: やってない
+        working: やってる
+        done: やった
+      task/priority:
+        low: 低い
+        middle: 普通
+        high: 高い
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -225,6 +233,7 @@ ja:
       back: 戻る
       edit: 修正
       delete: 削除
+      search: 検索
     page:
       index: 'タスク一覧'
       show: 'タスク詳細'
@@ -237,7 +246,3 @@ ja:
         success: 'タスクを無事更新しました。'
       destroy:
         success: 'タスクを無事削除しました。'
-    status:
-      0: 未着手
-      1: 着手中
-      2: 完了
