@@ -63,3 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # i18n
 gem 'i18n_generators'
+
+#enum_help
+gem 'enum_help'

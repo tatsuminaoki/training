@@ -206,14 +206,6 @@ ja:
         priority: 優先度
         status: ステータス
         title: タイトル
-      task/status:
-        waiting: やってない
-        working: やってる
-        done: やった
-      task/priority:
-        low: 低い
-        middle: 普通
-        high: 高い
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -249,3 +241,13 @@ ja:
   general:
     word:
       all: 'すべて'
+  enums:
+    task:
+      status:
+        waiting: やってない
+        working: やってる
+        done: やった
+      priority:
+        low: 低い
+        middle: 普通
+        high: 高い

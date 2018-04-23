@@ -22,12 +22,12 @@
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.human_enum_list('priority') %>
+    <%= form.select :priority, task.class.priorities_i18n.invert %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.human_enum_list('status') %>
+    <%= form.select :status, task.class.statuses_i18n.invert %>
   </div>
 
   <div class="field">
