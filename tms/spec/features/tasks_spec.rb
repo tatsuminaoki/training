@@ -10,6 +10,13 @@ RSpec.feature 'Tasks', type: :feature do
                                                created_at: 1.day.since,
                                                due_date: 2.days.since.to_date) }
 
+    before do
+      visit login_path
+      fill_in 'sessions[name]', with: user.name
+      fill_in 'sessions[password]', with: user.password
+      click_button I18n.t('page.user.link.login')
+    end
+
     context 'When user visit tasks list without any sort' do
       it 'User can see tasks in descending order of created time' do
         visit root_path
@@ -104,7 +111,6 @@ RSpec.feature 'Tasks', type: :feature do
           click_link I18n.t('page.task.link.new')
           fill_in I18n.t('page.task.thead.title'), with: 'Setup DEV ENV'
           fill_in I18n.t('page.task.thead.description'), with: 'Setup development environment on localhost.'
-          fill_in I18n.t('page.task.thead.user'), with: 1
           select I18n.t('page.task.priority.low'), from: 'task[priority]'
           select I18n.t('page.task.status.open'), from: 'task[status]'
           fill_in I18n.t('page.task.thead.due_date'), with: '2018-04-17'
