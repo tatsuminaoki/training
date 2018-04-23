@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_many :tasks
 
+  # For using encrypted password
+  has_secure_password
+
   validates :name,
             presence: true,
             uniqueness: true
