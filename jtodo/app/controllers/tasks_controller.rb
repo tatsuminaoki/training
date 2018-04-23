@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     if params[:status].present?
       @tasks = @tasks.where(status: params[:status])
     end
-    if Task.sortable.any? { |s| params[:sort] =~ /^#{s}( desc)*$/ }
+    if Task.sortable.any? { |s| params[:sort] =~ /\A#{s}( desc)*\z/ }
       sort_param = params[:sort]
     else
       sort_param = :created_at
