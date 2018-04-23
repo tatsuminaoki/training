@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validates :priority,  inclusion: { in: Task.priorities.keys }
   def self.search(search)
     if search
-      self.where('title LIKE :search OR description LIKE :search', search: "%#{search}%")
+      where('title LIKE :search OR description LIKE :search', search: "%#{search}%")
     else
       self
     end
