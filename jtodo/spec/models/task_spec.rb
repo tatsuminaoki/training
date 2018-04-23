@@ -20,4 +20,16 @@ RSpec.describe Task, type: :model do
     expect(task).to be_invalid
     expect(task.errors[:priority]).to be_present
   end
+  it 'Search could find a task from title' do
+    create(:task, title: 'Rspec Search Test')
+    @search_result = Task.search('Rspec')
+    expect(@search_result).to exist
+    expect(@search_result[0].title).to eq('Rspec Search Test')
+  end
+  it 'Search could find a task from description' do
+    create(:task, description: 'Rspec Search Test')
+    @search_result = Task.search('Rspec')
+    expect(@search_result).to exist
+    expect(@search_result[0].description).to eq('Rspec Search Test')
+  end
 end
