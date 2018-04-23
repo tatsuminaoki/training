@@ -26,7 +26,12 @@
           <li><%= link_to "<span class='glyphicon glyphicon-list-alt'></span> #{t('page.task.title.list')}".html_safe, tasks_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> Sign in".html_safe, "/" %></li>
+          <% if signed_in? %>
+            <li><%= link_to "<span class='glyphicon glyphicon-user'></span> #{@current_user.name}".html_safe , '/' %></li>
+            <li><%= link_to "<span class='glyphicon glyphicon-log-out'></span> Sign Out".html_safe, logout_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> Sign in".html_safe, login_path %></li>
+        <% end %>
         </ul>
       </div>
     </div>

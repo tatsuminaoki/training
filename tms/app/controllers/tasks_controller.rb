@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.includes(:user).search(params)
+    @tasks = Task.includes(:user).search(params, @current_user.id)
   end
 
   # GET /tasks/1
@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
 
     respond_to do |format|
       if @task.save
