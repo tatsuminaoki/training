@@ -6,6 +6,7 @@ RSpec.feature "Tasks", type: :feature do
     FactoryBot.create(:task, title: 'test2', description: 'test1', status:1, priority:2, due_date: '2018-06-01')
     FactoryBot.create(:task, title: 'test3', description: 'test2', status:1, priority:0, due_date: '2018-05-15')
   end
+
   scenario '終了期限のソートがちゃんと機能している' do
     visit 'tasks'
 
@@ -19,6 +20,7 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_no_link('▲', href: '/tasks?sort=due_date')
     expect(find('tbody').first('tr')).to have_text('2018/05/01')
   end
+
   scenario '優先度のソートがちゃんと機能している' do
     visit 'tasks'
 
@@ -32,6 +34,7 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_no_link('▲', href: '/tasks?sort=priority')
     expect(find('tbody').first('tr')).to have_text('低い')
   end
+
   scenario '検索がちゃんと機能している' do
     visit 'tasks'
     fill_in 'search', with: 'test1'
