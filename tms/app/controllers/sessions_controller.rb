@@ -10,17 +10,12 @@ class SessionsController < ApplicationController
       flash[:alert] = t('flash.user.blank')
       render 'new'
     else
-      unless @user.blank?
-        if @user.authenticate(user_params[:password])
-          sign_in(@user)
-          flash[:notice] = t('errors.messages.valid_login')
-          redirect_to root_path
-        else
-          flash[:alert] = t('errors.messages.invalid_login')
-          render 'new'
-        end
+      if @user.authenticate(user_params[:password])
+        sign_in(@user)
+        flash[:notice] = t('errors.messages.valid_login')
+        redirect_to root_path
       else
-        flash[:alert] = t('flash.user.non_exist')
+        flash[:alert] = t('errors.messages.invalid_login')
         render 'new'
       end
     end
@@ -33,11 +28,17 @@ class SessionsController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find_by(name: params[:sessions][:name])
-    end
 
-    def user_params
-      params.require(:sessions).permit(:name, :password)
+  def set_user
+    @user = User.find_by(name: params[:sessions][:name])
+
+    if @user.blank?
+      flash[:alert] = t('flash.user.non_exist')
+      render 'new'
     end
+  end
+
+  def user_params
+    params.require(:sessions).permit(:name, :password)
+  end
 end

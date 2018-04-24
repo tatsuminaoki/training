@@ -23,7 +23,7 @@ RSpec.feature "Sessions", type: :feature do
           fill_in 'sessions[password]', with: user.password
           click_button I18n.t('page.user.link.login')
 
-          expect(page).to have_content I18n.t('flash.user.blank')
+          expect(page).to have_content I18n.t('flash.user.non_exist')
           expect(current_path).to eql('/login')
         end
       end
