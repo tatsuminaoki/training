@@ -56,6 +56,7 @@ ja:
       sign_in: ログインしてください
       blank: 名前もしくはパスワードが入力されていません
       non_exist: 名前が存在しません
+      different_task: あなたが作成したタスクではないです
   dialog: 本当によろしいでしょうか？
   views:
     pagination:

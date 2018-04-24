@@ -41,24 +41,34 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: t('flash.task.update') }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    if @current_user.id == @task.user_id
+      respond_to do |format|
+        if @task.update(task_params)
+          format.html { redirect_to @task, notice: t('flash.task.update') }
+          format.json { render :show, status: :ok, location: @task }
+        else
+          format.html { render :edit }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:alert] = t('flash.user.different_task')
+      render 'edit'
     end
   end
 
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: t('flash.task.destroy') }
-      format.json { head :no_content }
+    if @current_user.id == @task.user_id
+      @task.destroy
+      respond_to do |format|
+        format.html { redirect_to tasks_url, notice: t('flash.task.destroy') }
+        format.json { head :no_content }
+      end
+    else
+      flash[:alert] = t('flash.user.different_task')
+      render 'index'
     end
   end
 
