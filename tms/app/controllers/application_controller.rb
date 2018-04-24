@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   private
-    def require_sign_in!
-      redirect_to login_path, alert: t('flash.user.sign_in') unless signed_in?
-    end
+
+  def require_sign_in!
+    redirect_to login_path, alert: t('flash.user.sign_in') unless signed_in?
+  end
 end
