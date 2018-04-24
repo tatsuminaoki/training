@@ -31,7 +31,7 @@
       <% if @current_user.id == user.id %>
         <td><span class='glyphicon glyphicon-remove'></span></td>
       <% else %>
-        <td><%= link_to "<span class='glyphicon glyphicon-pencil'></span> #{t('page.admin.user.link.delete')}".html_safe, admin_user_path(user), method: :delete, data: { confirm: t('dialog') }, class: 'btn btn-danger btn-xs' %></td>
+        <td><%= link_to "<span class='glyphicon glyphicon-trash'></span> #{t('page.admin.user.link.delete')}".html_safe, admin_user_path(user), method: :delete, data: { confirm: t('dialog') }, class: 'btn btn-danger btn-xs' %></td>
       <% end %>
     </tr>
   <% end %>
