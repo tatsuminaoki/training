@@ -45,18 +45,6 @@ RSpec.describe TasksController, type: :controller do
     finished_date:Time.current
   }}
 
-
-  # let(:valid_attributes) {{
-  #   user_id:1,
-  #   title:'Test title',
-  #   description:'Test description',
-  #   status:1,
-  #   priority:2,
-  #   due_date:Time.new(2018, 4 , 16) + 2.days,
-  #   start_date:Time.new(2018, 4 , 16) - 1.day,
-  #   finished_date:Time.new(2018, 4 , 16)
-  # }}
-
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
   }

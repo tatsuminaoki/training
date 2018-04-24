@@ -36,6 +36,24 @@ en:
     edit: "Edit"
     delete: "Delete"
     back: "Back"
+    search: "Search"
+
+  labels:
+    keyword: "Keyword"
+
+  models:
+    statuses:
+      values:
+        v0: "All"
+        v1: "Not started"
+        v2: "Started"
+        v3: "Finished"
+    priorities:
+      values:
+        v10: "Urgent"
+        v20: "High"
+        v30: "Middle"
+        v40: "Low"
 
   helpers:
     submit:

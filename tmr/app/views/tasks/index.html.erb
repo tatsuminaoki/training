@@ -2,6 +2,27 @@
 
 <h1><%=t 'titles.task.list' %></h1>
 
+<br><br>
+
+<%= form_tag('/tasks', method: 'get') do %>
+
+  <%= t 'activerecord.attributes.task.status' %><br>
+  <input type="radio" name="status" value="0" id="task_status_all" checked="<%= params['status'].to_i == 0 %>">
+  <label for="task_status_all"><%= t('models.statuses.values.v0') %></label>
+  <% @statuses = Status.order('id asc') unless @statuses %>
+  <% @statuses.each do |status| %>
+    <%= radio_button_tag 'status', status.id , params['status'].to_i == status.id %>
+    <label for="status_<%= status.id %>"><%= t("models.statuses.values.v#{status.id}") %></label>
+  <% end %>
+  <br>
+
+  <%= t 'labels.keyword' %><br>
+  <input type="text" name="keyword" value="<%= params['keyword'] %>">
+  <%= submit_tag "#{t 'buttons.search'}" %>
+
+<% end %>
+<br><br>
+
 <table>
   <thead>
     <tr>
@@ -23,8 +44,8 @@
         <td><%= task.user_id %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
-        <td><%= Status.find(task.status).status %></td>
-        <td><%= Priority.find(task.priority).priority %></td>
+        <td><%= t("models.statuses.values.v#{Status.find(task.status).id}") %></td>
+        <td><%= t("models.priorities.values.v#{Priority.find(task.priority).id}") %></td>
         <td><%= task.due_date %></td>
         <td><%= task.start_date %></td>
         <td><%= task.finished_date %></td>

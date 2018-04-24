@@ -36,6 +36,24 @@ ja:
     edit: "編集"
     delete: "削除"
     back: "戻る"
+    search: "検索"
+
+  labels:
+    keyword: "キーワード"
+
+  models:
+    statuses:
+      values:
+        v0: "すべて"
+        v1: "未着手"
+        v2: "着手中"
+        v3: "完了"
+    priorities:
+      values:
+        v10: "緊急"
+        v20: "高"
+        v30: "中"
+        v40: "低"
 
   helpers:
     submit:
