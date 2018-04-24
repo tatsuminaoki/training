@@ -10,7 +10,7 @@ RSpec.describe "tasks/show", type: :view do
     title:'Test title',
     description:'Test description',
     status:1,
-    priority:2,
+    priority:20,
     due_date:2.days.since,
     start_date:1.day.ago,
     finished_date:Time.current
