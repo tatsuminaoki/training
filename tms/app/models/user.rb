@@ -1,28 +1,22 @@
 class User < ApplicationRecord
   has_many :tasks
 
+  # For using encrypted password
+  has_secure_password
+
   validates :name,
             presence: true,
             uniqueness: true
   validates :password,
             presence: true,
-            length: { minimum: 6 }
+            length: { minimum: 6 },
+            on: :create
 
-  before_save :encrypt_password
-
-  def encrypt_password
-    self.password = encrypt(self.password)
+  def self.new_remember_token
+    SecureRandom.urlsafe_base64
   end
 
-  # For using encyption
-  SECURE = 'abcdefghijkABCDEFGHIJK0123456789'
-
-  # Encryption method
-  CIPHER = 'aes-256-cbc'
-
-  # Encryption
-  def encrypt(password)
-    crypt = ActiveSupport::MessageEncryptor.new(SECURE, CIPHER)
-    crypt.encrypt_and_sign(password)
+  def self.encrypt(token)
+    Digest::SHA256.hexdigest(token.to_s)
   end
 end

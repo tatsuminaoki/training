@@ -38,11 +38,25 @@ ja:
       due_date:
         desc: 終了期限 降順でソート
         asc: 終了期限 昇順でソート
+    user:
+      title:
+        new: ログイン
+      thead:
+        name: 名前
+        password: パスワード
+      link:
+        login: ログイン
+        logout: ログアウト
   flash:
     task:
       create: タスクが作成されました
       update: タスクが更新されました
       destroy: タスクが削除されました
+    user:
+      sign_in: ログインしてください
+      blank: 名前もしくはパスワードが入力されていません
+      non_exist: 名前が存在しません
+      different_task: あなたが作成したタスクではないです
   dialog: 本当によろしいでしょうか？
   views:
     pagination:
@@ -184,6 +198,9 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
+      valid_login: 正しくログインできました
+      valid_logout: 正しくログアウトできました
+      invalid_login: ユーザー名またはパスワードが正しくありません
     template:
       body: 次の項目を確認してください
       header:

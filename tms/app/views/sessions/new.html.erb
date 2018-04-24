@@ -1,0 +1,20 @@
+<h1><%= t('page.user.title.new') %></h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(:sessions, url:login_path) do |f| %>
+    <table class="table table-bordered table-striped table-hover table-condensed">
+      <tr>
+        <th><%= f.label :name, t('page.user.thead.name') %></th>
+        <td><%= f.text_field :name, id: :session_name %></td>
+      </tr>
+      <tr>
+        <th><%= t('page.user.thead.password') %></th>
+        <td><%= f.password_field :password, id: :session_password %></td>
+      </tr>
+    </table>
+
+    <%= f.submit t('page.user.link.login'), class: 'btn btn-info btn-sm' %>
+    <% end %>
+  </div>
+</div>
