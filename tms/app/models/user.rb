@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :tasks
+  has_many :tasks, :dependent => :destroy
 
   # For using encrypted password
   has_secure_password

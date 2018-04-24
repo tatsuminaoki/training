@@ -47,6 +47,37 @@ ja:
       link:
         login: ログイン
         logout: ログアウト
+    admin:
+      title:
+        top: 管理
+        user: ユーザー管理
+      link:
+        title: 管理
+        view: 見る
+      user:
+        description: ユーザーを管理することがきます
+        title:
+          list: ユーザー一覧
+          detail: ユーザー詳細
+          edit: ユーザー編集
+          new: ユーザー登録
+        link:
+          new: ユーザー登録
+          edit: 編集
+          delete: 削除
+          detail: 詳細
+          back: 戻る
+        thead:
+          name: ユーザー名
+          password: パスワード
+          role: 役割
+          num_of_tasks: タスク数
+          created_at: 作成日時
+          updated_at: 更新日時
+        role:
+          admin: 管理ユーザー
+          general: 一般ユーザー
+
   flash:
     task:
       create: タスクが作成されました
@@ -57,6 +88,10 @@ ja:
       blank: 名前もしくはパスワードが入力されていません
       non_exist: 名前が存在しません
       different_task: あなたが作成したタスクではないです
+      non_admin: あなたは管理者ではないです
+      update: ユーザー情報が正しく更新されました
+      create: ユーザーが登録されました
+      delete: ユーザーが削除されました
   dialog: 本当によろしいでしょうか？
   views:
     pagination:

@@ -1,0 +1,37 @@
+<%= form_for([:admin, @user]) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered table-striped table-hover table-condensed">
+        <tr>
+          <th><%= form.label :name, t('page.admin.user.thead.name') %></th>
+          <td><%= form.text_field :name, id: :user_name %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :password, t('page.admin.user.thead.password') %></th>
+          <td><%= form.password_field :password, id: :user_password %></td>
+        </tr>
+        <% unless @current_user.id == @user.id %>
+          <tr>
+            <th><%= form.label :admin, t('page.admin.user.thead.role') %></th>
+            <td><%= form.check_box :admin, id: :user_admin %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="actions">
+    <%= form.submit class: 'btn btn-info btn-sm' %>
+  </div>
+<% end %>

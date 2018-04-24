@@ -27,10 +27,13 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if signed_in? %>
-            <li><%= link_to "<span class='glyphicon glyphicon-user'></span> #{@current_user.name}".html_safe , '/' %></li>
-            <li><%= link_to "<span class='glyphicon glyphicon-log-out'></span> Sign Out".html_safe, logout_path, method: :delete %></li>
+            <% if @current_user.admin? %>
+              <li><%= link_to "<span class='glyphicon glyphicon-wrench'></span> #{t('page.admin.link.title')}".html_safe, admin_index_path %></li>
+            <% end %>
+              <li><%= link_to "<span class='glyphicon glyphicon-user'></span> #{@current_user.name}".html_safe , '/' %></li>
+              <li><%= link_to "<span class='glyphicon glyphicon-log-out'></span> #{t('page.user.link.logout')}".html_safe, logout_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> Sign in".html_safe, login_path %></li>
+            <li><%= link_to "<span class='glyphicon glyphicon-log-in'></span> #{t('page.user.link.login')}".html_safe, login_path %></li>
         <% end %>
         </ul>
       </div>

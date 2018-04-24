@@ -18,4 +18,12 @@ module ApplicationHelper
       %{<span class="label label-danger">#{t('page.task.priority.high')}</span>}.html_safe
     end
   end
+
+  def role_name(admin)
+    if admin == false
+      %{<span class="label label-success">#{t('page.admin.user.role.general')}</span>}.html_safe
+    else
+      %{<span class="label label-danger">#{t('page.admin.user.role.admin')}</span>}.html_safe
+    end
+  end
 end
