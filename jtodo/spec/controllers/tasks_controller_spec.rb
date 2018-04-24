@@ -8,6 +8,7 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to be_successful
     end
   end
+
   describe 'GET #show' do
     it 'タスク１の詳細を表示する' do
       @task = create(:task)
@@ -15,12 +16,14 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to be_successful
     end
   end
+
   describe 'GET #new' do
     it 'タスク作成ページを表示する' do
       get :new, params: {}
       expect(response).to be_successful
     end
   end
+
   describe 'GET #edit' do
     it 'タスク１の修正ページを表示する' do
       @task = create(:task)
@@ -28,6 +31,7 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to be_successful
     end
   end
+
   describe 'POST #create' do
     it 'タスクを作成する' do
       expect {
@@ -35,6 +39,7 @@ RSpec.describe TasksController, type: :controller do
       }.to change(Task, :count).by(1)
     end
   end
+
   describe 'PATCH #update' do
     it 'タスクを修正する' do
       @task = create(:task)
@@ -43,6 +48,7 @@ RSpec.describe TasksController, type: :controller do
       expect(@task.title).to eq('Updated Title')
     end
   end
+
   describe 'DELETE #destroy' do
     it 'タスクを削除する' do
       @task = create(:task)

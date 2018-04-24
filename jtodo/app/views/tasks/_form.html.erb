@@ -22,12 +22,12 @@
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.number_field :priority %>
+    <%= form.select :priority, task.class.priorities_i18n.invert %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.select :status, task.class.statuses_i18n.invert %>
   </div>
 
   <div class="field">

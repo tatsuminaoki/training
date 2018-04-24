@@ -2,22 +2,27 @@
 
 <h1><%= t('tasks.page.index') %></h1>
 <%= link_to t('tasks.action.new'), new_task_path %>
+<%= form_tag(tasks_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {include_blank: t('general.word.all')} %>
+  <%= submit_tag t('tasks.action.search'), name: nil %>
+<% end %>
+
 <table>
   <thead>
     <tr>
       <th><%= t('tasks.label.status') %></th>
       <th><%= t('tasks.label.title') %></th>
-      <th><%= t('tasks.label.priority')%></th>
+      <th><%= t('tasks.label.priority')%><%= link_sort 'priority' %></th>
       <th><%= t('tasks.label.due_date')%><%= link_sort 'due_date' %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.status %></td>
+        <td><%= task.status_i18n %></td>
         <td><%= link_to task.title, task %></td>
-        <td><%= task.priority %></td>
+        <td><%= task.priority_i18n %></td>
         <td><%= task.due_date %></td>
       </tr>
     <% end %>
