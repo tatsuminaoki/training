@@ -74,8 +74,8 @@ RSpec.describe TasksController, type: :controller do
       for task in assigns(:tasks) do
         if newest then
           expect(task.created_at).to be <= newest.created_at
-          newest = task
         end
+        newest = task
       end
     end
 

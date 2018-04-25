@@ -14,10 +14,10 @@
     <%= radio_button_tag 'status', status.id , params['status'].to_i == status.id %>
     <label for="status_<%= status.id %>"><%= t("models.statuses.values.v#{status.id}") %></label>
   <% end %>
-  <br>
+  <br><br>
 
-  <%= t 'labels.keyword' %><br>
-  <input type="text" name="keyword" value="<%= params['keyword'] %>">
+  <label for="keyword"><%= t('labels.keyword') %></label><br>
+  <input type="text" name="keyword" value="<%= params['keyword'] %>" id="keyword">
   <%= submit_tag "#{t 'buttons.search'}" %>
 
 <% end %>
