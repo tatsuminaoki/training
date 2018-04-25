@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   end
   def extract_locale_from_accept_language_header
     # request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]\{2\}/).first == 'ja' ? 'ja' : nil
-    locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    accept_lang = request.env['HTTP_ACCEPT_LANGUAGE']
+    locale = accept_lang ? accept_lang.scan(/^[a-z]{2}/).first : I18n.default_locale
     I18n.available_locales.map(&:to_s).include?(locale) ? locale : I18n.default_locale
   end
 

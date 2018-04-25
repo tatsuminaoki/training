@@ -19,12 +19,12 @@
 
 <p>
   <strong><%=t 'activerecord.attributes.task.status' %> : </strong>
-  <%= Status.find(@task.status).status %>
+  <%= t("models.statuses.values.v#{Status.find(@task.status).id}") %>
 </p>
 
 <p>
   <strong><%=t 'activerecord.attributes.task.priority' %> : </strong>
-  <%= Priority.find(@task.priority).priority %>
+  <%= t("models.priorities.values.v#{Priority.find(@task.priority).id}") %>
 </p>
 
 <p>

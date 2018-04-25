@@ -33,21 +33,9 @@ RSpec.describe TasksController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
+  let(:valid_attributes) {FactoryBot.build(:attributes)}
 
-  let(:valid_attributes) {{
-    user_id: 1,
-    title:'Test title',
-    description:'Test description',
-    status:1,
-    priority:20,
-    due_date:2.days.since,
-    start_date:1.day.ago,
-    finished_date:Time.current
-  }}
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) {FactoryBot.build(:attributes, title: '')}
 
   let(:tasklist) {
     [
@@ -146,16 +134,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {{
-        user_id:2,
-        title:'New title',
-        description:'New description',
-        status:0,
-        priority:1,
-        due_date:Date.today,
-        start_date:Date.today,
-        finished_date:Date.today
-      }}
+      let(:new_attributes) {valid_attributes.clone.merge!(title: 'ew title', description:'New description')}
 
       it "updates the requested task" do
         task = Task.create! valid_attributes
