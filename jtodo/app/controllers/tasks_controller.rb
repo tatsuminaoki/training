@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.page(params[:page]).per(3)
+    @tasks = Task.page(params[:page]).per(10)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
