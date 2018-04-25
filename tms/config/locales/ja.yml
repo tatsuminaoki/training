@@ -24,6 +24,7 @@ ja:
         due_date: 終了期限
         user: 作成ユーザー
         created_at: 作成日時
+        label: ラベル
       status:
         open: 未着手
         inprogress: 進行中
