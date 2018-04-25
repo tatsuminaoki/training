@@ -1,0 +1,8 @@
+<h1><%= t('page.admin.user.title.edit') %></h1>
+
+<%= render 'form' %>
+
+<br>
+
+<%= link_to "<span class='glyphicon glyphicon-zoom-in'></span> #{t('page.admin.user.link.detail')}".html_safe, admin_user_path(@user), class: 'btn btn-success btn-sm' %>
+<%= link_to "<span class='glyphicon glyphicon-arrow-left'></span> #{t('page.admin.user.link.back')}".html_safe, admin_users_path, class: 'btn btn-default btn-sm' %>

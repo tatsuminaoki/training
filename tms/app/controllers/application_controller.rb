@@ -25,6 +25,14 @@ class ApplicationController < ActionController::Base
     @current_user.present?
   end
 
+  def admin?
+    if @current_user.admin
+      return true
+    else
+      redirect_to root_path, alert: t('flash.user.non_admin')
+    end
+  end
+
   private
 
   def require_sign_in!
