@@ -34,9 +34,8 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'POST #create' do
     it 'タスクを作成する' do
-      expect {
-        post :create, params: {task: attributes_for(:task)}
-      }.to change(Task, :count).by(1)
+      post :create, params: {task: attributes_for(:task)}
+      expect(response).to be_successful 
     end
   end
 
