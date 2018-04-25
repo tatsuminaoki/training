@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+  PAGE_PER = 10
+
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.page(params[:page]).per(10)
+    @tasks = Task.page(params[:page]).per(PAGE_PER)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
