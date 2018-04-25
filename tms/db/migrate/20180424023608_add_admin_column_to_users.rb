@@ -1,5 +1,5 @@
 class AddAdminColumnToUsers < ActiveRecord::Migration[5.1]
   def change
-    add_column :users, :admin, :boolean, default: 0, after: :remember_token
+    add_column :users, :admin, :boolean, default: false, after: :remember_token
   end
 end

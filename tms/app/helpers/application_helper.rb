@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def role_name(admin)
-    if admin == false
+    if !admin
       %{<span class="label label-success">#{t('page.admin.user.role.general')}</span>}.html_safe
     else
       %{<span class="label label-danger">#{t('page.admin.user.role.admin')}</span>}.html_safe

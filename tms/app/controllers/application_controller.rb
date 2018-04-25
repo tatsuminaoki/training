@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    if @current_user.admin == true
+    if @current_user.admin
       return true
     else
       redirect_to root_path, alert: t('flash.user.non_admin')

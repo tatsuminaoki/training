@@ -4,8 +4,6 @@ RSpec.feature "Users", type: :feature do
   describe 'Admin Page' do
     let!(:admin_user) { FactoryBot.create(:user, id: 2, name: 'AdminUser', admin: 1) }
     let!(:general_user) { FactoryBot.create(:user, id: 3, name: 'GeneralUser', admin: 0) }
-    before do
-    end
 
     describe 'Move admin page' do
       context 'In case of general user' do
