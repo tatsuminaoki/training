@@ -92,6 +92,9 @@ ja:
       update: ユーザー情報が正しく更新されました
       create: ユーザーが登録されました
       delete: ユーザーが削除されました
+      create_failed: ユーザー作成に失敗しました
+      update_failed: ユーザー情報の更新に失敗しました
+      delete_failed: ユーザーの削除が失敗しました
   dialog: 本当によろしいでしょうか？
   views:
     pagination:

@@ -22,6 +22,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = t('flash.user.create')
       redirect_to admin_user_path(@user)
     else
+      flash[:alert] = t('flash.user.create_failed')
       render 'new'
     end
   end
@@ -31,14 +32,19 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = t('flash.user.update')
       redirect_to admin_user_path(@user)
     else
+      flash[:alert] = t('flash.user.update_failed')
       render 'edit'
     end
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = t('flash.user.delete')
-    redirect_to admin_users_path
+    if @user.destroy
+      flash[:notice] = t('flash.user.delete')
+      redirect_to admin_users_path
+    else
+      flash[:alert] = t('flash.user.delete_failed')
+      render 'index'
+    end
   end
 
   private
