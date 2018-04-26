@@ -8,26 +8,4 @@
   <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default' %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= t('tasks.label.status') %></th>
-      <th><%= t('tasks.label.title') %></th>
-      <th><%= t('tasks.label.priority')%><%= link_sort 'priority' %></th>
-      <th><%= t('tasks.label.due_date')%><%= link_sort 'due_date' %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.status_i18n %></td>
-        <td><%= link_to task.title, task %></td>
-        <td><%= task.priority_i18n %></td>
-        <td><%= task.due_date %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
-<br>
-
+<%= render 'tasks', tasks: @tasks %>
