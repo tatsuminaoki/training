@@ -264,6 +264,13 @@ ja:
     message:
       newuser: 'まだアカウントがないですか？'
       signupnow: '新規登録しましょう！'
+    create:
+      success: 'ユーザー登録に成功しました。'
+      fail: 'ユーザー登録に失敗しました。下記のエラーをお読みください。'
+  sessions:
+    create:
+      success: 'ログインに成功しました。'
+      fail: 'ログインに失敗しました。ユーザー名またはパスワードが合っていません。'
   general:
     word:
       all: 'すべて'
