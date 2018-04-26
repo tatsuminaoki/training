@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_04_25_082851) do
     t.boolean "is_admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
   add_foreign_key "tasks", "users"
