@@ -7,6 +7,8 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.includes(:user).search(params, @current_user.id)
+    @labels = Label.order(name: :asc)
+    @tasks = Label.find(params[:label][:id]).tasks.page(params[:page]).per(5) if params[:label].present?
   end
 
   # GET /tasks/1

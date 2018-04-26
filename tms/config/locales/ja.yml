@@ -16,6 +16,7 @@ ja:
         search:
           status: ステータス検索
           title: タイトル検索
+          label: ラベル検索
       thead:
         title: タイトル
         description: 説明文
@@ -39,6 +40,8 @@ ja:
       due_date:
         desc: 終了期限 降順でソート
         asc: 終了期限 昇順でソート
+      label:
+        prompt: ラベルを選択してください
     user:
       title:
         new: ログイン
