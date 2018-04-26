@@ -64,5 +64,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # i18n
 gem 'i18n_generators'
 
-#enum_help
+# enum_help
 gem 'enum_help'
+
+# kaminari
+gem 'kaminari'
+
+# Bootstrap
+gem 'bootstrap-sass', '3.3.5'
+gem 'sass-rails', '~> 5.0'
+gem 'jquery-rails'

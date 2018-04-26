@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :task do
-    title 'My Title'
-    description 'MyDescription'
+    sequence(:title) { |n| "Task Title #{n}" }
+    description 'Task Description'
     priority 'low'
     status 'waiting'
     due_date 1.day.since
-
+    association :user, factory: :user
     factory :invalid_task do
       title nil
     end
