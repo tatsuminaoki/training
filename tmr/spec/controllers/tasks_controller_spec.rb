@@ -28,6 +28,8 @@ RSpec.describe TasksController, type: :controller do
   # Common Request Headers
   before(:each) do
     request.env['HTTP_ACCEPT_LANGUAGE'] = "ja,en-US;q=0.9,en;q=0.8"
+    prepare_statuses
+    prepare_priorities
   end
 
   # This should return the minimal set of attributes required to create a valid

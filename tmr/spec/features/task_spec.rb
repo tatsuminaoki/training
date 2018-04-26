@@ -2,6 +2,10 @@ require 'rails_helper'
 
 feature 'Tasks', type: :feature do
 
+  before(:each) do
+    prepare_statuses
+    prepare_priorities
+  end
 
   describe 'トップページ' do
     it 'タスク一覧を表示' do
