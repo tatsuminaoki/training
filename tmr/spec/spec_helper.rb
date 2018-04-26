@@ -48,7 +48,16 @@ RSpec.configure do |config|
 
   # DatabaseCleaner
   config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation, { except: %w(statuses priorities) }
+    DatabaseCleaner.clean_with :truncation
+
+    Status.create(id: 1, status: '未着手', created_at: DateTime.now, updated_at: DateTime.now)
+    Status.create(id: 2, status: '着手', created_at: DateTime.now, updated_at: DateTime.now)
+    Status.create(id: 3, status: '済', created_at: DateTime.now, updated_at: DateTime.now)
+
+    Priority.create(id: 10, priority: 'low', created_at: DateTime.now, updated_at: DateTime.now)
+    Priority.create(id: 20, priority: 'mid', created_at: DateTime.now, updated_at: DateTime.now)
+    Priority.create(id: 30, priority: 'high', created_at: DateTime.now, updated_at: DateTime.now)
+
     DatabaseCleaner.strategy = :transaction
   end
 
