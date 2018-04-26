@@ -56,7 +56,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @tasks %>
 <br>
 
 <%= link_to "#{t 'buttons.new'}", new_task_path %>
