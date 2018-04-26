@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'Success'
-      redirect_to login_path
+      flash.now[:success] = 'Success'
+      redirect_to tasks_path
     else
       render 'new'
     end

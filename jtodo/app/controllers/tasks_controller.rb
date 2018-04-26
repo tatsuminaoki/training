@@ -1,12 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   PAGE_PER = 10
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.page(params[:page]).per(PAGE_PER)
+    @tasks = current_user.tasks.page(params[:page]).per(PAGE_PER)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
@@ -39,6 +40,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
 
     respond_to do |format|
       if @task.save

@@ -1,4 +1,4 @@
-<header class='navbar navbar-fixed-top navbar-inverse'>
+<header class='navbar navbar-inverse'>
   <div class='container'>
     <%= link_to 'jTodo', tasks_path %>
     <nav>
@@ -6,7 +6,7 @@
       <% if logged_in? %>
         <li>Hello, <%= current_user.name %>!</li>
         <li><%= link_to 'Admin', '#' %></li>
-        <li><%= link_to 'Log out', logout_path %></li>
+        <li><%= link_to 'Log out', logout_path, method: :delete %></li>
       <% else %>
         <li><%= link_to 'Log in', login_path %></li>
       <% end %>
