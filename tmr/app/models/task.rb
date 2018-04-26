@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validates :priority, presence: true
 
   scope :get_by_status, ->(status) {
-    if status != '0' then
+    if status != '0'
       where(status: status)
     end
   }
