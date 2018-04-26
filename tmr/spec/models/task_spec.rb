@@ -2,16 +2,7 @@ require 'rails_helper'
 
 describe Task do
 
-  let(:valid_params) {{
-    user_id: 1,
-    title:'Test title',
-    description:'Test description',
-    status:1,
-    priority:2,
-    due_date:Date.today.midnight + 2.days,
-    start_date:Date.today.midnight - 1.day,
-    finished_date:Date.today.midnight
-  }}
+  let(:valid_params) {FactoryBot.build(:attributes)}
 
   describe '#生成' do
 

@@ -11,6 +11,13 @@ class TasksController < ApplicationController
     @sort = sort_column Task, 'created_at'
     @order = sort_order
     @tasks = Task.order("#{@sort} #{@order}")
+
+    if params[:status].present?
+      @tasks = @tasks.get_by_status(params[:status])
+    end
+    if params[:keyword].present?
+      @tasks = @tasks.get_by_keyword(params[:keyword])
+    end
   end
 
   # GET /tasks/1

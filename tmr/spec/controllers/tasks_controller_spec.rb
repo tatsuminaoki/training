@@ -28,38 +28,16 @@ RSpec.describe TasksController, type: :controller do
   # Common Request Headers
   before(:each) do
     request.env['HTTP_ACCEPT_LANGUAGE'] = "ja,en-US;q=0.9,en;q=0.8"
+    prepare_statuses
+    prepare_priorities
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
+  let(:valid_attributes) {FactoryBot.build(:attributes)}
 
-  let(:valid_attributes) {{
-    user_id: 1,
-    title:'Test title',
-    description:'Test description',
-    status:1,
-    priority:2,
-    due_date:2.days.since,
-    start_date:1.day.ago,
-    finished_date:Time.current
-  }}
-
-
-  # let(:valid_attributes) {{
-  #   user_id:1,
-  #   title:'Test title',
-  #   description:'Test description',
-  #   status:1,
-  #   priority:2,
-  #   due_date:Time.new(2018, 4 , 16) + 2.days,
-  #   start_date:Time.new(2018, 4 , 16) - 1.day,
-  #   finished_date:Time.new(2018, 4 , 16)
-  # }}
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) {FactoryBot.build(:attributes, title: '')}
 
   let(:tasklist) {
     [
@@ -86,7 +64,7 @@ RSpec.describe TasksController, type: :controller do
     end
 
     it "returns a success response" do
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it "should have 3 tasks" do
@@ -97,9 +75,9 @@ RSpec.describe TasksController, type: :controller do
       newest = nil
       for task in assigns(:tasks) do
         if newest then
-          expect(task.created_at).to be <= newest.created_at
-          newest = task
+          expect(task.created_at).to be >= newest.created_at
         end
+        newest = task
       end
     end
 
@@ -115,14 +93,14 @@ RSpec.describe TasksController, type: :controller do
     it "returns a success response" do
       task = Task.create! valid_attributes
       get :show, params: {id: task.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -130,7 +108,7 @@ RSpec.describe TasksController, type: :controller do
     it "returns a success response" do
       task = Task.create! valid_attributes
       get :edit, params: {id: task.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -151,23 +129,14 @@ RSpec.describe TasksController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {task: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {{
-        user_id:2,
-        title:'New title',
-        description:'New description',
-        status:0,
-        priority:1,
-        due_date:Date.today,
-        start_date:Date.today,
-        finished_date:Date.today
-      }}
+      let(:new_attributes) {valid_attributes.clone.merge!(title: 'ew title', description:'New description')}
 
       it "updates the requested task" do
         task = Task.create! valid_attributes
@@ -187,7 +156,7 @@ RSpec.describe TasksController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
