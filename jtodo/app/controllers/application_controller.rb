@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
+  PAGE_PER = 10
+
   private
     def require_login
       unless logged_in?
