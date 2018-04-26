@@ -196,9 +196,14 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+    label:
+      session:
+        name: ユーザー名
+        password: パスワード
   activerecord:
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         description: 説明
@@ -206,6 +211,14 @@ ja:
         priority: 優先度
         status: ステータス
         title: タイトル
+      user:
+        name: ユーザー名
+        password: パスワード
+        password_digest: パスワード
+        password_confirmation: パスワード確認
+      session:
+        name: ユーザー名
+        password: パスワード
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -238,6 +251,19 @@ ja:
         success: 'タスクを無事更新しました。'
       destroy:
         success: 'タスクを無事削除しました。'
+  users:
+    label:
+      name: ユーザー名
+      password: パスワード
+      password_digest: パスワード
+      password_confirmation: パスワード確認
+    action:
+      login: ログイン
+      logout: ログアウト
+      signup: 新規登録
+    message:
+      newuser: 'まだアカウントがないですか？'
+      signupnow: '新規登録しましょう！'
   general:
     word:
       all: 'すべて'
