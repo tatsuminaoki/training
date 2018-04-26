@@ -120,5 +120,26 @@ RSpec.feature 'Tasks', type: :feature do
         }.to change(Task, :count).by(1)
       end
     end
+
+    describe 'Error Message' do
+      context 'When user visit wrong URI' do
+        it 'becomes 404 as status code' do
+          visit '/tasks_new'
+          expect(page.status_code).to eql(404)
+        end
+      end
+
+      before do
+        # Let occurr exception when visit tasks list
+        expect_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+        visit tasks_path
+      end
+
+      context 'When user visit tasks list' do
+        it 'becomes 500 as status code' do
+          expect(page.status_code).to eql(500)
+        end
+      end
+    end
   end
 end
