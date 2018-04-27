@@ -4,5 +4,6 @@ class Label < ApplicationRecord
 
   validates :name,
             presence: true,
-            length: { maximum: 50 }
+            length: { maximum: 10 },
+            uniqueness: true
 end
