@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       redirect_to tasks_path
-      flash.now[:success] = t('.success_login')
+      flash.now[:success] = t('.success')
     else
-      flash.now[:danger] = t('.fail_login')
+      flash.now[:danger] = t('.fail')
       render 'new'
     end
   end
