@@ -217,6 +217,8 @@ ja:
         password_digest: パスワード
         password_confirmation: パスワード確認
         is_admin: 管理者権限
+        task_count: タスク数
+        created_at: 登録日付
       session:
         name: ユーザー名
         password: パスワード
@@ -227,12 +229,6 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
   tasks:
-    label:
-      description: 説明
-      due_date: 終了期限
-      priority: 優先度
-      status: ステータス
-      title: タイトル
     action:
       new: 新規タスク
       show: 詳細
@@ -240,18 +236,32 @@ ja:
       edit: 修正
       delete: 削除
       search: 検索
-    page:
-      index: 'タスク一覧'
-      show: 'タスク詳細'
-      edit: 'タスク修正'
-      new: 'タスク作成'
     message:
       create:
-        success: 'タスクを無事登録しました。'
+        success:
       update:
-        success: 'タスクを無事更新しました。'
+        success:
       destroy:
-        success: 'タスクを無事削除しました。'
+        success:
+    index:
+      title: 'タスク一覧'
+      select_all: 'すべて'
+    show:
+      title: 'タスク詳細'
+      sure?: '本当によろしいですか？'
+    edit:
+      title: 'タスク編集'
+    new:
+      title: '新規タスク'
+    create:
+      success: 'タスク登録が成功しました。'
+      fail:
+    update:
+      success: 'タスク更新が成功しました。'
+      fail:
+    destroy:
+      success: 'タスク削除が成功しました。'
+      fail:
   users:
     label:
       name: ユーザー名
@@ -272,9 +282,6 @@ ja:
     create:
       success: 'ログインに成功しました。'
       fail: 'ログインに失敗しました。ユーザー名またはパスワードが合っていません。'
-  general:
-    word:
-      all: 'すべて'
   enums:
     task:
       status:
@@ -285,3 +292,16 @@ ja:
         low: 低い
         middle: 普通
         high: 高い
+  admin:
+    users:
+      edit:
+        title: 'ユーザー編集'
+      index:
+        title: 'ユーザーリスト'
+        delete: '削除'
+        sure?: '本当によろしいですか？'
+      destroy:
+        success: 'ユーザー削除に成功しました。'
+        fail: 'ユーザー削除に失敗しました。'
+        fail_only_admin: 'ログインしている本人は削除できません。'
+        fail_tasks: 'ユーザーのタスク削除に失敗しました。'
