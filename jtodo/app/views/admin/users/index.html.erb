@@ -1,6 +1,6 @@
 <% provide(:title, 'All users') %>
 <h1><%= t('.title') %></h1>
-
+<%= link_to t('.new_user'), new_admin_user_path, class: 'btn btn-default' %>
 <table class="table">
   <thead>
     <tr>
@@ -18,7 +18,7 @@
         <td><%= user.is_admin %></td>
         <td><%= link_to user.tasks.count, admin_user_tasks_path(user) %></td>
         <td><%= user.created_at %></td>
-        <td><%= link_to t('.delete'), admin_user_path(user), method: :delete, data: { confirm: t('.sure?') } %></td>
+        <td><%= link_to t('.delete'), admin_user_path(user), method: :delete, id: "delete_user", data: { confirm: t('.sure?') } %></td>
       </tr>
     <% end %>
   </tbody>

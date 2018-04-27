@@ -263,11 +263,6 @@ ja:
       success: 'タスク削除が成功しました。'
       fail:
   users:
-    label:
-      name: ユーザー名
-      password: パスワード
-      password_digest: パスワード
-      password_confirmation: パスワード確認
     action:
       login: ログイン
       logout: ログアウト
@@ -275,13 +270,22 @@ ja:
     message:
       newuser: 'まだアカウントがないですか？'
       signupnow: '新規登録しましょう！'
+    new:
+      title: 'ユーザー登録'
     create:
       success: 'ユーザー登録に成功しました。'
       fail: 'ユーザー登録に失敗しました。下記のエラーをお読みください。'
+    edit:
+      title: 'ユーザー編集'
+    create:
+      success: 'ユーザー更新に成功しました。'
+      fail: 'ユーザー更新に失敗しました。下記のエラーをお読みください。'
   sessions:
     create:
       success: 'ログインに成功しました。'
       fail: 'ログインに失敗しました。ユーザー名またはパスワードが合っていません。'
+    new:
+      title: 'ログイン'
   enums:
     task:
       status:
@@ -294,12 +298,21 @@ ja:
         high: 高い
   admin:
     users:
-      edit:
-        title: 'ユーザー編集'
       index:
         title: 'ユーザーリスト'
         delete: '削除'
+        new_user: '新規ユーザー登録'
         sure?: '本当によろしいですか？'
+      new:
+        title: 'ユーザー登録'
+      create:
+        success: 'ユーザー登録に成功しました。'
+        fail: 'ユーザー登録に失敗しました。下記のエラーをお読みください。'
+      edit:
+        title: 'ユーザー編集'
+      update:
+        success: 'ユーザー更新に成功しました。'
+        fail: 'ユーザー更新に失敗しました。下記のエラーをお読みください。'
       tasks:
         title: 'ユーザー(%{name})のタスク一覧'
       destroy:
@@ -307,3 +320,9 @@ ja:
         fail: 'ユーザー削除に失敗しました。'
         fail_only_admin: 'ログインしている本人は削除できません。'
         fail_tasks: 'ユーザーのタスク削除に失敗しました。'
+  layouts:
+    header:
+      login: 'ログイン'
+      logout: 'ログアウト'
+      admin: '管理メニュー'
+      edit: '編集'
