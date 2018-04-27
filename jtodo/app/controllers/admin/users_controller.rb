@@ -44,11 +44,11 @@ module Admin
     def destroy
       @user = User.find(params[:id])
       if current_user?(@user)
-        redirect_to admin_users_path
+        redirect_to admin_root_path
         flash[:danger] = t('.fail_only_admin')
       elsif @user.destroy
         flash[:success] = t('.success')
-        redirect_to admin_users_path
+        redirect_to admin_root_path
       else
         flash[:danger] = t('fail')
       end

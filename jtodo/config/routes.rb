@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :tasks
 
   namespace :admin do
+    root 'users#index'
     resources :users
     get 'users/:id/tasks' => 'users#tasks', as: :user_tasks
   end
