@@ -6,9 +6,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.includes(:user).search(params, @current_user.id)
+    record_number = 5
+    @tasks = Task.includes(:user).search(params, @current_user.id, record_number)
     @labels = Label.order(name: :asc)
-    @tasks = Label.find(params[:label][:id]).tasks.page(params[:page]).per(5) if params[:label].present?
+    @tasks = Label.find(params[:label][:id]).tasks.includes(:user).page(params[:page]).per(record_number) if params[:label].present?
   end
 
   # GET /tasks/1
@@ -90,14 +91,10 @@ class TasksController < ApplicationController
   end
 
   def set_label_list_without_comma
-    if params[:label_list].blank?
-      @label_list = []
-    else
-      @label_list = params[:label_list].split(",")
-    end
+    @label_list = params[:label_list].presence&.split(',') || []
   end
 
   def set_label_list_with_comma
-    @label_list = @task.labels.pluck(:name).join(",")
+    @label_list = @task.labels.pluck(:name).join(',')
   end
 end
