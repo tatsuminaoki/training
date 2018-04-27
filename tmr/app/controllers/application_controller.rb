@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   # Set locale
   before_action :set_locale
 
+  class Forbidden < ActionController::ActionControllerError; end
+
   def set_locale
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     I18n.locale = extract_locale_from_accept_language_header
@@ -14,4 +16,20 @@ class ApplicationController < ActionController::Base
     I18n.available_locales.map(&:to_s).include?(locale) ? locale : I18n.default_locale
   end
 
+
+  # エラー
+  rescue_from Exception, with: :rescue500 unless Rails.env.development?
+  rescue_from Forbidden, with: :error_403
+
+  def error_403(e)
+    render file: "#{Rails.root}/public/403.html", layout: false, status: 403
+  end
+
+  def error_404(e)
+    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+  end
+
+  def error_500(e)
+    render file: "#{Rails.root}/public/500.html", layout: false, status: 500
+  end
 end

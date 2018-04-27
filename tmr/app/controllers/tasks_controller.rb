@@ -10,17 +10,19 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @user = session[:user]
-    @sort = sort_column Task, 'created_at'
-    @order = sort_order
-    @tasks = Task.order("#{@sort} #{@order}")
+    user = session[:user]
+    sort = sort_column Task, 'created_at'
+    order = sort_order
 
-    @tasks = @tasks.get_by_user_id(@user['id'])
+    @tasks = Task.order("#{sort} #{order}")
 
+    # ログインユーザで絞込
+    @tasks = @tasks.get_by_user_id(user['id'])
+    # ステータスが指定されていたら絞込
     if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])
     end
-
+    # キーワードが指定されていたら絞込
     if params[:keyword].present?
       @tasks = @tasks.get_by_keyword(params[:keyword])
     end
@@ -32,6 +34,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    check_user
   end
 
   # GET /tasks/new
@@ -41,6 +44,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    check_user
   end
 
   # POST /tasks
@@ -62,6 +66,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    check_user
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: t('notices.updated', model: t('activerecord.models.task')) }
@@ -76,6 +81,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
+    check_user
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: t('notices.deleted', model: t('activerecord.models.task')) }
@@ -84,6 +90,15 @@ class TasksController < ApplicationController
   end
 
   private
+    # ユーザチェック
+    def check_user
+      user = session[:user]
+
+      if user['id'] != @task.user_id
+        raise Forbidden
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
