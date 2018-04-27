@@ -18,15 +18,11 @@ class ApplicationController < ActionController::Base
 
 
   # エラー
-  rescue_from Exception, with: :rescue500 unless Rails.env.development?
+  rescue_from Exception, with: :error_500 unless Rails.env.development?
   rescue_from Forbidden, with: :error_403
 
   def error_403(e)
     render file: "#{Rails.root}/public/403.html", layout: false, status: 403
-  end
-
-  def error_404(e)
-    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
   end
 
   def error_500(e)
