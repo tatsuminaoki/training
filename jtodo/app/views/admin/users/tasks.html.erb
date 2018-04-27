@@ -1,18 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= t('tasks.page.index') %></h1>
-<%= link_to t('tasks.action.new'), new_task_path, id: 'new_task', class: 'btn btn-default' %>
-<%= form_tag(tasks_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {include_blank: t('general.word.all')} %>
-  <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default' %>
-<% end %>
-
+<h1><%=@user.name%>'s <%= t('tasks.page.index') %></h1>
 <table>
   <thead>
     <tr>
       <th><%= t('tasks.label.status') %></th>
       <th><%= t('tasks.label.title') %></th>
+      <th><%= t('tasks.label.description') %></th>
       <th><%= t('tasks.label.priority')%><%= link_sort 'priority' %></th>
       <th><%= t('tasks.label.due_date')%><%= link_sort 'due_date' %></th>
     </tr>
@@ -21,7 +15,8 @@
     <% @tasks.each do |task| %>
     <tr>
       <td><%= task.status_i18n %></td>
-      <td><%= link_to task.title, task %></td>
+      <td><%= task.title %></td>
+      <td><%= task.description %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.due_date %></td>
     </tr>

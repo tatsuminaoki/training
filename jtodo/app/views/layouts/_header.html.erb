@@ -5,7 +5,6 @@
       <ul class='nav navbar-nav navbar-right'>
         <% if logged_in? %>
         <li><%= current_user.name%></li>
-        <li><%= link_to 'Setting', edit_user_path(current_user) %></li>
         <% if current_user.is_admin? %>
           <li><%= link_to 'Admin', '#' %></li>
         <% end %>

@@ -216,6 +216,7 @@ ja:
         password: パスワード
         password_digest: パスワード
         password_confirmation: パスワード確認
+        is_admin: 管理者権限
       session:
         name: ユーザー名
         password: パスワード

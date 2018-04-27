@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-<%= form_for(user) do |form| %>
+    <%= form_for user, url: {action: :update} do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%=t('errors.template.header', :model=> user.class.model_name.human, :count=> user.errors.count)%></h2>
@@ -20,6 +20,8 @@
   <%= form.label :password_confirmation %>
   <%= form.password_field :password_confirmation, class: 'form-control' %>
 
+  <%= form.label :is_admin %>
+  <%= form.check_box :is_admin, { class: 'form-control' }, true, false %>
   <%= form.submit class: "btn btn-primary" %>
 <% end %>
   </div>
