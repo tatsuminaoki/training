@@ -50,10 +50,10 @@ ja:
         v3: "完了"
     priorities:
       values:
-        v10: "緊急"
-        v20: "高"
-        v30: "中"
-        v40: "低"
+        v10: "低"
+        v20: "中"
+        v30: "高"
+        v40: "緊急"
 
   helpers:
     submit:

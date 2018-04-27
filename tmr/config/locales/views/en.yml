@@ -50,10 +50,10 @@ en:
         v3: "Finished"
     priorities:
       values:
-        v10: "Urgent"
-        v20: "High"
-        v30: "Middle"
-        v40: "Low"
+        v10: "Low"
+        v20: "Middle"
+        v30: "High"
+        v40: "Urgent"
 
   helpers:
     submit:
