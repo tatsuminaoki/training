@@ -50,7 +50,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    user = session[:user]
     @task = Task.new(task_params)
+    @task.user_id = user['id']
 
     respond_to do |format|
       if @task.save

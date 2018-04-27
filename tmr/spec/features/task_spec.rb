@@ -146,8 +146,6 @@ RSpec.feature 'Tasks', type: :feature do
 
     before(:each) do
       visit new_task_path
-      # TODO remove user input after user function implemented
-      fill_in I18n.t('activerecord.attributes.task.user'), with: 1
       fill_in I18n.t('activerecord.attributes.task.title'), with: 'title'
       fill_in I18n.t('activerecord.attributes.task.description'), with: 'desc'
     end
@@ -193,8 +191,6 @@ RSpec.feature 'Tasks', type: :feature do
 
     before(:each) do
       visit edit_task_path(task.id)
-      # TODO remove user input after user function implemented
-      fill_in I18n.t('activerecord.attributes.task.user'), with: 1
       fill_in I18n.t('activerecord.attributes.task.title'), with: 'modified title'
       fill_in I18n.t('activerecord.attributes.task.description'), with: 'modified desc'
     end
