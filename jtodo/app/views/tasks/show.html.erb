@@ -1,7 +1,7 @@
 <h1><%= t('tasks.page.show') %></h1>
 <br/>
 <h2><%= @task.title %></h2>
-<%= @task.description %>
+<%= @task.description.gsub(/\n/, '<br/>').html_safe %>
 
 <p>
   <strong><%= t('tasks.label.priority') %>:</strong>
