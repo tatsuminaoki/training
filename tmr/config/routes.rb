@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get '/login', to: 'logins#index'
   post '/login', to: 'logins#login'
   get '/logout', to: 'logins#logout'
+  get '/signup', to: 'logins#signup'
+  post '/register', to: 'logins#register'
 
   get '/users/:id/tasks', to: 'users#tasks'
 

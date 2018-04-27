@@ -1,8 +1,10 @@
 class LoginsController < ApplicationController
+  # Show Login Page
   # GET index
   def index
   end
 
+  # Login
   # POST /login
   def login
     login_id = params[:login_id]
@@ -19,6 +21,30 @@ class LoginsController < ApplicationController
     end
   end
 
+  # Show Signup Page
+  # GET /signup
+  def signup
+  end
+
+  # Create User
+  # POST /register
+  def register
+    login_id = params[:login_id]
+    password = params[:password]
+
+    if !password.present? || password.length < 4
+      redirect_to signup_path,
+                  notice: I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.too_short', count: 4)
+    else
+      password_hash = User.password_hash(login_id, password)
+      user = User.create(login_id: login_id, password_hash: password_hash)
+
+      session[:user] = user
+      redirect_to tasks_path
+    end
+  end
+
+  # Logout
   # GET /logout
   def logout
     session[:user] = nil

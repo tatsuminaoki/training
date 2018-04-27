@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  validates :login_id, presence: true, uniqueness: true
+
   has_many :tasks
 
   def self.password_hash(login_id, password)

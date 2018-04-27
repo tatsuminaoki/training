@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   include SortUtility
 
+  before_action LoginFilter.new
+
   helper_method :sort_column, :sort_order
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
@@ -9,16 +11,11 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @user = session[:user]
-
     @sort = sort_column Task, 'created_at'
     @order = sort_order
     @tasks = Task.order("#{@sort} #{@order}")
 
-    if @user.present?
-      @tasks = @tasks.get_by_user_id(@user['id'])
-    else
-      redirect_to login_path
-    end
+    @tasks = @tasks.get_by_user_id(@user['id'])
 
     if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])

@@ -32,6 +32,7 @@ ja:
     login:
       login: "ログイン"
       logout: "ログアウト"
+      signup: "ユーザ登録"
 
   buttons:
     show: "表示"
@@ -42,6 +43,7 @@ ja:
     search: "検索"
     login: "ログイン"
     logout: "ログアウト"
+    signup: "ユーザ登録"
 
   labels:
     keyword: "キーワード"
