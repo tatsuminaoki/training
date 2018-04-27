@@ -29,6 +29,9 @@ ja:
       new: "新規タスク"
       edit: "タスク編集"
       list: "タスク一覧"
+    login:
+      login: "ログイン"
+      logout: "ログアウト"
 
   buttons:
     show: "表示"
@@ -37,6 +40,8 @@ ja:
     delete: "削除"
     back: "戻る"
     search: "検索"
+    login: "ログイン"
+    logout: "ログアウト"
 
   labels:
     keyword: "キーワード"
@@ -54,6 +59,10 @@ ja:
         v20: "中"
         v30: "高"
         v40: "緊急"
+    logins:
+      labels:
+        login_id: "ユーザID"
+        password: "パスワード"
 
   helpers:
     submit:
@@ -64,6 +73,8 @@ ja:
     created: "%{model}を作成しました"
     updated: "%{model}を更新しました"
     deleted: "%{model}を削除しました"
+    login_invalid: "ユーザIDまたはパスワードが正しくありません"
+    logged_out: "ログアウトしました"
 
   confirmations:
     delete: "削除しますか？"

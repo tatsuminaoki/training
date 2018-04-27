@@ -9,6 +9,5 @@ require 'digest/md5'
 
 5.times do |no|
   login_id = "tmr#{no}"
-  salt = login_id[login_id.length - 1]
-  User.create(login_id: login_id, password_hash: Digest::SHA1.hexdigest(login_id + salt).to_s)
+  User.create(login_id: login_id, password_hash: User.password_hash(login_id))
 end

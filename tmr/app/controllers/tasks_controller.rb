@@ -8,16 +8,26 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    @user = session[:user]
+
     @sort = sort_column Task, 'created_at'
     @order = sort_order
     @tasks = Task.order("#{@sort} #{@order}")
 
-    if params[:status].present?
+    if @user.present?
+      @tasks = @tasks.get_by_user_id(@user['id'])
+    else
+      redirect_to login_path
+    end
+
+    if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])
     end
+
     if params[:keyword].present?
       @tasks = @tasks.get_by_keyword(params[:keyword])
     end
+
     # Pagenation
     @tasks = Kaminari.paginate_array(@tasks).page(params[:page])
   end

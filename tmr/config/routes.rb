@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'user/index'
+  get '/login', to: 'logins#index'
+  post '/login', to: 'logins#login'
+  get '/logout', to: 'logins#logout'
+
+  get '/users/:id/tasks', to: 'users#tasks'
+
   resources :tasks
   resources :users
 

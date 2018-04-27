@@ -1,0 +1,17 @@
+<h1><%= I18n.t('titles.login.login') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<%= form_tag({ action: :login }, { method: :post }) do %>
+  <div class="field">
+    <%= label_tag :login_id, I18n.t('models.logins.labels.login_id') %>
+    <%= text_field_tag :login_id, @login_id %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password, I18n.t('models.logins.labels.password') %>
+    <%= text_field_tag :password, @password %>
+  </div>
+
+  <%= submit_tag I18n.t('buttons.login') %>
+<% end %>

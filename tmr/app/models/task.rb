@@ -7,10 +7,12 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
+  scope :get_by_user_id, ->(user_id) {
+    where(user_id: user_id)
+  }
+
   scope :get_by_status, ->(status) {
-    if status != '0'
-      where(status: status)
-    end
+    where(status: status)
   }
 
   scope :get_by_keyword, ->(keyword) {
