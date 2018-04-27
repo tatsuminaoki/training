@@ -75,13 +75,13 @@ RSpec.feature "Tasks", type: :feature do
     visit 'tasks'
 
     click_link 'sort_due_date'
-    expect(page).to have_no_link('▼', href: '/tasks?sort=due_date+desc')
-    expect(page).to have_link('▲', href: '/tasks?sort=due_date')
+    expect(page).to have_no_link('▼', href: '/?sort=due_date+desc')
+    expect(page).to have_link('▲', href: '/?sort=due_date')
     expect(find('tbody').first('tr')).to have_text('2018/06/01')
 
     click_link 'sort_due_date'
-    expect(page).to have_link('▼', href: '/tasks?sort=due_date+desc')
-    expect(page).to have_no_link('▲', href: '/tasks?sort=due_date')
+    expect(page).to have_link('▼', href: '/?sort=due_date+desc')
+    expect(page).to have_no_link('▲', href: '/?sort=due_date')
     expect(find('tbody').first('tr')).to have_text('2018/05/01')
   end
 
@@ -89,13 +89,13 @@ RSpec.feature "Tasks", type: :feature do
     visit 'tasks'
 
     click_link 'sort_priority'
-    expect(page).to have_no_link('▼', href: '/tasks?sort=priority+desc')
-    expect(page).to have_link('▲', href: '/tasks?sort=priority')
+    expect(page).to have_no_link('▼', href: '/?sort=priority+desc')
+    expect(page).to have_link('▲', href: '/?sort=priority')
     expect(find('tbody').first('tr')).to have_text('高い')
 
     click_link 'sort_priority'
-    expect(page).to have_link('▼', href: '/tasks?sort=priority+desc')
-    expect(page).to have_no_link('▲', href: '/tasks?sort=priority')
+    expect(page).to have_link('▼', href: '/?sort=priority+desc')
+    expect(page).to have_no_link('▲', href: '/?sort=priority')
     expect(find('tbody').first('tr')).to have_text('低い')
   end
 
