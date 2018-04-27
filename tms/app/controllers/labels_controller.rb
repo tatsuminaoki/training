@@ -28,7 +28,7 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       if @label.save
-        format.html { redirect_to @label, notice: 'Label was successfully created.' }
+        format.html { redirect_to @label, notice: t('flash.label.create') }
         format.json { render :show, status: :created, location: @label }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class LabelsController < ApplicationController
   def update
     respond_to do |format|
       if @label.update(label_params)
-        format.html { redirect_to @label, notice: 'Label was successfully updated.' }
+        format.html { redirect_to @label, notice: t('flash.label.update') }
         format.json { render :show, status: :ok, location: @label }
       else
         format.html { render :edit }
@@ -54,21 +54,24 @@ class LabelsController < ApplicationController
   # DELETE /labels/1
   # DELETE /labels/1.json
   def destroy
-    @label.destroy
-    respond_to do |format|
-      format.html { redirect_to labels_url, notice: 'Label was successfully destroyed.' }
-      format.json { head :no_content }
+    if @label.destroy
+      respond_to do |format|
+        format.html { redirect_to labels_url, notice: t('flash.label.destroy') }
+        format.json { head :no_content }
+      end
+    else
+      flash[:alert] = t('flash.label.destroy_failed')
+      render 'index'
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_label
-      @label = Label.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def label_params
-      params.fetch(:label, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_label
+    @label = Label.find(params[:id])
+  end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def label_params
+    params.fetch(:label, {})
+  end
 end
