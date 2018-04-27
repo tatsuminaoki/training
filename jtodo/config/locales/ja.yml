@@ -300,6 +300,8 @@ ja:
         title: 'ユーザーリスト'
         delete: '削除'
         sure?: '本当によろしいですか？'
+      tasks:
+        title: 'ユーザー(%{name})のタスク一覧'
       destroy:
         success: 'ユーザー削除に成功しました。'
         fail: 'ユーザー削除に失敗しました。'

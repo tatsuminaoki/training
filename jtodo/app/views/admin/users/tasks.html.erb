@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%=@user.name%>'s <%= t('tasks.page.index') %></h1>
-<table>
+<h1><%= t('.title', name:@user.name) %></h1>
+<table class="table">
   <thead>
     <tr>
-      <th><%= t('tasks.label.status') %></th>
-      <th><%= t('tasks.label.title') %></th>
-      <th><%= t('tasks.label.description') %></th>
-      <th><%= t('tasks.label.priority')%><%= link_sort 'priority' %></th>
-      <th><%= t('tasks.label.due_date')%><%= link_sort 'due_date' %></th>
+      <th scope="col"><%= Task.human_attribute_name('status') %></th>
+      <th scope="col"><%= Task.human_attribute_name('title') %></th>
+      <th scope="col"><%= Task.human_attribute_name('description') %></th>
+      <th scope="col"><%= Task.human_attribute_name('priority')%><%= link_sort 'priority' %></th>
+      <th scope="col"><%= Task.human_attribute_name('due_date')%><%= link_sort 'due_date' %></th>
     </tr>
   </thead>
   <tbody>
