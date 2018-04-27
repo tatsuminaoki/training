@@ -2,7 +2,11 @@ require 'rails_helper'
 
 describe Task do
 
-  let(:valid_params) {FactoryBot.build(:attributes)}
+  let(:valid_params) {FactoryBot.build(:task_attributes)}
+
+  before(:each) do
+    FactoryBot.create(:user)
+  end
 
   describe '#生成' do
 

@@ -1,6 +1,6 @@
 FactoryBot.define do
 
-  factory :attributes, class: Hash do
+  factory :task_attributes, class: Hash do
     user_id 1
     sequence(:title) { |n| "Test title#{n}" }
     sequence(:description) { |n| "Test description#{n}" }

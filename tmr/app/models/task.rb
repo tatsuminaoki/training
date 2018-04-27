@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :priority, presence: true
 
+  belongs_to :user
+
   scope :get_by_status, ->(status) {
     if status != '0'
       where(status: status)

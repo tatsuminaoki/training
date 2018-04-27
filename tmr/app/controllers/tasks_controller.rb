@@ -18,6 +18,7 @@ class TasksController < ApplicationController
     if params[:keyword].present?
       @tasks = @tasks.get_by_keyword(params[:keyword])
     end
+    # Pagenation
     @tasks = Kaminari.paginate_array(@tasks).page(params[:page])
   end
 

@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-feature 'Tasks', type: :feature do
+RSpec.feature 'Tasks', type: :feature do
 
   before(:each) do
+    FactoryBot.create(:user)
     prepare_statuses
     prepare_priorities
   end

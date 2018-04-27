@@ -28,6 +28,7 @@ RSpec.describe TasksController, type: :controller do
   # Common Request Headers
   before(:each) do
     request.env['HTTP_ACCEPT_LANGUAGE'] = "ja,en-US;q=0.9,en;q=0.8"
+    FactoryBot.create(:user)
     prepare_statuses
     prepare_priorities
   end
@@ -35,9 +36,9 @@ RSpec.describe TasksController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {FactoryBot.build(:attributes)}
+  let(:valid_attributes) {FactoryBot.build(:task_attributes)}
 
-  let(:invalid_attributes) {FactoryBot.build(:attributes, title: '')}
+  let(:invalid_attributes) {FactoryBot.build(:task_attributes, title: '')}
 
   let(:tasklist) {
     [
