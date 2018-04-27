@@ -1,20 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= t('tasks.page.index') %></h1>
-<%= link_to t('tasks.action.new'), new_task_path, id: 'new_task', class: 'btn btn-default' %>
-<%= form_tag(tasks_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {include_blank: t('general.word.all')} %>
-  <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default' %>
+<h1><%= t('.title') %></h1>
+<p align="right">
+  <%= link_to t('tasks.action.new'), new_task_path, id: 'new_task', class: 'btn btn-default' %>
+</p>
+<div align="right">
+<%= form_tag tasks_path, method: :get, class: 'form-inline' do %>
+  <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2' %>
+  <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {prompt: true, class: 'form-control' }  %>
+  <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default my-2 my-sm-0' %>
 <% end %>
+</div>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th><%= t('tasks.label.status') %></th>
-      <th><%= t('tasks.label.title') %></th>
-      <th><%= t('tasks.label.priority')%><%= link_sort 'priority' %></th>
-      <th><%= t('tasks.label.due_date')%><%= link_sort 'due_date' %></th>
+      <th scope="col"><%= Task.human_attribute_name('status') %></th>
+      <th scope="col"><%= Task.human_attribute_name('title') %></th>
+      <th scope="col"><%= Task.human_attribute_name('priority')%><%= link_sort 'priority' %></th>
+      <th scope="col"><%= Task.human_attribute_name('due_date')%><%= link_sort 'due_date' %></th>
     </tr>
   </thead>
   <tbody>

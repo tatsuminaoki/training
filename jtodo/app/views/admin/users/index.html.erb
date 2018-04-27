@@ -1,13 +1,14 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
+<h1><%= t('.title') %></h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th><%= t('users.label.name') %></th>
-      <th><%= t('users.label.is_admin') %></th>
-      <th><%= t('users.label.task_count') %></th>
-      <th><%= t('users.label.created_at') %></th>
+      <th scope="col"><%= User.human_attribute_name('name') %></th>
+      <th scope="col"><%= User.human_attribute_name('is_admin') %></th>
+      <th scope="col"><%= User.human_attribute_name('task_count') %></th>
+      <th scope="col"><%= User.human_attribute_name('created_at') %></th>
+      <th scope="col"><%= t('.action') %></th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,7 @@
         <td><%= user.is_admin %></td>
         <td><%= link_to user.tasks.count, admin_user_tasks_path(user) %></td>
         <td><%= user.created_at %></td>
+        <td><%= link_to t('.delete'), admin_user_path(user), method: :delete, data: { confirm: t('.sure?') } %></td>
       </tr>
     <% end %>
   </tbody>
