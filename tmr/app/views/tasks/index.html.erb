@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%=t 'titles.task.list' %></h1>
-
+<div class="page_content">
 <br><br>
 
 <%= form_tag('/tasks', method: 'get') do %>
@@ -60,3 +60,5 @@
 <br>
 
 <%= link_to "#{t 'buttons.new'}", new_task_path %>
+
+<div>
