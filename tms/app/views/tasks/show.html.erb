@@ -24,6 +24,10 @@
         <td><%= status_name(@task.status) %></td>
       </tr>
       <tr>
+        <th><%= t('page.task.thead.label') %></th>
+        <td><%= @label_list %></td>
+      </tr>
+      <tr>
         <th><%= t('page.task.thead.user') %></th>
         <td><%= @task.user.name %></td>
       </tr>

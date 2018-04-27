@@ -16,6 +16,7 @@ ja:
         search:
           status: ステータス検索
           title: タイトル検索
+          label: ラベル検索
       thead:
         title: タイトル
         description: 説明文
@@ -24,6 +25,7 @@ ja:
         due_date: 終了期限
         user: 作成ユーザー
         created_at: 作成日時
+        label: ラベル
       status:
         open: 未着手
         inprogress: 進行中
@@ -38,6 +40,8 @@ ja:
       due_date:
         desc: 終了期限 降順でソート
         asc: 終了期限 昇順でソート
+      label:
+        prompt: ラベルを選択してください
     user:
       title:
         new: ログイン
@@ -95,6 +99,11 @@ ja:
       create_failed: ユーザー作成に失敗しました
       update_failed: ユーザー情報の更新に失敗しました
       delete_failed: ユーザーの削除が失敗しました
+    label:
+      create: ラベルが作成されました
+      update: ラベルが更新されました
+      destroy: ラベルが削除されました
+      destroy_failed: ラベルの削除が失敗しました
   dialog: 本当によろしいでしょうか？
   views:
     pagination:

@@ -40,6 +40,13 @@
                                         [t('page.task.status.done'), 2]
                                        ], id: :task_status %></td>
         </tr>
+        <tr>
+          <th><%= form.label :label, t('page.task.thead.label') %></th>
+          <td>
+            <ul id='task-labels'></ul>
+            <%= hidden_field_tag :label_hidden, @label_list %>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

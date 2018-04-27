@@ -1,0 +1,17 @@
+<%= form_with(model: task_label, local: true) do |form| %>
+  <% if task_label.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task_label.errors.count, "error") %> prohibited this task_label from being saved:</h2>
+
+      <ul>
+      <% task_label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
