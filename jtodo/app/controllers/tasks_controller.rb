@@ -21,7 +21,6 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1
-  # GET /tasks/1.json
   def show
   end
 
@@ -35,43 +34,37 @@ class TasksController < ApplicationController
   end
 
   # POST /tasks
-  # POST /tasks.json
   def create
     @task = Task.new(task_params)
     @task.user = current_user
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: I18n.t('tasks.message.create.success') }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.save
+      redirect_to @task
+      flash[:success] = t('.success')
+    else
+      render :new
+      flash[:danger] = t('.fail')
     end
   end
 
   # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: I18n.t('tasks.message.update.success') }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to @task
+      flash[:success] = t('.success')
+    else
+      render :edit
+      flash[:danger] = t('.fail')
     end
   end
 
   # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: I18n.t('tasks.message.destroy.success') }
-      format.json { head :no_content }
+    if @task.destroy
+      redirect_to tasks_url
+      flash[:success] = t('.success')
+    else
+      render @task
+      flash[:danger] = t('.fail')
     end
   end
 

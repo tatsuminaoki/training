@@ -19,10 +19,10 @@ module Admin
       @user = User.new(user_params)
       if @user.save
         redirect_to tasks_path
-        flash.now[:success] = t('.success')
+        flash[:success] = t('.success')
       else
         render 'new'
-        flash.now[:danger] = t('.fail')
+        flash[:danger] = t('.fail')
       end
     end
 
@@ -34,10 +34,10 @@ module Admin
       @user = User.find(params[:id])
       if @user.update_attributes(user_params)
         redirect_to tasks_path
-        flash.now[:success] = t('.success')
+        flash[:success] = t('.success')
       else
         render 'edit'
-        flash.now[:danger] = t('.fail')
+        flash[:danger] = t('.fail')
       end
     end
 
