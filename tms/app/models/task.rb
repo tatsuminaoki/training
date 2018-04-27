@@ -26,7 +26,7 @@ class Task < ApplicationRecord
               greater_than: 0
             }
 
-  def self.search(params, current_user_id)
+  def self.search(params, current_user_id, record_number)
     query = self
     query = query.order(due_date: order_option(params[:due_date_desc])) if params[:due_date_desc].present?
     query = query.order(priority: order_option(params[:priority_desc])) if params[:priority_desc].present?
@@ -34,7 +34,7 @@ class Task < ApplicationRecord
     query = query.where('title like ?', '%'+params[:title]+'%') if params[:title].present?
     query = query.where(user_id: current_user_id)
     query = query.order(created_at: :desc)
-    query = query.page(params[:page]).per(5)
+    query = query.page(params[:page]).per(record_number)
   end
 
   def self.order_option(params)

@@ -88,7 +88,7 @@ RSpec.describe Task, type: :model do
 
   describe '#search' do
     let!(:user) { FactoryBot.create(:user) }
-    subject { Task.includes(:user).search(params, user.id) }
+    subject { Task.includes(:user).search(params, user.id, 5) }
 
     context 'search feature' do
       context 'In case of ステータス検索' do
