@@ -28,7 +28,9 @@ RSpec.describe TasksController, type: :controller do
   # Common Request Headers
   before(:each) do
     request.env['HTTP_ACCEPT_LANGUAGE'] = "ja,en-US;q=0.9,en;q=0.8"
-    FactoryBot.create(:user)
+    user = FactoryBot.create(:user)
+    session[:user] = user
+
     prepare_statuses
     prepare_priorities
   end
@@ -176,5 +178,4 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to redirect_to(tasks_url)
     end
   end
-
 end

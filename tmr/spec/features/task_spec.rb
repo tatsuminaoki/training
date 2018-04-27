@@ -2,8 +2,19 @@ require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
 
+  let!(:session) {{}}
+
   before(:each) do
-    FactoryBot.create(:user)
+    user = FactoryBot.create(:user)
+    session[:user] = user
+
+    visit login_path
+
+    # Password is same as login_id
+    fill_in 'login_id', with: user.login_id
+    fill_in 'password', with: user.login_id
+    click_on I18n.t('buttons.login')
+
     prepare_statuses
     prepare_priorities
   end
