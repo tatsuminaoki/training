@@ -2,11 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
 
-  let!(:session) {{}}
-
   before(:each) do
     user = FactoryBot.create(:user)
-    session[:user] = user
 
     visit login_path
 
