@@ -2,6 +2,10 @@ class TaskLabel < ApplicationRecord
   belongs_to :task
   belongs_to :label
 
-  validates :task_id, presence: true
-  validates :label_id, presence: true
+  validates :task_id,
+            presence: true,
+            numericality: { only_integer: true }
+  validates :label_id,
+            presence: true,
+            numericality: { only_integer: true }
 end
