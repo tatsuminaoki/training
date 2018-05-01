@@ -18,11 +18,11 @@ module Admin
     def create
       @user = User.new(user_params)
       if @user.save
-        redirect_to admin_root_path
         flash[:success] = t('.success')
+        redirect_to admin_root_path
       else
-        render 'new'
         flash[:danger] = t('.fail')
+        render 'new'
       end
     end
 
@@ -33,19 +33,19 @@ module Admin
     def update
       @user = User.find(params[:id])
       if @user.update_attributes(user_params)
-        redirect_to admin_root_path
         flash[:success] = t('.success')
+        redirect_to admin_root_path
       else
-        render 'edit'
         flash[:danger] = t('.fail')
+        render 'edit'
       end
     end
 
     def destroy
       @user = User.find(params[:id])
       if current_user?(@user)
-        redirect_to admin_root_path
         flash[:danger] = t('.fail_only_admin')
+        redirect_to admin_root_path
       elsif @user.destroy
         flash[:success] = t('.success')
         redirect_to admin_root_path

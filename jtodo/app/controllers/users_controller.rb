@@ -12,8 +12,8 @@ class UsersController < ApplicationController
       redirect_to root_path
       flash[:success] = t('.success')
     else
-      render 'new'
       flash[:danger] = t('.fail')
+      render 'new'
     end
   end
 
@@ -27,8 +27,8 @@ class UsersController < ApplicationController
       redirect_to root_path
       flash[:success] = t('.success')
     else
-      render 'edit'
       flash[:danger] = t('.fail')
+      render 'edit'
     end
   end
 

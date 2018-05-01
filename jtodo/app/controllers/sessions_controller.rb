@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password])
+      flash[:success] = t('.success')
       log_in user
       redirect_to tasks_path
-      flash[:success] = t('.success')
     else
       flash[:danger] = t('.fail')
       render 'new'

@@ -38,33 +38,33 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user = current_user
     if @task.save
-      redirect_to @task
       flash[:success] = t('.success')
+      redirect_to @task
     else
-      render :new
       flash[:danger] = t('.fail')
+      render :new
     end
   end
 
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      redirect_to @task
       flash[:success] = t('.success')
+      redirect_to @task
     else
-      render :edit
       flash[:danger] = t('.fail')
+      render :edit
     end
   end
 
   # DELETE /tasks/1
   def destroy
     if @task.destroy
-      redirect_to tasks_url
       flash[:success] = t('.success')
+      redirect_to tasks_url
     else
-      render @task
       flash[:danger] = t('.fail')
+      render @task
     end
   end
 
