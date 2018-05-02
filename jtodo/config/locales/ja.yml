@@ -211,6 +211,7 @@ ja:
         priority: 優先度
         status: ステータス
         title: タイトル
+        labels: ラベル
       user:
         name: ユーザー名
         password: パスワード
@@ -262,6 +263,9 @@ ja:
     destroy:
       success: 'タスク削除が成功しました。'
       fail:
+    side:
+      label_list: 'ラベル一覧'
+      all: 'すべて'
   users:
     action:
       login: ログイン
@@ -277,7 +281,7 @@ ja:
       fail: 'ユーザー登録に失敗しました。下記のエラーをお読みください。'
     edit:
       title: 'ユーザー編集'
-    create:
+    update:
       success: 'ユーザー更新に成功しました。'
       fail: 'ユーザー更新に失敗しました。下記のエラーをお読みください。'
   sessions:

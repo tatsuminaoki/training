@@ -14,6 +14,10 @@ class TasksController < ApplicationController
       @tasks = @tasks.where(status: params[:status])
     end
 
+    if params[:label].present?
+      @tasks = @tasks.includes(:labels).where(task_labels: {label_id: params[:label]})
+    end
+
     if Task.sortable.any? { |s| params[:sort] =~ /\A#{s}( desc)*\z/ }
       sort_param = params[:sort]
     else

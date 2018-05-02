@@ -2,33 +2,39 @@
 <p align="right">
   <%= link_to t('tasks.action.new'), new_task_path, id: 'new_task', class: 'btn btn-default' %>
 </p>
-<div align="right">
-<%= form_tag tasks_path, method: :get, class: 'form-inline' do %>
-  <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2' %>
-  <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {prompt: t('.select_all'), class: 'form-control' }  %>
-  <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default my-2 my-sm-0' %>
-<% end %>
+<div class="row">
+  <div class="col-md-2 col-sm-4 col-xs-4">
+    <%= render 'side', labels: current_user_all_labels %>
+  </div>
+  <div class="col-md-10 col-sm-8 col-xs-8">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"><%= Task.human_attribute_name('status') %></th>
+          <th scope="col"><%= Task.human_attribute_name('title') %></th>
+          <th scope="col"><%= Task.human_attribute_name('priority')%><%= link_sort 'priority' %></th>
+          <th scope="col"><%= Task.human_attribute_name('due_date')%><%= link_sort 'due_date' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.status_i18n %></td>
+          <td><%= link_to task.title, task %></td>
+          <td><%= task.priority_i18n %></td>
+          <td><%= task.due_date %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tasks %>
+    <br>
+  </div>
 </div>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"><%= Task.human_attribute_name('status') %></th>
-      <th scope="col"><%= Task.human_attribute_name('title') %></th>
-      <th scope="col"><%= Task.human_attribute_name('priority')%><%= link_sort 'priority' %></th>
-      <th scope="col"><%= Task.human_attribute_name('due_date')%><%= link_sort 'due_date' %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.status_i18n %></td>
-      <td><%= link_to task.title, task %></td>
-      <td><%= task.priority_i18n %></td>
-      <td><%= task.due_date %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
-<br>
+<div align="right">
+  <%= form_tag tasks_path, method: :get, class: 'form-inline' do %>
+    <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2' %>
+    <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {prompt: t('.select_all'), class: 'form-control' }  %>
+    <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default my-2 my-sm-0' %>
+  <% end %>
+</div>
