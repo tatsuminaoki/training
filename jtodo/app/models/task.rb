@@ -23,4 +23,21 @@ class Task < ApplicationRecord
   def self.sortable
     ['priority','due_date']
   end
+
+  def set_label_names
+    @label_names = labels.pluck(:name).join(',')
+  end
+
+  def update_labels
+    new_labels = []
+    label_names.split(',').each do |label_name|
+      new_labels << Label.find_or_initialize_by(name: label_name)
+    end
+    (labels - new_labels).each do |disused_label|
+      labels.delete(disused_label)
+    end
+    (new_labels - labels).each do |new_label|
+      labels << new_label
+    end
+  end
 end

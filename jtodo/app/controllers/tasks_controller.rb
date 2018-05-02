@@ -9,14 +9,17 @@ class TasksController < ApplicationController
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
+
     if params[:status].present?
       @tasks = @tasks.where(status: params[:status])
     end
+
     if Task.sortable.any? { |s| params[:sort] =~ /\A#{s}( desc)*\z/ }
       sort_param = params[:sort]
     else
       sort_param = :created_at
     end
+
     @tasks = @tasks.order(sort_param)
   end
 
@@ -40,23 +43,35 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user = current_user
     if @task.save
-      flash[:success] = t('.success')
-      redirect_to @task
+      if @task.update_labels
+        flash[:success] = t('.success')
+        redirect_to @task
+      else
+        flash[:danger] = t('.fail_update_labels')
+      end
+
     else
       flash[:danger] = t('.fail')
       render :new
     end
+
   end
 
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      flash[:success] = t('.success')
-      redirect_to @task
+      if @task.update_labels
+        flash[:success] = t('.success')
+        redirect_to @task
+      else
+        flash[:danger] = t('.fail_update_labels')
+      end
+
     else
       flash[:danger] = t('.fail')
       render :edit
     end
+
   end
 
   # DELETE /tasks/1
@@ -68,16 +83,17 @@ class TasksController < ApplicationController
       flash[:danger] = t('.fail')
       render @task
     end
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      params.require(:task).permit(:title, :description, :priority, :status, :due_date, :label_names)
-    end
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :description, :priority, :status, :due_date, :label_names)
+  end
+
 end
