@@ -1,5 +1,11 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :task_labels, :dependent => :destroy
+  has_many :labels, through: :task_labels
+  accepts_nested_attributes_for :task_labels, allow_destroy: true
+
+  attr_accessor :label_names
+
   enum status: [:waiting, :working, :done]
   enum priority: [:low, :middle, :high]
   validates :title,     presence: true, length: { maximum: 255 }

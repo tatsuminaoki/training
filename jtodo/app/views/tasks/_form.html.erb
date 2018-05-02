@@ -35,6 +35,11 @@
     <%= form.datetime_select :due_date%>
   </div>
 
+  <div class="label_field">
+    <%= form.label :label_names %>
+    <%= form.text_field :label_names %>
+  </div>
+
   <div class="actions">
     <%= form.submit class: 'btn btn-primary form-control' %>
   </div>
