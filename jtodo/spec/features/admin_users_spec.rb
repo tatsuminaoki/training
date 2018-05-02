@@ -1,10 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
-  let!(:admin) { create(:user, name: 'admin_user', is_admin: true) }
-  let!(:normal_user1) { create(:user, name: 'normal_user1') }
-  let!(:normal_user2) { create(:user, name: 'normal_user2') }
-  let!(:normal_user3) { create(:user, name: 'normal_user3') }
+  let!(:admin) { create :user, name: 'admin_user', is_admin: true }
+  let!(:users) { create_list :user_with_tasks, 3 }
 
   scenario 'ログインして管理メニューに接続できる' do
     visit login_path
@@ -49,7 +47,7 @@ RSpec.feature "Users", type: :feature do
   scenario '一般ユーザーが管理メニューに入れない' do
     visit login_path
 
-    fill_in 'session_name', with: 'normal_user1'
+    fill_in 'session_name', with: users[0].name
     fill_in 'session_password', with: 'userpass'
 
     submit_form
@@ -61,22 +59,6 @@ RSpec.feature "Users", type: :feature do
 
   scenario '一般ユーザーを削除するときにタスクも一緒に削除される' do
     visit login_path
-
-    fill_in 'session_name', with: 'normal_user3'
-    fill_in 'session_password', with: 'userpass'
-
-    submit_form
-
-    click_link 'new_task'
-
-    fill_in 'task_title', with: 'test0'
-    fill_in 'task_description', with: 'testdesc'
-    select '高い', from: 'task_priority'
-    select 'やってる', from: 'task_status'
-
-    submit_form
-
-    click_on I18n.t('layouts.header.logout')
 
     fill_in 'session_name', with: 'admin_user'
     fill_in 'session_password', with: 'userpass'
@@ -91,9 +73,9 @@ RSpec.feature "Users", type: :feature do
       click_on I18n.t('admin.users.index.delete')
     end
 
-    expect(page).to_not have_content 'normal_user3'
+    expect(page).to_not have_content users[2].name
+    expect(users[2].tasks).to be_empty
 
   end
-
 
 end

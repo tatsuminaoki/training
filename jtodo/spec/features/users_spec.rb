@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
-  let!(:user) { create(:user) }
+  let!(:user) {create :user, name: 'users_spec'}
 
   scenario 'ログインに失敗した後、正常にログインする' do
     visit login_path
@@ -9,14 +9,14 @@ RSpec.feature "Users", type: :feature do
 
     expect(page).to have_css('div.alert')
 
-    fill_in 'session_name', with: 'user_test2'
+    fill_in 'session_name', with: 'wrong_name'
     fill_in 'session_password', with: 'userpass'
 
     submit_form
     
     expect(page).to have_css('div.alert')
 
-    fill_in 'session_name', with: 'user_test1'
+    fill_in 'session_name', with: user.name
     fill_in 'session_password', with: 'userpass'
 
     submit_form
@@ -42,12 +42,12 @@ RSpec.feature "Users", type: :feature do
   scenario 'ユーザー更新して変わったパスワードでログインができる' do
     visit login_path
 
-    fill_in 'session_name', with: 'user_test1'
+    fill_in 'session_name', with: user.name
     fill_in 'session_password', with: 'userpass'
 
     submit_form
 
-    click_on 'user_test1'
+    click_on user.name
 
     fill_in 'user_name', with: 'test1_edited'
     fill_in 'user_password', with: 'edit'
@@ -55,14 +55,14 @@ RSpec.feature "Users", type: :feature do
 
     submit_form
 
-    expect(page).to have_css('div.alert')
+    expect(page).to have_content I18n.t('users.update.fail')
 
     fill_in 'user_password', with: 'longpass'
     fill_in 'user_password_confirmation', with: 'longpass'
 
     submit_form
 
-    expect(page.find('header')).to have_content 'test1_editied'
+    expect(page.find('header')).to have_content 'test1_edited'
 
     click_on 'ログアウト'
 
@@ -71,7 +71,7 @@ RSpec.feature "Users", type: :feature do
 
     submit_form
 
-    expect(page.find('header')).to have_content 'test1_editied'
+    expect(page.find('header')).to have_content 'test1_edited'
 
   end
 end

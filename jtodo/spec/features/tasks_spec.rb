@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature do
-  let!(:user) { create(:user) }
+  let!(:user) { create :user, name: 'tasks_spec' }
+  let!(:tasks) {
+    create :task, title: 'test1', description: 'test3', status:0, priority:1, due_date: '2018-05-01', user: user
+    create :task, title: 'test2', description: 'test1', status:1, priority:2, due_date: '2018-06-01', user: user
+    create :task, title: 'test3', description: 'test2', status:1, priority:0, due_date: '2018-05-15', user: user
+  }
 
   background do
     login_as(user)
-    FactoryBot.create(:task, title: 'test1', description: 'test3', status:0, priority:1, due_date: '2018-05-01', user: user)
-    FactoryBot.create(:task, title: 'test2', description: 'test1', status:1, priority:2, due_date: '2018-06-01', user: user)
-    FactoryBot.create(:task, title: 'test3', description: 'test2', status:1, priority:0, due_date: '2018-05-15', user: user)
   end
 
   scenario 'タスク一覧がちゃんと表示されている' do
