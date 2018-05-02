@@ -1,0 +1,15 @@
+  <h3><%= t('.label_list')%></h3>
+  <ul class="list-group">
+      <%= link_to tasks_path do %>
+        <li class="list-group-item">
+          <%= t('.all')%>
+        </li>
+      <% end %>
+    <% labels.each do |label| %>
+        <%= link_to tasks_path(label: label.id) do %>
+        <li class="list-group-item">
+          <%= label.name %>
+        </li>
+        <% end %>
+    <% end %>
+  </ul>

@@ -3,6 +3,7 @@ class CreateLabels < ActiveRecord::Migration[5.2]
     create_table :labels do |t|
       t.string :name
 
+      t.index      [:name], unique: true
       t.timestamps
     end
   end
