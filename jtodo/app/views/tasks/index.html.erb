@@ -33,6 +33,7 @@
 </div>
 <div align="right">
   <%= form_tag tasks_path, method: :get, class: 'form-inline' do %>
+    <%= hidden_field_tag :label, params[:label] if params[:label].present? %>
     <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2' %>
     <%= select_tag :status, options_for_select(Task.statuses_i18n.invert,{selected: params[:status]}), {prompt: t('.select_all'), class: 'form-control' }  %>
     <%= submit_tag t('tasks.action.search'), name: nil, class: 'btn btn-default my-2 my-sm-0' %>
