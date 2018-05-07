@@ -307,6 +307,7 @@ ja:
         delete: '削除'
         new_user: '新規ユーザー登録'
         sure?: '本当によろしいですか？'
+        action: 'アクション'
       new:
         title: 'ユーザー登録'
       create:
