@@ -1,4 +1,6 @@
 class LoginsController < ApplicationController
+
+
   # Show Login Page
   # GET index
   def index
@@ -32,9 +34,15 @@ class LoginsController < ApplicationController
     login_id = params[:login_id]
     password = params[:password]
 
-    if !password.present? || password.length < 4
+    if !password.present?
+      redirect_to signup_path,
+                  notice: I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.blank')
+    elsif password.length < User::PASSWORD_MIN_LENGTH
       redirect_to signup_path,
                   notice: I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.too_short', count: 4)
+    elsif !login_id.present?
+      redirect_to signup_path,
+                  notice: I18n.t('activerecord.attributes.user.login_id') + I18n.t('activerecord.errors.messages.blank')
     else
       password_hash = User.password_hash(login_id, password)
       user = User.create(login_id: login_id, password_hash: password_hash)

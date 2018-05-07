@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+
+  PASSWORD_MIN_LENGTH = 4
+
   validates :login_id, presence: true, uniqueness: true
 
   has_many :tasks

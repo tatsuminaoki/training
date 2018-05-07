@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
@@ -34,7 +35,6 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    check_user
   end
 
   # GET /tasks/new
@@ -44,7 +44,6 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    check_user
   end
 
   # POST /tasks
@@ -68,7 +67,6 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    check_user
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: t('notices.updated', model: t('activerecord.models.task')) }
@@ -83,7 +81,6 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    check_user
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: t('notices.deleted', model: t('activerecord.models.task')) }
@@ -96,9 +93,7 @@ class TasksController < ApplicationController
     def check_user
       user = session[:user]
 
-      if user['id'] != @task.user_id
-        raise Forbidden
-      end
+      raise Forbidden if user['id'] != @task.user_id
     end
 
     # Use callbacks to share common setup or constraints between actions.

@@ -44,7 +44,12 @@ en:
         due_date: "Due Date"
         start_date: "Start Date"
         finished_date: "Finished Date"
+      user:
+        login_id: "Login ID"
+        password: "Password"
     errors:
       messages:
         blank: "is required."
+        uniqueness: "is already used"
         too_long: "must be less than %{count} characters."
+        too_short: "must be lomger than %{count} characters."

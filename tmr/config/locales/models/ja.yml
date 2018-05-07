@@ -50,7 +50,6 @@ ja:
     errors:
       messages:
         blank: "は必須です"
-        blank: "は必須です"
         uniqueness: "はすでに使用されています"
         too_long: "は%{count}文字以内で入力してください"
         too_short: "は%{count}文字以上で入力してください"

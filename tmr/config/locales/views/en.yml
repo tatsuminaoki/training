@@ -29,6 +29,10 @@ en:
       new: "New Task"
       edit: "Editing Task"
       list: "Task list"
+    login:
+      login: "Login"
+      logout: "Logout"
+      signup: "Sign up"
 
   buttons:
     show: "Show"
@@ -37,6 +41,9 @@ en:
     delete: "Delete"
     back: "Back"
     search: "Search"
+    login: "Login"
+    logout: "Logout"
+    signup: "Sign up"
 
   labels:
     keyword: "Keyword"
@@ -54,6 +61,10 @@ en:
         v20: "Middle"
         v30: "High"
         v40: "Urgent"
+    logins:
+      labels:
+        login_id: "User ID"
+        password: "Password"
 
   helpers:
     submit:
@@ -64,6 +75,8 @@ en:
     created: "%{model} was successfully created."
     updated: "%{model} was successfully updated."
     deleted: "%{model} was successfully deleted."
+    login_invalid: "User ID or Password is invalid"
+    logged_out: "Logged out"
 
   confirmations:
     delete: "Are you sure?"
