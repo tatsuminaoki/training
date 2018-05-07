@@ -17,9 +17,10 @@ class ApplicationController < ActionController::Base
   PAGE_PER = 10
 
   private
-    def require_login
-      unless logged_in?
-        redirect_to login_url
-      end
+
+  def require_login
+    unless logged_in?
+      redirect_to login_url
     end
+  end
 end
