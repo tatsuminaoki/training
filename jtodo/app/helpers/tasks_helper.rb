@@ -1,7 +1,7 @@
 module TasksHelper
 
   # Method 'link_sort' : switch desc/asc for link_to sort
-  def link_sort label_name
+  def link_sort(label_name)
     link_to_elements = ['▼',label_name+' desc', 'sort_'+label_name]
     if params.has_key?(:sort)
       if params[:sort].include?(label_name) && params[:sort].include?('desc')

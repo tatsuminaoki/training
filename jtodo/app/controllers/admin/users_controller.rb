@@ -61,11 +61,6 @@ module Admin
       params.require(:user).permit(:name, :password, :password_confirmation)
     end
 
-    def same_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
-
     def admin_user
       redirect_to(root_url) unless current_user.is_admin?
     end

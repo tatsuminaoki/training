@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = current_user.tasks.all.includes(:labels)
-    @labels = current_user_all_labels @tasks
+    @labels = current_user_all_labels(@tasks)
     @tasks = @tasks.page(params[:page]).per(PAGE_PER)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
@@ -102,7 +102,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :description, :priority, :status, :due_date, :label_names)
   end
 
-  def current_user_all_labels tasks
+  def current_user_all_labels(tasks)
     all_labels = []
     tasks.each do |task|
       task.labels.each do |label|
