@@ -5,7 +5,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = current_user.tasks.page(params[:page]).per(PAGE_PER)
+    @tasks = current_user.tasks.all.includes(:labels)
+    @labels = current_user_all_labels @tasks
+    @tasks = @tasks.page(params[:page]).per(PAGE_PER)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
@@ -15,7 +17,7 @@ class TasksController < ApplicationController
     end
 
     if params[:label].present?
-      @tasks = @tasks.includes(:labels).where(task_labels: {label_id: params[:label]})
+      @tasks = @tasks.where(task_labels: {label_id: params[:label]})
     end
 
     if Task.sortable.any? { |s| params[:sort] =~ /\A#{s}( desc)*\z/ }
@@ -98,6 +100,16 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :priority, :status, :due_date, :label_names)
+  end
+
+  def current_user_all_labels tasks
+    all_labels = []
+    tasks.each do |task|
+      task.labels.each do |label|
+        all_labels << label if label.present?
+      end
+    end
+    return all_labels.uniq
   end
 
 end

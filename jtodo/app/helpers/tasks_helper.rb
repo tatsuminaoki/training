@@ -12,14 +12,4 @@ module TasksHelper
     link_to link_to_elements[0], { sort: link_to_elements[1], label: params[:label], search: params[:search], status: params[:status] }, { id: link_to_elements[2] }
   end
 
-  def current_user_all_labels
-    all_labels = []
-    current_user.tasks.each do |task|
-      task.labels.each do |label|
-        all_labels << label if label.present?
-      end
-    end
-    return all_labels.uniq
-  end
-
 end

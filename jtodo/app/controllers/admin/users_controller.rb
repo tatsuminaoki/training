@@ -3,7 +3,8 @@ module Admin
     before_action :require_login, :admin_user
 
     def index
-      @users = User.page(params[:page]).per(PAGE_PER)
+      @users = User.all.includes(:tasks)
+      @users = @users.page(params[:page]).per(PAGE_PER)
     end
 
     def tasks
