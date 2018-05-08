@@ -28,7 +28,7 @@ RSpec.describe TasksController, type: :controller do
   # Common Request Headers
   before(:each) do
     request.env['HTTP_ACCEPT_LANGUAGE'] = 'ja,en-US;q=0.9,en;q=0.8'
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:task_user)
     session[:user] = user
 
     prepare_statuses

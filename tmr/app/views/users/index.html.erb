@@ -1,14 +1,13 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
+<h1><%=t 'titles.user.list' %></h1>
+<p id="notice"><%= notice %></p>
 
 <table>
   <thead>
     <tr>
-      <th>Login</th>
-      <th>Password hash</th>
-      <th>Admin flag</th>
-      <th colspan="3"></th>
+      <th><%=t 'activerecord.attributes.user.login_id' %></th>
+      <th><%=t 'activerecord.attributes.user.admin_flag' %></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -16,11 +15,10 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.login_id %></td>
-        <td><%= user.password_hash %></td>
         <td><%= user.admin_flag %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "#{t 'buttons.edit'}", edit_user_path(user) %></td>
+        <td><%= link_to "#{t 'buttons.delete'}", user, method: :delete, data: { confirm: "#{t 'confirmations.delete' }" } %></td>
+        <td><%= link_to "#{t 'activerecord.models.task'}(#{user.tasks.count})", "users/#{user.id}/tasks" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to "#{t 'buttons.new'}", new_user_path %>

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Tasks', type: :feature do
 
   before(:each) do
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:task_user)
 
     visit login_path
 

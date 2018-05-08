@@ -33,6 +33,7 @@ en:
   activerecord: &activerecord
     models:
       task: "Task"
+      user: "User"
     attributes:
       task:
         user_id: "User"
@@ -47,9 +48,11 @@ en:
       user:
         login_id: "Login ID"
         password: "Password"
+        admin_flag: "Administrator"
     errors:
       messages:
         blank: "is required."
         uniqueness: "is already used"
         too_long: "must be less than %{count} characters."
         too_short: "must be lomger than %{count} characters."
+        need_successor: " is required at least 1 person. Please designate succesor before resignation."        

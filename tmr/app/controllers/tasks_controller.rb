@@ -11,14 +11,14 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    user = session[:user]
+    @user = session[:user]
     sort = sort_column Task, 'created_at'
     order = sort_order
 
     @tasks = Task.order("#{sort} #{order}")
 
     # ログインユーザで絞込
-    @tasks = @tasks.get_by_user_id(user['id'])
+    @tasks = @tasks.get_by_user_id(@user['id'])
     # ステータスが指定されていたら絞込
     if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])
@@ -93,7 +93,7 @@ class TasksController < ApplicationController
     def check_user
       user = session[:user]
 
-      raise Forbidden if user['id'] != @task.user_id
+      raise Forbidden if user['id'] != @task.user_id && !ActiveRecord::Type::Boolean.new.cast(user['admin_flag'])
     end
 
     # Use callbacks to share common setup or constraints between actions.

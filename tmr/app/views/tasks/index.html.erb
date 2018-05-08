@@ -4,7 +4,7 @@
 <div class="page_content">
 <br><br>
 
-<%= form_tag('/tasks', method: 'get') do %>
+<%= form_tag('', method: 'get') do %>
 
   <%= t 'activerecord.attributes.task.status' %><br>
   <input type="radio" name="status" value="0" id="task_status_all" checked="<%= params['status'].to_i == 0 %>">
@@ -49,9 +49,11 @@
         <td><%= task.due_date %></td>
         <td><%= task.start_date %></td>
         <td><%= task.finished_date %></td>
+        <% if !@user['admin_flag'] %>
         <td><%= link_to "#{t 'buttons.show'}", task %></td>
         <td><%= link_to "#{t 'buttons.edit'}", edit_task_path(task) %></td>
         <td><%= link_to "#{t 'buttons.delete'}", task, method: :delete, data: { confirm: "#{t 'confirmations.delete' }" } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -59,6 +61,8 @@
 <%= paginate @tasks %>
 <br>
 
+<% if !@user['admin_flag'] %>
 <%= link_to "#{t 'buttons.new'}", new_task_path %>
+<% end %>
 
 <div>

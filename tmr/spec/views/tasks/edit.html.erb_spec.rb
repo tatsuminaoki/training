@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "tasks/edit", type: :view do
   before(:each) do
-    FactoryBot.create(:user)
+    FactoryBot.create(:task_user)
     @task = assign(:task, Task.create!(valid_attributes))
   end
 
