@@ -5,6 +5,9 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :priority, presence: true
 
+  has_many :task_to_labels, dependent: :destroy
+  has_many :labels, through: :task_to_labels
+
   belongs_to :user
 
   scope :get_by_user_id, ->(user_id) {

@@ -45,6 +45,7 @@ ja:
         due_date: "期限"
         start_date: "開始日時"
         finished_date: "完了日時"
+        label: "ラベル"
       user:
         login_id: "ログインID"
         password: "パスワード"

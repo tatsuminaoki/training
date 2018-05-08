@@ -16,6 +16,10 @@
   <% end %>
   <br><br>
 
+  <label for="label"><%= t('activerecord.attributes.task.label') %></label><br>
+  <%= select_tag 'label', options_for_select(@labels, selected: params['label']) %>
+  <br><br>
+
   <label for="keyword"><%= t('labels.keyword') %></label><br>
   <input type="text" name="keyword" value="<%= params['keyword'] %>" id="keyword">
   <%= submit_tag "#{t 'buttons.search'}" %>

@@ -32,6 +32,13 @@ class UsersController < ApplicationController
     sort = sort_column Task, 'created_at'
     order = sort_order
 
+    label_models = Label.where('user_id is null or user_id = ?', params[:id].to_i)
+    @labels = Hash.new
+    @labels.store(I18n.t('labels.all'), '0')
+    label_models.each do |label|
+      @labels.store(label.label, label.id)
+    end
+
     @tasks = Task.order("#{sort} #{order}")
 
     # ログインユーザで絞込
@@ -40,6 +47,13 @@ class UsersController < ApplicationController
     if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])
     end
+
+    # ラベルが指定されていたら絞込
+    if params[:label].present? && params[:label].to_i > 0
+      task_ids = TaskToLabel.where(label_id: params[:label].to_i).pluck(:task_id)
+      @tasks = @tasks.where(id: task_ids)
+    end
+
     # キーワードが指定されていたら絞込
     if params[:keyword].present?
       @tasks = @tasks.get_by_keyword(params[:keyword])

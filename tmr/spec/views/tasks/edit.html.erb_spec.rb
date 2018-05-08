@@ -4,6 +4,7 @@ RSpec.describe "tasks/edit", type: :view do
   before(:each) do
     FactoryBot.create(:task_user)
     @task = assign(:task, Task.create!(valid_attributes))
+    assign(:labels, Label.all)
   end
 
   let(:valid_attributes) {FactoryBot.build(:task_attributes)}

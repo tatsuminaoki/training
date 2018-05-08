@@ -45,6 +45,7 @@ en:
         due_date: "Due Date"
         start_date: "Start Date"
         finished_date: "Finished Date"
+        label: "Label"
       user:
         login_id: "Login ID"
         password: "Password"
@@ -55,4 +56,4 @@ en:
         uniqueness: "is already used"
         too_long: "must be less than %{count} characters."
         too_short: "must be lomger than %{count} characters."
-        need_successor: " is required at least 1 person. Please designate succesor before resignation."        
+        need_successor: " is required at least 1 person. Please designate succesor before resignation."
