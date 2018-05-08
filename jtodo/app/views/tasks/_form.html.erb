@@ -12,30 +12,35 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, task.class.priorities_i18n.invert %>
+    <%= form.select :priority, task.class.priorities_i18n.invert, {}, { class: 'form-control' } %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, task.class.statuses_i18n.invert %>
+    <%= form.select :status, task.class.statuses_i18n.invert, {}, { class: 'form-control' }%>
   </div>
 
   <div class="field">
     <%= form.label :due_date %>
-    <%= form.datetime_select :due_date %>
+    <%= form.datetime_select :due_date%>
+  </div>
+
+  <div class="field">
+    <%= form.label :labels %>
+    <%= form.text_field :label_names, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary form-control' %>
   </div>
 <% end %>

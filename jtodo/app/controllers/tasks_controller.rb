@@ -1,29 +1,37 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
-  PAGE_PER = 10
+  before_action :require_login
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.page(params[:page]).per(PAGE_PER)
+    @tasks = current_user.tasks.all.includes(:labels)
+    @labels = current_user_all_labels(@tasks)
+    @tasks = @tasks.page(params[:page]).per(PAGE_PER)
     if params[:search].present?
       @tasks = @tasks.search(params[:search])
     end
+
     if params[:status].present?
       @tasks = @tasks.where(status: params[:status])
     end
+
+    if params[:label].present?
+      @tasks = @tasks.where(task_labels: {label_id: params[:label]})
+    end
+
     if Task.sortable.any? { |s| params[:sort] =~ /\A#{s}( desc)*\z/ }
       sort_param = params[:sort]
     else
       sort_param = :created_at
     end
+
     @tasks = @tasks.order(sort_param)
   end
 
   # GET /tasks/1
-  # GET /tasks/1.json
   def show
+    @task.set_label_names
   end
 
   # GET /tasks/new
@@ -33,56 +41,75 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    @task.set_label_names
   end
 
   # POST /tasks
-  # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: I18n.t('tasks.message.create.success') }
-        format.json { render :show, status: :created, location: @task }
+    @task.user = current_user
+    if @task.save
+      if @task.update_labels
+        flash[:success] = t('.success')
+        redirect_to @task
       else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        flash[:danger] = t('.fail_update_labels')
       end
+
+    else
+      flash[:danger] = t('.fail')
+      render :new
     end
+
   end
 
   # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: I18n.t('tasks.message.update.success') }
-        format.json { render :show, status: :ok, location: @task }
+    if @task.update(task_params)
+      if @task.update_labels
+        flash[:success] = t('.success')
+        redirect_to @task
       else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        flash[:danger] = t('.fail_update_labels')
       end
+
+    else
+      flash[:danger] = t('.fail')
+      render :edit
     end
+
   end
 
   # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: I18n.t('tasks.message.destroy.success') }
-      format.json { head :no_content }
+    if @task.destroy
+      flash[:success] = t('.success')
+      redirect_to tasks_url
+    else
+      flash[:danger] = t('.fail')
+      render @task
     end
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :description, :priority, :status, :due_date, :label_names)
+  end
+
+  def current_user_all_labels(tasks)
+    all_labels = []
+    tasks.each do |task|
+      task.labels.each do |label|
+        all_labels << label if label.present?
+      end
     end
+    return all_labels.uniq
+  end
+
 end

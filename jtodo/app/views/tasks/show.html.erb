@@ -1,24 +1,30 @@
-<p id="notice"><%= notice %></p>
-<h1><%= t('tasks.page.show') %></h1>
+<h1><%= t('.title') %></h1>
 <br/>
 <h2><%= @task.title %></h2>
-<%= @task.description %>
+<p>
+  <%= @task.description.gsub(/\n/, '<br/>').html_safe %>
+</p>
 
 <p>
-  <strong><%= t('tasks.label.priority') %>:</strong>
+  <strong><%= Task.human_attribute_name('priority') %> :</strong>
   <%= @task.priority_i18n %>
 </p>
 
 <p>
-  <strong><%= t('tasks.label.status') %>:</strong>
+  <strong><%= Task.human_attribute_name('status') %>:</strong>
   <%= @task.status_i18n %>
 </p>
 
 <p>
-  <strong><%= t('tasks.label.due_date') %>:</strong>
+  <strong><%= Task.human_attribute_name('due_date') %>:</strong>
   <%= @task.due_date %>
 </p>
 
+<p>
+  <strong><%= Task.human_attribute_name('labels') %>:</strong>
+  <%= @task.label_names %>
+</p>
+
 <%= link_to t('tasks.action.edit'), edit_task_path(@task) %> |
-<%= link_to t('tasks.action.delete'), @task, method: :delete, data: { confirm: t('tasks.message.sure') } %></td> | 
-<%= link_to t('tasks.action.back'), tasks_path %>
+<%= link_to t('tasks.action.delete'), @task, method: :delete, data: { confirm: t('.sure?') } %></td>
+<%= link_to t('tasks.action.back'), tasks_path, { class: 'btn btn-default form-control' } %>

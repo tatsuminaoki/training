@@ -1,0 +1,27 @@
+<% provide(:title, 'All users') %>
+<h1><%= t('.title') %></h1>
+<%= link_to t('.new_user'), new_admin_user_path, class: 'btn btn-default' %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><%= User.human_attribute_name('name') %></th>
+      <th scope="col"><%= User.human_attribute_name('is_admin') %></th>
+      <th scope="col"><%= User.human_attribute_name('task_count') %></th>
+      <th scope="col"><%= User.human_attribute_name('created_at') %></th>
+      <th scope="col"><%= t('.action') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, edit_admin_user_path(user) %></td>
+        <td><%= '◯' if user.is_admin == true %></td>
+        <td><%= link_to user.tasks.count, admin_user_tasks_path(user) %></td>
+        <td><%= user.created_at %></td>
+        <td><%= link_to t('.delete'), admin_user_path(user), method: :delete, id: "delete_user", data: { confirm: t('.sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>
+<br>

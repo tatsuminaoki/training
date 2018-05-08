@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= t('.title', name:@user.name) %></h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><%= Task.human_attribute_name('status') %></th>
+      <th scope="col"><%= Task.human_attribute_name('title') %></th>
+      <th scope="col"><%= Task.human_attribute_name('description') %></th>
+      <th scope="col"><%= Task.human_attribute_name('priority')%><%= link_sort 'priority' %></th>
+      <th scope="col"><%= Task.human_attribute_name('due_date')%><%= link_sort 'due_date' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.status_i18n %></td>
+      <td><%= task.title %></td>
+      <td><%= task.description %></td>
+      <td><%= task.priority_i18n %></td>
+      <td><%= task.due_date %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
+<br>
