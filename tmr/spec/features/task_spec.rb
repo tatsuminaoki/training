@@ -11,9 +11,6 @@ RSpec.feature 'Tasks', type: :feature do
     fill_in 'login_id', with: user.login_id
     fill_in 'password', with: user.login_id
     click_on I18n.t('buttons.login')
-
-    prepare_statuses
-    prepare_priorities
   end
 
   describe 'トップページ' do

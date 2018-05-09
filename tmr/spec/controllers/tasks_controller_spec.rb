@@ -30,9 +30,6 @@ RSpec.describe TasksController, type: :controller do
     request.env['HTTP_ACCEPT_LANGUAGE'] = 'ja,en-US;q=0.9,en;q=0.8'
     user = FactoryBot.create(:task_user)
     session[:user] = user
-
-    prepare_statuses
-    prepare_priorities
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -70,11 +67,11 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to be_successful
     end
 
-    it 'should have 3 tasks' do
+    it '3つのタスクが表示される' do
       expect(assigns(:tasks).length).to eq tasklist.length
     end
 
-    it 'tasks sould be ordered by created_at' do
+    it 'タスクは作成日時順で表示される' do
       newest = nil
       for task in assigns(:tasks) do
         if newest then
@@ -84,7 +81,7 @@ RSpec.describe TasksController, type: :controller do
       end
     end
 
-    it 'should have all tasks' do
+    it 'すべてのタスクが表示されている' do
       for task in tasklist do
         expect(response.body).to include(task[:title])
       end
@@ -116,21 +113,34 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'POST #create' do
-    context 'with valid params' do
-      it 'creates a new Task' do
+    context '作成成功' do
+      it '新規タスク' do
         expect {
           post :create, params: {task: valid_attributes}, session: valid_session
         }.to change(Task, :count).by(1)
       end
 
-      it 'redirects to the created task' do
+      it 'タスクの詳細ページが表示される' do
         post :create, params: {task: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Task.last)
       end
     end
 
-    context 'with invalid params' do
-      it 'returns a success response (i.e. to display the \'new\' template)' do
+    context 'ラベルを指定して新規作成' do
+      it '新規タスク' do
+        expect {
+          post :create, params: {task: valid_attributes, label: ''}, session: valid_session
+        }.to change(Task, :count).by(1)
+      end
+
+      it 'タスクの詳細ページが表示される' do
+        post :create, params: {task: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Task.last)
+      end
+    end
+
+    context '作成失敗' do
+      it '入力ページが再表示される' do
         post :create, params: {task: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
@@ -138,25 +148,28 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'PUT #update' do
-    context 'with valid params' do
-      let(:new_attributes) {valid_attributes.clone.merge!(title: 'ew title', description:'New description')}
+    context '更新成功' do
+      let(:new_attributes) {valid_attributes.clone.merge!(title: 'New title', description:'New description')}
 
-      it 'updates the requested task' do
+      it 'タスクが更新される' do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: new_attributes}, session: valid_session
         task.reload
         # skip('Add assertions for updated state')
+        actual = Task.last
+        expect(actual.title).to eq new_attributes[:title]
+        expect(actual.description).to eq new_attributes[:description]
       end
 
-      it 'redirects to the task' do
+      it 'タスク詳細ページが表示される' do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: valid_attributes}, session: valid_session
         expect(response).to redirect_to(task)
       end
     end
 
-    context 'with invalid params' do
-      it 'returns a success response (i.e. to display the \'edit\' template)' do
+    context '更新失敗' do
+      it '入力画面が再表示される' do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: invalid_attributes}, session: valid_session
         expect(response).to be_successful
@@ -165,14 +178,14 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested task' do
+    it 'タスクが削除される' do
       task = Task.create! valid_attributes
       expect {
         delete :destroy, params: {id: task.to_param}, session: valid_session
       }.to change(Task, :count).by(-1)
     end
 
-    it 'redirects to the tasks list' do
+    it 'タスク一覧ページを表示' do
       task = Task.create! valid_attributes
       delete :destroy, params: {id: task.to_param}, session: valid_session
       expect(response).to redirect_to(tasks_url)
