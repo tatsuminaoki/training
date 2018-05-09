@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
-  # enum admin_flag: { normal: 0, admin: 1 } 
+  # enum admin_flag: { normal: 0, admin: 1 }
 
   def self.check_valid(login_id, password)
     if !login_id.present?
