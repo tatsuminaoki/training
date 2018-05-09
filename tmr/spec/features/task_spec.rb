@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.feature 'Tasks', type: :feature do
 
   before(:each) do
-    user = FactoryBot.create(:task_user)
+    @user = FactoryBot.create(:task_user)
 
     visit login_path
 
     # Password is same as login_id
-    fill_in 'login_id', with: user.login_id
-    fill_in 'password', with: user.login_id
+    fill_in 'login_id', with: @user.login_id
+    fill_in 'password', with: @user.login_id
     click_on I18n.t('buttons.login')
   end
 
@@ -139,8 +139,6 @@ RSpec.feature 'Tasks', type: :feature do
 
 
   describe 'タスク新規作成' do
-    let!(:task) { FactoryBot.create(:task) }
-
     before(:each) do
       visit new_task_path
       fill_in I18n.t('activerecord.attributes.task.title'), with: 'title'
@@ -163,6 +161,33 @@ RSpec.feature 'Tasks', type: :feature do
         expect(page).to have_content Task.last.description
         # Message
         expect(page).to have_content I18n.t('notices.created', model: I18n.t('activerecord.models.task'))
+      end
+    end
+
+    describe '既存ラベルつき', js: true do
+      before do
+        fill_in 'label', with: Label.first.label
+        click_on I18n.t('buttons.add')
+        click_on I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.task'))
+      end
+
+      it 'タスクに対してラベルが一つ登録される' do
+        expect(Task.last.labels.count).to eq 1
+        expect(page).to have_content Label.first.label
+      end
+    end
+
+    describe '新規ラベルつき', js: true do
+      before do
+        fill_in 'label', with: 'Completely new label'
+        click_on I18n.t('buttons.add')
+        click_on I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.task'))
+      end
+
+      it 'タスクに対して現在のユーザに対するラベルが一つ登録される' do
+        expect(Task.last.labels.count).to eq 1
+        expect(Task.last.labels[0].user_id).to eq @user.id
+        expect(page).to have_content Label.last.label
       end
     end
 
@@ -211,6 +236,33 @@ RSpec.feature 'Tasks', type: :feature do
       end
     end
 
+    describe '既存ラベルつき', js: true do
+      before do
+        fill_in 'label', with: Label.last.label
+        click_on I18n.t('buttons.add')
+        click_on I18n.t('helpers.submit.update', model: I18n.t('activerecord.models.task'))
+      end
+
+      it 'タスクに対してラベルが一つ追加登録される' do
+        expect(Task.last.labels.count).to eq 2
+        expect(page).to have_content Label.first.label
+      end
+    end
+
+    describe '新規ラベルつき', js: true do
+      before do
+        fill_in 'label', with: 'Completely new label'
+        click_on I18n.t('buttons.add')
+        click_on I18n.t('helpers.submit.update', model: I18n.t('activerecord.models.task'))
+      end
+
+      it 'タスクに対して現在のユーザに対するラベルが一つ追加登録される' do
+        expect(Task.last.labels.count).to eq 2
+        expect(Label.last.user_id).to eq @user.id
+        expect(page).to have_content Label.last.label
+      end
+    end
+
     describe '項目不足' do
       before do
         visit edit_task_path(task.id)
@@ -227,5 +279,4 @@ RSpec.feature 'Tasks', type: :feature do
       end
     end
   end
-
 end

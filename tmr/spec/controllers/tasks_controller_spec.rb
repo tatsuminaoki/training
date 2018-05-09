@@ -122,20 +122,27 @@ RSpec.describe TasksController, type: :controller do
 
       it 'タスクの詳細ページが表示される' do
         post :create, params: {task: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Task.last)
+        task = Task.last
+        expect(response).to redirect_to(task)
+        expect(task.title).to eq valid_attributes[:title]
+        expect(task.description).to eq valid_attributes[:description]
       end
     end
 
-    context 'ラベルを指定して新規作成' do
-      it '新規タスク' do
-        expect {
-          post :create, params: {task: valid_attributes, label: ''}, session: valid_session
-        }.to change(Task, :count).by(1)
+    context '既存ラベルを指定して新規作成' do
+      it 'ラベルが指定されている' do
+        label = Label.first
+        post :create, params: {task: valid_attributes, labels: [label.id]}, session: valid_session
+        task = Task.last
+        expect(task.labels.first.id).to eq label.id
       end
+    end
 
-      it 'タスクの詳細ページが表示される' do
-        post :create, params: {task: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Task.last)
+    context '新規ラベルを指定して新規作成' do
+      it 'ラベルが指定されている' do
+        post :create, params: {task: valid_attributes, new_labels: ['New Label']}, session: valid_session
+        task = Task.last
+        expect(task.labels.first.label).to eq 'New Label'
       end
     end
 
@@ -155,16 +162,40 @@ RSpec.describe TasksController, type: :controller do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: new_attributes}, session: valid_session
         task.reload
-        # skip('Add assertions for updated state')
-        actual = Task.last
-        expect(actual.title).to eq new_attributes[:title]
-        expect(actual.description).to eq new_attributes[:description]
+
+        expect(task.title).to eq new_attributes[:title]
+        expect(task.description).to eq new_attributes[:description]
       end
 
       it 'タスク詳細ページが表示される' do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: valid_attributes}, session: valid_session
         expect(response).to redirect_to(task)
+      end
+    end
+
+    context 'ラベルを指定して更新' do
+      let(:new_attributes) {valid_attributes.clone.merge!(title: 'New title', description:'New description')}
+
+      context '既存ラベルを指定して更新' do
+        it 'ラベルが指定されている' do
+          label = Label.first
+          task = Task.create! valid_attributes
+
+          put :update, params: {id: task.to_param, task: new_attributes, labels: [label.id]}, session: valid_session
+          task.reload
+          expect(task.labels.first.id).to eq label.id
+        end
+      end
+
+      context '新規ラベルを指定して更新' do
+        it 'ユーザ用に新規作成されたラベルが指定されている' do
+          task = Task.create! valid_attributes
+
+          put :update, params: {id: task.to_param, task: new_attributes, new_labels: ['New Label']}, session: valid_session
+          task.reload
+          expect(task.labels.first.user_id).to eq session[:user]['id'].to_i
+        end
       end
     end
 
@@ -178,17 +209,31 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'タスクが削除される' do
-      task = Task.create! valid_attributes
-      expect {
+    context '削除' do
+      it 'タスクが削除される' do
+        task = Task.create! valid_attributes
+        expect {
+          delete :destroy, params: {id: task.to_param}, session: valid_session
+        }.to change(Task, :count).by(-1)
+      end
+
+      it 'タスク一覧ページを表示' do
+        task = Task.create! valid_attributes
         delete :destroy, params: {id: task.to_param}, session: valid_session
-      }.to change(Task, :count).by(-1)
+        expect(response).to redirect_to(tasks_url)
+      end
     end
 
-    it 'タスク一覧ページを表示' do
-      task = Task.create! valid_attributes
-      delete :destroy, params: {id: task.to_param}, session: valid_session
-      expect(response).to redirect_to(tasks_url)
+    context 'ラベル付きタスクの削除' do
+      it '関連テーブルのレコードが削除される' do
+        task = Task.create! valid_attributes
+        task_to_label = TaskToLabel.create! task_id: task.id, label_id: Label.first.id
+        expect(TaskToLabel.where(task_id: task.id).count).to eq 1
+
+        delete :destroy, params: {id: task.to_param}, session: valid_session
+
+        expect(TaskToLabel.where(task_id: task.id).count).to eq 0
+      end
     end
   end
 end

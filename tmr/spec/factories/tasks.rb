@@ -22,7 +22,14 @@ FactoryBot.define do
     due_date Faker::Time.between(Date.today, 5.days.from_now)
     start_date Faker::Time.between(10.days.ago, 5.days.ago)
     finished_date Faker::Time.between(4.days.ago, Date.today)
+
+    after(:create) do |task|
+      create(:task_to_label, task: task)
+    end
   end
 
-
+  factory :task_to_label do
+    task
+    label Label.first
+  end
 end

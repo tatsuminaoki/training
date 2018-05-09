@@ -14,6 +14,8 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/
 require 'database_cleaner'
+require 'selenium-webdriver'
+require 'capybara/rspec'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -48,6 +50,8 @@ RSpec.configure do |config|
 
   # DatabaseCleaner
   config.before(:suite) do
+    Capybara.javascript_driver = :selenium_chrome_headless
+
     DatabaseCleaner.clean_with :truncation
     DatabaseCleaner.strategy = :transaction
 
