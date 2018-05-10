@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     sort = sort_column Task, 'created_at'
     order = sort_order
 
-    label_models = Label.where('user_id is null or user_id = ?', params[:id].to_i)
+    label_models = Label.labels_for_user(params[:id].to_i)
     @labels = Hash.new
     @labels.store(I18n.t('labels.all'), '0')
     label_models.each do |label|
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     @user = User.new(login_id: user_params[:login_id], admin_flag: user_params[:admin_flag])
     password = user_params[:password]
 
-    message = User.check_valid(@user.login_id, password)
+    message = User.check_input_values(@user.login_id, password)
 
     if message.present?
       flash.now[:notice] = message

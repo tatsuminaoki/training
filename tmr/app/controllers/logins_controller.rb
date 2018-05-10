@@ -18,11 +18,8 @@ class LoginsController < ApplicationController
     if user.present?
       session[:user] = user
 
-      # 管理者ログイン
-      if user.admin_flag?
-        redirect_to users_path
-        return
-      end
+      # 管理者ログインの場合、ユーザ一覧を表示
+      return redirect_to users_path if user.admin_flag?
 
       # タスク一覧
       redirect_to tasks_path
@@ -42,7 +39,7 @@ class LoginsController < ApplicationController
     @user = User.new(login_id: params[:login_id])
     password = params[:password]
 
-    message = User.check_valid(@user.login_id, password)
+    message = User.check_input_values(@user.login_id, password)
 
     if message.present?
       flash.now[:notice] = message

@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     @user = session[:user]
     sort = sort_column Task, 'created_at'
     order = sort_order
-    label_models = get_labels
+    label_models = Label.labels_for_user(@user['id'])
 
     @labels = Hash.new
     @labels.store(I18n.t('labels.all'), '0')
@@ -54,29 +54,28 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @labels = get_labels
+    @labels = Label.labels_for_user(session[:user]['id'])
   end
 
   # GET /tasks/1/edit
   def edit
-    @labels = get_labels
+    @labels = Label.labels_for_user(session[:user]['id'])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    user = session[:user]
     @task = Task.new(task_params)
-    @task.user_id = user['id']
+    @task.user_id = session[:user]['id']
 
     respond_to do |format|
       if @task.save
-        add_labels
+        @task.add_labels(params[:labels], params[:new_labels])
 
         format.html { redirect_to @task, notice: t('notices.created', model: t('activerecord.models.task')) }
         format.json { render :show, status: :created, location: @task }
       else
-        @labels = get_labels
+        @labels = Label.labels_for_user(session[:user]['id'])
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -88,12 +87,12 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        add_labels
+        @task.add_labels(params[:labels], params[:new_labels])
 
         format.html { redirect_to @task, notice: t('notices.updated', model: t('activerecord.models.task')) }
         format.json { render :show, status: :ok, location: @task }
       else
-        @labels = get_labels
+        @labels = Label.labels_for_user(session[:user]['id'])
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -120,29 +119,6 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
-    end
-
-    def get_labels
-      @labels = Label.where('user_id is null or user_id = ?', session[:user]['id'])
-    end
-
-    def add_labels
-      TaskToLabel.where(task_id: @task.id).delete_all
-
-      labels = params[:labels]
-      if labels.present?
-        labels.each do |label|
-          TaskToLabel.create( task_id: @task.id, label_id: label.to_i )
-        end
-      end
-
-      new_labels = params[:new_labels]
-      if new_labels.present?
-        new_labels.each do |new_label|
-          label = Label.create(label: new_label, user_id: user_id = @task.user_id)
-          TaskToLabel.create( task_id: @task.id, label_id: label.id )
-        end
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

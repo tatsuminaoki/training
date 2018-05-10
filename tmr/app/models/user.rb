@@ -6,14 +6,12 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
-  # enum admin_flag: { normal: 0, admin: 1 }
-
-  def self.check_valid(login_id, password)
+  def self.check_input_values(login_id, password)
     if !login_id.present?
       return I18n.t('activerecord.attributes.user.login_id') + I18n.t('activerecord.errors.messages.blank')
     elsif !password.present?
       return I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.blank')
-    elsif password.length < User::PASSWORD_MIN_LENGTH
+    elsif password.length < PASSWORD_MIN_LENGTH
       return I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.too_short', count: PASSWORD_MIN_LENGTH)
     end
   end
