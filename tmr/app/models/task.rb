@@ -10,6 +10,8 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
+  after_save :add_labels
+
   scope :get_by_user_id, ->(user_id) {
     where(user_id: user_id)
   }
@@ -19,23 +21,30 @@ class Task < ApplicationRecord
   }
 
   scope :get_by_keyword, ->(keyword) {
-    where('title like :keyword OR description like :keyword', keyword: "%#{keyword}%")
+    where('title like :keyword', keyword: "%#{keyword}%")
+      .or(where('description like :keyword', keyword: "%#{keyword}%"))
   }
 
-  def add_labels(labels, new_labels)
-    TaskToLabel.where(task_id: id).delete_all
-
-    if labels.present?
-      labels.each do |label|
-        TaskToLabel.create( task_id: id, label_id: label.to_i )
-      end
-    end
-
-    if new_labels.present?
-      new_labels.each do |new_label|
-        label = Label.create(label: new_label, user_id: user_id)
-        TaskToLabel.create( task_id: id, label_id: label.id )
-      end
-    end
+  def set_labels(labels, new_labels)
+    @labels = labels
+    @new_labels = new_labels
   end
+
+  private
+    def add_labels
+      TaskToLabel.where(task_id: id).delete_all
+
+      if @labels.present?
+        @labels.each do |label|
+          TaskToLabel.create( task_id: id, label_id: label.to_i )
+        end
+      end
+
+      if @new_labels.present?
+        @new_labels.each do |new_label|
+          label = Label.create(label: new_label, user_id: user_id)
+          TaskToLabel.create( task_id: id, label_id: label.id )
+        end
+      end
+    end
 end

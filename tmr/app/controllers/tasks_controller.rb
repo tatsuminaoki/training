@@ -67,11 +67,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = session[:user]['id']
+    @task.set_labels(params[:labels], params[:new_labels])
 
     respond_to do |format|
       if @task.save
-        @task.add_labels(params[:labels], params[:new_labels])
-
         format.html { redirect_to @task, notice: t('notices.created', model: t('activerecord.models.task')) }
         format.json { render :show, status: :created, location: @task }
       else
@@ -85,10 +84,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    @task.set_labels(params[:labels], params[:new_labels])
     respond_to do |format|
       if @task.update(task_params)
-        @task.add_labels(params[:labels], params[:new_labels])
-
         format.html { redirect_to @task, notice: t('notices.updated', model: t('activerecord.models.task')) }
         format.json { render :show, status: :ok, location: @task }
       else

@@ -49,6 +49,64 @@ describe Task do
     end
   end
 
+  describe '#ラベル関連付け' do
+    context '新規タスク' do
+      let(:task) {Task.new(valid_params)}
+      let(:labels) {[Label.first.id,Label.last.id]}
+      let(:new_label) {'New Label'}
+
+      it 'ラベル関連付け成功' do
+        task.set_labels(labels, [new_label])
+        task.save!
+
+        ids = labels << Label.last.id
+        expect(task.labels.pluck(:id)).to match_array ids
+        expect(Label.last.label).to eq new_label
+      end
+
+      it 'ラベル関連付け失敗' do
+        # Duplicate entry
+        task.set_labels([1,1], [new_label])
+        expect do
+          task.save!
+        end.to raise_error( ActiveRecord::RecordNotUnique )
+      end
+    end
+
+    context 'タスク更新' do
+      let(:task) {Task.create!(valid_params)}
+      let(:labels) {[Label.first.id,Label.last.id]}
+      let(:new_label) {'New Label'}
+
+      it 'ラベル関連付け成功' do
+        task.set_labels(labels, [new_label])
+        task.save!
+
+        ids = labels << Label.last.id
+        expect(task.labels.pluck(:id)).to match_array ids
+        expect(Label.last.label).to eq new_label
+      end
+
+      it 'ラベル関連付け失敗' do
+        # Duplicate entry
+        task.set_labels([1,1], [new_label])
+        expect do
+          task.save!
+        end.to raise_error( ActiveRecord::RecordNotUnique )
+      end
+
+      it 'ラベル削除' do
+        task.set_labels(labels, [new_label])
+        task.save!
+        expect(task.labels.count).to eq 3
+
+        task.set_labels([], [])
+        task.save!
+        expect(task.labels.count).to eq 0
+      end
+    end
+  end
+
   describe '#バリデーション' do
     it 'ユーザIDがないタスク' do
       task = Task.new valid_params.merge(user_id: nil)
