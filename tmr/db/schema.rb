@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_08_060833) do
+ActiveRecord::Schema.define(version: 2018_05_10_042800) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "label", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2018_05_08_060833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["label_id"], name: "index_task_to_labels_on_label_id"
+    t.index ["task_id", "label_id"], name: "index_task_to_labels_on_task_id_and_label_id", unique: true
     t.index ["task_id"], name: "index_task_to_labels_on_task_id"
   end
 
