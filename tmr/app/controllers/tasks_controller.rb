@@ -11,18 +11,32 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    user = session[:user]
+    @user = session[:user]
     sort = sort_column Task, 'created_at'
     order = sort_order
+    label_models = Label.labels_for_user(@user['id'])
+
+    @labels = Hash.new
+    @labels.store(I18n.t('labels.all'), '0')
+    label_models.each do |label|
+      @labels.store(label.label, label.id)
+    end
 
     @tasks = Task.order("#{sort} #{order}")
 
     # ログインユーザで絞込
-    @tasks = @tasks.get_by_user_id(user['id'])
+    @tasks = @tasks.get_by_user_id(@user['id'])
     # ステータスが指定されていたら絞込
     if params[:status].present? && params[:status].to_i > 0
       @tasks = @tasks.get_by_status(params[:status])
     end
+
+    # ラベルが指定されていたら絞込
+    if params[:label].present? && params[:label].to_i > 0
+      task_ids = TaskToLabel.where(label_id: params[:label].to_i).pluck(:task_id)
+      @tasks = @tasks.where(id: task_ids)
+    end
+
     # キーワードが指定されていたら絞込
     if params[:keyword].present?
       @tasks = @tasks.get_by_keyword(params[:keyword])
@@ -40,24 +54,27 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @labels = Label.labels_for_user(session[:user]['id'])
   end
 
   # GET /tasks/1/edit
   def edit
+    @labels = Label.labels_for_user(session[:user]['id'])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    user = session[:user]
     @task = Task.new(task_params)
-    @task.user_id = user['id']
+    @task.user_id = session[:user]['id']
+    @task.set_labels(params[:labels], params[:new_labels])
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: t('notices.created', model: t('activerecord.models.task')) }
         format.json { render :show, status: :created, location: @task }
       else
+        @labels = Label.labels_for_user(session[:user]['id'])
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -67,11 +84,13 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    @task.set_labels(params[:labels], params[:new_labels])
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: t('notices.updated', model: t('activerecord.models.task')) }
         format.json { render :show, status: :ok, location: @task }
       else
+        @labels = Label.labels_for_user(session[:user]['id'])
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -92,8 +111,7 @@ class TasksController < ApplicationController
     # ユーザチェック
     def check_user
       user = session[:user]
-
-      raise Forbidden if user['id'] != @task.user_id
+      raise Forbidden if user['id'] != @task.user_id && !ActiveRecord::Type::Boolean.new.cast(user['admin_flag'])
     end
 
     # Use callbacks to share common setup or constraints between actions.

@@ -9,8 +9,6 @@ RSpec.describe LoginsController, type: :controller do
     @user = FactoryBot.create(:user)
   end
 
-  let(:valid_attributes) {FactoryBot.build(:user_attributes)}
-
   let(:valid_session) { {} }
 
   describe 'GET #index' do
@@ -35,6 +33,16 @@ RSpec.describe LoginsController, type: :controller do
       end
     end
 
+    context '管理者ログイン' do
+      before do
+        @user.update({admin_flag: true})
+      end
+      it 'ユーザ一覧ページを表示' do
+        post :login, params: {login_id: @user[:login_id], password: @user[:login_id]}, session: valid_session
+        expect(response).to redirect_to('/admin/users')
+      end
+    end
+
     context 'ログイン失敗' do
       it 'ログインページを再表示' do
         post :login, params: {login_id: @user[:login_id], password: 'wrong'}, session: valid_session
@@ -47,14 +55,14 @@ RSpec.describe LoginsController, type: :controller do
     context 'ユーザ登録成功' do
       it 'タスク一覧ページを表示' do
         post :register, params: {login_id: @user[:login_id], password: @user[:login_id]}, session: valid_session
-        expect(response).to redirect_to('/tasks')
+        expect(response).to be_successful
       end
     end
 
     context 'ユーザ登録失敗' do
       it 'ユーザ登録ページを再表示' do
         post :register, params: {login_id: @user[:login_id], password: ''}, session: valid_session
-        expect(response).to redirect_to('/signup')
+        expect(response).to be_successful
       end
     end
   end

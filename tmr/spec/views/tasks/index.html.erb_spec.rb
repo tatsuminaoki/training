@@ -4,7 +4,7 @@ RSpec.describe "tasks/index", type: :view do
 
 
   before(:each) do
-    FactoryBot.create(:user)
+    FactoryBot.create(:task_user)
 
     assign(:tasks, [
       Task.create!(valid_attributes),

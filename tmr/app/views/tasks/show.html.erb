@@ -23,6 +23,13 @@
 </p>
 
 <p>
+  <strong><%=t 'activerecord.attributes.task.label' %> : </strong>
+  <% @task.labels.each do |label| %>
+  <span class="label"><%= label.label %></span>
+  <% end %>
+</p>
+
+<p>
   <strong><%=t 'activerecord.attributes.task.due_date' %> : </strong>
   <%= @task.due_date %>
 </p>

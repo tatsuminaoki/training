@@ -33,6 +33,10 @@ ja:
       login: "ログイン"
       logout: "ログアウト"
       signup: "ユーザ登録"
+    user:
+      new: "ユーザ登録"
+      edit: "ユーザ編集"
+      list: "ユーザ一覧"
 
   buttons:
     show: "表示"
@@ -44,9 +48,11 @@ ja:
     login: "ログイン"
     logout: "ログアウト"
     signup: "ユーザ登録"
+    add: "追加"
 
   labels:
     keyword: "キーワード"
+    all: "すべて"
 
   models:
     statuses:

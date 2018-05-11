@@ -33,6 +33,7 @@ ja:
   activerecord: &activerecord
     models:
       task: "タスク"
+      user: "ユーザ"
     attributes:
       task:
         user_id: "ユーザ"
@@ -44,12 +45,15 @@ ja:
         due_date: "期限"
         start_date: "開始日時"
         finished_date: "完了日時"
+        label: "ラベル"
       user:
         login_id: "ログインID"
         password: "パスワード"
+        admin_flag: "管理者"
     errors:
       messages:
         blank: "は必須です"
         uniqueness: "はすでに使用されています"
         too_long: "は%{count}文字以内で入力してください"
         too_short: "は%{count}文字以上で入力してください"
+        need_successor: "は最低1人必要です。後継者を指定してから辞めてください。"

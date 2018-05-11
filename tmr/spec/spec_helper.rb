@@ -14,6 +14,8 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/
 require 'database_cleaner'
+require 'selenium-webdriver'
+require 'capybara/rspec'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -48,8 +50,14 @@ RSpec.configure do |config|
 
   # DatabaseCleaner
   config.before(:suite) do
+    Capybara.javascript_driver = :selenium_chrome_headless
+
     DatabaseCleaner.clean_with :truncation
     DatabaseCleaner.strategy = :transaction
+
+    prepare_statuses
+    prepare_priorities
+    prepare_labels
   end
 
   config.before(:each) do
@@ -61,7 +69,7 @@ RSpec.configure do |config|
   end
 end
 
-def prepare_statuses 
+def prepare_statuses
   Status.create(id: 1, status: '未着手', created_at: DateTime.now, updated_at: DateTime.now)
   Status.create(id: 2, status: '着手', created_at: DateTime.now, updated_at: DateTime.now)
   Status.create(id: 3, status: '済', created_at: DateTime.now, updated_at: DateTime.now)
@@ -71,4 +79,10 @@ def prepare_priorities
   Priority.create(id: 10, priority: 'low', created_at: DateTime.now, updated_at: DateTime.now)
   Priority.create(id: 20, priority: 'mid', created_at: DateTime.now, updated_at: DateTime.now)
   Priority.create(id: 30, priority: 'high', created_at: DateTime.now, updated_at: DateTime.now)
+end
+
+def prepare_labels
+  Label.create(id: 1, label: 'Label 1', created_at: DateTime.now, updated_at: DateTime.now)
+  Label.create(id: 2, label: 'Label 2', created_at: DateTime.now, updated_at: DateTime.now)
+  Label.create(id: 3, label: 'Label 3', created_at: DateTime.now, updated_at: DateTime.now)
 end

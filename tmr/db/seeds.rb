@@ -9,5 +9,7 @@ require 'digest/md5'
 
 5.times do |no|
   login_id = "tmr#{no}"
-  User.create(login_id: login_id, password_hash: User.password_hash(login_id))
+  User.create(login_id: login_id, password_hash: User.password_hash(login_id, login_id))
 end
+
+User.create(login_id: 'admin', password_hash: User.password_hash('admin', 'admin'))

@@ -17,6 +17,11 @@ class LoginsController < ApplicationController
 
     if user.present?
       session[:user] = user
+
+      # 管理者ログインの場合、ユーザ一覧を表示
+      return redirect_to users_path if user.admin_flag?
+
+      # タスク一覧
       redirect_to tasks_path
     else
       redirect_to login_path, notice: I18n.t('notices.login_invalid')
@@ -31,23 +36,24 @@ class LoginsController < ApplicationController
   # Create User
   # POST /register
   def register
-    login_id = params[:login_id]
+    @user = User.new(login_id: params[:login_id])
     password = params[:password]
 
-    if !password.present?
-      redirect_to signup_path,
-                  notice: I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.blank')
-    elsif password.length < User::PASSWORD_MIN_LENGTH
-      redirect_to signup_path,
-                  notice: I18n.t('activerecord.attributes.user.password') + I18n.t('activerecord.errors.messages.too_short', count: 4)
-    elsif !login_id.present?
-      redirect_to signup_path,
-                  notice: I18n.t('activerecord.attributes.user.login_id') + I18n.t('activerecord.errors.messages.blank')
-    else
-      password_hash = User.password_hash(login_id, password)
-      user = User.create(login_id: login_id, password_hash: password_hash)
+    message = User.check_input_values(@user.login_id, password)
 
-      session[:user] = user
+    if message.present?
+      flash.now[:notice] = message
+      render 'signup'
+    else
+      @user.password_hash = User.password_hash(@user.login_id, password)
+
+      if !@user.save
+        flash.now[:notice] = @user.errors.full_messages[0]
+        render 'signup'
+        return
+      end
+
+      session[:user] = @user
       redirect_to tasks_path
     end
   end

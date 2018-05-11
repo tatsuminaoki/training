@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   class Forbidden < ActionController::ActionControllerError; end
+  class NotFound < ActionController::ActionControllerError; end
 
   def set_locale
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
@@ -18,8 +19,13 @@ class ApplicationController < ActionController::Base
 
 
   # エラー
-  rescue_from Exception, with: :error_500 unless Rails.env.development?
+  rescue_from NotFound, with: :error_404
   rescue_from Forbidden, with: :error_403
+  rescue_from Exception, with: :error_500 unless Rails.env.development?
+
+  def error_404(e)
+    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+  end
 
   def error_403(e)
     render file: "#{Rails.root}/public/403.html", layout: false, status: 403

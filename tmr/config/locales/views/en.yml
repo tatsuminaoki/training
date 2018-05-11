@@ -33,6 +33,10 @@ en:
       login: "Login"
       logout: "Logout"
       signup: "Sign up"
+    user:
+      new: "Register User"
+      edit: "Update User"
+      list: "User List"
 
   buttons:
     show: "Show"
@@ -44,9 +48,11 @@ en:
     login: "Login"
     logout: "Logout"
     signup: "Sign up"
+    add: "Add"
 
   labels:
     keyword: "Keyword"
+    all: "All"
 
   models:
     statuses:

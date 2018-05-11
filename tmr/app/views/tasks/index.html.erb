@@ -4,7 +4,7 @@
 <div class="page_content">
 <br><br>
 
-<%= form_tag('/tasks', method: 'get') do %>
+<%= form_tag('', method: 'get') do %>
 
   <%= t 'activerecord.attributes.task.status' %><br>
   <input type="radio" name="status" value="0" id="task_status_all" checked="<%= params['status'].to_i == 0 %>">
@@ -14,6 +14,10 @@
     <%= radio_button_tag 'status', status.id , params['status'].to_i == status.id %>
     <label for="status_<%= status.id %>"><%= t("models.statuses.values.v#{status.id}") %></label>
   <% end %>
+  <br><br>
+
+  <label for="label"><%= t('activerecord.attributes.task.label') %></label><br>
+  <%= select_tag 'label', options_for_select(@labels, selected: params['label']) %>
   <br><br>
 
   <label for="keyword"><%= t('labels.keyword') %></label><br>
@@ -49,9 +53,11 @@
         <td><%= task.due_date %></td>
         <td><%= task.start_date %></td>
         <td><%= task.finished_date %></td>
+        <% if !@user['admin_flag'] %>
         <td><%= link_to "#{t 'buttons.show'}", task %></td>
         <td><%= link_to "#{t 'buttons.edit'}", edit_task_path(task) %></td>
         <td><%= link_to "#{t 'buttons.delete'}", task, method: :delete, data: { confirm: "#{t 'confirmations.delete' }" } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -59,6 +65,8 @@
 <%= paginate @tasks %>
 <br>
 
+<% if !@user['admin_flag'] %>
 <%= link_to "#{t 'buttons.new'}", new_task_path %>
+<% end %>
 
 <div>

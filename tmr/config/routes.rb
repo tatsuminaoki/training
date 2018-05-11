@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   get '/users/:id/tasks', to: 'users#tasks'
 
   resources :tasks
-  resources :users
+
+  scope :admin do
+    resources :users
+    resources :tasks
+    get '/' => redirect('/admin/users')
+    get '/users/:id/tasks', to: 'users#tasks'
+  end
 
   root 'tasks#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

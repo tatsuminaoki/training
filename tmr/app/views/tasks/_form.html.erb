@@ -32,6 +32,23 @@
   </div>
 
   <div class="field">
+    <%= form.label :label %>
+    <input type="text" id="label" name="label" list="labels" placeholder="テキスト入力もしくはリストから選択" autocomplete="off">
+    <datalist id="labels">
+      <% @labels.each do |label| %>
+      <option data-value="<%= label.id %>" ><%= label.label %></option>
+      <% end %>
+    </datalist>
+    <button id="add-label"><%=t 'buttons.add' %></button>
+
+    <div id="selected-labels">
+    <% task.labels.each do |label| %>
+    <span class="label"><%= label.label %><input type="hidden" name="labels[]" value="<%= label.id %>"></span>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="field">
     <%= form.label :due_date %>
     <%= form.datetime_select :due_date %>
   </div>
@@ -50,3 +67,44 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#add-label').click(function(){
+    label = $('#label').val();
+    if (!label) return false;
+
+    $('#label').val('');
+
+    for (var i=0; i<$('.label').length; i++) { // existence check
+      if ( $('.label').eq(i).text() == label ) return false;
+    }
+
+    label_value = label;
+    input_name = 'new_labels[]';
+    for (var i=0; i<$('datalist option').length; i++) {
+      if ( $('datalist option').eq(i).text() == label ) {
+        label_value = $('datalist option').eq(i).attr('data-value');
+        input_name = 'labels[]';
+        break;
+      }
+    }
+
+    inner_html = '<span class="label">' + label
+                + '<input type="hidden" name="' + input_name + '" value="' + label_value + '"></span>';
+
+    if ($('#selected-labels').children().length > 0) {
+      $('.label:last').after(inner_html);
+    } else {
+      $('#selected-labels').append(inner_html);
+    }
+
+    return false;
+  });
+
+  $(document).on('click', '.label', function(){
+    this.remove();
+  });
+
+});
+</script>
