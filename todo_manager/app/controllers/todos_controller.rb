@@ -14,7 +14,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = current_user.todos.new(
+    @todo = current_user.todos.build(
       title: params[:title],
       content: params[:content],
       priority_id: params[:todo][:priority_id],
