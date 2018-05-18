@@ -10,7 +10,7 @@
   <input type="hidden" name="label" value="<%= @label %>">
   <%= submit_tag(t('dictionary.search')) %>
 <% end %>
-<%= link_to(t('dictionary.create'), request.path_info == root_path ? '/todos/new' : './new') %>
+<%= link_to(t('dictionary.create'), request.path_info == root_path ? todos_new_path : admin_path) %>
 <table border="1">
   <thead>
   <tr>
