@@ -244,6 +244,28 @@ RSpec.describe 'Todos', type: :request do
 
                   it { expect(current_path).to eq "/todos/#{user.todos.first.id}/detail" }
                 end
+
+                describe "create user's todos" do
+                  before do
+                    click_on I18n.t('dictionary.create')
+                    fill_in 'title', with: "user's todo"
+                    fill_in 'content', with: "user's content"
+                    select I18n.t('priority.high'), from: 'todo[priority_id]'
+                    fill_in 'labels[x1][name]', with: "user's label"
+                    fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
+                    click_on I18n.t('dictionary.create')
+                  end
+
+                  it { is_expected.to have_content(I18n.t('flash.todos.create')) }
+
+                  it 'should create todos' do
+                    is_expected.to have_content("user's todo")
+                    is_expected.to have_content("user's content")
+                    is_expected.to have_content(I18n.t('priority.high'))
+                    is_expected.to have_link("user's label")
+                    is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
+                  end
+                end
               end
 
               describe 'create user' do
