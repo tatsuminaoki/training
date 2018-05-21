@@ -44,7 +44,7 @@ class TodosController < ApplicationController
 
     set_labels('update')
 
-    save_todos('update', "/todos/#{@todo.id}/detail", :edit)
+    save_todos('update', detail_todo_path(@todo.id), :edit)
   end
 
   def destroy

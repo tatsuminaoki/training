@@ -8,7 +8,7 @@
   <textarea name="content"><%= @todo.content %></textarea>
   <p><%= t('dictionary.priority') %></p>
   <%= select :todo, :priority_id, [[t('priority.low'), 'low'], [t('priority.middle'), 'middle'], [t('priority.high'), 'high']], selected: @todo.priority_id %>
-  <% if pages == "/todos/#{@todo.id}/update" %>
+  <% if pages == "/todos/#{params[:id]}/update" %>
     <p><%= t('dictionary.status') %></p>
     <%= select :todo, :status_id, [[t('status.unstarted'), 'unstarted'], [t('status.working'), 'working'], [t('status.completed'), 'completed']], selected: @todo.status_id %>
   <% end %>
@@ -25,5 +25,5 @@
   <p><%= t('dictionary.deadline') %></p>
   <input type="datetime-local" name="deadline" value="<%= @todo.deadline.strftime('%Y-%m-%dT%H:%M') if !@todo.deadline.nil? %>">
   <br>
-  <%= submit_tag(t("dictionary.#{pages == "/todos/#{@todo.id}/update" ? 'update' : 'create'}")) %>
+  <%= submit_tag(t("dictionary.#{pages == "/todos/#{params[:id]}/update" ? 'update' : 'create'}")) %>
 <% end %>

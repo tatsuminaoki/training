@@ -1,2 +1,2 @@
 <h2><%= t('views.todos.edit.title') %></h2>
-<%= render 'shared/todos_form', pages: "/todos/#{params[:id]}/update" %>
+<%= render 'shared/todos_form', pages: todo_path(params[:id]) %>

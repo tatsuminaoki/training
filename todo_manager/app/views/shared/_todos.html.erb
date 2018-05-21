@@ -10,7 +10,7 @@
   <input type="hidden" name="label" value="<%= @label %>">
   <%= submit_tag(t('dictionary.search')) %>
 <% end %>
-<%= link_to(t('dictionary.create'), request.path_info == root_path ? todos_new_path : admin_path) %>
+<%= link_to(t('dictionary.create'), request.path_info == root_path ? new_todo_path : admin_path) %>
 <table border="1">
   <thead>
   <tr>
@@ -27,7 +27,7 @@
     <tr>
       <th><%= t("priority.#{todo.priority_id}") %></th>
       <th><%= t("status.#{todo.status_id}") %></th>
-      <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
+      <th><%= link_to(todo.title, detail_todo_path(todo.id)) %></th>
       <th><%= todo.content %></th>
       <th>
         <% todo.labels.each do |label| %>
