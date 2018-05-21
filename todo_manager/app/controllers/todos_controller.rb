@@ -4,13 +4,11 @@ class TodosController < ApplicationController
 
   def index
     get_todos(current_user)
-    render 'index'
+    render :index
   end
 
   def new
-    @todo = Todo.new
-    3.times { @todo.labels.build }
-    @todo.deadline = Time.current.tomorrow.strftime('%Y-%m-%dT%H:%M')
+    set_todos
   end
 
   def create
@@ -22,13 +20,7 @@ class TodosController < ApplicationController
 
     set_labels('create')
 
-    if @todo.save
-      flash[:notice] = I18n.t('flash.todos.create')
-      redirect_to('/')
-    else
-      (3 - @todo.labels.size).times { @todo.labels.build }
-      render 'new'
-    end
+    save_todos('create', root_path, :new)
   end
 
   def detail
@@ -37,7 +29,7 @@ class TodosController < ApplicationController
 
   def edit
     @todo = Todo.find_by(id: params[:id])
-    (3 - @todo.labels.count).times { @todo.labels.build }
+    (NO_OF_LABELS - @todo.labels.count).times { @todo.labels.build }
   end
 
   def update
@@ -52,23 +44,17 @@ class TodosController < ApplicationController
 
     set_labels('update')
 
-    if @todo.save
-      flash[:notice] = I18n.t('flash.todos.update')
-      redirect_to("/todos/#{@todo.id}/detail")
-    else
-      (3 - @todo.labels.size).times { @todo.labels.build }
-      render 'edit'
-    end
+    save_todos('update', "/todos/#{@todo.id}/detail", :edit)
   end
 
   def destroy
     @todo = Todo.find_by(id: params[:id])
     if @todo.destroy
       flash[:notice] = I18n.t('flash.todos.destroy.success')
-      redirect_to('/')
+      redirect_to(root_path)
     else
       flash.now[:notice] = I18n.t('flash.todos.destroy.failure')
-      render 'detail'
+      render :detail
     end
   end
 
@@ -76,7 +62,7 @@ class TodosController < ApplicationController
     @todo = Todo.find_by(id: params[:id])
     if current_user.user_type != 'admin' && current_user.id != @todo.user_id
       flash[:notice] = I18n.t('flash.users.authorization.failure')
-      redirect_to('/')
+      redirect_to(root_path)
     end
   end
 
