@@ -244,6 +244,28 @@ RSpec.describe 'Todos', type: :request do
 
                   it { expect(current_path).to eq "/todos/#{user.todos.first.id}/detail" }
                 end
+
+                describe "create user's todos" do
+                  before do
+                    click_on I18n.t('dictionary.create')
+                    fill_in 'title', with: "user's todo"
+                    fill_in 'content', with: "user's content"
+                    select I18n.t('priority.high'), from: 'todo[priority_id]'
+                    fill_in 'labels[x1][name]', with: "user's label"
+                    fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
+                    click_on I18n.t('dictionary.create')
+                  end
+
+                  it { is_expected.to have_content(I18n.t('flash.todos.create')) }
+
+                  it 'should create todos' do
+                    is_expected.to have_content("user's todo")
+                    is_expected.to have_content("user's content")
+                    is_expected.to have_content(I18n.t('priority.high'))
+                    is_expected.to have_link("user's label")
+                    is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
+                  end
+                end
               end
 
               describe 'create user' do
@@ -523,7 +545,7 @@ RSpec.describe 'Todos', type: :request do
         is_expected.to have_link(I18n.t('dictionary.create'), href: '/todos/new')
       end
 
-      describe 'create page' do
+      describe 'create todos page' do
         before { click_on I18n.t('dictionary.create') }
 
         it_behaves_like 'have a header'
@@ -536,11 +558,18 @@ RSpec.describe 'Todos', type: :request do
           is_expected.to have_select('todo[priority_id]', options: I18n.t('priority').values)
         end
 
+        it 'should have the 3 input box for labels' do
+          3.times do |i|
+            is_expected.to have_field("labels[x#{i + 1}][name]", with: '')
+          end
+        end
+
         describe 'create new todo' do
           context 'title is nil' do
             before do
               fill_in 'content', with: 'fuga'
               select I18n.t('priority.low'), from: 'todo[priority_id]'
+              fill_in 'labels[x1][name]', with: 'test_label'
               fill_in 'deadline', with: '2099-08-01T12:00'
               click_on I18n.t('dictionary.create')
             end
@@ -556,6 +585,7 @@ RSpec.describe 'Todos', type: :request do
             it 'should keep the value' do
               is_expected.to have_field('content', with: 'fuga')
               is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
+              is_expected.to have_field('labels[x1][name]', with: 'test_label')
               is_expected.to have_field('deadline', with: '2099-08-01T12:00')
             end
           end
@@ -565,6 +595,7 @@ RSpec.describe 'Todos', type: :request do
               fill_in 'title', with: 'hoge'
               fill_in 'content', with: 'fuga'
               select I18n.t('priority.low'), from: 'todo[priority_id]'
+              fill_in 'labels[x1][name]', with: 'test_label'
               fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
               click_on I18n.t('dictionary.create')
             end
@@ -583,7 +614,20 @@ RSpec.describe 'Todos', type: :request do
               is_expected.to have_link('hoge')
               is_expected.to have_content('fuga')
               is_expected.to have_content(I18n.t('priority.low'))
+              is_expected.to have_link('test_label')
               is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
+            end
+
+            it 'should show the label in todo detail page' do
+              click_on 'hoge'
+              is_expected.to have_content('test_label')
+            end
+
+            describe 'refine search with labels' do
+              before { click_on 'test_label' }
+
+              it { is_expected.to have_content('hoge') }
+              it { is_expected.not_to have_content(todo.title) }
             end
 
             describe 'detail page' do
@@ -618,6 +662,9 @@ RSpec.describe 'Todos', type: :request do
                   is_expected.to have_field('content', with: todo.content)
                   is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.#{todo.priority_id}"))
                   is_expected.to have_select('todo[status_id]', selected: I18n.t("status.#{todo.status_id}"))
+                  3.times do |i|
+                    is_expected.to have_field("labels[x#{i + 1}][name]", with: '')
+                  end
                   is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
                 end
 
@@ -628,6 +675,7 @@ RSpec.describe 'Todos', type: :request do
                       fill_in 'content', with: 'Edited content'
                       select I18n.t('priority.low'), from: 'todo[priority_id]'
                       select I18n.t('status.completed'), from: 'todo[status_id]'
+                      fill_in 'labels[x1][name]', with: 'nice_label'
                       fill_in 'deadline', with: '2099-08-01T12:00'
                       click_on I18n.t('dictionary.update')
                     end
@@ -646,6 +694,7 @@ RSpec.describe 'Todos', type: :request do
                       is_expected.to have_field('content', with: 'Edited content')
                       is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
                       is_expected.to have_select('todo[status_id]', selected: I18n.t('status.completed'))
+                      is_expected.to have_field('labels[x1][name]', with: 'nice_label')
                       is_expected.to have_field('deadline', with: '2099-08-01T12:00')
                     end
                   end
@@ -656,6 +705,7 @@ RSpec.describe 'Todos', type: :request do
                       fill_in 'content', with: 'Edited content'
                       select I18n.t('priority.low'), from: 'todo[priority_id]'
                       select I18n.t('status.completed'), from: 'todo[status_id]'
+                      fill_in 'labels[x1][name]', with: 'nice_label'
                       fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
                       click_on I18n.t('dictionary.update')
                     end
@@ -671,11 +721,34 @@ RSpec.describe 'Todos', type: :request do
                       is_expected.to have_content('Edited content')
                       is_expected.to have_content(I18n.t('priority.low'))
                       is_expected.to have_content(I18n.t('status.completed'))
+                      is_expected.to have_content('nice_label')
                       is_expected.to have_content(I18n.l(Time.zone.parse('2099/08/01 12:00'), format: :long))
                     end
 
                     it 'should show a flash message' do
                       is_expected.to have_content(I18n.t('flash.todos.update'))
+                    end
+
+                    describe 'labels' do
+                      before { click_on I18n.t('dictionary.edit') }
+                      context 'update' do
+                        before do
+                          fill_in "labels[#{Label.find_by(name: 'nice_label').id}][name]", with: 'great_label'
+                          click_on I18n.t('dictionary.update')
+                        end
+
+                        it { is_expected.to have_content('great_label') }
+                        it { is_expected.not_to have_content('nice_label') }
+                      end
+
+                      context 'delete' do
+                        before do
+                          fill_in "labels[#{Label.find_by(name: 'nice_label').id}][name]", with: ''
+                          click_on I18n.t('dictionary.update')
+                        end
+
+                        it { is_expected.not_to have_content('nice_label') }
+                      end
                     end
                   end
                 end

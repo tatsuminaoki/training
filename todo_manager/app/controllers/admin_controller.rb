@@ -11,12 +11,7 @@ class AdminController < ApplicationController
 
   def create
     @user = User.new(name: params[:name], password: params[:password], user_type: params[:user][:user_type])
-    if @user.save
-      flash[:notice] = I18n.t('flash.users.create')
-      redirect_to('/admin')
-    else
-      render 'new'
-    end
+    save_users('create', admin_index_path, :new)
   end
 
   def show
@@ -35,16 +30,9 @@ class AdminController < ApplicationController
     else
       @user.user_type = params[:user][:user_type]
     end
-    if !params[:password].nil?
-      @user.password = params[:password]
-    end
+    @user.password = params[:password] if !params[:password].nil?
 
-    if @user.save
-      flash[:notice] = I18n.t('flash.users.update')
-      redirect_to("/admin/#{@user.id}/edit")
-    else
-      render 'edit'
-    end
+    save_users('update', edit_admin_path, :edit)
   end
 
   def destroy
@@ -52,40 +40,41 @@ class AdminController < ApplicationController
 
     if @user.id != current_user.id && @user.destroy
       flash[:notice] = I18n.t('flash.users.destroy.success')
-      redirect_to('/admin')
+      redirect_to(admin_index_path)
     else
       flash.now[:notice] = I18n.t('flash.users.destroy.failure')
-      render 'show'
+      render :show
     end
   end
 
   def todos
     @user = User.find_by(id: params[:id])
     get_todos(@user)
-    render 'todos'
+    render :todos
   end
 
   def new_todos
     @user = User.find_by(id: params[:id])
-    @todo = Todo.new
-    @todo.deadline = Time.current.tomorrow.strftime('%Y-%m-%dT%H:%M')
+    set_todos
   end
 
   def create_todos
     @user = User.find_by(id: params[:id])
-    @todo = @user.todos.new(title: params[:title], content: params[:content], priority_id: params[:todo][:priority_id], deadline: params[:deadline])
-    if @todo.save
-      flash[:notice] = I18n.t('flash.todos.create')
-      redirect_to("/admin/#{params[:id]}/todos")
-    else
-      render 'new_todos'
-    end
+    @todo = @user.todos.new(
+      title: params[:title],
+      content: params[:content],
+      priority_id: params[:todo][:priority_id],
+      deadline: params[:deadline])
+
+    set_labels('create')
+
+    save_todos('create', todos_admin_path, :new_todos)
   end
 
   def authorize_user
     if current_user.user_type != 'admin'
       flash[:notice] = I18n.t('flash.users.authorization.failure')
-      redirect_to('/')
+      redirect_to(root_path)
     end
   end
 

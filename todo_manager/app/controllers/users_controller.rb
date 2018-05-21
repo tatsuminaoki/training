@@ -9,17 +9,17 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:notice] = I18n.t('flash.users.login.success')
-      redirect_to('/')
+      redirect_to(root_path)
     else
       @error_message = I18n.t('flash.users.login.failure')
-      render 'login'
+      render :login
     end
   end
 
   def logout
     session[:user_id] = nil
     flash[:notice] = I18n.t('flash.users.logout')
-    redirect_to('/login')
+    redirect_to(login_path)
   end
 
   def new
@@ -28,12 +28,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(name: params[:name], password: params[:password])
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = I18n.t('flash.users.signup')
-      redirect_to('/')
-    else
-      render 'new'
-    end
+    save_users('signup', root_path, :new)
   end
 end
