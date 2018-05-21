@@ -14,13 +14,13 @@ RSpec.describe Todo, type: :model do
           let!(:user) { create(:user) }
           context 'is nil' do
             it 'should be false' do
-              expect(user.todos.new(title: '').valid?).to be false
+              expect(user.todos.build(title: '').valid?).to be false
             end
           end
 
           context 'is not nil' do
             it 'should be ok' do
-              expect(user.todos.new(title: 'hoge').valid?).not_to be false
+              expect(user.todos.build(title: 'hoge').valid?).not_to be false
             end
           end
         end

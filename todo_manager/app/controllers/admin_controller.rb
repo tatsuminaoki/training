@@ -60,7 +60,7 @@ class AdminController < ApplicationController
 
   def create_todos
     @user = User.find_by(id: params[:id])
-    @todo = @user.todos.new(
+    @todo = @user.todos.build(
       title: params[:title],
       content: params[:content],
       priority_id: params[:todo][:priority_id],

@@ -16,11 +16,18 @@ Rails.application.routes.draw do
 
   root 'todos#index'
   post '/', to: 'todos#index'
-  get 'todos/new'
-  post 'todos/create'
-  get 'todos/:id/detail', to: 'todos#detail'
-  get 'todos/:id/edit', to: 'todos#edit'
-  post 'todos/:id/update', to: 'todos#update'
-  post 'todos/:id/destroy', to: 'todos#destroy'
-# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :todos, only: %i(new edit) do
+    collection do
+      post 'create', to: :create
+    end
+    member do
+      get :detail
+      post 'update', to: :update
+      post 'destroy', to: :destroy
+    end
+  end
+
+  get '*not_found', to: 'application#_render_404'
+  post '*not_found', to: 'application#_render_404'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
