@@ -69,6 +69,49 @@
   - レビューに対する対応と修正が一通りできること
 - 不明な点を適切なタイミングでチームメンバーや関係者に（今回はメンターになります）口頭やチャットなどで質問ができること
 
+
+## メモ
+
+### データ構造
+- accounts
+    - id (Auto increment, Integer(11))
+    - user_name (String, notnull)
+    - mail_address (String, notnull)
+    - password_digest (String, notnull)
+    - admin (Integer(1), not null, デフォ0)
+        - Unsigned 指定
+        - 0: 一般ユーザ
+        - 1: 管理者
+
+- tasks
+    - id (Auto increment, Integer(11))
+        - インデックスあり
+    - task_name (String, notnull)
+    - description (text)
+    - due_date (date)
+    - priority (Integer(1), notnull)
+        - デフォ0(低)
+        - Unsigned 指定
+    - status (Integer(1), notnull)
+        - Unsigned
+        - デフォ0(未着手)
+    - account_id (Integer(11), notnull)
+        - Unsigned 指定
+        - 空だったらエラー
+
+- labels
+    - Id (Auto increment, Integer(11))
+    - task_id (Integer(11))
+        - Unsigned 指定
+        - インデックスあり
+    - label_id (Integer(11))
+        - Unsigned 指定
+
+- label_types
+    - id (Auto increment, Integer(11))
+    - label_type_name (String, notnull)
+        - ユニーク
+
 ## 課題ステップ
 
 ### ステップ1: Railsの開発環境を構築しよう
