@@ -11,6 +11,8 @@ default: &default
   host: <%= ENV['RAILS_DATABASE_HOST'] || 'localhost' %>
   username: railsuser
   password: railspass
+  encoding: utf8mb4
+  reconnect: false
 
 development:
   <<: *default
