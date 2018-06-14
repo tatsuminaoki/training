@@ -1,0 +1,5 @@
+<%= form_with model: @tasks, local: true do |form| %>
+  <%= form.text_field :task_name %>
+  <%= form.text_field :description %>
+  <%= form.submit %>
+<% end %>
