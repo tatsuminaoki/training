@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <input type='button' value='new' onClick="location.href='/tasks/new'"></input>
+  </div>
+
+  <div>
+    <% @tasks.each do |task| %>
+      <ul>
+        <li><a href="/tasks/show/<%=task.id%>">タスク：<%= task.task_name %></a></li>
+      </ul>
+    <% end %>
+  </div>
+</div>
