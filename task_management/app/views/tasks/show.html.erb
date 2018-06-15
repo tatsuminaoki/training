@@ -1,13 +1,8 @@
-<% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
-<% elsif flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
 <div>
   <div>
-    <input type="button" value="home" onClick="location.href='/'"></input>
-    <input type="button" value="edit" onClick="location.href='/tasks/edit/<%=params[:id]%>'"></input>
-    <input type="button" value="delete" onClick="location.href='/tasks/delete/<%=params[:id]%>'"></input>
+    <input type='button' value='home' onClick="location.href='/'"></input>
+    <input type='button' value='edit' onClick="location.href='/tasks/edit/<%=params[:id]%>'"></input>
+    <input type='button' value='delete' onClick="location.href='/tasks/delete/<%=params[:id]%>'"></input>
   </div>
 
   <div>

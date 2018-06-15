@@ -1,8 +1,1 @@
-<% if flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
-<%= form_with model: Task.new, local: true do |form| %>
-  <%= form.text_field :task_name %>
-  <%= form.text_field :description %>
-  <%= form.submit %>
-<% end %>
+<%= render partial: 'form', :locals => {task: @task, url: tasks_path} %>
