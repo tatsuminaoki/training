@@ -18,8 +18,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(tasks_params)
     if @task.save
+      flash[:notice] = 'タスクを登録しました'
       redirect_to :action => "index"
     else
+      flash[:alert] = 'タスクの登録に失敗しました'
       render :action => "new"
     end
   end
@@ -27,8 +29,10 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(tasks_params)
+      flash[:notice] = 'タスクを更新しました'
       redirect_to :action => "show", id: params[:id]
     else
+      flash[:alert] = 'タスクの更新に失敗しました'
       render :action => "edit"
     end
   end
