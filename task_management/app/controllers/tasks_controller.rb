@@ -37,6 +37,17 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      flash[:notice] = 'タスク：' + @task.task_name + 'を削除しました'
+      redirect_to :action => "index"
+    else
+      flash[:alert] = 'タスク：'+task_name + 'の削除に失敗しました'
+      redirect_to :action => "show", id: params[:id]
+    end
+  end
+
   def tasks_params
     params.require(:task).permit(:task_name,:description)
   end
