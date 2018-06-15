@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get 'tasks/new'
   
   post 'tasks/create', as:"tasks"
-  post 'tasks/edit/:id', to: 'tasks#update'
+  patch 'tasks/edit/:id', to: 'tasks#update'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

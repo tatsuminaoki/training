@@ -5,9 +5,7 @@ class TasksController < ApplicationController
   end
 
   def show
-
     @task = Task.find(params[:id])
-    p @task
   end
   
   def edit
