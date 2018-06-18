@@ -1,14 +1,14 @@
 <div>
   <div>
-    <%= button_to 'home', root_path, method: :get %>
-    <%= button_to 'edit', "/tasks/edit/#{params[:id]}", method: :get %>
-    <%= button_to 'delete', "/tasks/delete/#{params[:id]}", method: :get %>
+    <%= button_to t('button.home'), root_path, method: :get %>
+    <%= button_to t('button.edit'), "/tasks/edit/#{params[:id]}", method: :get %>
+    <%= button_to t('button.delete'), "/tasks/delete/#{params[:id]}", method: :get %>
   </div>
 
   <div>
     <ul>
-      <li>タスク：<%= @task.task_name %></li>
-      <li>詳細　：<%= @task.description %></li>
+      <li><%= t('view.task_name', :task => @task.task_name) %></li>
+      <li><%= t('view.description', :task => @task.description) %></li>
     </ul>
   </div>
 </div>

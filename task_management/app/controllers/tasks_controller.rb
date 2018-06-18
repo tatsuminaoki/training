@@ -19,27 +19,27 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(tasks_params)
     if @task.save
-      redirect_to ({action: 'index'}), notice: 'タスクを登録しました'
+      redirect_to ({action: 'index'}), notice: t('flash.success_create')
     else
-      redirect_to ({action: 'new'}), alert: 'タスクの登録に失敗しました'
+      redirect_to ({action: 'new'}), alert: t('flash.failure_create')
     end
   end
 
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(tasks_params)
-      redirect_to ({action: 'show'}), id: params[:id], notice: 'タスクを更新しました'
+      redirect_to ({action: 'show'}), id: params[:id], notice: t('flash.success_update')
     else
-      redirect_to ({action: 'edit'}), alert: 'タスクの更新に失敗しました'
+      redirect_to ({action: 'edit'}), alert: t('flash.failure_update')
     end
   end
 
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      redirect_to ({action: 'index'}), notice: "タスク：#{@task.task_name}を削除しました"
+      redirect_to ({action: 'index'}), notice: t('flash.success_delete', :task => @task.task_name)
     else
-      redirect_to ({action: 'show'}), id: params[:id], alert: "タスク：#{@task.task_name}の削除に失敗しました"
+      redirect_to ({action: 'show'}), id: params[:id], alert: t('flash.failure_delete', :task =>@task.task_name)
     end
   end
 
