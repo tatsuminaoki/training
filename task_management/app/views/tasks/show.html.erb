@@ -1,14 +1,14 @@
 <div>
   <div>
-    <input type='button' value='home' onClick="location.href='/'"></input>
-    <input type='button' value='edit' onClick="location.href='/tasks/edit/<%=params[:id]%>'"></input>
-    <input type='button' value='delete' onClick="location.href='/tasks/delete/<%=params[:id]%>'"></input>
+    <%= button_to 'home', root_path, method: :get %>
+    <%= button_to 'edit', "/tasks/edit/#{params[:id]}", method: :get %>
+    <%= button_to 'delete', "/tasks/delete/#{params[:id]}", method: :get %>
   </div>
 
   <div>
     <ul>
       <li>タスク：<%= @task.task_name %></li>
-      <li>詳細　： <%= @task.description %></li>
+      <li>詳細　：<%= @task.description %></li>
     </ul>
   </div>
 </div>

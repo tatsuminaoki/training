@@ -1,8 +1,7 @@
 <div>
   <div>
-    <input type='button' value='new' onClick="location.href='/tasks/new'"></input>
+    <%= button_to 'new', tasks_new_path, method: :get %>
   </div>
-a
   <div>
     <% @tasks.each do |task| %>
       <ul>
