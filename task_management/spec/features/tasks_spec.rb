@@ -31,7 +31,7 @@ RSpec.feature "Tasks", type: :feature do
     click_on "タスク：#{@task.task_name}"
     
     expect(current_url).to eq "http://localhost:3000/tasks/show/#{@task.id}"
-    expect(page.all('タスクを更新しました').empty?).to eq true
+    expect(page).not_to have_content 'タスクを更新しました'
     expect(page).to have_button 'home'
     expect(page).to have_button 'edit'
     expect(page).to have_button 'delete'
@@ -44,9 +44,8 @@ RSpec.feature "Tasks", type: :feature do
     click_button 'home'
 
     expect(current_url).to eq 'http://localhost:3000/'
-    expect(page.all('タスクを登録しました').empty?).to eq true
-    # delete_message = 'タスク：task_name4を削除しました'
-    expect(page.all('タスク：task_name4を削除しました').empty?).to eq true　# nokogiriエラー
+    expect(page).not_to have_content 'タスクを登録しました'
+    expect(page).not_to have_content "タスク：#{@task.task_name}を削除しました"
     expect(page).to have_button 'new'
     expect(page).to have_content "タスク：#{@task.task_name}"
   end
@@ -76,10 +75,10 @@ RSpec.feature "Tasks", type: :feature do
   scenario 'タスクの削除' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
     click_button 'delete'
-    visit current_path
     
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).to have_content "タスク：#{@task.task_name}を削除しました"
-    expect(page.all("タスク：#{@task.task_name}").empty?).to eq true
+    visit current_path
+    expect(page).not_to have_content "タスク：#{@task.task_name}"
   end
 end
