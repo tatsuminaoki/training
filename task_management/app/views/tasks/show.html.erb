@@ -1,14 +1,14 @@
 <div>
   <div>
-    <%= button_to t('button.home'), root_path, method: :get %>
-    <%= button_to t('button.edit'), "/tasks/edit/#{params[:id]}", method: :get %>
-    <%= button_to t('button.delete'), "/tasks/delete/#{params[:id]}", method: :get %>
+    <%= button_to I18n.t('button.home'), root_path, method: :get %>
+    <%= button_to I18n.t('button.edit'), "/tasks/edit/#{params[:id]}", method: :get %>
+    <%= button_to I18n.t('button.delete'), "/tasks/delete/#{params[:id]}", method: :get %>
   </div>
 
   <div>
     <ul>
-      <li><%= t('view.task_name', :task => @task.task_name) %></li>
-      <li><%= t('view.description', :task => @task.description) %></li>
+      <li><%= I18n.t('view.task_name', :task => @task.task_name) %></li>
+      <li><%= I18n.t('view.description', :task => @task.description) %></li>
     </ul>
   </div>
 </div>
