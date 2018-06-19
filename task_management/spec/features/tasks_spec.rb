@@ -97,4 +97,53 @@ RSpec.feature "Tasks", type: :feature do
     visit current_path
     expect(page).not_to have_content I18n.t('view.task_name', :task => @task.task_name)
   end
+
+  feature '登録・更新の失敗' do
+    background do
+      @str = ''
+      while @str.length < 256 do
+        @str << 'a'
+      end
+    end
+
+    scenario '0文字のタスクを登録' do
+      visit 'http://localhost:3000/tasks/new'
+      fill_in 'task_task_name', with: ''
+      fill_in 'task_description', with: "#{@task.description}"
+      click_button I18n.t('helpers.submit.create')
+      
+      expect(current_url).to eq 'http://localhost:3000/tasks/new'
+      expect(page).to have_content I18n.t('flash.failure_create')
+    end
+
+    scenario '256文字のタスクを登録' do
+      visit 'http://localhost:3000/tasks/new'
+      fill_in 'task_task_name', with: @str
+      fill_in 'task_description', with: "#{@task.description}"
+      click_button I18n.t('helpers.submit.create')
+      
+      expect(current_url).to eq 'http://localhost:3000/tasks/new'
+      expect(page).to have_content I18n.t('flash.failure_create')
+    end
+
+    scenario '0文字のタスクに更新' do
+      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      fill_in 'task_task_name', with: ''
+      fill_in 'task_description', with: "#{@task.description}(edited)"
+      click_button I18n.t('helpers.submit.update')
+
+      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(page).to have_content I18n.t('flash.failure_update')
+    end
+
+    scenario '256文字のタスクに更新' do
+      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      fill_in 'task_task_name', with: @str
+      fill_in 'task_description', with: "#{@task.description}(edited)"
+      click_button I18n.t('helpers.submit.update')
+
+      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(page).to have_content I18n.t('flash.failure_update')
+    end
+  end
 end
