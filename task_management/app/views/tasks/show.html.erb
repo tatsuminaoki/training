@@ -1,14 +1,14 @@
 <div>
   <div>
-    <%= link_to('home', root_path) %>
-    <%= link_to('edit', edit_task_path) %>
-    <%= link_to('delete', delete_task_path) %>
+    <%= link_to(I18n.t('button.home'), root_path) %>
+    <%= link_to(I18n.t('button.edit'), edit_task_path) %>
+    <%= link_to(I18n.t('button.delete'), delete_task_path) %>
   </div>
 
   <div>
     <ul>
-      <li>タスク：<%= @task.task_name %></li>
-      <li>詳細　：<%= @task.description %></li>
+      <li><%= I18n.t('view.task_name', :task => @task.task_name) %></li>
+      <li><%= I18n.t('view.description', :task => @task.description) %></li>
     </ul>
   </div>
 </div>

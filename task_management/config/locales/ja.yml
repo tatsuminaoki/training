@@ -1,0 +1,22 @@
+ja:
+  helpers:
+    submit:
+      create: 登録する
+      submit: 保存する
+      update: 更新する
+  site_title: タスクマネジメント
+  flash:
+    success_create: タスクの登録に成功しました
+    failure_create: タスクの登録に失敗しました
+    success_update: タスクを更新しました
+    failure_update: タスクの更新に失敗しました
+    success_delete: タスク：%{task}を削除しました
+    failure_delete: タスク：%{task}の削除に失敗しました
+  view:
+    task_name: タスク：%{task}
+    description: 詳細：%{task}
+  button:
+    new: 新規作成
+    edit: 編集
+    delete: 削除
+    home: 一覧
