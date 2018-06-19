@@ -41,9 +41,19 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   scenario 'タスク詳細画面から一覧画面に遷移' do
+    3.times do
+      Timecop.travel(Time.now + 1.day)
+      create(:task)
+    end
+    Timecop.return
     visit "http://localhost:3000/tasks/show/#{@task.id}"
     click_on I18n.t('button.home')
 
+    tasks = all('ul li')
+    tasks_name = ['タスク：task_name7', 'タスク：task_name6', 'タスク：task_name5', 'タスク：task_name4']
+    tasks.each_with_index do |t, i|
+      expect(t.text).to eq tasks_name[i]
+    end
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).not_to have_content I18n.t('flash.success_create')
     expect(page).not_to have_content I18n.t('flash.success_delete', :task => @task.task_name)
@@ -53,7 +63,7 @@ RSpec.feature "Tasks", type: :feature do
 
   scenario 'タスク詳細画面からタスク編集画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_on I18n.t('button.edit')
+    click_on I18n.t('button.edit')  
     
     expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}" 
     expect(page).to have_field 'task_task_name', with: @task.task_name
