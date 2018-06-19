@@ -51,9 +51,24 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
   end
 
+  scenario '一覧画面でタスクを作成日の降順に表示' do
+    3.times do
+      Timecop.travel(Time.now + 1.day)
+      create(:task)
+    end
+    Timecop.return
+    visit root_path
+
+    tasks = all('ul li')
+    task_names = ['タスク：task_name8', 'タスク：task_name7', 'タスク：task_name6', 'タスク：task_name5']
+    tasks.each_with_index do |t, i|
+      expect(t.text).to eq task_names[i]
+    end
+  end
+
   scenario 'タスク詳細画面からタスク編集画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_on I18n.t('button.edit')
+    click_on I18n.t('button.edit')  
     
     expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}" 
     expect(page).to have_field 'task_task_name', with: @task.task_name
