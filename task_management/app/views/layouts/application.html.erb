@@ -10,10 +10,8 @@
   </head>
 
   <body>
-    <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p>
-    <% elsif flash[:alert] %>
-      <p><%= flash[:alert] %></p>
+    <% flash.each do |key, value| %>
+      <%= value %>
     <% end %>
     <%= yield %>
   </body>

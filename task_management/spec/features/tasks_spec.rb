@@ -8,7 +8,8 @@ RSpec.feature "Tasks", type: :feature do
 
   scenario '一覧画面からタスク登録画面に遷移' do
     visit root_path
-    click_button I18n.t('button.new')
+    click_on I18n.t('button.new')
+
     expect(current_url).to eq 'http://localhost:3000/tasks/new'
     expect(page).to have_field 'task_task_name'
     expect(page).to have_field 'task_description'
@@ -32,27 +33,27 @@ RSpec.feature "Tasks", type: :feature do
     
     expect(current_url).to eq "http://localhost:3000/tasks/show/#{@task.id}"
     expect(page).not_to have_content I18n.t('flash.success_update')
-    expect(page).to have_button I18n.t('button.home')
-    expect(page).to have_button I18n.t('button.edit')
-    expect(page).to have_button I18n.t('button.delete')
+    expect(page).to have_content I18n.t('button.home')
+    expect(page).to have_content I18n.t('button.edit')
+    expect(page).to have_content I18n.t('button.delete')
     expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
     expect(page).to have_content I18n.t('view.description', :task => @task.description)
   end
 
   scenario 'タスク詳細画面から一覧画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button I18n.t('button.home')
+    click_on I18n.t('button.home')
 
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).not_to have_content I18n.t('flash.success_create')
     expect(page).not_to have_content I18n.t('flash.success_delete', :task => @task.task_name)
-    expect(page).to have_button I18n.t('button.new')
+    expect(page).to have_content I18n.t('button.new')
     expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
   end
 
   scenario 'タスク詳細画面からタスク編集画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button I18n.t('button.edit')
+    click_on I18n.t('button.edit')
     
     expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}" 
     expect(page).to have_field 'task_task_name', with: @task.task_name
@@ -74,7 +75,7 @@ RSpec.feature "Tasks", type: :feature do
 
   scenario 'タスクの削除' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button I18n.t('button.delete')
+    click_on I18n.t('button.delete')
     
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).to have_content I18n.t('flash.success_delete', :task => @task.task_name)

@@ -1,11 +1,11 @@
 <div>
   <div>
-    <%= button_to I18n.t('button.new'), tasks_new_path, method: :get %>
+    <%= link_to I18n.t('button.new'), tasks_new_path %>
   </div>
   <div>
     <% @tasks.each do |task| %>
       <ul>
-        <li><a href="/tasks/show/<%=task.id%>"><%= I18n.t('view.task_name', :task => task.task_name) %></a></li>
+        <li><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></li>
       </ul>
     <% end %>
   </div>
