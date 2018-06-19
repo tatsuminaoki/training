@@ -1,8 +1,8 @@
 <div>
   <div>
-    <%= button_to 'home', root_path, method: :get %>
-    <%= button_to 'edit', "/tasks/edit/#{params[:id]}", method: :get %>
-    <%= button_to 'delete', "/tasks/delete/#{params[:id]}", method: :get %>
+    <%= link_to('home', root_path) %>
+    <%= link_to('edit', edit_task_path) %>
+    <%= link_to('delete', delete_task_path) %>
   </div>
 
   <div>

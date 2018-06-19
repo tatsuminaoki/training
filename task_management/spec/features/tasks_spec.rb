@@ -8,7 +8,7 @@ RSpec.feature "Tasks", type: :feature do
 
   scenario '一覧画面からタスク登録画面に遷移' do
     visit root_path
-    click_button 'new'
+    click_on 'new'
     expect(current_url).to eq 'http://localhost:3000/tasks/new'
     expect(page).to have_field 'task_task_name'
     expect(page).to have_field 'task_description'
@@ -32,27 +32,27 @@ RSpec.feature "Tasks", type: :feature do
     
     expect(current_url).to eq "http://localhost:3000/tasks/show/#{@task.id}"
     expect(page).not_to have_content 'タスクを更新しました'
-    expect(page).to have_button 'home'
-    expect(page).to have_button 'edit'
-    expect(page).to have_button 'delete'
+    expect(page).to have_content 'home'
+    expect(page).to have_content 'edit'
+    expect(page).to have_content 'delete'
     expect(page).to have_content "タスク：#{@task.task_name}"
     expect(page).to have_content "詳細　：#{@task.description}"
   end
 
   scenario 'タスク詳細画面から一覧画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button 'home'
+    click_on 'home'
 
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).not_to have_content 'タスクを登録しました'
     expect(page).not_to have_content "タスク：#{@task.task_name}を削除しました"
-    expect(page).to have_button 'new'
+    expect(page).to have_content 'new'
     expect(page).to have_content "タスク：#{@task.task_name}"
   end
 
   scenario 'タスク詳細画面からタスク編集画面に遷移' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button 'edit'
+    click_on 'edit'
     
     expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}" 
     expect(page).to have_field 'task_task_name', with: @task.task_name
@@ -74,7 +74,7 @@ RSpec.feature "Tasks", type: :feature do
 
   scenario 'タスクの削除' do
     visit "http://localhost:3000/tasks/show/#{@task.id}"
-    click_button 'delete'
+    click_on 'delete'
     
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).to have_content "タスク：#{@task.task_name}を削除しました"
