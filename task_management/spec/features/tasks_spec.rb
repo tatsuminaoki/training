@@ -41,24 +41,29 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   scenario 'タスク詳細画面から一覧画面に遷移' do
-    3.times do
-      Timecop.travel(Time.now + 1.day)
-      create(:task)
-    end
-    Timecop.return
     visit "http://localhost:3000/tasks/show/#{@task.id}"
     click_on I18n.t('button.home')
 
-    tasks = all('ul li')
-    tasks_name = ['タスク：task_name7', 'タスク：task_name6', 'タスク：task_name5', 'タスク：task_name4']
-    tasks.each_with_index do |t, i|
-      expect(t.text).to eq tasks_name[i]
-    end
     expect(current_url).to eq 'http://localhost:3000/'
     expect(page).not_to have_content I18n.t('flash.success_create')
     expect(page).not_to have_content I18n.t('flash.success_delete', :task => @task.task_name)
     expect(page).to have_content I18n.t('button.new')
     expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
+  end
+
+  scenario '一覧画面でタスクを作成日の降順に表示' do
+    3.times do
+      Timecop.travel(Time.now + 1.day)
+      create(:task)
+    end
+    Timecop.return
+    visit root_path
+
+    tasks = all('ul li')
+    task_names = ['タスク：task_name8', 'タスク：task_name7', 'タスク：task_name6', 'タスク：task_name5']
+    tasks.each_with_index do |t, i|
+      expect(t.text).to eq task_names[i]
+    end
   end
 
   scenario 'タスク詳細画面からタスク編集画面に遷移' do
