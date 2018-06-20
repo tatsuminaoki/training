@@ -110,9 +110,9 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.create')
       
       expect(current_url).to eq 'http://localhost:3000/tasks/new'
-      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.blank')
+      expect(page).to have_content 'タスク名を入力してください。'
     end
-
+    
     scenario '256文字のタスクを登録' do
       visit 'http://localhost:3000/tasks/new'
       fill_in 'task_task_name', with: 'a'*256
@@ -120,7 +120,7 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.create')
       
       expect(current_url).to eq 'http://localhost:3000/tasks/new'
-      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.too_long')
+      expect(page).to have_content 'タスク名は255字以内で入力してください。'
     end
 
     scenario '0文字のタスクに更新' do
@@ -130,7 +130,7 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.update')
 
       expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
-      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.blank')
+      expect(page).to have_content 'タスク名を入力してください。'
     end
 
     scenario '256文字のタスクに更新' do
@@ -140,7 +140,7 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.update')
 
       expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
-      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.too_long')
+      expect(page).to have_content 'タスク名は255字以内で入力してください。'
     end
   end
 end

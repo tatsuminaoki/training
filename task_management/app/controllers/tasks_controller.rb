@@ -21,11 +21,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to ({action: 'index'}), notice: I18n.t('flash.success_create')
     else
-      if @task.errors.details[:task_name][0][:error] == :blank
-        redirect_to ({action: 'new'}), alert: I18n.t('activerecord.format', attribute: I18n.t('activerecord.attributes.task.task_name'), message: I18n.t('activerecord.message.blank'))
-      else
-        redirect_to ({action: 'new'}), alert: I18n.t('activerecord.format', attribute: I18n.t('activerecord.attributes.task.task_name'), message: I18n.t('activerecord.message.too_long', count: @task.errors.details[:task_name][0][:count]))
-      end
+      redirect_to ({action: 'new'}), alert: @task.errors.full_messages[0]
     end
   end
 
@@ -34,13 +30,7 @@ class TasksController < ApplicationController
     if @task.update_attributes(tasks_params)
       redirect_to ({action: 'show'}), id: params[:id], notice: I18n.t('flash.success_update')
     else
-      p '================='
-      p @task.errors.full_messages
-      if @task.errors.details[:task_name][0][:error] == :blank
-        redirect_to ({action: 'edit'}), alert: I18n.t('activerecord.format', attribute: I18n.t('activerecord.attributes.task.task_name'), message: I18n.t('activerecord.message.blank'))
-      else
-        redirect_to ({action: 'edit'}), alert: I18n.t('activerecord.format', attribute: I18n.t('activerecord.attributes.task.task_name'), message: I18n.t('activerecord.message.too_long', count: @task.errors.details[:task_name][0][:count]))
-      end
+        redirect_to ({action: 'edit'}), alert: @task.errors.full_messages[0]
     end
   end
 

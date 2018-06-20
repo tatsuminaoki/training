@@ -17,13 +17,13 @@ RSpec.describe Task, type: :model do
     it '新規作成' do
       expect(task.validate).to be_falsy
       expect(task.errors).to have_key(:task_name)
-      expect(task.errors[:task_name]).to eq ['タスク名を入力してください。']
+      expect(task.errors.full_messages).to eq ['タスク名を入力してください。']
     end
 
     it '更新' do
       expect(task.validate).to be_falsy
       expect(task.errors).to have_key(:task_name)
-      expect(task.errors[:task_name]).to eq ['タスク名を入力してください。']
+      expect(task.errors.full_messages).to eq ['タスク名を入力してください。']
     end
   end
 
@@ -32,13 +32,13 @@ RSpec.describe Task, type: :model do
     it '新規作成' do
       expect(task.validate).to be_falsy
       expect(task.errors).to have_key(:task_name)
-      expect(task.errors[:task_name]).to eq ['タスク名は255字以内で入力してください。']
+      expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください。']
     end
 
     it '更新' do
       expect(task.validate).to be_falsy
       expect(task.errors).to have_key(:task_name)
-      expect(task.errors[:task_name]).to eq ['タスク名は255字以内で入力してください。']
+      expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください。']
     end
   end
 
