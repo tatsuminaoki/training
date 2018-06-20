@@ -59,9 +59,13 @@ RSpec.feature "Tasks", type: :feature do
     Timecop.return
     visit root_path
 
-    tasks = all('ul li')
-    task_names = ['タスク：task_name8', 'タスク：task_name7', 'タスク：task_name6', 'タスク：task_name5']
-    tasks.each_with_index do |t, i|
+    tasks_list = all('ul li')
+    tasks = Task.select('task_name').order('created_at DESC')
+    task_names = []
+    tasks.each do |t|
+      task_names << 'タスク：' + t.task_name
+    end
+    tasks_list.each_with_index do |t, i|
       expect(t.text).to eq task_names[i]
     end
   end
@@ -99,13 +103,6 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   feature '登録・更新の失敗' do
-    background do
-      @str = ''
-      while @str.length < 256 do
-        @str << 'a'
-      end
-    end
-
     scenario '0文字のタスクを登録' do
       visit 'http://localhost:3000/tasks/new'
       fill_in 'task_task_name', with: ''
@@ -113,17 +110,17 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.create')
       
       expect(current_url).to eq 'http://localhost:3000/tasks/new'
-      expect(page).to have_content I18n.t('flash.failure_create')
+      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.blank')
     end
 
     scenario '256文字のタスクを登録' do
       visit 'http://localhost:3000/tasks/new'
-      fill_in 'task_task_name', with: @str
+      fill_in 'task_task_name', with: 'a'*256
       fill_in 'task_description', with: "#{@task.description}"
       click_button I18n.t('helpers.submit.create')
       
       expect(current_url).to eq 'http://localhost:3000/tasks/new'
-      expect(page).to have_content I18n.t('flash.failure_create')
+      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.too_long')
     end
 
     scenario '0文字のタスクに更新' do
@@ -133,17 +130,17 @@ RSpec.feature "Tasks", type: :feature do
       click_button I18n.t('helpers.submit.update')
 
       expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
-      expect(page).to have_content I18n.t('flash.failure_update')
+      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.blank')
     end
 
     scenario '256文字のタスクに更新' do
       visit "http://localhost:3000/tasks/edit/#{@task.id}"
-      fill_in 'task_task_name', with: @str
+      fill_in 'task_task_name', with: 'a'*256
       fill_in 'task_description', with: "#{@task.description}(edited)"
       click_button I18n.t('helpers.submit.update')
 
       expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
-      expect(page).to have_content I18n.t('flash.failure_update')
+      expect(page).to have_content I18n.t('activerecord.errors.models.task.attributes.task_name.too_long')
     end
   end
 end

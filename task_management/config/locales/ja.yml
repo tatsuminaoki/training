@@ -20,3 +20,12 @@ ja:
     edit: 編集
     delete: 削除
     home: 一覧
+  activerecord:
+    format: "%{attribute}%{message}"
+    message:
+      blank: を入力してください。
+      too_long: は%{count}字以内で入力してください。
+    attributes:
+      task:
+        task_name: タスク名
+        description: 詳細
