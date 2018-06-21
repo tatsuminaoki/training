@@ -11,7 +11,15 @@
 
   <body>
     <% flash.each do |key, value| %>
-      <%= value %>
+      <% if key == 'notice'%>
+        <%= value %>
+      <% elsif key == 'alert'%>
+        <ul>
+        <% value.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      <% end %>
     <% end %>
     <%= yield %>
   </body>
