@@ -11,15 +11,7 @@
 
   <body>
     <% flash.each do |key, value| %>
-      <% if key == 'notice'%>
-        <%= value %>
-      <% elsif key == 'alert'%>
-        <ul>
-        <% value.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      <% end %>
+      <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
     <%= yield %>
   </body>

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe '#validation' do
-    context 'タスク名がnilの場合' do
-      let(:task) {Task.new(task_name: nil)}
+    context 'タスク名が0文字の場合' do
+      let(:task) {Task.new(task_name: '')}
       it 'バリデーションエラーが発生する' do
         expect(task.validate).to be_falsy
         expect(task.errors).to have_key(:task_name)

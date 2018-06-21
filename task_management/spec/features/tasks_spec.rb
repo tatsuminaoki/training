@@ -111,7 +111,7 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'task_description', with: "#{@task.description}"
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/new'
+      expect(current_url).to eq 'http://localhost:3000/tasks/create'
       expect(page).to have_content 'タスク名を入力してください。'
     end
     
@@ -121,7 +121,7 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'task_description', with: "#{@task.description}"
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/new'
+      expect(current_url).to eq 'http://localhost:3000/tasks/create'
       expect(page).to have_content 'タスク名は255字以内で入力してください。'
     end
 

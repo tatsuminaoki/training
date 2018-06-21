@@ -21,7 +21,8 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to ({action: 'index'}), notice: I18n.t('flash.success_create')
     else
-      redirect_to ({action: 'new'}), alert: @task.errors.full_messages
+      flash.now[:alert] = I18n.t('flash.failure_create')
+      render :new
     end
   end
 
@@ -30,7 +31,8 @@ class TasksController < ApplicationController
     if @task.update_attributes(tasks_params)
       redirect_to ({action: 'show'}), id: params[:id], notice: I18n.t('flash.success_update')
     else
-        redirect_to ({action: 'edit'}), alert: @task.errors.full_messages
+      flash.now[:alert] = I18n.t('flash.failure_update')
+      render :edit
     end
   end
 
