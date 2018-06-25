@@ -5,5 +5,8 @@
 <%= form_with model: task, url: url, local: true do |form| %>
   <%= form.text_field :task_name %>
   <%= form.text_field :description %>
+  <span id='date-form' class='input-custom'>
+    <%= form.text_field :due_date, data: { :date_format => 'YYYY-MM-DD' }, class: 'form-control datepicker' %>
+  </span>
   <%= form.submit %>
 <% end %>

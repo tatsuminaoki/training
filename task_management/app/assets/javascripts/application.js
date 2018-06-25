@@ -13,4 +13,13 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require jquery
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
+
+var data = {'data-date-format': 'YYYY-MM-DD' };
+$(function(){
+  $('.datepicker').attr(data);
+  $('.datepicker').datetimepicker();
+});

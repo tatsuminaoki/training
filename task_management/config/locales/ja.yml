@@ -15,6 +15,7 @@ ja:
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
+    due_date: 期限：%{task}
   button:
     new: 新規作成
     edit: 編集
@@ -30,3 +31,8 @@ ja:
     messages:
       blank: を入力してください。
       too_long: は%{count}字以内で入力してください。
+  date:
+    order:
+      - :year
+      - :month
+      - :day
