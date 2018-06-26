@@ -32,7 +32,7 @@ ja:
     messages:
       blank: を入力してください。
       too_long: は%{count}字以内で入力してください。
-      failure: を正しく入力してください
+      failure: を正しく入力してください。
   date:
     order:
       - :year
