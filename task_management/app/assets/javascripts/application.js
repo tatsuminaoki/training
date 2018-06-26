@@ -10,16 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/i18n/datepicker-ja
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require jquery
-//= require moment
-//= require bootstrap-datetimepicker
 //= require_tree .
-
-var data = {'data-date-format': 'YYYY-MM-DD' };
-$(function(){
-  $('.datepicker').attr(data);
-  $('.datepicker').datetimepicker();
-});
