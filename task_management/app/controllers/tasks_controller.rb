@@ -1,7 +1,14 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   def index
-    @tasks = Task.all.order('created_at DESC')
+    @tasks = case params[:sort]
+             when 'due_date_asc'
+               Task.all.order('due_date ASC')
+             when 'due_date_desc'
+               Task.all.order('due_date DESC')
+             else
+               Task.all.order('created_at DESC')
+             end
   end
 
   def show
@@ -46,6 +53,6 @@ class TasksController < ApplicationController
   end
 
   def tasks_params
-    params.require(:task).permit(:task_name,:description)
+    params.require(:task).permit(:task_name, :description, :due_date)
   end
 end

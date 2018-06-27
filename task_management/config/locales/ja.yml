@@ -15,6 +15,7 @@ ja:
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
+    due_date: 期限：%{task}
   button:
     new: 新規作成
     edit: 編集
@@ -25,8 +26,20 @@ ja:
       task:
         task_name: タスク名
         description: 詳細
+        due_date: 期限
   errors:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください。
       too_long: は%{count}字以内で入力してください。
+      failure: を正しく入力してください。
+  date:
+    order:
+      - :year
+      - :month
+      - :day
+  sort:
+    default: 元の順番に戻す
+    due_date:
+      asc: 期限▲
+      desc: 期限▼

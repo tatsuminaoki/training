@@ -1,11 +1,20 @@
 <div>
   <div>
     <%= link_to I18n.t('button.new'), tasks_new_path %>
+    <%= link_to I18n.t('sort.default'), root_path %>
+    <% if params[:sort] == 'due_date_desc' %>
+      <%= link_to I18n.t('sort.due_date.asc'), root_path(@tasks, sort: 'due_date_asc') %>
+    <% else %>
+      <%= link_to I18n.t('sort.due_date.desc'), root_path(@tasks, sort: 'due_date_desc') %>
+    <% end %>
   </div>
   <div>
     <% @tasks.each do |task| %>
       <ul>
         <li><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></li>
+        <ul>
+          <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
+        </ul>
       </ul>
     <% end %>
   </div>
