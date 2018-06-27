@@ -16,6 +16,7 @@ ja:
     task_name: タスク：%{task}
     description: 詳細：%{task}
     due_date: 期限：%{task}
+    status: 状態：%{task}
   button:
     new: 新規作成
     edit: 編集
@@ -42,3 +43,7 @@ ja:
     due_date:
       asc: 期限▲
       desc: 期限▼
+  status:
+    todo: 未着手
+    doing: 着手中
+    done: 完了

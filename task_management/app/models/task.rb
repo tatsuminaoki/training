@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  enum status: [:todo, :doing, :done]
+
   validates :task_name, presence: true
   validates :task_name, length: { maximum: 255 }
   validate :date_valid?
