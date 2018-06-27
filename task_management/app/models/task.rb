@@ -1,19 +1,16 @@
 class Task < ApplicationRecord
   validates :task_name, presence: true
   validates :task_name, length: { maximum: 255 }
-  validate :date_valid?
+  validate :due_date_valid?
 
-  def date_valid?
-    begin
-      !! Date.parse(due_date.to_s)
-      true
-    rescue
-      if due_date_before_type_cast == ''
-        true
-      else
-        errors.add(:due_date, I18n.t('errors.messages.failure'))
-        false
-      end
-    end
+  def due_date_valid?
+    return true if date_valid?(due_date)
+
+    errors.add(:due_date, I18n.t('errors.messages.failure'))
+    false
+  end
+
+  def date_valid?(date)
+    !! Date.parse(date.to_s) rescue due_date_before_type_cast.empty?
   end
 end
