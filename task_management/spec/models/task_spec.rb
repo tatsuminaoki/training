@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe '#validation' do
     context 'タスク名が0文字の場合' do
-      task = FactoryBot.build(:task, task_name: '')
+      let(:task) {FactoryBot.build(:task, task_name: '')}
       it 'バリデーションエラーが発生する' do
         expect(task.validate).to be_falsy
         expect(task.errors).to have_key(:task_name)
@@ -12,21 +12,21 @@ RSpec.describe Task, type: :model do
     end
 
     context 'タスク名が1文字の場合' do
-      task = FactoryBot.build(:task, task_name: 'a')
+      let(:task) {FactoryBot.build(:task, task_name: 'a')}
       it 'バリデーションエラーが発生しない' do
         expect(task.validate).to be_truthy
       end
     end
 
     context 'タスク名が255文字の場合' do
-      task = FactoryBot.build(:task, task_name: 'a'*255)
+      let(:task) {FactoryBot.build(:task, task_name: 'a'*255)}
       it 'バリデーションエラーが発生しない' do
         expect(task.validate).to be_truthy
       end
     end
 
     context 'タスク名が256文字の場合' do
-      task = FactoryBot.build(:task, task_name: 'a'*256)
+      let(:task) {FactoryBot.build(:task, task_name: 'a'*256)}
       it 'バリデーションエラーが発生する' do
         expect(task.validate).to be_falsy
         expect(task.errors).to have_key(:task_name)
@@ -35,14 +35,14 @@ RSpec.describe Task, type: :model do
     end
     
     context '期限を入力しない場合' do
-      task = FactoryBot.build(:task, due_date: '')
+      let(:task) {FactoryBot.build(:task, due_date: '')}
       it 'バリデーションエラーが発生しない' do
         expect(task.validate).to be_truthy
       end
     end
 
     context '期限が存在しない日付の場合' do
-      task = FactoryBot.build(:task, due_date: '2018-06-31')
+      let(:task) {FactoryBot.build(:task, due_date: '2018-06-31')}
       it 'バリデーションエラーが発生する' do
         expect(task.validate).to be_falsy
         expect(task.errors).to have_key(:due_date)
@@ -50,7 +50,7 @@ RSpec.describe Task, type: :model do
       end
     end
     context 'タスク名が0文字かつ期限が存在しない日付の場合' do
-      task = FactoryBot.build(:task, task_name: '', due_date: '2018-06-31')
+      let(:task) {FactoryBot.build(:task, task_name: '', due_date: '2018-06-31')}
       it 'バリデーションエラーが複数発生する' do
         expect(task.validate).to be_falsy
         expect(task.errors).to have_key(:task_name)

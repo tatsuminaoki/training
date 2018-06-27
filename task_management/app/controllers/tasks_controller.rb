@@ -3,11 +3,11 @@ class TasksController < ApplicationController
   def index
     @tasks = case params[:sort]
              when 'due_date_asc'
-               @tasks = Task.all.order('due_date ASC')
+               Task.all.order('due_date ASC')
              when 'due_date_desc'
-               @tasks = Task.all.order('due_date DESC')
+               Task.all.order('due_date DESC')
              else
-               @tasks = Task.all.order('created_at DESC')
+               Task.all.order('created_at DESC')
              end
   end
 

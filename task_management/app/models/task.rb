@@ -5,12 +5,13 @@ class Task < ApplicationRecord
 
   def due_date_valid?
     return true if date_valid?(due_date)
+    return true if due_date_before_type_cast.empty?
 
     errors.add(:due_date, I18n.t('errors.messages.failure'))
     false
   end
 
   def date_valid?(date)
-    !! Date.parse(date.to_s) rescue due_date_before_type_cast.empty?
+    !! Date.parse(date.to_s) rescue false
   end
 end
