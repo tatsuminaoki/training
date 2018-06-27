@@ -40,6 +40,7 @@ ja:
       - :month
       - :day
   sort:
+    default: 元の順番に戻す
     due_date:
       asc: 期限▲
       desc: 期限▼

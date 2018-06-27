@@ -1,15 +1,14 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   def index
-    uri = URI.parse(request.url)
-    query = Rack::Utils.parse_nested_query(uri.query)
-    if query['sort'] == 'due_date_asc'
-      @tasks = Task.all.order('due_date ASC')
-    elsif query['sort'] == 'due_date_desc'
-      @tasks = Task.all.order('due_date DESC')
-    else
-      @tasks = Task.all.order('created_at DESC')
-    end
+    @tasks = case params[:sort]
+             when 'due_date_asc'
+               Task.all.order('due_date ASC')
+             when 'due_date_desc'
+               Task.all.order('due_date DESC')
+             else
+               Task.all.order('created_at DESC')
+             end
   end
 
   def show
