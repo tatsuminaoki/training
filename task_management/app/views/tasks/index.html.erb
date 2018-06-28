@@ -9,11 +9,25 @@
     <% end %>
   </div>
   <div>
+    <%= form_with url: root_path, method: 'get', local: true do |form| %>
+      <%= form.text_field :search %>
+      <% Task.statuses.keys.each.with_index do |status,i| %>
+      <label>
+        <%= check_box_tag 'statuses[status][]', status, false %>
+        <%= I18n.t("status.#{status}") %>
+      </label>
+      <% end %>
+      <%= form.submit I18n.t('helpers.submit.search')%>
+    <% end %>
+  </div>
+  <%= @tasks.size %>件
+  <div>
     <% @tasks.each do |task| %>
       <ul>
         <li><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></li>
         <ul>
           <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
+          <li><%= I18n.t('view.status', :task => I18n.t("status.#{task.status}")) %></li>
         </ul>
       </ul>
     <% end %>

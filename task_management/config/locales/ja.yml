@@ -4,6 +4,7 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+      search: 検索する
   site_title: タスクマネジメント
   flash:
     success_create: タスクの登録に成功しました
