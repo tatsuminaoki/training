@@ -1,19 +1,7 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   def index
-    @tasks = if params[:statuses].present?
-              Task.where('task_name like ?', "%#{params[:search]}%").where(status: params[:statuses][:status])
-            else
-              Task.where('task_name like ?', "%#{params[:search]}%")
-            end
-    @tasks = case params[:sort]
-    when 'due_date_asc'
-      @tasks.all.order('due_date ASC')
-    when 'due_date_desc'
-      @tasks.all.order('due_date DESC')
-    else
-      @tasks.all.order('created_at DESC')
-    end
+    @tasks = Task.search(params)
   end
 
   def show
