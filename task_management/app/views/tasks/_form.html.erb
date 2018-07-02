@@ -7,5 +7,6 @@
   <%= form.text_field :description %>
   <%= form.text_field :due_date, data: { :date_format => 'YYYY-MM-DD' }, class: ' datepicker'	%>
   <%= form.select :status, Task.statuses.keys.map{|k| [I18n.t("status.#{k}"), k]} %>
+  <%= form.select :priority, Task.priorities.keys.map{|k| [I18n.t("priority.#{k}"), k]} %>
   <%= form.submit %>
 <% end %>

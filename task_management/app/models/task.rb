@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   enum status: [:todo, :doing, :done]
+  enum priority: [:low, :middle, :high]
 
   validates :task_name, presence: true
   validates :task_name, length: { maximum: 255 }
