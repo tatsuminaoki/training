@@ -10,10 +10,10 @@
   </div>
   <div>
     <%= form_with url: root_path, method: 'get', local: true do |form| %>
-      <%= form.text_field :search %>
+      <%= form.text_field :search, value: params[:search] %>
       <% Task.statuses.keys.each.with_index do |status,i| %>
       <label>
-        <%= check_box_tag 'statuses[status][]', status, false %>
+        <%= check_box_tag 'statuses[status][]', status, params[:statuses].try(:fetch, :status).try(:include?, status) %>
         <%= I18n.t("status.#{status}") %>
       </label>
       <% end %>
