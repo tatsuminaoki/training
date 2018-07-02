@@ -60,9 +60,9 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('sort.default')
       expect(page).to have_content I18n.t('sort.due_date.desc')
       expect(page).to have_field 'search'
-      expect(page).to have_field I18n.t('status.todo')
-      expect(page).to have_field I18n.t('status.doing')
-      expect(page).to have_field I18n.t('status.done')
+      expect(page).to have_unchecked_field I18n.t('status.todo')
+      expect(page).to have_unchecked_field I18n.t('status.doing')
+      expect(page).to have_unchecked_field I18n.t('status.done')
       expect(page).to have_button I18n.t('helpers.submit.search')
       expect(page).to have_content '1件'
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
@@ -285,9 +285,18 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'search', with: 'a'
       check I18n.t('status.todo')
       click_button I18n.t('helpers.submit.search')
-
-      expect(current_url).to eq "http://localhost:3000/?utf8=%E2%9C%93&search=a&statuses[status][]=todo&commit=%E6%A4%9C%E7%B4%A2%E3%81%99%E3%82%8B"
+      uri = URI.parse(current_url)
+    
+      expect(uri.path).to eq root_path
+      expect(uri.query).to have_content 'utf8=%E2%9C%93'
+      expect(uri.query).to have_content 'search=a'
+      expect(uri.query).to have_content 'statuses[status][]=todo'
+      expect(uri.query).to have_content 'commit=%E6%A4%9C%E7%B4%A2%E3%81%99%E3%82%8B'
       expect(page).to have_content '2件'
+      expect(page).to have_field 'search', with: 'a'
+      expect(page).to have_checked_field I18n.t('status.todo')
+      expect(page).to have_unchecked_field I18n.t('status.doing')
+      expect(page).to have_unchecked_field I18n.t('status.done')
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
       expect(page).to have_content I18n.t('view.task_name', :task => 'a')
       expect(page).not_to have_content I18n.t('view.task_name', :task => 'b')
