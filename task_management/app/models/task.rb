@@ -18,8 +18,9 @@ class Task < ApplicationRecord
   end
 
   def self.search(params)
-    tasks = Task.where('task_name like ?', "%#{params[:search]}%")
-    tasks = tasks.where(status: params[:statuses][:status]) if params[:statuses].present?
+    params[:searched_task_name] = '' if !!params[:searched_task_name].nil?
+    tasks = Task.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
+    tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
     
     case params[:sort]
     when 'due_date_asc'

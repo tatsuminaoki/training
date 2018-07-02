@@ -59,7 +59,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('button.new')
       expect(page).to have_content I18n.t('sort.default')
       expect(page).to have_content I18n.t('sort.due_date.desc')
-      expect(page).to have_field 'search'
+      expect(page).to have_field 'searched_task_name'
       expect(page).to have_unchecked_field I18n.t('status.todo')
       expect(page).to have_unchecked_field I18n.t('status.doing')
       expect(page).to have_unchecked_field I18n.t('status.done')
@@ -275,25 +275,28 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   feature '検索機能' do
-    scenario '検索結果が表示される' do
+    background do
       create(:task, task_name: 'a', status: 'todo')
       create(:task, task_name: 'a', status: 'doing')
       create(:task, task_name: 'a', status: 'done')
       create(:task, task_name: 'b', status: 'todo')
+      create(:task, task_name: '0%', status: 'todo')
+    end
+    scenario '検索結果が表示される' do
 
       visit root_path
-      fill_in 'search', with: 'a'
+      fill_in 'searched_task_name', with: 'a'
       check I18n.t('status.todo')
       click_button I18n.t('helpers.submit.search')
       uri = URI.parse(current_url)
     
       expect(uri.path).to eq root_path
       expect(uri.query).to have_content 'utf8=%E2%9C%93'
-      expect(uri.query).to have_content 'search=a'
-      expect(uri.query).to have_content 'statuses[status][]=todo'
+      expect(uri.query).to have_content 'searched_task_name=a'
+      expect(uri.query).to have_content 'statuses[]=todo'
       expect(uri.query).to have_content 'commit=%E6%A4%9C%E7%B4%A2%E3%81%99%E3%82%8B'
       expect(page).to have_content '2件'
-      expect(page).to have_field 'search', with: 'a'
+      expect(page).to have_field 'searched_task_name', with: 'a'
       expect(page).to have_checked_field I18n.t('status.todo')
       expect(page).to have_unchecked_field I18n.t('status.doing')
       expect(page).to have_unchecked_field I18n.t('status.done')
@@ -304,5 +307,16 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).not_to have_content I18n.t('view.status', :task => I18n.t("status.doing"))
       expect(page).not_to have_content I18n.t('view.status', :task => I18n.t("status.done"))
     end
+
+    scenario 'ワイルドカードが無効化されている' do
+      visit root_path
+      fill_in 'searched_task_name', with: '%'
+      check I18n.t('status.todo')
+      click_button I18n.t('helpers.submit.search')
+      uri = URI.parse(current_url)
+      
+      expect(page).not_to have_content 'a'
+      expect(page).to have_content '0%'
+    end   
   end
 end
