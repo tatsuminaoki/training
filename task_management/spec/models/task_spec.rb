@@ -70,43 +70,43 @@ RSpec.describe Task, type: :model do
 
     context 'キーワードなし、ステータス選択なしの場合' do
       it 'タスクを全件取得する' do
-        expect(Task.search({utf8: '✓', search: '', commit: '検索する'}).size).to eq 4
+        expect(Task.search({searched_task_name: ''}).size).to eq 4
       end
     end
 
     context 'キーワードなし、未着手のみ選択した場合' do
       it '未着手のタスクを全件取得する' do
-        expect(Task.search({utf8: '✓', search: '', statuses: {status: ['todo']}, commit: '検索する'}).size).to eq 2
+        expect(Task.search({searched_task_name: '', statuses: ['todo']}).size).to eq 2
       end
     end
 
     context 'レコードが存在するタスク名を入力して、ステータス選択なしの場合' do
       it '検索したワードのタスクを全件取得する' do
-        expect(Task.search({utf8: '✓', search: 'a', commit: '検索する'}).size).to eq 3
+        expect(Task.search({searched_task_name: 'a'}).size).to eq 3
       end
     end
 
     context 'レコードが存在するタスク名を入力して、未着手、着手中、完了を選択した場合' do
       it '検索したワードのタスクを全件取得する' do
-        expect(Task.search({utf8: '✓', search: 'a', statuses: {status: ['todo', 'doing', 'done']}, commit: '検索する'}).size).to eq 3
+        expect(Task.search({searched_task_name: 'a', statuses: ['todo', 'doing', 'done']}).size).to eq 3
       end
     end
 
     context '未着手しか登録されていないレコードのタスク名を入力して、未着手のみ選択した場合' do
       it '検索したワードのタスクから、未着手のタスクのみ取得する' do
-        expect(Task.search({utf8: '✓', search: 'b', statuses: {status: ['todo']}, commit: '検索する'}).size).to eq 1
+        expect(Task.search({searched_task_name: 'b', statuses: ['todo']}).size).to eq 1
       end
     end
 
     context '未着手しか登録されていないレコードのタスク名を入力して、着手中のみ選択した場合' do
       it '検索結果が0件' do
-        expect(Task.search({utf8: '✓', search: 'b', statuses: {status: ['doing']}, commit: '検索する'}).size).to eq 0
+        expect(Task.search({searched_task_name: 'b', statuses: ['doing']}).size).to eq 0
       end
     end
 
     context 'レコードが存在しないタスク名を入力して、ステータス選択なしの場合' do
       it '検索結果が0件' do
-        expect(Task.search({utf8: '✓', search: 'c', commit: '検索する'}).size).to eq 0
+        expect(Task.search({searched_task_name: 'c'}).size).to eq 0
       end
     end
   end
