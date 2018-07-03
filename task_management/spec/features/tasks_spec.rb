@@ -95,7 +95,7 @@ RSpec.feature "Tasks", type: :feature do
       3.times do
         create(:task)
       end
-      visit root_path(@tasks, sort: 'due_date_desc')
+      visit root_path(sort: 'due_date_desc')
       click_on I18n.t('sort.due_date.asc')
       uri = URI.parse(current_url)
 
@@ -118,7 +118,7 @@ RSpec.feature "Tasks", type: :feature do
       3.times do
         create(:task)
       end
-      visit root_path(@tasks, sort: 'due_date_asc')
+      visit root_path(sort: 'due_date_asc')
       click_on I18n.t('sort.due_date.desc')
       uri = URI.parse(current_url)
 
