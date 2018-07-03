@@ -4,5 +4,6 @@ FactoryBot.define do
     sequence(:description) { |n| "description#{n}"}
     sequence(:due_date) { |n| Date.today + n }
     status 'todo'
+    priority 'low'
   end
 end

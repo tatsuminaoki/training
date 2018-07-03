@@ -15,6 +15,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_field 'task_description'
       expect(page).to have_field 'task_due_date'
       expect(page).to have_select 'task_status'
+      expect(page).to have_select 'task_priority'
       expect(page).to have_button I18n.t('helpers.submit.create')
     end
     
@@ -24,6 +25,7 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: "#{@task.due_date}"
       select I18n.t('status.todo'), from: 'task_status'
+      select I18n.t('priority.low'), from: 'task_priority'
       click_button I18n.t('helpers.submit.create')
       
       expect(current_path).to eq root_path
@@ -31,6 +33,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
       expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
       expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
+      expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
     end
     
     scenario '一覧画面からタスク詳細画面への遷移' do
@@ -46,6 +49,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('view.description', :task => @task.description)
       expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
       expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
+      expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
     end
 
     scenario 'タスク詳細画面から一覧画面に遷移' do
@@ -58,6 +62,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('button.new')
       expect(page).to have_content I18n.t('sort.default')
       expect(page).to have_content I18n.t('sort.due_date.desc')
+      expect(page).to have_content I18n.t('sort.priority.desc')
       expect(page).to have_field 'searched_task_name'
       expect(page).to have_unchecked_field I18n.t('status.todo')
       expect(page).to have_unchecked_field I18n.t('status.doing')
@@ -67,6 +72,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
       expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
       expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
+      expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
     end
 
     scenario '一覧画面でタスクを作成日の降順に表示' do
@@ -84,11 +90,13 @@ RSpec.feature "Tasks", type: :feature do
         tasks << 'タスク：' + t.task_name
         tasks << '期限：' + t.due_date.to_s
         tasks << '状態：' + I18n.t("status.#{t.status}")
+        tasks << '優先度：' + I18n.t("priority.#{t.priority}")
       end
       tasks_list.each_with_index do |t, i|
         expect(t.text).to eq tasks[i]
       end
       expect(page).to have_content I18n.t('sort.due_date.desc')
+      expect(page).to have_content I18n.t('sort.priority.desc')
     end
 
     scenario '一覧画面でタスクを期限の昇順に表示' do
@@ -106,12 +114,14 @@ RSpec.feature "Tasks", type: :feature do
         tasks << 'タスク：' + t.task_name
         tasks << '期限：' + t.due_date.to_s
         tasks << '状態：' + I18n.t("status.#{t.status}")
+        tasks << '優先度：' + I18n.t("priority.#{t.priority}")
       end
       tasks_list.each_with_index do |t, i|
         expect(t.text).to eq tasks[i]
       end
       expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'due_date_asc')
       expect(page).to have_content I18n.t('sort.due_date.desc')
+      expect(page).to have_content I18n.t('sort.priority.desc')
     end
 
     scenario '一覧画面でタスクを期限の降順に表示' do
@@ -129,12 +139,64 @@ RSpec.feature "Tasks", type: :feature do
         tasks << 'タスク：' + t.task_name
         tasks << '期限：' + t.due_date.to_s
         tasks << '状態：' + I18n.t("status.#{t.status}")
+        tasks << '優先度：' + I18n.t("priority.#{t.priority}")
       end
       tasks_list.each_with_index do |t, i|
         expect(t.text).to eq tasks[i]
       end
       expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'due_date_desc')
       expect(page).to have_content I18n.t('sort.due_date.asc')
+      expect(page).to have_content I18n.t('sort.priority.desc')
+    end
+
+    scenario '一覧画面でタスクを優先度の昇順に表示' do
+      %w(high low middle).each do |priority|
+        create(:task, priority: priority)
+      end
+      visit root_path(sort: 'priority_desc')
+      click_on I18n.t('sort.priority.asc')
+      uri = URI.parse(current_url)
+
+      tasks_list = all('ul li')
+      tasks_asc = Task.all.order('priority ASC')
+      tasks = []
+      tasks_asc.each do |t|
+        tasks << 'タスク：' + t.task_name
+        tasks << '期限：' + t.due_date.to_s
+        tasks << '状態：' + I18n.t("status.#{t.status}")
+        tasks << '優先度：' + I18n.t("priority.#{t.priority}")
+      end
+      tasks_list.each_with_index do |t, i|
+        expect(t.text).to eq tasks[i]
+      end
+      expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'priority_asc')
+      expect(page).to have_content I18n.t('sort.due_date.desc')
+      expect(page).to have_content I18n.t('sort.priority.desc')
+    end
+
+    scenario '一覧画面でタスクを優先度の降順に表示' do
+      %w(high low middle).each do |priority|
+        create(:task, priority: priority)
+      end
+      visit root_path
+      click_on I18n.t('sort.priority.desc')
+      uri = URI.parse(current_url)
+
+      tasks_list = all('ul li')
+      tasks_desc = Task.all.order('priority DESC')
+      tasks = []
+      tasks_desc.each do |t|
+        tasks << 'タスク：' + t.task_name
+        tasks << '期限：' + t.due_date.to_s
+        tasks << '状態：' + I18n.t("status.#{t.status}")
+        tasks << '優先度：' + I18n.t("priority.#{t.priority}")
+      end
+      tasks_list.each_with_index do |t, i|
+        expect(t.text).to eq tasks[i]
+      end
+      expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'priority_desc')
+      expect(page).to have_content I18n.t('sort.due_date.desc')
+      expect(page).to have_content I18n.t('sort.priority.asc')
     end
 
     scenario '期限でソートしたあとにタスク作成日の降順に戻す' do
@@ -153,6 +215,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_field 'task_description', with: @task.description
       expect(page).to have_field 'task_due_date', with: @task.due_date
       expect(page).to have_select 'task_status', selected: I18n.t("status.#{@task.status}")
+      expect(page).to have_select 'task_priority', selected: I18n.t("priority.#{@task.priority}")
       expect(page).to have_button I18n.t('helpers.submit.update')
     end
 
@@ -162,6 +225,7 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: "#{(@task.due_date + 1).to_s}"
       select I18n.t('status.doing'), from: 'task_status'
+      select I18n.t('priority.high'), from: 'task_priority'
       click_button I18n.t('helpers.submit.update')
 
       expect(current_path).to eq show_task_path(@task.id)
@@ -170,6 +234,7 @@ RSpec.feature "Tasks", type: :feature do
       expect(page).to have_content I18n.t('view.description', :task => @task.description + '(edited)')
       expect(page).to have_content I18n.t('view.due_date', :task => (@task.due_date + 1).to_s)
       expect(page).to have_content I18n.t('view.status', :task => I18n.t('status.doing'))
+      expect(page).to have_content I18n.t('view.priority', :task => I18n.t('priority.high'))
     end
 
     scenario 'タスクの削除' do
