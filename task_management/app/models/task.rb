@@ -29,6 +29,10 @@ class Task < ApplicationRecord
               tasks.order('due_date ASC')
             when 'due_date_desc'
               tasks.order('due_date DESC')
+            when 'priority_asc'
+              tasks.order('priority ASC')
+            when 'priority_desc'
+              tasks.order('priority DESC')
             else
               tasks.order('created_at DESC')
             end

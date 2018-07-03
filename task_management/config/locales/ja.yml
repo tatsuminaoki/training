@@ -46,6 +46,9 @@ ja:
     due_date:
       asc: 期限▲
       desc: 期限▼
+    priority:
+      asc: 優先度▲
+      desc: 優先度▼
   status:
     todo: 未着手
     doing: 着手中
