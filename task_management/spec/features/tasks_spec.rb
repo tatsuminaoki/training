@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature do
   background do
-    Capybara.default_host = 'http://localhost:3000'
     @task = create(:task)
   end
 
@@ -11,7 +10,7 @@ RSpec.feature "Tasks", type: :feature do
       visit root_path
       click_on I18n.t('button.new')
 
-      expect(current_url).to eq 'http://localhost:3000/tasks/new'
+      expect(current_path).to eq tasks_new_path
       expect(page).to have_field 'task_task_name'
       expect(page).to have_field 'task_description'
       expect(page).to have_field 'task_due_date'
@@ -20,14 +19,14 @@ RSpec.feature "Tasks", type: :feature do
     end
     
     scenario 'タスクの登録' do
-      visit 'http://localhost:3000/tasks/new'
+      visit tasks_new_path
       fill_in 'task_task_name', with: "#{@task.task_name}"
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: "#{@task.due_date}"
       select I18n.t('status.todo'), from: 'task_status'
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/'
+      expect(current_path).to eq root_path
       expect(page).to have_content I18n.t('flash.success_create')
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
       expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
@@ -38,7 +37,7 @@ RSpec.feature "Tasks", type: :feature do
       visit root_path
       click_on I18n.t('view.task_name', :task => @task.task_name)
       
-      expect(current_url).to eq "http://localhost:3000/tasks/show/#{@task.id}"
+      expect(current_path).to eq show_task_path(@task.id)
       expect(page).not_to have_content I18n.t('flash.success_update')
       expect(page).to have_content I18n.t('button.home')
       expect(page).to have_content I18n.t('button.edit')
@@ -50,10 +49,10 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     scenario 'タスク詳細画面から一覧画面に遷移' do
-      visit "http://localhost:3000/tasks/show/#{@task.id}"
+      visit show_task_path(@task.id)
       click_on I18n.t('button.home')
 
-      expect(current_url).to eq 'http://localhost:3000/'
+      expect(current_path).to eq root_path
       expect(page).not_to have_content I18n.t('flash.success_create')
       expect(page).not_to have_content I18n.t('flash.success_delete', :task => @task.task_name)
       expect(page).to have_content I18n.t('button.new')
@@ -79,7 +78,7 @@ RSpec.feature "Tasks", type: :feature do
       visit root_path
 
       tasks_list = all('ul li')
-      tasks_desc = Task.select('task_name', 'due_date', 'status').order('created_at DESC')
+      tasks_desc = Task.all.order('created_at DESC')
       tasks = []
       tasks_desc.each do |t|
         tasks << 'タスク：' + t.task_name
@@ -98,9 +97,10 @@ RSpec.feature "Tasks", type: :feature do
       end
       visit root_path(@tasks, sort: 'due_date_desc')
       click_on I18n.t('sort.due_date.asc')
+      uri = URI.parse(current_url)
 
       tasks_list = all('ul li')
-      tasks_asc = Task.select('task_name', 'due_date', 'status').order('due_date ASC')
+      tasks_asc = Task.all.order('due_date ASC')
       tasks = []
       tasks_asc.each do |t|
         tasks << 'タスク：' + t.task_name
@@ -110,7 +110,7 @@ RSpec.feature "Tasks", type: :feature do
       tasks_list.each_with_index do |t, i|
         expect(t.text).to eq tasks[i]
       end
-      expect(current_url).to eq 'http://localhost:3000/?sort=due_date_asc'
+      expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'due_date_asc')
       expect(page).to have_content I18n.t('sort.due_date.desc')
     end
 
@@ -120,9 +120,10 @@ RSpec.feature "Tasks", type: :feature do
       end
       visit root_path(@tasks, sort: 'due_date_asc')
       click_on I18n.t('sort.due_date.desc')
+      uri = URI.parse(current_url)
 
       tasks_list = all('ul li')
-      tasks_desc = Task.select('task_name', 'due_date', 'status').order('due_date DESC')
+      tasks_desc = Task.all.order('due_date DESC')
       tasks = []
       tasks_desc.each do |t|
         tasks << 'タスク：' + t.task_name
@@ -132,22 +133,22 @@ RSpec.feature "Tasks", type: :feature do
       tasks_list.each_with_index do |t, i|
         expect(t.text).to eq tasks[i]
       end
-      expect(current_url).to eq 'http://localhost:3000/?sort=due_date_desc'
+      expect("#{uri.path}?#{uri.query}").to eq root_path(sort: 'due_date_desc')
       expect(page).to have_content I18n.t('sort.due_date.asc')
     end
 
     scenario '期限でソートしたあとにタスク作成日の降順に戻す' do
-      visit root_path(@tasks, sort: 'due_date_asc')
+      visit root_path(sort: 'due_date_asc')
       click_on I18n.t('sort.default')
       
-      expect(current_url).to eq 'http://localhost:3000/'
+      expect(current_path).to eq root_path
     end
     
     scenario 'タスク詳細画面からタスク編集画面に遷移' do
-      visit "http://localhost:3000/tasks/show/#{@task.id}"
+      visit show_task_path(@task.id)
       click_on I18n.t('button.edit')
       
-      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(current_path).to eq edit_task_path(@task.id)
       expect(page).to have_field 'task_task_name', with: @task.task_name
       expect(page).to have_field 'task_description', with: @task.description
       expect(page).to have_field 'task_due_date', with: @task.due_date
@@ -156,14 +157,14 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     scenario 'タスクの編集' do
-      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      visit edit_task_path(@task.id)
       fill_in 'task_task_name', with: "#{@task.task_name}(edited)"
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: "#{(@task.due_date + 1).to_s}"
       select I18n.t('status.doing'), from: 'task_status'
       click_button I18n.t('helpers.submit.update')
 
-      expect(current_url).to eq "http://localhost:3000/tasks/show/#{@task.id}"
+      expect(current_path).to eq show_task_path(@task.id)
       expect(page).to have_content I18n.t('flash.success_update')
       expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name + '(edited)')
       expect(page).to have_content I18n.t('view.description', :task => @task.description + '(edited)')
@@ -172,10 +173,10 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     scenario 'タスクの削除' do
-      visit "http://localhost:3000/tasks/show/#{@task.id}"
+      visit show_task_path(@task.id)
       click_on I18n.t('button.delete')
       
-      expect(current_url).to eq 'http://localhost:3000/'
+      expect(current_path).to eq root_path
       expect(page).to have_content I18n.t('flash.success_delete', :task => @task.task_name)
       visit current_path
       expect(page).not_to have_content I18n.t('view.task_name', :task => @task.task_name)
@@ -184,91 +185,91 @@ RSpec.feature "Tasks", type: :feature do
 
   context '登録・更新の失敗' do
     scenario '0文字のタスクを登録' do
-      visit 'http://localhost:3000/tasks/new'
+      visit tasks_new_path
       fill_in 'task_task_name', with: ''
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: "#{@task.due_date}"
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/create'
+      expect(current_path).to eq tasks_path
       expect(page).to have_content 'タスク名を入力してください。'
     end
     
     scenario '256文字のタスクを登録' do
-      visit 'http://localhost:3000/tasks/new'
+      visit tasks_new_path
       fill_in 'task_task_name', with: 'a'*256
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: "#{@task.due_date}"
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/create'
+      expect(current_path).to eq tasks_path
       expect(page).to have_content 'タスク名は255字以内で入力してください。'
     end
 
     scenario '存在しない日付を登録' do
-      visit 'http://localhost:3000/tasks/new'
+      visit tasks_new_path
       fill_in 'task_task_name', with: "#{@task.task_name}"
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: '2018-06-31'
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/create'
+      expect(current_path).to eq tasks_path
       expect(page).to have_content '期限を正しく入力してください。'
     end
 
     scenario 'タスク名が0文字かつ存在しない日付を登録' do
-      visit 'http://localhost:3000/tasks/new'
+      visit tasks_new_path
       fill_in 'task_task_name', with: ''
       fill_in 'task_description', with: "#{@task.description}"
       fill_in 'task_due_date', with: '2018-06-31'
       click_button I18n.t('helpers.submit.create')
       
-      expect(current_url).to eq 'http://localhost:3000/tasks/create'
+      expect(current_path).to eq tasks_path
       expect(page).to have_content 'タスク名を入力してください。' 
       expect(page).to have_content '期限を正しく入力してください。'
     end
 
     scenario '0文字のタスクに更新' do
-      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      visit edit_task_path(@task.id)
       fill_in 'task_task_name', with: ''
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: "#{(@task.due_date + 1).to_s}"
       click_button I18n.t('helpers.submit.update')
 
-      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(current_path).to eq edit_task_path(@task.id)
       expect(page).to have_content 'タスク名を入力してください。'
     end
 
     scenario '256文字のタスクに更新' do
-      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      visit edit_task_path(@task.id)
       fill_in 'task_task_name', with: 'a'*256
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: "#{(@task.due_date + 1).to_s}"
       click_button I18n.t('helpers.submit.update')
 
-      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(current_path).to eq edit_task_path(@task.id)
       expect(page).to have_content 'タスク名は255字以内で入力してください。'
     end
 
     scenario '存在しない日付に更新' do
-      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      visit edit_task_path(@task.id)
       fill_in 'task_task_name', with: "#{@task.task_name}(edited)"
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: '2018-06-31'
       click_button I18n.t('helpers.submit.update')
 
-      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(current_path).to eq edit_task_path(@task.id)
       expect(page).to have_content '期限を正しく入力してください。'
     end
 
     scenario 'タスク名が256文字かつ存在しない日付に更新' do
-      visit "http://localhost:3000/tasks/edit/#{@task.id}"
+      visit edit_task_path(@task.id)
       fill_in 'task_task_name', with: 'a'*256
       fill_in 'task_description', with: "#{@task.description}(edited)"
       fill_in 'task_due_date', with: '2018-06-31'
       click_button I18n.t('helpers.submit.update')
 
-      expect(current_url).to eq "http://localhost:3000/tasks/edit/#{@task.id}"
+      expect(current_path).to eq edit_task_path(@task.id)
       expect(page).to have_content 'タスク名は255字以内で入力してください。' 
       expect(page).to have_content '期限を正しく入力してください。'
     end
@@ -291,10 +292,8 @@ RSpec.feature "Tasks", type: :feature do
       uri = URI.parse(current_url)
     
       expect(uri.path).to eq root_path
-      expect(uri.query).to have_content 'utf8=%E2%9C%93'
       expect(uri.query).to have_content 'searched_task_name=a'
       expect(uri.query).to have_content 'statuses[]=todo'
-      expect(uri.query).to have_content 'commit=%E6%A4%9C%E7%B4%A2%E3%81%99%E3%82%8B'
       expect(page).to have_content '2件'
       expect(page).to have_field 'searched_task_name', with: 'a'
       expect(page).to have_checked_field I18n.t('status.todo')
@@ -313,8 +312,7 @@ RSpec.feature "Tasks", type: :feature do
       fill_in 'searched_task_name', with: '%'
       check I18n.t('status.todo')
       click_button I18n.t('helpers.submit.search')
-      uri = URI.parse(current_url)
-      
+            
       expect(page).not_to have_content 'a'
       expect(page).to have_content '0%'
     end   

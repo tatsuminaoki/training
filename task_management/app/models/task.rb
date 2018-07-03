@@ -18,8 +18,12 @@ class Task < ApplicationRecord
   end
 
   def self.search(params)
-    params[:searched_task_name] = '' if !!params[:searched_task_name].nil?
-    tasks = Task.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
+    params[:searched_task_name] = '' if params[:searched_task_name].nil?
+    tasks = if params[:searched_task_name].blank?
+              Task.all
+            else
+              Task.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
+            end
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
     
     case params[:sort]
