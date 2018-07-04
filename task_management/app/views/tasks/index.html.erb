@@ -3,17 +3,31 @@
     <%= link_to I18n.t('button.new'), tasks_new_path %>
     <%= link_to I18n.t('sort.default'), root_path %>
     <% if params[:sort] == 'due_date_desc' %>
-      <%= link_to I18n.t('sort.due_date.asc'), root_path(@tasks, sort: 'due_date_asc') %>
+      <%= link_to I18n.t('sort.due_date.asc'), root_path(sort: 'due_date_asc') %>
     <% else %>
-      <%= link_to I18n.t('sort.due_date.desc'), root_path(@tasks, sort: 'due_date_desc') %>
+      <%= link_to I18n.t('sort.due_date.desc'), root_path(sort: 'due_date_desc') %>
     <% end %>
   </div>
+  <div>
+    <%= form_with url: root_path, method: 'get', local: true do |form| %>
+      <%= form.text_field :searched_task_name, value: params[:searched_task_name] %>
+      <% Task.statuses.keys.each.with_index do |status,i| %>
+      <label>
+        <%= check_box_tag 'statuses[]', status, params[:statuses].try(:include?, status) %>
+        <%= I18n.t("status.#{status}") %>
+      </label>
+      <% end %>
+      <%= form.submit I18n.t('helpers.submit.search')%>
+    <% end %>
+  </div>
+  <%= @tasks.size %>件
   <div>
     <% @tasks.each do |task| %>
       <ul>
         <li><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></li>
         <ul>
           <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
+          <li><%= I18n.t('view.status', :task => I18n.t("status.#{task.status}")) %></li>
         </ul>
       </ul>
     <% end %>
