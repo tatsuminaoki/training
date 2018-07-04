@@ -59,8 +59,12 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.before(:all) do
+  config.before(:suite) do
     DatabaseRewinder.clean_all
+  end
+  
+  config.after(:each) do
+    DatabaseRewinder.clean
   end
 
   config.include PrepareTasksMacros

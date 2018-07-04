@@ -284,7 +284,7 @@ RSpec.feature "Tasks", type: :feature do
       given(:uri) {uri = URI.parse(current_url)}
 
       scenario 'タスクが期限の昇順で表示される' do
-        visit root_path(@tasks, sort: 'due_date_desc')
+        visit root_path(sort: 'due_date_desc')
         click_on I18n.t('sort.due_date.asc')
 
         tasks_list.each_with_index do |t, i|
@@ -302,7 +302,7 @@ RSpec.feature "Tasks", type: :feature do
       given(:uri) {uri = URI.parse(current_url)}
 
       scenario 'タスクが期限の降順で表示される' do
-        visit root_path(@tasks, sort: 'due_date_asc')
+        visit root_path(sort: 'due_date_asc')
         click_on I18n.t('sort.due_date.desc')
 
         tasks_list.each_with_index do |t, i|
