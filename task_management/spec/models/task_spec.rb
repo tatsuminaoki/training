@@ -49,6 +49,7 @@ RSpec.describe Task, type: :model do
         expect(task.errors.full_messages).to eq ['期限を正しく入力してください。']
       end
     end
+
     context 'タスク名が0文字かつ期限が存在しない日付の場合' do
       let(:task) {FactoryBot.build(:task, task_name: '', due_date: '2018-06-31')}
       it 'バリデーションエラーが複数発生する' do
@@ -56,6 +57,58 @@ RSpec.describe Task, type: :model do
         expect(task.errors).to have_key(:task_name)
         expect(task.errors).to have_key(:due_date)
         expect(task.errors.full_messages).to eq ['タスク名を入力してください。', '期限を正しく入力してください。']
+      end
+    end
+
+    context 'ステータスが2の場合' do
+      let(:task) {FactoryBot.build(:task, status: 2)}
+      it 'バリデーションエラーが発生しない' do
+        expect(task.validate).to be_truthy
+      end
+    end
+
+    context 'ステータスが3の場合' do
+      it '引数エラーが発生する' do
+        expect{(FactoryBot.build(:task, status: 3))}.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'ステータスが\'todo\'の場合' do
+      let(:task) {FactoryBot.build(:task, status: 'todo')}
+      it 'バリデーションエラーが発生しない' do
+        expect(task.validate).to be_truthy
+      end
+    end
+
+    context 'ステータスが\'todo\'、\'doing\'、\'done\'以外の場合' do
+      it '引数エラーが発生する' do
+        expect{(FactoryBot.build(:task, status: 'a'))}.to raise_error(ArgumentError)
+      end
+    end
+
+    context '優先度が2の場合' do
+      let(:task) {FactoryBot.build(:task, priority: 2)}
+      it 'バリデーションエラーが発生しない' do
+        expect(task.validate).to be_truthy
+      end
+    end
+
+    context '優先度が3の場合' do
+      it '引数エラーが発生する' do
+        expect{(FactoryBot.build(:task, priority: 3))}.to raise_error(ArgumentError)
+      end
+    end
+
+    context '優先度が\'low\'の場合' do
+      let(:task) {FactoryBot.build(:task, priority: 'low')}
+      it 'バリデーションエラーが発生しない' do
+        expect(task.validate).to be_truthy
+      end
+    end
+
+    context '優先度が\'low\'、\'middle\'、\'high\'以外の場合' do
+      it '引数エラーが発生する' do
+        expect{(FactoryBot.build(:task, priority: 'b'))}.to raise_error(ArgumentError)
       end
     end
   end

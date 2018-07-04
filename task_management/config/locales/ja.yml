@@ -30,6 +30,8 @@ ja:
         task_name: タスク名
         description: 詳細
         due_date: 期限
+        status: 状態
+        priority: 優先度
   errors:
     format: "%{attribute}%{message}"
     messages:
