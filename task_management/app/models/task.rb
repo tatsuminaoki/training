@@ -5,8 +5,8 @@ class Task < ApplicationRecord
   validates :task_name, presence: true
   validates :task_name, length: { maximum: 255 }
   validate :due_date_valid?
-  validates :status, inclusion: {in: Task.statuses.keys}
-  validates :priority, inclusion: {in: Task.priorities.keys}
+  validates :priority, presence: true
+  validates :status, presence: true
   
   def due_date_valid?
     return true if date_valid?(due_date)

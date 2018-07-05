@@ -86,6 +86,15 @@ RSpec.describe Task, type: :model do
       end
     end
 
+    context 'ステータスが\'\'の場合' do
+      let(:task) {FactoryBot.build(:task, status: '')}
+      it 'バリデーションエラーが発生する' do
+        expect(task.validate).to be_falsy
+        expect(task.errors).to have_key(:status)
+        expect(task.errors.full_messages).to eq ['状態を入力してください。']
+      end
+    end
+
     context '優先度が2の場合' do
       let(:task) {FactoryBot.build(:task, priority: 2)}
       it 'バリデーションエラーが発生しない' do
@@ -109,6 +118,15 @@ RSpec.describe Task, type: :model do
     context '優先度が\'low\'、\'middle\'、\'high\'以外の場合' do
       it '引数エラーが発生する' do
         expect{(FactoryBot.build(:task, priority: 'b'))}.to raise_error(ArgumentError)
+      end
+    end
+
+    context '優先度が\'\'の場合' do
+      let(:task) {FactoryBot.build(:task, priority: '')}
+      it 'バリデーションエラーが発生する' do
+        expect(task.validate).to be_falsy
+        expect(task.errors).to have_key(:priority)
+        expect(task.errors.full_messages).to eq ['優先度を入力してください。']
       end
     end
   end
