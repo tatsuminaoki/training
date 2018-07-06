@@ -8,9 +8,9 @@
       <%= link_to I18n.t('sort.due_date.desc'), root_path(sort: 'due_date_desc') %>
     <% end %>
     <% if params[:sort] == 'priority_desc' %>
-      <%= link_to I18n.t('sort.priority.asc'), root_path(@tasks, sort: 'priority_asc') %>
+      <%= link_to I18n.t('sort.priority.asc'), root_path(sort: 'priority_asc') %>
     <% else %>
-      <%= link_to I18n.t('sort.priority.desc'), root_path(@tasks, sort: 'priority_desc') %>
+      <%= link_to I18n.t('sort.priority.desc'), root_path(sort: 'priority_desc') %>
     <% end %>
   </div>
   <div>
