@@ -1,19 +1,5 @@
-<div>
-  <div>
-    <%= link_to I18n.t('button.new'), tasks_new_path %>
-    <%= link_to I18n.t('sort.default'), root_path %>
-    <% if params[:sort] == 'due_date_desc' %>
-      <%= link_to I18n.t('sort.due_date.asc'), root_path(sort: 'due_date_asc') %>
-    <% else %>
-      <%= link_to I18n.t('sort.due_date.desc'), root_path(sort: 'due_date_desc') %>
-    <% end %>
-    <% if params[:sort] == 'priority_desc' %>
-      <%= link_to I18n.t('sort.priority.asc'), root_path(sort: 'priority_asc') %>
-    <% else %>
-      <%= link_to I18n.t('sort.priority.desc'), root_path(sort: 'priority_desc') %>
-    <% end %>
-  </div>
-  <div>
+<div class='row col-12'>
+  <div class='row col-12 mt-3'>
     <%= form_with url: root_path, method: 'get', local: true do |form| %>
       <%= form.text_field :searched_task_name, value: params[:searched_task_name] %>
       <% Task.statuses.keys.each.with_index do |status,i| %>
@@ -25,22 +11,50 @@
       <%= form.submit I18n.t('helpers.submit.search')%>
     <% end %>
   </div>
-  <% if @tasks.size.zero? %>
-    <%= I18n.t('view.page_entries_info.zero') %>
-  <% else %>
-    <%= I18n.t('view.page_entries_info.exist', :first => @tasks.offset_value + 1, :last => @tasks.offset_value + @tasks.size, :total => @tasks.total_count) %>
-  <% end %>
-  <div>
-    <% @tasks.each do |task| %>
-      <ul>
-        <li><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></li>
-        <ul>
-          <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
-          <li><%= I18n.t('view.status', :task => I18n.t("status.#{task.status}")) %></li>
-          <li><%= I18n.t('view.priority', :task => I18n.t("priority.#{task.priority}")) %></li>
-        </ul>
-      </ul>
+</div>
+
+<div class='row col-12'>
+  <div class='row col-12 mt-3'>
+    <%= link_to I18n.t('button.new'), tasks_new_path, class: 'btn btn-secondary mx-2' %>
+    <%= link_to I18n.t('sort.default'), root_path, class: 'btn btn-secondary mx-2' %>
+    <% if params[:sort] == 'due_date_desc' %>
+      <%= link_to I18n.t('sort.due_date.asc'), root_path(sort: 'due_date_asc'), class: 'btn btn-secondary mx-2' %>
+    <% else %>
+      <%= link_to I18n.t('sort.due_date.desc'), root_path(sort: 'due_date_desc'), class: 'btn btn-secondary mx-2' %>
     <% end %>
+    <% if params[:sort] == 'priority_desc' %>
+      <%= link_to I18n.t('sort.priority.asc'), root_path(sort: 'priority_asc'), class: 'btn btn-secondary mx-2' %>
+    <% else %>
+      <%= link_to I18n.t('sort.priority.desc'), root_path(sort: 'priority_desc'), class: 'btn btn-secondary mx-2' %>
+    <% end %>
+  </div>
+
+  <div class='row col-12 mt-3'>
+    <% if @tasks.size.zero? %>
+      <%= I18n.t('view.page_entries_info.zero') %>
+    <% else %>
+      <%= I18n.t('view.page_entries_info.exist', :first => @tasks.offset_value + 1, :last => @tasks.offset_value + @tasks.size, :total => @tasks.total_count) %>
+    <% end %>
+  </div>
+
+  <div class='row col-12 mx-auto'>
+      <% @tasks.each do |task| %>
+        <div class='card mt-3 mb-3 col-12'>
+          <div class='card-heading'>
+            <h4><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></h4>
+          </div>
+          <div class='card-body'>
+            <ul>
+              <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
+              <li><%= I18n.t('view.status', :task => I18n.t("status.#{task.status}")) %></li>
+              <li><%= I18n.t('view.priority', :task => I18n.t("priority.#{task.priority}")) %></li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+  </div>
+
+  <div class='row col-12'>
     <%= paginate @tasks %>
   </div>
 </div>
