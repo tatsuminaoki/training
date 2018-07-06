@@ -25,7 +25,11 @@
       <%= form.submit I18n.t('helpers.submit.search')%>
     <% end %>
   </div>
-  <%= @tasks.size %>件
+  <% if @tasks.size.zero? %>
+    <%= I18n.t('view.page_entries_info.zero') %>
+  <% else %>
+    <%= I18n.t('view.page_entries_info.exist', :first => @tasks.offset_value + 1, :last => @tasks.offset_value + @tasks.size, :total => @tasks.total_count) %>
+  <% end %>
   <div>
     <% @tasks.each do |task| %>
       <ul>
@@ -37,5 +41,6 @@
         </ul>
       </ul>
     <% end %>
+    <%= paginate @tasks %>
   </div>
 </div>

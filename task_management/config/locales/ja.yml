@@ -19,6 +19,16 @@ ja:
     due_date: 期限：%{task}
     status: 状態：%{task}
     priority: 優先度：%{task}
+    page_entries_info:
+      exist: "%{first}〜%{last}件（全%{total}件）"
+      zero: "タスクが見つかりませんでした。"
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      next: 次
+      previous: 前
+      truncate: ...
   button:
     new: 新規作成
     edit: 編集
