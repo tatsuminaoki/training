@@ -18,6 +18,7 @@ ja:
     description: 詳細：%{task}
     due_date: 期限：%{task}
     status: 状態：%{task}
+    priority: 優先度：%{task}
   button:
     new: 新規作成
     edit: 編集
@@ -29,6 +30,8 @@ ja:
         task_name: タスク名
         description: 詳細
         due_date: 期限
+        status: 状態
+        priority: 優先度
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -45,7 +48,14 @@ ja:
     due_date:
       asc: 期限▲
       desc: 期限▼
+    priority:
+      asc: 優先度▲
+      desc: 優先度▼
   status:
     todo: 未着手
     doing: 着手中
     done: 完了
+  priority:
+    low: 低
+    middle: 中
+    high: 高

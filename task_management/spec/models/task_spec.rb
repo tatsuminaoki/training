@@ -2,60 +2,141 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe '#validation' do
-    context 'タスク名が0文字の場合' do
-      let(:task) {FactoryBot.build(:task, task_name: '')}
-      it 'バリデーションエラーが発生する' do
-        expect(task.validate).to be_falsy
-        expect(task.errors).to have_key(:task_name)
-        expect(task.errors.full_messages).to eq ['タスク名を入力してください。']
+    describe 'タスク名' do
+      context '0文字の場合' do
+        let(:task) {FactoryBot.build(:task, task_name: '')}
+        it 'バリデーションエラーが発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:task_name)
+          expect(task.errors.full_messages).to eq ['タスク名を入力してください。']
+        end
       end
-    end
 
-    context 'タスク名が1文字の場合' do
-      let(:task) {FactoryBot.build(:task, task_name: 'a')}
-      it 'バリデーションエラーが発生しない' do
-        expect(task.validate).to be_truthy
+      context '1文字の場合' do
+        let(:task) {FactoryBot.build(:task, task_name: 'a')}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
       end
-    end
 
-    context 'タスク名が255文字の場合' do
-      let(:task) {FactoryBot.build(:task, task_name: 'a'*255)}
-      it 'バリデーションエラーが発生しない' do
-        expect(task.validate).to be_truthy
+      context '255文字の場合' do
+        let(:task) {FactoryBot.build(:task, task_name: 'a'*255)}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
       end
-    end
 
-    context 'タスク名が256文字の場合' do
-      let(:task) {FactoryBot.build(:task, task_name: 'a'*256)}
-      it 'バリデーションエラーが発生する' do
-        expect(task.validate).to be_falsy
-        expect(task.errors).to have_key(:task_name)
-        expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください。']
+      context '256文字の場合' do
+        let(:task) {FactoryBot.build(:task, task_name: 'a'*256)}
+        it 'バリデーションエラーが発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:task_name)
+          expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください。']
+        end
       end
     end
     
-    context '期限を入力しない場合' do
-      let(:task) {FactoryBot.build(:task, due_date: '')}
-      it 'バリデーションエラーが発生しない' do
-        expect(task.validate).to be_truthy
+    describe '期限' do
+      context '入力しない場合' do
+        let(:task) {FactoryBot.build(:task, due_date: '')}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
+      end
+
+      context '存在しない日付の場合' do
+        let(:task) {FactoryBot.build(:task, due_date: '2018-06-31')}
+        it 'バリデーションエラーが発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:due_date)
+          expect(task.errors.full_messages).to eq ['期限を正しく入力してください。']
+        end
       end
     end
 
-    context '期限が存在しない日付の場合' do
-      let(:task) {FactoryBot.build(:task, due_date: '2018-06-31')}
-      it 'バリデーションエラーが発生する' do
-        expect(task.validate).to be_falsy
-        expect(task.errors).to have_key(:due_date)
-        expect(task.errors.full_messages).to eq ['期限を正しく入力してください。']
+    describe '複数のエラー' do
+      context 'タスク名が0文字かつ期限が存在しない日付の場合' do
+        let(:task) {FactoryBot.build(:task, task_name: '', due_date: '2018-06-31')}
+        it 'バリデーションエラーが複数発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:task_name)
+          expect(task.errors).to have_key(:due_date)
+          expect(task.errors.full_messages).to eq ['タスク名を入力してください。', '期限を正しく入力してください。']
+        end
       end
     end
-    context 'タスク名が0文字かつ期限が存在しない日付の場合' do
-      let(:task) {FactoryBot.build(:task, task_name: '', due_date: '2018-06-31')}
-      it 'バリデーションエラーが複数発生する' do
-        expect(task.validate).to be_falsy
-        expect(task.errors).to have_key(:task_name)
-        expect(task.errors).to have_key(:due_date)
-        expect(task.errors.full_messages).to eq ['タスク名を入力してください。', '期限を正しく入力してください。']
+
+    describe 'ステータス' do
+      context '2の場合' do
+        let(:task) {FactoryBot.build(:task, status: 2)}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
+      end
+
+      context '3の場合' do
+        it '引数エラーが発生する' do
+          expect{(FactoryBot.build(:task, status: 3))}.to raise_error(ArgumentError)
+        end
+      end
+
+      context "'todo'の場合" do
+        let(:task) {FactoryBot.build(:task, status: 'todo')}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
+      end
+
+      context "'todo'、'doing'、'done'以外の場合" do
+        it '引数エラーが発生する' do
+          expect{(FactoryBot.build(:task, status: 'a'))}.to raise_error(ArgumentError)
+        end
+      end
+
+      context '空の場合' do
+        let(:task) {FactoryBot.build(:task, status: '')}
+        it 'バリデーションエラーが発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:status)
+          expect(task.errors.full_messages).to eq ['状態を入力してください。']
+        end
+      end
+    end
+
+    describe '優先度' do
+      context '2の場合' do
+        let(:task) {FactoryBot.build(:task, priority: 2)}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
+      end
+
+      context '3の場合' do
+        it '引数エラーが発生する' do
+          expect{(FactoryBot.build(:task, priority: 3))}.to raise_error(ArgumentError)
+        end
+      end
+
+      context "'low'の場合" do
+        let(:task) {FactoryBot.build(:task, priority: 'low')}
+        it 'バリデーションエラーが発生しない' do
+          expect(task.validate).to be_truthy
+        end
+      end
+
+      context "'low'、'middle'、'high'以外の場合" do
+        it '引数エラーが発生する' do
+          expect{(FactoryBot.build(:task, priority: 'b'))}.to raise_error(ArgumentError)
+        end
+      end
+
+      context '空の場合' do
+        let(:task) {FactoryBot.build(:task, priority: '')}
+        it 'バリデーションエラーが発生する' do
+          expect(task.validate).to be_falsy
+          expect(task.errors).to have_key(:priority)
+          expect(task.errors.full_messages).to eq ['優先度を入力してください。']
+        end
       end
     end
   end

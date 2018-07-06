@@ -1,9 +1,12 @@
 class Task < ApplicationRecord
   enum status: [:todo, :doing, :done]
+  enum priority: [:low, :middle, :high]
 
   validates :task_name, presence: true
   validates :task_name, length: { maximum: 255 }
   validate :due_date_valid?
+  validates :priority, presence: true
+  validates :status, presence: true
   
   def due_date_valid?
     return true if date_valid?(due_date)
@@ -31,6 +34,10 @@ class Task < ApplicationRecord
       tasks.order('due_date ASC')
     when 'due_date_desc'
       tasks.order('due_date DESC')
+    when 'priority_asc'
+      tasks.order('priority ASC')
+    when 'priority_desc'
+      tasks.order('priority DESC')
     else
       tasks.order('created_at DESC')
     end
