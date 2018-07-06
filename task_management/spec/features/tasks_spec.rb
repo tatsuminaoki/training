@@ -163,34 +163,8 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content '期限を正しく入力してください。'
       end
     end
-
-    context 'ステータスを空白文字で登録する', js: true do
-      scenario '登録に失敗してエラーメッセージが表示される' do
-        visit tasks_new_path
-        fill_in 'task_task_name', with: "#{@task.task_name}"
-        select I18n.t('status.todo'), from: 'task_status'
-        page.execute_script("$(\"[name='task[status]'] option:selected\").val('');")
-        click_button I18n.t('helpers.submit.create')
-
-        expect(current_path).to eq tasks_path
-        expect(page).to have_content '状態を入力してください。' 
-      end
-    end
-
-    context '優先度を空白文字で登録する', js: true do
-      scenario '登録に失敗してエラーメッセージが表示される' do
-        visit tasks_new_path
-        fill_in 'task_task_name', with: "#{@task.task_name}"
-        select I18n.t('priority.low'), from: 'task_priority'
-        page.execute_script("$(\"[name='task[priority]'] option:selected\").val('');")
-        click_button I18n.t('helpers.submit.create')
-
-        expect(current_path).to eq tasks_path
-        expect(page).to have_content '優先度を入力してください。' 
-      end
-    end
   end
-
+  
   feature 'タスクの更新' do
     context '想定される値を入力してタスクを更新する' do
       scenario '更新に成功する' do
@@ -262,32 +236,6 @@ RSpec.feature "Tasks", type: :feature do
         expect(current_path).to eq edit_task_path(@task.id)
         expect(page).to have_content 'タスク名は255字以内で入力してください。' 
         expect(page).to have_content '期限を正しく入力してください。'
-      end
-    end
-
-    context 'ステータスを空白文字で更新する', js: true do
-      scenario '更新に失敗してエラーメッセージが表示される' do
-        visit edit_task_path(@task.id)
-        fill_in 'task_task_name', with: "#{@task.task_name}"
-        select I18n.t('status.todo'), from: 'task_status'
-        page.execute_script("$(\"[name='task[status]'] option:selected\").val('');")
-        click_button I18n.t('helpers.submit.update')
-
-        expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content '状態を入力してください。' 
-      end
-    end
-
-    context '優先度を空白文字で更新する', js: true do
-      scenario '更新に失敗してエラーメッセージが表示される' do
-        visit edit_task_path(@task.id)
-        fill_in 'task_task_name', with: "#{@task.task_name}"
-        select I18n.t('priority.low'), from: 'task_priority'
-        page.execute_script("$(\"[name='task[priority]'] option:selected\").val('');")
-        click_button I18n.t('helpers.submit.update')
-
-        expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content '優先度を入力してください。' 
       end
     end
   end
