@@ -401,10 +401,8 @@ RSpec.feature "Tasks", type: :feature do
 
   feature 'ページネーション' do
     background do
-      11.times do
-        create(:task)
-      end
       11.times do |i|
+        create(:task)
         create(:task, task_name: "b_#{i}")
       end
     end
