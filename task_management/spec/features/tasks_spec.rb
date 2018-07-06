@@ -398,4 +398,121 @@ RSpec.feature "Tasks", type: :feature do
       end   
     end
   end
+
+  feature 'ページネーション' do
+    background do
+      11.times do
+        create(:task)
+      end
+      11.times do |i|
+        create(:task, task_name: "b_#{i}")
+      end
+    end
+
+    context 'タスクが存在しない場合' do
+      scenario 'タスクが表示されず、メッセージが表示される' do
+        visit root_path
+        fill_in 'searched_task_name', with: 'c'
+        click_button I18n.t('helpers.submit.search')
+
+        expect(page).to have_content I18n.t('view.page_entries_info.zero')
+        expect(page).not_to have_content I18n.t('views.pagination.first')
+        expect(page).not_to have_content I18n.t('views.pagination.previous')
+        expect(page).not_to have_content I18n.t('views.pagination.next')
+        expect(page).not_to have_content I18n.t('views.pagination.last')
+      end
+    end
+
+    context '1ページ目を表示した場合' do
+      given(:tasks_list) {all('ul li')}
+      scenario 'タスクを1件目から10件目まで表示する' do
+        visit root_path
+
+        expect(page).to have_content '1〜10件（全23件）'
+        expect(tasks_list.size).to eq 40
+      end
+
+      scenario '次のページへ遷移するリンクが表示されている' do
+        visit root_path
+
+        expect(page).not_to have_content I18n.t('views.pagination.first')
+        expect(page).not_to have_content I18n.t('views.pagination.previous')
+        expect(page).to have_content I18n.t('views.pagination.next')
+        expect(page).to have_content I18n.t('views.pagination.last')
+      end
+    end
+      
+    context '最初または最後のページ以外を表示した場合' do
+      given(:tasks_list) {all('ul li')}
+      scenario 'タスクを11件目から20件目まで表示する' do
+        visit root_path
+        click_on I18n.t('views.pagination.next')
+
+        expect(page).to have_content '11〜20件（全23件）'
+        expect(tasks_list.size).to eq 40
+      end
+
+      scenario '前後のページへ遷移するリンクが表示されている' do
+        visit root_path
+        click_on I18n.t('views.pagination.next')
+
+        expect(page).to have_content I18n.t('views.pagination.first')
+        expect(page).to have_content I18n.t('views.pagination.previous')
+        expect(page).to have_content I18n.t('views.pagination.next')
+        expect(page).to have_content I18n.t('views.pagination.last')
+      end
+    end
+
+    context '最後のページを表示した場合' do
+      given(:tasks_list) {all('ul li')}
+      scenario 'タスクを21件目から23件目まで表示する' do
+        visit root_path
+        click_on I18n.t('views.pagination.last')
+        
+        expect(tasks_list.size).to eq 12
+        expect(page).to have_content '21〜23件（全23件）'
+      end
+
+      scenario '前のページへ遷移するリンクが表示されている' do
+        visit root_path
+        click_on I18n.t('views.pagination.last')
+
+        expect(page).to have_content I18n.t('views.pagination.first')
+        expect(page).to have_content I18n.t('views.pagination.previous')
+        expect(page).not_to have_content I18n.t('views.pagination.next')
+        expect(page).not_to have_content I18n.t('views.pagination.last')
+      end
+    end
+
+    context '検索した場合' do
+      given(:tasks_list) {all('ul li')}
+      given(:uri) {URI.parse(current_url)}
+      scenario '検索結果の1件目から10件目まで表示する' do
+        visit root_path
+        fill_in 'searched_task_name', with: 'b'
+        check I18n.t('status.todo')
+        click_button I18n.t('helpers.submit.search')
+
+        expect(uri.path).to eq root_path
+        expect(uri.query).to have_content 'searched_task_name=b'
+        expect(tasks_list.size).to eq 40
+        expect(page).to have_content '1〜10件（全11件）'
+      end
+    end
+
+    context '検索結果の2ページ目を開いた場合' do
+      given(:tasks_list) {all('ul li')}
+      given(:uri) {URI.parse(current_url)}
+      scenario '検索結果の11件目を表示する' do
+        visit root_path(searched_task_name: 'b')
+        click_on I18n.t('views.pagination.next')
+
+        expect(uri.path).to eq root_path
+        expect(uri.query).to have_content 'searched_task_name=b'
+        expect(uri.query).to have_content 'page=2'
+        expect(tasks_list.size).to eq 4
+        expect(page).to have_content '11〜11件（全11件）'
+      end
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   def index
-    @tasks = Task.search(params)
+    @tasks = Task.search(params).page(params[:page]).per(10)
   end
 
   def show
