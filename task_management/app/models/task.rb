@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :user
   enum status: [:todo, :doing, :done]
   enum priority: [:low, :middle, :high]
 
