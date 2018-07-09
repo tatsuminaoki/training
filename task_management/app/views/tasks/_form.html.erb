@@ -1,6 +1,10 @@
-  <% task.errors.full_messages.each do |message| %>
-    <li class='alert alert-primary mt-0 '><%= message %></li>
-  <% end %>
+<%if task.errors.full_messages.present?%>
+  <div class='alert alert-danger '>
+    <% task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </div>
+<% end %>
 <div class='row col-12'>
   <%= form_with model: task, url: url, local: true do |form| %>
     <%= I18n.t('activerecord.attributes.task.task_name') %>：<%= form.text_field :task_name, class: 'm-2' %><br>

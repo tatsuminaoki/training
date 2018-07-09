@@ -14,7 +14,8 @@
       <%= link_to 'Task Manager', root_path, class: 'navbar-brand'%>
     </nav>
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key} alert alert-primary") %>
+      <% color = key=='notice' ? 'success' : 'danger'%>
+      <%= content_tag(:div, value, class: "#{key} alert alert-#{color}") %>
     <% end %>
     <div class='container bg-white'>
       <%= yield %>
