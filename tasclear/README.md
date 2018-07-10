@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
+このアプリケーションは楽天（ラクマチーム）のサーバーサイドエンジニアの研修課題用に作成したものです。  
+タスク管理システムです。  
+詳細はdocs内のREADMEをご参照ください。
 
-Things you may want to cover:
+## 画面遷移図
+docs内のscreen_designをご参照ください。
 
-* Ruby version
+## モデル図
+docs内のmodel_diagramをご参照ください。
 
-* System dependencies
+## バージョン
+Ruby 2.5.1
+Rails 5.2.0
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 作者
+yusuke.miyazaki
