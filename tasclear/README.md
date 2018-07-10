@@ -6,7 +6,7 @@
 詳細はdocs内のREADMEをご参照ください。
 
 ## 画面遷移図
-docs内のscreen_derignをご参照ください。
+docs内のscreen_designをご参照ください。
 
 ## モデル図
 docs内のmodel_diagramをご参照ください。
