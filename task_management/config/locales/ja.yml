@@ -5,6 +5,7 @@ ja:
       submit: 保存する
       update: 更新する
       search: 検索する
+      login: ログイン
   site_title: タスクマネジメント
   flash:
     success_create: タスクの登録に成功しました
@@ -13,6 +14,10 @@ ja:
     failure_update: タスクの更新に失敗しました
     success_delete: タスク：%{task}を削除しました
     failure_delete: タスク：%{task}の削除に失敗しました
+    success_log_in: ログインに成功しました
+    failure_log_in: ログインに失敗しました
+    success_log_out: ログアウトに成功しました
+    failure_log_out: ログアウトに失敗しました
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
@@ -69,3 +74,6 @@ ja:
     low: 低
     middle: 中
     high: 高
+  login:
+    user_name: ユーザ名
+    password: パスワード
