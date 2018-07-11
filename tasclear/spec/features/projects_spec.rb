@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Projects", type: :feature do
+RSpec.feature "Tasts", type: :feature do
   scenario '新しいタスクを作成する' do
     expect {
       visit root_path
