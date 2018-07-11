@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する必要があるためstep19ができるまでskip' do
   describe '#validation' do
     describe 'タスク名' do
       context '0文字の場合' do
