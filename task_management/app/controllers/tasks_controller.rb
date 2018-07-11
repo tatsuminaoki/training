@@ -1,15 +1,19 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
+  before_action :authorization_user
+
   def index
-    @tasks = Task.search(params).page(params[:page]).per(10)
+    @tasks = Task.search(params, @current_user).page(params[:page]).per(10)
   end
 
   def show
     @task = Task.find(params[:id])
+    log_out_invalid_user
   end
   
   def edit
     @task = Task.find(params[:id])
+    log_out_invalid_user
   end
 
   def new
@@ -18,6 +22,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(tasks_params)
+    @task.user_id = @current_user.id
     if @task.save
       redirect_to ({action: 'index'}), notice: I18n.t('flash.success_create')
     else
@@ -47,5 +52,9 @@ class TasksController < ApplicationController
 
   def tasks_params
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
+  end
+  
+  def authorization_user
+    redirect_to login_path if get_current_user.nil?
   end
 end

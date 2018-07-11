@@ -11,4 +11,9 @@ class SessionsController < ApplicationController
       redirect_to ({action: 'new'}), alert: I18n.t('flash.failure_log_in')
     end
   end
+
+  def delete
+    log_out
+    redirect_to login_path, notice: I18n.t('flash.success_log_out')
+  end
 end

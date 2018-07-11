@@ -10,8 +10,20 @@
   </head>
 
   <body class='bg-light'>
-    <nav class='navbar navbar-dark bg-dark'>
+    <nav class='navbar navbar-header navbar-expand-lg navbar-dark bg-dark'>
       <%= link_to 'Task Manager', root_path, class: 'navbar-brand'%>
+        <% unless @current_user.nil? %>
+          <ul class="navbar-nav navbar-right" >
+            <li class="nav-item dropdown">
+              <button type='button' class='btn btn-dark dropdown-toggle' id="dropdownMenuButton" data-toggle="dropdown">
+                <%= @current_user.user_name %>
+              </button>
+              <div class='dropdown-menu dropdown-menu-right' aria-labelledby="navbarDropdownMenuLink">
+                <%= link_to 'log out', logout_path, method: 'delete' %>
+              </div>
+            </li>
+          </ul>
+        <% end %>
     </nav>
     <% flash.each do |key, value| %>
       <% color = key=='notice' ? 'success' : 'danger'%>

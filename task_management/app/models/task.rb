@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   validate :due_date_valid?
   validates :priority, presence: true
   validates :status, presence: true
-  
+
   def due_date_valid?
     return true if date_valid?(due_date)
     return true if due_date_before_type_cast.empty?
@@ -21,15 +21,15 @@ class Task < ApplicationRecord
     !! Date.parse(date.to_s) rescue false
   end
 
-  def self.search(params)
+  def self.search(params, current_user)
     params[:searched_task_name] = '' if params[:searched_task_name].nil?
     tasks = if params[:searched_task_name].blank?
-              Task.all
+              Task.where(user_id: current_user.id)
             else
-              Task.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
+              Task.where(user_id: current_user.id).where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
             end
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
-    
+
     case params[:sort]
     when 'due_date_asc'
       tasks.order('due_date ASC')

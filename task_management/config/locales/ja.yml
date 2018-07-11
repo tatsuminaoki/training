@@ -16,8 +16,8 @@ ja:
     failure_delete: タスク：%{task}の削除に失敗しました
     success_log_in: ログインに成功しました
     failure_log_in: ログインに失敗しました
-    success_log_out: ログアウトに成功しました
-    failure_log_out: ログアウトに失敗しました
+    success_log_out: ログアウトしました
+    access_invalid_task: 無効なタスクにアクセスしました
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
