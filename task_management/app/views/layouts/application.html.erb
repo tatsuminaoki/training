@@ -9,10 +9,16 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class='bg-light'>
+    <nav class='navbar navbar-dark bg-dark'>
+      <%= link_to 'Task Manager', root_path, class: 'navbar-brand'%>
+    </nav>
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
+      <% color = key=='notice' ? 'success' : 'danger'%>
+      <%= content_tag(:div, value, class: "#{key} alert alert-#{color}") %>
     <% end %>
-    <%= yield %>
+    <div class='container bg-white'>
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -368,7 +368,7 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'searched_task_name', with: 'a'
         check I18n.t('status.todo')
         click_button I18n.t('helpers.submit.search')
-      
+
         expect(uri.path).to eq root_path
         expect(uri.query).to have_content 'searched_task_name=a'
         expect(uri.query).to have_content 'statuses[]=todo'
@@ -380,6 +380,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content I18n.t('view.task_name', :task => @task.task_name)
         expect(page).to have_content I18n.t('view.task_name', :task => 'a')
         expect(page).not_to have_content I18n.t('view.task_name', :task => 'b')
+        expect(page).not_to have_content I18n.t('view.task_name', :task => '0%')
         expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.todo"))
         expect(page).not_to have_content I18n.t('view.status', :task => I18n.t("status.doing"))
         expect(page).not_to have_content I18n.t('view.status', :task => I18n.t("status.done"))
@@ -392,9 +393,9 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'searched_task_name', with: '%'
         check I18n.t('status.todo')
         click_button I18n.t('helpers.submit.search')
-              
-        expect(page).not_to have_content 'a'
-        expect(page).to have_content '0%'
+
+        expect(page).not_to have_content I18n.t('view.task_name', :task => 'a')
+        expect(page).to have_content I18n.t('view.task_name', :task => '0%')
       end   
     end
   end
@@ -427,7 +428,7 @@ RSpec.feature "Tasks", type: :feature do
         visit root_path
 
         expect(page).to have_content '1〜10件（全23件）'
-        expect(tasks_list.size).to eq 40
+        expect(tasks_list.size).to eq 35
       end
 
       scenario '次のページへ遷移するリンクが表示されている' do
@@ -447,7 +448,7 @@ RSpec.feature "Tasks", type: :feature do
         click_on I18n.t('views.pagination.next')
 
         expect(page).to have_content '11〜20件（全23件）'
-        expect(tasks_list.size).to eq 40
+        expect(tasks_list.size).to eq 37
       end
 
       scenario '前後のページへ遷移するリンクが表示されている' do
@@ -466,8 +467,8 @@ RSpec.feature "Tasks", type: :feature do
       scenario 'タスクを21件目から23件目まで表示する' do
         visit root_path
         click_on I18n.t('views.pagination.last')
-        
-        expect(tasks_list.size).to eq 12
+
+        expect(tasks_list.size).to eq 14
         expect(page).to have_content '21〜23件（全23件）'
       end
 
@@ -493,7 +494,7 @@ RSpec.feature "Tasks", type: :feature do
 
         expect(uri.path).to eq root_path
         expect(uri.query).to have_content 'searched_task_name=b'
-        expect(tasks_list.size).to eq 40
+        expect(tasks_list.size).to eq 34
         expect(page).to have_content '1〜10件（全11件）'
       end
     end
@@ -508,7 +509,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(uri.path).to eq root_path
         expect(uri.query).to have_content 'searched_task_name=b'
         expect(uri.query).to have_content 'page=2'
-        expect(tasks_list.size).to eq 4
+        expect(tasks_list.size).to eq 7
         expect(page).to have_content '11〜11件（全11件）'
       end
     end

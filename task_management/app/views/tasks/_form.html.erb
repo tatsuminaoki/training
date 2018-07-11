@@ -1,12 +1,17 @@
-<% task.errors.full_messages.each do |message| %>
-  <li><%= message %></li>
+<%if task.errors.full_messages.present?%>
+  <div class='alert alert-danger '>
+    <% task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </div>
 <% end %>
-
-<%= form_with model: task, url: url, local: true do |form| %>
-  <%= I18n.t('activerecord.attributes.task.task_name') %>：<%= form.text_field :task_name %><br>
-  <%= I18n.t('activerecord.attributes.task.description') %>：<%= form.text_field :description %><br>
-  <%= I18n.t('activerecord.attributes.task.due_date') %>：<%= form.text_field :due_date, data: { :date_format => 'YYYY-MM-DD' }, class: ' datepicker'	%><br>
-  <%= I18n.t('activerecord.attributes.task.status') %>：<%= form.select :status, Task.statuses.keys.map{|k| [I18n.t("status.#{k}"), k]} %><br>
-  <%= I18n.t('activerecord.attributes.task.priority') %>：<%= form.select :priority, Task.priorities.keys.map{|k| [I18n.t("priority.#{k}"), k]} %><br>
-  <%= form.submit %>
-<% end %>
+<div class='row col-12'>
+  <%= form_with model: task, url: url, local: true do |form| %>
+    <%= I18n.t('activerecord.attributes.task.task_name') %>：<%= form.text_field :task_name, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.task.description') %>：<%= form.text_field :description %><br>
+    <%= I18n.t('activerecord.attributes.task.due_date') %>：<%= form.text_field :due_date, data: { :date_format => 'YYYY-MM-DD' }, class: ' datepicker m-2', autocomplete: 'off'	%><br>
+    <%= I18n.t('activerecord.attributes.task.status') %>：<%= form.select :status, Task.statuses.keys.map{|k| [I18n.t("status.#{k}"), k]}, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.task.priority') %>：<%= form.select :priority, Task.priorities.keys.map{|k| [I18n.t("priority.#{k}"), k]}, class: 'm-2' %><br>
+    <%= form.submit%>
+  <% end %>
+</div>
