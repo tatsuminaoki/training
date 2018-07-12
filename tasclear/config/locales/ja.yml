@@ -13,6 +13,16 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  tasks:
+    index:
+      title: 'タスク一覧'
+      name: 'タスク名'
+      content: '内容'
+      detail: '詳細'
+      edit: '編集'
+      delete: '削除'
+      confirm: '本当に削除してもいいですか'
+      new_task: '新規タスク登録'
   date:
     abbr_day_names:
     - 日
