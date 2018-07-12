@@ -23,6 +23,8 @@ group :development, :test do
   gem 'pry-rails'
   # for test
   gem 'rspec-rails'
+
+  gem 'beautiful-log'
 end
 
 group :development do

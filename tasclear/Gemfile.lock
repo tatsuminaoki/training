@@ -46,6 +46,10 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
+    awesome_print (1.8.0)
+    beautiful-log (0.2.2)
+      awesome_print (~> 1.8.0)
+      colorize (~> 0.8.1)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -72,6 +76,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     debug_inspector (0.0.3)
@@ -235,6 +240,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  beautiful-log
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
