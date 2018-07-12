@@ -13,7 +13,7 @@ RSpec.feature 'Tasts', type: :feature do
       expect(page).to have_content 'タスクを作成しました'
       expect(page).to have_content '勉強'
       expect(page).to have_content 'RSpecについて'
-    end.to change{ Task.count }.by(1)
+    end.to change { Task.count }.by(1)
   end
   scenario 'タスクを編集する' do
     visit root_path
@@ -29,7 +29,7 @@ RSpec.feature 'Tasts', type: :feature do
       expect(page).to have_content 'タスクを編集しました'
       expect(page).to have_content '運動'
       expect(page).to have_content '腕立て100回'
-    end.to change{ Task.count }.by(0)
+    end.to change { Task.count }.by(0)
   end
   scenario 'タスクを削除する' do
     visit root_path
@@ -40,6 +40,6 @@ RSpec.feature 'Tasts', type: :feature do
     expect do
       click_link '削除'
       expect(page).to have_content 'タスクを削除しました'
-    end.to change{ Task.count }.by(-1)
+    end.to change { Task.count }.by(-1)
   end
 end
