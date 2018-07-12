@@ -68,4 +68,5 @@ RSpec.configure do |config|
   end
 
   config.include PrepareTasksMacros
+  config.include LoginMacros
 end
