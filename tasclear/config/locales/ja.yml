@@ -23,6 +23,17 @@ ja:
       delete: '削除'
       confirm: '本当に削除してもいいですか'
       new_task: '新規タスク登録'
+    new:
+      title: '新規タスク登録'
+      back: '戻る'
+    edit:
+      title: 'タスク編集'
+      back: '戻る'
+    show:
+      title: 'タスク詳細'
+      name: 'タスク名'
+      content: '内容'
+      back: '戻る'
   date:
     abbr_day_names:
     - 日
