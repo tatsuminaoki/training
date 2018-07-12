@@ -1,6 +1,12 @@
 ---
 ja:
   activerecord:
+    models:
+      task: 'タスク'
+    attributes:
+      task:
+        name: 'タスク名'
+        content: '内容'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
