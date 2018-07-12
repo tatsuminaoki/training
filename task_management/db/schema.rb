@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_07_09_045016) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "task_name", null: false
     t.text "description"
     t.datetime "created_at", null: false
@@ -20,7 +21,6 @@ ActiveRecord::Schema.define(version: 2018_07_09_045016) do
     t.date "due_date"
     t.integer "status", limit: 1, default: 0, null: false, unsigned: true
     t.integer "priority", limit: 1, default: 0, null: false, unsigned: true
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_045016) do
     t.string "user_name", null: false
     t.string "mail_address", null: false
     t.string "password_digest", null: false
-    t.integer "admin", limit: 1, default: 0, null: false, unsigned: true
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
