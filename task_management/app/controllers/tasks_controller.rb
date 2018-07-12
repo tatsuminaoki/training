@@ -53,8 +53,8 @@ class TasksController < ApplicationController
   def tasks_params
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
   end
-  
+
   def authorization_user
-    redirect_to login_path if get_current_user.nil?
+    redirect_to login_path, alert: I18n.t('flash.require_log_in') if get_current_user.nil?
   end
 end

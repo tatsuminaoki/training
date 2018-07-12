@@ -18,6 +18,7 @@ ja:
     failure_log_in: ログインに失敗しました
     success_log_out: ログアウトしました
     access_invalid_task: 無効なタスクにアクセスしました
+    require_log_in: ログインしてください
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
