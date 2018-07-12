@@ -34,5 +34,7 @@ module Tasclear
 
     config.logger = Logger.new(config.paths["log"].first)
     config.logger.formatter = Beautiful::Log::Formatter.new
+
+    config.time_zone = 'Tokyo'
   end
 end
