@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
+  protect_from_forgery except: :update # PATCHリクエストで"Can't verify CSRF token authenticity."と表示されるため追加
   before_action :authorize_user
 
   def index
