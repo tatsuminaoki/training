@@ -1,8 +1,8 @@
 module LoginMacros
-  def login(user)
+  def login(user_name, password)
     visit login_path
-    fill_in 'user_name', with: user.user_name
-    fill_in 'password', with: user.password
+    fill_in 'user_name', with: user_name if user_name.present?
+    fill_in 'password', with: password if password.present?
     click_button I18n.t('helpers.submit.login')
   end
 

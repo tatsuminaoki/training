@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加する必要があるためstep19ができるまでskip' do
+RSpec.feature "Tasks", type: :feature do
   background do
     @user = create(:user)
     @task = create(:task, user_id: @user.id)
@@ -8,7 +8,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
 
   feature '画面遷移' do
     background do
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context '一覧画面で「新規作成」をクリックする' do
@@ -98,7 +98,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
 
   feature 'タスクの登録' do
     background do
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context '想定される値を入力してタスクを登録する' do
@@ -176,7 +176,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
   
   feature 'タスクの更新' do
     background do
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context '想定される値を入力してタスクを更新する' do
@@ -255,7 +255,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
 
   feature 'タスクの削除' do
     background do
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context 'タスクを削除する' do
@@ -278,7 +278,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
         create(:task, priority: priority, user_id: @user.id)
       end
       Timecop.return
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context 'クエリパラメータ無しで一覧画面にアクセスする' do
@@ -376,7 +376,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
       create(:task, task_name: 'a', status: 'done', user_id: @user.id)
       create(:task, task_name: 'b', status: 'todo', user_id: @user.id)
       create(:task, task_name: '0%', status: 'todo', user_id: @user.id)
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context '検索結果が存在する' do
@@ -425,7 +425,7 @@ RSpec.feature "Tasks", type: :feature, skip: 'タスクにユーザIDを追加�
         create(:task, user_id: @user.id)
         create(:task, task_name: "b_#{i}", user_id: @user.id)
       end
-      login(@user)
+      login(@user.user_name, @user.password)
     end
 
     context 'タスクが存在しない場合' do

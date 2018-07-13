@@ -9,7 +9,7 @@ RSpec.feature "Sessions", type: :feature do
   feature '認証' do
     context 'ログインに成功した場合' do
       background do
-        login(@user)
+        login(@user.user_name, @user.password)
       end
 
       scenario '一覧画面に遷移して、必要な情報を表示する' do
@@ -20,18 +20,56 @@ RSpec.feature "Sessions", type: :feature do
     end
 
     context 'ログインに失敗した場合' do
-      given(:user3) {build(:user, user_name: 'c', mail_address: 'c@test.com', password: 'c', admin: false)}
-      scenario 'エラーメッセージが表示される' do
-        login(user3)
+      context 'DBにユーザが存在しない場合' do
+        given(:unregistered_user) {build(:user, user_name: 'c', mail_address: 'c@example.com', password: 'c', admin: false)}
+        scenario 'エラーメッセージが表示される' do
+          login(unregistered_user.user_name, unregistered_user.password)
 
-        expect(current_path).to eq login_path
-        expect(page).to have_content 'ログインに失敗しました'
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログインに失敗しました'
+        end
+      end
+
+      context 'ユーザ名を間違えた場合' do
+        scenario 'エラーメッセージが表示される' do
+          login('missed_name', @user.password)
+
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログインに失敗しました'
+        end
+      end
+
+      context 'パスワードを間違えた場合' do
+        scenario 'エラーメッセージが表示される' do
+          login(@user.user_name, 'missed_password')
+
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログインに失敗しました'
+        end
+      end
+
+      context 'ユーザ名を入力しない場合' do
+        scenario 'エラーメッセージが表示される' do
+          login(nil, @user.password)
+
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログインに失敗しました'
+        end
+      end
+
+      context 'パスワードを入力しない場合' do
+        scenario 'エラーメッセージが表示される' do
+          login(@user.user_name, nil)
+
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログインに失敗しました'
+        end
       end
     end
-    
+
     context 'ログイン済みの場合' do
       background do
-        login(@user)
+        login(@user.user_name, @user.password)
       end
 
       scenario 'ログイン画面にアクセスすると一覧画面にリダイレクトされる' do
@@ -42,7 +80,7 @@ RSpec.feature "Sessions", type: :feature do
 
     context 'ログアウト' do
       background do
-        login(@user)
+        login(@user.user_name, @user.password)
       end
 
       scenario 'ログイン画面に遷移する' do
@@ -64,17 +102,15 @@ RSpec.feature "Sessions", type: :feature do
 
   feature '認可' do
     given(:task) {create(:task, task_name: 'a', user_id: @user.id)}
-    given(:user2) {create(:user, user_name: 'b', mail_address: 'b@test.com', password: 'b', admin: false)}
-    before do
-      create(:task, task_name: 'b', user_id: user2.id)
-    end
-
+    given(:user2) {create(:user, user_name: 'b', mail_address: 'b@example.com', password: 'b', admin: false)}
+    
     context '一覧画面' do
+      given!(:task2) {create(:task, task_name: 'b', user_id: user2.id)}
       scenario 'ログインしたユーザが作成したタスクのみ見えること' do
-        login(user2)
+        login(user2.user_name, user2.password)
 
-        expect(page).to have_content 'タスク：b'
-        expect(page).not_to have_content 'タスク：a'
+        expect(page).to have_content "タスク：#{task2.task_name}"
+        expect(page).not_to have_content "タスク：#{task.task_name}"
       end
 
       scenario 'ログインしていないときにログイン画面にリダイレクトされること' do
@@ -91,29 +127,30 @@ RSpec.feature "Sessions", type: :feature do
           create(:task, task_name: "a_#{i}", user_id: @user.id)
         end
       end
+      given!(:task2) {create(:task, task_name: 'b', user_id: user2.id)}
 
       scenario 'ログインしたユーザが作成したタスクのみ見えること' do
-        login(user2)
+        login(user2.user_name, user2.password)
         click_button I18n.t('helpers.submit.search')
 
-        expect(page).to have_content 'タスク：b'
-        expect(page).not_to have_content 'タスク：a'
+        expect(page).to have_content "タスク：#{task2.task_name}"
+        expect(page).not_to have_content "タスク：#{task.task_name}"
       end
     end
 
     context '詳細画面' do
       scenario 'ログインしたユーザが作成したタスクにアクセスできること' do
-        login(@user)
+        login(@user.user_name, @user.password)
         visit show_task_path(task.id)
 
         expect(current_path).to eq show_task_path(task.id)
       end
 
       scenario 'ログインしたユーザ以外が作成したタスクにアクセスできないこと' do
-        login(user2)
+        login(user2.user_name, user2.password)
         visit show_task_path(task.id)
 
-        expect(current_path).to eq login_path
+        expect(current_path).to eq root_path
         expect(page).to have_content '無効なタスクにアクセスしました'
       end
 
@@ -127,17 +164,17 @@ RSpec.feature "Sessions", type: :feature do
 
     context '編集画面' do
       scenario 'ログインしたユーザが作成したタスクにアクセスできること' do
-        login(@user)
+        login(@user.user_name, @user.password)
         visit edit_task_path(task.id)
 
         expect(current_path).to eq edit_task_path(task.id)
       end
 
       scenario 'ログインしたユーザ以外が作成したタスクにアクセスできないこと' do
-        login(user2)
+        login(user2.user_name, user2.password)
         visit edit_task_path(task.id)
 
-        expect(current_path).to eq login_path
+        expect(current_path).to eq root_path
         expect(page).to have_content '無効なタスクにアクセスしました'        
       end
 

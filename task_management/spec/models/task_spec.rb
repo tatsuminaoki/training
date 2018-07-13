@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する必要があるためstep19ができるまでskip' do
+RSpec.describe Task, type: :model do
   describe '#validation' do
+    let(:user) {FactoryBot.create(:user)}
     describe 'タスク名' do
       context '0文字の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, task_name: '',user_id: user.id)}
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
@@ -14,7 +14,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '1文字の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, task_name: 'a', user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -22,7 +21,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '255文字の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, task_name: 'a'*255, user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -30,7 +28,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '256文字の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, task_name: 'a'*256, user_id: user.id)}
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
@@ -42,7 +39,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
     
     describe '期限' do
       context '入力しない場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, due_date: '', user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -50,7 +46,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '存在しない日付の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, due_date: '2018-06-31', user_id: user.id)}
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
@@ -62,7 +57,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
 
     describe '複数のエラー' do
       context 'タスク名が0文字かつ期限が存在しない日付の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, task_name: '', due_date: '2018-06-31', user_id: user.id)}
         it 'バリデーションエラーが複数発生する' do
           expect(task.validate).to be_falsy
@@ -75,7 +69,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
 
     describe 'ステータス' do
       context '2の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, status: 2, user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -83,14 +76,12 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '3の場合' do
-        let(:user) {FactoryBot.create(:user)}
         it '引数エラーが発生する' do
           expect{(FactoryBot.build(:task, status: 3, user_id: user.id))}.to raise_error(ArgumentError)
         end
       end
 
       context "'todo'の場合" do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, status: 'todo', user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -98,14 +89,12 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context "'todo'、'doing'、'done'以外の場合" do
-        let(:user) {FactoryBot.create(:user)}
         it '引数エラーが発生する' do
           expect{(FactoryBot.build(:task, status: 'a', user_id: user.id))}.to raise_error(ArgumentError)
         end
       end
 
       context '空の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, status: '', user_id: user.id)}
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
@@ -117,7 +106,6 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
 
     describe '優先度' do
       context '2の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, priority: 2, user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -125,14 +113,12 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context '3の場合' do
-        let(:user) {FactoryBot.create(:user)}
         it '引数エラーが発生する' do
           expect{(FactoryBot.build(:task, priority: 3, user_id: user.id))}.to raise_error(ArgumentError)
         end
       end
 
       context "'low'の場合" do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, priority: 'low', user_id: user.id)}
         it 'バリデーションエラーが発生しない' do
           expect(task.validate).to be_truthy
@@ -140,14 +126,12 @@ RSpec.describe Task, type: :model, skip: 'タスクにユーザIDを追加する
       end
 
       context "'low'、'middle'、'high'以外の場合" do
-        let(:user) {FactoryBot.create(:user)}
         it '引数エラーが発生する' do
           expect{(FactoryBot.build(:task, priority: 'b', user_id: user.id))}.to raise_error(ArgumentError)
         end
       end
 
       context '空の場合' do
-        let(:user) {FactoryBot.create(:user)}
         let(:task) {FactoryBot.build(:task, priority: '', user_id: user.id)}
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy

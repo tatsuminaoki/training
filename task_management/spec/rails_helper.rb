@@ -67,6 +67,8 @@ RSpec.configure do |config|
     DatabaseRewinder.clean
   end
 
+  config.use_transactional_examples = false
+
   config.include PrepareTasksMacros
   config.include LoginMacros
 end

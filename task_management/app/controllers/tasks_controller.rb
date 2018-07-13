@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
-  before_action :authorization_user
+  before_action :authorize_user
 
   def index
     @tasks = Task.search(params, @current_user).page(params[:page]).per(10)
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
   end
 
-  def authorization_user
+  def authorize_user
     redirect_to login_path, alert: I18n.t('flash.require_log_in') if get_current_user.nil?
   end
 end

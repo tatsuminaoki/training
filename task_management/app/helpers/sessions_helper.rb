@@ -14,8 +14,7 @@ module SessionsHelper
 
   def log_out_invalid_user
     if @task.user_id != @current_user.id
-      log_out
-      redirect_to login_path, alert: I18n.t('flash.access_invalid_task')
+      redirect_to root_path, alert: I18n.t('flash.access_invalid_task')
     end
   end
 end
