@@ -31,5 +31,10 @@ module Tasclear
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.logger = Logger.new(config.paths["log"].first)
+    config.logger.formatter = Beautiful::Log::Formatter.new
+
+    config.time_zone = 'Tokyo'
   end
 end
