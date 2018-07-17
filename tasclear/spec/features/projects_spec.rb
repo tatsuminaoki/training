@@ -53,6 +53,8 @@ RSpec.feature 'Tasts', type: :feature do
     fill_in I18n.t('activerecord.attributes.task.name'), with: 'タスク２'
     fill_in I18n.t('activerecord.attributes.task.content'), with: '筋トレ'
     click_button I18n.t('helpers.submit.create')
-    expect(page.text).to match(/タスク２.*タスク１/)
+    names = page.all('td.name')
+    expect(names[0]).to have_content 'タスク２'
+    expect(names[1]).to have_content 'タスク１'
   end
 end
