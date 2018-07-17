@@ -42,4 +42,19 @@ RSpec.feature 'Tasts', type: :feature do
       expect(page).to have_content I18n.t('flash.task.destroy_success')
     end.to change { Task.count }.by(-1)
   end
+  scenario 'タスク一覧が作成日時の降順で並んでいること' do
+    visit root_path
+    click_link I18n.t('tasks.index.new_task')
+    fill_in I18n.t('activerecord.attributes.task.name'), with: 'タスク１'
+    fill_in I18n.t('activerecord.attributes.task.content'), with: 'RSpecについて'
+    click_button I18n.t('helpers.submit.create')
+    sleep(1)
+    click_link I18n.t('tasks.index.new_task')
+    fill_in I18n.t('activerecord.attributes.task.name'), with: 'タスク２'
+    fill_in I18n.t('activerecord.attributes.task.content'), with: '筋トレ'
+    click_button I18n.t('helpers.submit.create')
+    names = page.all('td.name')
+    expect(names[0]).to have_content 'タスク２'
+    expect(names[1]).to have_content 'タスク１'
+  end
 end
