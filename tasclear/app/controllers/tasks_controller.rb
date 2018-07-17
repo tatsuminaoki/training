@@ -39,6 +39,13 @@ class TasksController < ApplicationController
     redirect_to root_path, notice: t('flash.task.destroy_success')
   end
 
+  def sort_deadline
+    direction = session[:direction] == 'asc' ? 'desc' : 'asc'
+    @tasks = Task.order(deadline: "#{direction}", created_at: :desc)
+    session[:direction] = direction
+    render :index
+  end
+
   private
 
   def task_params
