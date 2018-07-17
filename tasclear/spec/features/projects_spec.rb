@@ -57,4 +57,24 @@ RSpec.feature 'Tasts', type: :feature do
     expect(names[0]).to have_content 'タスク２'
     expect(names[1]).to have_content 'タスク１'
   end
+  scenario 'タスク一覧画面で終了時間でソートできること' do
+    create(:task, name: '終了期限先', deadline: '2018-7-18')
+    sleep(1)
+    create(:task, name: '終了期限後', deadline: '2018-7-25')
+    # 「終了期限後」を後に作成したので上に表示されている
+    visit root_path
+    names = page.all('td.name')
+    expect(names[0]).to have_content '終了期限後'
+    expect(names[1]).to have_content '終了期限先'
+    # 終了期限をクリックすると終了期限が早い順にソートされ、「終了期限先」が上に表示される
+    click_link I18n.t('tasks.index.deadline')
+    names = page.all('td.name')
+    expect(names[0]).to have_content '終了期限先'
+    expect(names[1]).to have_content '終了期限後'
+    # もう一度終了期限をクリックすると反対に終了期限が遅い順にソートされ、「終了期限後」が上に表示される
+    click_link I18n.t('tasks.index.deadline')
+    names = page.all('td.name')
+    expect(names[0]).to have_content '終了期限後'
+    expect(names[1]).to have_content '終了期限先'
+  end
 end
