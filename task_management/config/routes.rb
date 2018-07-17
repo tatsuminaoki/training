@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   patch 'tasks/edit/:id', to: 'tasks#update'
   get 'tasks/delete/:id', to: 'tasks#destroy', as: 'delete_task'
   get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#delete'
+  post 'login', to: 'sessions#login'
+  delete 'logout', to: 'sessions#logout'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -21,9 +21,8 @@ RSpec.feature "Sessions", type: :feature do
 
     context 'ログインに失敗した場合' do
       context 'DBにユーザが存在しない場合' do
-        given(:unregistered_user) {build(:user, user_name: 'c', mail_address: 'c@example.com', password: 'c', admin: false)}
         scenario 'エラーメッセージが表示される' do
-          login(unregistered_user.user_name, unregistered_user.password)
+          login('unregistered_name', 'unregistered_password')
 
           expect(current_path).to eq login_path
           expect(page).to have_content 'ログインに失敗しました'
