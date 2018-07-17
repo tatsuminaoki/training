@@ -1,11 +1,13 @@
 <h1><%= t('.title') %></h1>
 <table>
   <tr>
+    <th><%= t('.deadline') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.content') %></th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
+      <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>
       <td><%= link_to t('.detail'), task_path(task.id) %></td>

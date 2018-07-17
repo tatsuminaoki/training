@@ -7,6 +7,7 @@ ja:
       task:
         name: 'タスク名'
         content: '内容'
+        deadline: '終了期限'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -19,6 +20,7 @@ ja:
       name: 'タスク名'
       content: '内容'
       detail: '詳細'
+      deadline: '終了期限'
       edit: '編集'
       delete: '削除'
       confirm: '本当に削除してもいいですか'
@@ -33,6 +35,7 @@ ja:
       title: 'タスク詳細'
       name: 'タスク名'
       content: '内容'
+      deadline: '終了期限'
       back: '戻る'
   flash:
     task:
