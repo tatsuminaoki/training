@@ -1,25 +1,18 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   protect_from_forgery except: :update # PATCHリクエストで"Can't verify CSRF token authenticity."と表示されるため追加
-  after_action :log_out_invalid_user, only: [:show, :edit]
-  
-  # after_action :redirect_root, only:[:index, :show]
-  # def redirect_root
-  #   redirect_to root_path
-  # end
+  before_action :log_out_invalid_user, only: [:show, :edit]
 
   def index
-    @tasks = Task.search(params, @current_user).page(params[:page]).per(10)
+    @tasks = Task.search(params, current_user).page(params[:page]).per(10)
   end
 
   def show
     @task = Task.find(params[:id])
-    # log_out_invalid_user
   end
   
   def edit
     @task = Task.find(params[:id])
-    # log_out_invalid_user
   end
 
   def new
@@ -28,7 +21,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(tasks_params)
-    @task.user_id = @current_user.id
+    @task.user_id = current_user.id
     if @task.save
       redirect_to ({action: 'index'}), notice: I18n.t('flash.success_create')
     else
@@ -56,13 +49,16 @@ class TasksController < ApplicationController
     end
   end
 
+  private
+
   def tasks_params
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
   end
 
   def log_out_invalid_user
-    if @task.user_id != @current_user.id
-      return redirect_to root_path, alert: I18n.t('flash.access_invalid_task')
+    user_id = Task.find(params[:id]).user_id
+    if user_id != current_user.id
+      redirect_to root_path, alert: I18n.t('flash.access_invalid_task')
     end
   end
 end

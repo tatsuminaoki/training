@@ -16,11 +16,6 @@ class SessionsController < ApplicationController
 
   def logout
     session.delete(:user_id)
-    @current_user = nil
     redirect_to login_path, notice: I18n.t('flash.success_log_out')
   end
-  
-  def logged_in?
-    session[:user_id].present?
-  end 
 end

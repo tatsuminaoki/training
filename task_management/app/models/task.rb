@@ -23,11 +23,9 @@ class Task < ApplicationRecord
 
   def self.search(params, current_user)
     params[:searched_task_name] = '' if params[:searched_task_name].nil?
-    tasks = if params[:searched_task_name].blank?
-              Task.where(user_id: current_user.id)
-            else
-              Task.where(user_id: current_user.id).where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%")
-            end
+
+    tasks = Task.where(user_id: current_user.id)
+    tasks = tasks.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%") if params[:searched_task_name].present?
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
 
     case params[:sort]
