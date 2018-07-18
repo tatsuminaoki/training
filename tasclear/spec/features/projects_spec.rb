@@ -43,24 +43,16 @@ RSpec.feature 'Tasts', type: :feature do
     end.to change { Task.count }.by(-1)
   end
   scenario 'タスク一覧が作成日時の降順で並んでいること' do
+    create(:task, name: 'タスク１', created_at: '2018-7-16 08:10:10')
+    create(:task, name: 'タスク２', created_at: '2018-7-16 09:10:15')
     visit root_path
-    click_link I18n.t('tasks.index.new_task')
-    fill_in I18n.t('activerecord.attributes.task.name'), with: 'タスク１'
-    fill_in I18n.t('activerecord.attributes.task.content'), with: 'RSpecについて'
-    click_button I18n.t('helpers.submit.create')
-    sleep(1)
-    click_link I18n.t('tasks.index.new_task')
-    fill_in I18n.t('activerecord.attributes.task.name'), with: 'タスク２'
-    fill_in I18n.t('activerecord.attributes.task.content'), with: '筋トレ'
-    click_button I18n.t('helpers.submit.create')
     names = page.all('td.name')
     expect(names[0]).to have_content 'タスク２'
     expect(names[1]).to have_content 'タスク１'
   end
   scenario 'タスク一覧画面で終了時間でソートできること' do
-    create(:task, name: '終了期限先', deadline: '2018-7-18')
-    sleep(1)
-    create(:task, name: '終了期限後', deadline: '2018-7-25')
+    create(:task, name: '終了期限先', deadline: '2018-7-18', created_at: '2018-7-16 08:10:10')
+    create(:task, name: '終了期限後', deadline: '2018-7-25', created_at: '2018-7-16 09:10:15')
     # 「終了期限後」を後に作成したので上に表示されている
     visit root_path
     names = page.all('td.name')
