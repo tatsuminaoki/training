@@ -1,12 +1,14 @@
 <h1><%= link_to t('.title'), root_path %></h1>
 <table>
   <tr>
+    <th><%= t('.status') %></th>
     <th><%= link_sort t('.deadline') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.content') %></th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
+      <td><%= t('tasks.status.' + task.status) %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>

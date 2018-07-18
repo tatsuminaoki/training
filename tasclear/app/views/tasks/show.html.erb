@@ -1,5 +1,6 @@
 <h1><%= t('.title') %></h1>
 <p><%= t('.name') %>：<%= @task.name %></p>
 <p><%= t('.content') %>：<%= @task.content %></p>
+<p><%= t('.status') %>：<%= t('tasks.status.' + @task.status) %></p>
 <p><%= t('.deadline') %>：<%= @task.deadline %></p>
 <%= link_to t('.back'), :back %>

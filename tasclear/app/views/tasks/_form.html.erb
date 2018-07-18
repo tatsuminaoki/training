@@ -16,6 +16,10 @@
     <%= form.label :content %>
     <%= form.text_field :content %>
   </div>
+  <div class="task_status">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.map { |k, v| [t("tasks.status.#{k}"), k] } %>
+  </div>
   <div class="task_deadline">
     <%= form.label :deadline %>
     <%= form.date_field :deadline %>
