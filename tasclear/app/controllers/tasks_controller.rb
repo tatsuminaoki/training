@@ -4,7 +4,13 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    if params[:sort] == '1'
+      direction = session[:direction] == 'asc' ? 'desc' : 'asc'
+      @tasks = Task.order(deadline: "#{direction}", created_at: :desc)
+      session[:direction] = direction
+    else
+      @tasks = Task.order(created_at: :desc)
+    end
   end
 
   def new
@@ -37,13 +43,6 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to root_path, notice: t('flash.task.destroy_success')
-  end
-
-  def sort_deadline
-    direction = session[:direction] == 'asc' ? 'desc' : 'asc'
-    @tasks = Task.order(deadline: "#{direction}", created_at: :desc)
-    session[:direction] = direction
-    render :index
   end
 
   private
