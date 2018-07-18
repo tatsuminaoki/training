@@ -4,13 +4,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    if params[:sort] == '1'
-      direction = session[:direction] == 'asc' ? 'desc' : 'asc'
-      @tasks = Task.order(deadline: "#{direction}", created_at: :desc)
-      session[:direction] = direction
-    else
-      @tasks = Task.order(created_at: :desc)
-    end
+    @tasks = if params.key?(:sort)
+               Task.order(deadline: params[:sort].to_sym, created_at: :desc)
+             else
+               Task.order(created_at: :desc)
+             end
   end
 
   def new
