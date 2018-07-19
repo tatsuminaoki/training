@@ -3,5 +3,6 @@ FactoryBot.define do
     name '家事'
     content '掃除、洗濯'
     deadline '2018-07-31'
+    status 'to_do'
   end
 end
