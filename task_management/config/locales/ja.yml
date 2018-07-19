@@ -76,5 +76,5 @@ ja:
     middle: 中
     high: 高
   login:
-    user_name: ユーザ名
+    mail_address: メールアドレス
     password: パスワード

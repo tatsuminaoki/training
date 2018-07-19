@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
   protect_from_forgery except: :update # PATCHリクエストで"Can't verify CSRF token authenticity."と表示されるため追加
-  before_action :log_out_invalid_user, only: [:show, :edit]
+  before_action :transit_invalid_user_to_top, only: [:show, :edit]
 
   def index
     @tasks = Task.search(params, current_user).page(params[:page]).per(10)
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
   end
 
-  def log_out_invalid_user
+  def transit_invalid_user_to_top
     user_id = Task.find(params[:id]).user_id
     if user_id != current_user.id
       redirect_to root_path, alert: I18n.t('flash.access_invalid_task')

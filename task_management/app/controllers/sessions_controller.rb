@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def login
-    user = User.find_by(user_name: params[:user_name])
+    user = User.find_by(mail_address: params[:mail_address])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to root_path, notice: I18n.t('flash.success_log_in')
