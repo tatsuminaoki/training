@@ -1,7 +1,10 @@
 class TasksController < ApplicationController
   protect_from_forgery except: :new
+  protect_from_forgery except: :update # PATCHリクエストで"Can't verify CSRF token authenticity."と表示されるため追加
+  before_action :transit_invalid_user_to_top, only: [:show, :edit]
+
   def index
-    @tasks = Task.search(params).page(params[:page]).per(10)
+    @tasks = Task.search(params, current_user).page(params[:page]).per(10)
   end
 
   def show
@@ -18,6 +21,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(tasks_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to ({action: 'index'}), notice: I18n.t('flash.success_create')
     else
@@ -45,7 +49,16 @@ class TasksController < ApplicationController
     end
   end
 
+  private
+
   def tasks_params
     params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
+  end
+
+  def transit_invalid_user_to_top
+    user_id = Task.find(params[:id]).user_id
+    if user_id != current_user.id
+      redirect_to root_path, alert: I18n.t('flash.access_invalid_task')
+    end
   end
 end
