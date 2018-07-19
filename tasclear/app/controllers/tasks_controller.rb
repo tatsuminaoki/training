@@ -4,10 +4,15 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    search_name = params[:search_name]
+    search_status = params[:search_status]
+    @tasks = Task.all
+    @tasks = @tasks.where(['name LIKE ?', "%#{search_name}%"]) if search_name.present?
+    @tasks = @tasks.where(status: search_status) if search_status.present?
     @tasks = if params.key?(:sort)
-               Task.order(deadline: params[:sort].to_sym, created_at: :desc)
+               @tasks.order(deadline: params[:sort].to_sym, created_at: :desc)
              else
-               Task.order(created_at: :desc)
+               @tasks.order(created_at: :desc)
              end
   end
 
