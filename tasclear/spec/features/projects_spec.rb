@@ -69,4 +69,14 @@ RSpec.feature 'Tasts', type: :feature do
     expect(names[0]).to have_content '終了期限後'
     expect(names[1]).to have_content '終了期限先'
   end
+  scenario 'タスク一覧画面で検索結果が表示されていること' do
+    create(:task, name: 'タスク１', status: 'to_do')
+    create(:task, name: 'タスク２', status: 'doing')
+    visit root_path
+    fill_in I18n.t('tasks.index.search_name'), with: 'タスク１'
+    select '未着手', from: 'search_status'
+    click_button I18n.t('tasks.index.search_submit')
+    expect(page).to have_content 'タスク１'
+    expect(page).not_to have_content 'タスク２'
+  end
 end
