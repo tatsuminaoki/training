@@ -6,7 +6,7 @@ class Task < ApplicationRecord
     length: { maximum: 20 }
   validates :content, length: { maximum: 200 }
 
-  enum status: { to_do: 0, doing: 1, done: 2 }
+  enum status: %i[to_do doing done]
 
   def self.search_and_order(params)
     search_name = params[:search_name]
