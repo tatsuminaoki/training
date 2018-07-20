@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   def self.search_and_order(params)
     search_name = params[:search_name]
     search_status = params[:search_status]
-    tasks = Task.all
+    tasks = self
     tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     if params.key?(:sort)
