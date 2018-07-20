@@ -34,6 +34,7 @@ RSpec.feature "Admins", type: :feature do
     end
 
     context '管理画面でユーザ名をクリックする' do
+      given!(:task) {create(:task, user_id: @user.id)}
       scenario 'ユーザ詳細画面に遷移する' do
         visit admin_path
         click_on I18n.t('view.user.user_name', :user => @user.user_name)
@@ -44,6 +45,8 @@ RSpec.feature "Admins", type: :feature do
         expect(page).to have_content I18n.t('view.user.mail_address', user: @user.mail_address)
         expect(page).to have_content I18n.t('button.edit')
         expect(page).to have_content I18n.t('button.delete')
+        expect(page).to have_content 'タスク'
+        expect(page).to have_content task.task_name
       end
     end
 

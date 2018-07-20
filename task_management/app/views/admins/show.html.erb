@@ -1,5 +1,5 @@
 <div class='row col-12 mx-auto'>
-  <div class='card mx-auto mt-3 mb-3' style="width: 100%;">
+  <div class='card mx-auto mt-3 mb-3' style='width: 100%;'>
     <div class='card-header alert-info text-secondary'>
       <h4>ユーザ情報</h4>
     </div>
@@ -14,6 +14,19 @@
       </ul>
       <%= link_to(I18n.t('button.edit'), admins_edit_path, class: 'btn btn-secondary m-2') %>
       <%= link_to(I18n.t('button.delete'), admins_delete_path, class: 'btn btn-danger m-2') %>
+    </div>
+  </div>
+
+  <div class='card mx-auto mt-3 mb-3' style='width: 100%;'>
+    <div class='card-header alert-info text-secondary'>
+      <h4>タスク</h4>
+    </div>
+    <div class='card-body'>
+        <% @tasks.each do |task| %>
+        <div class='card-body border border-secondary mb-3'>
+          <h4><%= task.task_name %></h4>
+        </div>
+        <% end %>
     </div>
   </div>
 </div>

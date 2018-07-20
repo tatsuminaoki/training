@@ -122,4 +122,18 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'Relation' do
+    context 'ユーザを削除した場合' do
+      let(:user){FactoryBot.create(:user)}
+      let!(:id){user.id}
+      let!(:task){FactoryBot.create(:task, user_id: user.id)}
+      let(:task_amount){Task.where(user_id: id).size}
+      it 'ユーザが持っているタスクも同時に削除される' do
+        user.destroy
+
+        expect(task_amount).to eq 0
+      end
+    end
+  end
 end
