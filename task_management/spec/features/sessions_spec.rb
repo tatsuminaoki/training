@@ -9,7 +9,7 @@ RSpec.feature "Sessions", type: :feature do
   feature '認証' do
     context 'ログインに成功した場合' do
       background do
-        login(@user.user_name, @user.password)
+        login(@user.mail_address, @user.password)
       end
 
       scenario '一覧画面に遷移して、必要な情報を表示する' do
@@ -22,16 +22,16 @@ RSpec.feature "Sessions", type: :feature do
     context 'ログインに失敗した場合' do
       context 'DBにユーザが存在しない場合' do
         scenario 'エラーメッセージが表示される' do
-          login('unregistered_name', 'unregistered_password')
+          login('unregistered_mail_address', 'unregistered_password')
 
           expect(current_path).to eq login_path
           expect(page).to have_content 'ログインに失敗しました'
         end
       end
 
-      context 'ユーザ名を間違えた場合' do
+      context 'メールアドレスを間違えた場合' do
         scenario 'エラーメッセージが表示される' do
-          login('missed_name', @user.password)
+          login('missed_mail_address', @user.password)
 
           expect(current_path).to eq login_path
           expect(page).to have_content 'ログインに失敗しました'
@@ -40,14 +40,14 @@ RSpec.feature "Sessions", type: :feature do
 
       context 'パスワードを間違えた場合' do
         scenario 'エラーメッセージが表示される' do
-          login(@user.user_name, 'missed_password')
+          login(@user.mail_address, 'missed_password')
 
           expect(current_path).to eq login_path
           expect(page).to have_content 'ログインに失敗しました'
         end
       end
 
-      context 'ユーザ名を入力しない場合' do
+      context 'メールアドレスを入力しない場合' do
         scenario 'エラーメッセージが表示される' do
           login(nil, @user.password)
 
@@ -58,7 +58,7 @@ RSpec.feature "Sessions", type: :feature do
 
       context 'パスワードを入力しない場合' do
         scenario 'エラーメッセージが表示される' do
-          login(@user.user_name, nil)
+          login(@user.mail_address, nil)
 
           expect(current_path).to eq login_path
           expect(page).to have_content 'ログインに失敗しました'
@@ -68,7 +68,7 @@ RSpec.feature "Sessions", type: :feature do
 
     context 'ログイン済みの場合' do
       background do
-        login(@user.user_name, @user.password)
+        login(@user.mail_address, @user.password)
       end
 
       scenario 'ログイン画面にアクセスすると一覧画面にリダイレクトされる' do
@@ -79,7 +79,7 @@ RSpec.feature "Sessions", type: :feature do
 
     context 'ログアウト' do
       background do
-        login(@user.user_name, @user.password)
+        login(@user.mail_address, @user.password)
       end
 
       scenario 'ログイン画面に遷移する' do
@@ -106,7 +106,7 @@ RSpec.feature "Sessions", type: :feature do
     context '一覧画面' do
       given!(:task2) {create(:task, task_name: 'b', user_id: user2.id)}
       scenario 'ログインしたユーザが作成したタスクのみ見えること' do
-        login(user2.user_name, user2.password)
+        login(user2.mail_address, user2.password)
 
         expect(page).to have_content "タスク：#{task2.task_name}"
         expect(page).not_to have_content "タスク：#{task.task_name}"
@@ -129,7 +129,7 @@ RSpec.feature "Sessions", type: :feature do
       given!(:task2) {create(:task, task_name: 'b', user_id: user2.id)}
 
       scenario 'ログインしたユーザが作成したタスクのみ見えること' do
-        login(user2.user_name, user2.password)
+        login(user2.mail_address, user2.password)
         click_button I18n.t('helpers.submit.search')
 
         expect(page).to have_content "タスク：#{task2.task_name}"
@@ -139,14 +139,14 @@ RSpec.feature "Sessions", type: :feature do
 
     context '詳細画面' do
       scenario 'ログインしたユーザが作成したタスクにアクセスできること' do
-        login(@user.user_name, @user.password)
+        login(@user.mail_address, @user.password)
         visit show_task_path(task.id)
 
         expect(current_path).to eq show_task_path(task.id)
       end
 
       scenario 'ログインしたユーザ以外が作成したタスクにアクセスできないこと' do
-        login(user2.user_name, user2.password)
+        login(user2.mail_address, user2.password)
         visit show_task_path(task.id)
 
         expect(current_path).to eq root_path
@@ -163,14 +163,14 @@ RSpec.feature "Sessions", type: :feature do
 
     context '編集画面' do
       scenario 'ログインしたユーザが作成したタスクにアクセスできること' do
-        login(@user.user_name, @user.password)
+        login(@user.mail_address, @user.password)
         visit edit_task_path(task.id)
 
         expect(current_path).to eq edit_task_path(task.id)
       end
 
       scenario 'ログインしたユーザ以外が作成したタスクにアクセスできないこと' do
-        login(user2.user_name, user2.password)
+        login(user2.mail_address, user2.password)
         visit edit_task_path(task.id)
 
         expect(current_path).to eq root_path

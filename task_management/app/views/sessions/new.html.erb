@@ -1,7 +1,7 @@
 <h1>Log in</h1>
 <div class='row col-12'>
   <%= form_with url: login_path do |form| %>
-    <%= I18n.t('login.user_name') %>：<%= form.text_field :user_name, class: 'm-2' %><br>
+    <%= I18n.t('login.mail_address') %>：<%= form.text_field :mail_address, class: 'm-2' %><br>
     <%= I18n.t('login.password') %>：<%= form.password_field :password %><br>
     <%= form.submit I18n.t('helpers.submit.login') %>
   <% end %>
