@@ -12,7 +12,7 @@ class Task < ApplicationRecord
     search_name = params[:search_name]
     search_status = params[:search_status]
     tasks = Task.all
-    tasks = tasks.where(['name LIKE ?', "%#{search_name}%"]) if search_name.present?
+    tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     if params.key?(:sort)
       tasks.order(deadline: params[:sort].to_sym, created_at: :desc)
