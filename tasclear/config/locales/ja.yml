@@ -43,10 +43,12 @@ ja:
       deadline: '終了期限'
       status: 'ステータス'
       back: '戻る'
-    status:
-      to_do: '未着手'
-      doing: '着手'
-      done: '完了'
+  enums:
+    task:
+      status:
+        to_do: '未着手'
+        doing: '着手'
+        done: '完了'
   flash:
     task:
       create_success: 'タスクを作成しました'
