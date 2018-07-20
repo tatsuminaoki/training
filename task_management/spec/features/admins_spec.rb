@@ -7,7 +7,7 @@ RSpec.feature "Admins", type: :feature do
 
   feature '画面遷移' do
     background do
-      login(@user.user_name, @user.password)
+      login(@user.mail_address, @user.password)
     end
     context '管理画面にアクセスする' do
       given!(:task) {create(:task, user_id: @user.id)}
@@ -63,7 +63,7 @@ RSpec.feature "Admins", type: :feature do
 
   feature 'ユーザの登録' do
     background do
-      login(@user.user_name, @user.password)
+      login(@user.mail_address, @user.password)
     end
 
     context '正常な値を入力した場合' do
@@ -100,7 +100,7 @@ RSpec.feature "Admins", type: :feature do
 
   feature 'ユーザの更新' do
     background do
-      login(@user.user_name, @user.password)
+      login(@user.mail_address, @user.password)
     end
 
     context '全てのフォームに正常な値を入力した場合' do
@@ -164,7 +164,7 @@ RSpec.feature "Admins", type: :feature do
   feature 'ユーザの削除' do
     given(:logined_user) {create(:user, user_name: 'logined_user')}
     background do
-      login(logined_user.user_name, logined_user.password)
+      login(logined_user.mail_address, logined_user.password)
     end
 
     context 'ログインしていないユーザを削除する場合' do
