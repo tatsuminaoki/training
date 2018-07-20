@@ -18,7 +18,7 @@
   </div>
   <div class="task_status">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k, v| [t("tasks.status.#{k}"), k] } %>
+    <%= form.select :status, Task.statuses_i18n.invert %>
   </div>
   <div class="task_deadline">
     <%= form.label :deadline %>
