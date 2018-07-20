@@ -1,12 +1,21 @@
 <h1><%= link_to t('.title'), root_path %></h1>
+<div>
+<%= form_tag(root_path, method: 'get') do %>
+  <%= label_tag :search_name, t('.search_name') %><%= text_field_tag :search_name, params[:search_name] %>
+  <%= label_tag :search_status, t('.search_status') %><%= select_tag :search_status, options_for_select( Task.statuses_i18n.invert ), include_blank: true %>
+  <%= submit_tag t('.search_submit') %>
+<% end %>
+</div>
 <table>
   <tr>
+    <th><%= t('.status') %></th>
     <th><%= link_sort t('.deadline') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.content') %></th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
+      <td><%= task.status_i18n %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>
