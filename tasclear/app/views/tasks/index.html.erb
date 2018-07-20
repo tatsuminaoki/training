@@ -9,6 +9,7 @@
 <table>
   <tr>
     <th><%= t('.status') %></th>
+    <th><%= t('.priority') %></th>
     <th><%= link_sort t('.deadline') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.content') %></th>
@@ -16,6 +17,7 @@
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.status_i18n %></td>
+      <td><%= task.priority_i18n %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>

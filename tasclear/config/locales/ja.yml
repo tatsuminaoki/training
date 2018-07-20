@@ -9,6 +9,7 @@ ja:
         content: '内容'
         deadline: '終了期限'
         status: 'ステータス'
+        priority: '優先度'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -23,6 +24,7 @@ ja:
       detail: '詳細'
       deadline: '終了期限'
       status: 'ステータス'
+      priority: '優先度'
       search_name: 'タスク名'
       search_status: 'ステータス'
       search_submit: '検索'
@@ -42,6 +44,7 @@ ja:
       content: '内容'
       deadline: '終了期限'
       status: 'ステータス'
+      priority: '優先度'
       back: '戻る'
   enums:
     task:
@@ -49,6 +52,10 @@ ja:
         to_do: '未着手'
         doing: '着手'
         done: '完了'
+      priority:
+        low: '低'
+        middle: '中'
+        high: '高'
   flash:
     task:
       create_success: 'タスクを作成しました'
