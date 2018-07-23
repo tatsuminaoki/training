@@ -2,16 +2,15 @@
 
 module TasksHelper
   def link_sort(label_name, category)
-    if category == 'priority'
-      if params[:sort_priority] == 'desc'
-        link_to label_name, root_path(sort_priority: 'asc')
-      else
-        link_to label_name, root_path(sort_priority: 'desc')
-      end
-    elsif params[:sort_deadline] == 'asc'
-      link_to label_name, root_path(sort_deadline: 'desc')
-    else
-      link_to label_name, root_path(sort_deadline: 'asc')
-    end
+    sort = if params[:sort] == 'desc'
+             'asc'
+           elsif params[:sort] == 'asc'
+             'desc'
+           elsif category == 'deadline'
+             'asc'
+           else
+             'desc'
+           end
+    link_to label_name, root_path(sort: sort, category: category)
   end
 end

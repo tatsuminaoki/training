@@ -9,16 +9,17 @@ class Task < ApplicationRecord
   enum status: %i[to_do doing done]
   enum priority: %i[low middle high]
 
+  validates :status, inclusion: { in: self.statuses.keys }
+  validates :priority, inclusion: { in: self.priorities.keys }
+
   def self.search_and_order(params)
     search_name = params[:search_name]
     search_status = params[:search_status]
     tasks = self
     tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
-    if params.key?(:sort_priority)
-      tasks.order(priority: params[:sort_priority].to_sym, created_at: :desc)
-    elsif params.key?(:sort_deadline)
-      tasks.order(deadline: params[:sort_deadline].to_sym, created_at: :desc)
+    if params.key?(:category)
+      tasks.order(params[:category].to_sym => params[:sort].to_sym, created_at: :desc)
     else
       tasks.order(created_at: :desc)
     end
