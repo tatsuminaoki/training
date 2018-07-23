@@ -100,7 +100,4 @@ ja:
     mail_address: メールアドレス
     password: パスワード
   confirm-modal:
-    title: 確認
-    confirm: 本当に<strong>%{user}</strong>を削除しますか？
-    commit: 削除
-    cancel: キャンセル
+    confirm: 本当に%{user}を削除しますか？
