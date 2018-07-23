@@ -72,3 +72,5 @@ RSpec.configure do |config|
   config.include PrepareTasksMacros
   config.include LoginMacros
 end
+
+Capybara.javascript_driver = :webkit

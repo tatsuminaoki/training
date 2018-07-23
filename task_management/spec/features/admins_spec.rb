@@ -164,27 +164,38 @@ RSpec.feature "Admins", type: :feature do
     end
   end
 
-  feature 'ユーザの削除' do
+  feature 'ユーザの削除', js: true do
     given(:logined_user) {create(:user, user_name: 'logined_user')}
     background do
       login(logined_user.mail_address, logined_user.password)
+      expect(page).to have_content logined_user.user_name
     end
 
     context 'ログインしていないユーザを削除する場合' do
       scenario '削除に成功する' do
         visit admin_path(id: @user.id)
-        click_on I18n.t('button.delete')
+        page.accept_confirm{click_on I18n.t('button.delete')}
 
         expect(current_path).to eq admins_path
         expect(page).to have_content "ユーザ：#{@user.user_name}を削除しました"
         expect(page).not_to have_content I18n.t('view.user_name', :user => @user.user_name)
       end
     end
+    
+    context '確認ダイアログでキャンセルした場合' do
+      scenario '削除せずにユーザ詳細画面に戻る' do
+        visit admin_path(id: @user.id)
+        page.dismiss_confirm{click_on I18n.t('button.delete')}
+        
+        expect(current_path).to eq admin_path(id: @user.id)
+        expect(page).not_to have_content "ユーザ：#{@user.user_name}を削除しました"
+      end
+    end
 
     context 'ログイン中のユーザを削除する場合' do
       scenario '削除に失敗してエラーメッセージが表示される' do
         visit admin_path(id: logined_user.id)
-        click_on I18n.t('button.delete')
+        page.accept_confirm{click_on I18n.t('button.delete')}
 
         expect(current_path).to eq admin_path(id: logined_user.id)
         expect(page).to have_content 'ログイン中のユーザは削除できません'
