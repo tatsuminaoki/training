@@ -18,8 +18,8 @@ class Task < ApplicationRecord
     tasks = self
     tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
-    if params.key?(:category)
-      tasks.order(params[:category].to_sym => params[:sort].to_sym, created_at: :desc)
+    if params.key?(:sort_category)
+      tasks.order(params[:sort_category].to_sym => params[:sort_direction].to_sym, created_at: :desc)
     else
       tasks.order(created_at: :desc)
     end
