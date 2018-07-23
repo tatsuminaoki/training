@@ -12,7 +12,7 @@ RSpec.feature "Admins", type: :feature do
     context '管理画面にアクセスする' do
       given!(:task) {create(:task, user_id: @user.id)}
       scenario '管理画面を表示する' do
-        visit admin_path
+        visit admins_path
         expect(page).to have_content @user.user_name
         expect(page).to have_content I18n.t('button.new')
         expect(page).to have_content I18n.t('view.user.user_name', :user => @user.user_name)
@@ -22,10 +22,10 @@ RSpec.feature "Admins", type: :feature do
 
     context '管理画面で「新規作成」をクリックする' do
       scenario 'ユーザ作成画面に遷移する' do
-        visit admin_path
+        visit admins_path
         click_on I18n.t('button.new')
 
-        expect(current_path).to eq admins_new_path
+        expect(current_path).to eq new_admin_path
         expect(page).to have_field 'user_user_name'
         expect(page).to have_field 'user_mail_address'
         expect(page).to have_field 'user_password'
@@ -36,10 +36,10 @@ RSpec.feature "Admins", type: :feature do
     context '管理画面でユーザ名をクリックする' do
       given!(:task) {create(:task, user_id: @user.id)}
       scenario 'ユーザ詳細画面に遷移する' do
-        visit admin_path
+        visit admins_path
         click_on I18n.t('view.user.user_name', :user => @user.user_name)
 
-        expect(current_path).to eq admins_show_path(id: @user.id)
+        expect(current_path).to eq admin_path(id: @user.id)
         expect(page).to have_content 'ユーザ情報'
         expect(page).to have_content I18n.t('view.user.user_name', user: @user.user_name)
         expect(page).to have_content I18n.t('view.user.mail_address', user: @user.mail_address)
@@ -52,10 +52,10 @@ RSpec.feature "Admins", type: :feature do
 
     context 'ユーザ詳細画面で「編集」をクリックする' do
       scenario 'ユーザ編集画面に遷移する' do
-        visit admins_show_path(id: @user.id)
+        visit admin_path(id: @user.id)
         click_on I18n.t('button.edit')
 
-        expect(current_path).to eq admins_edit_path(id: @user.id)
+        expect(current_path).to eq edit_admin_path(id: @user.id)
         expect(page).to have_field 'user_user_name', with: @user.user_name
         expect(page).to have_field 'user_mail_address', with: @user.mail_address
         expect(page).to have_field 'user_password'
@@ -71,13 +71,13 @@ RSpec.feature "Admins", type: :feature do
 
     context '正常な値を入力した場合' do
       scenario '登録に成功する' do
-        visit admins_new_path
+        visit new_admin_path	
         fill_in 'user_user_name', with: 'new_account'
         fill_in 'user_mail_address', with: 'new@example.com'
         fill_in 'user_password', with: 'new_password'
         click_button I18n.t('helpers.submit.create')
 
-        expect(current_path).to eq admin_path
+        expect(current_path).to eq admins_path
         expect(page).to have_content 'ユーザの作成に成功しました'
         expect(page).to have_content I18n.t('view.user.user_name', :user => 'new_account')
         expect(page).to have_content I18n.t('view.task_quantity', :quantity => 0)
@@ -86,7 +86,7 @@ RSpec.feature "Admins", type: :feature do
 
     context '何も入力しない場合' do
       scenario '登録に失敗してエラーメッセージが表示される' do
-        visit admins_new_path
+        visit new_admin_path
         fill_in 'user_user_name', with: ''
         fill_in 'user_mail_address', with: ''
         fill_in 'user_password', with: ''
@@ -108,13 +108,13 @@ RSpec.feature "Admins", type: :feature do
 
     context '全てのフォームに正常な値を入力した場合' do
       scenario '入力した値に更新される' do
-        visit admins_edit_path(id: @user.id)
+        visit edit_admin_path(id: @user.id)
         fill_in 'user_user_name', with: 'changed_name'
         fill_in 'user_mail_address', with: 'changed@example.com'
         fill_in 'user_password', with: 'changed_password'
         click_button I18n.t('helpers.submit.update')
 
-        expect(current_path).to eq admins_show_path(id: @user.id)
+        expect(current_path).to eq admin_path(id: @user.id)
         expect(page).to have_content 'アカウント情報を更新しました'
         expect(page).to have_content 'ユーザ名：changed_name'
         expect(page).to have_content 'メールアドレス：changed@example.com'
@@ -123,12 +123,12 @@ RSpec.feature "Admins", type: :feature do
 
     context 'メールアドレス以外を更新する場合' do
       scenario 'メールアドレス以外が正常に更新される' do
-        visit admins_edit_path(id: @user.id)
+        visit edit_admin_path(id: @user.id)
         fill_in 'user_user_name', with: 'changed_name'
         fill_in 'user_password', with: 'changed_password'
         click_button I18n.t('helpers.submit.update')
 
-        expect(current_path).to eq admins_show_path(id: @user.id)
+        expect(current_path).to eq admin_path(id: @user.id)
         expect(page).to have_content 'アカウント情報を更新しました'
         expect(page).to have_content 'ユーザ名：changed_name'
         expect(page).to have_content "メールアドレス：#{@user.mail_address}"
@@ -137,12 +137,12 @@ RSpec.feature "Admins", type: :feature do
 
     context 'パスワードフォームだけ未入力の場合' do
       scenario 'パスワード以外入力した値に更新される' do
-        visit admins_edit_path(id: @user.id)
+        visit edit_admin_path(id: @user.id)
         fill_in 'user_user_name', with: 'changed_name'
         fill_in 'user_mail_address', with: 'changed@example.com'
         click_button I18n.t('helpers.submit.update')
 
-        expect(current_path).to eq admins_show_path(id: @user.id)
+        expect(current_path).to eq admin_path(id: @user.id)
         expect(page).to have_content 'アカウント情報を更新しました'
         expect(page).to have_content 'ユーザ名：changed_name'
         expect(page).to have_content 'メールアドレス：changed@example.com'
@@ -151,12 +151,12 @@ RSpec.feature "Admins", type: :feature do
 
     context '何も入力しない場合' do
       scenario '更新に失敗する' do
-        visit admins_edit_path(id: @user.id)
+        visit edit_admin_path(id: @user.id)
         fill_in 'user_user_name', with: ''
         fill_in 'user_mail_address', with: ''
         click_button I18n.t('helpers.submit.update')
 
-        expect(current_path).to eq admins_edit_path(id: @user.id)
+        expect(current_path).to eq admin_path(id: @user.id)
         expect(page).to have_content 'アカウント情報の更新に失敗しました'
         expect(page).to have_content 'ユーザ名を入力してください'
         expect(page).to have_content 'メールアドレスを入力してください'
@@ -172,10 +172,10 @@ RSpec.feature "Admins", type: :feature do
 
     context 'ログインしていないユーザを削除する場合' do
       scenario '削除に成功する' do
-        visit admins_show_path(id: @user.id)
+        visit admin_path(id: @user.id)
         click_on I18n.t('button.delete')
 
-        expect(current_path).to eq admin_path
+        expect(current_path).to eq admins_path
         expect(page).to have_content "ユーザ：#{@user.user_name}を削除しました"
         expect(page).not_to have_content I18n.t('view.user_name', :user => @user.user_name)
       end
@@ -183,10 +183,10 @@ RSpec.feature "Admins", type: :feature do
 
     context 'ログイン中のユーザを削除する場合' do
       scenario '削除に失敗してエラーメッセージが表示される' do
-        visit admins_show_path(id: logined_user.id)
+        visit admin_path(id: logined_user.id)
         click_on I18n.t('button.delete')
 
-        expect(current_path).to eq admins_show_path(id: logined_user.id)
+        expect(current_path).to eq admin_path(id: logined_user.id)
         expect(page).to have_content 'ログイン中のユーザは削除できません'
       end
     end

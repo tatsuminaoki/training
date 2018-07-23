@@ -1,12 +1,12 @@
 <div class='row col-12'>
   <div class='row col-12 mt-3'>
-    <%= link_to I18n.t('button.new'), admins_new_path, class: 'btn btn-secondary mx-2' %>
+    <%= link_to I18n.t('button.new'), new_admin_path, class: 'btn btn-secondary mx-2' %>
   </div>
   <div class='row col-12 mx-auto'>
       <% @users.each_with_index do |user, i| %>
         <div class='card mt-3 mb-3 col-12'>
           <div class='card-heading'>
-            <h4><%= link_to I18n.t('view.user.user_name', :user => user.user_name), admins_show_path(user.id) %></h4>
+            <h4><%= link_to I18n.t('view.user.user_name', :user => user.user_name), admin_path(user.id) %></h4>
           </div>
           <div class='card-body'>
             <ul>

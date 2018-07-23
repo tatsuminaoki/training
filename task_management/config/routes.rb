@@ -12,12 +12,6 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#login'
   delete 'logout', to: 'sessions#logout'
 
-  get 'admin', to: 'admins#index'
-  get 'admin/show/:id', to: 'admins#show', as: 'admins_show'
-  get 'admin/edit/:id', to: 'admins#edit', as: 'admins_edit'
-  get 'admin/new', to:'admins#new', as: 'admins_new'
-  patch 'admin/edit/:id', to: 'admins#update'
-  post 'admin/create', to: 'admins#create', as: 'admins'
-  get 'admin/delete/:id', to: 'admins#destroy', as: 'admins_delete'
+  resources :admins, path: 'admin' 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
