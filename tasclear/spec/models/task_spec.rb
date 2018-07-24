@@ -28,6 +28,14 @@ RSpec.describe Task, type: :model do
       task = build(:task, content: 'あ' * 201)
       expect(task).to be_invalid
     end
+    it 'ステータスがnilであれば無効な状態であること' do
+      task = build(:task, status: nil)
+      expect(task).to be_invalid
+    end
+    it '優先度がnilであれば無効な状態であること' do
+      task = build(:task, priority: nil)
+      expect(task).to be_invalid
+    end
   end
   describe '#search_and_order' do
     before do

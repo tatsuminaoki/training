@@ -9,13 +9,15 @@
 <table>
   <tr>
     <th><%= t('.status') %></th>
-    <th><%= link_sort t('.deadline') %></th>
+    <th><%= link_sort(t('.priority'), 'priority') %></th>
+    <th><%= link_sort(t('.deadline'), 'deadline') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.content') %></th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.status_i18n %></td>
+      <td><%= task.priority_i18n %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>

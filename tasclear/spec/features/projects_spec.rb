@@ -79,4 +79,27 @@ RSpec.feature 'Tasts', type: :feature do
     expect(page).to have_content 'タスク１'
     expect(page).not_to have_content 'タスク２'
   end
+  scenario 'タスク一覧画面で優先度でソートできること' do
+    create(:task, name: '優先度中タスク', priority: 'middle', created_at: '2018-7-20 16:55:10')
+    create(:task, name: '優先度高タスク', priority: 'high', created_at: '2018-7-20 16:58:14')
+    create(:task, name: '優先度低タスク', priority: 'low', created_at: '2018-7-20 17:01:34')
+    visit root_path
+    # created_atの降順で並んでいることの確認
+    names = page.all('td.name')
+    expect(names[0]).to have_content '優先度低タスク'
+    expect(names[1]).to have_content '優先度高タスク'
+    expect(names[2]).to have_content '優先度中タスク'
+    click_link I18n.t('tasks.index.priority')
+    # 優先度ボタンをクリックすると優先度の高い順でソートされていることの確認
+    names = page.all('td.name')
+    expect(names[0]).to have_content '優先度高タスク'
+    expect(names[1]).to have_content '優先度中タスク'
+    expect(names[2]).to have_content '優先度低タスク'
+    click_link I18n.t('tasks.index.priority')
+    # もう一度優先度ボタンをクリックすると優先度の低い順でソートされていることの確認
+    names = page.all('td.name')
+    expect(names[0]).to have_content '優先度低タスク'
+    expect(names[1]).to have_content '優先度中タスク'
+    expect(names[2]).to have_content '優先度高タスク'
+  end
 end

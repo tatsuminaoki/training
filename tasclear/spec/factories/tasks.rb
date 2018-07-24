@@ -4,5 +4,6 @@ FactoryBot.define do
     content '掃除、洗濯'
     deadline '2018-07-31'
     status 'to_do'
+    priority 'low'
   end
 end
