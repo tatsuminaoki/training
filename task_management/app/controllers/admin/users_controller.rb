@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class Admin::UsersController < ApplicationController
   protect_from_forgery except: :update # PATCHリクエストで"Can't verify CSRF token authenticity."と表示されるため追加
   def index
     @users = User.all.page(params[:page]).per(10)

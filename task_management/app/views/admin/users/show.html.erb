@@ -12,8 +12,8 @@
           <%= I18n.t('view.user.mail_address', user: @user.mail_address) %>
         </li>
       </ul>
-      <%= link_to(I18n.t('button.edit'), edit_admin_path, class: 'btn btn-secondary m-2') %>
-      <%= link_to(I18n.t('button.delete'), admin_path(id: @user.id), method: 'delete', class: 'btn btn-danger m-2',
+      <%= link_to(I18n.t('button.edit'), edit_admin_user_path, class: 'btn btn-secondary m-2') %>
+      <%= link_to(I18n.t('button.delete'), admin_user_path(id: @user.id), method: 'delete', class: 'btn btn-danger m-2',
           data:{confirm: I18n.t('confirm-modal.confirm', user: @user.user_name)}) %>
     </div>
   </div>
