@@ -5,6 +5,7 @@
   <%= label_tag :search_status, t('.search_status') %><%= select_tag :search_status, options_for_select( Task.statuses_i18n.invert ), include_blank: true %>
   <%= submit_tag t('.search_submit') %>
 <% end %>
+          <td><span class="badge badge-<%= status_color task.status %>"><%= task.status_i18n %></span></td>
           <td><%= link_to edit_task_path(task.id) do %>
             <i class="fa fa-edit"></i>
           <% end %></td>
@@ -22,7 +23,6 @@
   </tr>
   <% @tasks.each do |task| %>
     <tr>
-      <td><%= task.status_i18n %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>

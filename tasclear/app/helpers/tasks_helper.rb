@@ -17,4 +17,14 @@ module TasksHelper
                      end
     link_to label_name, root_path(sort_direction: sort_direction, sort_category: sort_category)
   end
+
+  def status_color(status)
+    if status == 'to_do'
+      'light'
+    elsif status == 'doing'
+      'primary'
+    else
+      'dark'
+    end
+  end
 end
