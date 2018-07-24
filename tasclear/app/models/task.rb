@@ -12,6 +12,9 @@ class Task < ApplicationRecord
   validates :status, inclusion: { in: self.statuses.keys }
   validates :priority, inclusion: { in: self.priorities.keys }
 
+  # ページネーションの1ページ毎の表示数のデフォルトを変更
+  paginates_per 10
+
   def self.search_and_order(params)
     search_name = params[:search_name]
     search_status = params[:search_status]

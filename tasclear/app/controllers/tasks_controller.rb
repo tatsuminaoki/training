@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.search_and_order(params)
+    @tasks = Task.search_and_order(params).page(params[:page])
   end
 
   def new
