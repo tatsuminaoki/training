@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  enum admin: {general: false, admin: true}
   has_many :tasks, dependent: :delete_all
   validates :user_name, presence: true, length: {maximum: 255}
   validates :password, presence: true, on: :create

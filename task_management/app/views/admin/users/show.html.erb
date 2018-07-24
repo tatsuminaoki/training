@@ -11,6 +11,9 @@
         <li>
           <%= I18n.t('view.user.mail_address', user: @user.mail_address) %>
         </li>
+        <li>
+          <%= I18n.t('view.user.role', user: I18n.t("role.#{@user.admin}")) %>
+        </li>
       </ul>
       <%= link_to(I18n.t('button.edit'), edit_admin_user_path, class: 'btn btn-secondary m-2') %>
       <%= link_to(I18n.t('button.delete'), admin_user_path(id: @user.id), method: 'delete', class: 'btn btn-danger m-2',

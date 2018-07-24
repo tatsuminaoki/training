@@ -101,7 +101,7 @@ RSpec.feature "Sessions", type: :feature do
 
   feature '認可' do
     given(:task) {create(:task, task_name: 'a', user_id: @user.id)}
-    given(:user2) {create(:user, user_name: 'b', mail_address: 'b@example.com', password: 'b', admin: false)}
+    given(:user2) {create(:user, user_name: 'b', mail_address: 'b@example.com', password: 'b')}
     
     context '一覧画面' do
       given!(:task2) {create(:task, task_name: 'b', user_id: user2.id)}

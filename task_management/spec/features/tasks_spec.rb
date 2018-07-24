@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature do
   background do
-    @user = create(:user)
+    @user = create(:user, admin: 'general')
     @task = create(:task, user_id: @user.id)
   end
 

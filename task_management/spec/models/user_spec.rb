@@ -121,6 +121,29 @@ RSpec.describe User, type: :model do
         end
       end
     end
+    
+    describe 'ロール' do
+      context 'adminの場合' do
+        let(:user){FactoryBot.build(:user, admin: 'general')}
+        it 'バリデーションエラーが発生しない' do
+          expect(user.validate).to be_truthy
+        end
+      end
+
+      context 'generalの場合' do
+        let(:user){FactoryBot.build(:user, admin: 'general')}
+        it 'バリデーションエラーが発生しない' do
+          expect(user.validate).to be_truthy
+        end
+      end
+
+      context 'admin, general以外の場合' do
+        let(:user){FactoryBot.build(:user)}
+        it '引数エラーが発生する' do
+          expect{(FactoryBot.build(:user, admin: 'a'))}.to raise_error(ArgumentError)
+        end
+      end
+    end
   end
 
   describe 'Relation' do

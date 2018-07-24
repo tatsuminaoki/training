@@ -7,6 +7,6 @@ module LoginMacros
   end
 
   def logout
-    click_on 'log out'
+    click_on I18n.t('view.nav.log_out')
   end
 end
