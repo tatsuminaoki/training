@@ -9,7 +9,7 @@ RSpec.describe Task, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:task_name)
-          expect(task.errors.full_messages).to eq ['タスク名を入力してください。']
+          expect(task.errors.full_messages).to eq ['タスク名を入力してください']
         end
       end
 
@@ -32,7 +32,7 @@ RSpec.describe Task, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:task_name)
-          expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください。']
+          expect(task.errors.full_messages).to eq ['タスク名は255字以内で入力してください']
         end
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Task, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:due_date)
-          expect(task.errors.full_messages).to eq ['期限を正しく入力してください。']
+          expect(task.errors.full_messages).to eq ['期限を正しく入力してください']
         end
       end
     end
@@ -62,7 +62,7 @@ RSpec.describe Task, type: :model do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:task_name)
           expect(task.errors).to have_key(:due_date)
-          expect(task.errors.full_messages).to eq ['タスク名を入力してください。', '期限を正しく入力してください。']
+          expect(task.errors.full_messages).to eq ['タスク名を入力してください', '期限を正しく入力してください']
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe Task, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:status)
-          expect(task.errors.full_messages).to eq ['状態を入力してください。']
+          expect(task.errors.full_messages).to eq ['状態を入力してください']
         end
       end
     end
@@ -136,7 +136,7 @@ RSpec.describe Task, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(task.validate).to be_falsy
           expect(task.errors).to have_key(:priority)
-          expect(task.errors.full_messages).to eq ['優先度を入力してください。']
+          expect(task.errors.full_messages).to eq ['優先度を入力してください']
         end
       end
     end

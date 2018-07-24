@@ -129,7 +129,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.create')
         
         expect(current_path).to eq tasks_path
-        expect(page).to have_content 'タスク名を入力してください。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
 
@@ -142,7 +142,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.create')
         
         expect(current_path).to eq tasks_path
-        expect(page).to have_content 'タスク名は255字以内で入力してください。'
+        expect(page).to have_content 'タスク名は255字以内で入力してください'
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.create')
         
         expect(current_path).to eq tasks_path
-        expect(page).to have_content '期限を正しく入力してください。'
+        expect(page).to have_content '期限を正しく入力してください'
       end
     end
 
@@ -168,8 +168,8 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.create')
         
         expect(current_path).to eq tasks_path
-        expect(page).to have_content 'タスク名を入力してください。' 
-        expect(page).to have_content '期限を正しく入力してください。'
+        expect(page).to have_content 'タスク名を入力してください' 
+        expect(page).to have_content '期限を正しく入力してください'
       end
     end
   end
@@ -208,7 +208,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.update')
 
         expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content 'タスク名を入力してください。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
 
@@ -221,7 +221,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.update')
 
         expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content 'タスク名は255字以内で入力してください。'
+        expect(page).to have_content 'タスク名は255字以内で入力してください'
       end
     end
 
@@ -234,7 +234,7 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.update')
 
         expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content '期限を正しく入力してください。'
+        expect(page).to have_content '期限を正しく入力してください'
       end
     end
 
@@ -247,8 +247,8 @@ RSpec.feature "Tasks", type: :feature do
         click_button I18n.t('helpers.submit.update')
 
         expect(current_path).to eq edit_task_path(@task.id)
-        expect(page).to have_content 'タスク名は255字以内で入力してください。' 
-        expect(page).to have_content '期限を正しく入力してください。'
+        expect(page).to have_content 'タスク名は255字以内で入力してください' 
+        expect(page).to have_content '期限を正しく入力してください'
       end
     end
   end

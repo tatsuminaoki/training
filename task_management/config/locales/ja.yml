@@ -19,6 +19,15 @@ ja:
     success_log_out: ログアウトしました
     access_invalid_task: 無効なタスクにアクセスしました
     require_log_in: ログインしてください
+    success_create_user: ユーザの作成に成功しました
+    failure_create_user: ユーザの作成に失敗しました
+    success_update_account_info: アカウント情報を更新しました
+    failure_update_account_info: アカウント情報の更新に失敗しました
+    success_update_password: パスワードを更新しました
+    failure_update_password: パスワードの更新に失敗しました
+    success_delete_user: ユーザ：%{user}を削除しました
+    failure_delete_user: ユーザ：%{user}の削除に失敗しました
+    failure_delete_loggined_user: ログイン中のユーザは削除できません
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
@@ -27,7 +36,14 @@ ja:
     priority: 優先度：%{task}
     page_entries_info:
       exist: "%{first}〜%{last}件（全%{total}件）"
-      zero: "タスクが見つかりませんでした。"
+      zero: タスクが見つかりませんでした
+    user:
+      user_name: ユーザ名：%{user}
+      mail_address: メールアドレス：%{user}
+    task_quantity: タスク数：%{quantity}
+    admin:
+      old_password: 変更前のパスワード
+      new_password: 変更後のパスワード
   views:
     pagination:
       first: 最初
@@ -48,12 +64,17 @@ ja:
         due_date: 期限
         status: 状態
         priority: 優先度
+      user:
+        user_name: ユーザ名
+        mail_address: メールアドレス
+        password: パスワード
   errors:
     format: "%{attribute}%{message}"
     messages:
-      blank: を入力してください。
-      too_long: は%{count}字以内で入力してください。
-      failure: を正しく入力してください。
+      blank: を入力してください
+      too_long: は%{count}字以内で入力してください
+      failure: を正しく入力してください
+      taken: は既に登録されています
   date:
     order:
       - :year
@@ -78,3 +99,5 @@ ja:
   login:
     mail_address: メールアドレス
     password: パスワード
+  confirm-modal:
+    confirm: 本当に%{user}を削除しますか？

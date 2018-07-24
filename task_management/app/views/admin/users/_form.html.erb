@@ -1,0 +1,15 @@
+<%if user.errors.full_messages.present?%>
+  <div class='alert alert-danger '>
+    <% user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </div>
+<% end %>
+<div class='row col-12'>
+  <%= form_with model: user, url: url, local: true do |form| %>
+    <%= I18n.t('activerecord.attributes.user.user_name') %>：<%= form.text_field :user_name, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.user.mail_address') %>：<%= form.text_field :mail_address, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.user.password') %>：<%= form.password_field :password, class: 'm-2' %><br>
+    <%= form.submit %>
+  <% end %>
+</div>
