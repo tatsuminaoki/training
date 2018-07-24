@@ -102,4 +102,16 @@ RSpec.feature 'Tasts', type: :feature do
     expect(names[1]).to have_content '優先度中タスク'
     expect(names[2]).to have_content '優先度高タスク'
   end
+  scenario 'タスク一覧画面で10件ずつのページネーションとなっていること' do
+    create_list(:task, 11)
+    visit root_path
+    names = page.all('td.name')
+    # 10件目は表示されており、11件目は表示されていないことの確認
+    expect(names[9]).to have_content 'タスク10'
+    expect(names[10]).not_to have_content 'タスク11'
+    click_link '次'
+    names = page.all('td.name')
+    # 2ページ目に11件目が表示されていることの確認
+    expect(names[0]).to have_content 'タスク11'
+  end
 end
