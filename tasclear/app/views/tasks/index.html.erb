@@ -8,6 +8,7 @@
         <tr class="table-<%= border_color task.deadline if task.deadline.present? %>">
           <td><span class="badge badge-<%= status_color task.status %>"><%= task.status_i18n %></span></td>
           <td><span class="badge badge-<%= priority_color task.priority %>"><%= task.priority_i18n %></span></td>
+          <td><%= l(task.deadline, format: :short2) if task.deadline.present? %></td>
           <td><%= link_to edit_task_path(task.id) do %>
             <i class="fa fa-edit"></i>
           <% end %></td>
