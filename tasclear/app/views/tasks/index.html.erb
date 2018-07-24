@@ -6,6 +6,7 @@
   <%= submit_tag t('.search_submit') %>
 <% end %>
           <td><span class="badge badge-<%= status_color task.status %>"><%= task.status_i18n %></span></td>
+          <td><span class="badge badge-<%= priority_color task.priority %>"><%= task.priority_i18n %></span></td>
           <td><%= link_to edit_task_path(task.id) do %>
             <i class="fa fa-edit"></i>
           <% end %></td>
@@ -23,7 +24,6 @@
   </tr>
   <% @tasks.each do |task| %>
     <tr>
-      <td><%= task.priority_i18n %></td>
       <td><%= task.deadline %></td>
       <td class='name'><%= task.name %></td>
       <td><%= task.content %></td>
