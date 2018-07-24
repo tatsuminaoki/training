@@ -42,10 +42,10 @@
           <td><%= l(task.deadline, format: :short2) if task.deadline.present? %></td>
           <td class='name'><%= task.name %></td>
           <td><%= link_to t('.detail'), task_path(task.id) %></td>
-          <td><%= link_to edit_task_path(task.id) do %>
+          <td><%= link_to edit_task_path(task.id), class:"edit-btn" do %>
             <i class="fa fa-edit"></i>
           <% end %></td>
-          <td><%= link_to task_path(task.id), method: :delete, data: {confirm: t('.confirm')} do %>
+          <td><%= link_to task_path(task.id), class:'delete-btn', method: :delete, data: {confirm: t('.confirm')} do %>
             <i class="fa fa-trash"></i>
           <% end %></td>
         </tr>
