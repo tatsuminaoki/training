@@ -1,7 +1,24 @@
 <h1><%= t('.title') %></h1>
-<p><%= t('.name') %>：<%= @task.name %></p>
-<p><%= t('.content') %>：<%= @task.content %></p>
-<p><%= t('.status') %>：<%= @task.status_i18n %></p>
-<p><%= t('.priority') %>：<%= @task.priority_i18n %></p>
-<p><%= t('.deadline') %>：<%= @task.deadline %></p>
+<table class="table table-striped table-bordered">
+  <tr>
+    <td><%= t('.name') %></td>
+    <td><%= @task.name %></td>
+  </tr>
+  <tr>
+    <td><%= t('.content') %></td>
+    <td><%= @task.content %></td>
+  </tr>
+  <tr>
+    <td><%= t('.status') %></td>
+    <td><%= @task.status_i18n %></td>
+  </tr>
+  <tr>
+    <td><%= t('.priority') %></td>
+    <td><%= @task.priority_i18n %></td>
+  </tr>
+  <tr>
+    <td><%= t('.deadline') %></td>
+    <td><%= @task.deadline %></td>
+  </tr>
+</table>
 <%= link_to t('.back'), :back %>

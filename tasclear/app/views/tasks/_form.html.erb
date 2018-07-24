@@ -8,25 +8,25 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_name">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:"form-control" %>
   </div>
-  <div class="task_content">
+  <div class="form-group">
     <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.text_area :content, class:"form-control", rows:"3" %>
   </div>
-  <div class="task_status">
+  <div class="form-group">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses_i18n.invert %>
+    <%= form.select :status, Task.statuses_i18n.invert, {}, {class:"form-control"} %>
   </div>
-  <div class="task_priority">
+  <div class="form-group">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities_i18n.invert %>
+    <%= form.select :priority, Task.priorities_i18n.invert, {}, {class:"form-control"} %>
   </div>
-  <div class="task_deadline">
+  <div class="form-group">
     <%= form.label :deadline %>
-    <%= form.date_field :deadline %>
+    <%= form.date_field :deadline, class:"form-control" %>
   </div>
-  <%= form.submit %>
+  <%= form.submit class:"btn btn-primary" %>
 <% end %>
