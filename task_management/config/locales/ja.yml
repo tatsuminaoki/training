@@ -28,6 +28,8 @@ ja:
     success_delete_user: ユーザ：%{user}を削除しました
     failure_delete_user: ユーザ：%{user}の削除に失敗しました
     failure_delete_loggined_user: ログイン中のユーザは削除できません
+    require_admin: 管理者以外はアクセスできません
+    failure_change_current_user_role: ログイン中のユーザはロールを変更できません
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
@@ -40,10 +42,14 @@ ja:
     user:
       user_name: ユーザ名：%{user}
       mail_address: メールアドレス：%{user}
+      role: ロール：%{user}
     task_quantity: タスク数：%{quantity}
     admin:
       old_password: 変更前のパスワード
       new_password: 変更後のパスワード
+    nav:
+      admin: 管理画面
+      log_out: ログアウト
   views:
     pagination:
       first: 最初
@@ -68,6 +74,7 @@ ja:
         user_name: ユーザ名
         mail_address: メールアドレス
         password: パスワード
+        role: ロール
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -101,3 +108,6 @@ ja:
     password: パスワード
   confirm-modal:
     confirm: 本当に%{user}を削除しますか？
+  role:
+    general: 一般ユーザ
+    admin: 管理ユーザ

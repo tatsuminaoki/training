@@ -10,6 +10,7 @@
     <%= I18n.t('activerecord.attributes.user.user_name') %>：<%= form.text_field :user_name, class: 'm-2' %><br>
     <%= I18n.t('activerecord.attributes.user.mail_address') %>：<%= form.text_field :mail_address, class: 'm-2' %><br>
     <%= I18n.t('activerecord.attributes.user.password') %>：<%= form.password_field :password, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.user.role') %>：<%= form.select :admin, User.admins.keys.map{|k| [I18n.t("role.#{k}"), k]}, class: 'm-2' %><br>
     <%= form.submit %>
   <% end %>
 </div>
