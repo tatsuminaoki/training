@@ -37,4 +37,13 @@ module TasksHelper
       'success'
     end
   end
+
+  def border_color(deadline)
+    left_days = (deadline - Time.zone.today).to_i
+    if left_days <= 1
+      'danger'
+    elsif left_days <= 7
+      'warning'
+    end
+  end
 end
