@@ -10,7 +10,6 @@
   </head>
 
   <body>
-    <p><%= notice %></p>
     <%= yield %>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <%= link_to '楽天スーパータスク', root_path, class:'navbar-brand' %>
@@ -28,5 +27,10 @@
           </ul>
         </div>
       </nav>
+      <% if notice %>
+        <p class="alert alert-success alert-dismissible">
+        <%= notice %>
+        </p>
+      <% end %>
   </body>
 </html>
