@@ -46,4 +46,11 @@ module TasksHelper
       'warning'
     end
   end
+
+  def cell_color(number)
+    target_day = Time.zone.today - number
+    Task.all.each do |task|
+      return 'success' if task.updated_at.to_date == target_day
+    end
+  end
 end
