@@ -17,4 +17,40 @@ module TasksHelper
                      end
     link_to label_name, root_path(sort_direction: sort_direction, sort_category: sort_category)
   end
+
+  def status_color(status)
+    if status == 'to_do'
+      'light'
+    elsif status == 'doing'
+      'primary'
+    else
+      'dark'
+    end
+  end
+
+  def priority_color(priority)
+    if priority == 'high'
+      'danger'
+    elsif priority == 'middle'
+      'warning'
+    else
+      'success'
+    end
+  end
+
+  def border_color(deadline)
+    left_days = (deadline - Time.zone.today).to_i
+    if left_days <= 1
+      'danger'
+    elsif left_days <= 7
+      'warning'
+    end
+  end
+
+  def cell_color(number)
+    target_day = Time.zone.today - number
+    Task.all.each do |task|
+      return 'success' if task.updated_at.to_date == target_day
+    end
+  end
 end
