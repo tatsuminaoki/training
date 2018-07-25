@@ -1,0 +1,15 @@
+<div class='row col-12'>
+  <%= link_to I18n.t('button.new'), new_label_path, class: 'btn btn-info mx-2 mt-3' %>
+  <div class='card mx-auto mt-3 mb-3' style='width: 100%;'>
+    <div class='card-header alert-info text-secondary'>
+      <h4>ラベル</h4>
+    </div>
+    <div class='card-body'>
+      <% @labels.each do |label| %>
+        <div class='card-body border border-secondary mb-3'>
+          <h4><%= link_to label.label_name, edit_label_path(id: label.id), class: 'mx-2' %></h4>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#login'
   delete 'logout', to: 'sessions#logout'
 
+  resources :labels, exept: :show
+
   namespace :admin do
     resources :users
   end
