@@ -12,4 +12,6 @@ class User < ApplicationRecord
   validates :password_digest,
             presence: true,
             length: { in: 6..30 }
+
+  has_many :tasks
 end
