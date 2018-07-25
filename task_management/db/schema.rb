@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_19_011620) do
+ActiveRecord::Schema.define(version: 2018_07_24_071739) do
+
+  create_table "label_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "label_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_name"], name: "index_label_types_on_label_name", unique: true
+  end
+
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "label_type_id"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_type_id"], name: "index_labels_on_label_type_id"
+    t.index ["task_id"], name: "index_labels_on_task_id"
+  end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -34,5 +50,7 @@ ActiveRecord::Schema.define(version: 2018_07_19_011620) do
     t.index ["mail_address"], name: "index_users_on_mail_address", unique: true
   end
 
+  add_foreign_key "labels", "label_types"
+  add_foreign_key "labels", "tasks"
   add_foreign_key "tasks", "users"
 end
