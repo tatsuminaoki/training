@@ -1,8 +1,10 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :labels, foreign_key: 'task_id'
   has_many :label_types, through: :labels
-  has_many :labels
-  
+
+  accepts_nested_attributes_for :labels
+
   enum status: [:todo, :doing, :done]
   enum priority: [:low, :middle, :high]
 

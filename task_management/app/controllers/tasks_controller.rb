@@ -8,15 +8,18 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id])
+    @task = Task.joins(:label_types).find(params[:id])
   end
   
   def edit
     @task = Task.find(params[:id])
+    @labels = LabelType.all
   end
 
   def new
     @task = Task.new
+    @task.labels.build
   end
 
   def create
@@ -52,7 +55,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
+    params.require(:task).permit(:task_name, :description, :due_date, :status, :priority, {label_type_ids: []})
   end
 
   def transit_invalid_user_to_top

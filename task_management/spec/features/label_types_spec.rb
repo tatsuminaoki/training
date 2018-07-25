@@ -71,7 +71,7 @@ RSpec.feature "LabelTypes", type: :feature do
 
         expect(current_path).to eq labels_path
         expect(page).to have_content 'ラベルの登録に失敗しました'
-        expect(page).to have_content 'ラベル名を入力してください'
+        expect(page).to have_content 'ラベルを入力してください'
         expect(page).to have_field 'label_type_label_name', with: ''
       end
     end
@@ -102,7 +102,7 @@ RSpec.feature "LabelTypes", type: :feature do
 
         expect(current_path).to eq label_path(id: @label.id)
         expect(page).to have_content 'ラベルの更新に失敗しました'
-        expect(page).to have_content 'ラベル名は255字以内で入力してください'
+        expect(page).to have_content 'ラベルは255字以内で入力してください'
         expect(page).to have_field 'label_type_label_name', with: 'a'*256
       end
     end
