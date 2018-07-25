@@ -24,4 +24,13 @@ ActiveRecord::Schema.define(version: 2018_07_20_065537) do
     t.index ["status"], name: "index_tasks_on_status"
   end
 
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "tasks", "users"
 end
