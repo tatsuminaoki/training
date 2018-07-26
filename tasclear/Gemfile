@@ -37,6 +37,8 @@ group :development do
   gem 'spring-commands-rspec'
 
   gem 'fablicop', require: false
+
+  gem 'bullet'
 end
 
 group :test do

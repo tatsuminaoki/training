@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  validates :name,
-    presence: true,
-    length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }
   validates :content, length: { maximum: 200 }
 
   enum status: %i[to_do doing done]
@@ -14,6 +12,8 @@ class Task < ApplicationRecord
 
   # ページネーションの1ページ毎の表示数のデフォルトを変更
   paginates_per 10
+
+  belongs_to :user
 
   def self.search_and_order(params)
     search_name = params[:search_name]
