@@ -36,6 +36,11 @@
         <%= notice %>
         </p>
       <% end %>
+      <% if alert %>
+        <p class="alert alert-danger alert-dismissible">
+        <%= alert %>
+        </p>
+      <% end %>
 
       <%= yield %>
 

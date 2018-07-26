@@ -65,6 +65,10 @@ ja:
       create_success: 'タスクを作成しました'
       update_success: 'タスクを編集しました'
       destroy_success: 'タスクを削除しました'
+    session:
+      fail_login: 'ログインに失敗しました'
+      logout_success: 'ログアウトしました'
+      login_success: 'ログインしました'
   views:
     pagination:
       first: "&laquo; 最初"
