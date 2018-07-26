@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
-  has_many :labels
+  has_many :labels, dependent: :destroy
   has_many :label_types, through: :labels
 
   accepts_nested_attributes_for :labels
@@ -34,11 +34,7 @@ class Task < ApplicationRecord
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
 
     if params[:label].present?
-      labels = Label.where(label_type_id: params[:label]) 
-      label_ids = []
-      labels.each do |label|
-        label_ids << label.task_id
-      end
+      label_ids = Label.where(label_type_id: params[:label]).pluck(:task_id)
       tasks = tasks.where(id: label_ids)
     end
 
