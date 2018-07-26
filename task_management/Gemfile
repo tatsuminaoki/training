@@ -63,6 +63,7 @@ group :test do
   gem 'timecop'
   gem 'database_rewinder'
   gem 'capybara-webkit'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
