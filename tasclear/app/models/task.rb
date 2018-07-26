@@ -15,10 +15,10 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
-  def self.search_and_order(params)
+  def self.search_and_order(params, current_user)
     search_name = params[:search_name]
     search_status = params[:search_status]
-    tasks = self
+    tasks = self.where(user_id: current_user.id)
     tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     if params.key?(:sort_category)
