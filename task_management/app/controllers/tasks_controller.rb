@@ -5,11 +5,12 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.search(params, current_user).page(params[:page]).per(10)
-    label_types = LabelType.eager_load(:labels)
+    @label_types = LabelType.eager_load(:labels)
     @labels = []
+
     @tasks.each do |task|
       labels_with_each_task = []
-      label_types.each do |label_type|
+      @label_types.each do |label_type|
         labels_with_each_task << label_type.label_name if label_type.task_ids.include?(task.id)
       end
       @labels << labels_with_each_task

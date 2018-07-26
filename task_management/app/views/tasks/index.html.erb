@@ -28,6 +28,16 @@
     <% else %>
       <%= link_to I18n.t('sort.priority.desc'), root_path(sort: 'priority_desc'), class: 'btn btn-secondary mx-2' %>
     <% end %>
+    <div class='dropdown'>
+      <button type='button' class='btn btn-secondary dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown'>
+        <%= I18n.t('button.filter_label') %>
+      </button>
+      <div class='dropdown-menu'>
+        <% @label_types.each do |label_type|%>
+          <%= link_to label_type.label_name, root_path(label: label_type.id), class: 'dropdown-item' %>
+        <% end%>
+      </div>
+    </div>
   </div>
 
   <div class='row col-12 mt-3'>

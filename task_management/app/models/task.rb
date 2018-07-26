@@ -33,6 +33,15 @@ class Task < ApplicationRecord
     tasks = tasks.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%") if params[:searched_task_name].present?
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
 
+    if params[:label].present?
+      labels = Label.where(label_type_id: params[:label]) 
+      label_ids = []
+      labels.each do |label|
+        label_ids << label.task_id
+      end
+      tasks = tasks.where(id: label_ids)
+    end
+
     case params[:sort]
     when 'due_date_asc'
       tasks.order('due_date ASC')

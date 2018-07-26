@@ -70,6 +70,7 @@ ja:
     delete: 削除
     home: 一覧
     edit_label: ラベルの編集
+    filter_label: ラベルで絞り込み
   activerecord:
     attributes:
       task:

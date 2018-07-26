@@ -381,12 +381,14 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   feature '検索' do
+    given!(:task) {create(:task, task_name: 'b', status: 'todo', user_id: @user.id)}
+    given!(:label){create(:label_type)}
     background do
       create(:task, task_name: 'a', status: 'todo', user_id: @user.id)
       create(:task, task_name: 'a', status: 'doing', user_id: @user.id)
       create(:task, task_name: 'a', status: 'done', user_id: @user.id)
-      create(:task, task_name: 'b', status: 'todo', user_id: @user.id)
       create(:task, task_name: '0%', status: 'todo', user_id: @user.id)
+      Label.create(label_type_id: label.id, task_id: task.id)
       login(@user.mail_address, @user.password)
     end
 
@@ -427,6 +429,18 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).not_to have_content I18n.t('view.task_name', :task => 'a')
         expect(page).to have_content I18n.t('view.task_name', :task => '0%')
       end   
+    end
+
+    context 'ラベルで検索する' do
+      given(:uri) {uri = URI.parse(current_url)}
+      scenario 'プルダウンメニューで選択したラベルが登録されているタスクが表示される' do
+        visit root_path
+        click_on label.label_name
+        expect(uri.path).to eq root_path
+        expect(uri.query).to have_content "label=#{label.id}"
+        expect(page).to have_content 'タスク：b'
+        expect(page).not_to have_content 'タスク：a'
+      end
     end
   end
 
