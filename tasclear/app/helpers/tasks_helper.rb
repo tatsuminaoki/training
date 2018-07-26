@@ -49,7 +49,7 @@ module TasksHelper
 
   def cell_color(number)
     target_day = Time.zone.today - number
-    Task.all.each do |task|
+    Task.where(user_id: current_user.id).each do |task|
       return 'success' if task.updated_at.to_date == target_day
     end
   end
