@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
   before_action :authorize_user
+  skip_before_action :authorize_user, only: [:routing_error]
 
   def authorize_user
     redirect_to login_path, alert: I18n.t('flash.require_log_in') if current_user.nil?
