@@ -1,0 +1,13 @@
+<%if label.errors.full_messages.present?%>
+  <div class='alert alert-danger '>
+    <% label.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </div>
+<% end %>
+<div class='row col-12'>
+  <%= form_with model: label, url: url, local: true do |form| %>
+    <%= I18n.t('activerecord.attributes.label_type.label_name') %>：<%= form.text_field :label_name, class: 'm-2' %><br>
+    <%= form.submit class: 'btn btn-info mx-2 mt-3 mb-3'%>
+  <% end %>
+</div>

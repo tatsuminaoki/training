@@ -15,7 +15,8 @@
 
 <div class='row col-12'>
   <div class='row col-12 mt-3'>
-    <%= link_to I18n.t('button.new'), tasks_new_path, class: 'btn btn-secondary mx-2' %>
+    <%= link_to I18n.t('button.new'), tasks_new_path, class: 'btn btn-info mx-2' %>
+    <%= link_to I18n.t('button.edit_label'), labels_path, class: 'btn btn-info mx-2' %>
     <%= link_to I18n.t('sort.default'), root_path, class: 'btn btn-secondary mx-2' %>
     <% if params[:sort] == 'due_date_desc' %>
       <%= link_to I18n.t('sort.due_date.asc'), root_path(sort: 'due_date_asc'), class: 'btn btn-secondary mx-2' %>
@@ -27,6 +28,16 @@
     <% else %>
       <%= link_to I18n.t('sort.priority.desc'), root_path(sort: 'priority_desc'), class: 'btn btn-secondary mx-2' %>
     <% end %>
+    <div class='dropdown'>
+      <button type='button' class='btn btn-secondary dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown'>
+        <%= I18n.t('button.filter_label') %>
+      </button>
+      <div class='dropdown-menu'>
+        <% @label_types.each do |label_type|%>
+          <%= link_to label_type.label_name, root_path(label: label_type.id), class: 'dropdown-item' %>
+        <% end%>
+      </div>
+    </div>
   </div>
 
   <div class='row col-12 mt-3'>
@@ -38,7 +49,7 @@
   </div>
 
   <div class='row col-12 mx-auto'>
-      <% @tasks.each do |task| %>
+      <% @tasks.each_with_index do |task, i| %>
         <div class='card mt-3 mb-3 col-12'>
           <div class='card-heading'>
             <h4><%= link_to I18n.t('view.task_name', :task => task.task_name), show_task_path(task.id) %></h4>
@@ -48,6 +59,7 @@
               <li><%= I18n.t('view.due_date', :task => task.due_date) %></li>
               <li><%= I18n.t('view.status', :task => I18n.t("status.#{task.status}")) %></li>
               <li><%= I18n.t('view.priority', :task => I18n.t("priority.#{task.priority}")) %></li>
+              <li><%= I18n.t('view.labels', :labels => labels_associated_with_task(task.id)) %></li>
             </ul>
           </div>
         </div>

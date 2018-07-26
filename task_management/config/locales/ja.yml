@@ -30,12 +30,19 @@ ja:
     failure_delete_loggined_user: ログイン中のユーザは削除できません
     require_admin: 管理者以外はアクセスできません
     failure_change_current_user_role: ログイン中のユーザはロールを変更できません
+    success_update_label: ラベルの更新に成功しました
+    failure_update_label: ラベルの更新に失敗しました
+    success_create_label: ラベルの登録に成功しました
+    failure_create_label: ラベルの登録に失敗しました
+    success_delete_label: ラベル：%{label}を削除しました
+    failure_delete_label: ラベル：%{label}を削除に失敗しました
   view:
     task_name: タスク：%{task}
     description: 詳細：%{task}
     due_date: 期限：%{task}
     status: 状態：%{task}
     priority: 優先度：%{task}
+    labels: ラベル：%{labels}
     page_entries_info:
       exist: "%{first}〜%{last}件（全%{total}件）"
       zero: タスクが見つかりませんでした
@@ -62,6 +69,8 @@ ja:
     edit: 編集
     delete: 削除
     home: 一覧
+    edit_label: ラベルの編集
+    filter_label: ラベルで絞り込み
   activerecord:
     attributes:
       task:
@@ -75,6 +84,8 @@ ja:
         mail_address: メールアドレス
         password: パスワード
         role: ロール
+      label_type:
+        label_name: ラベル
   errors:
     format: "%{attribute}%{message}"
     messages:

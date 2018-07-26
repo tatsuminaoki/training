@@ -5,6 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.search(params, current_user).page(params[:page]).per(10)
+    @label_types = LabelType.eager_load(:labels)
   end
 
   def show
@@ -52,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:task_name, :description, :due_date, :status, :priority)
+    params.require(:task).permit(:task_name, :description, :due_date, :status, :priority, {label_type_ids: []})
   end
 
   def transit_invalid_user_to_top

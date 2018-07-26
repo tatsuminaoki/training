@@ -1,0 +1,2 @@
+<%= render partial: 'form', :locals => {label: @label, url: label_path(id: @label.id)} %>
+<%= link_to(I18n.t('button.delete'), label_path, method: 'delete', class: 'btn btn-danger m-2') %>

@@ -12,6 +12,11 @@
     <%= I18n.t('activerecord.attributes.task.due_date') %>：<%= form.text_field :due_date, data: { :date_format => 'YYYY-MM-DD' }, class: ' datepicker m-2', autocomplete: 'off'	%><br>
     <%= I18n.t('activerecord.attributes.task.status') %>：<%= form.select :status, Task.statuses.keys.map{|k| [I18n.t("status.#{k}"), k]}, class: 'm-2' %><br>
     <%= I18n.t('activerecord.attributes.task.priority') %>：<%= form.select :priority, Task.priorities.keys.map{|k| [I18n.t("priority.#{k}"), k]}, class: 'm-2' %><br>
+    <%= I18n.t('activerecord.attributes.label_type.label_name') %>：
+    <%= form.collection_check_boxes(:label_type_ids, LabelType.all, :id, :label_name) do |l| %>
+      <%= l.label {l.check_box + l.text} %>
+    <% end %>
+    <br>
     <%= form.submit%>
   <% end %>
 </div>

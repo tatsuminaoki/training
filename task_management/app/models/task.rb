@@ -1,5 +1,10 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :labels, dependent: :destroy
+  has_many :label_types, through: :labels
+
+  accepts_nested_attributes_for :labels
+
   enum status: [:todo, :doing, :done]
   enum priority: [:low, :middle, :high]
 
@@ -27,6 +32,11 @@ class Task < ApplicationRecord
     tasks = Task.where(user_id: current_user.id)
     tasks = tasks.where('task_name like ?', "%#{sanitize_sql_like(params[:searched_task_name])}%") if params[:searched_task_name].present?
     tasks = tasks.where(status: params[:statuses]) if params[:statuses].present?
+
+    if params[:label].present?
+      label_ids = Label.where(label_type_id: params[:label]).pluck(:task_id)
+      tasks = tasks.where(id: label_ids)
+    end
 
     case params[:sort]
     when 'due_date_asc'
