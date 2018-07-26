@@ -12,9 +12,9 @@
     <li><%= I18n.t('view.status', :task => I18n.t("status.#{@task.status}")) %></li>
     <li><%= I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}")) %></li>
     <li><%= I18n.t('view.label') %>
-    <% @task.labels.each_with_index do |label, i| %>
-      <%= label.label_type.label_name %>
+    <% @labels.each_with_index do |label, i| %>
+      <%= i < @labels.size - 1 ? label + ',' : label%>
     <% end %>
-
+    </li>
   </ul>
 </div>

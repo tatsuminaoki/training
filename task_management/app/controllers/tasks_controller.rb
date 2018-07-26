@@ -8,8 +8,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    # @task = Task.find(params[:id])
-    @task = Task.joins(:label_types).find(params[:id])
+    @task = Task.find(params[:id])
+    label_types = LabelType.eager_load(:labels)
+    @labels = []
+    label_types.each do |label_type|
+      @labels << label_type.label_name if label_type.task_ids.include?(@task.id)
+    end
   end
   
   def edit

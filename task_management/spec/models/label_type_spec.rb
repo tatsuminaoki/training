@@ -8,7 +8,7 @@ RSpec.describe LabelType, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(label.validate).to be_falsy
           expect(label.errors).to have_key(:label_name)
-          expect(label.errors.full_messages).to eq ['ラベル名を入力してください']
+          expect(label.errors.full_messages).to eq ['ラベルを入力してください']
         end
       end
 
@@ -31,7 +31,7 @@ RSpec.describe LabelType, type: :model do
         it 'バリデーションエラーが発生する' do
           expect(label.validate).to be_falsy
           expect(label.errors).to have_key(:label_name)
-          expect(label.errors.full_messages).to eq ['ラベル名は255字以内で入力してください']
+          expect(label.errors.full_messages).to eq ['ラベルは255字以内で入力してください']
         end
       end
     end
