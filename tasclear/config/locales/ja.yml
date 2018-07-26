@@ -46,6 +46,10 @@ ja:
       status: 'ステータス'
       priority: '優先度'
       back: '戻る'
+  sessions:
+    new:
+      title: 'ログイン'
+      submit: 'ログイン'
   enums:
     task:
       status:
@@ -207,6 +211,10 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
   number:
     currency:
       format:
