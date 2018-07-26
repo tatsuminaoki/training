@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     let(:name) { 'ほげ' }
     let(:email) { 'hoge@sample.com' }
     let(:password_digest) { 'password' }
-    subject(:user) { build(:user, name: name, email: email, password_digest: password_digest) }
+    subject { build(:user, name: name, email: email, password_digest: password_digest) }
 
     context '有効' do
       context '名前、メールアドレス、パスワードが指定される' do
