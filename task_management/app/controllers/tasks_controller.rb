@@ -6,18 +6,10 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.search(params, current_user).page(params[:page]).per(10)
     @label_types = LabelType.eager_load(:labels)
-    @labels = []
-
-    @tasks.each do |task|
-      label_ids = Label.where(task_id: task.id).pluck(:label_type_id)
-      @labels << LabelType.where(id: label_ids).pluck(:label_name)
-    end
   end
 
   def show
     @task = Task.find(params[:id])
-    label_ids = Label.where(task_id: @task.id).pluck(:label_type_id)
-    @labels = LabelType.where(id: label_ids).pluck(:label_name)
   end
   
   def edit
