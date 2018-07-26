@@ -34,6 +34,18 @@ RSpec.describe LabelType, type: :model do
           expect(label.errors.full_messages).to eq ['ラベルは255字以内で入力してください']
         end
       end
+
+      context '既に登録されているラベルの場合' do
+        before do
+          FactoryBot.create(:label_type, label_name: 'a')
+        end
+        let(:label) {FactoryBot.build(:label_type, label_name: 'a')}
+        it 'バリデーションエラーが発生する' do
+          expect(label.validate).to be_falsy
+          expect(label.errors).to have_key(:label_name)
+          expect(label.errors.full_messages).to eq ['ラベルは既に登録されています']
+        end
+      end
     end
   end
 end
