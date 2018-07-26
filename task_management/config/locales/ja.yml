@@ -42,7 +42,7 @@ ja:
     due_date: 期限：%{task}
     status: 状態：%{task}
     priority: 優先度：%{task}
-    label: ラベル：
+    labels: ラベル：%{labels}
     page_entries_info:
       exist: "%{first}〜%{last}件（全%{total}件）"
       zero: タスクが見つかりませんでした

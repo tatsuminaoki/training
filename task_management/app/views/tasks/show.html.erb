@@ -11,10 +11,6 @@
     <li><%= I18n.t('view.due_date', :task => @task.due_date) %></li>
     <li><%= I18n.t('view.status', :task => I18n.t("status.#{@task.status}")) %></li>
     <li><%= I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}")) %></li>
-    <li><%= I18n.t('view.label') %>
-    <% @labels.each_with_index do |label, i| %>
-      <%= i < @labels.size - 1 ? label + ',' : label%>
-    <% end %>
-    </li>
+    <li><%= I18n.t('view.labels', :labels => @labels) %></li>
   </ul>
 </div>

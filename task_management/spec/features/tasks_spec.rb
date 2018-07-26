@@ -4,6 +4,7 @@ RSpec.feature "Tasks", type: :feature do
   background do
     @user = create(:user, admin: 'general')
     @task = create(:task, user_id: @user.id)
+    @label = create(:label_type)
   end
 
   feature '画面遷移' do
@@ -22,6 +23,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_field 'task_due_date'
         expect(page).to have_select 'task_status'
         expect(page).to have_select 'task_priority'
+        expect(page).to have_field @label.label_name
         expect(page).to have_button I18n.t('helpers.submit.create')
       end
     end
@@ -41,6 +43,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
         expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
         expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
+        expect(page).to have_content I18n.t('view.labels', :labels => labels_associated_with_task(@task))
       end
     end
 
@@ -66,6 +69,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
         expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
         expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
+        expect(page).to have_content I18n.t('view.labels', :labels => labels_associated_with_task(@task))
       end
     end
 
@@ -80,6 +84,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_field 'task_due_date', with: @task.due_date
         expect(page).to have_select 'task_status', selected: I18n.t("status.#{@task.status}")
         expect(page).to have_select 'task_priority', selected: I18n.t("priority.#{@task.priority}")
+        expect(page).to have_field @label.label_name
         expect(page).to have_button I18n.t('helpers.submit.update')
       end
     end
@@ -109,6 +114,7 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'task_due_date', with: "#{@task.due_date}"
         select I18n.t('status.todo'), from: 'task_status'
         select I18n.t('priority.low'), from: 'task_priority'
+        check @label.label_name
         click_button I18n.t('helpers.submit.create')
         
         expect(current_path).to eq root_path
@@ -117,6 +123,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content I18n.t('view.due_date', :task => @task.due_date)
         expect(page).to have_content I18n.t('view.status', :task => I18n.t("status.#{@task.status}"))
         expect(page).to have_content I18n.t('view.priority', :task => I18n.t("priority.#{@task.priority}"))
+        expect(page).to have_content I18n.t('view.labels', :labels => labels_associated_with_task(@task))
       end
     end
 
@@ -180,6 +187,7 @@ RSpec.feature "Tasks", type: :feature do
     end
 
     context '想定される値を入力してタスクを更新する' do
+      given!(:japanes_label){create(:label_type, label_name: 'ラベル名')}
       scenario '更新に成功する' do
         visit edit_task_path(@task.id)
         fill_in 'task_task_name', with: "#{@task.task_name}(edited)"
@@ -187,6 +195,8 @@ RSpec.feature "Tasks", type: :feature do
         fill_in 'task_due_date', with: "#{(@task.due_date + 1).to_s}"
         select I18n.t('status.doing'), from: 'task_status'
         select I18n.t('priority.high'), from: 'task_priority'
+        check @label.label_name
+        check japanes_label.label_name
         click_button I18n.t('helpers.submit.update')
 
         expect(current_path).to eq show_task_path(@task.id)
@@ -196,6 +206,7 @@ RSpec.feature "Tasks", type: :feature do
         expect(page).to have_content I18n.t('view.due_date', :task => (@task.due_date + 1).to_s)
         expect(page).to have_content I18n.t('view.status', :task => I18n.t('status.doing'))
         expect(page).to have_content I18n.t('view.priority', :task => I18n.t('priority.high'))
+        expect(page).to have_content I18n.t('view.labels', :labels => labels_associated_with_task(@task))
       end
     end
 
