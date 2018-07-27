@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Users', type: :feature do
   context 'ログインをしない' do
-    scenario 'ログインせずにトップページにログインするとログインページに遷移する' do
+    scenario 'ログインせずにトップページにアクセスするとログインページに遷移する' do
       visit root_path
       expect(page).to have_current_path '/sessions/new'
     end
