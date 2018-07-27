@@ -9,9 +9,6 @@ RSpec.describe Task, type: :model do
     let(:status) { 'doing' }
     let(:priority) { 'low' }
     subject { build(:task, name: name, content: content, status: status, priority: priority) }
-    before do
-      create(:user, id: 1)
-    end
 
     context '有効' do
       context 'タスク名、内容、ステータス、パスワードが指定される' do
@@ -58,23 +55,22 @@ RSpec.describe Task, type: :model do
   end
 
   describe '#search_and_order' do
-    let!(:user) { create(:user, id: 1) }
     let!(:task1) { create(:task, name: 'タスク１', status: 'to_do') }
     let!(:task2) { create(:task, name: 'タスク２', status: 'doing') }
 
     it 'タスク名で検索できること' do
-      expect(Task.search_and_order({ search_name: 'タスク１' }, user)).to include(task1)
-      expect(Task.search_and_order({ search_name: 'タスク１' }, user)).not_to include(task2)
+      expect(Task.search_and_order({ search_name: 'タスク１' }, task1.user.id)).to include(task1)
+      expect(Task.search_and_order({ search_name: 'タスク１' }, task2.user.id)).not_to include(task2)
     end
 
     it 'ステータスで検索できること' do
-      expect(Task.search_and_order({ search_status: 'to_do' }, user)).to include(task1)
-      expect(Task.search_and_order({ search_status: 'to_do' }, user)).not_to include(task2)
+      expect(Task.search_and_order({ search_status: 'to_do' }, task1.user.id)).to include(task1)
+      expect(Task.search_and_order({ search_status: 'to_do' }, task2.user.id)).not_to include(task2)
     end
 
     it 'タスク名・ステータスの両方で検索できること' do
-      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, user)).to include(task1)
-      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, user)).not_to include(task2)
+      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, task1.user.id)).to include(task1)
+      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, task2.user.id)).not_to include(task2)
     end
   end
 end

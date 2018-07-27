@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.feature 'Tasts', type: :feature do
   # ログイン状態の作成
   before do
-    create(:user, id: 1)
+    user = create(:user, id: 1)
     visit root_path
-    fill_in 'メールアドレス', with: 'raku@example.com'
-    fill_in 'パスワード', with: 'password'
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     click_button 'ログイン'
   end
 
@@ -46,8 +46,8 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario 'タスク一覧が作成日時の降順で並んでいること' do
-    create(:task, name: 'タスク１', created_at: '2018-7-16 08:10:10')
-    create(:task, name: 'タスク２', created_at: '2018-7-16 09:10:15')
+    create(:task, name: 'タスク１', created_at: '2018-7-16 08:10:10', user_id: 1)
+    create(:task, name: 'タスク２', created_at: '2018-7-16 09:10:15', user_id: 1)
     visit root_path
     names = page.all('td.name')
     expect(names[0]).to have_content 'タスク２'
@@ -55,8 +55,8 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario 'タスク一覧画面で終了時間でソートできること' do
-    create(:task, name: '終了期限先', deadline: '2018-7-18', created_at: '2018-7-16 08:10:10')
-    create(:task, name: '終了期限後', deadline: '2018-7-25', created_at: '2018-7-16 09:10:15')
+    create(:task, name: '終了期限先', deadline: '2018-7-18', created_at: '2018-7-16 08:10:10', user_id: 1)
+    create(:task, name: '終了期限後', deadline: '2018-7-25', created_at: '2018-7-16 09:10:15', user_id: 1)
     # 「終了期限後」を後に作成したので上に表示されている
     visit root_path
     names = page.all('td.name')
@@ -75,8 +75,8 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario 'タスク一覧画面で検索結果が表示されていること' do
-    create(:task, name: 'タスク１', status: 'to_do')
-    create(:task, name: 'タスク２', status: 'doing')
+    create(:task, name: 'タスク１', status: 'to_do', user_id: 1)
+    create(:task, name: 'タスク２', status: 'doing', user_id: 1)
     visit root_path
     fill_in 'タスク名', with: 'タスク１'
     select '未着手', from: 'search_status'
@@ -86,9 +86,9 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario 'タスク一覧画面で優先度でソートできること' do
-    create(:task, name: '優先度中タスク', priority: 'middle', created_at: '2018-7-20 16:55:10')
-    create(:task, name: '優先度高タスク', priority: 'high', created_at: '2018-7-20 16:58:14')
-    create(:task, name: '優先度低タスク', priority: 'low', created_at: '2018-7-20 17:01:34')
+    create(:task, name: '優先度中タスク', priority: 'middle', created_at: '2018-7-20 16:55:10', user_id: 1)
+    create(:task, name: '優先度高タスク', priority: 'high', created_at: '2018-7-20 16:58:14', user_id: 1)
+    create(:task, name: '優先度低タスク', priority: 'low', created_at: '2018-7-20 17:01:34', user_id: 1)
     visit root_path
     # created_atの降順で並んでいることの確認
     names = page.all('td.name')
@@ -110,7 +110,7 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario 'タスク一覧画面で10件ずつのページネーションとなっていること' do
-    create_list(:task, 11)
+    create_list(:task, 11, user_id: 1)
     visit root_path
     names = page.all('td.name')
     # 10件目は表示されており、11件目は表示されていないことの確認
@@ -123,7 +123,7 @@ RSpec.feature 'Tasts', type: :feature do
   end
 
   scenario '自分が作成したタスクのみ表示する' do
-    create(:task, name: 'タスク１')
+    create(:task, name: 'タスク１', user_id: 1)
     click_link 'ログアウト'
     create(:user, id: 2, email: 'raku2@example.com')
     # 別ユーザーでログイン

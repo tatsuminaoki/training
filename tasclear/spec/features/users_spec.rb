@@ -30,10 +30,10 @@ RSpec.feature 'Users', type: :feature do
 
   context 'ログインをする' do
     before do
-      create(:user, id: 1)
+      user = create(:user, id: 1)
       visit root_path
-      fill_in 'メールアドレス', with: 'raku@example.com'
-      fill_in 'パスワード', with: 'password'
+      fill_in 'メールアドレス', with: user.email
+      fill_in 'パスワード', with: user.password
       click_button 'ログイン'
     end
 
