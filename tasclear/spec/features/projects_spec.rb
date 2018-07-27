@@ -121,4 +121,19 @@ RSpec.feature 'Tasts', type: :feature do
     # 2ページ目に11件目が表示されていることの確認
     expect(names[0]).to have_content 'タスク11'
   end
+
+  scenario '自分が作成したタスクのみ表示する' do
+    create(:task, name: 'タスク１')
+    click_link I18n.t('layouts.application.logout')
+    create(:user, id: 2, email: 'raku2@example.com')
+    # 別ユーザーでログイン
+    fill_in I18n.t('helpers.label.session.email'), with: 'raku2@example.com'
+    fill_in I18n.t('helpers.label.session.password'), with: 'password'
+    click_button I18n.t('sessions.new.submit')
+    create(:task, name: 'タスク２', user_id: 2)
+    visit root_path
+    # ログイン中のユーザのタスク（タスク２）のみが表示されていることの確認
+    expect(page).to have_content 'タスク２'
+    expect(page).not_to have_content 'タスク１'
+  end
 end
