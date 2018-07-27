@@ -12,19 +12,19 @@ RSpec.feature 'Users', type: :feature do
     scenario 'メールアドレスを間違えるとログインに失敗する' do
       create(:user, id: 1)
       visit root_path
-      fill_in I18n.t('helpers.label.session.email'), with: 'aaa@example.com'
-      fill_in I18n.t('helpers.label.session.password'), with: 'password'
-      click_button I18n.t('sessions.new.submit')
-      expect(page).to have_content I18n.t('flash.session.fail_login')
+      fill_in 'メールアドレス', with: 'aaa@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+      expect(page).to have_content 'ログインに失敗しました'
     end
 
     scenario 'パスワードを間違えるとログインに失敗する' do
       create(:user, id: 1)
       visit root_path
-      fill_in I18n.t('helpers.label.session.email'), with: 'raku@example.com'
-      fill_in I18n.t('helpers.label.session.password'), with: 'hogehoge'
-      click_button I18n.t('sessions.new.submit')
-      expect(page).to have_content I18n.t('flash.session.fail_login')
+      fill_in 'メールアドレス', with: 'raku@example.com'
+      fill_in 'パスワード', with: 'hogehoge'
+      click_button 'ログイン'
+      expect(page).to have_content 'ログインに失敗しました'
     end
   end
 
@@ -32,19 +32,19 @@ RSpec.feature 'Users', type: :feature do
     before do
       create(:user, id: 1)
       visit root_path
-      fill_in I18n.t('helpers.label.session.email'), with: 'raku@example.com'
-      fill_in I18n.t('helpers.label.session.password'), with: 'password'
-      click_button I18n.t('sessions.new.submit')
+      fill_in 'メールアドレス', with: 'raku@example.com'
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
     end
 
     scenario 'ログインするとフラッシュメッセージが表示されトップページに遷移する' do
       expect(page).to have_current_path '/'
-      expect(page).to have_content I18n.t('flash.session.login_success')
+      expect(page).to have_content 'ログインしました'
     end
 
     scenario 'ログアウト出来る' do
-      click_link I18n.t('layouts.application.logout')
-      expect(page).to have_content I18n.t('flash.session.logout_success')
+      click_link 'ログアウト'
+      expect(page).to have_content 'ログアウトしました'
     end
   end
 end

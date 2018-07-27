@@ -7,41 +7,41 @@ RSpec.feature 'Tasts', type: :feature do
   before do
     create(:user, id: 1)
     visit root_path
-    fill_in I18n.t('helpers.label.session.email'), with: 'raku@example.com'
-    fill_in I18n.t('helpers.label.session.password'), with: 'password'
-    click_button I18n.t('sessions.new.submit')
+    fill_in 'メールアドレス', with: 'raku@example.com'
+    fill_in 'パスワード', with: 'password'
+    click_button 'ログイン'
   end
 
   scenario '新しいタスクを作成する' do
     expect do
-      click_link I18n.t('tasks.index.new_task'), match: :first
-      fill_in I18n.t('activerecord.attributes.task.name'), with: '勉強'
-      click_button I18n.t('helpers.submit.create')
-      expect(page).to have_content I18n.t('flash.task.create_success')
+      click_link '新規タスク登録', match: :first
+      fill_in 'タスク名', with: '勉強'
+      click_button '登録する'
+      expect(page).to have_content 'タスクを作成しました'
       expect(page).to have_content '勉強'
     end.to change { Task.count }.by(1)
   end
 
   scenario 'タスクを編集する' do
-    click_link I18n.t('tasks.index.new_task'), match: :first
-    fill_in I18n.t('activerecord.attributes.task.name'), with: '勉強'
-    click_button I18n.t('helpers.submit.create')
+    click_link '新規タスク登録', match: :first
+    fill_in 'タスク名', with: '勉強'
+    click_button '登録する'
     expect do
       find('.edit-btn').click
-      fill_in I18n.t('activerecord.attributes.task.name'), with: '運動'
-      click_button I18n.t('helpers.submit.update')
-      expect(page).to have_content I18n.t('flash.task.update_success')
+      fill_in 'タスク名', with: '運動'
+      click_button '更新する'
+      expect(page).to have_content 'タスクを編集しました'
       expect(page).to have_content '運動'
     end.to change { Task.count }.by(0)
   end
 
   scenario 'タスクを削除する' do
-    click_link I18n.t('tasks.index.new_task'), match: :first
-    fill_in I18n.t('activerecord.attributes.task.name'), with: '勉強'
-    click_button I18n.t('helpers.submit.create')
+    click_link '新規タスク登録', match: :first
+    fill_in 'タスク名', with: '勉強'
+    click_button '登録する'
     expect do
       find('.delete-btn').click
-      expect(page).to have_content I18n.t('flash.task.destroy_success')
+      expect(page).to have_content 'タスクを削除しました'
     end.to change { Task.count }.by(-1)
   end
 
@@ -63,12 +63,12 @@ RSpec.feature 'Tasts', type: :feature do
     expect(names[0]).to have_content '終了期限後'
     expect(names[1]).to have_content '終了期限先'
     # 終了期限をクリックすると終了期限が早い順にソートされ、「終了期限先」が上に表示される
-    click_link I18n.t('tasks.index.deadline')
+    click_link '終了期限'
     names = page.all('td.name')
     expect(names[0]).to have_content '終了期限先'
     expect(names[1]).to have_content '終了期限後'
     # もう一度終了期限をクリックすると反対に終了期限が遅い順にソートされ、「終了期限後」が上に表示される
-    click_link I18n.t('tasks.index.deadline')
+    click_link '終了期限'
     names = page.all('td.name')
     expect(names[0]).to have_content '終了期限後'
     expect(names[1]).to have_content '終了期限先'
@@ -78,9 +78,9 @@ RSpec.feature 'Tasts', type: :feature do
     create(:task, name: 'タスク１', status: 'to_do')
     create(:task, name: 'タスク２', status: 'doing')
     visit root_path
-    fill_in I18n.t('tasks.index.search_name'), with: 'タスク１'
+    fill_in 'タスク名', with: 'タスク１'
     select '未着手', from: 'search_status'
-    click_button I18n.t('tasks.index.search_submit')
+    click_button '検索'
     expect(page).to have_content 'タスク１'
     expect(page).not_to have_content 'タスク２'
   end
@@ -95,13 +95,13 @@ RSpec.feature 'Tasts', type: :feature do
     expect(names[0]).to have_content '優先度低タスク'
     expect(names[1]).to have_content '優先度高タスク'
     expect(names[2]).to have_content '優先度中タスク'
-    click_link I18n.t('tasks.index.priority')
+    click_link '優先度'
     # 優先度ボタンをクリックすると優先度の高い順でソートされていることの確認
     names = page.all('td.name')
     expect(names[0]).to have_content '優先度高タスク'
     expect(names[1]).to have_content '優先度中タスク'
     expect(names[2]).to have_content '優先度低タスク'
-    click_link I18n.t('tasks.index.priority')
+    click_link '優先度'
     # もう一度優先度ボタンをクリックすると優先度の低い順でソートされていることの確認
     names = page.all('td.name')
     expect(names[0]).to have_content '優先度低タスク'
@@ -124,12 +124,12 @@ RSpec.feature 'Tasts', type: :feature do
 
   scenario '自分が作成したタスクのみ表示する' do
     create(:task, name: 'タスク１')
-    click_link I18n.t('layouts.application.logout')
+    click_link 'ログアウト'
     create(:user, id: 2, email: 'raku2@example.com')
     # 別ユーザーでログイン
-    fill_in I18n.t('helpers.label.session.email'), with: 'raku2@example.com'
-    fill_in I18n.t('helpers.label.session.password'), with: 'password'
-    click_button I18n.t('sessions.new.submit')
+    fill_in 'メールアドレス', with: 'raku2@example.com'
+    fill_in 'パスワード', with: 'password'
+    click_button 'ログイン'
     create(:task, name: 'タスク２', user_id: 2)
     visit root_path
     # ログイン中のユーザのタスク（タスク２）のみが表示されていることの確認
