@@ -16,6 +16,12 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  layouts:
+    application:
+      login: 'ログイン'
+      logout: 'ログアウト'
+      title: '楽天スーパータスク'
+      new_task: '新規タスク登録'
   tasks:
     index:
       title: 'タスク一覧'
@@ -46,6 +52,10 @@ ja:
       status: 'ステータス'
       priority: '優先度'
       back: '戻る'
+  sessions:
+    new:
+      title: 'ログイン'
+      submit: 'ログイン'
   enums:
     task:
       status:
@@ -61,6 +71,10 @@ ja:
       create_success: 'タスクを作成しました'
       update_success: 'タスクを編集しました'
       destroy_success: 'タスクを削除しました'
+    session:
+      fail_login: 'ログインに失敗しました'
+      logout_success: 'ログアウトしました'
+      login_success: 'ログインしました'
   views:
     pagination:
       first: "&laquo; 最初"
@@ -207,6 +221,10 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
   number:
     currency:
       format:

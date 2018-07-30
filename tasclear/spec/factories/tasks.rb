@@ -5,5 +5,6 @@ FactoryBot.define do
     deadline '2018-07-31'
     status 'to_do'
     priority 'low'
+    association :user
   end
 end

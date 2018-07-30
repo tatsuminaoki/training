@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.search_and_order(params).page(params[:page])
+    if logged_in?
+      @tasks = Task.search_and_order(params, current_user.id).page(params[:page])
+    else
+      redirect_to new_session_path
+    end
   end
 
   def new
@@ -13,6 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to root_path, notice: t('flash.task.create_success')
     else

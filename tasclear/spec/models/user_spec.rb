@@ -6,8 +6,8 @@ RSpec.describe User, type: :model do
   describe 'バリデーション' do
     let(:name) { 'ほげ' }
     let(:email) { 'hoge@sample.com' }
-    let(:password_digest) { 'password' }
-    subject { build(:user, name: name, email: email, password_digest: password_digest) }
+    let(:password) { 'password' }
+    subject { build(:user, name: name, email: email, password: password) }
 
     context '有効' do
       context '名前、メールアドレス、パスワードが指定される' do
@@ -25,12 +25,12 @@ RSpec.describe User, type: :model do
       end
 
       context 'パスワードが6文字' do
-        let(:password_digest) { 'a' * 6 }
+        let(:password) { 'a' * 6 }
         it { is_expected.to be_valid }
       end
 
       context 'パスワードが30文字' do
-        let(:password_digest) { 'a' * 30 }
+        let(:password) { 'a' * 30 }
         it { is_expected.to be_valid }
       end
     end
@@ -69,17 +69,17 @@ RSpec.describe User, type: :model do
       end
 
       context 'パスワードが指定されない' do
-        let(:password_digest) { '' }
+        let(:password) { '' }
         it { is_expected.to be_invalid }
       end
 
       context 'パスワードが5文字' do
-        let(:password_digest) { 'a' * 5 }
+        let(:password) { 'a' * 5 }
         it { is_expected.to be_invalid }
       end
 
       context 'パスワードが31文字' do
-        let(:password_digest) { 'a' * 31 }
+        let(:password) { 'a' * 31 }
         it { is_expected.to be_invalid }
       end
     end
