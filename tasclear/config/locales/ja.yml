@@ -10,6 +10,10 @@ ja:
         deadline: '終了期限'
         status: 'ステータス'
         priority: '優先度'
+      user:
+        name: '名前'
+        email: 'メールアドレス'
+        password: 'パスワード'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -22,6 +26,7 @@ ja:
       logout: 'ログアウト'
       title: '楽天スーパータスク'
       new_task: '新規タスク登録'
+      users: 'ユーザ一覧'
   tasks:
     index:
       title: 'タスク一覧'
@@ -52,6 +57,29 @@ ja:
       status: 'ステータス'
       priority: '優先度'
       back: '戻る'
+  admin:
+    users:
+      index:
+        title: 'ユーザ一覧'
+        name: '名前'
+        email: 'メールアドレス'
+        amount: 'タスク数'
+        new_user: '新規ユーザ登録'
+        confirm: '本当に削除してもいいですか'
+      new:
+        title: '新規ユーザ登録'
+        back: '戻る'
+      edit:
+        title: 'ユーザ編集'
+        back: '戻る'
+      show:
+        title: 'さんのタスク一覧'
+        name: 'タスク名'
+        detail: '詳細'
+        deadline: '終了期限'
+        status: 'ステータス'
+        priority: '優先度'
+        back: '戻る'
   sessions:
     new:
       title: 'ログイン'
@@ -71,6 +99,10 @@ ja:
       create_success: 'タスクを作成しました'
       update_success: 'タスクを編集しました'
       destroy_success: 'タスクを削除しました'
+    user:
+      create_success: 'ユーザを作成しました'
+      update_success: 'ユーザを編集しました'
+      destroy_success: 'ユーザを削除しました'
     session:
       fail_login: 'ログインに失敗しました'
       logout_success: 'ログアウトしました'
