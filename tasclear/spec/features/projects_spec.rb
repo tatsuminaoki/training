@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Tasts', type: :feature do
+RSpec.feature 'Tasks', type: :feature do
   # ログイン状態の作成
   before do
     user = create(:user, id: 1)
