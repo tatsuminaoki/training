@@ -134,12 +134,11 @@ RSpec.feature 'Tasks', type: :feature do
       visit root_path
       names = page.all('td.name')
       # 10件目は表示されており、11件目は表示されていないことの確認
-      expect(names[9]).to have_content 'タスク10'
-      expect(names[10]).to be nil
+      expect(names.count).to eq 10
       click_link '次'
       names = page.all('td.name')
       # 2ページ目に11件目が表示されていることの確認
-      expect(names[0]).to have_content 'タスク11'
+      expect(names.count).to eq 1
     end
   end
 
