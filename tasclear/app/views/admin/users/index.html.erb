@@ -1,0 +1,24 @@
+<h1><%= t('.title') %></h1>
+<table class="table table-striped">
+  <tr class="table-primary">
+    <th><%= t('.name') %></th>
+    <th><%= t('.email') %></th>
+    <th><%= t('.amount') %></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to tasks_amount(user), admin_user_path(user.id) %></td>
+      <td><%= link_to edit_admin_user_path(user.id), class:"edit-btn" do %>
+        <i class="fa fa-edit"></i>
+      <% end %></td>
+      <td><%= link_to admin_user_path(user.id), class:'delete-btn', method: :delete, data: {confirm: t('.confirm')} do %>
+        <i class="fa fa-trash"></i>
+      <% end %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to t('.new_user'), new_admin_user_path, class:"btn btn-primary" %>
