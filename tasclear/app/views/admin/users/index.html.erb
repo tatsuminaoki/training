@@ -9,8 +9,8 @@
   </tr>
   <% @users.each do |user| %>
     <tr>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
+      <td class='name'><%= user.name %></td>
+      <td class='email'><%= user.email %></td>
       <td class='amount'><%= link_to tasks_amount(user), admin_user_path(user.id), class:'amount-btn' %></td>
       <td><%= link_to edit_admin_user_path(user.id), class:"edit-btn" do %>
         <i class="fa fa-edit"></i>

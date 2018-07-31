@@ -23,14 +23,14 @@ RSpec.feature 'AdminUsers', type: :feature do
     end
 
     scenario 'ユーザを編集する' do
-      expect do
-        find('.edit-btn').click
-        fill_in '名前', with: '変更後名前'
-        fill_in 'メールアドレス', with: 'changed@example.com'
-        fill_in 'パスワード', with: 'password2'
-        click_button '更新する'
-        expect(page).to have_content 'ユーザを編集しました'
-      end.to change { User.count }.by(0)
+      find('.edit-btn').click
+      fill_in '名前', with: '変更後名前'
+      fill_in 'メールアドレス', with: 'changed@example.com'
+      fill_in 'パスワード', with: 'password2'
+      click_button '更新する'
+      expect(page).to have_content 'ユーザを編集しました'
+      expect(page).to have_selector 'td.name', text: '変更後名前'
+      expect(page).to have_selector 'td.email', text: 'changed@example.com'
     end
 
     scenario 'ユーザを削除する' do
