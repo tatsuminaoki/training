@@ -14,11 +14,10 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      if @user.save
-        redirect_to admin_users_path, notice: t('flash.user.create_success')
-      else
-        render :new
-      end
+      @user.save!
+      redirect_to admin_users_path, notice: t('flash.user.create_success')
+    rescue StandardError
+      render :new
     end
 
     def edit
@@ -29,11 +28,10 @@ module Admin
     end
 
     def update
-      if @user.update(user_params)
-        redirect_to admin_users_path, notice: t('flash.user.update_success')
-      else
-        render :edit
-      end
+      @user.update!(user_params)
+      redirect_to admin_users_path, notice: t('flash.user.update_success')
+    rescue StandardError
+      render :edit
     end
 
     def destroy
