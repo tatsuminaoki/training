@@ -3,6 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit update destroy]
+    before_action :check_admin
 
     def index
       @users = User.all
@@ -49,6 +50,10 @@ module Admin
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def check_admin
+      redirect_to root_path, alert: t('flash.user.not_admin') if current_user.role == 'general'
     end
   end
 end

@@ -104,6 +104,7 @@ ja:
       update_success: 'ユーザを編集しました'
       destroy_success: 'ユーザを削除しました'
       destroy_failure: 'ユーザの削除に失敗しました'
+      not_admin: '権限がありません'
     session:
       fail_login: 'ログインに失敗しました'
       logout_success: 'ログアウトしました'
