@@ -8,7 +8,8 @@ RSpec.describe Task, type: :model do
     let(:content) { 'ほげほげ' }
     let(:status) { 'doing' }
     let(:priority) { 'low' }
-    subject { build(:task, name: name, content: content, status: status, priority: priority) }
+    let(:user) { create(:user) }
+    subject { build(:task, name: name, content: content, status: status, priority: priority, user_id: user.id) }
 
     context '有効' do
       context 'タスク名、内容、ステータス、パスワードが指定される' do
@@ -54,23 +55,23 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe '#search_and_order' do
+  describe '#add_search_and_order_condition' do
     let!(:task1) { create(:task, name: 'タスク１', status: 'to_do') }
     let!(:task2) { create(:task, name: 'タスク２', status: 'doing') }
 
     it 'タスク名で検索できること' do
-      expect(Task.search_and_order({ search_name: 'タスク１' }, task1.user.id)).to include(task1)
-      expect(Task.search_and_order({ search_name: 'タスク１' }, task2.user.id)).not_to include(task2)
+      expect(Task.add_search_and_order_condition(task1.user.tasks, { search_name: 'タスク１' })).to include(task1)
+      expect(Task.add_search_and_order_condition(task2.user.tasks, { search_name: 'タスク１' })).not_to include(task2)
     end
 
     it 'ステータスで検索できること' do
-      expect(Task.search_and_order({ search_status: 'to_do' }, task1.user.id)).to include(task1)
-      expect(Task.search_and_order({ search_status: 'to_do' }, task2.user.id)).not_to include(task2)
+      expect(Task.add_search_and_order_condition(task1.user.tasks, { search_status: 'to_do' })).to include(task1)
+      expect(Task.add_search_and_order_condition(task2.user.tasks, { search_status: 'to_do' })).not_to include(task2)
     end
 
     it 'タスク名・ステータスの両方で検索できること' do
-      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, task1.user.id)).to include(task1)
-      expect(Task.search_and_order({ search_name: 'タスク１', search_status: 'to_do' }, task2.user.id)).not_to include(task2)
+      expect(Task.add_search_and_order_condition(task1.user.tasks, { search_name: 'タスク１', search_status: 'to_do' })).to include(task1)
+      expect(Task.add_search_and_order_condition(task2.user.tasks, { search_name: 'タスク１', search_status: 'to_do' })).not_to include(task2)
     end
   end
 end
