@@ -8,7 +8,8 @@ RSpec.describe Task, type: :model do
     let(:content) { 'ほげほげ' }
     let(:status) { 'doing' }
     let(:priority) { 'low' }
-    subject { build(:task, name: name, content: content, status: status, priority: priority) }
+    let(:user) { create(:user) }
+    subject { build(:task, name: name, content: content, status: status, priority: priority, user_id: user.id) }
 
     context '有効' do
       context 'タスク名、内容、ステータス、パスワードが指定される' do
