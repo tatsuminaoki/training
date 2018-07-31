@@ -35,8 +35,10 @@ module Admin
     end
 
     def destroy
-      @user.destroy
+      @user.destroy!
       redirect_to admin_users_path, notice: t('flash.user.destroy_success')
+    rescue StandardError
+      redirect_to admin_users_path, alert: t('flash.user.destroy_failure')
     end
 
     private
