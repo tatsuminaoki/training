@@ -11,6 +11,7 @@ ja:
         status: 'ステータス'
         priority: '優先度'
       user:
+        role: 'ユーザ種類'
         name: '名前'
         email: 'メールアドレス'
         password: 'パスワード'
@@ -61,6 +62,7 @@ ja:
     users:
       index:
         title: 'ユーザ一覧'
+        role: 'ユーザ種類'
         name: '名前'
         email: 'メールアドレス'
         amount: 'タスク数'
@@ -94,6 +96,10 @@ ja:
         low: '低'
         middle: '中'
         high: '高'
+    user:
+      role:
+        general: '一般ユーザ'
+        admin: '管理ユーザ'
   flash:
     task:
       create_success: 'タスクを作成しました'

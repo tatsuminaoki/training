@@ -1,6 +1,7 @@
 <h1><%= t('.title') %></h1>
 <table class="table table-striped">
   <tr class="table-primary">
+    <th><%= t('.role') %></th>
     <th><%= t('.name') %></th>
     <th><%= t('.email') %></th>
     <th><%= t('.amount') %></th>
@@ -9,6 +10,7 @@
   </tr>
   <% @users.each do |user| %>
     <tr>
+      <td><%= user.role_i18n %></span></td>
       <td class='name'><%= user.name %></td>
       <td class='email'><%= user.email %></td>
       <td class='amount'><%= link_to tasks_amount(user), admin_user_path(user.id), class:'amount-btn' %></td>
