@@ -10,4 +10,24 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: %i[general admin]
+
+  before_destroy :check_last_admin_when_destroy
+  validate :check_last_admin_when_update, if: :general?, on: :update
+
+  private
+
+  def check_last_admin_when_destroy
+    return nil if general? || User.admin.count != 1
+    return_error
+  end
+
+  def check_last_admin_when_update
+    return nil if User.admin.count != 1
+    return_error
+  end
+
+  def return_error
+    errors.add :base, I18n.t('errors.messages.least_one_admin')
+    throw :abort
+  end
 end

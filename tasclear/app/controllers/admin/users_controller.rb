@@ -39,7 +39,7 @@ module Admin
       @user.destroy!
       redirect_to admin_users_path, notice: t('flash.user.destroy_success')
     rescue StandardError
-      redirect_to admin_users_path, alert: t('flash.user.destroy_failure')
+      redirect_to admin_users_path, alert: t('errors.messages.least_one_admin')
     end
 
     private
