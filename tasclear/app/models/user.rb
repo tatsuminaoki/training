@@ -17,13 +17,11 @@ class User < ApplicationRecord
   private
 
   def check_last_admin_when_destroy
-    return nil if general? || User.admin.count != 1
-    return_error
+    return_error if admin? && User.admin.count == 1
   end
 
   def check_last_admin_when_update
-    return nil if User.admin.count != 1
-    return_error
+    return_error if User.admin.count == 1
   end
 
   def return_error
