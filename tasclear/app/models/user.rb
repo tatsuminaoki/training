@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def return_error
-    errors.add :base, I18n.t('errors.messages.least_one_admin')
+    errors.add :base, I18n.t('errors.messages.at_least_one_admin')
     throw :abort
   end
 end
