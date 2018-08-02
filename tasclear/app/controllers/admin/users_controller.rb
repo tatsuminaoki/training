@@ -3,6 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit update destroy]
+    before_action :check_admin
 
     def index
       @users = User.all
@@ -28,6 +29,7 @@ module Admin
     end
 
     def update
+      @user.current_user = current_user
       @user.update!(user_params)
       redirect_to admin_users_path, notice: t('flash.user.update_success')
     rescue StandardError
@@ -38,17 +40,21 @@ module Admin
       @user.destroy!
       redirect_to admin_users_path, notice: t('flash.user.destroy_success')
     rescue StandardError
-      redirect_to admin_users_path, alert: t('flash.user.destroy_failure')
+      redirect_to admin_users_path, alert: t('errors.messages.at_least_one_admin')
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email, :password, :role)
     end
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def check_admin
+      redirect_to root_path, alert: t('flash.user.not_admin') unless current_user&.admin?
     end
   end
 end

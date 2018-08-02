@@ -8,4 +8,25 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   has_secure_password
+
+  enum role: %i[general admin]
+
+  before_destroy :check_last_admin_when_destroy
+  validate :check_last_admin_when_update, if: :general?, on: :update
+  attr_accessor :current_user
+
+  private
+
+  def check_last_admin_when_destroy
+    return_error if admin? && User.admin.count == 1
+  end
+
+  def check_last_admin_when_update
+    return_error if self == current_user && User.admin.count == 1
+  end
+
+  def return_error
+    errors.add :base, I18n.t('errors.messages.at_least_one_admin')
+    throw :abort
+  end
 end

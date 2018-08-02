@@ -11,6 +11,7 @@ ja:
         status: 'ステータス'
         priority: '優先度'
       user:
+        role: 'ユーザ種類'
         name: '名前'
         email: 'メールアドレス'
         password: 'パスワード'
@@ -61,6 +62,7 @@ ja:
     users:
       index:
         title: 'ユーザ一覧'
+        role: 'ユーザ種類'
         name: '名前'
         email: 'メールアドレス'
         amount: 'タスク数'
@@ -94,6 +96,10 @@ ja:
         low: '低'
         middle: '中'
         high: '高'
+    user:
+      role:
+        general: '一般ユーザ'
+        admin: '管理ユーザ'
   flash:
     task:
       create_success: 'タスクを作成しました'
@@ -104,6 +110,7 @@ ja:
       update_success: 'ユーザを編集しました'
       destroy_success: 'ユーザを削除しました'
       destroy_failure: 'ユーザの削除に失敗しました'
+      not_admin: '権限がありません'
     session:
       fail_login: 'ログインに失敗しました'
       logout_success: 'ログアウトしました'
@@ -242,6 +249,7 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
+      at_least_one_admin: 少なくとも1人の管理ユーザが必要です
     template:
       body: 次の項目を確認してください
       header:
