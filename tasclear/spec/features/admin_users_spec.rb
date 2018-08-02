@@ -24,17 +24,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       end.to change { User.count }.by(1)
     end
 
-    scenario 'ユーザを編集する' do
-      find('.edit-btn').click
-      fill_in '名前', with: '変更後名前'
-      fill_in 'メールアドレス', with: 'changed@example.com'
-      fill_in 'パスワード', with: 'password2'
-      click_button '更新する'
-      expect(page).to have_content 'ユーザを編集しました'
-      expect(page).to have_selector 'td.name', text: '変更後名前'
-      expect(page).to have_selector 'td.email', text: 'changed@example.com'
-    end
-
     scenario '管理ユーザが1人もいなくなってしまう場合はユーザの削除ができない' do
       expect do
         find('.delete-btn').click
@@ -56,11 +45,15 @@ RSpec.feature 'AdminUsers', type: :feature do
         visit admin_users_path
       end
 
-      scenario '管理ユーザが0人にならない場合はユーザが削除できる' do
-        expect do
-          all('.delete-btn')[1].click
-          expect(page).to have_content 'ユーザを削除しました'
-        end.to change { User.count }.by(-1)
+      scenario 'ユーザを編集する' do
+        all('.edit-btn')[1].click
+        fill_in '名前', with: '変更後名前'
+        fill_in 'メールアドレス', with: 'changed@example.com'
+        fill_in 'パスワード', with: 'password2'
+        click_button '更新する'
+        expect(page).to have_content 'ユーザを編集しました'
+        expect(page).to have_selector 'td.name', text: '変更後名前'
+        expect(page).to have_selector 'td.email', text: 'changed@example.com'
       end
     end
 
@@ -82,6 +75,13 @@ RSpec.feature 'AdminUsers', type: :feature do
       background do
         create(:user, role: 'admin')
         visit admin_users_path
+      end
+
+      scenario '管理ユーザが0人にならない場合はユーザが削除できる' do
+        expect do
+          all('.delete-btn')[1].click
+          expect(page).to have_content 'ユーザを削除しました'
+        end.to change { User.count }.by(-1)
       end
 
       scenario '自分自身を削除できる' do

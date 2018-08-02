@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   before_destroy :check_last_admin_when_destroy
   validate :check_last_admin_when_update, if: :general?, on: :update
+  attr_accessor :current_user
 
   private
 
@@ -21,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def check_last_admin_when_update
-    return_error if User.admin.count == 1
+    return_error if self == current_user && User.admin.count == 1
   end
 
   def return_error
