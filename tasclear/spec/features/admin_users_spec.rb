@@ -71,7 +71,7 @@ RSpec.feature 'AdminUsers', type: :feature do
       end
     end
 
-    feature '管理ユーザを作成' do
+    feature '別の管理ユーザが存在するケース' do
       background do
         create(:user, role: 'admin')
         visit admin_users_path
@@ -92,7 +92,7 @@ RSpec.feature 'AdminUsers', type: :feature do
       end
     end
 
-    feature '2名以上のユーザ作成' do
+    feature '2名以上の一般ユーザを使用するケース' do
       background do
         @user1 = create(:user)
         create(:task, name: 'ユーザ1のタスク', user_id: @user1.id)
