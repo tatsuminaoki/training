@@ -53,7 +53,7 @@ module Admin
     end
 
     def check_admin
-      redirect_to root_path, alert: t('flash.user.not_admin') unless current_user.admin?
+      redirect_to root_path, alert: t('flash.user.not_admin') unless current_user&.admin?
     end
   end
 end

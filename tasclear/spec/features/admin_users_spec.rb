@@ -50,7 +50,7 @@ RSpec.feature 'AdminUsers', type: :feature do
       expect(page).to have_content '少なくとも1人の管理ユーザが必要です'
     end
 
-    feature '既存ユーザへの操作' do
+    feature '別ユーザへの操作' do
       background do
         create(:user)
         visit admin_users_path
@@ -75,6 +75,20 @@ RSpec.feature 'AdminUsers', type: :feature do
         expect do
           all('.delete-btn')[1].click
         end.to change { Task.where(user_id: @user1.id).count }.by(-1)
+      end
+    end
+
+    feature '管理ユーザを作成' do
+      background do
+        create(:user, role: 'admin')
+        visit admin_users_path
+      end
+
+      scenario '自分自身を削除できる' do
+        expect do
+          all('.delete-btn')[0].click
+          expect(page).to have_current_path '/sessions/new'
+        end.to change { User.count }.by(-1)
       end
     end
 
