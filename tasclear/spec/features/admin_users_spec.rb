@@ -78,15 +78,32 @@ RSpec.feature 'AdminUsers', type: :feature do
       end
     end
 
+    feature '2名以上のユーザ作成' do
+      background do
+        @user1 = create(:user)
+        create(:task, name: 'ユーザ1のタスク', user_id: @user1.id)
+        @user2 = create(:user)
+        create(:task, name: 'ユーザ2のタスク1', user_id: @user2.id)
+        create(:task, name: 'ユーザ2のタスク2', user_id: @user2.id)
+        visit admin_users_path
+      end
+
       scenario 'ユーザ一覧画面で、そのユーザが抱えているタスクの数を表示する' do
         amounts = page.all('td.amount')
         expect(amounts[1]).to have_content '1'
+        expect(amounts[2]).to have_content '2'
       end
 
       scenario 'ユーザが作成したタスクの一覧が見れる' do
         all('.amount-btn')[1].click
-        names = page.all('td.name')
-        expect(names.count).to eq 1
+        expect(page).to have_content 'ユーザ1のタスク'
+        expect(page).not_to have_content 'ユーザ2のタスク1'
+        expect(page).not_to have_content 'ユーザ2のタスク2'
+        visit admin_users_path
+        all('.amount-btn')[2].click
+        expect(page).not_to have_content 'ユーザ1のタスク'
+        expect(page).to have_content 'ユーザ2のタスク1'
+        expect(page).to have_content 'ユーザ2のタスク2'
       end
     end
   end
