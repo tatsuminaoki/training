@@ -66,15 +66,17 @@ RSpec.feature 'AdminUsers', type: :feature do
 
     feature 'ユーザが作成したタスク絡み' do
       background do
-        create(:task)
+        @user1 = create(:user)
+        create(:task, user_id: @user1.id)
         visit admin_users_path
       end
 
       scenario 'ユーザを削除したら、そのユーザの抱えているタスクを削除する' do
         expect do
           all('.delete-btn')[1].click
-        end.to change { Task.count }.by(-1)
+        end.to change { Task.where(user_id: @user1.id).count }.by(-1)
       end
+    end
 
       scenario 'ユーザ一覧画面で、そのユーザが抱えているタスクの数を表示する' do
         amounts = page.all('td.amount')
