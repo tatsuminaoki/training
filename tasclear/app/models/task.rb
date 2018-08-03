@@ -34,12 +34,10 @@ class Task < ApplicationRecord
 
   def save_labels(labels)
     current_labels = self.labels.pluck(:name) unless self.labels.nil?
-    old_labels = current_labels - labels
-    new_labels = labels - current_labels
-    old_labels.each do |old_name|
+    (current_labels - labels).each do |old_name|
       self.labels.delete Label.find_by(name: old_name)
     end
-    new_labels.each do |new_name|
+    (labels - current_labels).each do |new_name|
       task_label = Label.find_or_create_by(name: new_name)
       self.labels << task_label
     end
