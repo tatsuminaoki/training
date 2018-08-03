@@ -31,6 +31,7 @@
         <th><%= link_sort(t('.priority'), 'priority') %></th>
         <th><%= link_sort(t('.deadline'), 'deadline') %></th>
         <th><%= t('.name') %></th>
+        <th><%= t('.label') %></th>
         <th></th>
         <th></th>
         <th></th>
@@ -41,6 +42,9 @@
           <td><span class="badge badge-<%= priority_color task.priority %>"><%= task.priority_i18n %></span></td>
           <td><%= l(task.deadline, format: :short2) if task.deadline.present? %></td>
           <td class='name'><%= task.name %></td>
+          <td class='label'><% task.labels.each do |label| %>
+            <span class="badge badge-info"><%= label.name %></span>
+          <% end %></td>
           <td><%= link_to t('.detail'), task_path(task.id) %></td>
           <td><%= link_to edit_task_path(task.id), class:"edit-btn" do %>
             <i class="fa fa-edit"></i>

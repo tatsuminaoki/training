@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     if logged_in?
-      @tasks = Task.add_search_and_order_condition(current_user.tasks, params).page(params[:page])
+      @tasks = Task.add_search_and_order_condition(current_user.tasks, params).includes(:labels).page(params[:page])
     else
       redirect_to new_session_path
     end
@@ -16,27 +16,34 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
-    if @task.save
-      redirect_to root_path, notice: t('flash.task.create_success')
-    else
-      render :new
+    Task.transaction do
+      @task = Task.new(task_params)
+      @task.user_id = current_user.id
+      @task.save!
+      label_list = params[:task][:label_name].split(',')
+      @task.save_labels(label_list)
     end
+    redirect_to root_path, notice: t('flash.task.create_success')
+  rescue StandardError
+    render :new
   end
 
   def show
   end
 
   def edit
+    @label_list = @task.labels.pluck(:name).join(',')
   end
 
   def update
-    if @task.update(task_params)
-      redirect_to root_path, notice: t('flash.task.update_success')
-    else
-      render :edit
+    Task.transaction do
+      @task.update!(task_params)
+      label_list = params[:task][:label_name].split(',')
+      @task.save_labels(label_list)
     end
+    redirect_to root_path, notice: t('flash.task.update_success')
+  rescue StandardError
+    render :edit
   end
 
   def destroy

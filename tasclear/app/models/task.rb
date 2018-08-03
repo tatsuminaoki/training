@@ -15,6 +15,9 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
+
   def self.add_search_and_order_condition(tasks, params)
     search_name = params[:search_name]
     search_status = params[:search_status]
@@ -25,5 +28,21 @@ class Task < ApplicationRecord
     else
       tasks.order(created_at: :desc)
     end
+  end
+
+  def save_labels(labels)
+    current_labels = self.labels.pluck(:name) unless self.labels.nil?
+    old_labels = current_labels - labels
+    new_labels = labels - current_labels
+    old_labels.each do |old_name|
+      self.labels.delete Label.find_by(name: old_name)
+    end
+    new_labels.each do |new_name|
+      task_label = Label.find_or_create_by(name: new_name)
+      self.labels << task_label
+    end
+  rescue StandardError
+    errors[:base] << I18n.t('errors.messages.label_long')
+    raise
   end
 end

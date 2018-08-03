@@ -20,5 +20,11 @@
     <td><%= t('.deadline') %></td>
     <td><%= @task.deadline %></td>
   </tr>
+  <tr>
+    <td><%= t('.label_name') %></td>
+    <td><% @task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %></td>
+  </tr>
 </table>
 <%= link_to t('.back'), :back %>

@@ -10,6 +10,7 @@ ja:
         deadline: '終了期限'
         status: 'ステータス'
         priority: '優先度'
+        label_name: 'ラベル'
       user:
         role: 'ユーザ種類'
         name: '名前'
@@ -39,6 +40,7 @@ ja:
       priority: '優先度'
       search_name: 'タスク名'
       search_status: 'ステータス'
+      label: 'ラベル'
       search_submit: '検索'
       edit: '編集'
       delete: '削除'
@@ -57,6 +59,7 @@ ja:
       deadline: '終了期限'
       status: 'ステータス'
       priority: '優先度'
+      label_name: 'ラベル'
       back: '戻る'
   admin:
     users:
@@ -250,6 +253,7 @@ ja:
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
       at_least_one_admin: 少なくとも1人の管理ユーザが必要です
+      label_long: ラベルは10文字以内で入力してください
     template:
       body: 次の項目を確認してください
       header:
