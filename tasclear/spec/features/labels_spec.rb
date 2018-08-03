@@ -53,7 +53,7 @@ RSpec.feature 'Labels', type: :feature do
     end
 
     scenario '検索ができる' do
-      fill_in 'ラベル', with: 'study'
+      select 'study', from: 'search_label'
       click_button '検索'
       labels = page.all('td.label')
       expect(labels.count).to have_content 1
