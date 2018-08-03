@@ -21,8 +21,10 @@ class Task < ApplicationRecord
   def self.add_search_and_order_condition(tasks, params)
     search_name = params[:search_name]
     search_status = params[:search_status]
-    tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
+    search_label = params[:search_label]
+    tasks = tasks.where('tasks.name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
+    tasks = tasks.includes(:task_labels).joins(:labels).where('labels.name LIKE ?', "%#{search_label}%") if search_label.present?
     if params.key?(:sort_category)
       tasks.order(params[:sort_category].to_sym => params[:sort_direction].to_sym, created_at: :desc)
     else

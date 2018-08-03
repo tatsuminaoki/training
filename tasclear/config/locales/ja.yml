@@ -40,6 +40,7 @@ ja:
       priority: '優先度'
       search_name: 'タスク名'
       search_status: 'ステータス'
+      search_label: 'ラベル'
       label: 'ラベル'
       search_submit: '検索'
       edit: '編集'
