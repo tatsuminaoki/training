@@ -37,4 +37,24 @@ RSpec.describe Label, type: :model do
       end
     end
   end
+
+  describe 'アソシエーション' do
+    let(:task1) { create(:task, id: 1) }
+    let(:label1) { create(:label, id: 1, name: 'label1') }
+
+    context 'task1にlabel1を紐づけて登録するケース' do
+      before do
+        task1.labels << label1
+      end
+
+      it 'task_labelで関連付けできているか' do
+        expect(TaskLabel.find_by(task_id: 1).label_id).to eq 1
+      end
+
+      it 'task1を消した後task_labelも削除されるか' do
+        task1.destroy
+        expect(TaskLabel.find_by(task_id: 1)).to eq nil
+      end
+    end
+  end
 end
