@@ -47,6 +47,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task.save_labels([])
     @task.destroy
     redirect_to root_path, notice: t('flash.task.destroy_success')
   end
