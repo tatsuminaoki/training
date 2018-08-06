@@ -218,6 +218,17 @@ RSpec.feature 'Tasks', type: :feature do
           end.to change { TaskLabel.count }.by(-2)
         end.to change { Label.count }.by(-2)
       end
+
+      scenario 'ラベルをつけたタスクの削除' do
+        expect do
+          expect do
+            find('.delete-btn').click
+            labels = page.all('td.label')
+            expect(labels[0]).not_to have_content 'english'
+            expect(labels[0]).not_to have_content 'study'
+          end.to change { TaskLabel.count }.by(-2)
+        end.to change { Label.count }.by(-2)
+      end
     end
 
     feature 'ラベルの検索機能' do
