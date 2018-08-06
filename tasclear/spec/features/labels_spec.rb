@@ -26,17 +26,47 @@ RSpec.feature 'Labels', type: :feature do
     background do
       click_link '新規タスク登録', match: :first
       fill_in 'タスク名', with: '勉強'
-      fill_in 'ラベル', with: 'study'
+      fill_in 'ラベル', with: 'study,english'
       click_button '登録する'
     end
 
-    scenario '編集できる' do
-      find('.edit-btn').click
-      fill_in 'ラベル', with: 'emergency'
-      click_button '更新する'
-      labels = page.all('td.label')
-      expect(labels[0]).to have_content 'emergency'
-      expect(labels[0]).not_to have_content 'study'
+    scenario 'ラベルを「study,english」→「english」に編集したパターン' do
+      expect do
+        expect do
+          find('.edit-btn').click
+          fill_in 'ラベル', with: 'english'
+          click_button '更新する'
+          labels = page.all('td.label')
+          expect(labels[0]).to have_content 'english'
+          expect(labels[0]).not_to have_content 'study'
+        end.to change { TaskLabel.count }.by(-1)
+      end.to change { Label.count }.by(-1)
+    end
+
+    scenario 'ラベルを「study,english」→「english,study」に編集したパターン' do
+      expect do
+        expect do
+          find('.edit-btn').click
+          fill_in 'ラベル', with: 'english,study'
+          click_button '更新する'
+          labels = page.all('td.label')
+          expect(labels[0]).to have_content 'english'
+          expect(labels[0]).to have_content 'study'
+        end.to change { TaskLabel.count }.by(0)
+      end.to change { Label.count }.by(0)
+    end
+
+    scenario 'ラベルを「study,english」→「」に編集したパターン' do
+      expect do
+        expect do
+          find('.edit-btn').click
+          fill_in 'ラベル', with: ''
+          click_button '更新する'
+          labels = page.all('td.label')
+          expect(labels[0]).not_to have_content 'english'
+          expect(labels[0]).not_to have_content 'study'
+        end.to change { TaskLabel.count }.by(-2)
+      end.to change { Label.count }.by(-2)
     end
   end
 
