@@ -28,6 +28,13 @@ RSpec.describe Label, type: :model do
         let(:name) { 'あ' * 11 }
         it { is_expected.to be_invalid }
       end
+
+      context 'ラベル名が重複' do
+        before do
+          create(:label, name: 'ほげほげ')
+        end
+        it { is_expected.to be_invalid }
+      end
     end
   end
 end
