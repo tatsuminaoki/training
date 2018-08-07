@@ -44,10 +44,12 @@ class Task < ApplicationRecord
     end
     (labels - current_labels).each do |new_name|
       task_label = Label.find_or_create_by(name: new_name)
-      self.labels << task_label
+      begin
+        self.labels << task_label
+      rescue StandardError
+        errors[:base] << I18n.t('errors.messages.label_long')
+        raise
+      end
     end
-  rescue StandardError
-    errors[:base] << I18n.t('errors.messages.label_long')
-    raise
   end
 end
