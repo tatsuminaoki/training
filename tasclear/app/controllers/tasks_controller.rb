@@ -26,6 +26,7 @@ class TasksController < ApplicationController
     end
     redirect_to root_path, notice: t('flash.task.create_success')
   rescue StandardError
+    @label_list = params[:task][:label_name]
     render :new
   end
 
