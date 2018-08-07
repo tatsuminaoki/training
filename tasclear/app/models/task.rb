@@ -36,7 +36,12 @@ class Task < ApplicationRecord
     current_labels = self.labels.pluck(:name) unless self.labels.nil?
     (current_labels - labels).each do |old_name|
       label_id = Label.find_by(name: old_name).id
-      self.labels.find_by(name: old_name).destroy if TaskLabel.where(label_id: label_id).count <= 1
+      # ラベルが他にも存在している場合はTaskLabelのみを削除
+      if TaskLabel.where(label_id: label_id).count <= 1
+        self.labels.find_by(name: old_name).destroy
+      else
+        TaskLabel.find_by(label_id: label_id, task_id: self.id).destroy
+      end
     end
     (labels - current_labels).uniq.each do |new_name|
       task_label = Label.find_or_create_by(name: new_name)
