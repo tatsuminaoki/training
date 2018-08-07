@@ -3,8 +3,8 @@
 module ApplicationHelper
   def user_labels
     labels = []
-    Label.all.includes(:tasks).each do |label|
-      label.tasks.each do |task|
+    Label.all.each do |label|
+      label.tasks.includes(:user).each do |task|
         labels << label.name if task.user == current_user
       end
     end
