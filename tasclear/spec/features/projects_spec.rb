@@ -175,6 +175,14 @@ RSpec.feature 'Tasks', type: :feature do
       end.to change { TaskLabel.count }.by(2)
     end
 
+    scenario 'バリデーションにかかった時に値を保持する' do
+      click_link '新規タスク登録', match: :first
+      fill_in 'タスク名', with: 'a' * 30
+      fill_in 'ラベル', with: 'study,english'
+      click_button '登録する'
+      expect(page).to have_field 'ラベル', with: 'study,english'
+    end
+
     feature 'ラベルが重複して作成されない' do
       background do
         click_link '新規タスク登録', match: :first
@@ -254,9 +262,6 @@ RSpec.feature 'Tasks', type: :feature do
             find('.edit-btn').click
             fill_in 'ラベル', with: ''
             click_button '更新する'
-            labels = page.all('td.label')
-            expect(labels[0]).not_to have_content 'english'
-            expect(labels[0]).not_to have_content 'study'
           end.to change { TaskLabel.count }.by(-2)
         end.to change { Label.count }.by(-2)
       end
@@ -265,9 +270,6 @@ RSpec.feature 'Tasks', type: :feature do
         expect do
           expect do
             find('.delete-btn').click
-            labels = page.all('td.label')
-            expect(labels[0]).not_to have_content 'english'
-            expect(labels[0]).not_to have_content 'study'
           end.to change { TaskLabel.count }.by(-2)
         end.to change { Label.count }.by(-2)
       end
@@ -315,6 +317,34 @@ RSpec.feature 'Tasks', type: :feature do
         expect(page).to have_select('ステータス', selected: '未着手')
         expect(page).to have_select('ラベル', selected: 'study')
       end
+    end
+  end
+
+  feature '複数ユーザでのラベル操作' do
+    background do
+      click_link '新規タスク登録', match: :first
+      fill_in 'タスク名', with: 'task1'
+      fill_in 'ラベル', with: 'label1,label2'
+      click_button '登録する'
+      click_link 'ログアウト'
+      user2 = create(:user, id: 2)
+      fill_in 'メールアドレス', with: user2.email
+      fill_in 'パスワード', with: user2.password
+      click_button 'ログイン'
+      click_link '新規タスク登録', match: :first
+      fill_in 'タスク名', with: 'task2'
+      fill_in 'ラベル', with: 'label1'
+      click_button '登録する'
+    end
+
+    scenario '別ユーザが同じラベルを登録していて、一方がラベルを削除できる' do
+      expect do
+        expect do
+          find('.edit-btn').click
+          fill_in 'ラベル', with: ''
+          click_button '更新する'
+        end.to change { TaskLabel.count }.by(-1)
+      end.to change { Label.count }.by(0)
     end
   end
 end
