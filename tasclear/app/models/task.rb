@@ -42,7 +42,7 @@ class Task < ApplicationRecord
         TaskLabel.where(task_id: self.id).delete_all
       end
     end
-    (labels - current_labels).each do |new_name|
+    (labels - current_labels).uniq.each do |new_name|
       task_label = Label.find_or_create_by(name: new_name)
       begin
         self.labels << task_label
