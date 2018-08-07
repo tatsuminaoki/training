@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     if logged_in?
-      @tasks = Task.add_search_and_order_condition(current_user.tasks, params).page(params[:page])
+      @tasks = current_user.tasks.add_search_and_order_condition(params).page(params[:page])
       @search_attr = params
     else
       redirect_to new_session_path

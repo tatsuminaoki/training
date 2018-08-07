@@ -18,10 +18,11 @@ class Task < ApplicationRecord
   has_many :task_labels, dependent: :destroy
   has_many :labels, through: :task_labels
 
-  def self.add_search_and_order_condition(tasks, params)
+  def self.add_search_and_order_condition(params)
     search_name = params[:search_name]
     search_status = params[:search_status]
     search_label = params[:search_label]
+    tasks = self
     tasks = tasks.where('tasks.name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     tasks = tasks.joins(:labels).where('labels.name LIKE ?', "#{search_label}") if search_label.present?
