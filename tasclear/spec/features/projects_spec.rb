@@ -172,12 +172,57 @@ RSpec.feature 'Tasks', type: :feature do
       expect(labels[0]).to have_content 'english'
     end
 
+    feature 'ラベルが重複して作成されない' do
+      background do
+        click_link '新規タスク登録', match: :first
+        fill_in 'タスク名', with: 'task1'
+        fill_in 'ラベル', with: 'label1,label2'
+        click_button '登録する'
+      end
+
+      scenario '同じラベルを登録した場合' do
+        expect do
+          expect do
+            click_link '新規タスク登録', match: :first
+            fill_in 'タスク名', with: 'task2'
+            fill_in 'ラベル', with: 'label1'
+            click_button '登録する'
+          end.to change { TaskLabel.count }.by(1)
+        end.to change { Label.count }.by(0)
+      end
+    end
+
+    scenario '同じラベルを同時に登録した場合ラベルが重複して作成されない' do
+      expect do
+        expect do
+          click_link '新規タスク登録', match: :first
+          fill_in 'タスク名', with: 'task1'
+          fill_in 'ラベル', with: 'label1,label1'
+          click_button '登録する'
+        end.to change { TaskLabel.count }.by(1)
+      end.to change { Label.count }.by(1)
+    end
+
     feature 'ラベルの編集機能' do
       background do
         click_link '新規タスク登録', match: :first
         fill_in 'タスク名', with: '勉強'
+        fill_in '内容', with: 'TOEIC800'
+        select '着手', from: 'ステータス'
+        select '中', from: '優先度'
+        fill_in '終了期限', with: '08/11/2018'
         fill_in 'ラベル', with: 'study,english'
         click_button '登録する'
+      end
+
+      scenario '編集画面で値が保持されていること' do
+        find('.edit-btn').click
+        expect(page).to have_field 'タスク名', with: '勉強'
+        expect(page).to have_field '内容', with: 'TOEIC800'
+        expect(page).to have_select('ステータス', selected: '着手')
+        expect(page).to have_select('優先度', selected: '中')
+        # expect(page).to have_field '終了期限', with: '08/11/2018'
+        expect(page).to have_field 'ラベル', with: 'study,english'
       end
 
       scenario 'ラベルを「study,english」→「english」に編集したパターン' do
@@ -229,6 +274,20 @@ RSpec.feature 'Tasks', type: :feature do
           end.to change { TaskLabel.count }.by(-2)
         end.to change { Label.count }.by(-2)
       end
+
+      scenario '他タスクに同じラベルがある場合のタスクの削除' do
+        click_link '新規タスク登録', match: :first
+        fill_in 'タスク名', with: '勉強②'
+        fill_in 'ラベル', with: 'study,japanese'
+        click_button '登録する'
+        expect do
+          expect do
+            expect do
+              all('.delete-btn')[0].click
+            end.to change { Task.count }.by(-1)
+          end.to change { TaskLabel.count }.by(-2)
+        end.to change { Label.count }.by(-1)
+      end
     end
 
     feature 'ラベルの検索機能' do
@@ -250,6 +309,16 @@ RSpec.feature 'Tasks', type: :feature do
         expect(labels.count).to have_content 1
         expect(labels[0]).to have_content 'study'
         expect(labels[0]).not_to have_content 'workout'
+      end
+
+      scenario '検索条件がフォームに保持されていること' do
+        fill_in 'タスク名', with: 'tasktask'
+        select '未着手', from: 'search_status'
+        select 'study', from: 'search_label'
+        click_button '検索'
+        expect(page).to have_field 'タスク名', with: 'tasktask'
+        expect(page).to have_select('ステータス', selected: '未着手')
+        expect(page).to have_select('ラベル', selected: 'study')
       end
     end
   end
