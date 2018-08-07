@@ -163,13 +163,16 @@ RSpec.feature 'Tasks', type: :feature do
 
   feature 'ラベル関連' do
     scenario '複数のラベルをつけてタスクを作成する' do
-      click_link '新規タスク登録', match: :first
-      fill_in 'タスク名', with: '勉強'
-      fill_in 'ラベル', with: 'study,english'
-      click_button '登録する'
-      labels = page.all('td.label')
-      expect(labels[0]).to have_content 'study'
-      expect(labels[0]).to have_content 'english'
+      expect do
+        expect do
+          expect do
+            click_link '新規タスク登録', match: :first
+            fill_in 'タスク名', with: '勉強'
+            fill_in 'ラベル', with: 'study,english'
+            click_button '登録する'
+          end.to change { Task.count }.by(1)
+        end.to change { Label.count }.by(2)
+      end.to change { TaskLabel.count }.by(2)
     end
 
     feature 'ラベルが重複して作成されない' do
@@ -231,9 +234,6 @@ RSpec.feature 'Tasks', type: :feature do
             find('.edit-btn').click
             fill_in 'ラベル', with: 'english'
             click_button '更新する'
-            labels = page.all('td.label')
-            expect(labels[0]).to have_content 'english'
-            expect(labels[0]).not_to have_content 'study'
           end.to change { TaskLabel.count }.by(-1)
         end.to change { Label.count }.by(-1)
       end
@@ -244,9 +244,6 @@ RSpec.feature 'Tasks', type: :feature do
             find('.edit-btn').click
             fill_in 'ラベル', with: 'english,study'
             click_button '更新する'
-            labels = page.all('td.label')
-            expect(labels[0]).to have_content 'english'
-            expect(labels[0]).to have_content 'study'
           end.to change { TaskLabel.count }.by(0)
         end.to change { Label.count }.by(0)
       end
@@ -305,10 +302,8 @@ RSpec.feature 'Tasks', type: :feature do
       scenario '検索ができる' do
         select 'study', from: 'search_label'
         click_button '検索'
-        labels = page.all('td.label')
+        labels = page.all('td.name')
         expect(labels.count).to have_content 1
-        expect(labels[0]).to have_content 'study'
-        expect(labels[0]).not_to have_content 'workout'
       end
 
       scenario '検索条件がフォームに保持されていること' do
