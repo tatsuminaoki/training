@@ -33,8 +33,8 @@ class Task < ApplicationRecord
     end
   end
 
-  def save_labels(labels)
-    labels = labels.map(&:downcase)
+  def save_labels(label_names)
+    labels = label_names.nil? ? [] : label_names.split(',').map(&:downcase)
     current_labels = self.labels.pluck(:name) unless self.labels.nil?
     (current_labels - labels).each do |old_name|
       label_id = Label.find_by(name: old_name).id

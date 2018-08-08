@@ -21,8 +21,7 @@ class TasksController < ApplicationController
       @task = Task.new(task_params)
       @task.user_id = current_user.id
       @task.save!
-      label_list = params[:task][:label_name].split(',')
-      @task.save_labels(label_list)
+      @task.save_labels(params[:task][:label_name])
     end
     redirect_to root_path, notice: t('flash.task.create_success')
   rescue ActiveRecord::RecordInvalid
@@ -43,8 +42,7 @@ class TasksController < ApplicationController
   def update
     Task.transaction do
       @task.update!(task_params)
-      label_list = params[:task][:label_name].split(',')
-      @task.save_labels(label_list)
+      @task.save_labels(params[:task][:label_name])
     end
     redirect_to root_path, notice: t('flash.task.update_success')
   rescue ActiveRecord::RecordInvalid
@@ -56,7 +54,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.save_labels([])
+    @task.save_labels(nil)
     @task.destroy
     redirect_to root_path, notice: t('flash.task.destroy_success')
   end
