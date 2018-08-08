@@ -21,7 +21,7 @@ class TasksController < ApplicationController
       @task = Task.new(task_params)
       @task.user_id = current_user.id
       @task.save!
-      label_list = params[:task][:label_name].split(',')
+      label_list = params[:task][:label_name].split(',').map(&:downcase)
       @task.save_labels(label_list)
     end
     redirect_to root_path, notice: t('flash.task.create_success')
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   def update
     Task.transaction do
       @task.update!(task_params)
-      label_list = params[:task][:label_name].split(',')
+      label_list = params[:task][:label_name].split(',').map(&:downcase)
       @task.save_labels(label_list)
     end
     redirect_to root_path, notice: t('flash.task.update_success')
