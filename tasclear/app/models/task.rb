@@ -50,7 +50,7 @@ class Task < ApplicationRecord
         self.labels << task_label
       rescue StandardError => e
         errors[:base] << e
-        raise
+        raise e
       end
     end
   end
