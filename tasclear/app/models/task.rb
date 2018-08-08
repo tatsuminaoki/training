@@ -48,8 +48,8 @@ class Task < ApplicationRecord
       task_label = Label.find_or_create_by(name: new_name)
       begin
         self.labels << task_label
-      rescue StandardError
-        errors[:base] << I18n.t('errors.messages.label_long')
+      rescue StandardError => e
+        errors[:base] << e
         raise
       end
     end
