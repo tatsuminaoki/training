@@ -25,9 +25,12 @@ class TasksController < ApplicationController
       @task.save_labels(label_list)
     end
     redirect_to root_path, notice: t('flash.task.create_success')
-  rescue StandardError
+  rescue ActiveRecord::RecordInvalid
     @label_list = params[:task][:label_name]
     render :new
+  rescue StandardError => e
+    logger.error e
+    raise
   end
 
   def show
@@ -44,8 +47,12 @@ class TasksController < ApplicationController
       @task.save_labels(label_list)
     end
     redirect_to root_path, notice: t('flash.task.update_success')
-  rescue StandardError
+  rescue ActiveRecord::RecordInvalid
+    @label_list = params[:task][:label_name]
     render :edit
+  rescue StandardError => e
+    logger.error e
+    raise
   end
 
   def destroy
