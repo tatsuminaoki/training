@@ -2,12 +2,6 @@
 
 module ApplicationHelper
   def user_labels
-    labels = []
-    Label.all.each do |label|
-      label.tasks.includes(:user).each do |task|
-        labels << label.name if task.user == current_user
-      end
-    end
-    labels.uniq
+    Label.joins(:tasks).where('tasks.user_id = ?', current_user.id).pluck(:name).uniq
   end
 end
