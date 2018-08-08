@@ -8,6 +8,6 @@ module ApplicationHelper
         labels << label.name if task.user == current_user
       end
     end
-    labels
+    labels.uniq
   end
 end

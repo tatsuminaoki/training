@@ -317,6 +317,15 @@ RSpec.feature 'Tasks', type: :feature do
         expect(page).to have_select('ステータス', selected: '未着手')
         expect(page).to have_select('ラベル', selected: 'study')
       end
+
+      scenario '同じラベルを登録した際に検索のセレクトボックスに重複して表示されない' do
+        click_link '新規タスク登録', match: :first
+        fill_in 'タスク名', with: '勉強②'
+        fill_in 'ラベル', with: 'study'
+        click_button '登録する'
+        labels = page.all('option').map(&:text)
+        expect(labels.count('study')).to eq 1
+      end
     end
   end
 
