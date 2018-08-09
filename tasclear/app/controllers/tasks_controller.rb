@@ -5,7 +5,8 @@ class TasksController < ApplicationController
 
   def index
     if logged_in?
-      @tasks = Task.add_search_and_order_condition(current_user.tasks, params).page(params[:page])
+      @tasks = current_user.tasks.add_search_and_order_condition(params).page(params[:page])
+      @search_attr = params
     else
       redirect_to new_session_path
     end
@@ -16,30 +17,44 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
-    if @task.save
-      redirect_to root_path, notice: t('flash.task.create_success')
-    else
-      render :new
+    Task.transaction do
+      @task = Task.new(task_params)
+      @task.user_id = current_user.id
+      @task.save!
+      @task.save_labels(params[:task][:label_name])
     end
+    redirect_to root_path, notice: t('flash.task.create_success')
+  rescue ActiveRecord::RecordInvalid
+    @label_list = params[:task][:label_name]
+    render :new
+  rescue StandardError => e
+    logger.error e
+    raise
   end
 
   def show
   end
 
   def edit
+    @label_list = @task.labels.pluck(:name).join(',')
   end
 
   def update
-    if @task.update(task_params)
-      redirect_to root_path, notice: t('flash.task.update_success')
-    else
-      render :edit
+    Task.transaction do
+      @task.update!(task_params)
+      @task.save_labels(params[:task][:label_name])
     end
+    redirect_to root_path, notice: t('flash.task.update_success')
+  rescue ActiveRecord::RecordInvalid
+    @label_list = params[:task][:label_name]
+    render :edit
+  rescue StandardError => e
+    logger.error e
+    raise
   end
 
   def destroy
+    @task.save_labels(nil)
     @task.destroy
     redirect_to root_path, notice: t('flash.task.destroy_success')
   end

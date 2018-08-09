@@ -47,4 +47,16 @@ RSpec.feature 'Users', type: :feature do
       expect(page).to have_content 'ログアウトしました'
     end
   end
+
+  scenario '新規登録出来る' do
+    expect do
+      visit root_path
+      click_link '新規登録'
+      fill_in '名前', with: 'ほげほげ'
+      fill_in 'メールアドレス', with: 'hogehoge@example.com'
+      fill_in 'パスワード', with: 'hogehoge'
+      click_button '登録する'
+      expect(page).to have_content '登録完了しました'
+    end.to change { User.count }.by(1)
+  end
 end

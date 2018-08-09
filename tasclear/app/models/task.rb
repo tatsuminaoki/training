@@ -15,15 +15,44 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
-  def self.add_search_and_order_condition(tasks, params)
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
+
+  def self.add_search_and_order_condition(params)
     search_name = params[:search_name]
     search_status = params[:search_status]
-    tasks = tasks.where('name LIKE ?', "%#{search_name}%") if search_name.present?
+    search_label = params[:search_label]
+    tasks = self
+    tasks = tasks.where('tasks.name LIKE ?', "%#{search_name}%") if search_name.present?
     tasks = tasks.where(status: search_status) if search_status.present?
+    tasks = tasks.joins(:labels).where('labels.name LIKE ?', "#{search_label}") if search_label.present?
     if params.key?(:sort_category)
       tasks.order(params[:sort_category].to_sym => params[:sort_direction].to_sym, created_at: :desc)
     else
       tasks.order(created_at: :desc)
+    end
+  end
+
+  def save_labels(label_names)
+    labels = label_names.nil? ? [] : label_names.split(',').map(&:downcase)
+    current_labels = self.labels.pluck(:name) unless self.labels.nil?
+    (current_labels - labels).each do |old_name|
+      label_id = Label.find_by(name: old_name).id
+      # ラベルが他にも存在している場合はTaskLabelのみを削除
+      if TaskLabel.where(label_id: label_id).count <= 1
+        self.labels.find_by(name: old_name).destroy
+      else
+        TaskLabel.find_by(label_id: label_id, task_id: self.id).destroy
+      end
+    end
+    (labels - current_labels).uniq.each do |new_name|
+      task_label = Label.find_or_create_by(name: new_name)
+      begin
+        self.labels << task_label
+      rescue StandardError => e
+        errors[:base] << e
+        raise e
+      end
     end
   end
 end
