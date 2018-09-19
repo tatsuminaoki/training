@@ -18,17 +18,9 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-	<td>
-	<% if task.status == "yet" %>
-	  未着手
-	<% elsif task.status == "do" %>
-	  着手
-	<% elsif task.status == "done" %>
-	  完了
-	<% end %>
-	</td>
+	<td><%= task.status %></td>
         <td><%= task.end_time %></td>
-        <td><%= link_to '詳細', task %></td>
+        <td><%= link_to t('.detail'), task %></td>
         <td><%= link_to '修正', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
