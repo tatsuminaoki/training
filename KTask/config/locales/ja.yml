@@ -28,6 +28,7 @@ ja:
       delete: '削除'
       back: '戻る'
       new_task: '新規タスク登録'
+      delete_message: '削除しますか？'
     show:
       page_title: 'タスク詳細'
       title: 'スケジュール名'
@@ -42,6 +43,12 @@ ja:
     new:
       page_title: 'タスク登録'
       back: '戻る'
+
+  flash:
+    task:
+     create: 'タスクを作成しました'
+     update: 'タスクを修正しました'
+     delete: 'タスクを削除しました'
 
   date:
     abbr_day_names:

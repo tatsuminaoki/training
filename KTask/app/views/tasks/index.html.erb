@@ -30,7 +30,7 @@
         <td><%= task.end_time %></td>
         <td><%= link_to t('.detail'), task %></td>
         <td><%= link_to t('.edit'), edit_task_path(task) %></td>
-        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.delete_message') } %></td>
       </tr>
     <% end %>
   </tbody>
