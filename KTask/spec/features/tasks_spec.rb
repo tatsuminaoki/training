@@ -6,11 +6,11 @@ RSpec.feature 'Tasks', type: :feature do
   scenario '新しいタスクを作成' do
     expect do
       visit root_path
-      click_link I18n.t('tasks.index.new_task')
-      fill_in I18n.t('activerecord.attributes.task.title'), with: 'First content'
-      fill_in I18n.t('activerecord.attributes.task.content'), with: 'Rspec test'
-      click_button I18n.t('helpers.submit.create')
-      expect(page).to have_content I18n.t('flash.task.create')
+      click_link '新規タスク登録'
+      fill_in 'スケジュール', with: 'First content'
+      fill_in '内容', with: 'Rspec test'
+      click_button '登録する'
+      expect(page).to have_content('タスクを作成しました')
       expect(page).to have_content('First content')
       expect(page).to have_content('Rspec test')
     end.to change { Task.count }.by(1)
@@ -18,32 +18,32 @@ RSpec.feature 'Tasks', type: :feature do
 
   scenario 'タスクの修正' do
     visit root_path
-    click_link I18n.t('tasks.index.new_task')
-    fill_in I18n.t('activerecord.attributes.task.title'), with: 'Before modify'
-    fill_in I18n.t('activerecord.attributes.task.content'), with: 'Rspec test'
-    click_button I18n.t('helpers.submit.create')
-    click_link I18n.t('tasks.show.back')
+    click_link '新規タスク登録'
+    fill_in 'スケジュール', with: 'Before modify'
+    fill_in '内容', with: 'Rspec test'
+    click_button '登録する'
+    click_link '戻る'
     expect do
-      click_link I18n.t('tasks.index.edit')
-      fill_in I18n.t('activerecord.attributes.task.title'), with: 'After modify'
-      fill_in I18n.t('activerecord.attributes.task.content'), with: 'Sleepy morning'
-      click_button I18n.t('helpers.submit.update')
-      expect(page).to have_content I18n.t('flash.task.update')
-      expect(page).to have_content 'After modify'
-      expect(page).to have_content 'Sleepy morning'
+      click_link '修正'
+      fill_in 'スケジュール', with: 'After modify'
+      fill_in '内容', with: 'Sleepy morning'
+      click_button '更新する'
+      expect(page).to have_content('タスクを修正しました')
+      expect(page).to have_content('After modify')
+      expect(page).to have_content('Sleepy morning')
     end.to change { Task.count }.by(0)
   end
 
   scenario 'タスクの削除' do
     visit root_path
-    click_link I18n.t('tasks.index.new_task')
-    fill_in I18n.t('activerecord.attributes.task.title'), with: 'Delete Test'
-    fill_in I18n.t('activerecord.attributes.task.content'), with: 'Delete this'
-    click_button I18n.t('helpers.submit.create')
-    click_link I18n.t('tasks.show.back')
+    click_link '新規タスク登録'
+    fill_in 'スケジュール', with: 'Delete Test'
+    fill_in '内容', with: 'Delete this'
+    click_button '登録する'
+    click_link '戻る'
     expect do
-      click_link I18n.t('tasks.index.delete')
-      expect(page).to have_content I18n.t('flash.task.delete')
+      click_link '削除'
+      expect(page).to have_content('タスクを削除しました')
     end.to change { Task.count }.by(-1)
   end
 end
