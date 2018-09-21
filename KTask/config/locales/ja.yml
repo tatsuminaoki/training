@@ -9,6 +9,12 @@ ja:
         content: '内容'
         status: '状態'
         end_time: '終了時間'
+    enum:
+      task:
+        status:
+          yet: '未着手'
+          do: '着手'
+          done: '完了'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"

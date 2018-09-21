@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, [["未着手", "yet"], ["着手", "do"],  ["完了", "done"]], :prompt => "状態" %>
+    <%= form.select :status, Task.statuses.map { |s| [t("activerecord.enum.task.status.#{s[0]}"),s[2]] } %>
   </div>
 
   <div class="field">
