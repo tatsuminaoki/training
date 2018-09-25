@@ -7,8 +7,12 @@ ja:
       task:
         title : 'スケジュール'
         content: '内容'
-        status: '状態'
         end_time: '終了時間'
+        status: '状態'
+      task/status:
+        yet: '未着手'
+        do: '着手'
+        done: '完了'
     enum:
       task:
         status:
@@ -23,6 +27,10 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
 
   tasks:
+    status:
+      yet: '未着手'
+      do: '着手'
+      done: '完了'  
     index:
       page_title: 'スケジュール リスト'
       title: 'スケジュール'
