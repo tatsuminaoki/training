@@ -46,4 +46,11 @@ RSpec.feature 'Tasks', type: :feature do
       expect(page).to have_content('タスクを削除しました')
     end.to change { Task.count }.by(-1)
   end
+
+  scenario 'タスクの作成日順並べ替えテスト' do
+    Task.create(id: 1, title: 'Task 1', created_at: Time.current + 1.day)
+    Task.create(id: 2, title: 'Task 2', created_at: Time.current + 2.days)
+
+    expect(Task.order('created_at DESC').map(&:id)).to eq [2, 1]
+  end
 end
