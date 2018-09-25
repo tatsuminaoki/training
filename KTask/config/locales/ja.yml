@@ -7,12 +7,63 @@ ja:
       task:
         title : 'スケジュール'
         content: '内容'
+        end_time: '終了時間'
+        status: '状態'
+      task/status:
+        yet: '未着手'
+        do: '着手'
+        done: '完了'
+    enum:
+      task:
+        status:
+          yet: '未着手'
+          do: '着手'
+          done: '完了'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+
+  tasks:
+    status:
+      yet: '未着手'
+      do: '着手'
+      done: '完了'  
+    index:
+      page_title: 'スケジュール リスト'
+      title: 'スケジュール'
+      content: '内容'
+      status: '状態'
+      end_time: '終了時間'
+      detail: '詳細'
+      edit: '修正'
+      delete: '削除'
+      back: '戻る'
+      new_task: '新規タスク登録'
+      delete_message: '削除しますか？'
+    show:
+      page_title: 'タスク詳細'
+      title: 'スケジュール名'
+      user: 'ユーザ'
+      content: '内容'
+      back: '戻る'
+      status: '状態'
+      end_time: '終了時間'
+    edit:
+      page_title: 'タスク修正'
+      back: '戻る'
+    new:
+      page_title: 'タスク登録'
+      back: '戻る'
+
+  flash:
+    task:
+     create: 'タスクを作成しました'
+     update: 'タスクを修正しました'
+     delete: 'タスクを削除しました'
+
   date:
     abbr_day_names:
     - 日

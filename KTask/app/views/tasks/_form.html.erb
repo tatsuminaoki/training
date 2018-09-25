@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, [["未着手", "yet"], ["着手", "do"],  ["完了", "done"]], :prompt => "状態" %>
+    <%= form.select :status, Task.statuses.map{ | k,_ |  [ Task.human_attribute_enum_value( :status,k ), k ] }.to_h  %>
   </div>
 
   <div class="field">

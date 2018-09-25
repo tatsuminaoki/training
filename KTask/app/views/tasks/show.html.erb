@@ -1,22 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= t('.page_title') %></h1>
+
 <p>
-  <strong>User:</strong>
+  <strong><%= t('.user') %></strong>
   <%= @task.user_id %>
 </p>
 
 <p>
-  <strong>Title:</strong>
+  <strong><%= t('.title') %> : </strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Content:</strong>
+  <strong><%= t('.content') %> : </strong>
   <%= @task.content %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong><%= t('.status') %> : </strong>
   <% if @task.status == "yet" %>
     未着手
   <% elsif @task.status == "do" %>
@@ -27,9 +29,8 @@
 </p>
 
 <p>
-  <strong>End time:</strong>
+  <strong><%= t('.end_time') %> </strong>
   <%= @task.end_time %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('.back'), tasks_path %>
