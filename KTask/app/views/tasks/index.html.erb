@@ -16,9 +16,9 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.title %></td>
+        <td class='title'><%= task.title %></td>
         <td><%= task.content %></td>
-	<td><%= task.human_attribute_enum(:status) %></td>
+        <td><%= task.human_attribute_enum(:status) %></td>
         <td><%= task.end_time %></td>
         <td><%= link_to t('.detail'), task %></td>
         <td><%= link_to t('.edit'), edit_task_path(task) %></td>
