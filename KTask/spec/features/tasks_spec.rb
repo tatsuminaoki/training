@@ -48,9 +48,19 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'タスクの作成日順並べ替えテスト' do
-    Task.create(id: 1, title: 'Task 1', created_at: Time.current + 1.day)
-    Task.create(id: 2, title: 'Task 2', created_at: Time.current + 2.days)
-
-    expect(Task.order('created_at DESC').map(&:id)).to eq [2, 1]
+    visit root_path
+    click_link '新規タスク登録'
+    fill_in 'スケジュール', with: 'task1'
+    fill_in '内容', with: 'task2'
+    click_button '登録する'
+    click_link '戻る'
+    click_link '新規タスク登録'
+    fill_in 'スケジュール', with: 'task2'
+    fill_in '内容', with: 'task2'
+    click_button '登録する'
+    click_link '戻る'
+    titles = page.all('td.title')
+    expect(titles[0]).to have_content('task2')
+    expect(titles[1]).to have_content('task1')
   end
 end
