@@ -51,7 +51,7 @@ RSpec.feature 'Tasks', type: :feature do
     visit root_path
     click_link '新規タスク登録'
     fill_in 'スケジュール', with: 'task1'
-    fill_in '内容', with: 'task2'
+    fill_in '内容', with: 'task1'
     click_button '登録する'
     click_link '戻る'
     click_link '新規タスク登録'
