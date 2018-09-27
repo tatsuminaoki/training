@@ -8,18 +8,6 @@ RSpec.describe Task, type: :model do
       task = FactoryBot.create(:task)
       expect(task).to be_valid
     end
-    it 'タスクのタイトルが入れている' do
-      task = FactoryBot.create(:task, title: 'Test content')
-      expect(task).to be_valid
-    end
-    it 'タイトル文字の制限を超えない' do
-      task = FactoryBot.create(:task, title: 'あ' * 20)
-      expect(task).to be_valid
-    end
-    it 'タスクの内容が入れている' do
-      task = FactoryBot.create(:task, content: 'content valid test')
-      expect(task).to be_valid
-    end
   end
   context 'パラメータが正しくない場合' do
     it 'タスクのタイトルが入れていない' do
