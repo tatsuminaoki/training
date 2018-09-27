@@ -3,32 +3,36 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  it 'タスクの有効性検査' do
-    task = Task.new(
-    title: 'spec test',
-    content: 'this is spec test',
-    status: 1,
-    )
+  it 'タスクの有効' do
+    task = FactoryBot.create(:task)
     expect(task).to be_valid
   end
-  it 'タスクのタイトル空白検査' do
-    task = Task.new(title: '', content: 'title validation test', status: 0)
-    expect(task).not_to be_valid
-  end
-  it 'タイトル文字の制限テスト' do
-    test_title = ''
-    for i in 0..21 do
-      test_title += 'あ'
+  context 'パラメータが正しい場合' do
+    it 'タスクのタイトルが入れている' do
+      task = FactoryBot.create(:task, title: 'Test content')
+      expect(task).to be_valid
     end
-    task = Task.new(title: test_title, content: 'this is validation test', status: 0)
-    expect(task).not_to be_valid
+    it 'タイトル文字の制限を超えない' do
+      task = FactoryBot.create(:task, title: 'あ' * 20)
+      expect(task).to be_valid
+    end
+    it 'タスクの内容が入れている' do
+      task = FactoryBot.create(:task, content: 'content valid test')
+      expect(task).to be_valid
+    end
   end
-  it 'タスクの内容空白検査' do
-    task = Task.new(title: 'test', content: '', status: 2)
-    expect(task).not_to be_valid
-  end
-  it 'タスクの状態空白検査' do
-    task = Task.new(title: 'test', content: 'status validation test', status: '')
-    expect(task).not_to be_valid
+  context 'パラメータが正しくない場合' do
+    it 'タスクのタイトルが入れていない' do
+      task = FactoryBot.create(:task, title: nil)
+      expect(task).to be_valid
+    end
+    it 'タイトル文字の制限を超える' do
+      task = FactoryBot.create(:task, title: 'あ' * 21)
+      expect(task).to be_valid
+    end
+    it 'タスクの内容が入れていない' do
+      task = FactoryBot.create(:task, content: nil)
+      expect(task).to be_valid
+    end
   end
 end
