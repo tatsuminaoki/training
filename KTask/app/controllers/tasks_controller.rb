@@ -5,8 +5,18 @@ class TasksController < ApplicationController
 
   # GET /tasks
   # GET /tasks.json
+  helper_method :sort_column, :sort_direction
   def index
-    @tasks = Task.order(created_at: :desc)
+    @tasks = Task.order(sort_column + ' ' + sort_direction)
+  end
+
+  private
+  def sort_column
+    params[:sort] || 'created_at'
+  end
+
+  def sort_direction
+    params[:direction] || 'desc'
   end
 
   # GET /tasks/1
