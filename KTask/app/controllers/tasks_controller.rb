@@ -10,15 +10,6 @@ class TasksController < ApplicationController
     @tasks = Task.order(sort_column + ' ' + sort_direction)
   end
 
-  private
-  def sort_column
-    params[:sort] || 'created_at'
-  end
-
-  def sort_direction
-    params[:direction] || 'desc'
-  end
-
   # GET /tasks/1
   # GET /tasks/1.json
   def show
@@ -83,5 +74,13 @@ class TasksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:user_id, :title, :content, :status, :end_time)
+  end
+  
+  def sort_column
+    params[:sort] || 'created_at'
+  end
+
+  def sort_direction
+    params[:direction] || 'desc'
   end
 end
