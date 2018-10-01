@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   helper_method :sort_column, :sort_direction
   def index
-    @tasks = Task.order(sort_column + ' ' + sort_direction)
+    @tasks = Task.order("#{sort_column} #{sort_direction}")
   end
 
   # GET /tasks/1

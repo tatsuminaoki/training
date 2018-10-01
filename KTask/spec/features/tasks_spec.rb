@@ -68,9 +68,13 @@ RSpec.feature 'Tasks', type: :feature do
     FactoryBot.create(:task, id: 0, title: 'task1', end_time: '2018-9-29 12:10:10')
     FactoryBot.create(:task, id: 1, title: 'task2', end_time: '2018-9-30 12:10:10')
     visit root_path
-    titles = page.all('td.title')
+    asc_titles = page.all('td.title')
     click_link '終了時間'
-    expect(titles[0]).to have_content 'task1'
-    expect(titles[1]).to have_content 'task2'
+    expect(asc_titles[0]).to have_content 'task1'
+    expect(asc_titles[1]).to have_content 'task2'
+    click_link '終了時間'
+    desc_titles = page.all('td.title')
+    expect(desc_titles[0]).to have_content 'task2'
+    expect(desc_titles[1]).to have_content 'task1'
   end
 end
