@@ -8,11 +8,9 @@ class TasksController < ApplicationController
   def index
     @sort = params[:sort]
     @direction = params[:direction]
-    @tasks = if @sort.present?
-               Task.order(@sort + ' ' + @direction)
-             else
-               Task.order(created_at: :desc)
-             end
+    @sort = 'created_at' if @sort.nil?
+    @direction = 'desc' if @direction.nil?
+    @tasks = Task.order("#{@sort} #{@direction}")
   end
 
   # GET /tasks/1
