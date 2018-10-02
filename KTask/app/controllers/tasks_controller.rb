@@ -6,10 +6,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @sort_column = params[:sort]
-    @sort_direction = params[:direction].to_s
-    @tasks = if !@sort_column.nil?
-               Task.order(@sort_column + ' ' + @sort_direction, created_at: :desc)
+    @sort = params[:sort]
+    @direction = params[:direction]
+    @tasks = if @sort.present?
+               Task.order(@sort + ' ' + @direction)
              else
                Task.order(created_at: :desc)
              end
