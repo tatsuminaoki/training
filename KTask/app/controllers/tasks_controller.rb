@@ -5,9 +5,14 @@ class TasksController < ApplicationController
 
   # GET /tasks
   # GET /tasks.json
-  helper_method :sort_column, :sort_direction
   def index
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+    @sort_column = params[:sort]
+    @sort_direction = params[:direction].to_s
+    @tasks = if !@sort_column.nil?
+               Task.order(@sort_column + ' ' + @sort_direction, created_at: :desc)
+             else
+               Task.order(created_at: :desc)
+             end
   end
 
   # GET /tasks/1
@@ -74,13 +79,5 @@ class TasksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:user_id, :title, :content, :status, :end_time)
-  end
-  
-  def sort_column
-    params[:sort] || 'created_at'
-  end
-
-  def sort_direction
-    params[:direction] || 'desc'
   end
 end
