@@ -77,4 +77,14 @@ RSpec.feature 'Tasks', type: :feature do
     expect(desc_titles[0]).to have_content 'task2'
     expect(desc_titles[1]).to have_content 'task1'
   end
+  scenario '一覧画面でタイトル名と状態で検索' do
+    create(:task, title: 'task1', status: 'do')
+    create(:task, title: 'task2', status: 'done')
+    visit root_path
+    fill_in I18n.t('tasks.index.search_title'), with: 'task1'
+    select I18n.t('tasks.status.do'), from: I18n.t('tasks.index.search_status')
+    click_button I18n.t('tasks.index.search_submit')
+    expect(page).to have_content('task1')
+    expect(page).not_to have_content('task2')
+  end
 end
