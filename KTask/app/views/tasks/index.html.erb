@@ -2,6 +2,14 @@
 
 <h1><%= t('.page_title') %></h1>
 
+<div>
+<%= form_tag(root_path, method: 'get') do %>
+  <%= label_tag :search_title, t('.search_title') %><%= text_field_tag :search_title, params[:search_title] %>
+  <%= label_tag :search_status, t('.search_status') %><%= select_tag :search_status, options_for_select(Task.statuses.map { |k, v| [t("tasks.status.#{k}"), k] }), :prompt => '状態' %>
+  <%= submit_tag t('.search_submit') %>
+<% end %>
+</div>
+
 <table>
   <thead>
     <tr>
