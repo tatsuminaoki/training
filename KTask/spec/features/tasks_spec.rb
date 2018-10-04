@@ -48,8 +48,8 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'タスクの作成日順並べ替えテスト' do
-    create(:task, id: 0, title: 'task1', created_at: '2018-9-29')
-    create(:task, id: 1, title: 'task2', created_at: '2018-9-30')
+    create(:task, title: 'task1', created_at: '2018-9-29')
+    create(:task, title: 'task2', created_at: '2018-9-30')
     visit root_path
     titles = page.all('td.title')
     expect(titles[0]).to have_content 'task2'
@@ -57,8 +57,8 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario '一覧画面で終了期限で整列されていること' do
-    create(:task, id: 0, title: 'task1', end_time: '2018-9-29 12:10:10')
-    create(:task, id: 1, title: 'task2', end_time: '2018-9-30 12:10:10')
+    create(:task, title: 'task1', end_time: '2018-9-29 12:10:10')
+    create(:task, title: 'task2', end_time: '2018-9-30 12:10:10')
     visit root_path
     asc_titles = page.all('td.title')
     click_link '終了時間'
