@@ -6,11 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @sort = params[:sort]
-    @direction = params[:direction]
-    @sort = 'created_at' if @sort.nil?
-    @direction = 'desc' if @direction.nil?
-    @tasks = Task.order("#{@sort} #{@direction}")
+    @tasks = Task.search_and_order(params)
   end
 
   # GET /tasks/1

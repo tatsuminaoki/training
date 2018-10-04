@@ -48,25 +48,17 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'タスクの作成日順並べ替えテスト' do
+    create(:task, title: 'task1', created_at: '2018-9-29')
+    create(:task, title: 'task2', created_at: '2018-9-30')
     visit root_path
-    click_link '新規タスク登録'
-    fill_in 'スケジュール', with: 'task1'
-    fill_in '内容', with: 'task1'
-    click_button '登録する'
-    click_link '戻る'
-    click_link '新規タスク登録'
-    fill_in 'スケジュール', with: 'task2'
-    fill_in '内容', with: 'task2'
-    click_button '登録する'
-    click_link '戻る'
     titles = page.all('td.title')
-    expect(titles[0]).to have_content('task2')
-    expect(titles[1]).to have_content('task1')
+    expect(titles[0]).to have_content 'task2'
+    expect(titles[1]).to have_content 'task1'
   end
 
   scenario '一覧画面で終了期限で整列されていること' do
-    FactoryBot.create(:task, id: 0, title: 'task1', end_time: '2018-9-29 12:10:10')
-    FactoryBot.create(:task, id: 1, title: 'task2', end_time: '2018-9-30 12:10:10')
+    create(:task, title: 'task1', end_time: '2018-9-29 12:10:10')
+    create(:task, title: 'task2', end_time: '2018-9-30 12:10:10')
     visit root_path
     asc_titles = page.all('td.title')
     click_link '終了時間'
@@ -76,5 +68,15 @@ RSpec.feature 'Tasks', type: :feature do
     desc_titles = page.all('td.title')
     expect(desc_titles[0]).to have_content 'task2'
     expect(desc_titles[1]).to have_content 'task1'
+  end
+  scenario '一覧画面でタイトル名と状態で検索' do
+    create(:task, title: 'task1', status: 'do')
+    create(:task, title: 'task2', status: 'done')
+    visit root_path
+    fill_in I18n.t('tasks.index.search_title'), with: 'task1'
+    select I18n.t('tasks.status.do'), from: I18n.t('tasks.index.search_status')
+    click_button I18n.t('tasks.index.search_submit')
+    expect(page).to have_content('task1')
+    expect(page).not_to have_content('task2')
   end
 end
