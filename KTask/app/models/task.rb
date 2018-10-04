@@ -7,13 +7,11 @@ class Task < ApplicationRecord
   validates :status, presence: true
 
   def self.search_and_order(params)
-    sort = params[:sort]
-    sort = 'created_at' if sort.nil?
-    direction = params[:direction]
-    direction = 'desc' if direction.nil?
+    sort = params[:sort] || 'created_at'
+    direction = params[:direction] || 'desc'
     search_title = params[:search_title]
     search_status = params[:search_status]
-    tasks = Task.all
+    tasks = self
     tasks = tasks.where('title LIKE ?', "%#{search_title}%") if search_title.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     tasks.order("#{sort} #{direction}")
