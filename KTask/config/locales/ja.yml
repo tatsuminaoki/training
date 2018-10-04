@@ -61,6 +61,12 @@ ja:
       page_title: 'タスク登録'
       back: '戻る'
 
+  views:
+    pagination:
+      first: '最初'
+      previous: '<<'
+      last: '最後'
+      next: '>>'
   flash:
     task:
      create: 'タスクを作成しました'
