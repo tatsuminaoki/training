@@ -28,9 +28,9 @@
         <td><%= task.content %></td>
         <td><%= task.human_attribute_enum(:status) %></td>
         <td><%= task.end_time %></td>
-        <td><%= link_to t('.detail'), task %></td>
-        <td><%= link_to t('.edit'), edit_task_path(task) %></td>
-        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.delete_message') } %></td>
+        <td><%= link_to t('.detail'), task, class:'btn btn-outline-info' %></td>
+        <td><%= link_to t('.edit'), edit_task_path(task), class:'btn btn-outline-secondary' %></td>
+        <td><%= link_to t('.delete'), task, method: :delete, data: { confirm: t('.delete_message') }, class:'btn btn-outline-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +38,4 @@
 
 <br>
 <%= paginate @tasks %>
-<%= link_to t('.new_task'), new_task_path %>
+<%= link_to t('.new_task'), new_task_path, class:'btn btn-success' %>
