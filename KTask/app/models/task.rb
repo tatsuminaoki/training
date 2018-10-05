@@ -6,14 +6,14 @@ class Task < ApplicationRecord
   validates :content, presence: true, length: { maximum: 255 }
   validates :status, presence: true
 
-  PER = 5
+  paginates_per 5
 
   def self.search_and_order(params)
     sort = params[:sort] || 'created_at'
     direction = params[:direction] || 'desc'
     search_title = params[:search_title]
     search_status = params[:search_status]
-    tasks = self.page(params[:page]).per(PER)
+    tasks = self.page(params[:page])
     tasks = tasks.where('title LIKE ?', "%#{search_title}%") if search_title.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     tasks.order("#{sort} #{direction}")

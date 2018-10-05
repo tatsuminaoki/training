@@ -85,5 +85,8 @@ RSpec.feature 'Tasks', type: :feature do
     titles = page.all('td.title')
     expect(titles[4]).to have_content 'task5'
     expect(titles[5]).to be_nil
+    click_link I18n.t('views.pagination.next')
+    titles = page.all('td.title')
+    expect(titles[0]).to have_content 'task6'
   end
 end
