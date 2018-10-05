@@ -79,4 +79,11 @@ RSpec.feature 'Tasks', type: :feature do
     expect(page).to have_content('task1')
     expect(page).not_to have_content('task2')
   end
+  scenario 'タスク五つのページネーション確認' do
+    create_list(:task, 6)
+    visit root_path
+    titles = page.all('td.title')
+    expect(titles[4]).to have_content 'task5'
+    expect(titles[5]).to be_nil
+  end
 end
