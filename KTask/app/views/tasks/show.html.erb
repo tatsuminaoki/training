@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= t('.page_title') %></h1>
+<h1 class='display-4'><%= t('.page_title') %></h1>
 
 <p>
   <strong><%= t('.user') %></strong>
@@ -18,14 +18,8 @@
 </p>
 
 <p>
-  <strong><%= t('.status') %> : </strong>
-  <% if @task.status == "yet" %>
-    未着手
-  <% elsif @task.status == "do" %>
-    着手
-  <% elsif @task.status == "done" %>
-    完了
-  <% end %>
+  <strong><%= t('.status') %> </strong>
+  <%= @task.human_attribute_enum(:status) %>
 </p>
 
 <p>
@@ -33,4 +27,4 @@
   <%= @task.end_time %>
 </p>
 
-<%= link_to t('.back'), tasks_path %>
+<%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>

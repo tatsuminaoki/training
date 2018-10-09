@@ -30,7 +30,9 @@ ja:
     status:
       yet: '未着手'
       do: '着手'
-      done: '完了'  
+      done: '完了' 
+    form:
+      back: '戻る' 
     index:
       page_title: 'スケジュール リスト'
       title: 'スケジュール'

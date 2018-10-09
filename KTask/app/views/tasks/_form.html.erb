@@ -13,26 +13,27 @@
 
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label :title, class:'h4' %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :content %>
+    <%= form.label :content, class:'h4' %>
     <%= form.text_field :content %>
   </div>
 
   <div class="field">
-    <%= form.label :status %>
+    <%= form.label :status, class:'h4' %>
     <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h  %>
   </div>
 
   <div class="field">
-    <%= form.label :end_time %>
+    <%= form.label :end_time, class:'h4' %>
     <%= form.datetime_select :end_time %>
   </div>
 
   <div class="actions">
     <%= form.submit :class => 'btn btn-primary' %>
+    <%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>
