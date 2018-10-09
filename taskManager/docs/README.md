@@ -49,20 +49,26 @@
 
 | column name | カラム型 | プライマリキー | NULL | DEFALUT| 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------:|:------------|
-| user_id | INT | ○ | | |ユーザID|
+| id | INT | ○ | | |ユーザID|
 | mail | VARCHAR(255) | | | |メールアドレス (uniq)|
+| user_name | VARCHAR(255) | | | |ユーザ名|
 | encrypted_password | VARCHAR(255)  | | | |暗号化されたパスワード|
 
 index
-- mail, encrypted_password
-メール、パスワード認証用
+~~- mail, encrypted_password~~
+~~メール、パスワード認証用~~
 
+黒田さんコメント参考
+```
+確かにカーディナリティ高いのですが、今後のステップでログイン周りの実装するときに
+メールアドレスで検索してレコード引いてから、パスワードの照合する流れになると思うので使わないと思います
+```
 
 ### task table (タスク一覧のテーブル)
 
 | column name | カラム型 | プライマリキー | NULL | DEFALUT | 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------|:------------|
-| task_id | INT | ○ | | | タスクID |
+| id | INT | ○ | | | タスクID |
 | task_name | VARCHAR(255) | | | | タスク名 |
 | description | TEXT | | | | タスク詳細内容 |
 | user_id | INT | | | | user_id |
@@ -86,14 +92,14 @@ statusで検索するため
 ### master label table (ラベル管理テーブル)
 | column name | カラム型 | プライマリキー | NULL | DEFALUT | 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------|:------------|
-| label_id | INT | ○ | | | master_label_id |
+| id | INT | ○ | | | master_label_id |
 | label_name | varchar(100) | | | | ラベル名 (uniq) |
 
 ## task label manage table (タスク一覧で保持するラベルテーブル)
 
 | column name | カラム型 | プライマリキー | NULL | DEFALUT | 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------|:------------|
-| task_label_id | INT | ○ | | | タスクで管理するラベルID |
+| id | INT | ○ | | | タスクで管理するラベルID |
 | task_id | INT | | | | タスクID ※ multi(task_id, label_idでユニーク) |
 | label_id | INT | | | | master label tableのlabel_id |
 
