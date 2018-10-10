@@ -77,17 +77,20 @@ index
 | status | TINY INT | | | 0 |ステータス (未着手:0, 着手:1, 完了: 2) | 
 
 index
+- user_id
+一覧でログインしたuser_idのタスクを表示するため
+
 ~~- user_id, task_name~~
 ~~タスク名で検索するため~~　(task_nameはlike検索なので、index貼っても意味ない？)
 
-- user_id, priority
-優先順位でソートするため
+~~- user_id, priority~~
+~~優先順位でソートするため~~
 
-- user_id, deadline
-終了期限でソートするため
+~~- user_id, deadline~~
+~~終了期限でソートするため~~
 
-- user_id, status
-statusで検索するため
+~~- user_id, status~~
+~~statusで検索するため~~
 
 ### master label table (ラベル管理テーブル)
 | column name | カラム型 | プライマリキー | NULL | DEFALUT | 説明 |
