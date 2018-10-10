@@ -3,27 +3,27 @@
 <h1 class='display-4'><%= t('.page_title') %></h1>
 
 <p>
-  <strong><%= t('.user') %></strong>
+  <div class="form-group h4"><%= t('.user') %></div>
   <%= @task.user_id %>
 </p>
 
 <p>
-  <strong><%= t('.title') %> : </strong>
+  <div class="form-group h4"><%= t('.title') %> </div>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong><%= t('.content') %> : </strong>
+  <div class="form-group h4"><%= t('.content') %> </div>
   <%= @task.content %>
 </p>
 
 <p>
-  <strong><%= t('.status') %> </strong>
+  <div class="form-group h4"><%= t('.status') %> </div>
   <%= @task.human_attribute_enum(:status) %>
 </p>
 
 <p>
-  <strong><%= t('.end_time') %> </strong>
+  <div class="form-group h4"><%= t('.end_time') %> </div>
   <%= @task.end_time %>
 </p>
 

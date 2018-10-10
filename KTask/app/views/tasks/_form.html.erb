@@ -12,27 +12,27 @@
   <% end %>
 
 
-  <div class="field">
-    <%= form.label :title, class:'h4' %>
-    <%= form.text_field :title %>
+  <div class="form-group">
+    <%= form.label :title, class:'form-control', style:'width:15%;' %>
+    <%= form.text_field :title, class:'form-control', style:'width:30%;' %>
   </div>
 
-  <div class="field">
-    <%= form.label :content, class:'h4' %>
-    <%= form.text_field :content %>
+  <div class="form-group">
+    <%= form.label :content, class:'form-control', style:'width:15%;' %>
+    <%= form.text_field :content, class:'form-control', style:'width:40%;' %>
   </div>
 
-  <div class="field">
-    <%= form.label :status, class:'h4' %>
-    <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h  %>
+  <div class="form-group">
+    <%= form.label :status, class:'form-control', style:'width:15%;' %>
+    <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
   </div>
 
-  <div class="field">
-    <%= form.label :end_time, class:'h4' %>
-    <%= form.datetime_select :end_time %>
+  <div class="form-group">
+    <%= form.label :end_time, class:'form-control', style:'width:15%;' %>
+    <%= form.datetime_select :end_time, {}, class:'form-control bootstrap-date-only-width' %>
   </div>
 
-  <div class="actions">
+  <div class="form-group">
     <%= form.submit :class => 'btn btn-primary' %>
     <%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>
   </div>
