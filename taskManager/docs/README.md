@@ -213,3 +213,97 @@ mysql> show databases;
 8 rows in set (0.00 sec)
 ```
 
+## STEP6
+
+### `rails generate` コマンドでタスクのCRUDに必要なモデルクラスを作成しましょう
+
+```
+rails generate model user mail:string:uniq user_name:string encrypted_password:string
+rails generate model task task_name:string description:text user_id:integer:index deadline:date priority:integer status:integer
+rails generate model label label_name:string:uniq
+rails generate model task_label task_id:integer:index label_id:integer
+```
+
+- マイグレーションを作成し、これを用いてテーブルを作成しましょう
+  - マイグレーションは1つ前の状態に戻せることを担保できていることが大切です！ `redo` を流して確認する癖をつけましょう
+
+```
+rails db:migrate
+```
+
+db/migrate/...の中身を修正
+
+versionの確認
+
+```
+$ rails db:migrate:status
+```
+
+redoでテーブル構成修正
+```
+$ rails db:migrate:redo VERSION=20181010024132
+```
+
+### 複合indexの作り方
+
+参考
+https://qiita.com/zaru/items/cde2c46b6126867a1a64
+```
+$ rails g migration AddIndexTaskLabel
+Running via Spring preloader in process 62911
+      invoke  active_record
+      create    db/migrate/20181010090931_add_index_task_label.rb
+```
+
+migrationファイルの修正
+```
+class AddIndexTaskLabel < ActiveRecord::Migration[5.2]
+  def change
+    add_index :task_labels, [:task_id, :label_id], :name => 'unique_task_label', :unique => true
+  end
+end
+```
+
+```
+$ rails db:migrate
+== 20181010090931 AddIndexTaskLabel: migrating ================================
+-- add_index(:task_labels, [:task_id, :label_id], {:name=>"unique_task_label", :unique=>true})
+   -> 0.0119s
+== 20181010090931 AddIndexTaskLabel: migrated (0.0120s) =======================
+```
+
+確認
+```
+show create table task_labels;
+UNIQUE KEY `unique_task_label` (`task_id`,`label_id`),
+
+```
+
+- `rails c` コマンドでモデル経由でデータベースに接続できることを確認しましょう
+  - この時に試しにActiveRecordでレコードを作成してみる
+
+```
+$ rails c
+Running via Spring preloader in process 63853
+Loading development environment (Rails 5.2.1)
+irb(main):001:0> user = User.new
+   (0.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=> #<User id: nil, mail: nil, user_name: nil, encrypted_password: nil, created_at: nil, updated_at: nil>
+irb(main):002:0> user.attributes = {mail: "hajime_iizuka@fablic.co.jp", user_name: "飯塚 一", encrypted_password: "fdasfsafdsafsafdsa"}
+=> {:mail=>"hajime_iizuka@fablic.co.jp", :user_name=>"飯塚 一", :encrypted_password=>"fdasfsafdsafsafdsa"}
+irb(main):003:0> user.save
+   (0.2ms)  BEGIN
+  User Create (0.3ms)  INSERT INTO `users` (`mail`, `user_name`, `encrypted_password`, `created_at`, `updated_at`) VALUES ('hajime_iizuka@fablic.co.jp', '飯塚 一', 'fdaafdsafsafdsa', '2018-10-10 09:18:43', '2018-10-10 09:18:43')
+   (1.8ms)  COMMIT
+=> true
+```
+
+```
+mysql> select * from users;
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+| id | mail                       | user_name  | encrypted_password | created_at          | updated_at          |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+|  1 | hajime_iizuka@fablic.co.jp | 飯塚 一    | fdasfsafdsafsafdsa | 2018-10-10 09:18:43 | 2018-10-10 09:18:43 |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+```
