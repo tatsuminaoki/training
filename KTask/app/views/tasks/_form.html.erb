@@ -12,27 +12,28 @@
   <% end %>
 
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class:'form-control', style:'width:30%;' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.text_field :content, class:'form-control', style:'width:40%;' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h  %>
+    <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
+    <%= form.datetime_select :end_time, {}, class:'form-control bootstrap-date-only-width' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit :class => 'btn btn-primary' %>
+    <%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>
