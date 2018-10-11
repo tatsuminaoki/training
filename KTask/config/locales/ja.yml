@@ -63,6 +63,10 @@ ja:
       page_title: 'タスク登録'
       back: '戻る'
 
+  sessions:
+    new:
+      submit: 'ログイン'
+
   views:
     pagination:
       first: '最初'
@@ -213,6 +217,10 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
   number:
     currency:
       format:
