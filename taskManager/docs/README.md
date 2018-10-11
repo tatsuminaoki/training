@@ -213,3 +213,258 @@ mysql> show databases;
 8 rows in set (0.00 sec)
 ```
 
+## STEP6
+
+### `rails generate` コマンドでタスクのCRUDに必要なモデルクラスを作成しましょう
+
+```
+rails generate model user mail:string:uniq user_name:string encrypted_password:string
+rails generate model task task_name:string description:text user_id:integer:index deadline:date priority:integer status:integer
+rails generate model label label_name:string:uniq
+rails generate model task_label task_id:integer:index label_id:integer
+```
+
+- マイグレーションを作成し、これを用いてテーブルを作成しましょう
+  - マイグレーションは1つ前の状態に戻せることを担保できていることが大切です！ `redo` を流して確認する癖をつけましょう
+
+```
+rails db:migrate
+```
+
+db/migrate/...の中身を修正
+
+versionの確認
+
+```
+$ rails db:migrate:status
+```
+
+redoでテーブル構成修正
+```
+$ rails db:migrate:redo VERSION=20181010024132
+```
+
+### 複合indexの作り方
+
+参考
+https://qiita.com/zaru/items/cde2c46b6126867a1a64
+```
+$ rails g migration AddIndexTaskLabel
+Running via Spring preloader in process 62911
+      invoke  active_record
+      create    db/migrate/20181010090931_add_index_task_label.rb
+```
+
+migrationファイルの修正
+```
+class AddIndexTaskLabel < ActiveRecord::Migration[5.2]
+  def change
+    add_index :task_labels, [:task_id, :label_id], :name => 'unique_task_label', :unique => true
+  end
+end
+```
+
+```
+$ rails db:migrate
+== 20181010090931 AddIndexTaskLabel: migrating ================================
+-- add_index(:task_labels, [:task_id, :label_id], {:name=>"unique_task_label", :unique=>true})
+   -> 0.0119s
+== 20181010090931 AddIndexTaskLabel: migrated (0.0120s) =======================
+```
+
+確認
+```
+show create table task_labels;
+UNIQUE KEY `unique_task_label` (`task_id`,`label_id`),
+
+```
+
+- `rails c` コマンドでモデル経由でデータベースに接続できることを確認しましょう
+  - この時に試しにActiveRecordでレコードを作成してみる
+
+```
+$ rails c
+Running via Spring preloader in process 63853
+Loading development environment (Rails 5.2.1)
+irb(main):001:0> user = User.new
+   (0.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=> #<User id: nil, mail: nil, user_name: nil, encrypted_password: nil, created_at: nil, updated_at: nil>
+
+irb(main):002:0> user.attributes = {mail: "hajime_iizuka@fablic.co.jp", user_name: "飯塚 一", encrypted_password: "fdasfsafdsafsafdsa"}
+=> {:mail=>"hajime_iizuka@fablic.co.jp", :user_name=>"飯塚 一", :encrypted_password=>"fdasfsafdsafsafdsa"}
+irb(main):003:0> user.save
+   (0.2ms)  BEGIN
+  User Create (0.3ms)  INSERT INTO `users` (`mail`, `user_name`, `encrypted_password`, `created_at`, `updated_at`) VALUES ('hajime_iizuka@fablic.co.jp', '飯塚 一', 'fdaafdsafsafdsa', '2018-10-10 09:18:43', '2018-10-10 09:18:43')
+   (1.8ms)  COMMIT
+=> true
+```
+
+```
+mysql> select * from users;
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+| id | mail                       | user_name  | encrypted_password | created_at          | updated_at          |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+|  1 | hajime_iizuka@fablic.co.jp | 飯塚 一    | fdasfsafdsafsafdsa | 2018-10-10 09:18:43 | 2018-10-10 09:18:43 |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+```
+
+
+存在しないユーザでのタスクレコード追加は失敗する
+```
+irb(main):018:0> task3 = Task.new
+=> #<Task id: nil, task_name: nil, description: nil, user_id: nil, deadline: nil, priority: nil, status: 0, created_at: nil, updated_at: nil>
+irb(main):019:0> task3.attributes = { task_name: "瞑想をする", description: "落ち着くために瞑想をする", user_id: 4, priority: 0}
+=> {:task_name=>"瞑想をする", :description=>"落ち着くために瞑想をする", :user_id=>4, :priority=>0}
+irb(main):020:0> task3.save
+   (0.2ms)  BEGIN
+  User Load (0.2ms)  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+   (0.1ms)  ROLLBACK
+=> false
+```
+
+存在するラベル、タスクでタスクラベルレコード追加は成功
+```
+irb(main):012:0> taskLabel = TaskLabel.new
+=> #<TaskLabel id: nil, task_id: nil, label_id: nil, created_at: nil, updated_at: nil>
+irb(main):013:0> taskLabel.attributes = {task_id: 2, label_id: 1}
+=> {:task_id=>2, :label_id=>1}
+irb(main):014:0> taskLabel.save
+   (0.2ms)  BEGIN
+  Task Load (0.3ms)  SELECT  `tasks`.* FROM `tasks` WHERE `tasks`.`id` = 2 LIMIT 1
+  Label Load (0.3ms)  SELECT  `labels`.* FROM `labels` WHERE `labels`.`id` = 1 LIMIT 1
+  TaskLabel Create (0.2ms)  INSERT INTO `task_labels` (`task_id`, `label_id`, `created_at`, `updated_at`) VALUES (2, 1, '2018-10-11 00:14:58', '2018-10-11 00:14:58')
+   (0.8ms)  COMMIT
+=> true
+```
+
+存在しないラベル、存在するタスクでタスクラベルレコード追加は失敗
+```
+irb(main):001:0> taskLabel = TaskLabel.new
+   (0.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=> #<TaskLabel id: nil, task_id: nil, label_id: nil, created_at: nil, updated_at: nil>
+irb(main):002:0> taskLabel.attributes = {task_id: 2, label_id: 2}
+=> {:task_id=>2, :label_id=>2}
+irb(main):003:0> taskLavel.save
+Traceback (most recent call last):
+        1: from (irb):3
+NameError (undefined local variable or method `taskLavel' for main:Object)
+Did you mean?  taskLabel
+irb(main):004:0> taskLabel.save
+   (0.2ms)  BEGIN
+  Task Load (0.3ms)  SELECT  `tasks`.* FROM `tasks` WHERE `tasks`.`id` = 2 LIMIT 1
+  Label Load (0.3ms)  SELECT  `labels`.* FROM `labels` WHERE `labels`.`id` = 2 LIMIT 1
+   (0.4ms)  ROLLBACK
+=> false
+```
+
+存在するラベル、存在しないタスクでタスクラベルレコード追加は失敗
+```
+$ rails c
+Running via Spring preloader in process 79721
+Loading development environment (Rails 5.2.1)
+irb(main):001:0> taskLabel = TaskLabel.new
+   (0.5ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=> #<TaskLabel id: nil, task_id: nil, label_id: nil, created_at: nil, updated_at: nil>
+irb(main):002:0> taskLabel.attributes = {task_id: 3, label_id: 5}
+=> {:task_id=>3, :label_id=>5}
+irb(main):003:0> taskLabel.save
+   (0.2ms)  BEGIN
+  Task Load (0.3ms)  SELECT  `tasks`.* FROM `tasks` WHERE `tasks`.`id` = 3 LIMIT 1
+  Label Load (0.2ms)  SELECT  `labels`.* FROM `labels` WHERE `labels`.`id` = 5 LIMIT 1
+   (0.2ms)  ROLLBACK
+=> false
+```
+
+ユーザを消すとタスク、タスクラベルが削除されるか? (hajime.a.iizuka@rakuten.comを削除)
+```
+mysql> select * from users;
++----+-----------------------------+--------------+--------------------+---------------------+---------------------+
+| id | mail                        | user_name    | encrypted_password | created_at          | updated_at          |
++----+-----------------------------+--------------+--------------------+---------------------+---------------------+
+|  1 | hajime_iizuka@fablic.co.jp  | 飯塚 一      | fdasfsafdsafsafdsa | 2018-10-10 23:50:44 | 2018-10-10 23:50:44 |
+|  2 | hajime.a.iizuka@rakuten.com | 楽天飯塚     | dfafdafdafdsafdsaf | 2018-10-11 00:30:47 | 2018-10-11 00:30:47 |
++----+-----------------------------+--------------+--------------------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from tasks;
++----+--------------------------+--------------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+| id | task_name                | description                                | user_id | deadline | priority | status | created_at          | updated_at          |
++----+--------------------------+--------------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+|  1 | 瞑想をする               | 落ち着くために瞑想をする                   |       1 | NULL     |        0 |      0 | 2018-10-10 23:55:54 | 2018-10-10 23:57:32 |
+|  2 | 本を読む                 | 頑張って本を読む                           |       1 | NULL     |        0 |      0 | 2018-10-10 23:58:55 | 2018-10-10 23:58:55 |
+|  3 | 朝ランニングする         | できるかわからんけど朝走るよ               |       2 | NULL     |        0 |      0 | 2018-10-11 00:36:49 | 2018-10-11 00:36:49 |
++----+--------------------------+--------------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from labels;
++----+-----------------+---------------------+---------------------+
+| id | label_name      | created_at          | updated_at          |
++----+-----------------+---------------------+---------------------+
+|  1 | 読書            | 2018-10-11 00:06:05 | 2018-10-11 00:06:05 |
+|  2 | ランニング      | 2018-10-11 00:32:43 | 2018-10-11 00:32:43 |
++----+-----------------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from task_labels;
++----+---------+----------+---------------------+---------------------+
+| id | task_id | label_id | created_at          | updated_at          |
++----+---------+----------+---------------------+---------------------+
+|  1 |       2 |        1 | 2018-10-11 00:14:58 | 2018-10-11 00:14:58 |
+|  2 |       3 |        2 | 2018-10-11 00:39:53 | 2018-10-11 00:39:53 |
++----+---------+----------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+
+$ rails c
+Running via Spring preloader in process 82349
+Loading development environment (Rails 5.2.1)
+irb(main):001:0> user = User.find(2)
+   (0.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+  User Load (0.2ms)  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1
+=> #<User id: 2, mail: "hajime.a.iizuka@rakuten.com", user_name: "楽天飯塚", encrypted_password: "dfafdafdafdsafdsaf", created_at: "2018-10-11 00:30:47", updated_at: "2018-10-11 00:30:47">
+irb(main):002:0> user.destroy
+   (0.2ms)  BEGIN
+  Task Load (0.8ms)  SELECT `tasks`.* FROM `tasks` WHERE `tasks`.`user_id` = 2
+  TaskLabel Load (0.3ms)  SELECT `task_labels`.* FROM `task_labels` WHERE `task_labels`.`task_id` = 3
+  TaskLabel Destroy (0.9ms)  DELETE FROM `task_labels` WHERE `task_labels`.`id` = 2
+  Task Destroy (0.3ms)  DELETE FROM `tasks` WHERE `tasks`.`id` = 3
+  User Destroy (0.2ms)  DELETE FROM `users` WHERE `users`.`id` = 2
+   (0.7ms)  COMMIT
+=> #<User id: 2, mail: "hajime.a.iizuka@rakuten.com", user_name: "楽天飯塚", encrypted_password: "dfafdafdafdsafdsaf", created_at: "2018-10-11 00:30:47", updated_at: "2018-10-11 00:30:47">
+
+mysql> select * from users;
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+| id | mail                       | user_name  | encrypted_password | created_at          | updated_at          |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+|  1 | hajime_iizuka@fablic.co.jp | 飯塚 一    | fdasfsafdsafsafdsa | 2018-10-10 23:50:44 | 2018-10-10 23:50:44 |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from tasks;
++----+-----------------+--------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+| id | task_name       | description                          | user_id | deadline | priority | status | created_at          | updated_at          |
++----+-----------------+--------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+|  1 | 瞑想をする      | 落ち着くために瞑想をする             |       1 | NULL     |        0 |      0 | 2018-10-10 23:55:54 | 2018-10-10 23:57:32 |
+|  2 | 本を読む        | 頑張って本を読む                     |       1 | NULL     |        0 |      0 | 2018-10-10 23:58:55 | 2018-10-10 23:58:55 |
++----+-----------------+--------------------------------------+---------+----------+----------+--------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from task_labels;
++----+---------+----------+---------------------+---------------------+
+| id | task_id | label_id | created_at          | updated_at          |
++----+---------+----------+---------------------+---------------------+
+|  1 |       2 |        1 | 2018-10-11 00:14:58 | 2018-10-11 00:14:58 |
++----+---------+----------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from labels;
++----+-----------------+---------------------+---------------------+
+| id | label_name      | created_at          | updated_at          |
++----+-----------------+---------------------+---------------------+
+|  1 | 読書            | 2018-10-11 00:06:05 | 2018-10-11 00:06:05 |
+|  2 | ランニング      | 2018-10-11 00:32:43 | 2018-10-11 00:32:43 |
++----+-----------------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+```
