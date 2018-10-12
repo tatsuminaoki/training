@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { maximum: 12 }
 
   has_many :tasks
+  has_secure_password
 end
