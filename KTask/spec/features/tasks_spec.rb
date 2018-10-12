@@ -3,26 +3,18 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
+  let(:user) { FactoryBot.create :user }
   scenario '新しいタスクを作成' do
     expect do
+      task = create(:task, title: 'task1', user_id: user.id)
       visit root_path
-      click_link '新規タスク登録'
-      fill_in 'スケジュール', with: 'First content'
-      fill_in '内容', with: 'Rspec test'
-      click_button '登録する'
-      expect(page).to have_content('タスクを作成しました')
-      expect(page).to have_content('First content')
-      expect(page).to have_content('Rspec test')
+      expect(page).to have_content('task1')
     end.to change { Task.count }.by(1)
   end
 
   scenario 'タスクの修正' do
+    task = create(:task, title: 'task1', user_id: user.id)
     visit root_path
-    click_link '新規タスク登録'
-    fill_in 'スケジュール', with: 'Before modify'
-    fill_in '内容', with: 'Rspec test'
-    click_button '登録する'
-    click_link '戻る'
     expect do
       click_link '修正'
       fill_in 'スケジュール', with: 'After modify'
@@ -35,12 +27,8 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'タスクの削除' do
+    task = create(:task, title: 'task1', user_id: user.id)
     visit root_path
-    click_link '新規タスク登録'
-    fill_in 'スケジュール', with: 'Delete Test'
-    fill_in '内容', with: 'Delete this'
-    click_button '登録する'
-    click_link '戻る'
     expect do
       click_link '削除'
       expect(page).to have_content('タスクを削除しました')
@@ -48,8 +36,8 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'タスクの作成日順並べ替えテスト' do
-    create(:task, title: 'task1', created_at: '2018-9-29')
-    create(:task, title: 'task2', created_at: '2018-9-30')
+    create(:task, title: 'task1', created_at: '2018-9-29', user_id: user.id)
+    create(:task, title: 'task2', created_at: '2018-9-30', user_id: user.id)
     visit root_path
     titles = page.all('td.title')
     expect(titles[0]).to have_content 'task2'
@@ -57,8 +45,8 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario '一覧画面で終了期限で整列されていること' do
-    create(:task, title: 'task1', end_time: '2018-9-29 12:10:10')
-    create(:task, title: 'task2', end_time: '2018-9-30 12:10:10')
+    create(:task, title: 'task1', end_time: '2018-9-29 12:10:10', user_id: user.id)
+    create(:task, title: 'task2', end_time: '2018-9-30 12:10:10', user_id: user.id)
     visit root_path
     asc_titles = page.all('td.title')
     click_link '終了時間'
@@ -70,8 +58,8 @@ RSpec.feature 'Tasks', type: :feature do
     expect(desc_titles[1]).to have_content 'task1'
   end
   scenario '一覧画面でタイトル名と状態で検索' do
-    create(:task, title: 'task1', status: 'do')
-    create(:task, title: 'task2', status: 'done')
+    create(:task, title: 'task1', status: 'do', user_id: user.id)
+    create(:task, title: 'task2', status: 'done', user_id: user.id)
     visit root_path
     fill_in I18n.t('tasks.index.search_title'), with: 'task1'
     select I18n.t('tasks.status.do'), from: I18n.t('tasks.index.search_status')
@@ -80,7 +68,7 @@ RSpec.feature 'Tasks', type: :feature do
     expect(page).not_to have_content('task2')
   end
   scenario 'タスク五つのページネーション確認' do
-    create_list(:task, 6)
+    create_list(:task, 6 , user_id: user.id)
     visit root_path
     titles = page.all('td.title')
     expect(titles[4]).to have_content 'task5'
