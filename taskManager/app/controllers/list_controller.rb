@@ -39,7 +39,13 @@ class ListController < ApplicationController
   def delete
     @id = params[:id]
     @task = Task.find(@id)
-    @task.destroy
+    deleted = @task.destroy
+
+    if deleted
+      flash[:notice] = 'タスクの削除が完了しました。'
+    else
+      flash[:warn] = 'タスクの削除に失敗しました。'
+    end
 
     redirect_to :action => 'index'
   end
