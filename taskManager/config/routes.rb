@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/', to: 'list#index'
+  get 'list/entry'
+  get 'list/edit/:id', to: 'list#edit'
+  get 'list/delete/:id', to: 'list#delete'
+  patch 'list/update/:id', to: 'list#update'
+  post 'list/insert'
 end

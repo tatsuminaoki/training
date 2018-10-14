@@ -1,0 +1,36 @@
+<h1>Task Manager 一覧 </h1>
+
+<%= link_to "新規登録", controller: "list", action: "entry" %>
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
+<table border="1">
+  <tr>
+    <th>タスク名</th>
+    <th>説明</th>
+    <th>ラベル</th>
+    <th>期限</th>
+    <th>優先度</th>
+    <th>ステータス</th>
+    <th>編集</th>
+    <th>削除</th>
+  </tr>
+  <% @tasks.each do |t| %>
+    <tr>
+      <td><%= t.task_name %></td>
+      <td><%= description_message(t.description) %></td>
+      <td>
+        <% t.task_label.each do |l| %>
+          <%= label_message(l.label.label_name) %>
+        <% end %>
+      </td>
+      <td><%= date_format(t.deadline, year: false) %></td>
+      <td><%= task_priority_message(t.priority) %></td>
+      <td><%= task_status_message(t.status) %></td>
+      <td><%= link_to "編集", controller: "list", action: "edit", id: t.id %></td>
+      <td><%= link_to "削除", controller: "list", action: "delete", id: t.id , data: {confirm: "削除していいですか？" }%></td>
+    </tr>
+  <% end %>
+</table>
