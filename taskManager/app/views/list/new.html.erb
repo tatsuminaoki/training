@@ -1,0 +1,38 @@
+<%
+  action_content = action_contents
+%>
+<h1>Task Manager <%= action_content[:action_name] %></h1>
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
+<%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
+  <%= f.label :task_name %>
+  <%= f.text_field :task_name %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :deadline %>
+  <%= f.date_field :deadline %>
+
+  <%= f.label :priority %>
+  <%= f.select :priority, hash_task_priorities, {} %>
+
+  <%= f.label :status %>
+  <%= f.select :status, hash_task_statuses, {} %>
+
+  <%= fields_for :task_label do |tl| %>
+    <% @label.each do |l| %>
+      <label>
+        <%= tl.check_box :label_id, {name: 'task_label', multiple: true }, l.id, nil %>
+        <%= l.label_name %>
+      </label>
+    <% end %>
+  <% end %>
+
+  <%= f.submit action_content[:action_name] %>
+<% end %>
+
+<%= link_to '戻る', :back %>

@@ -468,3 +468,55 @@ mysql> select * from labels;
 +----+-----------------+---------------------+---------------------+
 2 rows in set (0.00 sec)
 ```
+
+## STEP7 タスク一覧画面
+
+### `rails generate` コマンドでコントローラとビューを作成します
+
+取り消しコマンド
+https://shinodogg.com/?p=3341
+
+リスト作成
+```
+$ rails generate controller list index
+
+取り消し方法    
+$ rails destroy controller list
+
+listコントローラのindexアクションを作る
+$ rails generate controller list index
+Running via Spring preloader in process 83725
+      create  app/controllers/list_controller.rb
+       route  get 'list/index'
+      invoke  erb
+      create    app/views/list
+      create    app/views/list/index.html.erb
+      invoke  test_unit
+      create    test/controllers/list_controller_test.rb
+      invoke  helper
+      create    app/helpers/list_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/list.coffee
+      invoke    scss
+      create      app/assets/stylesheets/list.scss
+```
+
+登録フォーム生成時にform_forでエラーが出る。
+```
+undefined method `tasks_path' for #<#<Class:0x00007fe0ceb414a8>:0x00007fe0c9d35de0>
+Did you mean?  asset_path
+```
+
+参考資料
+https://teamtreehouse.com/community/undefined-method-error-when-using-formfor
+
+
+  - コントローラとビューに必要な実装を追加しましょう
+  - 作成、更新、削除後はそれぞれflashメッセージを画面に表示させましょう
+- `routes.rb` を編集して、 `http://localhost:3000/` でタスクの一覧画面が表示されるようにしましょう
+- GitHub上でPRを作成してレビューしてもらいましょう
+  - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
+  
+ 
