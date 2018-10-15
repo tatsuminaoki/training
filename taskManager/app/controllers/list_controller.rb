@@ -36,8 +36,7 @@ class ListController < ApplicationController
   end
 
   def destroy
-    @id = params[:id]
-    @task = Task.find(@id)
+    @task = Task.find(params[:id])
     deleted = @task.destroy
 
     if deleted
