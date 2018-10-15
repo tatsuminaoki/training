@@ -18,6 +18,6 @@ class Task < ApplicationRecord
     tasks = self.page(params[:page])
     tasks = tasks.where('title LIKE ?', "%#{search_title}%") if search_title.present?
     tasks = tasks.where(status: search_status) if search_status.present?
-    tasks.order("#{sort} #{direction}")
+    tasks.order("#{sort} #{direction}").includes(:user)
   end
 end
