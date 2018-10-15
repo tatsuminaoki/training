@@ -1,6 +1,6 @@
 <h1>Task Manager 一覧 </h1>
 
-<%= link_to "新規登録", controller: "list", action: "entry" %>
+<%= link_to "新規登録", list_entry_path %>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: "#{key}") %>
@@ -29,8 +29,8 @@
       <td><%= date_format(t.deadline, year: false) %></td>
       <td><%= task_priority_message(t.priority) %></td>
       <td><%= task_status_message(t.status) %></td>
-      <td><%= link_to "編集", controller: "list", action: "edit", id: t.id %></td>
-      <td><%= link_to "削除", controller: "list", action: "delete", id: t.id , data: {confirm: "削除していいですか？" }%></td>
+      <td><%= link_to "編集", list_edit_path(id: t.id) %></td>
+      <td><%= link_to "削除", list_delete_path(id: t.id), data: {confirm: "削除していいですか？" }%></td>
     </tr>
   <% end %>
 </table>

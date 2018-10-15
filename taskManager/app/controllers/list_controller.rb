@@ -1,5 +1,5 @@
 class ListController < ApplicationController
-  before_action :common_process, except: [:new, :create]
+  before_action :all_labels, only: [:entry, :edit]
 
   def index
     @tasks = Task.includes(task_label: :label)
@@ -11,10 +11,9 @@ class ListController < ApplicationController
   end
 
   def edit
-    @id = params[:id]
-    @task = Task.find(@id)
+    @task = Task.find(params[:id])
 
-    render file: "list/entry", content_type: 'text/html'
+    render action: 'entry'
   end
 
   def insert
@@ -32,7 +31,7 @@ class ListController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:warn] = 'タスクの登録に失敗しました。'
-      render file: "list/entry", content_type: 'text/html'
+      render action: 'entry'
     end
   end
 
@@ -59,13 +58,13 @@ class ListController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:warn] = 'タスクの変更に失敗しました。'
-      render file: "list/edit", content_type: 'text/html'
+      render action: 'edit'
     end
   end
 
   private
 
-  def common_process
+  def all_labels
     @label = Label.all
   end
 

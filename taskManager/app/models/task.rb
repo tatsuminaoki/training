@@ -10,4 +10,16 @@ class Task < ApplicationRecord
   PRIORITY_LOW = 0
   PRIORITY_COMMON = 1
   PRIORITY_HIGH = 2
+
+  TASK_STATUSES = {
+    STATUS_WAITING => '未着手',
+    STATUS_WORKING => '着手',
+    STATUS_COMPLETED => '完了'
+  }.freeze
+
+  TASK_PRIORITIES = {
+    PRIORITY_LOW => '低',
+    PRIORITY_COMMON => '中',
+    PRIORITY_HIGH => '高'
+  }.freeze
 end
