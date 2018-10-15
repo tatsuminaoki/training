@@ -1,5 +1,5 @@
 class ListController < ApplicationController
-  before_action :all_labels, only: [:entry, :edit, :new]
+  before_action :all_labels, only: [:edit, :update, :new, :create]
 
   def index
     @tasks = Task.includes(task_label: :label)
