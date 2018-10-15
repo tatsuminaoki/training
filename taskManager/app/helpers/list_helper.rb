@@ -24,8 +24,8 @@ module ListHelper
   end
 
   def action_contents
-    if controller.action_name == 'entry' || controller.action_name == 'insert'
-      { flag_entry: true, action: :insert, action_name: '登録' }
+    if controller.action_name == 'new' || controller.action_name == 'create'
+      { flag_entry: true, action: :create, action_name: '登録' }
     else
       { flag_entry: false, action: :update, action_name: '編集' }
     end

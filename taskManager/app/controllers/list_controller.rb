@@ -1,11 +1,11 @@
 class ListController < ApplicationController
-  before_action :all_labels, only: [:entry, :edit]
+  before_action :all_labels, only: [:entry, :edit, :new]
 
   def index
     @tasks = Task.includes(task_label: :label)
   end
 
-  def entry
+  def new
     @task = Task.new
     @task.task_label.build
   end
@@ -13,17 +13,17 @@ class ListController < ApplicationController
   def edit
     @task = Task.find(params[:id])
 
-    render action: 'entry'
+    render action: 'new'
   end
 
-  def insert
+  def create
     # TODO: バリデーション全くやってないので後でコーディングする
     @task_params = common_params
     # TODO: session管理する必要がある(session管理するまで固定する)
     @task_params[:user_id] = 1
 
     @task = Task.new(@task_params)
-    saved = @task.save!
+    saved = @task.save
 
     # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
     if saved
@@ -35,7 +35,7 @@ class ListController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @id = params[:id]
     @task = Task.find(@id)
     deleted = @task.destroy
