@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   has_many :task_label, dependent: :destroy
   accepts_nested_attributes_for :task_label
 
+  # TODO: enumを使うこと
   STATUS_WAITING = 0
   STATUS_WORKING = 1
   STATUS_COMPLETED = 2
@@ -11,6 +12,8 @@ class Task < ApplicationRecord
   PRIORITY_COMMON = 1
   PRIORITY_HIGH = 2
 
+
+  # TODO: locate.yml使うこと
   TASK_STATUSES = {
     STATUS_WAITING => '未着手',
     STATUS_WORKING => '着手',

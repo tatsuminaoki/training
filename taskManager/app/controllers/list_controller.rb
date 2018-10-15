@@ -23,10 +23,10 @@ class ListController < ApplicationController
     @task_params[:user_id] = 1
 
     @task = Task.new(@task_params)
-    saved = @task.save
+    result = @task.save
 
     # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
-    if saved
+    if result
       flash[:notice] = 'タスクの登録が完了しました。'
       redirect_to :action => 'index'
     else
@@ -37,9 +37,9 @@ class ListController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    deleted = @task.destroy
+    result = @task.destroy
 
-    if deleted
+    if result
       flash[:notice] = 'タスクの削除が完了しました。'
     else
       flash[:warn] = 'タスクの削除に失敗しました。'
@@ -50,9 +50,9 @@ class ListController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    updated = @task.update(common_params)
+    result = @task.update(common_params)
 
-    if updated
+    if result
       flash[:notice] = 'タスクの変更が完了しました。'
       redirect_to :action => 'index'
     else
