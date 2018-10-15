@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
-  let(:user) { FactoryBot.create :user }
+  let(:pseudo_login_user) { FactoryBot.create :user } #(削除予定)疑似ログインユーザー
+
   scenario '新しいタスクを作成' do
     expect do
       task = create(:task, title: 'task1', user_id: user.id)
