@@ -3,36 +3,39 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let(:user) { FactoryBot.create :user }
+  let(:pseudo_login_user) { FactoryBot.create :user } #(削除予定)疑似ログインユーザー
 
   context 'パラメータが正しい場合' do
     it 'タスクの有効' do
-      task = build(:task, user_id: user.id)
+      task = build(:task, user_id: pseudo_login_user.id)
       expect(task).to be_valid
     end
   end
 
   context 'パラメータが正しくない場合' do
     it 'タスクのタイトルが入れていない' do
-      task = build(:task, title: nil, user_id: user.id)
+      task = build(:task, title: nil, user_id: pseudo_login_user.id)
       expect(task).not_to be_valid
+      expect(task.errors).to have_key(:title)
     end
 
     it 'タイトル文字の制限を超える' do
-      task = build(:task, title: 'あ' * 21, user_id: user.id)
+      task = build(:task, title: 'あ' * 21, user_id: pseudo_login_user.id)
       expect(task).not_to be_valid
+      expect(task.errors).to have_key(:title)
     end
 
     it 'タスクの内容が入れていない' do
-      task = build(:task, content: nil, user_id: user.id)
+      task = build(:task, content: nil, user_id: pseudo_login_user.id)
       expect(task).not_to be_valid
+      expect(task.errors).to have_key(:content)
     end
   end
 
   context '検索機能テスト' do
     before do
-      @task1 = create(:task, id: 1, title: 'task1', status: 'yet', user_id: user.id)
-      @task2 = create(:task, id: 2, title: 'task2', status: 'do', user_id: user.id)
+      @task1 = create(:task, id: 1, title: 'task1', status: 'yet', user_id: pseudo_login_user.id)
+      @task2 = create(:task, id: 2, title: 'task2', status: 'do', user_id: pseudo_login_user.id)
     end
 
     it 'タスクの名で検索' do
