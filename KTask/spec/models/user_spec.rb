@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'ユーザのパスワードが12字以内' do
-      user = build(:user, password_digest: 'a' * 12)
+      user = build(:user, password: 'a' * 12)
       expect(user).to be_valid
     end
   end
@@ -70,9 +70,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'ユーザのパスワードが12字以上' do
-      user = build(:user, password_digest: 'a' * 13)
+      user = build(:user, password: 'a' * 13)
       expect(user.validate).to be_falsy
-      expect(user.errors).to have_key(:password_digest)
+      expect(user.errors).to have_key(:password)
     end
   end
 end
