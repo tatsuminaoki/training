@@ -3,6 +3,12 @@ class Task < ApplicationRecord
   has_many :task_label, dependent: :destroy
   accepts_nested_attributes_for :task_label
 
+  validates :task_name, presence: true
+  validates :description, presence: true
+  validates :user_id, presence: true
+  validates :priority, presence: true
+  validates :status, presence: true
+
   # TODO: enumを使うこと
   STATUS_WAITING = 0
   STATUS_WORKING = 1

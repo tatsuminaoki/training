@@ -519,4 +519,19 @@ https://teamtreehouse.com/community/undefined-method-error-when-using-formfor
 - GitHub上でPRを作成してレビューしてもらいましょう
   - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
   
+ ## STEP 8
  
+ ### user model作成
+ ```
+ $ rails g rspec:model user
+ Running via Spring preloader in process 22088
+       create  spec/models/user_spec.rb
+ ```
+ 
+ ### factory_botの追加
+```
+$ bin/rails g factory_bot:model user
+Running via Spring preloader in process 22381
+      create  spec/factories/users.rb
+
+```

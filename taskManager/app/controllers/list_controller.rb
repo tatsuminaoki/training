@@ -31,7 +31,7 @@ class ListController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:warn] = 'タスクの登録に失敗しました。'
-      render action: 'entry'
+      render action: 'new'
     end
   end
 
