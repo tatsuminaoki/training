@@ -9,6 +9,13 @@ RSpec.feature 'Tasks', type: :feature do
     expect do
       task = create(:task, title: 'task1', user_id: pseudo_login_user.id)
       visit root_path
+      # click_link '新規タスク登録'
+      # fill_in 'スケジュール', with: 'First content'
+      # fill_in '内容', with: 'Rspec test'
+      # click_button '登録する'
+      # expect(page).to have_content('タスクを作成しました')
+      # expect(page).to have_content('First content')
+      # expect(page).to have_content('Rspec test')
       expect(page).to have_content('task1')
     end.to change { Task.count }.by(1)
   end
@@ -16,6 +23,11 @@ RSpec.feature 'Tasks', type: :feature do
   scenario 'タスクの修正' do
     task = create(:task, title: 'task1', user_id: pseudo_login_user.id)
     visit root_path
+    # click_link '新規タスク登録'
+    # fill_in 'スケジュール', with: 'Before modify'
+    # fill_in '内容', with: 'Rspec test'
+    # click_button '登録する'
+    # click_link '戻る'
     expect do
       click_link '修正'
       fill_in 'スケジュール', with: 'After modify'
@@ -30,6 +42,11 @@ RSpec.feature 'Tasks', type: :feature do
   scenario 'タスクの削除' do
     task = create(:task, title: 'task1', user_id: pseudo_login_user.id)
     visit root_path
+    # click_link '新規タスク登録'
+    # fill_in 'スケジュール', with: 'Delete Test'
+    # fill_in '内容', with: 'Delete this'
+    # click_button '登録する'
+    # click_link '戻る'
     expect do
       click_link '削除'
       expect(page).to have_content('タスクを削除しました')
