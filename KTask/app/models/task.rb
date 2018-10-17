@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   validates :content, presence: true, length: { maximum: 255 }
   validates :status, presence: true
 
+  belongs_to :user
+
   paginates_per 5
 
   def self.search_and_order(params)
