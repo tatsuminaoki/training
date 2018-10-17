@@ -75,9 +75,12 @@ ja:
       next: '>>'
   flash:
     task:
-     create: 'タスクを作成しました'
-     update: 'タスクを修正しました'
-     delete: 'タスクを削除しました'
+      create: 'タスクを作成しました'
+      update: 'タスクを修正しました'
+      delete: 'タスクを削除しました'
+    session:
+      login_failed: 'ログイン失敗しました確認してください'
+      login_success: 'ログイン成功しました'
 
   date:
     abbr_day_names:
