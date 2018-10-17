@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.search_and_order(params)
+    @tasks = Task.search_and_order(params, current_user)
   end
 
   # GET /tasks/1
