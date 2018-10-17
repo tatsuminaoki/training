@@ -6,7 +6,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.search_and_order(params, current_user)
+    if logged_in?
+      @tasks = Task.search_and_order(params, current_user)
+    else
+      redirect_to login_url
+    end
   end
 
   # GET /tasks/1
