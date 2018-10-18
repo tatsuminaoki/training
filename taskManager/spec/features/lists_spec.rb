@@ -18,10 +18,10 @@ RSpec.feature "Lists", type: :feature do
     }
     expect {
       click_link "新規登録"
-      fill_in "Task name", with: params[:task_name]
-      fill_in "Description", with: params[:description]
+      fill_in "task[task_name]", with: params[:task_name]
+      fill_in "task[description]", with: params[:description]
       click_button "登録"
-      expect(page).to have_content "タスクの登録が完了しました。"
+      expect(page).to have_content "タスクの新規登録が成功しました。"
       expect(page).to have_content params[:task_name]
       expect(page).to have_content params[:description]
     }.to change(@user.task, :count).by(1)
@@ -32,10 +32,10 @@ RSpec.feature "Lists", type: :feature do
       description: "updatedescription1"
     }
     all(:link_or_button, "編集")[0].click
-    fill_in "Task name", with: params[:task_name]
-    fill_in "Description", with: params[:description]
+    fill_in "task[task_name]", with: params[:task_name]
+    fill_in "task[description]", with: params[:description]
     click_button "編集"
-    expect(page).to have_content "タスクの変更が完了しました。"
+    expect(page).to have_content "タスクの編集が成功しました。"
     expect(page).to have_content params[:task_name]
     expect(page).to have_content params[:description]
     @task1.reload
@@ -45,7 +45,7 @@ RSpec.feature "Lists", type: :feature do
   scenario "タスクを削除" do
     # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
     all(:link_or_button, "削除")[0].click
-    expect(page).to have_content "タスクの削除が完了しました。"
+    expect(page).to have_content "タスクの削除が成功しました。"
     expect(page).not_to have_content @task1.task_name
     expect(page).not_to have_content @task1.description
     expect { @task1.reload }.to raise_error(ActiveRecord::RecordNotFound)

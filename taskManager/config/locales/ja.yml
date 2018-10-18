@@ -12,6 +12,35 @@ ja:
       default: "%Y/%m/%d"
       short: "%m/%d(%a)"
       long: "%Y年%m月%d日(%a)"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            mail:
+              blank: "メールが空です。"
+              taken: "は既に登録済みです。"
+            user_name:
+              blank: "ユーザ名が空です。"
+            encrypted_password:
+              blank: "パスワードが空です。"
+        task:
+          attributes:
+            task_name:
+              blank: "タスク名が空です。"
+            description:
+              blank: "説明が空です。"
+            user_id:
+              blank: "ユーザIDが空です。"
+            priority:
+              blank: "優先度が空です。"
+            status:
+              blank: "ステータスが空です。"
+        label:
+          attributes:
+            label_name:
+              blank: "ラベル名が空です。"
+              taken: "は既に登録済みです。"
   page_title: Task Manager
   words:
     success: 成功

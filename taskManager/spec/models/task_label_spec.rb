@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TaskLabel, type: :model do
   before do
+    FactoryBot.create(:user, id: 1)
     @label = FactoryBot.create(:label)
     @task = FactoryBot.create(:task)
   end
@@ -12,6 +13,7 @@ RSpec.describe TaskLabel, type: :model do
       expect(task_label.errors).to_not have_key(:task_id)
     end
     it "存在しないタスクIDであれば無効な状態であること" do
+      # TODO: ここI18n::InvalidPluralizationDataエラーになるので対応必要
       expect do
         FactoryBot.create(
           :task_label, label_id: @label.id, task_id: @task.id + 100

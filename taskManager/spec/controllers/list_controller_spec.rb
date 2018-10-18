@@ -95,15 +95,15 @@ RSpec.describe ListController, type: :controller do
     end
     it "存在するタスクIDの優先度変更ができること" do
       date = Date.today
-      task_params = FactoryBot.attributes_for(:task, priority: Task::PRIORITY_COMMON)
+      task_params = FactoryBot.attributes_for(:task, priority: :common)
       patch :update, params: { id: @task1.id, task: task_params }
-      expect(@task1.reload.priority).to eq Task::PRIORITY_COMMON
+      expect(@task1.reload.priority).to eq "common"
     end
     it "存在するタスクIDのステータス変更ができること" do
       date = Date.today
-      task_params = FactoryBot.attributes_for(:task, status: Task::STATUS_COMPLETED)
+      task_params = FactoryBot.attributes_for(:task, status: :completed)
       patch :update, params: { id: @task1.id, task: task_params }
-      expect(@task1.reload.status).to eq Task::STATUS_COMPLETED
+      expect(@task1.reload.status).to eq "completed"
     end
     it "存在しないタスクIDのタスク変更はできないこと" do
       task_params = FactoryBot.attributes_for(:task, task_name: "newtask1")

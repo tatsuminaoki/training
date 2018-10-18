@@ -9,6 +9,9 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
 
+  # TODO: STEP10の課題で作ったもの
+  default_scope -> { order(created_at: :desc) }
+
   enum status: {
     waiting: 0, working: 1, completed: 2
   }

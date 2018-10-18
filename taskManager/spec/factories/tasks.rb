@@ -3,8 +3,8 @@ FactoryBot.define do
     sequence(:task_name) { |n| "taskname#{n}" }
     sequence(:description) { |n| "description#{n}" }
     deadline nil
-    priority Task::low
-    status Task::waiting
+    priority :low
+    status :waiting
     association :user
   end
 end
