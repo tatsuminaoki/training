@@ -3,7 +3,10 @@
 <% end %>
 
 <h1 class='display-4'><%= @login_user.name.upcase + '`s'  %><%= t('.page_title') %></h1>
-<p style='text-align:right'><%= link_to t('.logout'), logout_path, method: :delete, class:'btn btn-outline-info' %></p>
+<p style='text-align:right'>
+<%= link_to t('.userinfo'), admin_path, class:'btn btn-outline-danger' %>
+<%= link_to t('.logout'), logout_path, method: :delete, class:'btn btn-outline-info' %>
+</p>
 
 <div>
 <%= form_tag(root_path, method: 'get') do %>

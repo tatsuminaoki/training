@@ -49,6 +49,7 @@ ja:
       search_status: '状態'
       search_submit: '検索'
       logout: 'ログアウト'
+      userinfo: 'ユーザ一覧'
     show:
       page_title: 'タスク詳細'
       title: 'スケジュール名'
