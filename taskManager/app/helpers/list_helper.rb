@@ -1,10 +1,12 @@
 module ListHelper
   def task_status_message(status)
-    Task::TASK_STATUSES[status]
+    # TODO: タグ表示する
+    t status, scope: "enum.task.status"
   end
 
   def task_priority_message(priority)
-    Task::TASK_PRIORITIES[priority]
+    # TODO: タグ表示する
+    t priority, scope: "enum.task.priority"
   end
 
   def label_message(label_name)
@@ -15,19 +17,11 @@ module ListHelper
     %(<pre>#{description}</pre>).html_safe
   end
 
-  def hash_task_priorities
-    Task::TASK_PRIORITIES.invert
-  end
-
-  def hash_task_statuses
-    Task::TASK_STATUSES.invert
-  end
-
   def action_contents
     if controller.action_name == 'new' || controller.action_name == 'create'
-      { flag_entry: true, action: :create, action_name: '登録' }
+      { action: :create, action_name: "actions.new" }
     else
-      { flag_entry: false, action: :update, action_name: '編集' }
+      { action: :update, action_name: "actions.edit" }
     end
   end
 end

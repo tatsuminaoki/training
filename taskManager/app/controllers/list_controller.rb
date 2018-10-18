@@ -12,7 +12,6 @@ class ListController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-
     render action: 'new'
   end
 
@@ -27,10 +26,10 @@ class ListController < ApplicationController
 
     # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
     if result
-      flash[:notice] = 'タスクの登録が完了しました。'
+      flash[:notice] = make_simple_message("new","success")
       redirect_to :action => 'index'
     else
-      flash[:warn] = 'タスクの登録に失敗しました。'
+      flash[:warn] = make_simple_message("new","failure")
       render action: 'new'
     end
   end
@@ -40,9 +39,9 @@ class ListController < ApplicationController
     result = @task.destroy
 
     if result
-      flash[:notice] = 'タスクの削除が完了しました。'
+      flash[:notice] = make_simple_message("delete","success")
     else
-      flash[:warn] = 'タスクの削除に失敗しました。'
+      flash[:warn] = make_simple_message("delete","failure")
     end
 
     redirect_to :action => 'index'
@@ -53,10 +52,10 @@ class ListController < ApplicationController
     result = @task.update(common_params)
 
     if result
-      flash[:notice] = 'タスクの変更が完了しました。'
+      flash[:notice] = make_simple_message("edit","success")
       redirect_to :action => 'index'
     else
-      flash[:warn] = 'タスクの変更に失敗しました。'
+      flash[:warn] = make_simple_message("edit","failure")
       render action: 'edit'
     end
   end
@@ -72,5 +71,12 @@ class ListController < ApplicationController
       :task_name, :description, :deadline, :priority, :status,
       task_label_attributes: [:label_id]
     )
+  end
+
+  def make_simple_message(action, result)
+    t "messages.simple_result",
+      name: t("words.task"),
+      action: t("actions.#{action}"),
+      result: t("words.#{result}")
   end
 end

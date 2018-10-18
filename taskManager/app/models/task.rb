@@ -9,26 +9,10 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
 
-  # TODO: enumを使うこと
-  STATUS_WAITING = 0
-  STATUS_WORKING = 1
-  STATUS_COMPLETED = 2
-
-  PRIORITY_LOW = 0
-  PRIORITY_COMMON = 1
-  PRIORITY_HIGH = 2
-
-
-  # TODO: locate.yml使うこと
-  TASK_STATUSES = {
-    STATUS_WAITING => '未着手',
-    STATUS_WORKING => '着手',
-    STATUS_COMPLETED => '完了'
-  }.freeze
-
-  TASK_PRIORITIES = {
-    PRIORITY_LOW => '低',
-    PRIORITY_COMMON => '中',
-    PRIORITY_HIGH => '高'
-  }.freeze
+  enum status: {
+    waiting: 0, working: 1, completed: 2
+  }
+  enum priority: {
+    low: 0, common: 1, high: 2
+  }
 end

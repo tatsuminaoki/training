@@ -1,0 +1,46 @@
+ja:
+  date:
+    abbr_day_names:
+    - "日"
+    - "月"
+    - "火"
+    - "水"
+    - "木"
+    - "金"
+    - "土"
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d(%a)"
+      long: "%Y年%m月%d日(%a)"
+  page_title: Task Manager
+  words:
+    success: 成功
+    failure: 失敗
+    task: タスク
+  actions:
+    list: 一覧
+    delete: 削除
+    edit: 編集
+    new: 新規登録
+    back: 戻る
+  attributes:
+    task:
+      task_name: タスク名
+      description: 説明
+      label: ラベル
+      deadline: 終了期限
+      status: ステータス
+      priority: 優先度
+  enum:
+    task:
+      status:
+        waiting: 未着手
+        working: 着手
+        completed: 完了
+      priority:
+        low: 低
+        common: 中
+        high: 高
+  messages:
+    task_delete_confirm: "タスク【%{name}】を削除していいですか？"
+    simple_result: "%{name}の%{action}が%{result}しました。"

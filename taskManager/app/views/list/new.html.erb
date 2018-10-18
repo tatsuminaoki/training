@@ -1,27 +1,27 @@
 <%
   action_content = action_contents
 %>
-<h1>Task Manager <%= action_content[:action_name] %></h1>
+<h1><%= t "page_title" %>(<%= t action_content[:action_name] %>)</h1>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
 <%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
-  <%= f.label :task_name %>
+  <%= f.label t "attributes.task.task_name" %>
   <%= f.text_field :task_name %>
 
-  <%= f.label :description %>
+  <%= f.label t "attributes.task.description" %>
   <%= f.text_area :description %>
 
-  <%= f.label :deadline %>
+  <%= f.label t "attributes.task.deadline" %>
   <%= f.date_field :deadline %>
 
-  <%= f.label :priority %>
-  <%= f.select :priority, hash_task_priorities, {} %>
+  <%= f.label t "attributes.task.priority" %>
+  <%= f.select :priority, Task.priorities.map { |k| [t("enum.task.priority.#{k[0]}"), k[0]] } %>
 
-  <%= f.label :status %>
-  <%= f.select :status, hash_task_statuses, {} %>
+  <%= f.label t "attributes.task.status" %>
+  <%= f.select :status, Task.statuses.map { |k| [t("enum.task.status.#{k[0]}"), k[0]] } %>
 
   <%= fields_for :task_label do |tl| %>
     <% @label.each do |l| %>
@@ -32,7 +32,7 @@
     <% end %>
   <% end %>
 
-  <%= f.submit action_content[:action_name] %>
+  <%= f.submit t(action_content[:action_name]) %>
 <% end %>
 
-<%= link_to '戻る', :back %>
+<%= link_to t("actions.back"), :back %>
