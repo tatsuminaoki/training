@@ -8,6 +8,7 @@ class TasksController < ApplicationController
   def index
     if logged_in?
       @tasks = Task.search_and_order(params, current_user)
+      @login_user = current_user
     else
       redirect_to login_url
     end
@@ -73,6 +74,7 @@ class TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
+    @login_user = current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
