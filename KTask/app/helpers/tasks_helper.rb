@@ -17,4 +17,14 @@ module TasksHelper
       'success'
     end
   end
+
+  def status_color(status)
+    if status == 'yet'
+      'primary'
+    elsif status == 'do'
+      'success'
+    else
+      'secondary'
+    end
+  end
 end
