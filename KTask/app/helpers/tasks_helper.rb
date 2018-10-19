@@ -7,4 +7,14 @@ module TasksHelper
     direction = (params[:sort] == column && params[:direction] == 'asc') ? 'desc' : 'asc'
     link_to title, sort: column, direction: direction
   end
+
+  def priority_color(priority)
+    if priority == 'high'
+      'danger'
+    elsif priority == 'middle'
+      'warning'
+    else
+      'success'
+    end
+  end
 end

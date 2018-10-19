@@ -38,7 +38,7 @@
       <tr>
         <td class='table-active title'><%= task.title %></td>
         <td class='table-active'><%= task.content %></td>
-        <td class='table-active'><%= task.human_attribute_enum(:priority) %></td>
+        <td class='table-active'><span class="badge badge-<%= priority_color task.priority %>"><%= task.human_attribute_enum(:priority) %></span></td>
         <td class='table-active'><%= task.human_attribute_enum(:status) %></td>
         <td class='table-active'><%= task.end_time %></td>
         <td><%= link_to t('.detail'), task, class:'btn btn-outline-info' %></td>
