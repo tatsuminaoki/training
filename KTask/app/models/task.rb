@@ -2,9 +2,11 @@
 
 class Task < ApplicationRecord
   enum status: %i[yet do done]
+  enum priority: %i[low mid high]
   validates :title, presence: true, length: { maximum: 20 }
   validates :content, presence: true, length: { maximum: 255 }
   validates :status, presence: true
+  validates :priority, presence: true
 
   belongs_to :user
 
