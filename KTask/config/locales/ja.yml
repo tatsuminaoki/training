@@ -13,12 +13,20 @@ ja:
         yet: '未着手'
         do: '着手'
         done: '完了'
+      task/priority:
+        low: '下'
+        mid: '中'
+        high: '上'
     enum:
       task:
         status:
           yet: '未着手'
           do: '着手'
           done: '完了'
+        priority:
+          low: '下'
+          mid: '中'
+          high: '上'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -30,13 +38,14 @@ ja:
     status:
       yet: '未着手'
       do: '着手'
-      done: '完了' 
+      done: '完了'
     form:
-      back: '戻る' 
+      back: '戻る'
     index:
       page_title: 'スケジュール リスト'
       title: 'スケジュール'
       content: '内容'
+      priority: '友禅順位'
       status: '状態'
       end_time: '終了時間'
       detail: '詳細'
