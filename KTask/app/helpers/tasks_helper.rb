@@ -11,7 +11,7 @@ module TasksHelper
   def priority_color(priority)
     if priority == 'high'
       'danger'
-    elsif priority == 'middle'
+    elsif priority == 'mid'
       'warning'
     else
       'success'
