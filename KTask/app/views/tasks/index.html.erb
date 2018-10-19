@@ -9,7 +9,7 @@
 </p>
 
 <div>
-<%= form_tag(root_path, method: 'get') do %>
+<%= form_tag(index_path, method: 'get') do %>
   <%= label_tag :search_title, t('.search_title'), class: 'col-sm-2 col-form-label col-form-label-lg' %>
 <br>
   <%= text_field_tag :search_title, params[:search_title] %>
