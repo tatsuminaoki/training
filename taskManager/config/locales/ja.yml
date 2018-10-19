@@ -1,4 +1,32 @@
 ja:
+  models: &models
+    user:
+      one: ユーザ
+      other: ユーザ
+    task:
+      one: タスク
+      other: タスク
+    label:
+      one: ラベル
+      other: ラベル
+  attributes: &attributes
+    user:
+      <<: *models
+      mail: メール
+      user_name: ユーザ名
+      encrypted_password: パスワード
+    task:
+      <<: *models
+      task_name: タスク名
+      description: 説明
+      deadline: 期限
+      priority: 優先度
+      status: ステータス
+    label:
+      <<: *models
+      label_name: ラベル名
+    task_label:
+      <<: *models
   date:
     abbr_day_names:
     - "日"
@@ -13,6 +41,8 @@ ja:
       short: "%m/%d(%a)"
       long: "%Y年%m月%d日(%a)"
   activerecord:
+    models: *models
+    attributes: *attributes
     errors:
       models:
         user:
@@ -41,7 +71,14 @@ ja:
             label_name:
               blank: "ラベル名が空です。"
               taken: "は既に登録済みです。"
-  page_title: Task Manager
+  activemodel:
+    models: *models
+    attributes: *attributes
+  list:
+    index:
+      title: "TaskManager (タスク一覧)"
+    new:
+      title: "TaskManager (%{action_name})"
   words:
     success: 成功
     failure: 失敗
@@ -52,14 +89,6 @@ ja:
     edit: 編集
     new: 新規登録
     back: 戻る
-  attributes:
-    task:
-      task_name: タスク名
-      description: 説明
-      label: ラベル
-      deadline: 終了期限
-      status: ステータス
-      priority: 優先度
   enum:
     task:
       status:

@@ -6,5 +6,7 @@ FactoryBot.define do
     priority :low
     status :waiting
     association :user
+    created_at Time.now
+    updated_at Time.now
   end
 end

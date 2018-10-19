@@ -1,26 +1,26 @@
 <%
   action_content = action_contents
 %>
-<h1><%= t "page_title" %>(<%= t action_content[:action_name] %>)</h1>
+<h1><%= t ".title", :action_name => t(action_content[:action_name]) %></h1>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
 <%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
-  <%= f.label :task_name, t("attributes.task.task_name") %>
+  <%= f.label :task_name %>
   <%= f.text_field :task_name %>
 
-  <%= f.label :description, t("attributes.task.description") %>
+  <%= f.label :description %>
   <%= f.text_area :description %>
 
-  <%= f.label :deadline, t("attributes.task.deadline") %>
+  <%= f.label :deadline %>
   <%= f.date_field :deadline %>
 
-  <%= f.label :prioritym, t("attributes.task.priority") %>
+  <%= f.label :priority %>
   <%= f.select :priority, Task.priorities.map { |k| [t("enum.task.priority.#{k[0]}"), k[0]] } %>
 
-  <%= f.label :status, t("attributes.task.status") %>
+  <%= f.label :status %>
   <%= f.select :status, Task.statuses.map { |k| [t("enum.task.status.#{k[0]}"), k[0]] } %>
 
   <%= fields_for :task_label do |tl| %>

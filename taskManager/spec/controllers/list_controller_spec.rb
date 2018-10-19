@@ -67,7 +67,7 @@ RSpec.describe ListController, type: :controller do
     it "存在しないタスクIDのタスク削除はエラーになること" do
       expect do
         delete :destroy, params: { id: @task1.id + 1000 }
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      end.not_to change(@user1.task, :count)
     end
     it "異なるユーザIDでタスク削除ができないこと" do
       expect do
@@ -109,7 +109,7 @@ RSpec.describe ListController, type: :controller do
       task_params = FactoryBot.attributes_for(:task, task_name: "newtask1")
       expect do
         patch :update, params: { id: @task1.id + 1000, task: task_params }
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      end.not_to change(@user1.task, :count)
     end
   end
 end
