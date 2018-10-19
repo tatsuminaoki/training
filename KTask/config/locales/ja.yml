@@ -73,6 +73,12 @@ ja:
     new:
       page_title: 'タスク登録'
       back: '戻る'
+  users:
+    index:
+      title: 'ユーザ 一覧'
+      user_name: 'ユーザ名'
+      user_mail: 'メール アドレス'
+      total_user_tasks: 'タスク数'
 
   sessions:
     new:

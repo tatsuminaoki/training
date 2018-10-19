@@ -1,0 +1,25 @@
+<h1><%= t('.title') %></h1>
+
+<table class='table', style='width: 100%;'>
+  <thead class='thead-dark'>
+    <tr>
+      <th scope='col'><%= t('.user_name') %></th>
+      <th scope='col'><%= t('.user_mail') %></th>
+      <th scope='col'><%= t('.total_user_tasks') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class='table-active title'><%= user.name %></td>
+        <td class='table-active'><%= user.email %></td>
+        <td class='table-active'><%= users_taskamount(user) %></td>
+        <td class='table-active'></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new_user'), new_task_path, class:'btn btn-success' %>
