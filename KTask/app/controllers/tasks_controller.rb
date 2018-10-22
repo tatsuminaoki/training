@@ -8,7 +8,6 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
       @tasks = Task.search_and_order(params, current_user)
-      @login_user = current_user
   end
 
   # GET /tasks/1
@@ -28,8 +27,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
+    @task = Task.new(task_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @task.save
