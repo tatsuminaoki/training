@@ -28,6 +28,6 @@ class Task < ApplicationRecord
             presence: true,
             inclusion: { in: Task.statuses.keys }
 
-  # TODO: STEP10の課題で作ったもの
-  default_scope -> { order(created_at: :desc) }
+  # TODO: STEP12の課題で作ったもの
+  default_scope -> { order(Arel.sql("deadline is null, deadline asc, created_at desc")) }
 end

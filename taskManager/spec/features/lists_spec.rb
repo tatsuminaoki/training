@@ -48,7 +48,7 @@ RSpec.feature "Lists", type: :feature do
     expect(page).not_to have_content task1.task_name
     expect(page).not_to have_content task1.description
     expect { task1.reload }.to raise_error(ActiveRecord::RecordNotFound)
-  end
+    end
   scenario "タスクの並び順の確認(STEP10 登録日時の降順)" do
     task3 = FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-19 15:00:00")
     task4 = FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-30 14:00:00")
@@ -56,5 +56,14 @@ RSpec.feature "Lists", type: :feature do
 
     # order: 登録日(降順) task4 -> task1 -> task2 -> task3
     expect(Task.all).to eq [task4, task1, task2, task3]
+  end
+  scenario "タスクの並び順の確認(STEP12 期限の昇順 + 登録日時の降順)" do
+    task3 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00")
+    task4 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-05-20 15:00:00")
+    task5 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00")
+    visit list_index_path
+
+    # order: 登録日(降順) task4 -> task1 -> task2 -> task3
+    expect(Task.all).to eq [task3, task5, task1, task2, task4]
   end
 end

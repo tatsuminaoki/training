@@ -95,6 +95,17 @@ RSpec.describe Task, type: :model do
 
       expect(Task.all).to eq [task2, task3, task1]
     end
+    it "期限の昇順 + 登録日時で検索できること(STEP12)の課題" do
+      user = FactoryBot.create(:user)
+      task1 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-20 14:00:00", created_at: "2018-05-04 10:11:10")
+      task2 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-04-01 10:00:00")
+      task3 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 14:00:00", created_at: "2018-05-10 10:03:04")
+      task4 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-10-21 15:00:00")
+      task5 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00")
+      task6 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-05-20 14:02:00")
+
+      expect(Task.all).to eq [task5, task3, task1, task4, task6, task2]
+    end
   end
   context "検索関連テスト(複数項目)" do
     it "タスク名とステータスで検索ができる"
