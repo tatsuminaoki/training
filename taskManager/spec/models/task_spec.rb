@@ -8,12 +8,44 @@ RSpec.describe Task, type: :model do
     it "タスク名が無ければ、無効な状態であること" do
       task = FactoryBot.build(:task, task_name: nil)
       task.valid?
-      expect(task.errors[:task_name]).to include("タスク名が空です。")
+      expect(task.errors[:task_name]).to include("入力してください。")
+    end
+    it "タスク名文字数 = 255文字の場合有効であること(半角文字)" do
+      expect(FactoryBot.build(:task, task_name: 'a' * 255)).to be_valid
+    end
+    it "タスク名文字数 = 255文字の場合有効であること(全角文字)" do
+      expect(FactoryBot.build(:task, task_name: 'あ' * 255)).to be_valid
+    end
+    it "タスク名文字数 > 255文字の場合エラー(半角文字)" do
+      task = FactoryBot.build(:task, task_name: 'a' * 256)
+      task.valid?
+      expect(task.errors[:task_name]).to include("255文字以内にしてください。")
+    end
+    it "タスク名文字数 > 255文字の場合エラー(全角文字)" do
+      task = FactoryBot.build(:task, task_name: 'あ' * 256)
+      task.valid?
+      expect(task.errors[:task_name]).to include("255文字以内にしてください。")
     end
     it "説明が無ければ、無効な状態であること" do
       task = FactoryBot.build(:task, description: nil)
       task.valid?
-      expect(task.errors[:description]).to include("説明が空です。")
+      expect(task.errors[:description]).to include("入力してください。")
+    end
+    it "説明文字数 = 20_000文字の場合有効であること(半角文字)" do
+      expect(FactoryBot.build(:task, description: 'a' * 20_000)).to be_valid
+    end
+    it "タスク名文字数 = 20_000文字の場合有効であること(全角文字)" do
+      expect(FactoryBot.build(:task, description: 'あ' * 20_000)).to be_valid
+    end
+    it "説明文字数 > 20_000文字の場合エラー(半角文字)" do
+      task = FactoryBot.build(:task, description: 'a' * 20_001)
+      task.valid?
+      expect(task.errors[:description]).to include("20000文字以内にしてください。")
+    end
+    it "説明文字数 > 20_000文字の場合エラー(半角文字)" do
+      task = FactoryBot.build(:task, description: 'あ' * 20_001)
+      task.valid?
+      expect(task.errors[:description]).to include("20000文字以内にしてください。")
     end
     it "ユーザIDが無ければ、無効な状態であること" do
       task = FactoryBot.build(:task, user_id: nil)
@@ -25,10 +57,16 @@ RSpec.describe Task, type: :model do
       task.valid?
       expect(task.errors[:priority]).to include("優先度が空です。")
     end
+    it "優先度のenum設定が(low common high)のみ有効な状態であること" do
+      should define_enum_for(:priority).with(%w[low common high])
+    end
     it "ステータスが無ければ、無効な状態であること" do
       task = FactoryBot.build(:task, status: nil)
       task.valid?
       expect(task.errors[:status]).to include("ステータスが空です。")
+    end
+    it "ステータスのenum設定が(waiting working completed)のみ有効な状態であること" do
+      should define_enum_for(:status).with(%w[waiting working completed])
     end
     it "ユーザIDが存在しなければ、無効な状態であること" do
       user = FactoryBot.create(:user)

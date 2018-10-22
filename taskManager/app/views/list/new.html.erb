@@ -7,6 +7,10 @@
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
+<% @task.errors.full_messages.each do |msg| %>
+  <li><%= msg %></li>
+<% end %>
+
 <%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
   <%= f.label :task_name %>
   <%= f.text_field :task_name %>

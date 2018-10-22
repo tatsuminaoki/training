@@ -22,16 +22,15 @@ class ListController < ApplicationController
     @task_params[:user_id] = 1
 
     @task = Task.new(@task_params)
-    result = @task.save
-
-    # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
-    if result
-      flash[:notice] = make_simple_message("new","success")
-      redirect_to :action => 'index'
-    else
-      flash[:warn] = make_simple_message("new","failure")
-      render action: 'new'
+    if @task.valid?
+      # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
+      if @task.save
+        flash[:notice] = make_simple_message("new","success")
+        return redirect_to :action => 'index'
+      end
     end
+    flash[:warn] = make_simple_message("new","failure")
+    render action: 'new'
   end
 
   def destroy

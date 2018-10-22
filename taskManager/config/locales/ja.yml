@@ -50,16 +50,22 @@ ja:
             mail:
               blank: "メールが空です。"
               taken: "は既に登録済みです。"
+              invalid: "不正なフォーマットです。"
+              too_long: "256文字以上のメールアドレスを登録できません。"
             user_name:
               blank: "ユーザ名が空です。"
+              invalid: "不正なフォーマットです。"
+              too_long: "256文字以上のユーザ名を登録できません。"
             encrypted_password:
               blank: "パスワードが空です。"
         task:
           attributes:
             task_name:
-              blank: "タスク名が空です。"
+              blank: "入力してください。"
+              too_long: "255文字以内にしてください。"
             description:
-              blank: "説明が空です。"
+              blank: "入力してください。"
+              too_long: "20000文字以内にしてください。"
             user_id:
               blank: "ユーザIDが空です。"
             priority:
@@ -71,6 +77,7 @@ ja:
             label_name:
               blank: "ラベル名が空です。"
               taken: "は既に登録済みです。"
+              too_long: "255文字以内にしてください。"
   activemodel:
     models: *models
     attributes: *attributes
