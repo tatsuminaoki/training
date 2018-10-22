@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    render 'new'
+    redirect_to login_url, :flash => { success: t('flash.session.logout_success') }
   end
 
 end

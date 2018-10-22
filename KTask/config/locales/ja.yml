@@ -82,6 +82,7 @@ ja:
     session:
       login_failed: 'ログイン失敗しました確認してください'
       login_success: 'ログイン成功しました'
+      logout_success: 'ログアウトしました'
 
   date:
     abbr_day_names:
