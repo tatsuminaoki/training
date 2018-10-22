@@ -2,16 +2,13 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :login_check
 
   # GET /tasks
   # GET /tasks.json
   def index
-    if logged_in?
       @tasks = Task.search_and_order(params, current_user)
       @login_user = current_user
-    else
-      redirect_to login_url
-    end
   end
 
   # GET /tasks/1
@@ -80,5 +77,9 @@ class TasksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:user_id, :title, :content, :status, :end_time)
+  end
+
+  def login_check
+    redirect_to login_path unless logged_in?
   end
 end
