@@ -2,7 +2,7 @@ class ListController < ApplicationController
   before_action :all_labels, only: [:edit, :update, :new, :create]
 
   def index
-    @tasks = Task.includes(task_label: :label)
+    @tasks = Task.includes(task_label: :label).search(params)
   end
 
   def new

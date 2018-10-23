@@ -30,4 +30,11 @@ class Task < ApplicationRecord
 
   # TODO: STEP12の課題で作ったもの
   default_scope -> { order(Arel.sql("deadline is null, deadline asc, created_at desc")) }
+
+  def self.search(params)
+    results = ::Task.all
+    results = results.where(status: params[:status]) if params[:status].present?
+    results = results.where("task_name like ?", "%" + params[:task_name]+ "%") if params[:task_name].present?
+    results
+  end
 end

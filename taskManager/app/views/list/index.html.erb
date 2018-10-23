@@ -6,6 +6,16 @@
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
+<p>検索</p>
+<%= form_tag(list_index_path, :method => 'get' ) do %>
+  <%= label_tag t "attributes.task.task_name" %>
+  <%= text_field_tag :task_name, value = params[:task_name] %>
+
+  <%= label_tag t "attributes.task.status" %>
+  <%= select_tag :status, options_for_select(Task.statuses.map { |k| [t("enum.task.status.#{k[0]}"), k[0]] }, :selected => params[:status] ), :include_blank => true %>
+  <%= submit_tag t("actions.search"), :status => nil %>
+<% end %>
+
 <table border="1">
   <tr>
     <th><%= t "attributes.task.task_name" %></th>

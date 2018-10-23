@@ -77,38 +77,59 @@ RSpec.describe Task, type: :model do
   end
   # TODO: 検索機能が現状ないので後で実装する
   context "検索関連テスト(１項目)" do
+    let(:user) { user = FactoryBot.create(:user) }
+    let!(:task1) {
+      FactoryBot.create(:task, task_name: 'task1', user_id: user.id, status: :waiting, created_at: '2018-05-20 14:00:00')
+    }
+    let!(:task2) {
+      FactoryBot.create(:task, task_name: 'task2', user_id: user.id, status: :waiting, created_at: '2018-05-21 15:00:00')
+    }
+    let!(:task3) {
+      FactoryBot.create(:task, task_name: 'task3', user_id: user.id, status: :waiting, created_at: '2018-05-20 14:02:00')
+    }
+    let!(:task4) {
+      FactoryBot.create(:task, task_name: 'task4', user_id: user.id, status: :waiting, deadline: "2018-05-20 14:00:00", created_at: "2018-05-04 10:11:10")
+    }
+    let!(:task5) {
+      FactoryBot.create(:task, task_name: 'task5', user_id: user.id, status: :completed ,deadline: nil, created_at: "2018-04-01 10:00:00")
+    }
+    let!(:task6) {
+      FactoryBot.create(:task, task_name: 'task6', user_id: user.id, status: :waiting, deadline: "2018-05-19 14:00:00", created_at: "2018-05-10 10:03:04")
+    }
+    let!(:task7) {
+      FactoryBot.create(:task, task_name: 'task7', user_id: user.id, status: :working, deadline: nil, created_at: "2018-10-21 15:00:00")
+    }
+    let!(:task8) {
+      FactoryBot.create(:task, task_name: 'task8', user_id: user.id, status: :working, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00")
+    }
+    let!(:task9) {
+      FactoryBot.create(:task, task_name: 'task9', user_id: user.id, status: :completed, deadline: nil, created_at: "2018-05-20 14:02:00")
+    }
     it "全件検索ができる"
-    it "タスク名検索ができる"
+    it "タスク名検索ができる" do
+      params = { task_name: "task1" }
+      expect(Task.search(params)).to eq [task1]
+    end
     it "説明検索ができる"
     it "期限で検索ができる"
     it "優先度で検索ができる"
-    it "ステータスで検索ができる"
+    it "ステータスで検索ができる" do
+      params = { status: :working }
+      expect(Task.search(params)).to eq [task8, task7]
+    end
     it "1つのラベルで検索ができる"
     it "複数件のラベルで検索ができる"
-    it "登録日時の降順で検索できること(STEP10)の課題" do
-      user = FactoryBot.create(:user)
-
-      # order by created_at descの場合(task2 -> task3 -> task1の順番になるはず)
-      task1 = FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-20 14:00:00")
-      task2 = FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-21 15:00:00")
-      task3 = FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-20 14:02:00")
-
-      expect(Task.all).to eq [task2, task3, task1]
-    end
     it "期限の昇順 + 登録日時で検索できること(STEP12)の課題" do
-      user = FactoryBot.create(:user)
-      task1 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-20 14:00:00", created_at: "2018-05-04 10:11:10")
-      task2 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-04-01 10:00:00")
-      task3 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 14:00:00", created_at: "2018-05-10 10:03:04")
-      task4 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-10-21 15:00:00")
-      task5 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00")
-      task6 = FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-05-20 14:02:00")
-
-      expect(Task.all).to eq [task5, task3, task1, task4, task6, task2]
+      expect(Task.all).to eq [
+        task8, task6, task4, task7, task2, task3, task9, task1, task5
+      ]
     end
-  end
-  context "検索関連テスト(複数項目)" do
-    it "タスク名とステータスで検索ができる"
+    it "タスク名とステータスで検索ができる" do
+      task10 = FactoryBot.create(:task, task_name: "テスト10", user_id: user.id, status: :working, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00")
+      task11 = FactoryBot.create(:task, task_name: "テスト11", user_id: user.id, status: :working, deadline: nil, created_at: "2018-05-20 14:02:00")
+      params = { status: :working, task_name: "テスト" }
+      expect(Task.search(params)).to eq [task10, task11]
+    end
     it "説明と期限で検索ができる"
     it "優先度とラベルで検索ができる"
   end

@@ -55,7 +55,7 @@ RSpec.feature "Lists", type: :feature do
     visit list_index_path
 
     # order: 登録日(降順) task4 -> task1 -> task2 -> task3
-    expect(Task.all).to eq [task4, task1, task2, task3]
+    expect(page.text.inspect).to match %r{#{task4.task_name}.*#{task1.task_name}.*#{task2.task_name}.*#{task3.task_name}}
   end
   scenario "タスクの並び順の確認(STEP12 期限の昇順 + 登録日時の降順)" do
     task3 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00")
@@ -63,7 +63,39 @@ RSpec.feature "Lists", type: :feature do
     task5 = FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00")
     visit list_index_path
 
-    # order: 登録日(降順) task4 -> task1 -> task2 -> task3
-    expect(Task.all).to eq [task3, task5, task1, task2, task4]
+    # order: 登録日(降順) task3 -> task5 -> task1 -> task2 -> task4
+    expect(page.text.inspect).to match %r{#{task3.task_name}.*#{task5.task_name}.*#{task1.task_name}.*#{task2.task_name}.*#{task4.task_name}}
+  end
+  scenario "ステータスで検索ができる" do
+    task3 = FactoryBot.create(:task, user_id: user.id, status: :completed, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00")
+    task4 = FactoryBot.create(:task, user_id: user.id, status: :waiting, deadline: nil, created_at: "2018-05-20 15:00:00")
+    task5 = FactoryBot.create(:task, user_id: user.id, status: :completed, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00")
+    visit list_index_path
+    select '完了', from: 'status'
+    click_button "検索"
+
+    # order: 登録日(降順) task3 -> task5
+    expect(page.text.inspect).to match %r(#{task3.task_name}.*#{task5.task_name})
+
+    # task1, task2, task4がないことを確認
+    expect(page.text.inspect).not_to match %r(#{task1.task_name})
+    expect(page.text.inspect).not_to match %r(#{task2.task_name})
+    expect(page.text.inspect).not_to match %r(#{task4.task_name})
+  end
+  scenario "タスク名で検索ができる" do
+    task3 = FactoryBot.create(:task, user_id: user.id, status: :completed, task_name: "タスク1")
+    task4 = FactoryBot.create(:task, user_id: user.id, status: :waiting, task_name: "タスク2")
+    task5 = FactoryBot.create(:task, user_id: user.id, status: :completed)
+    visit list_index_path
+    fill_in "task_name", with: "タスク"
+    click_button "検索"
+
+    # order: 登録日(降順) task3 -> task4
+    expect(page.text.inspect).to match %r(#{task3.task_name}.*#{task4.task_name})
+
+    # task1, task2, task5がないことを確認
+    expect(page.text.inspect).not_to match %r(#{task1.task_name})
+    expect(page.text.inspect).not_to match %r(#{task2.task_name})
+    expect(page.text.inspect).not_to match %r(#{task5.task_name})
   end
 end
