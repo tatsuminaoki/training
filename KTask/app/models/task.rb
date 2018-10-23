@@ -10,13 +10,13 @@ class Task < ApplicationRecord
 
   paginates_per 5
 
-  def self.search_and_order(params, current_user)
+  def self.search_and_order(params, current_user_id)
     sort = params[:sort] || 'created_at'
     direction = params[:direction] || 'desc'
     search_title = params[:search_title]
     search_status = params[:search_status]
     tasks = self.page(params[:page])
-    tasks = tasks.where(user_id: current_user.id)
+    tasks = tasks.where(user_id: current_user_id)
     tasks = tasks.where('title LIKE ?', "%#{search_title}%") if search_title.present?
     tasks = tasks.where(status: search_status) if search_status.present?
     tasks.order("#{sort} #{direction}")

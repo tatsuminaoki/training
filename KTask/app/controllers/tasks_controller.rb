@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-      @tasks = Task.search_and_order(params, current_user)
+    @tasks = Task.search_and_order(params, current_user.id)
   end
 
   # GET /tasks/1
@@ -69,7 +69,6 @@ class TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
-    @login_user = current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
