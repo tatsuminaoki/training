@@ -48,6 +48,7 @@ ja:
       search_title: 'スケジュール名'
       search_status: '状態'
       search_submit: '検索'
+      logout: 'ログアウト'
     show:
       page_title: 'タスク詳細'
       title: 'スケジュール名'
@@ -63,6 +64,10 @@ ja:
       page_title: 'タスク登録'
       back: '戻る'
 
+  sessions:
+    new:
+      submit: 'ログイン'
+
   views:
     pagination:
       first: '最初'
@@ -71,9 +76,13 @@ ja:
       next: '>>'
   flash:
     task:
-     create: 'タスクを作成しました'
-     update: 'タスクを修正しました'
-     delete: 'タスクを削除しました'
+      create: 'タスクを作成しました'
+      update: 'タスクを修正しました'
+      delete: 'タスクを削除しました'
+    session:
+      login_failed: 'ログイン失敗しました確認してください'
+      login_success: 'ログイン成功しました'
+      logout_success: 'ログアウトしました'
 
   date:
     abbr_day_names:
@@ -213,6 +222,10 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
   number:
     currency:
       format:
