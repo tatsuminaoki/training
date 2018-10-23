@@ -2,7 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  before_action :login_check
+  before_action :user_authorize
 
   # GET /tasks
   # GET /tasks.json
@@ -76,7 +76,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:user_id, :title, :content, :status, :end_time)
   end
 
-  def login_check
+  def user_authorize
     redirect_to login_path unless logged_in?
   end
 end
