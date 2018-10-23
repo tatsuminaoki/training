@@ -2,16 +2,12 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :user_authorize
 
   # GET /tasks
   # GET /tasks.json
   def index
-    if logged_in?
-      @tasks = Task.search_and_order(params, current_user)
-      @login_user = current_user
-    else
-      redirect_to login_url
-    end
+    @tasks = Task.search_and_order(params, current_user.id)
   end
 
   # GET /tasks/1
@@ -31,8 +27,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
+    @task = Task.new(task_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @task.save
@@ -74,11 +69,14 @@ class TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
-    @login_user = current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
     params.require(:task).permit(:user_id, :title, :content, :status, :end_time, :priority)
+  end
+
+  def user_authorize
+    redirect_to login_path unless logged_in?
   end
 end

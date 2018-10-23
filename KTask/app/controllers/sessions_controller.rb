@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   def new
+    redirect_to index_url unless session[:user_id].nil?
   end
 
   def create
@@ -17,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    render 'new'
+    redirect_to login_url, flash: { success: t('flash.session.logout_success') }
   end
 end

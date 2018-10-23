@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
+  let (:login_user) { create(:user) }
   before do
-    @login_user = create(:user)
     visit root_path
-    fill_in I18n.t('helpers.label.session.email'), with: @login_user.email
-    fill_in I18n.t('helpers.label.session.password'), with: @login_user.password
+    fill_in I18n.t('helpers.label.session.email'), with: login_user.email
+    fill_in I18n.t('helpers.label.session.password'), with: login_user.password
     click_button I18n.t('sessions.new.submit')
   end
 
@@ -64,8 +64,8 @@ RSpec.feature 'Tasks', type: :feature do
 
   scenario 'タスクの作成日順並べ替えテスト' do
     expect do
-      create(:task, title: 'task1', created_at: '2018-9-29', user_id: @login_user.id)
-      create(:task, title: 'task2', created_at: '2018-9-30', user_id: @login_user.id)
+      create(:task, title: 'task1', created_at: '2018-9-29', user_id: login_user.id)
+      create(:task, title: 'task2', created_at: '2018-9-30', user_id: login_user.id)
       titles = page.all('td.title')
       expect(titles[0]).to have_content 'task2'
       expect(titles[1]).to have_content 'task1'
@@ -74,8 +74,8 @@ RSpec.feature 'Tasks', type: :feature do
 
   scenario '一覧画面で終了期限で整列されていること' do
     expect do
-      create(:task, title: 'task1', end_time: '2018-9-29 12:10:10', user_id: @login_user.id)
-      create(:task, title: 'task2', end_time: '2018-9-30 12:10:10', user_id: @login_user.id)
+      create(:task, title: 'task1', end_time: '2018-9-29 12:10:10', user_id: login_user.id)
+      create(:task, title: 'task2', end_time: '2018-9-30 12:10:10', user_id: login_user.id)
       visit root_path
       asc_titles = page.all('td.title')
       click_link '終了時間'
@@ -90,8 +90,8 @@ RSpec.feature 'Tasks', type: :feature do
 
   scenario '一覧画面でタイトル名と状態で検索' do
     expect do
-      create(:task, title: 'task1', status: 'do', user_id: @login_user.id)
-      create(:task, title: 'task2', status: 'done', user_id: @login_user.id)
+      create(:task, title: 'task1', status: 'do', user_id: login_user.id)
+      create(:task, title: 'task2', status: 'done', user_id: login_user.id)
       visit root_path
       fill_in I18n.t('tasks.index.search_title'), with: 'task1'
       select I18n.t('tasks.status.do'), from: I18n.t('tasks.index.search_status')
@@ -103,7 +103,7 @@ RSpec.feature 'Tasks', type: :feature do
 
   scenario 'タスク五つのページネーション確認' do
     expect do
-      create_list(:task, 6, user_id: @login_user.id)
+      create_list(:task, 6, user_id: login_user.id)
       visit root_path
       titles = page.all('td.title')
       expect(titles[4]).to have_content 'task5'
