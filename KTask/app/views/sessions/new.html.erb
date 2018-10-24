@@ -16,7 +16,10 @@
         <%= f.password_field :password, class: 'form-control' %>
       </div>
 
+      <p>
       <%= f.submit t('.submit'), class: "btn btn-primary" %>
+      <%= link_to t('.new_user'), new_admin_user_path, class:'btn btn-success' %>
+      </p>
     <% end %>
   </div>
 </div>

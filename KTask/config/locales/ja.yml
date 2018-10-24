@@ -114,6 +114,7 @@ ja:
   sessions:
     new:
       submit: 'ログイン'
+      new_user: 'ユーザ登録'
 
   views:
     pagination:
