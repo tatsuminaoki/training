@@ -17,6 +17,10 @@ ja:
         low: '下'
         mid: '中'
         high: '上'
+      user:
+        name: '名前'
+        email: 'メールアドレス'
+        password: 'パスワード'
     enum:
       task:
         status:
@@ -73,12 +77,18 @@ ja:
     new:
       page_title: 'タスク登録'
       back: '戻る'
-  users:
-    index:
-      title: 'ユーザ 一覧'
-      user_name: 'ユーザ名'
-      user_mail: 'メール アドレス'
-      total_user_tasks: 'タスク数'
+
+  admin:
+    users:
+      index:
+        title: 'ユーザ 一覧'
+        user_name: '名前'
+        user_mail: 'メールアドレス'
+        total_user_tasks: 'タスク数'
+        new_user: 'ユーザ登録'
+      new:
+        title: 'ユーザ登録'
+        back: '戻る'
 
   sessions:
     new:
