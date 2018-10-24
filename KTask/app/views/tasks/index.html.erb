@@ -1,12 +1,4 @@
-<% if notice != nil %>
-  <p id="notice", class='alert alert-success'><%= notice %></p>
-<% end %>
-
 <h1 class='display-4'><%= current_user.name.upcase + '`s'  %><%= t('.page_title') %></h1>
-<p style='text-align:right'>
-<%= link_to t('.userinfo'), admin_users_path, class:'btn btn-outline-danger' %>
-<%= link_to t('.logout'), logout_path, method: :delete, class:'btn btn-outline-info' %>
-</p>
 
 <div>
 <%= form_tag(index_path, method: 'get') do %>

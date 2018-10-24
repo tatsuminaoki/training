@@ -10,14 +10,23 @@
   </head>
 
   <body>
+    <div class="container">
     <% if notice %>
       <p class="alert alert-success alert-dismissible"><%= notice %></p>
     <% end %>
     <% if alert %>
       <p class="alert alert-danger alert-dismissible"><%= alert %></p>
     <% end %>
-    <div class="container">
-      <%= yield %>
+
+    <% if logged_in? %>
+      <div style='text-align:right'>
+        <%= link_to t('.user_info'), admin_users_path, class:'btn btn-outline-danger' %>
+        <%= link_to t('.logout'), session_path(current_user.id), method: :delete, class:'btn btn-outline-info' %>
+      <% end %>
+      </div>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
