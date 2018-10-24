@@ -1,20 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Label, type: :model do
-  context '登録テスト' do
-    it "ラベル名があれば有効な状態であること" do
-      expect(FactoryBot.build(:label)).to be_valid
+  describe 'ラベル登録テスト' do
+    subject { label.valid? }
+    context '妥当なラベルの時' do
+      let(:label) { FactoryBot.build(:label) }
+      it "ラベル名があれば有効な状態であること" do
+        is_expected.to be_truthy
+      end
     end
-    it "ラベル名が無ければ、無効な状態であること" do
-      label = FactoryBot.build(:label, label_name: nil)
-      label.valid?
-      expect(label.errors[:label_name]).to include("ラベル名が空です。")
+    context 'ラベル名が無い時' do
+      let(:label) { FactoryBot.build(:label, label_name: nil) }
+      it "ラベル名が無ければ、無効な状態であること" do
+        is_expected.to be_falsey
+      end
     end
-    it "重複したメールアドレスなら無効な状態であること" do
-      FactoryBot.create(:label, label_name: "label1")
-      label = FactoryBot.build(:label, label_name: "label1")
-      label.valid?
-      expect(label.errors[:label_name]).to include("は既に登録済みです。")
+    context '重複チェック' do
+      let!(:label_tmp) { FactoryBot.create(:label, label_name: "label1") }
+      let(:label) { FactoryBot.build(:label, label_name: "label1") }
+      it "重複したメールアドレスなら無効な状態であること" do
+        is_expected.to be_falsey
+      end
     end
   end
 end

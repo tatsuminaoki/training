@@ -1,6 +1,6 @@
-<h1><%= t ".title" %></h1>
+<h1><%= I18n.t "list.index.title" %></h1>
 
-<%= link_to t("actions.new"), new_list_path %>
+<%= link_to I18n.t("actions.new"), new_list_path %>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: "#{key}") %>
@@ -8,14 +8,14 @@
 
 <table border="1">
   <tr>
-    <th><%= t "attributes.task.task_name" %></th>
-    <th><%= t "attributes.task.description" %></th>
-    <th><%= t "attributes.task.label.other" %></th>
-    <th><%= t "attributes.task.deadline" %></th>
-    <th><%= t "attributes.task.priority" %></th>
-    <th><%= t "attributes.task.status" %></th>
-    <th><%= t "actions.edit" %></th>
-    <th><%= t "actions.delete" %></th>
+    <th><%= I18n.t "attributes.task.task_name" %></th>
+    <th><%= I18n.t "attributes.task.description" %></th>
+    <th><%= I18n.t "attributes.task.label.other" %></th>
+    <th><%= I18n.t "attributes.task.deadline" %></th>
+    <th><%= I18n.t "attributes.task.priority" %></th>
+    <th><%= I18n.t "attributes.task.status" %></th>
+    <th><%= I18n.t "actions.edit" %></th>
+    <th><%= I18n.t "actions.delete" %></th>
   </tr>
   <% @tasks.each do |t| %>
     <tr>
@@ -29,8 +29,8 @@
       <td><%= l(t.deadline, format: :short) if t.deadline? %></td>
       <td><%= task_priority_message(t.priority) %></td>
       <td><%= task_status_message(t.status) %></td>
-      <td><%= link_to t("actions.edit"), edit_list_path(id: t.id) %></td>
-      <td><%= link_to t("actions.delete"), list_path(id: t.id), :method=>'delete', data: {confirm: t("messages.task_delete_confirm", :name => t.task_name) }%></td>
+      <td><%= link_to I18n.t("actions.edit"), edit_list_path(id: t.id) %></td>
+      <td><%= link_to I18n.t("actions.delete"), list_path(id: t.id), :method=>'delete', data: {confirm: I18n.t("messages.task_delete_confirm", :name => t.task_name) }%></td>
     </tr>
   <% end %>
 </table>
