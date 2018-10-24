@@ -24,12 +24,21 @@ module Admin
     end
 
     def show
+      @tasks = @user.tasks
     end
 
     def update
+      @user.update!(user_params)
+      redirect_to admin_users_path, notice: t('flash.user.update_success')
+    rescue StandardError
+      render :edit
     end
 
     def destroy
+      @user.destroy!
+      redirect_to admin_users_path, notice: t('flash.user.delete_success')
+    rescue StandardError
+      redirect_to admin_users_path, alert: t('flash.user.delete_failure')
     end
 
     private

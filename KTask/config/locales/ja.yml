@@ -86,8 +86,13 @@ ja:
         user_mail: 'メールアドレス'
         total_user_tasks: 'タスク数'
         new_user: 'ユーザ登録'
+        edit: '更新'
+        delete: '削除'
       new:
         title: 'ユーザ登録'
+        back: '戻る'
+      edit:
+        title: 'ユーザ更新'
         back: '戻る'
 
   sessions:
@@ -109,6 +114,11 @@ ja:
       login_failed: 'ログイン失敗しました確認してください'
       login_success: 'ログイン成功しました'
       logout_success: 'ログアウトしました'
+    user:
+      create_success: 'ユーザを登録しました'
+      update_success: 'ユーザを更新しました'
+      delete_success: 'ユーザを削除しました'
+      delete_failure: 'ユーザ削除エーラ'
 
   date:
     abbr_day_names:
