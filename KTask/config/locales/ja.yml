@@ -93,6 +93,7 @@ ja:
         edit: '更新'
         delete: '削除'
         delete_message: 'このユーザを削除しますか'
+        back: '戻る'
       new:
         title: 'ユーザ登録'
         back: '戻る'
