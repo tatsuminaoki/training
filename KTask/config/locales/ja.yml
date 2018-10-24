@@ -100,6 +100,16 @@ ja:
       edit:
         title: 'ユーザ更新'
         back: '戻る'
+      show:
+        title: 'タスクリスト'
+        task_name: 'タスク名'
+        content: '内容'
+        priority: '友禅順位'
+        status: '状態'
+        end_time: '終了時間'
+        detail: '詳細'
+        edit: '修正'
+        delete: '削除'
 
   sessions:
     new:
