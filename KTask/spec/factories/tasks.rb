@@ -7,5 +7,6 @@ FactoryBot.define do
     priority { 'high' }
     status { 'do' }
     end_time { '2018-09-27' }
+    association :user
   end
 end
