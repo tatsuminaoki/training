@@ -3,26 +3,19 @@ class Task < ApplicationRecord
   has_many :task_label, dependent: :destroy
   accepts_nested_attributes_for :task_label
 
-  # TODO: enumを使うこと
-  STATUS_WAITING = 0
-  STATUS_WORKING = 1
-  STATUS_COMPLETED = 2
+  validates :task_name, presence: true
+  validates :description, presence: true
+  validates :user_id, presence: true
+  validates :priority, presence: true
+  validates :status, presence: true
 
-  PRIORITY_LOW = 0
-  PRIORITY_COMMON = 1
-  PRIORITY_HIGH = 2
+  # TODO: STEP10の課題で作ったもの
+  default_scope -> { order(created_at: :desc) }
 
-
-  # TODO: locate.yml使うこと
-  TASK_STATUSES = {
-    STATUS_WAITING => '未着手',
-    STATUS_WORKING => '着手',
-    STATUS_COMPLETED => '完了'
-  }.freeze
-
-  TASK_PRIORITIES = {
-    PRIORITY_LOW => '低',
-    PRIORITY_COMMON => '中',
-    PRIORITY_HIGH => '高'
-  }.freeze
+  enum status: {
+    waiting: 0, working: 1, completed: 2
+  }
+  enum priority: {
+    low: 0, common: 1, high: 2
+  }
 end
