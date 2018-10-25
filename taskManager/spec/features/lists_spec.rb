@@ -70,4 +70,25 @@ RSpec.feature "Lists", type: :feature do
       expect(page.text.inspect).to match %r(#{task4.task_name}.*#{task1.task_name}.*#{task2.task_name}.*#{task3.task_name})
     end
   end
+  feature "ページングのテスト" do
+    scenario "10件以下" do
+      visit list_index_path
+      expect(page).not_to have_selector(".pagination")
+    end
+    scenario "10件の場合、ページングが無い" do
+      8.times{ FactoryBot.create(:task) }
+      visit list_index_path
+      expect(Task.all.size).to eq(10)
+      expect(page).not_to have_selector(".pagination")
+    end
+    scenario "11件の場合、ページングでページ遷移ができる" do
+      9.times{ FactoryBot.create(:task) }
+      expect(Task.all.size).to eq(11)
+      visit list_index_path
+      find("//*[@class='pagination']//a[text()='2']").click
+      expect(page.status_code).to eq(200)
+      find("//*[@class='pagination']//a[text()='1']").click
+      expect(page.status_code).to eq(200)
+    end
+  end
 end
