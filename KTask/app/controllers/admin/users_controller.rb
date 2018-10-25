@@ -30,7 +30,7 @@ module Admin
 
     def update
       @user.update!(user_params)
-      redirect_to admin_users_path, flash: {success: t('flash.user.update_success')}
+      redirect_to admin_users_path, flash: { success: t('flash.user.update_success') }
     rescue StandardError
       flash.now[:danger] = t('flash.user.update_failure')
       render :edit
@@ -47,10 +47,10 @@ module Admin
 
     def user_params
       params.require(:user).permit(:name, :email, :password)
-   end
+    end
 
     def set_user
       @user = User.find(params[:id])
-   end
+    end
   end
 end
