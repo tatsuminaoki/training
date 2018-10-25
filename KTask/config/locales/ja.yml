@@ -133,7 +133,9 @@ ja:
       logout_success: 'ログアウトしました'
     user:
       create_success: 'ユーザを登録しました'
+      create_failure: 'ユーザ登録を失敗しました、確認してください'
       update_success: 'ユーザを更新しました'
+      update_failure: 'ユーザ更新に失敗しました、確認してください'
       delete_success: 'ユーザを削除しました'
       delete_failure: 'ユーザ削除エーラ'
 

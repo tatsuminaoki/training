@@ -15,8 +15,9 @@ module Admin
     def create
       @user = User.new(user_params)
       @user.save!
-      redirect_to admin_users_path, notice: t('flash.user.create_success')
+      redirect_to admin_users_path, flash: { success: t('flash.user.create_success') }
     rescue StandardError
+      flash.now[:danger] = t('flash.user.create_failure')
       render :new
     end
 
@@ -29,16 +30,17 @@ module Admin
 
     def update
       @user.update!(user_params)
-      redirect_to admin_users_path, notice: t('flash.user.update_success')
+      redirect_to admin_users_path, flash: {success: t('flash.user.update_success')}
     rescue StandardError
+      flash.now[:danger] = t('flash.user.update_failure')
       render :edit
     end
 
     def destroy
       @user.destroy!
-      redirect_to admin_users_path, notice: t('flash.user.delete_success')
+      redirect_to admin_users_path, flash: { success: t('flash.user.delete_success') }
     rescue StandardError
-      redirect_to admin_users_path, alert: t('flash.user.delete_failure')
+      redirect_to admin_users_path, flash: { danger: t('flash.user.delete_failure') }
     end
 
     private
