@@ -1,32 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe TaskLabel, type: :model do
-  let(:label) { FactoryBot.create(:label) }
-  let(:task) { FactoryBot.create(:task) }
-
-  before do
-    FactoryBot.create(:user, id: 1)
-  end
-  context '登録テスト' do
-    it "存在するタスクID、ラベルIDでであれば有効な状態であること" do
-      task_label = FactoryBot.create(:task_label, label_id: label.id, task_id: task.id)
-      expect(task_label.errors).to_not have_key(:label_id)
-      expect(task_label.errors).to_not have_key(:task_id)
+  describe 'タスクラベル登録テスト' do
+    let(:label) { FactoryBot.create(:label) }
+    let(:task) { FactoryBot.create(:task) }
+    before do
+      FactoryBot.create(:user, id: 1)
     end
-    it "存在しないタスクIDであれば無効な状態であること" do
-      # TODO: ここI18n::InvalidPluralizationDataエラーになるので対応必要
-      expect do
-        FactoryBot.create(
-          :task_label, label_id: label.id, task_id: task.id + 100
-        )
-      end.to raise_error(ActiveRecord::RecordInvalid)
+    subject { task_label.valid? }
+    context '登録テスト' do
+      let(:task_label) { FactoryBot.create(:task_label, label_id: label.id, task_id: task.id) }
+      it "存在するタスクID、ラベルIDでであれば有効な状態であること" do
+        is_expected.to be_truthy
+      end
     end
-    it "存在しないラベルIDであれば無効な状態であること" do
-      expect do
-        FactoryBot.create(
-          :task_label, label_id: label.id + 100, task_id: task.id
-        )
-      end.to raise_error(ActiveRecord::RecordInvalid)
+    context '存在しないタスクIDでの登録' do
+      let(:task_label) { FactoryBot.create(:task_label, label_id: label.id, task_id: task.id + 100) }
+      it "存在しないタスクIDであれば無効な状態であること" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+    context '存在しないラベルIDでの登録' do
+      let(:task_label) { FactoryBot.create(:task_label, label_id: label.id + 100, task_id: task.id) }
+      it "存在しないラベルIDであれば無効な状態であること" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 end

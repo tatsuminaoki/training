@@ -1,7 +1,7 @@
 <%
   action_content = action_contents
 %>
-<h1><%= t ".title", :action_name => t(action_content[:action_name]) %></h1>
+<h1><%= I18n.t "list.new.title", :action_name => t(action_content[:action_name]) %></h1>
 
 <% flash.each do |key, value| %>
   <%= content_tag(:div, value, class: "#{key}") %>
@@ -22,10 +22,10 @@
   <%= f.date_field :deadline %>
 
   <%= f.label :priority %>
-  <%= f.select :priority, Task.priorities.map { |k| [t("enum.task.priority.#{k[0]}"), k[0]] } %>
+  <%= f.select :priority, Task.priorities.map { |k| [I18n.t("enum.task.priority.#{k[0]}"), k[0]] } %>
 
   <%= f.label :status %>
-  <%= f.select :status, Task.statuses.map { |k| [t("enum.task.status.#{k[0]}"), k[0]] } %>
+  <%= f.select :status, Task.statuses.map { |k| [I18n.t("enum.task.status.#{k[0]}"), k[0]] } %>
 
   <%= fields_for :task_label do |tl| %>
     <% @label.each do |l| %>
@@ -36,7 +36,7 @@
     <% end %>
   <% end %>
 
-  <%= f.submit t(action_content[:action_name]) %>
+  <%= f.submit I18n.t(action_content[:action_name]) %>
 <% end %>
 
-<%= link_to t("actions.back"), :back %>
+<%= link_to I18n.t("actions.back"), :back %>
