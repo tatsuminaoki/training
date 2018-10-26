@@ -9,22 +9,24 @@ module TasksHelper
   end
 
   def priority_color(priority)
-    if priority == 'high'
+    case priority
+    when 2 then
       'danger'
-    elsif priority == 'mid'
+    when 1 then
       'warning'
-    else
+    when 0 then
       'success'
     end
   end
 
   def status_color(status)
-    if status == 'yet'
-      'primary'
-    elsif status == 'do'
-      'success'
-    else
+    case status
+    when 2 then
       'secondary'
+    when 1 then
+      'success'
+    when 0 then
+      'primary'
     end
   end
 end
