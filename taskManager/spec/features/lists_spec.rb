@@ -69,13 +69,13 @@ RSpec.feature "Lists", type: :feature do
     end
   end
   feature "タスクの並び順(期限の昇順 + 登録日の降順)" do
-    let(:task3) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00") }
-    let(:task4) { FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-05-20 15:00:00") }
-    let(:task5) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00") }
+    let!(:task3) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00") }
+    let!(:task4) { FactoryBot.create(:task, user_id: user.id, deadline: nil, created_at: "2018-05-20 15:00:00") }
+    let!(:task5) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00") }
     scenario "タスクの並び順の確認(STEP12 期限の昇順 + 登録日時の降順)" do
       visit list_index_path
-      # order: 登録日(降順) task4 -> task1 -> task2 -> task3
-      expect(Task.all).to eq [task3, task5, task1, task2, task4]
+      # order: 登録日(降順) task3 -> task5 -> task1 -> task2 -> task4
+      expect(page.text.inspect).to match %r(#{task3.task_name}.*#{task5.task_name}.*#{task1.task_name}.*#{task2.task_name}.*#{task4.task_name})
     end
   end
 end
