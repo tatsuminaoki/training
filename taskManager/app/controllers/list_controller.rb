@@ -56,7 +56,7 @@ class ListController < ApplicationController
       redirect_to :action => 'index'
     else
       flash[:warn] = make_simple_message(action: "edit", result: false)
-      render action: 'edit'
+      render action: 'new'
     end
   end
 
