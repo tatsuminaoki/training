@@ -13,12 +13,24 @@ ja:
         yet: '未着手'
         do: '着手'
         done: '完了'
+      task/priority:
+        low: '下'
+        mid: '中'
+        high: '上'
+      user:
+        name: '名前'
+        email: 'メールアドレス'
+        password: 'パスワード'
     enum:
       task:
         status:
           yet: '未着手'
           do: '着手'
           done: '完了'
+        priority:
+          low: '下'
+          mid: '中'
+          high: '上'
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -26,17 +38,22 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
 
+  layouts:
+    application:
+      logout: 'ログアウト'
+      user_info: 'ユーザ一覧'
   tasks:
     status:
       yet: '未着手'
       do: '着手'
-      done: '完了' 
+      done: '完了'
     form:
-      back: '戻る' 
+      back: '戻る'
     index:
       page_title: 'スケジュール リスト'
       title: 'スケジュール'
       content: '内容'
+      priority: '友禅順位'
       status: '状態'
       end_time: '終了時間'
       detail: '詳細'
@@ -49,6 +66,7 @@ ja:
       search_status: '状態'
       search_submit: '検索'
       logout: 'ログアウト'
+      userinfo: 'ユーザ一覧'
     show:
       page_title: 'タスク詳細'
       title: 'スケジュール名'
@@ -64,9 +82,39 @@ ja:
       page_title: 'タスク登録'
       back: '戻る'
 
+  admin:
+    users:
+      index:
+        title: 'ユーザ 一覧'
+        user_name: '名前'
+        user_mail: 'メールアドレス'
+        total_user_tasks: 'タスク数'
+        new_user: 'ユーザ登録'
+        edit: '更新'
+        delete: '削除'
+        delete_message: 'このユーザを削除しますか'
+        back: '戻る'
+      new:
+        title: 'ユーザ登録'
+        back: '戻る'
+      edit:
+        title: 'ユーザ更新'
+        back: '戻る'
+      show:
+        title: 'タスクリスト'
+        task_name: 'タスク名'
+        content: '内容'
+        priority: '友禅順位'
+        status: '状態'
+        end_time: '終了時間'
+        detail: '詳細'
+        edit: '修正'
+        delete: '削除'
+
   sessions:
     new:
       submit: 'ログイン'
+      new_user: 'ユーザ登録'
 
   views:
     pagination:
@@ -83,6 +131,13 @@ ja:
       login_failed: 'ログイン失敗しました確認してください'
       login_success: 'ログイン成功しました'
       logout_success: 'ログアウトしました'
+    user:
+      create_success: 'ユーザを登録しました'
+      create_failure: 'ユーザ登録を失敗しました、確認してください'
+      update_success: 'ユーザを更新しました'
+      update_failure: 'ユーザ更新に失敗しました、確認してください'
+      delete_success: 'ユーザを削除しました'
+      delete_failure: 'ユーザ削除エーラ'
 
   date:
     abbr_day_names:

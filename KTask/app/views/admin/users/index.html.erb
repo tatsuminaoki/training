@@ -1,0 +1,31 @@
+<h1><%= t('.title') %></h1>
+
+<table class='table', style='width: 100%;'>
+  <thead class='thead-dark'>
+    <tr>
+      <th scope='col'><%= t('.user_name') %></th>
+      <th scope='col'><%= t('.user_mail') %></th>
+      <th scope='col'><%= t('.total_user_tasks') %></th>
+      <th></th>
+      <ht></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class='table-active name'><%= user.name %></td>
+        <td class='table-active email'><%= user.email %></td>
+        <td class='table-active amount'><%= link_to users_tasks_amount(user), admin_user_path(user.id) %></td>
+        <td><%= link_to t('.edit'), edit_admin_user_path(user.id), class:'btn btn-outline-secondary' %></td>
+        <td><%= link_to t('.delete'), admin_user_path(user.id), method: :delete, data: { confirm: t('.delete_message') }, class:'btn btn-outline-danger' %></td>
+        <td class='table-active'></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+<%= link_to t('.new_user'), new_admin_user_path, class:'btn btn-success' %>
+<%= link_to t('.back'), :back, class: 'btn btn-secondary' %>
+</p>

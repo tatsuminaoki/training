@@ -11,7 +11,19 @@
 
   <body>
     <div class="container">
-      <%= yield %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+
+    <% if logged_in? %>
+      <div style='text-align:right'>
+        <%= link_to t('.user_info'), admin_users_path, class:'btn btn-outline-danger' %>
+        <%= link_to t('.logout'), session_path(current_user.id), method: :delete, class:'btn btn-outline-info' %>
+      <% end %>
+      </div>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

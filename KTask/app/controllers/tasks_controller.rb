@@ -73,7 +73,7 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:user_id, :title, :content, :status, :end_time)
+    params.require(:task).permit(:user_id, :title, :content, :status, :end_time, :priority)
   end
 
   def user_authorize

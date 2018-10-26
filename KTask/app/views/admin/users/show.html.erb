@@ -1,22 +1,8 @@
-<h1 class='display-4'><%= current_user.name.upcase + '`s'  %><%= t('.page_title') %></h1>
-
-<div>
-<%= form_tag(index_path, method: 'get') do %>
-  <%= label_tag :search_title, t('.search_title'), class: 'col-sm-2 col-form-label col-form-label-lg' %>
-<br>
-  <%= text_field_tag :search_title, params[:search_title] %>
-<br>
-  <%= label_tag :search_status, t('.search_status'), class: 'col-sm-2 col-form-label col-form-label-lg' %>
-<br>
-  <%= select_tag :search_status, options_for_select(Task.statuses.map { |k, v| [t("tasks.status.#{k}"), k] }, :selected => params[:search_status]), include_blank: true %>
-  <%= submit_tag t('.search_submit'), class: 'btn btn-info' %>
-<% end %>
-</div>
-
+<h1><%= @user.name %><%= t('.title') %></h1>
 <table class='table'>
   <thead class='thead-dark'>
     <tr>
-      <th scope='col'><%= t('.title') %></th>
+      <th scope='col'><%= t('.task_name') %></th>
       <th scope='col'><%= t('.content') %></th>
       <th scope='col'><%= t('.priority') %></th>
       <th scope='col'><%= t('.status') %></th>
@@ -41,5 +27,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new_task'), new_task_path, class:'btn btn-success' %>
-<%= paginate @tasks %>

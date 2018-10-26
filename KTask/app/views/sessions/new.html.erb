@@ -1,9 +1,5 @@
 <h1 class='display-4', style='text-align:center'>KTask</h1>
 
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>"><%= message %></div>
-<% end %>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(:session, url: login_path) do |f| %>
@@ -16,7 +12,10 @@
         <%= f.password_field :password, class: 'form-control' %>
       </div>
 
+      <p>
       <%= f.submit t('.submit'), class: "btn btn-primary" %>
+      <%= link_to t('.new_user'), new_admin_user_path, class:'btn btn-success' %>
+      </p>
     <% end %>
   </div>
 </div>

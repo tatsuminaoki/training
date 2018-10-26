@@ -23,6 +23,11 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.map{|k, _|  [Task.human_attribute_enum_value(:priority, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :status %>
     <%= form.select :status, Task.statuses.map{|k, _|  [Task.human_attribute_enum_value(:status, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
   </div>

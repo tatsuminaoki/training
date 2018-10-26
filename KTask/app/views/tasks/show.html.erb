@@ -18,6 +18,11 @@
 </p>
 
 <p>
+  <div class="form-group h4"><%= t('.priority') %> </div>
+  <%= @task.human_attribute_enum(:priority) %>
+</p>
+
+<p>
   <div class="form-group h4"><%= t('.status') %> </div>
   <%= @task.human_attribute_enum(:status) %>
 </p>
