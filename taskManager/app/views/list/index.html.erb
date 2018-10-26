@@ -8,14 +8,14 @@
 
 <table border="1">
   <tr>
-    <th><%= I18n.t "attributes.task.task_name" %></th>
-    <th><%= I18n.t "attributes.task.description" %></th>
-    <th><%= I18n.t "attributes.task.label.other" %></th>
-    <th><%= I18n.t "attributes.task.deadline" %></th>
-    <th><%= I18n.t "attributes.task.priority" %></th>
-    <th><%= I18n.t "attributes.task.status" %></th>
-    <th><%= I18n.t "actions.edit" %></th>
-    <th><%= I18n.t "actions.delete" %></th>
+    <th class="th_task_name"><%= I18n.t "attributes.task.task_name" %></th>
+    <th class="th_task"><%= I18n.t "attributes.task.description" %></th>
+    <th class="th_label"><%= I18n.t "attributes.task.label.other" %></th>
+    <th class="th_deadline"><%= sortable(column: "deadline", title: I18n.t("attributes.task.deadline")) %></th>
+    <th class="th_priority"><%= I18n.t "attributes.task.priority" %></th>
+    <th class="th_status"><%= I18n.t "attributes.task.status" %></th>
+    <th class="th_edit"><%= I18n.t "actions.edit" %></th>
+    <th class="th_delete"><%= I18n.t "actions.delete" %></th>
   </tr>
   <% @tasks.each do |t| %>
     <tr>
