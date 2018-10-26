@@ -24,13 +24,13 @@ RSpec.describe Label, type: :model do
     end
     context 'ラベル名(全角255文字以内)' do
       let(:label) { FactoryBot.build(:label, label_name: 'あ' * 255) }
-      it "ラベル名の文字数 = 255なら無効な状態であること" do
+      it "ラベル名の文字数 = 255なら有効な状態であること" do
         is_expected.to be_truthy
       end
     end
     context 'ラベル名(半角255文字以内)' do
       let(:label) { FactoryBot.build(:label, label_name: 'a' * 255) }
-      it "ラベル名の文字数 = 255なら無効な状態であること" do
+      it "ラベル名の文字数 = 255なら有効な状態であること" do
         is_expected.to be_truthy
       end
     end

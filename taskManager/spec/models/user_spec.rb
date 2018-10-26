@@ -21,12 +21,20 @@ RSpec.describe User, type: :model do
         is_expected.to be_falsey
       end
     end
-    context "メールアドレス文字数チェック(255以内)" do
-      let(:mail) { "a" * 243 + "@example.com" }
+    context "メールアドレス文字数チェック(255以内) ローカル部64文字" do
+      let(:mail) { "a" * 64 + "@" + "b" * 186 +  ".com" }
       let(:user) { FactoryBot.build(:user, mail: mail) }
       it "メールアドレスの文字数 = 255なら有効な状態であること" do
         expect(mail.size).to eq 255
         is_expected.to be_truthy
+      end
+    end
+    context "メールアドレスローカル部が64文字を超える" do
+      let(:mail) { "a" * 65 + "@" + "b" * 185 +  ".com" }
+      let(:user) { FactoryBot.build(:user, mail: mail) }
+      it "メールアドレスのローカル部が64文字なら無効な状態であること" do
+        expect(mail.size).to eq 255
+        is_expected.to be_falsey
       end
     end
     context "メールアドレス文字数チェック(>255)" do
@@ -51,7 +59,7 @@ RSpec.describe User, type: :model do
     end
     context "ユーザ名(>255文字)" do
       let(:user) { FactoryBot.build(:user, user_name: "a" * 256) }
-      it "ユーザー名の文字数 > 255なら有効な状態であること" do
+      it "ユーザー名の文字数 > 255なら無効な状態であること" do
         is_expected.to be_falsey
       end
     end
@@ -88,8 +96,7 @@ RSpec.describe User, type: :model do
     end
     context "重複したメールアドレスなら無効な状態であること(大文字/小文字)" do
       let!(:user_tmp) { FactoryBot.create(:user, mail: "test10@example.com") }
-      let!(:user) do  FactoryBot.build(:user, mail: "TEST10
-@EXAMPLE.COM")
+      let!(:user) do  FactoryBot.build(:user, mail: "TEST10@EXAMPLE.COM")
       end
       it "重複したメールアドレスなら無効な状態であること(大文字/小文字)" do
         is_expected.to be_falsey
