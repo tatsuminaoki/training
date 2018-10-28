@@ -27,7 +27,4 @@ class Task < ApplicationRecord
   validates :status,
             presence: true,
             inclusion: { in: Task.statuses.keys }
-
-  # TODO: STEP10の課題で作ったもの
-  default_scope -> { order(created_at: :desc) }
 end
