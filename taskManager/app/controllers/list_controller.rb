@@ -1,8 +1,14 @@
 class ListController < ApplicationController
   before_action :all_labels, only: [:edit, :update, :new, :create]
+  helper_method :sort_column, :sort_direction
 
   def index
     @tasks = Task.includes(task_label: :label)
+    if sort_direction.present? && sort_column.present?
+      @tasks = Task.order("#{sort_column}": sort_direction)
+    else
+      @tasks = Task.order(created_at: :desc)
+    end
   end
 
   def new
@@ -81,5 +87,13 @@ class ListController < ApplicationController
       name: I18n.t("words.task"),
       action: I18n.t("actions.#{action}"),
       result: I18n.t(result_str))
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : ''
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : ''
   end
 end
