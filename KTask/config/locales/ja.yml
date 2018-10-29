@@ -22,6 +22,9 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         role: '権限'
+      user/role:
+        normal: '一般ユーザ'
+        admin: '管理者'
     enum:
       task:
         status:

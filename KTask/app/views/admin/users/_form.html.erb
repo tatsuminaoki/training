@@ -20,7 +20,7 @@
   <% if current_user&.admin? %>
     <div class="form-group">
       <%= form.label :role %>
-      <%= form.select :role, User.roles.map{|k, _|  [User.human_attribute_enum_value(:user, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
+      <%= form.select :role, User.roles.map{|k, _|  [User.human_attribute_enum_value(:role, k), k]}.to_h, {}, class:'form-control', style:'width:40%;' %>
     </div>
   <% end %>
 

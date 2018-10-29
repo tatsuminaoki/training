@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     sequence(:id) { |n| "#{n}" }
@@ -6,4 +8,3 @@ FactoryBot.define do
     sequence(:password) { |n| "password#{n}" }
   end
 end
-
