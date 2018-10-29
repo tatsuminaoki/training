@@ -31,6 +31,7 @@ module Admin
     end
 
     def update
+      @user.current_user = current_user
       @user.update!(user_params)
       redirect_to admin_users_path, flash: { success: t('flash.user.update_success') }
     rescue StandardError => e
@@ -44,7 +45,7 @@ module Admin
       redirect_to admin_users_path, flash: { success: t('flash.user.delete_success') }
     rescue StandardError => e
       Rails.logger.error(e.message)
-      redirect_to admin_users_path, flash: { danger: t('flash.user.delete_failure') }
+      redirect_to admin_users_path, flash: { danger: t('errors.messages.least_one_admin_destroy') }
     end
 
     private
