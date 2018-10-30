@@ -6,8 +6,15 @@
     <div class="panel-body">
       <% flash.each do |key, value| %>
         <% key = "info" if key == "notice" %>
-        <% key = "danger" if key == "warn" %>
+        <% key = "warning" if key == "warn" %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% end %>
+      <% if @task.errors.any? %>
+        <div class="alert alert-danger">
+          <% @task.errors.full_messages.each do |msg| %>
+            <ul><%= msg %></ul>
+          <% end %>
+        </div>
       <% end %>
       <div class="panel-body">
         <div class="form-horizontal">

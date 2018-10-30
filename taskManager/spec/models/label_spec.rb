@@ -22,5 +22,29 @@ RSpec.describe Label, type: :model do
         is_expected.to be_falsey
       end
     end
+    context 'ラベル名(全角255文字以内)' do
+      let(:label) { FactoryBot.build(:label, label_name: 'あ' * 255) }
+      it "ラベル名の文字数 = 255なら有効な状態であること" do
+        is_expected.to be_truthy
+      end
+    end
+    context 'ラベル名(半角255文字以内)' do
+      let(:label) { FactoryBot.build(:label, label_name: 'a' * 255) }
+      it "ラベル名の文字数 = 255なら有効な状態であること" do
+        is_expected.to be_truthy
+      end
+    end
+    context 'ラベル名(>全角255文字)' do
+      let(:label) { FactoryBot.build(:label, label_name: 'あ' * 256) }
+      it "ラベル名の文字数 > 255の場合エラー(半角文字)" do
+        is_expected.to be_falsey
+      end
+    end
+    context 'ラベル名(>半角255文字)' do
+      let(:label) { FactoryBot.build(:label, label_name: 'a' * 256) }
+      it "ラベル名の文字数 > 255の場合エラー(半角文字)" do
+        is_expected.to be_falsey
+      end
+    end
   end
 end

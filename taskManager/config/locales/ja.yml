@@ -68,6 +68,8 @@ ja:
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
       record_invalid: 該当のデータは存在しません
+      invalid_email_address: は有効なメールアドレスではありません
+      email_address_not_routable: のドメインを取得できません
   activerecord:
     models: *models
     attributes: *attributes
@@ -90,6 +92,7 @@ ja:
     edit: 編集
     new: 新規登録
     back: 戻る
+    search: 検索
   enum:
     task:
       status:
