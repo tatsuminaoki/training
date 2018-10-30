@@ -14,9 +14,9 @@ RSpec.describe ListController, type: :controller do
       expect(response).to have_http_status "200"
     end
     # TODO: まだ実装してない
-    it "認証済みのユーザでアクセスできる"
-    it "未認証のユーザでアクセスするとログイン画面にリダイレクトされること"
-    it "全体的に値の範囲テストを指定ない"
+    pending "認証済みのユーザでアクセスできる"
+    pending "未認証のユーザでアクセスするとログイン画面にリダイレクトされること"
+    pending "全体的に値の範囲テストを指定ない"
     it "タスク名の検索ができる" do
       get :index, params: { task_name: "task" }
       expect(response).to have_http_status "200"
