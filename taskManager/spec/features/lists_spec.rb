@@ -4,7 +4,7 @@ require 'selenium-webdriver'
 RSpec.feature "Lists", type: :feature do
   # TODO: ユーザ認証が実装されていないため、user_id=1固定(修正必要)
   let(:user) { FactoryBot.create(:user, id: 1) }
-  let!(:task) { FactoryBot.create_list(:task, 10) }
+  let!(:task) { FactoryBot.create_list(:task, 9) }
   let!(:expect_result) {
     task.sort do |a, b|
       b[:created_at] <=> a[:created_at]
@@ -122,6 +122,27 @@ RSpec.feature "Lists", type: :feature do
       fill_in "task_name", with: "タスク"
       click_button "検索"
       expect(page.text.inspect).to match %r(#{expect_str})
+    end
+  end
+  feature "ページングのテスト" do
+    scenario "10件以下" do
+      visit list_index_path
+      expect(page).not_to have_selector(".pagination")
+    end
+    scenario "10件の場合、ページングが無い" do
+      FactoryBot.create(:task)
+      visit list_index_path
+      expect(Task.all.size).to eq(10)
+      expect(page).not_to have_selector(".pagination")
+    end
+    scenario "11件の場合、ページングでページ遷移ができる" do
+      9.times{ FactoryBot.create(:task) }
+      expect(Task.all.size).to eq(18)
+      visit list_index_path
+      find("//*[@class='pagination']//a[text()='2']").click
+      expect(page.status_code).to eq(200)
+      find("//*[@class='pagination']//a[text()='1']").click
+      expect(page.status_code).to eq(200)
     end
   end
 end

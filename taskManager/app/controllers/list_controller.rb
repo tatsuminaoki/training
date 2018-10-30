@@ -3,7 +3,7 @@ class ListController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.includes(task_label: :label).search(params)
+    @tasks = Task.includes(task_label: :label).search(params).page(params[:page])
     if sort_direction.present? && sort_column.present?
       @tasks = @tasks.order("#{sort_column}": sort_direction)
     else
