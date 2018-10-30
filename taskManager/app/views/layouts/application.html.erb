@@ -19,8 +19,8 @@
         <div class="collapse navbar-collapse" id="navbarEexample">
           <end class="nav navbar-nav">
             <li class="<%= "active" if controller.action_name == "index" %>"><%= link_to I18n.t("actions.list"), list_index_path %></li>
-            <li class="<%= "active" if controller.action_name == "new" %>"><%= link_to I18n.t("actions.new"), new_list_path %></li>
-            <% if controller.action_name == "edit" %>
+            <li class="<%= "active" if controller.action_name == "new" or controller.action_name == "create" %>"><%= link_to I18n.t("actions.new"), new_list_path %></li>
+            <% if controller.action_name == "edit" or controller.action_name == "update" %>
               <li class="active"><a><%= I18n.t("actions.edit") %></a></li>
             <% end %>
           </ul>
