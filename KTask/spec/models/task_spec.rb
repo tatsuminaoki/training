@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let(:login_user) {create(:user)}
+  let(:login_user) { create(:user) }
 
   before do
     @task = create(:task, user_id: login_user.id)
@@ -42,8 +42,8 @@ RSpec.describe Task, type: :model do
     end
 
     it 'タスクの名で検索' do
-      expect(Task.search_and_order({ search_title: 'task1' }, login_user )).to include(@task1)
-      expect(Task.search_and_order({ search_title: 'task1' }, login_user )).not_to include(@task2)
+      expect(Task.search_and_order({ search_title: 'task1' }, login_user)).to include(@task1)
+      expect(Task.search_and_order({ search_title: 'task1' }, login_user)).not_to include(@task2)
     end
 
     it 'タスクの状態で検索' do
