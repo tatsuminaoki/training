@@ -17,10 +17,11 @@
 
     <% if logged_in? %>
       <div style='text-align:right'>
+        <%= link_to 'Home', index_path, class:'btn btn-primary' %>
         <%= link_to t('.user_info'), admin_users_path, class:'btn btn-outline-danger' if current_user&.admin?%>
         <%= link_to t('.logout'), session_path(current_user.id), method: :delete, class:'btn btn-outline-info' %>
-      <% end %>
       </div>
+    <% end %>
       <div class="container">
         <%= yield %>
       </div>
