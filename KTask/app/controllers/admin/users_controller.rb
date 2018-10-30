@@ -6,7 +6,12 @@ module Admin
     before_action :auth_check, only: %i[show edit update destroy]
 
     def index
-      @users = User.all
+      case current_user.role
+      when 'normal' then
+        redirect_to root_path, flash: { danger: t('flash.user.no_permission') }
+      else
+        @users = User.all
+      end
     end
 
     def new
