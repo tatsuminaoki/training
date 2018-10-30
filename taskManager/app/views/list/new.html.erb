@@ -1,38 +1,63 @@
 <%
   action_content = action_contents
 %>
-<h1><%= I18n.t "list.new.title", :action_name => t(action_content[:action_name]) %></h1>
+<div class="container">
+  <div class="panel">
+    <div class="panel-body">
+      <% flash.each do |key, value| %>
+        <% key = "info" if key == "notice" %>
+        <% key = "danger" if key == "warn" %>
+        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% end %>
+      <div class="panel-body">
+        <div class="form-horizontal">
+          <%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
+            <div class="form-group">
+              <%= f.label :task_name %>
+              <%= f.text_field :task_name, :class=>"form-control input-sm" %>
+            </div>
 
-<% flash.each do |key, value| %>
-  <%= content_tag(:div, value, class: "#{key}") %>
-<% end %>
+            <div class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, :class=>"form-control input-sm" %>
+            </div>
 
-<%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
-  <%= f.label :task_name %>
-  <%= f.text_field :task_name %>
+            <div class="form-group">
+              <%= f.label :deadline %>
+              <%= f.date_field :deadline %>
+            </div>
 
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+            <div class="form-group">
+              <%= f.label :priority %>
+              <%= f.select :priority, Task.priorities.map { |k| [I18n.t("enum.task.priority.#{k[0]}"), k[0]] } %>
+            </div>
 
-  <%= f.label :deadline %>
-  <%= f.date_field :deadline %>
+            <div class="form-group">
+              <%= f.label :status %>
+              <%= f.select :status, Task.statuses.map { |k| [I18n.t("enum.task.status.#{k[0]}"), k[0]] } %>
+            </div>
 
-  <%= f.label :priority %>
-  <%= f.select :priority, Task.priorities.map { |k| [I18n.t("enum.task.priority.#{k[0]}"), k[0]] } %>
+            <div class="form-group">
+              <div class="checkbox">
+                <%= fields_for :task_label do |tl| %>
+                  <% @label.each do |l| %>
+                    <label>
+                      <%= tl.check_box :label_id, {name: 'task_label', multiple: true }, l.id, nil %>
+                      <%= l.label_name %>
+                    </label>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
 
-  <%= f.label :status %>
-  <%= f.select :status, Task.statuses.map { |k| [I18n.t("enum.task.status.#{k[0]}"), k[0]] } %>
+            <div class="form-group">
+              <%= f.submit I18n.t(action_content[:action_name]), :class=> "btn btn-default" %>
+            </div>
+          <% end %>
 
-  <%= fields_for :task_label do |tl| %>
-    <% @label.each do |l| %>
-      <label>
-        <%= tl.check_box :label_id, {name: 'task_label', multiple: true }, l.id, nil %>
-        <%= l.label_name %>
-      </label>
-    <% end %>
-  <% end %>
-
-  <%= f.submit I18n.t(action_content[:action_name]) %>
-<% end %>
-
-<%= link_to I18n.t("actions.back"), :back %>
+          <%= link_to I18n.t("actions.back"), :back %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
