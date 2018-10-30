@@ -7,8 +7,8 @@ RSpec.feature "Lists", type: :feature do
   let!(:task) { FactoryBot.create_list(:task, 10) }
   let!(:expect_result) {
     task.sort do |a, b|
-      a[:created_at] <=> b[:created_at]
-    end.reverse
+      b[:created_at] <=> a[:created_at]
+    end
   }
 
   feature "タスクの追加" do
@@ -109,8 +109,8 @@ RSpec.feature "Lists", type: :feature do
     end
   end
   feature "タスク名検索" do
-    let!(:task2) { FactoryBot.create(:task, user_id: user.id, status: :completed, task_name: "タスク1") }
-    let!(:task3) { FactoryBot.create(:task, user_id: user.id, status: :waiting, task_name: "タスク2") }
+    let!(:task2) { FactoryBot.create(:task, user_id: user.id, status: :completed, task_name: "タスク2") }
+    let!(:task3) { FactoryBot.create(:task, user_id: user.id, status: :waiting, task_name: "タスク3") }
     let!(:expect_result) {
       task.select{ |i| i[:task_name] =~ /タスク/ }.sort do |a, b|
         a[:created_at] <=> b[:created_at]
