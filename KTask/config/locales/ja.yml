@@ -114,6 +114,9 @@ ja:
         detail: '詳細'
         edit: '修正'
         delete: '削除'
+  users:
+    new:
+      title: 'ユーザ登録'
 
   sessions:
     new:
