@@ -103,33 +103,50 @@ RSpec.describe Task, type: :model do
       end
     end
   end
-  describe 'タスク検索テスト' do
-    # TODO: 検索機能が現状ないので後で実装する
-    context "検索関連テスト(１項目)" do
-      it "全件検索ができる"
-      it "タスク名検索ができる"
-      it "説明検索ができる"
-      it "期限で検索ができる"
-      it "優先度で検索ができる"
-      it "ステータスで検索ができる"
-      it "1つのラベルで検索ができる"
-      it "複数件のラベルで検索ができる"
-    end
-    context "登録日時(降順の検索)" do
-      let(:user) { FactoryBot.create(:user) }
 
-      # order by created_at descの場合(task2 -> task3 -> task1の順番になるはず)
-      let(:task1) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-20 14:00:00") }
-      let(:task2) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-21 15:00:00") }
-      let(:task3) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-20 14:02:00") }
-      it "登録日時の降順で検索できること(STEP10)の課題" do
-        expect(Task.all).to eq [task2, task3, task1]
+  describe 'タスク検索テスト' do
+    let!(:user) {FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create_list(:task, 10) }
+    pending "検索関連テスト(１項目)"
+    pending "全件検索ができる"
+    context "タスク名で検索" do
+      let(:params) do { task_name: "あああ" } end
+      let!(:task1) { FactoryBot.create(:task, task_name: "あああ") }
+      it "タスク名検索ができる" do
+        expect(Task.search(params)).to eq [task1]
       end
     end
-    context "検索関連テスト(複数項目)" do
-      it "タスク名とステータスで検索ができる"
-      it "説明と期限で検索ができる"
-      it "優先度とラベルで検索ができる"
+    pending "説明検索ができる"
+    pending "期限で検索ができる"
+    pending "優先度で検索ができる"
+    context "ステータス検索" do
+      let(:params) do { status: :working } end
+      it "ステータスで検索ができる" do
+        expect_result = task.select{ |i| i[:status] == "working" }.sort do |a, b|
+          a[:created_at] <=> b[:created_at]
+        end
+        expect(expect_result).to eq Task.search(params)
+      end
     end
+    pending "1つのラベルで検索ができる"
+    pending "複数件のラベルで検索ができる"
+    context "タスク名とステータスで検索" do
+      let!(:task10) { FactoryBot.create(:task, task_name: "テスト10", user_id: user.id, status: :working, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00") }
+      let!(:task11) { FactoryBot.create(:task, task_name: "テスト11", user_id: user.id, status: :working, deadline: nil, created_at: "2018-05-20 14:02:00") }
+      let(:params) do { status: :working, task_name: "テスト" } end
+      it "タスク名とステータスで検索ができる" do
+        expect(Task.search(params)).to eq [task10, task11]
+      end
+    end
+    pending "説明と期限で検索ができる"
+    pending "優先度とラベルで検索ができる"
+    pending "検索関連テスト(１項目)"
+    pending "説明検索ができる"
+    pending "優先度で検索ができる"
+    pending "1つのラベルで検索ができる"
+    pending "複数件のラベルで検索ができる"
+    pending "検索関連テスト(複数項目)"
+    pending "説明と期限で検索ができる"
+    pending "優先度とラベルで検索ができる"
   end
 end

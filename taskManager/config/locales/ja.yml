@@ -92,6 +92,7 @@ ja:
     edit: 編集
     new: 新規登録
     back: 戻る
+    search: 検索
   enum:
     task:
       status:

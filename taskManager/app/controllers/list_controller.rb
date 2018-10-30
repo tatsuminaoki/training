@@ -3,11 +3,11 @@ class ListController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.includes(task_label: :label)
+    @tasks = Task.includes(task_label: :label).search(params)
     if sort_direction.present? && sort_column.present?
-      @tasks = Task.order("#{sort_column}": sort_direction)
+      @tasks = @tasks.order("#{sort_column}": sort_direction)
     else
-      @tasks = Task.order(created_at: :desc)
+      @tasks = @tasks.order(created_at: :desc)
     end
   end
 

@@ -27,4 +27,11 @@ class Task < ApplicationRecord
   validates :status,
             presence: true,
             inclusion: { in: Task.statuses.keys }
+
+  def self.search(params)
+    results = Task.all
+    results = results.where(status: params[:status]) if params[:status].present?
+    results = results.where("task_name like ?", "%#{sanitize_sql_like(params[:task_name])}%") if params[:task_name].present?
+    results
+  end
 end
