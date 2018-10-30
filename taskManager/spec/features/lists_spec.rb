@@ -4,8 +4,12 @@ require 'selenium-webdriver'
 RSpec.feature "Lists", type: :feature do
   # TODO: ユーザ認証が実装されていないため、user_id=1固定(修正必要)
   let(:user) { FactoryBot.create(:user, id: 1) }
-  let!(:task1) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-21 15:00:00") }
-  let!(:task2) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-21 14:00:00") }
+  let!(:task) { FactoryBot.create_list(:task, 10) }
+  let!(:expect_result) {
+    task.sort do |a, b|
+      a[:created_at] <=> b[:created_at]
+    end.reverse
+  }
 
   feature "タスクの追加" do
     let(:params) do
@@ -28,11 +32,10 @@ RSpec.feature "Lists", type: :feature do
     end
   end
   feature "タスク変更" do
-    let(:params) do
-      {
-        task_name: "updatetask1",
-        description: "updatedescription1"
-      }
+    let(:params) do {
+      task_name: "updatetask1",
+      description: "updatedescription1"
+    }
     end
     scenario "タスクを変更できる" do
       visit list_index_path
@@ -43,9 +46,10 @@ RSpec.feature "Lists", type: :feature do
       expect(page).to have_content "タスクの編集が成功しました。"
       expect(page).to have_content params[:task_name]
       expect(page).to have_content params[:description]
-      task1.reload
-      expect(task1.task_name).to eq params[:task_name]
-      expect(task1.description).to eq params[:description]
+
+      expect_result[0].reload
+      expect(expect_result[0].task_name).to eq params[:task_name]
+      expect(expect_result[0].description).to eq params[:description]
     end
   end
   feature "タスクを削除" do
@@ -54,72 +58,70 @@ RSpec.feature "Lists", type: :feature do
       # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
       all(:link_or_button, "削除")[0].click
       expect(page).to have_content "タスクの削除が成功しました。"
-      expect(page).not_to have_content task1.task_name
-      expect(page).not_to have_content task1.description
-      expect { task1.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(page).not_to have_content expect_result[0].task_name
+      expect(page).not_to have_content expect_result[0].description
+      expect { expect_result[0].reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
   feature "タスクの並びテスト" do
-    let!(:task3) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-19 15:00:00") }
-    let!(:task4) { FactoryBot.create(:task, user_id: user.id, created_at: "2018-05-30 14:00:00") }
+    let!(:expect_str) { expect_result.map {|h| h[:task_name]}.join('.*') }
     scenario "タスクの並び順の確認(STEP10 登録日時の降順)" do
       visit list_index_path
-      # order: 登録日(降順) task4 -> task1 -> task2 -> task3
-      expect(page.text.inspect).to match %r(#{task4.task_name}.*#{task1.task_name}.*#{task2.task_name}.*#{task3.task_name})
+      expect(page.text.inspect).to match %r(#{expect_str})
     end
   end
   feature "タスクの並び順(期限の昇順)" do
-    let!(:task3) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00") }
-    let!(:task4) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-18 00:00:00", created_at: "2018-05-20 15:00:00") }
-    let!(:task5) { FactoryBot.create(:task, user_id: user.id, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00") }
+    let!(:sort_result) {
+      expect_result.sort do |a, b|
+        a[:deadline] <=> b[:deadline]
+      end
+    }
+    let(:expect_asc_str) { sort_result.map {|h| h[:task_name]}.join('.*') }
+    let(:expect_desc_str) { sort_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "タスクの並び順の確認(STEP12 期限の昇順)" do
       visit list_index_path
       # order: 登録日(降順) task4 -> task3 -> task5
       find("//*[@class='th_deadline']//a[text()='期限']").click
-      expect(page.text.inspect).to match %r(#{task4.task_name}.*#{task3.task_name}.*#{task5.task_name})
+      expect(page.text.inspect).to match %r(#{expect_asc_str})
     end
     scenario "タスクの並び順の確認(STEP12 期限の降順)" do
       visit list_index_path
       # order: 登録日(降順) task5 -> task3 -> task4
       find("//*[@class='th_deadline']//a[text()='期限']").click # 昇順
       find("//*[@class='th_deadline']//a[text()='期限']").click # 降順
-      expect(page.text.inspect).to match %r(#{task5.task_name}.*#{task3.task_name}.*#{task4.task_name})
+      expect(page.text.inspect).to match %r(#{expect_desc_str})
     end
   end
   feature "ステータスで検索" do
-    let!(:task3) { FactoryBot.create(:task, user_id: user.id, status: :completed, deadline: "2018-05-19 15:00:00", created_at: "2018-05-19 15:00:00") }
-    let!(:task4) { FactoryBot.create(:task, user_id: user.id, status: :waiting, deadline: nil, created_at: "2018-05-20 15:00:00") }
-    let!(:task5) { FactoryBot.create(:task, user_id: user.id, status: :completed, deadline: "2018-05-30 14:00:00", created_at: "2018-05-22 15:00:00") }
+    let(:expect_result) {
+      task.select{ |i| i[:status] == "completed" }.sort do |a, b|
+        a[:created_at] <=> b[:created_at]
+      end
+    }
+    let(:expect_str) { expect_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "ステータスで検索ができる" do
       visit list_index_path
       select '完了', from: 'status'
       click_button "検索"
 
-      # order: 登録日(降順) task3 -> task5
-      expect(page.text.inspect).to match %r(#{task5.task_name}.*#{task3.task_name})
-
-      # task1, task2, task4がないことを確認
-      expect(page.text.inspect).not_to match %r(#{task1.task_name})
-      expect(page.text.inspect).not_to match %r(#{task2.task_name})
-      expect(page.text.inspect).not_to match %r(#{task4.task_name})
+      # order: 登録日(降順)
+      expect(page.text.inspect).to match %r(#{expect_str})
     end
   end
   feature "タスク名検索" do
-    let!(:task3) { FactoryBot.create(:task, user_id: user.id, status: :completed, task_name: "タスク1") }
-    let!(:task4) { FactoryBot.create(:task, user_id: user.id, status: :waiting, task_name: "タスク2") }
-    let!(:task5) { FactoryBot.create(:task, user_id: user.id, status: :completed) }
+    let!(:task2) { FactoryBot.create(:task, user_id: user.id, status: :completed, task_name: "タスク1") }
+    let!(:task3) { FactoryBot.create(:task, user_id: user.id, status: :waiting, task_name: "タスク2") }
+    let!(:expect_result) {
+      task.select{ |i| i[:task_name] =~ /タスク/ }.sort do |a, b|
+        a[:created_at] <=> b[:created_at]
+      end
+    }
+    let(:expect_str) { expect_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "タスク名で検索ができる" do
       visit list_index_path
       fill_in "task_name", with: "タスク"
       click_button "検索"
-
-      # order: 登録日(降順) task3 -> task4
-      expect(page.text.inspect).to match %r(#{task3.task_name}.*#{task4.task_name})
-
-      # task1, task2, task5がないことを確認
-      expect(page.text.inspect).not_to match %r(#{task1.task_name})
-      expect(page.text.inspect).not_to match %r(#{task2.task_name})
-      expect(page.text.inspect).not_to match %r(#{task5.task_name})
+      expect(page.text.inspect).to match %r(#{expect_str})
     end
   end
 end

@@ -31,18 +31,7 @@ class Task < ApplicationRecord
   def self.search(params)
     results = Task.all
     results = results.where(status: params[:status]) if params[:status].present?
-    if params[:task_name].present?
-      search_word = replace_search_word(search_word: params[:task_name].dup)
-      results = results.where("task_name like ?", "%#{search_word}%")
-    end
+    results = results.where("task_name like ?", "%#{sanitize_sql_like(params[:task_name])}%") if params[:task_name].present?
     results
-  end
-
-  private
-
-  def self.replace_search_word(search_word: '')
-    search_word.gsub!(/\%/, "\\%")
-    search_word.gsub!(/\_/, "\\_")
-    return search_word
   end
 end

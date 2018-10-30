@@ -105,55 +105,31 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'タスク検索テスト' do
-    let(:user) { user = FactoryBot.create(:user) }
-    let!(:task1) {
-      FactoryBot.create(:task, task_name: 'task1', user_id: user.id, status: :waiting, created_at: '2018-05-20 14:00:00')
-    }
-    let!(:task2) {
-      FactoryBot.create(:task, task_name: 'task2', user_id: user.id, status: :waiting, created_at: '2018-05-21 15:00:00')
-    }
-    let!(:task3) {
-      FactoryBot.create(:task, task_name: 'task3', user_id: user.id, status: :waiting, created_at: '2018-05-20 14:02:00')
-    }
-    let!(:task4) {
-      FactoryBot.create(:task, task_name: 'task4', user_id: user.id, status: :waiting, deadline: "2018-05-20 14:00:00", created_at: "2018-05-04 10:11:10")
-    }
-    let!(:task5) {
-      FactoryBot.create(:task, task_name: 'task5', user_id: user.id, status: :completed ,deadline: nil, created_at: "2018-04-01 10:00:00")
-    }
-    let!(:task6) {
-      FactoryBot.create(:task, task_name: 'task6', user_id: user.id, status: :waiting, deadline: "2018-05-19 14:00:00", created_at: "2018-05-10 10:03:04")
-    }
-    let!(:task7) {
-      FactoryBot.create(:task, task_name: 'task7', user_id: user.id, status: :working, deadline: nil, created_at: "2018-10-21 15:00:00")
-    }
-    let!(:task8) {
-      FactoryBot.create(:task, task_name: 'task8', user_id: user.id, status: :working, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00")
-    }
-    let!(:task9) {
-      FactoryBot.create(:task, task_name: 'task9', user_id: user.id, status: :completed, deadline: nil, created_at: "2018-05-20 14:02:00")
-    }
-    context "検索関連テスト(１項目)"
-    context "全件検索ができる"
+    let!(:user) {FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create_list(:task, 10) }
+    pending "検索関連テスト(１項目)"
+    pending "全件検索ができる"
     context "タスク名で検索" do
-      let(:params) do
-        { task_name: "task1" }
-      end
+      let(:params) do { task_name: "あああ" } end
+      let!(:task1) { FactoryBot.create(:task, task_name: "あああ") }
       it "タスク名検索ができる" do
         expect(Task.search(params)).to eq [task1]
       end
     end
-    context "説明検索ができる"
-    context "期限で検索ができる"
-    context "優先度で検索ができる"
+    pending "説明検索ができる"
+    pending "期限で検索ができる"
+    pending "優先度で検索ができる"
     context "ステータス検索" do
       let(:params) do { status: :working } end
       it "ステータスで検索ができる" do
-        expect(Task.search(params)).to eq [task7, task8]
+        expect_result = task.select{ |i| i[:status] == "working" }.sort do |a, b|
+          a[:created_at] <=> b[:created_at]
+        end
+        expect(expect_result).to eq Task.search(params)
       end
     end
-    context "1つのラベルで検索ができる"
-    context "複数件のラベルで検索ができる"
+    pending "1つのラベルで検索ができる"
+    pending "複数件のラベルで検索ができる"
     context "タスク名とステータスで検索" do
       let!(:task10) { FactoryBot.create(:task, task_name: "テスト10", user_id: user.id, status: :working, deadline: "2018-04-10 10:11:21", created_at: "2018-05-21 15:00:00") }
       let!(:task11) { FactoryBot.create(:task, task_name: "テスト11", user_id: user.id, status: :working, deadline: nil, created_at: "2018-05-20 14:02:00") }
@@ -162,17 +138,15 @@ RSpec.describe Task, type: :model do
         expect(Task.search(params)).to eq [task10, task11]
       end
     end
-    context "説明と期限で検索ができる"
-    context "優先度とラベルで検索ができる"
-    context "検索関連テスト(１項目)"
-    context "説明検索ができる"
-    context "優先度で検索ができる"
-    context "ステータスで検索ができる"
-    context "1つのラベルで検索ができる"
-    context "複数件のラベルで検索ができる"
-    context "検索関連テスト(複数項目)"
-    context "タスク名とステータスで検索ができる"
-    context "説明と期限で検索ができる"
-    context "優先度とラベルで検索ができる"
+    pending "説明と期限で検索ができる"
+    pending "優先度とラベルで検索ができる"
+    pending "検索関連テスト(１項目)"
+    pending "説明検索ができる"
+    pending "優先度で検索ができる"
+    pending "1つのラベルで検索ができる"
+    pending "複数件のラベルで検索ができる"
+    pending "検索関連テスト(複数項目)"
+    pending "説明と期限で検索ができる"
+    pending "優先度とラベルで検索ができる"
   end
 end
