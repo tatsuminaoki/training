@@ -4,9 +4,9 @@ RSpec.describe ListController, type: :controller do
   # TODO user_idを1固定にしているので、セッション管理するようになったら変更すること
   let(:user1) { FactoryBot.create(:user, id: 1) }
   let(:user2) { FactoryBot.create(:user) }
-  let!(:task1) { FactoryBot.create(:task, user_id: user1.id) }
-  let!(:task2) { FactoryBot.create(:task, user_id: user1.id) }
-  let!(:task3) { FactoryBot.create(:task, user_id: user2.id) }
+  let!(:task1) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
+  let!(:task2) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
+  let!(:task3) { FactoryBot.create(:task, user_id: user2.id, status: :completed) }
 
   describe "タスク一覧画面" do
     it "正常にレスポンス(200)を返すこと" do
@@ -14,9 +14,17 @@ RSpec.describe ListController, type: :controller do
       expect(response).to have_http_status "200"
     end
     # TODO: まだ実装してない
-    it "認証済みのユーザでアクセスできる"
-    it "未認証のユーザでアクセスするとログイン画面にリダイレクトされること"
-    it "全体的に値の範囲テストを指定ない"
+    pending "認証済みのユーザでアクセスできる"
+    pending "未認証のユーザでアクセスするとログイン画面にリダイレクトされること"
+    pending "全体的に値の範囲テストを指定ない"
+    it "タスク名の検索ができる" do
+      get :index, params: { task_name: "task" }
+      expect(response).to have_http_status "200"
+    end
+    it "ステータスの検索ができる" do
+      get :index, params: { status: :waiting }
+      expect(response).to have_http_status "200"
+    end
   end
 
   describe "タスク登録画面" do
