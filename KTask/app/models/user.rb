@@ -18,15 +18,20 @@ class User < ApplicationRecord
   private
 
   def check_last_admin_delete
-    return_error if admin? && User.admin.count == 1
+    return_delete_error if admin? && User.admin.count == 1
   end
 
   def check_last_admin_update
-    return_error if self == current_user && User.admin.count == 1
+    return_update_error if self == current_user && User.admin.count == 1
   end
 
-  def return_error
+  def return_delete_error
     errors.add :base, I18n.t('errors.messages.least_one_admin_destroy')
+    throw :abort
+  end
+
+  def return_update_error
+    errors.add :base, I18n.t('errors.messages.least_one_admin_update')
     throw :abort
   end
 end
