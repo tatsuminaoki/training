@@ -63,7 +63,7 @@ module Admin
       @user = User.find_by(id: params[:id])
     end
 
-    def auth_check
+    def check_auth
       redirect_to root_path, flash: { danger: t('flash.user.no_permission') } if current_user.role == 'normal'
     end
   end
