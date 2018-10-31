@@ -8,7 +8,31 @@
 }
 
 .table pre {
-  white-space:pre-line;
+  white-space: pre-line;
   background-color: transparent;
-  border:0;
+  border: 0;
+}
+
+.label-waiting {
+  background-color: #7B68EE;
+}
+
+.label-working {
+  background-color: #008833;
+}
+
+.label-completed {
+  background-color: #CC3300;
+}
+
+.label-low {
+  background-color: #136FFF;
+}
+
+.label-common {
+  background-color: #008080;
+}
+
+.label-high {
+  background-color: #CC3300;
 }

@@ -1,19 +1,17 @@
 <div class="container">
   <div class="panel">
     <div class="panel-body">
-      <% flash.each do |key, value| %>
-        <% key = "info" if key == "notice" %>
-        <% key = "danger" if key == "warn" %>
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% flash.each do |alert_type, value| %>
+        <%= content_tag(:div, value, class: "alert alert-#{alert_type}") %>
       <% end %>
       <%= form_tag(list_index_path, :method => 'get' ) do %>
         <div class="form-group form-inline">
           <%= label_tag t "attributes.task.task_name" %>
-          <%= text_field_tag :task_name, value = params[:task_name], :class=>"form-control input-sm" %>
+          <%= text_field_tag :task_name, value = params[:task_name], :class => "form-control input-sm" %>
 
           <%= label_tag t "attributes.task.status" %>
-          <%= select_tag :status, options_for_select(Task.statuses.map { |k| [t("enum.task.status.#{k[0]}"), k[0]] }, :selected => params[:status] ), :include_blank => true %>
-          <%= submit_tag t("actions.search"), :status => nil, :class=> "btn btn-default" %>
+          <%= select_tag :status, options_for_select(Task.statuses.keys.map { |k| [t("enum.task.status.#{k}"), k] }, :selected => params[:status] ), :include_blank => true %>
+          <%= submit_tag t("actions.search"), :status => nil, :class => "btn btn-default" %>
         </div>
       <% end %>
       <table class="table table-bordered table-hover">
@@ -42,7 +40,7 @@
             <td><%= task_priority_message(t.priority) %></td>
             <td><%= task_status_message(t.status) %></td>
             <td><%= link_to I18n.t("actions.edit"), edit_list_path(id: t.id) %></td>
-            <td><%= link_to I18n.t("actions.delete"), list_path(id: t.id), :method=>'delete', data: {confirm: I18n.t("messages.task_delete_confirm", :name => t.task_name) }%></td>
+            <td><%= link_to I18n.t("actions.delete"), list_path(id: t.id), :method => 'delete', data: {confirm: I18n.t("messages.task_delete_confirm", :name => t.task_name) }%></td>
           </tr>
         <% end %>
       </table>

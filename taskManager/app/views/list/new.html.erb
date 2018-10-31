@@ -4,10 +4,8 @@
 <div class="container">
   <div class="panel">
     <div class="panel-body">
-      <% flash.each do |key, value| %>
-        <% key = "info" if key == "notice" %>
-        <% key = "warning" if key == "warn" %>
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% flash.each do |alert_type, value| %>
+        <%= content_tag(:div, value, class: "alert alert-#{alert_type}") %>
       <% end %>
       <% if @task.errors.any? %>
         <div class="alert alert-danger">
@@ -18,15 +16,15 @@
       <% end %>
       <div class="panel-body">
         <div class="form-horizontal">
-          <%= form_for(@task, :url => {:action => action_content[:action] }) do |f| %>
+          <%= form_for(@task, :url => { :action => action_content[:action] }) do |f| %>
             <div class="form-group">
               <%= f.label :task_name %>
-              <%= f.text_field :task_name, :class=>"form-control input-sm" %>
+              <%= f.text_field :task_name, :class => "form-control input-sm" %>
             </div>
 
             <div class="form-group">
               <%= f.label :description %>
-              <%= f.text_area :description, :class=>"form-control input-sm" %>
+              <%= f.text_area :description, :class => "form-control input-sm" %>
             </div>
 
             <div class="form-group">
@@ -36,12 +34,12 @@
 
             <div class="form-group">
               <%= f.label :priority %>
-              <%= f.select :priority, Task.priorities.map { |k| [I18n.t("enum.task.priority.#{k[0]}"), k[0]] } %>
+              <%= f.select :priority, Task.priorities.keys.map { |k| [I18n.t("enum.task.priority.#{k}"), k] } %>
             </div>
 
             <div class="form-group">
               <%= f.label :status %>
-              <%= f.select :status, Task.statuses.map { |k| [I18n.t("enum.task.status.#{k[0]}"), k[0]] } %>
+              <%= f.select :status, Task.statuses.keys.map { |k| [I18n.t("enum.task.status.#{k}"), k] } %>
             </div>
 
             <div class="form-group">
@@ -58,7 +56,7 @@
             </div>
 
             <div class="form-group">
-              <%= f.submit I18n.t(action_content[:action_name]), :class=> "btn btn-default" %>
+              <%= f.submit I18n.t(action_content[:action_name]), :class => "btn btn-default" %>
             </div>
           <% end %>
 
