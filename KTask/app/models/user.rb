@@ -17,11 +17,11 @@ class User < ApplicationRecord
   private
 
   def check_last_admin_delete
-    return_error(I18n.t('errors.messages.least_one_admin_destroy')) if admin? && User.admin.count == 1
+    return_error(I18n.t('errors.messages.least_one_admin_destroy')) if admin? && User.admin.count.positive?
   end
 
   def check_last_admin_update
-    return_error(I18n.t('errors.messages.least_one_admin_update')) if role == 'normal' && User.admin.count == 1
+    return_error(I18n.t('errors.messages.least_one_admin_update')) if role == 'normal' && User.admin.count.positive?
   end
 
   def return_error(message)
