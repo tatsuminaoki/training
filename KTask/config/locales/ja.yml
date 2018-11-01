@@ -273,7 +273,8 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
-      least_one_admin_destroy: 'adminは少なくとも一つが必要です'
+      least_one_admin_destroy: 'adminは少なくとも一つが必要です 削除できません'
+      least_one_admin_update: 'adminは少なくとも一つが必要です 更新できません'
     template:
       body: 次の項目を確認してください
       header:

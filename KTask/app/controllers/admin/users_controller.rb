@@ -3,15 +3,10 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit update destroy]
-    before_action :auth_check, only: %i[show edit update destroy]
+    before_action :redirect_if_had_no_permission
 
     def index
-      case current_user.role
-      when 'normal' then
-        redirect_to root_path, flash: { danger: t('flash.user.no_permission') }
-      else
-        @users = User.all
-      end
+      @users = User.all
     end
 
     def new
@@ -36,7 +31,6 @@ module Admin
     end
 
     def update
-      @user.current_user = current_user
       @user.update!(user_params)
       redirect_to admin_users_path, flash: { success: t('flash.user.update_success') }
     rescue StandardError => e
@@ -63,8 +57,8 @@ module Admin
       @user = User.find_by(id: params[:id])
     end
 
-    def auth_check
-      redirect_to root_path, flash: { danger: t('flash.user.no_permission') } if current_user.role == 'normal'
+    def redirect_if_had_no_permission
+      redirect_to root_path, flash: { danger: t('flash.user.no_permission') } if current_user.normal?
     end
   end
 end
