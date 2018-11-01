@@ -48,17 +48,13 @@ RSpec.feature 'AdminUsers', type: :feature do
 
     scenario '管理者が1人もいなくなってしまう場合はユーザの削除ができない' do
       expect do
-        click_link I18n.t('admin.users.index.delete')
-        expect(page).to have_content I18n.t('errors.messages.least_one_admin_destroy')
+        expect(page).to have_no_content I18n.t('admin.users.index.delete')
       end.to change { User.count }.by(0)
     end
 
     scenario '管理者が1人もいなくなってしまうようなユーザ種別の編集はできない' do
       click_link I18n.t('admin.users.index.edit')
-      select '一般ユーザ', from: '権限'
-      fill_in 'パスワード', with: 'password'
-      click_button '更新する'
-      expect(page).to have_content I18n.t('errors.messages.least_one_admin_destroy')
+      expect(find('#role')).to be_disabled
     end
 
     feature 'ユーザが作成したタスク絡み' do
@@ -74,16 +70,15 @@ RSpec.feature 'AdminUsers', type: :feature do
       end
 
       scenario 'ユーザを削除する' do
-        all('.delete_btn')[1].click
+        all('.delete_btn')[0].click
         expect(page).to have_content I18n.t('flash.user.delete_success')
       end
 
       scenario 'ユーザを削除した時、そのユーザのタスクを削除する' do
         expect do
-          all('.delete_btn')[1].click
+          all('.delete_btn')[0].click
         end.to change { Task.where(user_id: @user1.id).count }.by(-1)
       end
     end
   end
-
 end
