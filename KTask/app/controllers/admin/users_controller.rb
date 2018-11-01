@@ -3,7 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit update destroy]
-    before_action :redirect_if_had_no_permission, only: %i[index show edit update destroy]
+    before_action :redirect_if_had_no_permission
 
     def index
       @users = User.all
