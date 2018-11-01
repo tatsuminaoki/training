@@ -10,6 +10,21 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">TaskManager</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarEexample">
+          <end class="nav navbar-nav">
+            <%= link_list %>
+            <%= link_new %>
+            <%= link_edit %>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

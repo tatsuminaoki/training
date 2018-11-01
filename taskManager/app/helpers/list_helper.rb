@@ -1,20 +1,20 @@
 module ListHelper
   def task_status_message(status)
-    # TODO: タグ表示する
-    t status, scope: "enum.task.status"
+    status_str = I18n.t status, scope: "enum.task.status"
+    raw %(<span class="label label-#{status}">#{status_str}</span>)
   end
 
   def task_priority_message(priority)
-    # TODO: タグ表示する
-    t priority, scope: "enum.task.priority"
+    priority_str = I18n.t priority, scope: "enum.task.priority"
+    raw %(<span class="label label-#{priority}">#{priority_str}</span>)
   end
 
   def label_message(label_name)
-    %(<p>#{label_name}</p>).html_safe
+    raw %(<span class="label label-warning">#{label_name}</span>)
   end
 
   def description_message(description)
-    %(<pre>#{description}</pre>).html_safe
+    raw %(<pre>#{description}</pre>)
   end
 
   def action_contents

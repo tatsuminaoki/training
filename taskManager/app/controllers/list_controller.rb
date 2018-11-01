@@ -32,10 +32,10 @@ class ListController < ApplicationController
 
     # TODO: ここでlabelの保存する必要があるけど他のパートで実施する
     if result
-      flash[:notice] = make_simple_message(action: "new")
+      flash[:info] = make_simple_message(action: "new")
       redirect_to :action => 'index'
     else
-      flash[:warn] = make_simple_message(action: "new", result: false)
+      flash[:warning] = make_simple_message(action: "new", result: false)
       render action: 'new'
     end
   end
@@ -45,9 +45,9 @@ class ListController < ApplicationController
     result = @task.destroy
 
     if result
-      flash[:notice] = make_simple_message(action: "delete")
+      flash[:info] = make_simple_message(action: "delete")
     else
-      flash[:warn] = make_simple_message(action: "delete", result: false)
+      flash[:warning] = make_simple_message(action: "delete", result: false)
     end
 
     redirect_to :action => 'index'
@@ -58,10 +58,10 @@ class ListController < ApplicationController
     result = @task.update(common_params)
 
     if result
-      flash[:notice] = make_simple_message(action: "edit")
+      flash[:info] = make_simple_message(action: "edit")
       redirect_to :action => 'index'
     else
-      flash[:warn] = make_simple_message(action: "edit", result: false)
+      flash[:warning] = make_simple_message(action: "edit", result: false)
       render action: 'new'
     end
   end
