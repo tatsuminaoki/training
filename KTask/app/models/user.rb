@@ -12,26 +12,20 @@ class User < ApplicationRecord
   has_secure_password
 
   before_destroy :check_last_admin_delete
-  validate :check_last_admin_update, if: :normal?, on: :update
-  attr_accessor :current_user
+  validate :check_last_admin_update, on: :update
 
   private
 
   def check_last_admin_delete
-    return_delete_error if admin? && User.admin.count == 1
+    return_error(I18n.t('errors.messages.least_one_admin_destroy')) if admin? && User.admin.count == 1
   end
 
   def check_last_admin_update
-    return_update_error if self == current_user && User.admin.count == 1
+    return_error(I18n.t('errors.messages.least_one_admin_update')) if role == 'normal' && User.admin.count == 1
   end
 
-  def return_delete_error
-    errors.add :base, I18n.t('errors.messages.least_one_admin_destroy')
-    throw :abort
-  end
-
-  def return_update_error
-    errors.add :base, I18n.t('errors.messages.least_one_admin_update')
+  def return_error(message)
+    errors.add :base, message
     throw :abort
   end
 end
