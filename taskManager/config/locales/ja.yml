@@ -14,7 +14,7 @@ ja:
       <<: *models
       mail: メール
       user_name: ユーザ名
-      encrypted_password: パスワード
+      password: パスワード
     task:
       <<: *models
       task_name: タスク名
@@ -93,6 +93,8 @@ ja:
     new: 新規登録
     back: 戻る
     search: 検索
+    login: ログイン
+    logout: ログアウト
   enum:
     task:
       status:
@@ -106,6 +108,8 @@ ja:
   messages:
     task_delete_confirm: "タスク【%{name}】を削除していいですか？"
     simple_result: "%{name}の%{action}が%{result}しました。"
+    password_error: "メールアドレスとパスワードが一致しません。"
+    logout: "ログアウトしました。"
   views:
     pagination:
       first: "&laquo; 最初"

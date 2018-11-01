@@ -2,14 +2,20 @@ require 'rails_helper'
 require 'selenium-webdriver'
 
 RSpec.feature "Lists", type: :feature do
-  # TODO: ユーザ認証が実装されていないため、user_id=1固定(修正必要)
-  let(:user) { FactoryBot.create(:user, id: 1) }
-  let!(:task) { FactoryBot.create_list(:task, 9) }
+  let(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create_list(:task, 9, user: user) }
   let!(:expect_result) {
     task.sort do |a, b|
       b[:created_at] <=> a[:created_at]
     end
   }
+
+  before do
+    visit login_index_path
+    fill_in "user[mail]", with: user.mail
+    fill_in "user[password]", with: user.password
+    click_button "ログイン"
+  end
 
   feature "タスクの追加" do
     let(:params) do
@@ -19,7 +25,6 @@ RSpec.feature "Lists", type: :feature do
       }
     end
     scenario "新しいタスクを作成する" do
-      visit list_index_path
       expect {
         click_link "新規登録"
         fill_in "task[task_name]", with: params[:task_name]
@@ -38,7 +43,6 @@ RSpec.feature "Lists", type: :feature do
     }
     end
     scenario "タスクを変更できる" do
-      visit list_index_path
       all(:link_or_button, "編集")[0].click
       fill_in "task[task_name]", with: params[:task_name]
       fill_in "task[description]", with: params[:description]
@@ -54,7 +58,6 @@ RSpec.feature "Lists", type: :feature do
   end
   feature "タスクを削除" do
     scenario "タスクを削除できること" do
-      visit list_index_path
       # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
       all(:link_or_button, "削除")[0].click
       expect(page).to have_content "タスクの削除が成功しました。"
@@ -66,7 +69,6 @@ RSpec.feature "Lists", type: :feature do
   feature "タスクの並びテスト" do
     let!(:expect_str) { expect_result.map {|h| h[:task_name]}.join('.*') }
     scenario "タスクの並び順の確認(STEP10 登録日時の降順)" do
-      visit list_index_path
       expect(page.text.inspect).to match %r(#{expect_str})
     end
   end
@@ -79,13 +81,11 @@ RSpec.feature "Lists", type: :feature do
     let(:expect_asc_str) { sort_result.map {|h| h[:task_name]}.join('.*') }
     let(:expect_desc_str) { sort_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "タスクの並び順の確認(STEP12 期限の昇順)" do
-      visit list_index_path
       # order: 登録日(降順) task4 -> task3 -> task5
       find("//*[@class='th_deadline']//a[text()='期限']").click
       expect(page.text.inspect).to match %r(#{expect_asc_str})
     end
     scenario "タスクの並び順の確認(STEP12 期限の降順)" do
-      visit list_index_path
       # order: 登録日(降順) task5 -> task3 -> task4
       find("//*[@class='th_deadline']//a[text()='期限']").click # 昇順
       find("//*[@class='th_deadline']//a[text()='期限']").click # 降順
@@ -100,7 +100,6 @@ RSpec.feature "Lists", type: :feature do
     }
     let(:expect_str) { expect_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "ステータスで検索ができる" do
-      visit list_index_path
       select '完了', from: 'status'
       click_button "検索"
 
@@ -118,7 +117,6 @@ RSpec.feature "Lists", type: :feature do
     }
     let(:expect_str) { expect_result.reverse.map {|h| h[:task_name]}.join('.*') }
     scenario "タスク名で検索ができる" do
-      visit list_index_path
       fill_in "task_name", with: "タスク"
       click_button "検索"
       expect(page.text.inspect).to match %r(#{expect_str})
@@ -126,17 +124,16 @@ RSpec.feature "Lists", type: :feature do
   end
   feature "ページングのテスト" do
     scenario "10件以下" do
-      visit list_index_path
       expect(page).not_to have_selector(".pagination")
     end
     scenario "10件の場合、ページングが無い" do
-      FactoryBot.create(:task)
+      FactoryBot.create(:task, user: user)
       visit list_index_path
       expect(Task.all.size).to eq(10)
       expect(page).not_to have_selector(".pagination")
     end
     scenario "11件の場合、ページングでページ遷移ができる" do
-      9.times{ FactoryBot.create(:task) }
+      9.times{ FactoryBot.create(:task, user: user) }
       expect(Task.all.size).to eq(18)
       visit list_index_path
       find("//*[@class='pagination']//a[text()='2']").click
