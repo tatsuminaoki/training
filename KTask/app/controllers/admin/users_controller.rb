@@ -3,7 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit update destroy]
-    before_action :check_auth, only: %i[index show edit update destroy]
+    before_action :had_permission, only: %i[index show edit update destroy]
 
     def index
       @users = User.all
@@ -57,7 +57,7 @@ module Admin
       @user = User.find_by(id: params[:id])
     end
 
-    def check_auth
+    def had_permission
       redirect_to root_path, flash: { danger: t('flash.user.no_permission') } if current_user.normal?
     end
   end
