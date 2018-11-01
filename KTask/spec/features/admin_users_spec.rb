@@ -52,7 +52,7 @@ RSpec.feature 'AdminUsers', type: :feature do
       end.to change { User.count }.by(0)
     end
 
-    scenario '管理者が1人もいなくなってしまうようなユーザ種別の編集はできない' do
+    scenario '管理者が1人もいなくなってしまうようなユーザ権限の変更はできない' do
       click_link I18n.t('admin.users.index.edit')
       expect(find('#role')).to be_disabled
     end
