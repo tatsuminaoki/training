@@ -21,6 +21,10 @@ ja:
         name: '名前'
         email: 'メールアドレス'
         password: 'パスワード'
+        role: '権限'
+      user/role:
+        normal: '一般ユーザ'
+        admin: '管理者'
     enum:
       task:
         status:
@@ -110,6 +114,9 @@ ja:
         detail: '詳細'
         edit: '修正'
         delete: '削除'
+  users:
+    new:
+      title: 'ユーザ登録'
 
   sessions:
     new:
@@ -138,6 +145,7 @@ ja:
       update_failure: 'ユーザ更新に失敗しました、確認してください'
       delete_success: 'ユーザを削除しました'
       delete_failure: 'ユーザ削除エーラ'
+      no_permission: '権限がありません'
 
   date:
     abbr_day_names:
@@ -265,6 +273,8 @@ ja:
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
       other_than: は%{count}以外の値にしてください
+      least_one_admin_destroy: 'adminは少なくとも一つが必要です 削除できません'
+      least_one_admin_update: 'adminは少なくとも一つが必要です 更新できません'
     template:
       body: 次の項目を確認してください
       header:

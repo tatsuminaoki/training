@@ -17,6 +17,11 @@
     <%= form.text_field :name, class:'form-control', style:'width:30%;' %>
   </div>
 
+    <div class="form-group">
+      <%= form.label :role %>
+      <%= form.select :role, User.roles.map{|k, _|  [User.human_attribute_enum_value(:role, k), k]}.to_h, {}, class:'form-control', id: 'role', style:'width:40%;', disabled: current_user == @user %>
+    </div>
+
   <div class="form-group">
     <%= form.label :email %>
     <%= form.text_field :email, class:'form-control', style:'width:40%;' %>
