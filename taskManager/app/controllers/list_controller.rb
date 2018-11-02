@@ -1,5 +1,4 @@
 class ListController < ApplicationController
-  before_action :progress_get_session, only: [:index, :new, :edit, :create, :destroy, :update]
   before_action :all_labels, only: [:edit, :update, :new, :create]
   helper_method :sort_column, :sort_direction
 

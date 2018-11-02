@@ -1,4 +1,5 @@
 class LoginController < ApplicationController
+  skip_before_action :check_session
   require 'redis'
   require 'json'
 
