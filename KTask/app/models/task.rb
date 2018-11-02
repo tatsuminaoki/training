@@ -13,6 +13,7 @@ class Task < ApplicationRecord
   has_many :labels, through: :task_labels
 
   paginates_per 5
+  acts_as_taggable
 
   def self.search_and_order(params, current_user_id)
     sort = params[:sort] || 'created_at'
