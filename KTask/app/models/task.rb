@@ -9,6 +9,8 @@ class Task < ApplicationRecord
   validates :priority, presence: true
 
   belongs_to :user
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
 
   paginates_per 5
 
