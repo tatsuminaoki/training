@@ -3,6 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :user_authorize
+  before_action :set_labels, only: %i[new edit]
 
   # GET /tasks
   # GET /tasks.json
@@ -73,10 +74,14 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:user_id, :title, :content, :status, :end_time, :priority)
+    params.require(:task).permit(:user_id, :title, :content, :status, :end_time, :priority, :label_list)
   end
 
   def user_authorize
     redirect_to login_path unless logged_in?
+  end
+
+  def set_labels
+    @available_labels = ActsAsTaggableOn::Tag.all.pluck(:name).to_json.html_safe
   end
 end

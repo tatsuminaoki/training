@@ -32,4 +32,17 @@
   <%= @task.end_time %>
 </p>
 
+<div class="article-tags-field">
+  <label class="control-label required" for="task_label_list"><%= t('.label') %></label>
+  <input class="form-control" readonly type="text" value="<%= @task.label_list.join(',') %>" id="task_label_list" />
+</div>
+
 <%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#task_label_list").tagit({
+      readOnly: true
+    });
+  });
+</script>

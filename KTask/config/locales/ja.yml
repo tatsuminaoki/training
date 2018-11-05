@@ -9,6 +9,7 @@ ja:
         content: '内容'
         end_time: '終了時間'
         status: '状態'
+        label: 'ラベル'
       task/status:
         yet: '未着手'
         do: '着手'
@@ -78,6 +79,7 @@ ja:
       content: '内容'
       back: '戻る'
       status: '状態'
+      label: 'ラベル'
       end_time: '終了時間'
     edit:
       page_title: 'タスク修正'

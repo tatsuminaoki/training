@@ -37,8 +37,26 @@
     <%= form.datetime_select :end_time, {}, class:'form-control bootstrap-date-only-width' %>
   </div>
 
+
+<div class="article-tags-field">
+      <%= form.label :label %>
+      <%= form.text_field :label_list, label: I18n.t('page.task.placeholders.label_list'), value: @task.label_list.join(',') %>
+</div>
+
+
   <div class="form-group">
     <%= form.submit :class => 'btn btn-primary' %>
     <%= link_to t('.back'), tasks_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#task_label_list').tagit({
+      availableTags: <%= @available_labels ||= [] %>,
+      fieldName:   'task[label_list]',
+      singleField: true,
+      animate: false
+    });
+  });
+</script>
