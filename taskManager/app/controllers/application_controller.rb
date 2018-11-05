@@ -19,4 +19,8 @@ class ApplicationController < ActionController::Base
   def check_session
     return redirect_to(:controller => 'login',:action => 'index') unless logged_in?
   end
+
+  def authenticate_user
+    return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
+  end
 end

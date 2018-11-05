@@ -10,31 +10,31 @@ RSpec.describe LoginController, type: :controller do
     end
   end
 
-  describe "メールアドレスが空の場合、リダイレクトされない" do
+  describe "メールアドレスが空の場合、ログイン画面にリダイレクトされる" do
     it "パスワード画面に戻る" do
       post :create, params: {user: {mail: nil, password: user.password }}
-      expect(response).to render_template :index
+      expect(response).to redirect_to '/login'
     end
   end
 
-  describe "パスワードが空の場合、リダイレクトされない" do
+  describe "パスワードが空の場合、ログイン画面にリダイレクトされる" do
     it "パスワード画面に戻る" do
       post :create, params: {user: {mail: user.mail, password: nil }}
-      expect(response).to render_template :index
+      expect(response).to redirect_to '/login'
     end
   end
 
-  describe "メールアドレスが存在しない場合、リダイレクトされない" do
+  describe "メールアドレスが存在しない場合、ログイン画面にリダイレクトされる" do
     it "パスワード画面に戻る" do
       post :create, params: {user: {mail: 'mismatch@fablic.co.jp', password: user.password }}
-      expect(response).to render_template :index
+      expect(response).to redirect_to '/login'
     end
   end
 
-  describe "パスワードが間違っていた場合、リダイレクトされない" do
+  describe "パスワードが間違っていた場合、ログイン画面にリダイレクトされる" do
     it "パスワード画面に戻る" do
       post :create, params: {user: {mail: user.mail, password: 'mismatchpass' }}
-      expect(response).to render_template :index
+      expect(response).to redirect_to '/login'
     end
   end
 end

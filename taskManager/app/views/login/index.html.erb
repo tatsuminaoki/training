@@ -1,8 +1,6 @@
 <div class="container">
   <div class="panel">
     <% flash.each do |key, value| %>
-      <% key = "info" if key == "notice" %>
-      <% key = "warning" if key == "warn" %>
       <%= content_tag(:div, value, class: "alert alert-#{key}") %>
     <% end %>
     <% if @user.errors.any? %>

@@ -17,9 +17,8 @@ class LoginController < ApplicationController
       # TODO: リダイレクト先は決められるようにした方がいい
       redirect_to :controller => 'list',:action => 'index'
     else
-      flash[:notice] = I18n.t("messages.password_error")
-      @user = User.new
-      render :action => 'index'
+      flash[:info] = I18n.t("messages.password_error")
+      redirect_to :controller => 'login',:action => 'index'
     end
   end
 

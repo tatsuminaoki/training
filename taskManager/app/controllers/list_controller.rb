@@ -1,9 +1,10 @@
 class ListController < ApplicationController
+  before_action :authenticate_user
   before_action :all_labels, only: [:edit, :update, :new, :create]
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.includes(task_label: :label).search(params: params, user: @user).page(params[:page])
+    @tasks = Task.includes(task_label: :label).search(params: params, user: current_user).page(params[:page])
     if sort_direction.present? && sort_column.present?
       @tasks = @tasks.order("#{sort_column}": sort_direction)
     else
@@ -17,14 +18,14 @@ class ListController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(id: params[:id], user_id: @user[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
     render action: 'new'
   end
 
   def create
     # TODO: バリデーション全くやってないので後でコーディングする
     @task_params = common_params
-    @task_params[:user_id] = @user[:id]
+    @task_params[:user_id] = current_user.id
 
     @task = Task.new(@task_params)
     result = @task.save
@@ -40,7 +41,7 @@ class ListController < ApplicationController
   end
 
   def destroy
-    @task = Task.find_by(id: params[:id], user_id: @user[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
     result = @task.destroy
 
     if result
@@ -53,7 +54,7 @@ class ListController < ApplicationController
   end
 
   def update
-    @task = Task.find_by(id: params[:id], user_id: @user[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
     result = @task.update(common_params)
 
     if result
