@@ -68,6 +68,7 @@ ja:
       new_task: '新規タスク登録'
       delete_message: '削除しますか？'
       search_title: 'スケジュール名'
+      search_labels: 'ラベル名'
       search_status: '状態'
       search_submit: '検索'
       logout: 'ログアウト'
