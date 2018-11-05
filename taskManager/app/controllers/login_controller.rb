@@ -18,7 +18,7 @@ class LoginController < ApplicationController
       redirect_to :controller => 'list',:action => 'index'
     else
       flash[:info] = I18n.t("messages.password_error")
-      redirect_to :controller => 'login',:action => 'index'
+      render :action => 'index'
     end
   end
 
