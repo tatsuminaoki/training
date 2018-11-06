@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_090931) do
+ActiveRecord::Schema.define(version: 2018_10_31_001729) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "label_name"
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 2018_10_10_090931) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "mail", null: false
     t.string "user_name", null: false
-    t.string "encrypted_password", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
     t.index ["mail"], name: "index_users_on_mail", unique: true
   end
 

@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
       end
     end
     context "パスワードが無い時" do
-      let(:user) { FactoryBot.build(:user, encrypted_password: nil) }
+      let(:user) { FactoryBot.build(:user, password_digest: nil) }
       it "パスワードが無ければ、無効な状態であること" do
         is_expected.to be_falsey
       end

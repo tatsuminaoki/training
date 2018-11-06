@@ -535,3 +535,39 @@ Running via Spring preloader in process 22381
       create  spec/factories/users.rb
 
 ```
+
+
+### STEP16
+- ユーザモデルを作成してみましょう
+- 最初のユーザをseedで作成してみましょう
+- ユーザとタスクが紐づくようにしましょう
+  - 関連に対してインデックスを貼りましょう
+  - N+1問題を回避するための仕組みを取り入れましょう
+  
+ 
+### マイグレーションファイル作成
+```
+bin/rails generate migration EditColumnUser
+```
+
+seeds.rb投入
+```
+bin/rails db:seed
+```
+
+
+- [] 追加のGemを使わず、自分で実装してみましょう
+  - [] DeviseなどのGemを使わないことで、HTTPのCookieやRailsにおけるSessionなどの仕組みについて理解を深めることが目的です
+  - [] また、一般的な認証についての理解を深めることも目的にしています（パスワードの取り扱いについてなど）
+
+- [] ログイン画面を実装しましょう
+ログインしていない場合は、タスク管理のページに遷移できないようにしましょう
+自分が作成したタスクだけを表示するようにしましょう
+ログアウト機能を実装しましょう
+
+
+### ログインコントローラ作成
+rails g controller logins
+
+### Redisの起動
+brew services restart redis

@@ -113,7 +113,7 @@ RSpec.describe Task, type: :model do
       let(:params) do { task_name: "あああ" } end
       let!(:task1) { FactoryBot.create(:task, task_name: "あああ") }
       it "タスク名検索ができる" do
-        expect(Task.search(params)).to eq [task1]
+        expect(Task.search(params: params)).to eq [task1]
       end
     end
     pending "説明検索ができる"
@@ -125,7 +125,7 @@ RSpec.describe Task, type: :model do
         expect_result = task.select{ |i| i[:status] == "working" }.sort do |a, b|
           a[:created_at] <=> b[:created_at]
         end
-        expect(expect_result).to eq Task.search(params)
+        expect(expect_result).to eq Task.search(params: params)
       end
     end
     pending "1つのラベルで検索ができる"
@@ -135,7 +135,7 @@ RSpec.describe Task, type: :model do
       let!(:task11) { FactoryBot.create(:task, task_name: "テスト11", user_id: user.id, status: :working, deadline: nil, created_at: "2018-05-20 14:02:00") }
       let(:params) do { status: :working, task_name: "テスト" } end
       it "タスク名とステータスで検索ができる" do
-        expect(Task.search(params)).to eq [task10, task11]
+        expect(Task.search(params: params)).to eq [task10, task11]
       end
     end
     pending "説明と期限で検索ができる"

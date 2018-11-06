@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   validates :user_name,
             presence: true,
-            format: { with: /\A[\wぁ-んァ-ン一-龥]+[\s　]?[\wぁ-んァ-ン一-龥]+\z/ },
+            format: { with: /\A[\wa-zA-Z0-9ぁ-んァ-ン一-龥]+[\s　]?[\wa-zA-Z0-9ぁ-んァ-ン一-龥]+\z/ },
             length: { maximum: 255 }
 
-  validates :encrypted_password, presence: true
+  has_secure_password
 end
