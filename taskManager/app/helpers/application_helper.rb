@@ -7,21 +7,18 @@ module ApplicationHelper
   end
 
   def link_list
-    return unless controller.controller_name == 'list'
     result_active = controller.action_name == 'index'
     link_str = link_to I18n.t('actions.list'), list_index_path
     make_link_tag(result_active: result_active, link_str: link_str)
   end
 
   def link_new
-    return unless controller.controller_name == 'list'
     result_active = controller.action_name == 'new' || controller.action_name == 'create'
     link_str = link_to I18n.t('actions.new'), new_list_path
     make_link_tag(result_active: result_active, link_str: link_str)
   end
 
   def link_edit
-    return unless controller.controller_name == 'list'
     return unless controller.action_name == 'edit' || controller.action_name == 'update'
     link_str = link_to I18n.t('actions.edit'), ''
     make_link_tag(result_active: true, link_str: link_str)
@@ -38,10 +35,32 @@ module ApplicationHelper
     make_link_tag(result_active: false, link_str: link_str)
   end
 
+  def link_users_list
+    result_active = controller.action_name == 'index'
+    link_str = link_to I18n.t('actions.users_list'), admin_users_path
+    make_link_tag(result_active: result_active, link_str: link_str)
+  end
+
+  def link_new_user
+    result_active = controller.action_name == 'new' || controller.action_name == 'create'
+    link_str = link_to I18n.t('actions.user_new'), new_admin_user_path
+    make_link_tag(result_active: result_active, link_str: link_str)
+  end
+
+  def link_edit_user
+    return unless controller.action_name == 'edit' || controller.action_name == 'update'
+    link_str = link_to I18n.t('actions.user_edit'), ''
+    make_link_tag(result_active: true, link_str: link_str)
+  end
+
   private
 
   def make_link_tag(result_active: true, link_str: '')
     active_str = result_active ? 'active' : ''
     raw %(<li class='#{active_str}'>#{link_str}</li>)
+  end
+
+  def sub_title_tag
+    sub_title = '(' + I18n.t('title.admin') + ')' if controller.controller_path.match(/^admin\//)
   end
 end

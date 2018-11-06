@@ -571,3 +571,10 @@ rails g controller logins
 
 ### Redisの起動
 brew services restart redis
+
+
+## ユーザ管理
+
+```
+bin/rails g controller admin/users
+```

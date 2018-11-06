@@ -1,0 +1,42 @@
+<%
+  action_content = action_contents
+%>
+<div class="container">
+  <div class="panel">
+    <div class="panel-body">
+      <% flash.each do |alert_type, value| %>
+        <%= content_tag(:div, value, class: "alert alert-#{alert_type}") %>
+      <% end %>
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <% @user.errors.full_messages.each do |msg| %>
+            <ul><%= msg %></ul>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="form-horizontal">
+        <%= form_for(@user, :url => {:action => action_content[:action] }) do |f| %>
+          <div class="form-group">
+            <%= f.label :user_name %>
+            <%= f.text_field :user_name, :class=>"form-control input-sm" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :mail %>
+            <%= f.text_field :mail, :class=>"form-control input-sm" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, :class=>"form-control input-sm" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, :class=>"form-control input-sm" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit I18n.t(action_content[:action_name]), :class => "btn btn-default" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
