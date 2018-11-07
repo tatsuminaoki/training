@@ -20,6 +20,7 @@ module ApplicationHelper
 
   def link_edit
     return unless controller.action_name == 'edit' || controller.action_name == 'update'
+
     link_str = link_to I18n.t('actions.edit'), ''
     make_link_tag(result_active: true, link_str: link_str)
   end
@@ -31,6 +32,8 @@ module ApplicationHelper
   end
 
   def link_logout
+    return if controller.controller_name == 'login'
+
     link_str = link_to I18n.t('actions.logout'), logout_path
     make_link_tag(result_active: false, link_str: link_str)
   end
@@ -49,6 +52,7 @@ module ApplicationHelper
 
   def link_edit_user
     return unless controller.action_name == 'edit' || controller.action_name == 'update'
+
     link_str = link_to I18n.t('actions.user_edit'), ''
     make_link_tag(result_active: true, link_str: link_str)
   end
@@ -61,6 +65,6 @@ module ApplicationHelper
   end
 
   def sub_title_tag
-    sub_title = '(' + I18n.t('title.admin') + ')' if controller.controller_path.match(/^admin\//)
+    '(' + I18n.t('title.admin') + ')' if controller.controller_path =~ %r{^admin\/}
   end
 end

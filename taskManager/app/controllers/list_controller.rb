@@ -1,7 +1,7 @@
 class ListController < ApplicationController
   before_action :authenticate_user
   before_action :all_labels, only: [:edit, :update, :new, :create]
-  skip_before_action :store_location, only: [:update, :create]
+  skip_before_action :store_location, only: [:update, :create, :delete]
 
   def index
     @tasks = Task.includes(task_label: :label).search(params: params, user: current_user).page(params[:page])
