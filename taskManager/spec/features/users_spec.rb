@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'selenium-webdriver'
 
 RSpec.feature "Users", type: :feature do
-  let(:user1) { FactoryBot.create(:user) }
-  let(:user2) { FactoryBot.create(:user) }
+  let(:user1) { FactoryBot.create(:user, role: :admin) }
+  let(:user2) { FactoryBot.create(:user, role: :normal) }
   let!(:task1) { FactoryBot.create_list(:task, 10, user: user1) }
   let!(:task2) { FactoryBot.create_list(:task, 10, user: user2) }
 
@@ -38,6 +38,18 @@ RSpec.feature "Users", type: :feature do
       expect(page).to have_content user_params[:user_name]
       expect(page).to have_content user_params[:mail]
     end
+    scenario "一般ユーザをuser->adminに変更ができること" do
+      all(:link_or_button, I18n.t('actions.edit'))[0].click
+      select I18n.t('enum.user.role.admin'), from: 'user[role]'
+      click_button I18n.t('actions.edit')
+      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t('words.user'), action: I18n.t('actions.edit'), result: I18n.t('words.success'))
+    end
+    scenario "管理ユーザが1人の時、admin->userの変更ができないこと" do
+      all(:link_or_button, I18n.t('actions.edit'))[0].click
+      select I18n.t('enum.user.role.normal'), from: 'user[role]'
+      click_button I18n.t('actions.edit')
+      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t('words.user'), action: I18n.t('actions.edit'), result: I18n.t('words.failure'))
+    end
     scenario "ユーザを削除できること" do
       all(:link_or_button, I18n.t('actions.delete'))[1].click
       expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t('words.user'), action: I18n.t('actions.delete'), result: I18n.t('words.success'))
@@ -45,6 +57,10 @@ RSpec.feature "Users", type: :feature do
       expect(page).not_to have_content user2.mail
       expect(page).to have_content user1.user_name
       expect(page).to have_content user1.mail
+    end
+    scenario "管理ユーザが1人の時、管理ユーザの削除ができないこと" do
+      all(:link_or_button, I18n.t('actions.delete'))[0].click
+      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t('words.user'), action: I18n.t('actions.delete'), result: I18n.t('words.failure'))
     end
   end
 end

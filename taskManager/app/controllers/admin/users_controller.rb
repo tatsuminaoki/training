@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :check_permission
   helper_method :current_user
 
   def index
@@ -72,7 +73,14 @@ class Admin::UsersController < ApplicationController
 
   def common_params
     params.require(:user).permit(
-      :user_name, :mail, :password, :password_confirmation
+      :user_name, :mail, :password, :password_confirmation, :role
     )
+  end
+
+  def check_permission
+    unless current_user.admin?
+      flash.now[:warning] = I18n.t('messages.permission_error')
+      render 'errors/permission'
+    end
   end
 end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-  let(:user1) { FactoryBot.create(:user, password: 'hogehoge1') }
-  let(:user2) { FactoryBot.create(:user, password: 'hogehoge2') }
+  let(:user1) { FactoryBot.create(:user, password: 'hogehoge1', role: :admin) }
+  let(:user2) { FactoryBot.create(:user, password: 'hogehoge2', role: :admin) }
   let!(:task1) { FactoryBot.create_list(:task, 10, user: user1) }
   let!(:task2) { FactoryBot.create_list(:task, 10, user: user2) }
 
@@ -123,6 +123,19 @@ RSpec.describe Admin::UsersController, type: :controller do
         expect do
           patch :update, params: { id: user1.id + 1000, task: user_params }
         end.not_to change(User, :count)
+      end
+      it "権限の変更ができること" do
+        user_params[:role] = 'normal'
+        patch :update, params: { id: user1.id, user: user_params }
+        expect(user1.reload.role).to eq user_params[:role]
+      end
+      it "管理ユーザが1人の時、権限の変更 normal->adminができないこと" do
+        user_params[:role] = 'normal'
+        expect do
+          delete :destroy, params: { id: user1.id }
+        end.to change(User, :count).by(-1)
+        patch :update, params: { id: user2.id, user: user_params }
+        expect(user2.reload.role).not_to eq user_params[:role]
       end
     end
   end

@@ -9,6 +9,7 @@
   User.create!(
     mail: "hajime.iizuka#{i}@fablic.co.jp",
     user_name: "Hajime Iizuka#{i}",
-    password: "hogehoge#{i}"
+    password: "hogehoge#{i}",
+    role: 0
   )
 end
