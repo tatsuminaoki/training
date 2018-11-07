@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'selenium-webdriver'
 
+## TODO: 日本語表記のチェックはI18n.tを使うこと
 RSpec.feature "Lists", type: :feature do
   let(:user) { FactoryBot.create(:user) }
   let!(:task) { FactoryBot.create_list(:task, 9, user: user) }
@@ -43,11 +44,11 @@ RSpec.feature "Lists", type: :feature do
     }
     end
     scenario "タスクを変更できる" do
-      all(:link_or_button, "編集")[0].click
+      all(:link_or_button, I18n.t('actions.edit'))[0].click
       fill_in "task[task_name]", with: params[:task_name]
       fill_in "task[description]", with: params[:description]
-      click_button "編集"
-      expect(page).to have_content "タスクの編集が成功しました。"
+      click_button I18n.t('actions.edit')
+      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t("words.task"), action: I18n.t("actions.edit"), result: I18n.t('words.success'))
       expect(page).to have_content params[:task_name]
       expect(page).to have_content params[:description]
 
@@ -59,8 +60,8 @@ RSpec.feature "Lists", type: :feature do
   feature "タスクを削除" do
     scenario "タスクを削除できること" do
       # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
-      all(:link_or_button, "削除")[0].click
-      expect(page).to have_content "タスクの削除が成功しました。"
+      all(:link_or_button, I18n.t('actions.delete'))[0].click
+      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t("words.task"), action: I18n.t("actions.delete"), result: I18n.t('words.success'))
       expect(page).not_to have_content expect_result[0].task_name
       expect(page).not_to have_content expect_result[0].description
       expect { expect_result[0].reload }.to raise_error(ActiveRecord::RecordNotFound)

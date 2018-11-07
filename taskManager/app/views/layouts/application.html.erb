@@ -22,8 +22,7 @@
               <%= link_list %>
               <%= link_new %>
               <%= link_edit %>
-            <% end %>
-            <% if controller.controller_name == 'users' %>
+            <% elsif controller.controller_name == 'users' %>
               <%= link_users_list %>
               <%= link_new_user %>
               <%= link_edit_user %>

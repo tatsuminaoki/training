@@ -27,6 +27,7 @@ module CommonLogin
 
   def delete_session(session_key: session[:session_key])
     Redis.current.del(session_key)
+    session.delete(:session_key)
   end
 
   def valid_session?
@@ -44,8 +45,6 @@ module CommonLogin
 
   def progress_logout
     delete_session unless current_user.nil?
-    session.delete(:session_key)
-    session.delete(:return_to)
     flash[:info] = I18n.t("messages.logout")
     redirect_to(:controller => 'login',:action => 'index')
   end

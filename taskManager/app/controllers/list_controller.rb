@@ -34,7 +34,7 @@ class ListController < ApplicationController
       flash[:info] = make_simple_message(action: "new")
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(action: "new", result: false)
+      flash.now[:warning] = make_simple_message(action: "new", result: false)
       render action: 'new'
     end
   end
@@ -60,7 +60,7 @@ class ListController < ApplicationController
       flash[:info] = make_simple_message(action: "edit")
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(action: "edit", result: false)
+      flash.now[:warning] = make_simple_message(action: "edit", result: false)
       render action: 'new'
     end
   end

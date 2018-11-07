@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  helper_method :current_user
+
   def index
     @users = User.includes(task: :user).page(params[:page])
   end
@@ -18,15 +20,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user_params = common_params
-    @user = User.new(@user_params)
+    @user = User.new(common_params)
     result = @user.save
 
     if result
       flash[:info] = make_simple_message(column: 'user', action: 'new')
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(column: 'user', action: 'new', result: false)
+      flash.now[:warning] = make_simple_message(column: 'user', action: 'new', result: false)
       render action: 'new'
     end
   end
@@ -44,20 +45,26 @@ class Admin::UsersController < ApplicationController
       flash[:info] = make_simple_message(column: 'user', action: 'edit')
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(column: 'user', action: "edit", result: false)
+      flash.now[:warning] = make_simple_message(column: 'user', action: "edit", result: false)
       render action: 'new'
     end
   end
 
   def destroy
     @user = User.find_by(id: params[:id])
+    current_user_id = current_user.id
     result = @user.destroy
 
     if result
       flash[:info] = make_simple_message(column: 'user', action: 'delete')
+      if current_user_id == params[:id].to_i
+        delete_session
+        return redirect_to logout_path
+      end
     else
       flash[:warning] = make_simple_message(column: 'user', action: 'delete', result: false)
     end
+
     redirect_to :action => 'index'
   end
 

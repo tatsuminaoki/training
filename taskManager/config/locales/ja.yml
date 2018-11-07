@@ -89,7 +89,7 @@ ja:
   actions:
     list: 一覧
     delete: 削除
-    edit: 編集
+    edit: 修正
     new: 新規登録
     back: 戻る
     search: 検索

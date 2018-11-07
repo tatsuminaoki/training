@@ -25,16 +25,14 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:return_to] = request.url
   end
-  
+
   def authenticate_user
     return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
   end
 
-  def make_simple_message(column: 'task' , action:, result: true)
-    result_str = "words.failure"
-    result_str = "words.success" if result
-
-    I18n.t("messages.simple_result",
+  def make_simple_message(column: 'task', action:, result: true)
+    result_str = result ? 'words.success' : 'words.failure'
+    I18n.t('messages.simple_result',
       name: I18n.t("words.#{column}"),
       action: I18n.t("actions.#{action}"),
       result: I18n.t(result_str))

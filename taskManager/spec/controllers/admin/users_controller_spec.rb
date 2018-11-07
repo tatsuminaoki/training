@@ -8,29 +8,26 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe "セッションデータがない場合" do
     let(:user_params) { FactoryBot.attributes_for(:user) }
+    subject {
+      expect(response).to redirect_to '/login'
+    }
     it "ユーザ一覧" do
       get :index
-      expect(response).to redirect_to '/login'
     end
     it "ユーザ一のタスク一覧" do
       get :show, params: { id: user1.id }
-      expect(response).to redirect_to '/login'
     end
     it "ユーザ新規フォーム" do
       post :new
-      expect(response).to redirect_to '/login'
     end
     it "ユーザ新規登録" do
       post :create
-      expect(response).to redirect_to '/login'
     end
     it "ユーザ変更画面" do
       post :edit, params: { id: user1.id }
-      expect(response).to redirect_to '/login'
     end
     it "ユーザ変更" do
       patch :update, params: { id: user1.id, user: user_params }
-      expect(response).to redirect_to '/login'
     end
   end
   describe "セッションデータがある" do
@@ -38,23 +35,20 @@ RSpec.describe Admin::UsersController, type: :controller do
       controller.send(:make_session, user: user1)
     end
     describe "ユーザ一覧画面" do
+      subject {
+        expect(response).to have_http_status '200'
+      }
       it "正常にレスポンス(200)を返すこと" do
         get :index
-        expect(response).to have_http_status "200"
       end
-    end
-    describe "ユーザのタスク一覧画面" do
       it "正常にレスポンス(200)を返すこと" do
         get :show, params: { id: user1.id }
-        expect(response).to have_http_status "200"
       end
       it "タスク名の検索ができる" do
         get :show, params: { id: user1.id, task_name: "task" }
-        expect(response).to have_http_status "200"
       end
       it "ステータスの検索ができる" do
         get :show, params: { id: user1.id, status: :waiting }
-        expect(response).to have_http_status "200"
       end
     end
     describe "ユーザ登録画面" do
@@ -62,7 +56,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       it "ユーザが追加できること" do
         expect do
           post :create, params: { user: user_params }
-        end.to change(User, :count)
+        end.to change(User, :count).by(1)
       end
       it "ユーザ名が空の場合、追加できないこと" do
         user_params[:user_name] = nil
@@ -101,7 +95,7 @@ RSpec.describe Admin::UsersController, type: :controller do
           delete :destroy, params: { id: user1.id }
         end.to change(User, :count).by(-1)
       end
-      it "存在しないユーザIDの削除はエラーになること" do
+      it "存在しないユーザIDの削除はできない" do
         expect do
           delete :destroy, params: { id: user1.id + 1000 }
         end.not_to change(User, :count)

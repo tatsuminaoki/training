@@ -19,7 +19,7 @@ class LoginController < ApplicationController
       # TODO: リダイレクト先は決められるようにした方がいい
       redirect_to(session[:return_to] || return_to_default)
     else
-      flash[:info] = I18n.t("messages.password_error")
+      flash.now[:info] = I18n.t("messages.password_error")
       render :action => 'index'
     end
   end
