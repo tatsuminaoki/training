@@ -39,8 +39,8 @@
 
 
 <div class="article-tags-field">
-      <%= form.label :label %>
-      <%= form.text_field :label_list, label: I18n.t('page.task.placeholders.label_list'), value: @task.label_list.join(',') %>
+      <%= form.label :label_list %>
+      <%= form.text_field :label_list, value: @task.label_list.join(',') %>
 </div>
 
 

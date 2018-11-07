@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'selenium-webdriver'
+
 RSpec.feature 'AdminUsers', type: :feature do
   scenario '新しいユーザを作成する' do
     expect do
@@ -71,12 +73,15 @@ RSpec.feature 'AdminUsers', type: :feature do
 
       scenario 'ユーザを削除する' do
         all('.delete_btn')[0].click
+        page.driver.browser.switch_to.alert.accept
         expect(page).to have_content I18n.t('flash.user.delete_success')
       end
 
       scenario 'ユーザを削除した時、そのユーザのタスクを削除する' do
         expect do
           all('.delete_btn')[0].click
+          page.driver.browser.switch_to.alert.accept
+          expect(page).to have_content I18n.t('flash.user.delete_success')
         end.to change { Task.where(user_id: @user1.id).count }.by(-1)
       end
     end
