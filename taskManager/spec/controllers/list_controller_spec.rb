@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ListController, type: :controller do
   # TODO user_idを1固定にしているので、セッション管理するようになったら変更すること
-  let(:user1) { FactoryBot.create(:user, id: 1, password: 'hogehoge1') }
+  let(:user1) { FactoryBot.create(:user, password: 'hogehoge1') }
   let(:user2) { FactoryBot.create(:user, password: 'hogehoge2') }
   let!(:task1) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
   let!(:task2) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
@@ -23,7 +23,7 @@ RSpec.describe ListController, type: :controller do
       expect(response).to redirect_to '/login'
     end
     it "タスク変更画面" do
-      post :edit, params: { id: 1 }
+      post :edit, params: { id: task1.id }
       expect(response).to redirect_to '/login'
     end
     it "タスク変更" do

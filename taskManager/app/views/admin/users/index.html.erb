@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="panel">
+    <div class="panel-body">
+      <% flash.each do |alert_type, value| %>
+        <%= content_tag(:div, value, class: "alert alert-#{alert_type}") %>
+      <% end %>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="th_user_name"><%= I18n.t "attributes.user.user_name" %></th>
+            <th class="th_mail"><%= I18n.t "attributes.user.mail" %></th>
+            <th class="th_task_count"><%= I18n.t "attributes.user.task_count" %></th>
+            <th class="th_edit"><%= I18n.t "actions.edit" %></th>
+            <th class="th_delete"><%= I18n.t "actions.delete" %></th>
+          </tr>
+        </thead>
+        <% @users.each do |u| %>
+          <tr>
+            <td><%= u.user_name %></td>
+            <td><%= u.mail %></td>
+            <td>
+              <%= task_count_message( user_id: u.id, task: u.task ) %>
+            </td>
+            <td><%= link_to I18n.t("actions.edit"), edit_admin_user_path(id: u.id) %></td>
+            <td><%= link_to I18n.t("actions.delete"), admin_user_path(id: u.id), :method => 'delete', data: {confirm: I18n.t("messages.delete_confirm", :column => I18n.t("words.user"), :name => u.user_name) }%></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= paginate @users, :window => 4 %>
+    </div>
+  </div>
+</div>

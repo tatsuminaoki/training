@@ -13,17 +13,22 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand">TaskManager</a>
+          <a class="navbar-brand">TaskManager<%= sub_title_tag %></a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbarEexample">
           <div class="nav navbar-nav">
-            <%= link_list %>
-            <%= link_new %>
-            <%= link_edit %>
+            <% if controller.controller_name == 'list' %>
+              <%= link_list %>
+              <%= link_new %>
+              <%= link_edit %>
+            <% elsif controller.controller_name == 'users' %>
+              <%= link_users_list %>
+              <%= link_new_user %>
+              <%= link_edit_user %>
+            <% end %>
           </div>
           <div class="nav navbar-nav navbar-right">
-            <%= link_login %>
             <%= link_logout %>
           </div>
         </div>

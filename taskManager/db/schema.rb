@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_001729) do
+ActiveRecord::Schema.define(version: 2018_11_06_081205) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "label_name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_001729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "role"
     t.index ["mail"], name: "index_users_on_mail", unique: true
   end
 

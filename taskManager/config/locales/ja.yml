@@ -15,6 +15,8 @@ ja:
       mail: メール
       user_name: ユーザ名
       password: パスワード
+      password_confirmation: 確認パスワード
+      task_count: タスク数
     task:
       <<: *models
       task_name: タスク名
@@ -77,24 +79,25 @@ ja:
   activemodel:
     models: *models
     attributes: *attributes
-  list:
-    index:
-      title: "TaskManager (タスク一覧)"
-    new:
-      title: "TaskManager (%{action_name})"
   words:
     success: 成功
     failure: 失敗
     task: タスク
+    user: ユーザ
+  title:
+    admin: 管理画面
   actions:
     list: 一覧
     delete: 削除
-    edit: 編集
+    edit: 修正
     new: 新規登録
     back: 戻る
     search: 検索
     login: ログイン
     logout: ログアウト
+    users_list: ユーザ一覧
+    user_new: ユーザ新規登録
+    user_edit: ユーザ編集
   enum:
     task:
       status:
@@ -106,7 +109,7 @@ ja:
         common: 中
         high: 高
   messages:
-    task_delete_confirm: "タスク【%{name}】を削除していいですか？"
+    delete_confirm: "%{column}【%{name}】を削除していいですか？"
     simple_result: "%{name}の%{action}が%{result}しました。"
     password_error: "メールアドレスとパスワードが一致しません。"
     logout: "ログアウトしました。"

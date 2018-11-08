@@ -1,7 +1,7 @@
 class ListController < ApplicationController
   before_action :authenticate_user
   before_action :all_labels, only: [:edit, :update, :new, :create]
-  helper_method :sort_column, :sort_direction
+  skip_before_action :store_location, only: [:update, :create, :delete]
 
   def index
     @tasks = Task.includes(task_label: :label).search(params: params, user: current_user).page(params[:page])
@@ -23,7 +23,6 @@ class ListController < ApplicationController
   end
 
   def create
-    # TODO: バリデーション全くやってないので後でコーディングする
     @task_params = common_params
     @task_params[:user_id] = current_user.id
 
@@ -35,7 +34,7 @@ class ListController < ApplicationController
       flash[:info] = make_simple_message(action: "new")
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(action: "new", result: false)
+      flash.now[:warning] = make_simple_message(action: "new", result: false)
       render action: 'new'
     end
   end
@@ -61,7 +60,7 @@ class ListController < ApplicationController
       flash[:info] = make_simple_message(action: "edit")
       redirect_to :action => 'index'
     else
-      flash[:warning] = make_simple_message(action: "edit", result: false)
+      flash.now[:warning] = make_simple_message(action: "edit", result: false)
       render action: 'new'
     end
   end
@@ -77,23 +76,5 @@ class ListController < ApplicationController
       :task_name, :description, :deadline, :priority, :status,
       task_label_attributes: [:label_id]
     )
-  end
-
-  def make_simple_message(action:, result: true)
-    result_str = "words.failure"
-    result_str = "words.success" if result
-
-    I18n.t("messages.simple_result",
-      name: I18n.t("words.task"),
-      action: I18n.t("actions.#{action}"),
-      result: I18n.t(result_str))
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : ''
-  end
-
-  def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : ''
   end
 end
