@@ -65,6 +65,6 @@ module ApplicationHelper
   end
 
   def sub_title_tag
-    '(' + I18n.t('title.admin') + ')' if controller.controller_path =~ %r{^admin\/}
+    "(#{I18n.t('title.admin')})" if controller.controller_path =~ %r{^admin\/}
   end
 end

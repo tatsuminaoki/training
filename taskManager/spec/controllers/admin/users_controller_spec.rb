@@ -8,9 +8,9 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe "セッションデータがない場合" do
     let(:user_params) { FactoryBot.attributes_for(:user) }
-    subject {
+    subject do
       expect(response).to redirect_to '/login'
-    }
+    end
     it "ユーザ一覧" do
       get :index
     end
@@ -35,9 +35,9 @@ RSpec.describe Admin::UsersController, type: :controller do
       controller.send(:make_session, user: user1)
     end
     describe "ユーザ一覧画面" do
-      subject {
+      subject do
         expect(response).to have_http_status '200'
-      }
+      end
       it "正常にレスポンス(200)を返すこと" do
         get :index
       end
