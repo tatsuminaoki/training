@@ -1,7 +1,7 @@
 class LoginController < ApplicationController
   skip_before_action :check_session
   skip_before_action :store_location
- 
+
   require 'redis'
   require 'json'
 

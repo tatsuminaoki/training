@@ -20,14 +20,12 @@ class ApplicationController < ActionController::Base
 
   def check_session
     return redirect_to(:controller => '/login',:action => 'index') unless logged_in?
+    return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
+    User.current = User.find_by(id: session['user_id'])
   end
 
   def store_location
     session[:return_to] = request.url
-  end
-
-  def authenticate_user
-    return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
   end
 
   def make_simple_message(column: 'task', action:, result: true)

@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before do
+    User.current = nil
+  end
   describe 'ユーザ登録テスト' do
     subject { user.valid? }
     context "妥当なユーザの時" do

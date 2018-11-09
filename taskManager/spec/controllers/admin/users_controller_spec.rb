@@ -90,9 +90,9 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
     describe "ユーザ登録削除処理" do
-      it "存在するタスクIDのタスク削除ができること" do
+      it "存在するユーザIDのユーザ削除ができること" do
         expect do
-          delete :destroy, params: { id: user1.id }
+          delete :destroy, params: { id: user2.id }
         end.to change(User, :count).by(-1)
       end
       it "存在しないユーザIDの削除はできない" do
@@ -102,7 +102,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
     describe "ユーザ変更処理" do
-      let(:user_params) { FactoryBot.attributes_for(:user) }
+      let(:user_params) { FactoryBot.attributes_for(:user, role: :admin) }
 
       it "ユーザ名変更ができること" do
         user_params[:user_name] = 'new name'
@@ -126,15 +126,12 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
       it "権限の変更ができること" do
         user_params[:role] = 'normal'
-        patch :update, params: { id: user1.id, user: user_params }
-        expect(user1.reload.role).to eq user_params[:role]
-      end
-      it "管理ユーザが1人の時、権限の変更 normal->adminができないこと" do
-        user_params[:role] = 'normal'
-        expect do
-          delete :destroy, params: { id: user1.id }
-        end.to change(User, :count).by(-1)
         patch :update, params: { id: user2.id, user: user_params }
+        expect(user2.reload.role).to eq user_params[:role]
+      end
+      it "自分自身の権限をadmin->normalに変更できないこと" do
+        user_params[:role] = 'normal'
+        patch :update, params: { id: user1.id, user: user_params }
         expect(user2.reload.role).not_to eq user_params[:role]
       end
     end

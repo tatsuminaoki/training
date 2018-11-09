@@ -24,22 +24,38 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   def set_default_role
     self.role ||= :normal
   end
 
   def update_role_valid?
-    return true if User.admin.count > 1            # admin 2人以上
-    return true if self.id != User.admin.first.id  # admin 1人、admin以外の変更であればOK
-    return true if self.admin?                     # admin 1人、adminのroleがadminであればOK
-
-    errors.add(:role, I18n.t('errors.messages.required_at_least_one_admin'))
-    false
+    if User.current.present? && self.id == User.current.id
+      if self.admin? == false
+        errors.add(:role, I18n.t('errors.messages.required_at_least_one_admin'))
+        return false
+      end
+    elsif self.admin? == false && User.admin.count < 2 && self.id == User.admin.first.id
+      errors.add(:role, I18n.t('errors.messages.required_at_least_one_admin'))
+      return false
+    end
+    true
   end
 
   def delete_role_valid
-    return true if User.admin.count > 1            # admin 2人以上
-    return true if self.id != User.admin.first.id  # admin 1人、admin以外の変更であればOK
+    if User.current.present?
+      return true if self.id != User.current.id
+    else
+      return true if User.admin.count > 1
+      return true if self.id != User.admin.first.id
+    end
     throw :abort
   end
 end
