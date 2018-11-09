@@ -32,17 +32,19 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
+  private
+
   def set_default_role
     self.role ||= :normal
   end
 
   def update_role_valid?
     if User.current.present? && self.id == User.current.id
-      if self.admin? == false
+      if !self.admin?
         errors.add(:role, I18n.t('errors.messages.required_at_least_one_admin'))
         return false
       end
-    elsif self.admin? == false && User.admin.count < 2 && self.id == User.admin.first.id
+    elsif change_only_admin_user?(change_id: self.id) && !self.admin?
       errors.add(:role, I18n.t('errors.messages.required_at_least_one_admin'))
       return false
     end
@@ -57,5 +59,9 @@ class User < ApplicationRecord
       return true if self.id != User.admin.first.id
     end
     throw :abort
+  end
+
+  def change_only_admin_user?(change_id:)
+    User.admin.count < 2 && change_id == User.admin.first.id
   end
 end
