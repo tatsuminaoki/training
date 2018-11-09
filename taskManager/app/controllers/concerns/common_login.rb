@@ -39,12 +39,8 @@ module CommonLogin
     return true
   end
 
-  def current_user
-    current_user ||= User.find_by(id: session['user_id'])
-  end
-
   def progress_logout
-    delete_session unless current_user.nil?
+    delete_session unless User.current.nil?
     flash[:info] = I18n.t("messages.logout")
     redirect_to(:controller => 'login',:action => 'index')
   end

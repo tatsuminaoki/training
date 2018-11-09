@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2018_11_06_081205) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.string "role"
+    t.integer "role"
     t.index ["mail"], name: "index_users_on_mail", unique: true
   end
 

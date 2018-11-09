@@ -9,6 +9,7 @@
           <tr>
             <th class="th_user_name"><%= I18n.t "attributes.user.user_name" %></th>
             <th class="th_mail"><%= I18n.t "attributes.user.mail" %></th>
+            <th class="th_role"><%= I18n.t "attributes.user.role" %></th>
             <th class="th_task_count"><%= I18n.t "attributes.user.task_count" %></th>
             <th class="th_edit"><%= I18n.t "actions.edit" %></th>
             <th class="th_delete"><%= I18n.t "actions.delete" %></th>
@@ -18,6 +19,7 @@
           <tr>
             <td><%= u.user_name %></td>
             <td><%= u.mail %></td>
+            <td><%= user_role_message( role: u.role ) %></td>
             <td>
               <%= task_count_message( user_id: u.id, task: u.task ) %>
             </td>

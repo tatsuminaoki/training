@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :store_location
   before_action :check_session
+  after_action :clear_user_current
   rescue_from ActionController::RoutingError, with: :error_404
   rescue_from Exception, with: :error_500
   helper_method :sort_column, :sort_direction
@@ -20,14 +21,12 @@ class ApplicationController < ActionController::Base
 
   def check_session
     return redirect_to(:controller => '/login',:action => 'index') unless logged_in?
+    return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
+    User.current = User.find_by(id: session['user_id'])
   end
 
   def store_location
     session[:return_to] = request.url
-  end
-
-  def authenticate_user
-    return redirect_to(:controller => 'login',:action => 'index') unless valid_session?
   end
 
   def make_simple_message(column: 'task', action:, result: true)
@@ -44,5 +43,9 @@ class ApplicationController < ActionController::Base
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : ''
+  end
+
+  def clear_user_current
+    User.current = nil
   end
 end

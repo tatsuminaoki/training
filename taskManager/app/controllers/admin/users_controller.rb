@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  helper_method :current_user
+  before_action :check_permission
 
   def index
     @users = User.includes(task: :user).page(params[:page])
@@ -52,12 +52,11 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find_by(id: params[:id])
-    current_user_id = current_user.id
     result = @user.destroy
 
     if result
       flash[:info] = make_simple_message(column: 'user', action: 'delete')
-      if current_user_id == params[:id].to_i
+      if User.current.id == params[:id].to_i
         delete_session
         return redirect_to logout_path
       end
@@ -72,7 +71,14 @@ class Admin::UsersController < ApplicationController
 
   def common_params
     params.require(:user).permit(
-      :user_name, :mail, :password, :password_confirmation
+      :user_name, :mail, :password, :password_confirmation, :role
     )
+  end
+
+  def check_permission
+    unless User.current.admin?
+      flash.now[:warning] = I18n.t('messages.permission_error')
+      render 'errors/permission'
+    end
   end
 end

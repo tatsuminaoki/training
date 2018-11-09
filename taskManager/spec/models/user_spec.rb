@@ -96,10 +96,49 @@ RSpec.describe User, type: :model do
     end
     context "重複したメールアドレスなら無効な状態であること(大文字/小文字)" do
       let!(:user_tmp) { FactoryBot.create(:user, mail: "test10@example.com") }
-      let!(:user) do  FactoryBot.build(:user, mail: "TEST10@EXAMPLE.COM")
-      end
+      let!(:user) { FactoryBot.build(:user, mail: "TEST10@EXAMPLE.COM") }
       it "重複したメールアドレスなら無効な状態であること(大文字/小文字)" do
         is_expected.to be_falsey
+      end
+    end
+  end
+  describe 'ユーザ変更/削除(正常系)' do
+    context 'adminユーザが2人の時' do
+      let!(:admin_users) { FactoryBot.create_list(:user, 2, role: :admin) }
+      let!(:user) { FactoryBot.create(:user, role: :normal) }
+
+      it 'adminユーザ admin->userの変更ができる' do
+        admin_users[0].update(role: :normal)
+        expect(admin_users[0].errors.messages.empty?).to eq(true)
+      end
+      it 'adminユーザの削除ができる' do
+        expect { admin_users[0].destroy }.to change(User, :count).by(-1)
+      end
+      it '一般ユーザの削除ができる' do
+        expect { user.destroy }.to change(User, :count).by(-1)
+      end
+    end
+    context 'adminユーザが1人の時' do
+      let!(:admin_user) { FactoryBot.create(:user, role: :admin) }
+      let!(:user) { FactoryBot.create(:user, role: :normal) }
+      it '一般ユーザ user->adminの変更ができる' do
+        expect(admin_user.errors.messages.empty?).to eq(true)
+      end
+      it '一般ユーザの削除ができる' do
+        expect { user.destroy }.to change(User, :count).by(-1)
+      end
+    end
+  end
+  describe 'ユーザ変更/削除(異常系)' do
+    context 'adminユーザが1人の時' do
+      let!(:admin_user) { FactoryBot.create(:user, role: :admin) }
+      let!(:user) { FactoryBot.create(:user, role: :normal) }
+      it 'adminが1人の時、admin->userの変更ができない' do
+        admin_user.update(role: :normal)
+        expect(admin_user.errors.messages).to eq ( { role: [ I18n.t('errors.messages.required_at_least_one_admin') ] })
+      end
+      it 'adminが1人の時、admin削除ができない' do
+        expect { admin_user.destroy }.not_to change(User, :count)
       end
     end
   end

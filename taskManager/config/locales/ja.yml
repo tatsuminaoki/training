@@ -17,6 +17,7 @@ ja:
       password: パスワード
       password_confirmation: 確認パスワード
       task_count: タスク数
+      role: 権限
     task:
       <<: *models
       task_name: タスク名
@@ -72,6 +73,7 @@ ja:
       record_invalid: 該当のデータは存在しません
       invalid_email_address: は有効なメールアドレスではありません
       email_address_not_routable: のドメインを取得できません
+      required_at_least_one_admin: TaskManagerでは少なくとも1人の管理者が必要です。
   activerecord:
     models: *models
     attributes: *attributes
@@ -108,11 +110,16 @@ ja:
         low: 低
         common: 中
         high: 高
+    user:
+      role:
+        normal: 一般ユーザ
+        admin: 管理者
   messages:
     delete_confirm: "%{column}【%{name}】を削除していいですか？"
     simple_result: "%{name}の%{action}が%{result}しました。"
     password_error: "メールアドレスとパスワードが一致しません。"
     logout: "ログアウトしました。"
+    permission_error: "この機能を利用する権限がありません。"
   views:
     pagination:
       first: "&laquo; 最初"

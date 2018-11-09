@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ListController, type: :controller do
   # TODO user_idを1固定にしているので、セッション管理するようになったら変更すること
-  let(:user1) { FactoryBot.create(:user, password: 'hogehoge1') }
-  let(:user2) { FactoryBot.create(:user, password: 'hogehoge2') }
+  let(:user1) { FactoryBot.create(:user, password: 'hogehoge1', role: :admin) }
+  let(:user2) { FactoryBot.create(:user, password: 'hogehoge2', role: :admin) }
   let!(:task1) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
   let!(:task2) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
   let!(:task3) { FactoryBot.create(:task, user_id: user2.id, status: :completed) }
