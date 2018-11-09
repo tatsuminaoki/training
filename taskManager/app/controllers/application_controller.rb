@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :store_location
   before_action :check_session
+  after_action :clear_user_current
   rescue_from ActionController::RoutingError, with: :error_404
   rescue_from Exception, with: :error_500
   helper_method :sort_column, :sort_direction
@@ -42,5 +43,9 @@ class ApplicationController < ActionController::Base
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : ''
+  end
+
+  def clear_user_current
+    User.current = nil
   end
 end
