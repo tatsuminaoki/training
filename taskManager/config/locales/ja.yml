@@ -16,7 +16,7 @@ ja:
       user_name: ユーザ名
       password: パスワード
       password_confirmation: 確認パスワード
-      task_count: タスク数
+      tasks_count: タスク数
       role: 権限
     task:
       <<: *models

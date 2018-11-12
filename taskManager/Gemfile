@@ -29,6 +29,10 @@ gem 'font-awesome-rails'
 gem 'bcrypt'
 gem 'redis'
 gem 'redis-rails'
+gem 'jquery-rails'
+gem 'chosen'
+gem 'chosen-rails'
+gem 'bootstrap-chosen-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

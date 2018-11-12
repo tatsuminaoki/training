@@ -4,7 +4,8 @@ require 'selenium-webdriver'
 ## TODO: 日本語表記のチェックはI18n.tを使うこと
 RSpec.feature "Lists", type: :feature do
   let(:user) { FactoryBot.create(:user) }
-  let!(:task) { FactoryBot.create_list(:task, 9, user: user) }
+  let!(:label) { FactoryBot.create(:label) }
+  let!(:task) { FactoryBot.create_list(:task, 9, user: user, labels: [label]) }
   let!(:expect_result) {
     task.sort do |a, b|
       b[:created_at] <=> a[:created_at]
@@ -30,11 +31,13 @@ RSpec.feature "Lists", type: :feature do
         click_link "新規登録"
         fill_in "task[task_name]", with: params[:task_name]
         fill_in "task[description]", with: params[:description]
+        select = page.find('select.chosen-select')
+        select.select label.label_name
         click_button "登録"
-        expect(page).to have_content "タスクの新規登録が成功しました。"
-        expect(page).to have_content params[:task_name]
-        expect(page).to have_content params[:description]
-      }.to change(user.task, :count).by(1)
+        expect(page.text.inspect).to have_content "タスクの新規登録が成功しました。"
+        expect(page.text.inspect).to have_content params[:task_name]
+        expect(page.text.inspect).to have_content params[:description]
+      }.to change(user.tasks, :count).by(1).and change(TaskLabel.all, :count).by(1)
     end
   end
   feature "タスク変更" do
@@ -59,12 +62,14 @@ RSpec.feature "Lists", type: :feature do
   end
   feature "タスクを削除" do
     scenario "タスクを削除できること" do
-      # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
-      all(:link_or_button, I18n.t('actions.delete'))[0].click
-      expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t("words.task"), action: I18n.t("actions.delete"), result: I18n.t('words.success'))
-      expect(page).not_to have_content expect_result[0].task_name
-      expect(page).not_to have_content expect_result[0].description
-      expect { expect_result[0].reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect {
+        # TODO: なぜかchrome-driverで実施するとconfirmダイアログが表示されないので余裕があれば確認
+        all(:link_or_button, I18n.t('actions.delete'))[0].click
+        expect(page).to have_content I18n.t('messages.simple_result', name: I18n.t("words.task"), action: I18n.t("actions.delete"), result: I18n.t('words.success'))
+        expect(page).not_to have_content expect_result[0].task_name
+        expect(page).not_to have_content expect_result[0].description
+        expect { expect_result[0].reload }.to raise_error(ActiveRecord::RecordNotFound)
+      }.to change(user.tasks, :count).by(-1).and change(TaskLabel.all, :count).by(-1)
     end
   end
   feature "タスクの並びテスト" do
@@ -121,6 +126,17 @@ RSpec.feature "Lists", type: :feature do
       fill_in "task_name", with: "タスク"
       click_button "検索"
       expect(page.text.inspect).to match %r(#{expect_str})
+    end
+  end
+  feature "ラベル検索" do
+    let!(:task1) { FactoryBot.create(:task, user_id: user.id, labels: [label]) }
+    let!(:task2) { FactoryBot.create(:task, user_id: user.id) }
+    scenario "ラベルで検索ができる" do
+      select = page.find('select.chosen-select')
+      select.select label.label_name
+      click_button "検索"
+      expect(page.text.inspect).to have_content task1.task_name
+      expect(page.text.inspect).not_to have_content task2.task_name
     end
   end
   feature "ページングのテスト" do

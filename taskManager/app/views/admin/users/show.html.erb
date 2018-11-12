@@ -31,7 +31,7 @@
             <td><%= t.task_name %></td>
             <td><%= description_message(t.description) %></td>
             <td>
-              <% t.task_label.each do |l| %>
+              <% t.task_labels.each do |l| %>
                 <%= label_message(l.label.label_name) %>
               <% end %>
             </td>

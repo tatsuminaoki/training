@@ -1,7 +1,7 @@
 module Admin::UsersHelper
-  def task_count_message(user_id:, task:)
-    return raw %(#{link_to task.size, admin_user_path(id: user_id)}) if task.size > 0
-    task.size
+  def tasks_count_message(user_id:, tasks:)
+    return raw %(#{link_to tasks.size, admin_user_path(id: user_id)}) if tasks.size > 0
+    tasks.size
   end
 
   def user_role_message(role:)

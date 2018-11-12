@@ -4,6 +4,7 @@ RSpec.describe ListController, type: :controller do
   # TODO user_idを1固定にしているので、セッション管理するようになったら変更すること
   let(:user1) { FactoryBot.create(:user, password: 'hogehoge1', role: :admin) }
   let(:user2) { FactoryBot.create(:user, password: 'hogehoge2', role: :admin) }
+  let(:labels) { FactoryBot.create_list(:label, 3) }
   let!(:task1) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
   let!(:task2) { FactoryBot.create(:task, user_id: user1.id, status: :waiting) }
   let!(:task3) { FactoryBot.create(:task, user_id: user2.id, status: :completed) }
@@ -58,31 +59,43 @@ RSpec.describe ListController, type: :controller do
       it "タスクが追加できること" do
         expect do
           post :create, params: { task: task_params }
-        end.to change(user1.task, :count).by(1)
+        end.to change(user1.tasks, :count).by(1)
+      end
+      it "タスクが追加できること(ラベル追加)" do
+        task_params[:label_ids] = labels.map {|l| l[:id] }
+        expect do
+          post :create, params: { task: task_params }
+        end.to change(user1.tasks, :count).by(1).and change(TaskLabel.all, :count).by(labels.size)
+      end
+      it "タスクが追加できること(ラベルnil)" do
+        task_params[:label_ids] = nil
+        expect do
+          post :create, params: { task: task_params }
+        end.to change(user1.tasks, :count).by(1).and change(TaskLabel.all, :count).by(0)
       end
       it "タスク名が空の場合、追加できないこと" do
         task_params[:task_name] = nil
         expect do
           post :create, params: { task: task_params }
-        end.to_not change(user1.task, :count)
+        end.to_not change(user1.tasks, :count)
       end
       it "説明が空の場合、追加できないこと" do
         task_params[:description] = nil
         expect do
           post :create, params: { task: task_params }
-        end.to_not change(user1.task, :count)
+        end.to_not change(user1.tasks, :count)
       end
       it "優先度が空の場合、追加できないこと" do
         task_params[:priority] = nil
         expect do
           post :create, params: { task: task_params }
-        end.to_not change(user1.task, :count)
+        end.to_not change(user1.tasks, :count)
       end
       it "ステータスが空の場合、追加できないこと" do
         task_params[:status] = nil
         expect do
           post :create, params: { task: task_params }
-        end.to_not change(user1.task, :count)
+        end.to_not change(user1.tasks, :count)
       end
       # TODO: まだ実装していないので実装すること
       it "未認証のユーザでアクセスするとログイン画面にリダイレクトされること"
@@ -92,17 +105,17 @@ RSpec.describe ListController, type: :controller do
       it "存在するタスクIDのタスク削除ができること" do
         expect do
           delete :destroy, params: { id: task1.id }
-        end.to change(user1.task, :count).by(-1)
+        end.to change(user1.tasks, :count).by(-1)
       end
       it "存在しないタスクIDのタスク削除はエラーになること" do
         expect do
           delete :destroy, params: { id: task1.id + 1000 }
-        end.not_to change(user1.task, :count)
+        end.not_to change(user1.tasks, :count)
       end
       it "異なるユーザIDでタスク削除ができないこと" do
         expect do
           delete :destroy, params: { id: task3.id }
-        end.not_to change(user1.task, :count)
+        end.not_to change(user1.tasks, :count)
       end
     end
 
@@ -135,11 +148,17 @@ RSpec.describe ListController, type: :controller do
         patch :update, params: { id: task1.id, task: task_params }
         expect(task1.reload.status).to eq "completed"
       end
+      it "ラベルの変更ができること" do
+        label_ids = labels.map {|l| l[:id] }
+        task_params = FactoryBot.attributes_for(:task, label_ids: label_ids)
+        patch :update, params: { id: task1.id, task: task_params }
+        expect(task1.reload.label_ids).to eq label_ids
+      end
       it "存在しないタスクIDのタスク変更はできないこと" do
         task_params = FactoryBot.attributes_for(:task, task_name: "newtask1")
         expect do
           patch :update, params: { id: task1.id + 1000, task: task_params }
-        end.not_to change(user1.task, :count)
+        end.not_to change(user1.tasks, :count)
       end
     end
   end

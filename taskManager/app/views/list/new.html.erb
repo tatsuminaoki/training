@@ -41,22 +41,14 @@
             <%= f.select :status, Task.statuses.keys.map { |k| [I18n.t("enum.task.status.#{k}"), k] } %>
           </div>
           <div class="form-group">
-            <div class="checkbox">
-              <%= fields_for :task_label do |tl| %>
-                <% @label.each do |l| %>
-                  <label>
-                    <%= tl.check_box :label_id, {name: 'task_label', multiple: true }, l.id, nil %>
-                    <%= l.label_name %>
-                  </label>
-                <% end %>
-              <% end %>
-            </div>
+            <%= f.label :label %>
+            <%= f.collection_select(:label_ids, @label.all, :id, :label_name, {} ,
+            { multiple: true, class: "chosen-select" }) %>
           </div>
           <div class="form-group">
             <%= f.submit I18n.t(action_content[:action_name]), :class => "btn btn-default" %>
           </div>
         <% end %>
-        <%= link_to I18n.t("actions.back"), :back %>
       </div>
     </div>
   </div>
