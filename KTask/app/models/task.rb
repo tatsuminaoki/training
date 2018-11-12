@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  acts_as_taggable_on :labels
+
   enum status: %i[yet do done]
   enum priority: %i[low mid high]
   validates :title, presence: true, length: { maximum: 20 }
