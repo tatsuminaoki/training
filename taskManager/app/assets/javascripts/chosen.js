@@ -1,8 +1,6 @@
 $(window).load(function(){
-  $(".chosen-select").chosen(
+  $(".select2-select").select2(
     {
-      allow_single_deselect: true,
-      width: '300px',
-      placeholder_text_multiple: '選択してください'
+      width: '300px'
     });
 });

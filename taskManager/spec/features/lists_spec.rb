@@ -31,7 +31,7 @@ RSpec.feature "Lists", type: :feature do
         click_link "新規登録"
         fill_in "task[task_name]", with: params[:task_name]
         fill_in "task[description]", with: params[:description]
-        select = page.find('select.chosen-select')
+        select = page.find('select.select2-select')
         select.select label.label_name
         click_button "登録"
         expect(page.text.inspect).to have_content "タスクの新規登録が成功しました。"
@@ -132,7 +132,7 @@ RSpec.feature "Lists", type: :feature do
     let!(:task1) { FactoryBot.create(:task, user_id: user.id, labels: [label]) }
     let!(:task2) { FactoryBot.create(:task, user_id: user.id) }
     scenario "ラベルで検索ができる" do
-      select = page.find('select.chosen-select')
+      select = page.find('select.select2-select')
       select.select label.label_name
       click_button "検索"
       expect(page.text.inspect).to have_content task1.task_name
