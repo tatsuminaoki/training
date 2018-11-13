@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, :counter_cache => :tasks_count
   has_many :task_labels, dependent: :destroy
   has_many :labels, through: :task_labels
   accepts_nested_attributes_for :labels
@@ -29,8 +29,6 @@ class Task < ApplicationRecord
             presence: true,
             inclusion: { in: Task.statuses.keys }
 
-  private
-
   def self.search(params:, user: nil)
     results = Task.all
     results = results.where(user_id: user[:id]) if user.present?
@@ -45,4 +43,6 @@ class Task < ApplicationRecord
     return nil if arr.nil?
     arr.reject{ |a| a == '' }
   end
+
+  private_class_method :clean_array
 end

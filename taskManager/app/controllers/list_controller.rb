@@ -3,7 +3,7 @@ class ListController < ApplicationController
   skip_before_action :store_location, only: [:update, :create, :delete]
 
   def index
-    @tasks = Task.search(params: params, user: User.current).page(params[:page])
+    @tasks = Task.includes(task_labels: :label).search(params: params, user: User.current).page(params[:page])
     if sort_direction.present? && sort_column.present?
       @tasks = @tasks.order("#{sort_column}": sort_direction)
     else

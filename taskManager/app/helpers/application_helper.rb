@@ -25,12 +25,6 @@ module ApplicationHelper
     make_link_tag(result_active: true, link_str: link_str)
   end
 
-  def link_login
-    result_active = controller.controller_name == 'login'
-    link_str = link_to I18n.t('actions.login'), login_index_path
-    make_link_tag(result_active: result_active, link_str: link_str)
-  end
-
   def link_logout
     return if controller.controller_name == 'login'
 
