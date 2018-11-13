@@ -31,6 +31,7 @@ gem 'redis'
 gem 'redis-rails'
 gem 'jquery-rails'
 gem 'select2-rails'
+gem 'simplecov'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
