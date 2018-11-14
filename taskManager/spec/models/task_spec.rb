@@ -17,6 +17,13 @@ RSpec.describe Task, type: :model do
         is_expected.to be_truthy
       end
     end
+    context '妥当なタスクの時(ラベル追加)' do
+      let(:label) { FactoryBot.build(:label) }
+      let(:task) { FactoryBot.build(:task, labels: [label]) }
+      it "タスク名、説明、ユーザID、優先度があれば有効な状態であること" do
+        is_expected.to be_truthy
+      end
+    end
     context 'タスク名が無い時' do
       let(:task) { FactoryBot.build(:task, task_name: nil) }
       it "タスク名が無ければ、無効な状態であること" do

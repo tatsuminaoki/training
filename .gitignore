@@ -2,3 +2,4 @@
 taskManager/vendor/bundle/
 .idea/
 .DS_Store
+.tags

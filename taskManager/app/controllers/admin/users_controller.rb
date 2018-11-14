@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :check_permission
 
   def index
-    @users = User.includes(task: :user).page(params[:page])
+    @users = User.page(params[:page])
   end
 
   def new
@@ -11,7 +11,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    @tasks = Task.includes(task_label: :label).search(params: params, user: @user).page(params[:page])
+    @tasks = Task.includes(task_labels: :label).search(params: params, user: @user).page(params[:page])
     if sort_direction.present? && sort_column.present?
       @tasks = @tasks.order("#{sort_column}": sort_direction)
     else

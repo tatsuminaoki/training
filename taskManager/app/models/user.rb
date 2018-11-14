@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :task, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   enum role: { normal: 0, admin: 10 }
   after_initialize :set_default_role, :if => :new_record?

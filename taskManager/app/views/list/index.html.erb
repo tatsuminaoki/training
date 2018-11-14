@@ -11,6 +11,9 @@
 
           <%= label_tag t "attributes.task.status" %>
           <%= select_tag :status, options_for_select(Task.statuses.keys.map { |k| [t("enum.task.status.#{k}"), k] }, :selected => params[:status] ), :include_blank => true %>
+
+          <%= label_tag t "attributes.task.label.other" %>
+          <%= collection_select(nil, :label_ids, @label.all, :id, :label_name, { :selected => params[:label_ids]} , { multiple: true, class: "select2-select" }) %>
           <%= submit_tag t("actions.search"), :status => nil, :class => "btn btn-default" %>
         </div>
       <% end %>
@@ -32,7 +35,7 @@
             <td><%= t.task_name %></td>
             <td><%= description_message(t.description) %></td>
             <td>
-              <% t.task_label.each do |l| %>
+              <% t.task_labels.each do |l| %>
                 <%= label_message(l.label.label_name) %>
               <% end %>
             </td>

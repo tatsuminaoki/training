@@ -1,9 +1,9 @@
 class ListController < ApplicationController
-  before_action :all_labels, only: [:edit, :update, :new, :create]
+  before_action :all_labels, only: [:edit, :update, :new, :create, :index]
   skip_before_action :store_location, only: [:update, :create, :delete]
 
   def index
-    @tasks = Task.includes(task_label: :label).search(params: params, user: User.current).page(params[:page])
+    @tasks = Task.includes(task_labels: :label).search(params: params, user: User.current).page(params[:page])
     if sort_direction.present? && sort_column.present?
       @tasks = @tasks.order("#{sort_column}": sort_direction)
     else
@@ -13,7 +13,7 @@ class ListController < ApplicationController
 
   def new
     @task = Task.new
-    @task.task_label.build
+    @task.task_labels.build
   end
 
   def edit
@@ -73,7 +73,7 @@ class ListController < ApplicationController
   def common_params
     params.require(:task).permit(
       :task_name, :description, :deadline, :priority, :status,
-      task_label_attributes: [:label_id]
+      label_ids: []
     )
   end
 end

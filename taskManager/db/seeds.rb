@@ -10,6 +10,9 @@
     mail: "hajime.iizuka#{i}@fablic.co.jp",
     user_name: "Hajime Iizuka#{i}",
     password: "hogehoge#{i}",
-    role: 0
+    role: 10
+  )
+  Label.create!(
+    label_name: "label#{i}"
   )
 end
