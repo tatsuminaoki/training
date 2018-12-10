@@ -17,7 +17,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path, notice: 'タスクを登録しました'
     else
       flash[:error] = 'タスクの登録に失敗しました'
-      render file: 'tasks/new', contents_type: 'text/html'
+      render :new
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path, notice: 'タスクを更新しました'
     else
       flash[:error] = 'タスクの更新に失敗しました'
-      render file: 'tasks/edit', contents_type: 'text/html'
+      render :edit
     end
   end
 
