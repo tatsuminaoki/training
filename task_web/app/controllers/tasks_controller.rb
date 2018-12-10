@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-
   def index
     @tasks = Task.all
   end
@@ -16,9 +15,9 @@ class TasksController < ApplicationController
     @task = Task.new(common_params)
     if @task.save
       redirect_to tasks_path, notice: 'タスクを登録しました'
-     else
+    else
       flash[:error] = 'タスクの登録に失敗しました'
-      render file: "tasks/new", contents_type: 'text/html'
+      render file: 'tasks/new', contents_type: 'text/html'
     end
   end
 
@@ -32,7 +31,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path, notice: 'タスクを更新しました'
     else
       flash[:error] = 'タスクの更新に失敗しました'
-      render file: "tasks/edit", contents_type: 'text/html'
+      render file: 'tasks/edit', contents_type: 'text/html'
     end
   end
 
@@ -50,5 +49,4 @@ class TasksController < ApplicationController
   def common_params
     params.require(:task).permit(:name, :description)
   end
-
 end
