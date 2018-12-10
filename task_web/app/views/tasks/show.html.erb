@@ -1,0 +1,21 @@
+<h1>TODOリスト タスク詳細</h1>
+
+<table border="1">
+  <tr>
+    <td>Task Name</td>
+    <td><%= @task.name %></td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <td>Registration Time</td>
+    <td><%= @task.created_at %></td>
+  </tr>
+  <tr>
+    <td>Update Time</td>
+    <td><%= @task.updated_at %></td>
+  </tr>
+</table>
+<%= link_to 'Back', tasks_path %>

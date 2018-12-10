@@ -1,0 +1,27 @@
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
+<h1>TODOリスト</h1>
+ゲストさん　タスク一覧
+<br/>
+<table border="1">
+  <tr>
+    <td>Task Name</td>
+    <td>Description</td>
+    <td>Details</td>
+    <td>#</td>
+    <td>#</td>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%= task.description %></td>
+      <td><%= link_to 'Show', task %></td>
+      <td><%= link_to 'Edit', edit_task_path(task) %></td>
+      <td><%= link_to 'Delete', task, :method=>'delete', data: {confirm: "Are You Sure?" } %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'New Task', new_task_path %>
+
