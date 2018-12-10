@@ -13,11 +13,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(get_params)
+    @task = Task.new(common_params)
     if @task.save
-      redirect_to tasks_path, notice: 'complete task creation.'
-    else
-      redirect_to tasks_path, error: 'fail to create task.'
+      redirect_to tasks_path, notice: 'タスクを登録しました'
+     else
+      flash[:error] = 'タスクの登録に失敗しました'
+      render file: "tasks/new", contents_type: 'text/html'
     end
   end
 
@@ -27,26 +28,26 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(get_params)
-      redirect_to tasks_path, notice: 'complete update.'
+    if @task.update(common_params)
+      redirect_to tasks_path, notice: 'タスクを更新しました'
     else
-      redirect_to tasks_path, error: 'fail to update.'
+      flash[:error] = 'タスクの更新に失敗しました'
+      render file: "tasks/edit", contents_type: 'text/html'
     end
   end
 
   def destroy
     @task = Task.find(params[:id])
-    if @task.destroy!
-      redirect_to tasks_path, notice: 'complete task deletion.'
+    if @task.destroy
+      redirect_to tasks_path, notice: 'タスクを削除しました'
     else
-      redirect_to tasks_path, error: 'fail to delete.'
+      redirect_to tasks_path, error: 'タスクの削除に失敗しました'
     end
   end
 
-
   private
 
-  def get_params
+  def common_params
     params.require(:task).permit(:name, :description)
   end
 

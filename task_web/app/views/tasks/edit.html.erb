@@ -1,4 +1,8 @@
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
 <h1>TODOリスト タスク編集</h1>
 
 <%= render 'form', task: @task %>
-<%= link_to 'Back', tasks_path %>
+<%= link_to '戻る', tasks_path %>
