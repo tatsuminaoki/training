@@ -1,11 +1,8 @@
-// Place all the styles related to the Tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-div.notice {
-  color: green;
-}
-
-div.error {
-  color: red;
+body{
+  .notice {
+    color: green;
+  }
+  .error {
+    color: red;
+  }
 }
