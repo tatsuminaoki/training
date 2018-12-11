@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   # TODO: 暫定版Validation ( Step11 で仕上げます)
   # 空チェック

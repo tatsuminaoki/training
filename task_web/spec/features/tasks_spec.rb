@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'タスク管理ツール フィーチャテスト', type: :feature do
