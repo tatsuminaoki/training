@@ -7,18 +7,19 @@
 <br/>
 <table border="1">
   <tr>
-    <td></td>タスク名<td>Description</td>
+    <td>タスク名</td>
     <td>説明</td>
+    <td>詳細</td>
     <td>#</td>
     <td>#</td>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
-      <td><%= task.name %></td>
-      <td><%= task.description %></td>
-      <td><%= link_to '詳細', task %></td>
-      <td><%= link_to '編集', edit_task_path(task) %></td>
-      <td><%= link_to '削除', task, :method=>'delete', data: {confirm: "タスクを削除しても良いですか？" } %></td>
+      <td class="name"><%= task.name %></td>
+      <td class="description"><%= task.description %></td>
+      <td class="detail"><%= link_to '詳細', task %></td>
+      <td class="edit"><%= link_to '編集', edit_task_path(task) %></td>
+      <td class="delete"><%= link_to '削除', task, :method=>'delete', data: {confirm: "タスクを削除しても良いですか？" } %></td>
     </tr>
   <% end %>
 </table>
