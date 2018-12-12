@@ -65,8 +65,8 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
 
   scenario '#タスクの削除確認' do
     visit root_path
-    click_link '削除', match: :first
     expect {
+      click_link '削除', match: :first
       page.accept_confirm 'タスクを削除しても良いですか？'
       expect(current_path).to eq tasks_path
     }.to change { Task.count }.by(-1)
