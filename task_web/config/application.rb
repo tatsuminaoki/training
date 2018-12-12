@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -12,6 +14,13 @@ module TaskWeb
     config.load_defaults 5.2
     config.generators do |g|
       g.javascripts false
+      g.test_framework :rspec,
+                       controller_specs: true,
+                       helper_specs: false,
+                       model_specs: true,
+                       request_specs: false,
+                       routing_specs: false,
+                       view_specs: false
     end
   end
 end
