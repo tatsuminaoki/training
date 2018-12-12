@@ -11,9 +11,9 @@ require 'rspec/rails'
 require 'capybara/rspec'
 
 Capybara.configure do |capybara_config|
-  capybara_config.default_driver = :selenium_chrome
+  capybara_config.default_driver = :selenium_chrome_headless
 end
-Capybara.javascript_driver = :selenium_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -39,6 +39,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
