@@ -28,7 +28,7 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
     expect {
       fill_in 'task_name', with: added_task.name
       fill_in 'task_description', with: added_task.description
-      click_on('Create Task')
+      click_on('Create タスク')
     }.to change { Task.count }.by(1)
     expect(current_path).to eq tasks_path
     expect(page).to have_content 'タスクの登録に成功しました。'
@@ -50,7 +50,7 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
     expect {
       fill_in 'task_name', with: updated_task.name
       fill_in 'task_description', with: updated_task.description
-      click_on('Update Task')
+      click_on('Update タスク')
     }.to change { Task.count }.by(0)
     expect(current_path).to eq tasks_path
     expect(page).to have_content 'タスクの更新に成功しました。'

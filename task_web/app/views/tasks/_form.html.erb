@@ -11,12 +11,12 @@
   <% end %>
 
   <div>
-    <%= form.label t('task.name') %>
+    <%= form.label I18n.t('activerecord.attributes.task.name') %>
     <%= form.text_field :name, id: :task_name %>
   </div>
 
   <div>
-    <%= form.label t('task.description') %>
+    <%= form.label I18n.t('activerecord.attributes.task.description') %>
     <%= form.text_area :description, id: :task_description %>
   </div>
 

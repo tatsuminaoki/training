@@ -1,6 +1,18 @@
 ---
 ja:
   activerecord:
+    # モデル名
+    models:
+      task: タスク
+      user: ユーザ
+    # モデルごとのアトリビュート名
+    attributes:
+      task:
+        name: タスク名
+        description: 説明
+        created_time: 登録日時
+        updated_time: 更新日時
+    # バリデーションメッセージ
     errors:
       models:
         task:
@@ -17,16 +29,6 @@ ja:
     show: タスクの詳細
     new: タスクの登録
     edit: タスクの編集
-
-  data:
-    task: タスク
-    user: ユーザ
-
-  task:
-    name: タスク名
-    description: 説明
-    created_time: 登録日時
-    updated_time: 更新日時
 
   links:
     return: 戻る

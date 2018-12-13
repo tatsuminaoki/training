@@ -53,6 +53,6 @@ class TasksController < ApplicationController
   end
 
   def create_message(action, result)
-    t('messages.action_result', target: t('data.task'), action: t("actions.#{action}"), result: t("results.#{result}"))
+    I18n.t('messages.action_result', target: I18n.t('activerecord.models.task'), action: I18n.t("actions.#{action}"), result: I18n.t("results.#{result}"))
   end
 end

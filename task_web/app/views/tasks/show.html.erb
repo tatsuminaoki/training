@@ -1,21 +1,21 @@
-<h1><%= t('titles.show') %></h1>
+<h1><%= I18n.t('titles.show') %></h1>
 
 <table border="1">
   <tr>
-    <td><%= t('task.name') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.name') %></td>
     <td><%= @task.name %></td>
   </tr>
   <tr>
-    <td><%= t('task.description') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.description') %></td>
     <td><%= @task.description %></td>
   </tr>
   <tr>
-    <td><%= t('task.created_time') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
     <td><%= l(@task.created_at, format: :long) %></td>
   </tr>
   <tr>
-    <td><%= t('task.updated_time') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.updated_time') %></td>
     <td><%= l(@task.updated_at, format: :long) %></td>
   </tr>
 </table>
-<%= link_to t('links.return'), tasks_path %>
+<%= link_to I18n.t('links.return'), tasks_path %>
