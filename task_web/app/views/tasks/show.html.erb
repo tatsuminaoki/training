@@ -11,11 +11,11 @@
   </tr>
   <tr>
     <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
-    <td><%= l(@task.created_at, format: :long) %></td>
+    <td><%= I18n.l(@task.created_at, format: :long) %></td>
   </tr>
   <tr>
     <td><%= I18n.t('activerecord.attributes.task.updated_time') %></td>
-    <td><%= l(@task.updated_at, format: :long) %></td>
+    <td><%= I18n.l(@task.updated_at, format: :long) %></td>
   </tr>
 </table>
 <%= link_to I18n.t('links.return'), tasks_path %>
