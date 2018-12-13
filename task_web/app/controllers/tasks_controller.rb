@@ -16,9 +16,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(common_params)
     if @task.save
-      redirect_to tasks_path, notice: 'タスクを登録しました'
+      redirect_to tasks_path, notice: create_message('create', 'success')
     else
-      flash[:error] = 'タスクの登録に失敗しました'
+      flash[:error] = create_message('create', 'error')
       render :new
     end
   end
@@ -30,9 +30,9 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(common_params)
-      redirect_to tasks_path, notice: 'タスクを更新しました'
+      redirect_to tasks_path, notice: create_message('update', 'success')
     else
-      flash[:error] = 'タスクの更新に失敗しました'
+      flash[:error] = create_message('update', 'error')
       render :edit
     end
   end
@@ -40,9 +40,9 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      redirect_to tasks_path, notice: 'タスクを削除しました'
+      redirect_to tasks_path, notice: create_message('delete', 'success')
     else
-      redirect_to tasks_path, error: 'タスクの削除に失敗しました'
+      redirect_to tasks_path, error: create_message('delete', 'error')
     end
   end
 
@@ -50,5 +50,9 @@ class TasksController < ApplicationController
 
   def common_params
     params.require(:task).permit(:name, :description)
+  end
+
+  def create_message(action, result)
+    I18n.t('messages.action_result', target: I18n.t('activerecord.models.task'), action: I18n.t("actions.#{action}"), result: I18n.t("results.#{result}"))
   end
 end

@@ -2,14 +2,13 @@
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
-<h1>TODOリスト</h1>
-ゲストさん　タスク一覧
+<h1><%= I18n.t('titles.index') %></h1>
 <br/>
 <table border="1">
   <tr>
-    <td>タスク名</td>
-    <td>説明</td>
-    <td>詳細</td>
+    <td><%= I18n.t('activerecord.attributes.task.name') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.description') %></td>
+    <td>#</td>
     <td>#</td>
     <td>#</td>
   </tr>
@@ -17,10 +16,10 @@
     <tr>
       <td class="name"><%= task.name %></td>
       <td class="description"><%= task.description %></td>
-      <td class="detail"><%= link_to '詳細', task %></td>
-      <td class="edit"><%= link_to '編集', edit_task_path(task) %></td>
-      <td class="delete"><%= link_to '削除', task, :method=>'delete', data: {confirm: "タスクを削除しても良いですか？" } %></td>
+      <td class="detail"><%= link_to I18n.t('links.show_task'), task %></td>
+      <td class="edit"><%= link_to I18n.t('links.edit_task'), edit_task_path(task) %></td>
+      <td class="delete"><%= link_to I18n.t('links.delete_task'), task, :method=>'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), :target => task.name) } %></td>
     </tr>
   <% end %>
 </table>
-<%= link_to 'タスク追加', new_task_path %>
+<%= link_to I18n.t('links.create_task'), new_task_path %>

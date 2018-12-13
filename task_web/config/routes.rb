@@ -3,4 +3,5 @@
 Rails.application.routes.draw do
   root 'tasks#index'
   resources :tasks
+  get '*path', controller: 'application', action: 'error_404'
 end
