@@ -16,7 +16,7 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
 
   scenario '#タスクの登録画面への遷移確認' do
     visit root_path
-    click_on('タスク追加')
+    click_on('タスクを追加する')
     expect(current_path).to eq new_task_path
     expect(page).to have_field 'task_name', with: ''
     expect(page).to have_field 'task_description', with: ''
@@ -31,7 +31,7 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
       click_on('Create Task')
     }.to change { Task.count }.by(1)
     expect(current_path).to eq tasks_path
-    expect(page).to have_content 'タスクを登録しました'
+    expect(page).to have_content 'タスクの登録に成功しました。'
     expect(page).to have_content added_task.name
     expect(page).to have_content added_task.description
   end
@@ -53,7 +53,7 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
       click_on('Update Task')
     }.to change { Task.count }.by(0)
     expect(current_path).to eq tasks_path
-    expect(page).to have_content 'タスクを更新しました'
+    expect(page).to have_content 'タスクの更新に成功しました。'
     expect(page).to_not have_content init_task.name
     expect(page).to_not have_content init_task.description
     expect(page).to have_content updated_task.name
@@ -67,9 +67,9 @@ RSpec.feature 'タスク管理ツール フィーチャテスト', type: :featur
     visit root_path
     expect {
       click_link '削除', match: :first
-      page.accept_confirm 'タスクを削除しても良いですか？'
+      page.accept_confirm "#{init_task.name}を削除しますか？"
       expect(current_path).to eq tasks_path
     }.to change { Task.count }.by(-1)
-    expect(page).to have_content 'タスクを削除しました'
+    expect(page).to have_content 'タスクの削除に成功しました。'
   end
 end

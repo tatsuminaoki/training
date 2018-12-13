@@ -2,7 +2,7 @@
 
   <% if task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %></h2>このタスクは保存されませんでした。<ul>
+      <ul>
         <% task.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
@@ -11,12 +11,12 @@
   <% end %>
 
   <div>
-    <%= form.label 'タスク名' %>
+    <%= form.label t('task.name') %>
     <%= form.text_field :name, id: :task_name %>
   </div>
 
   <div>
-    <%= form.label '説明' %>
+    <%= form.label t('task.description') %>
     <%= form.text_area :description, id: :task_description %>
   </div>
 

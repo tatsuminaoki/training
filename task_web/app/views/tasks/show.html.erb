@@ -1,21 +1,21 @@
-<h1>TODOリスト タスク詳細</h1>
+<h1><%= t('titles.show') %></h1>
 
 <table border="1">
   <tr>
-    <td>タスク名</td>
+    <td><%= t('task.name') %></td>
     <td><%= @task.name %></td>
   </tr>
   <tr>
-    <td>説明</td>
+    <td><%= t('task.description') %></td>
     <td><%= @task.description %></td>
   </tr>
   <tr>
-    <td>登録日時</td>
-    <td><%= @task.created_at %></td>
+    <td><%= t('task.created_time') %></td>
+    <td><%= l(@task.created_at, format: :long) %></td>
   </tr>
   <tr>
-    <td>更新日時</td>
-    <td><%= @task.updated_at %></td>
+    <td><%= t('task.updated_time') %></td>
+    <td><%= l(@task.updated_at, format: :long) %></td>
   </tr>
 </table>
-<%= link_to '戻る', tasks_path %>
+<%= link_to t('links.return'), tasks_path %>

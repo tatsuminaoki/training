@@ -1,0 +1,109 @@
+---
+ja:
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: タスク名が空です
+              too_long: タスク名は２０文字まで利用できます
+            description:
+              blank: 説明文が空です
+              too_long: 説明文は２００文字まで利用できます
+
+  titles:
+    index: TODOタスク一覧画面
+    show: タスクの詳細
+    new: タスクの登録
+    edit: タスクの編集
+
+  data:
+    task: タスク
+    user: ユーザ
+
+  task:
+    name: タスク名
+    description: 説明
+    created_time: 登録日時
+    updated_time: 更新日時
+
+  links:
+    return: 戻る
+    create_task: タスクを追加する
+    show_task: 詳細
+    edit_task: 編集
+    delete_task: 削除
+
+  messages:
+    action_confirm: "%{target}を%{action}しますか？"
+    action_result: "%{target}の%{action}に%{result}しました。"
+
+  actions:
+    create: 登録
+    update: 更新
+    delete: 削除
+
+  results:
+    success: 成功
+    error: 失敗
+
+  date:
+    abbr_day_names:
+    - 日
+    - 月
+    - 火
+    - 水
+    - 木
+    - 金
+    - 土
+    abbr_month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    day_names:
+    - 日曜日
+    - 月曜日
+    - 火曜日
+    - 水曜日
+    - 木曜日
+    - 金曜日
+    - 土曜日
+    formats:
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+    month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    order:
+    - :year
+    - :month
+    - :day
+
+  time:
+    formats:
+      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      long: "%Y/%m/%d %H:%M"
+      short: "%m/%d %H:%M"

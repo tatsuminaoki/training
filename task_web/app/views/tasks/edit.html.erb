@@ -2,7 +2,7 @@
   <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
 
-<h1>TODOリスト タスク編集</h1>
+<h1><%= t('titles.edit') %></h1>
 
 <%= render 'form', task: @task %>
-<%= link_to '戻る', tasks_path %>
+<%= link_to t('links.return'), tasks_path %>
