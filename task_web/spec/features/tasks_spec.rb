@@ -36,14 +36,14 @@ RSpec.feature 'タスク管理 機能テスト', type: :feature do
   context '画面遷移テスト' do
     scenario '#タスクの登録画面への遷移確認' do
       visit root_path
-      click_on('タスクを追加する')
+      click_on(I18n.t('links.create_task'))
       expect(current_path).to eq new_task_path
       expect(page).to have_field 'task_name', with: ''
       expect(page).to have_field 'task_description', with: ''
     end
     scenario '#タスクの更新画面への遷移確認' do
       visit root_path
-      click_link '編集', match: :first
+      click_link I18n.t('links.edit_task'), match: :first
       expect(current_path).to eq edit_task_path(init_task)
       expect(page).to have_field 'task_name', with: init_task.name
       expect(page).to have_field 'task_description', with: init_task.description
@@ -60,7 +60,10 @@ RSpec.feature 'タスク管理 機能テスト', type: :feature do
         click_on('Create タスク')
       }.to change { Task.count }.by(1)
       expect(current_path).to eq tasks_path
-      expect(page).to have_content 'タスクの登録に成功しました。'
+      expect(page).to have_content I18n.t('messages.action_result',
+                                          target: I18n.t('activerecord.models.task'),
+                                          action: I18n.t('actions.create'),
+                                          result: I18n.t('results.success'))
       expect(page).to have_content added_task.name
       expect(page).to have_content added_task.description
     end
@@ -72,7 +75,10 @@ RSpec.feature 'タスク管理 機能テスト', type: :feature do
         click_on('Update タスク')
       }.to change { Task.count }.by(0)
       expect(current_path).to eq tasks_path
-      expect(page).to have_content 'タスクの更新に成功しました。'
+      expect(page).to have_content I18n.t('messages.action_result',
+                                          target: I18n.t('activerecord.models.task'),
+                                          action: I18n.t('actions.update'),
+                                          result: I18n.t('results.success'))
       expect(page).to_not have_content init_task.name
       expect(page).to_not have_content init_task.description
       expect(page).to have_content updated_task.name
@@ -84,11 +90,16 @@ RSpec.feature 'タスク管理 機能テスト', type: :feature do
     scenario '#タスクの削除確認' do
       visit root_path
       expect {
-        click_link '削除', match: :first
-        page.accept_confirm "#{init_task.name}を削除しますか？"
+        click_link I18n.t('actions.delete'), match: :first
+        page.accept_confirm I18n.t('messages.action_confirm',
+                                   target: init_task.name,
+                                   action: I18n.t('actions.delete'))
         expect(current_path).to eq tasks_path
       }.to change { Task.count }.by(-1)
-      expect(page).to have_content 'タスクの削除に成功しました。'
+      expect(page).to have_content I18n.t('messages.action_result',
+                                          target: I18n.t('activerecord.models.task'),
+                                          action: I18n.t('actions.delete'),
+                                          result: I18n.t('results.success'))
     end
   end
 end
