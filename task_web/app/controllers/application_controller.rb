@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :error_404
+  # TODO: debug用に一時的にrescueをskip
   rescue_from Exception, with: :error_500
 
   def error_404

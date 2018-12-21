@@ -21,6 +21,16 @@
   </div>
 
   <div>
+    <%= form.label I18n.t('activerecord.attributes.task.priority') %>
+    <%= form.select :priority, Task.priorities_i18n.invert %>
+  </div>
+
+  <div>
+    <%= form.label I18n.t('activerecord.attributes.task.due_date') %>
+    <%= form.date_select :due_date %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

@@ -10,6 +10,8 @@ ja:
       task:
         name: タスク名
         description: 説明
+        priority: 優先度
+        due_date: 期限
         created_time: 登録日時
         updated_time: 更新日時
     # バリデーションメッセージ
@@ -21,8 +23,16 @@ ja:
               blank: タスク名が空です
               too_long: タスク名は２０文字まで利用できます
             description:
-              blank: 説明文が空です
               too_long: 説明文は２００文字まで利用できます
+            priority:
+              blank: 優先度が空です
+              inclusion: 優先度が不正です
+            due_date:
+              blank: 期限が空です
+            user_id:
+              blank: ユーザIDが空です
+              not_a_number: ユーザIDが不正です
+              greater_than: ユーザIDが不正です
 
   titles:
     index: TODOタスク一覧画面
@@ -36,6 +46,8 @@ ja:
     show_task: 詳細
     edit_task: 編集
     delete_task: 削除
+    DESC: ▼
+    ASC: ▲
 
   messages:
     action_confirm: "%{target}を%{action}しますか？"
@@ -49,6 +61,13 @@ ja:
   results:
     success: 成功
     error: 失敗
+
+  enums:
+    task:
+      priority:
+        high: 高い
+        normal: 普通
+        low: 低い
 
   date:
     abbr_day_names:
