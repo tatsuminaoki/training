@@ -8,9 +8,9 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
   context '初期表示' do
     let!(:init_tasks) {
       [
-        create(:task, { name: '1', due_date: '2019/12/31', priority: 2, user_id: 1, created_at: Time.zone.now }),
-        create(:task, { name: '2', due_date: '2020/12/31', priority: 0, user_id: 1, created_at: 1.minute.ago }),
-        create(:task, { name: '3', due_date: '2018/12/31', priority: 1, user_id: 1, created_at: 2.minutes.ago }),
+        create(:task, { name: '1', due_date: '2019-12-31', priority: 2, user_id: 1, created_at: Time.zone.now }),
+        create(:task, { name: '2', due_date: '2020-12-31', priority: 0, user_id: 1, created_at: 1.minute.ago }),
+        create(:task, { name: '3', due_date: '2018-12-31', priority: 1, user_id: 1, created_at: 2.minutes.ago }),
       ]
     }
     scenario '#タスク一覧の表示確認' do

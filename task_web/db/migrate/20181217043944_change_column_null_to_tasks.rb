@@ -7,6 +7,8 @@ class ChangeColumnNullToTasks < ActiveRecord::Migration[5.2]
     end
     def down
       change_column_default :tasks, :user_id, default: nil
+      change_column_null :tasks, :user_id, true
+      change_column_null :tasks, :name, true
     end
   end
 end

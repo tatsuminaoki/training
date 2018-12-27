@@ -2,10 +2,10 @@
 
 module TasksHelper
   def sort_link(column, order)
-    @order = 'ASC'.casecmp?(order) ? 'ASC' : 'DESC'
-    @name = 'ASC'.casecmp?(order) ? I18n.t('links.ASC') : I18n.t('links.DESC')
-    @order_by = Task.column_names.include?(column) ? column : 'created_at'
-    link_to_if(!match_sort_condition(column, order), @name, tasks_path(order_by: @order_by, order: @order))
+    order_by = Task::ORDER_BY_VALUES.include?(column) ? column : 'created_at'
+    order = Task::ORDER_VALUES.to_s.include?(order) ? order : 'DESC'
+    order_display = 'ASC'.casecmp?(order) ? I18n.t('links.ASC') : I18n.t('links.DESC')
+    link_to_if(!match_sort_condition(column, order), order_display, tasks_path(order_by: order_by, order: order))
   end
 
   private

@@ -2,7 +2,9 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params)
+    order_by = Task::ORDER_BY_VALUES.include?(params[:order_by]) ? params[:order_by] : 'created_at'
+    order = Task::ORDER_VALUES.include?(params[:order]) ? params[:order].upcase : 'DESC'
+    @tasks = Task.search(order_by, order)
   end
 
   def show
