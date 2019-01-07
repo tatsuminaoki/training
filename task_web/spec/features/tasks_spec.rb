@@ -4,14 +4,13 @@ require 'rails_helper'
 
 RSpec.feature 'タスク管理一覧画面', type: :feature do
   # TODO: ページングの確認, 検索・絞り込み機能の確認など、都度追加します。
-  # TODO: Validation関連のテストは、ステップ11で実装予定。
   # 初期データ作成
   context '初期表示' do
     let!(:init_tasks) {
       [
-        create(:task, { name: '1', created_at: Time.zone.now }),
-        create(:task, { name: '2', created_at: 1.minute.ago }),
-        create(:task, { name: '3', created_at: 2.minutes.ago }),
+        create(:task, { name: '1', due_date: '2019-12-31', priority: 2, user_id: 1, created_at: Time.zone.now }),
+        create(:task, { name: '2', due_date: '2020-12-31', priority: 0, user_id: 1, created_at: 1.minute.ago }),
+        create(:task, { name: '3', due_date: '2018-12-31', priority: 1, user_id: 1, created_at: 2.minutes.ago }),
       ]
     }
     scenario '#タスク一覧の表示確認' do
@@ -24,6 +23,48 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
     end
     scenario '#タスク一覧のデフォルトソート順（登録日時、降順）の確認' do
       visit root_path
+      names = page.all('td.name')
+      expect(names[0]).to have_content '1'
+      expect(names[1]).to have_content '2'
+      expect(names[2]).to have_content '3'
+    end
+    scenario '#タスク一覧のソート順（期限、降順）の確認' do
+      visit tasks_path(order_by: 'due_date', order: 'ASC')
+      names = page.all('td.name')
+      expect(names[0]).to have_content '3'
+      expect(names[1]).to have_content '1'
+      expect(names[2]).to have_content '2'
+    end
+    scenario '#タスク一覧のソート順（期限、昇順）の確認' do
+      visit tasks_path(order_by: 'due_date', order: 'DESC')
+      names = page.all('td.name')
+      expect(names[0]).to have_content '2'
+      expect(names[1]).to have_content '1'
+      expect(names[2]).to have_content '3'
+    end
+    scenario '#タスク一覧のソート順（優先度、降順）の確認' do
+      visit tasks_path(order_by: 'priority', order: 'ASC')
+      names = page.all('td.name')
+      expect(names[0]).to have_content '2'
+      expect(names[1]).to have_content '3'
+      expect(names[2]).to have_content '1'
+    end
+    scenario '#タスク一覧のソート順（優先度、昇順）の確認' do
+      visit tasks_path(order_by: 'priority', order: 'DESC')
+      names = page.all('td.name')
+      expect(names[0]).to have_content '1'
+      expect(names[1]).to have_content '3'
+      expect(names[2]).to have_content '2'
+    end
+    scenario '#タスク一覧のソート順（登録日時、降順）の確認' do
+      visit tasks_path(order_by: 'created_at', order: 'ASC')
+      names = page.all('td.name')
+      expect(names[0]).to have_content '3'
+      expect(names[1]).to have_content '2'
+      expect(names[2]).to have_content '1'
+    end
+    scenario '#タスク一覧のソート順（登録日時、昇順）の確認' do
+      visit tasks_path(order_by: 'created_at', order: 'DESC')
       names = page.all('td.name')
       expect(names[0]).to have_content '1'
       expect(names[1]).to have_content '2'

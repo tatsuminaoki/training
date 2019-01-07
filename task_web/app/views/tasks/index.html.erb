@@ -8,7 +8,9 @@
   <tr>
     <td><%= I18n.t('activerecord.attributes.task.name') %></td>
     <td><%= I18n.t('activerecord.attributes.task.description') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_link('due_date', 'DESC') %> <%= sort_link('due_date', 'ASC') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_link('priority', 'DESC') %> <%= sort_link('priority', 'ASC') %></td>
+    <td><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_link('created_at', 'DESC') %> <%= sort_link('created_at', 'ASC') %></td>
     <td>#</td>
     <td>#</td>
     <td>#</td>
@@ -17,6 +19,8 @@
     <tr>
       <td class="name"><%= task.name %></td>
       <td class="description"><%= task.description %></td>
+      <td class="due_date"><%= I18n.l(task.due_date, format: :default) %></td>
+      <td class="priority"><%= task.priority_i18n %></td>
       <td class="created_at"><%= I18n.l(task.created_at, format: :long) %></td>
       <td class="detail"><%= link_to I18n.t('links.show_task'), task %></td>
       <td class="edit"><%= link_to I18n.t('links.edit_task'), edit_task_path(task) %></td>

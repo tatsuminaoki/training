@@ -10,6 +10,14 @@
     <td><%= @task.description %></td>
   </tr>
   <tr>
+    <td><%= I18n.t('activerecord.attributes.task.due_date') %></td>
+    <td><%= @task.due_date %></td>
+  </tr>
+  <tr>
+    <td><%= I18n.t('activerecord.attributes.task.priority') %></td>
+    <td><%= @task.priority_i18n %></td>
+  </tr>
+  <tr>
     <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
     <td><%= I18n.l(@task.created_at, format: :long) %></td>
   </tr>

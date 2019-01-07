@@ -2,7 +2,9 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    order_by = Task::ORDER_BY_VALUES.include?(params[:order_by]) ? params[:order_by] : 'created_at'
+    order = Task::ORDER_VALUES.include?(params[:order]) ? params[:order].upcase : 'DESC'
+    @tasks = Task.search(order_by, order)
   end
 
   def show
@@ -14,7 +16,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(common_params)
+    @task = Task.new(task_params)
+    # TODO: user_id は、一旦、固定
+    @task.user_id = 1
     if @task.save
       redirect_to tasks_path, notice: create_message('create', 'success')
     else
@@ -29,7 +33,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(common_params)
+    if @task.update(task_params)
       redirect_to tasks_path, notice: create_message('update', 'success')
     else
       flash[:error] = create_message('update', 'error')
@@ -48,8 +52,8 @@ class TasksController < ApplicationController
 
   private
 
-  def common_params
-    params.require(:task).permit(:name, :description)
+  def task_params
+    params.require(:task).permit(:name, :description, :priority, :due_date)
   end
 
   def create_message(action, result)
