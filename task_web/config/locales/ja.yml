@@ -34,7 +34,13 @@ ja:
             due_date:
               blank: が空です
               invalid: が不正です
-
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "&hellip;"
 
   titles:
     index: TODOタスク一覧画面
