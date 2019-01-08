@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   enum priority: %i[low normal high].freeze
+  enum status: %i[open in_progress closed].freeze
   ORDER_BY_VALUES = %w[due_date priority created_at].freeze
   ORDER_VALUES = %w[ASC DESC].freeze
 
@@ -15,9 +16,23 @@ class Task < ApplicationRecord
   validate :validate_due_date
   # ユーザIDのチェック
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  # ステータスのチェック
+  validates :status, presence: true, inclusion: { in: self.statuses.keys }
 
-  def self.search(order_by, order)
-    order(order_by => order)
+  def self.search(name, status, order_by, order)
+    task = self
+    task = task.where(status: status) if status.present?
+    task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
+    task = task.order(order_column(order_by) => sort_order(order))
+    task
+  end
+
+  def self.sort_order(value)
+    ORDER_VALUES.include?(value) ? value.upcase : 'DESC'
+  end
+
+  def self.order_column(value)
+    ORDER_BY_VALUES.include?(value) ? value : 'created_at'
   end
 
   private

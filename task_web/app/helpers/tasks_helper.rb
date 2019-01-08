@@ -5,7 +5,8 @@ module TasksHelper
     order_by = Task::ORDER_BY_VALUES.include?(column) ? column : 'created_at'
     order = Task::ORDER_VALUES.to_s.include?(order) ? order : 'DESC'
     order_display = 'ASC'.casecmp?(order) ? I18n.t('links.ASC') : I18n.t('links.DESC')
-    link_to_if(!match_sort_condition?(column, order), order_display, tasks_path(order_by: order_by, order: order))
+    link_to_if(!match_sort_condition?(column, order), order_display, tasks_path(name: params[:name], status: params[:status], order_by: order_by, order: order))
+    # TODO: 検索パラメータ等引き継いだリンクにする
   end
 
   private

@@ -2,9 +2,7 @@
 
 class TasksController < ApplicationController
   def index
-    order_by = Task::ORDER_BY_VALUES.include?(params[:order_by]) ? params[:order_by] : 'created_at'
-    order = Task::ORDER_VALUES.include?(params[:order]) ? params[:order].upcase : 'DESC'
-    @tasks = Task.search(order_by, order)
+    @tasks = Task.search(params[:name], params[:status], params[:order_by], params[:order])
   end
 
   def show
@@ -53,7 +51,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :priority, :due_date)
+    params.require(:task).permit(:name, :description, :priority, :due_date, :status)
   end
 
   def create_message(action, result)

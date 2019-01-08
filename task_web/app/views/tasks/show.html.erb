@@ -18,6 +18,10 @@
     <td><%= @task.priority_i18n %></td>
   </tr>
   <tr>
+    <td><%= I18n.t('activerecord.attributes.task.status') %></td>
+    <td><%= @task.status_i18n %></td>
+  </tr>
+  <tr>
     <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
     <td><%= I18n.l(@task.created_at, format: :long) %></td>
   </tr>
