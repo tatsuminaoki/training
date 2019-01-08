@@ -146,32 +146,32 @@ RSpec.feature 'タスク管理 機能テスト(検索系)', type: :feature do
       fill_in 'name', with: init_tasks[0].name
       click_on('Search')
       expect(current_path).to eq tasks_path()
-      expect(page).to have_content 'name1'
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name1', count: 1)
     end
     scenario 'タスク名で検索 複数件HIT' do
       visit root_path
       fill_in 'name', with: 'name'
       click_on('Search')
       expect(current_path).to eq tasks_path()
-      expect(page).to have_content 'name1'
-      expect(page).to have_content 'name2'
-      expect(page).to have_content 'name3'
+      expect(page).to have_content('name1', count: 1)
+      expect(page).to have_content('name2', count: 1)
+      expect(page).to have_content('name3', count: 1)
     end
     scenario 'タスク名で検索 0件HIT' do
       visit root_path
       fill_in 'name', with: 'no_hit_task'
       click_on('Search')
       expect(current_path).to eq tasks_path()
-      expect(page).not_to have_content 'name1'
-      expect(page).not_to have_content 'name2'
-      expect(page).not_to have_content 'name3'
+      expect(page).not_to have_content 'name'
     end
     scenario 'ステータスで絞り込み' do
       visit root_path
       select '着手中', from: 'status'
       click_on('Search')
       expect(current_path).to eq tasks_path()
-      expect(page).to have_content 'name2'
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name2', count: 1)
     end
     scenario 'タスク名とステータスで検索' do
       visit root_path
@@ -179,7 +179,8 @@ RSpec.feature 'タスク管理 機能テスト(検索系)', type: :feature do
       select '未着手', from: 'status'
       click_on('Search')
       expect(current_path).to eq tasks_path()
-      expect(page).to have_content 'name3'
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name3', count: 1)
     end
   end
 end

@@ -71,6 +71,7 @@ ja:
         normal: 普通
         low: 低い
       status:
+        all: 全て
         open: 未着手
         in_progress: 着手中
         closed: 完了
