@@ -12,6 +12,7 @@
 <% end %>
 
 <table border="1">
+  <%= paginate @tasks %>
   <tr>
     <td><%= I18n.t('activerecord.attributes.task.name') %></td>
     <td><%= I18n.t('activerecord.attributes.task.description') %></td>
@@ -36,6 +37,5 @@
       <td class="delete"><%= link_to I18n.t('links.delete_task'), task, :method=>'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), :target => task.name) } %></td>
     </tr>
   <% end %>
-  <%= paginate @tasks %>
 </table>
 <%= link_to I18n.t('links.create_task'), new_task_path %>

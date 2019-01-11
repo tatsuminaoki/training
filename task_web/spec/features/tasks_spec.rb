@@ -7,9 +7,9 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
   context '初期表示' do
     let!(:init_tasks) {
       [
-        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed, created_at: Time.zone.now }),
-        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress, created_at: 1.minute.ago }),
-        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open, created_at: 2.minutes.ago }),
+        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
+        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
+        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
       ]
     }
     scenario 'タスク一覧の表示確認' do
@@ -136,9 +136,9 @@ RSpec.feature 'タスク管理 機能テスト(検索系)', type: :feature do
   context '検索・絞り込み機能テスト' do
     let!(:init_tasks) {
       [
-        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed, created_at: Time.zone.now }),
-        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress, created_at: 1.minute.ago }),
-        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open, created_at: 2.minutes.ago }),
+        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
+        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
+        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
       ]
     }
     scenario 'タスク名で検索 1件HIT' do
@@ -181,6 +181,134 @@ RSpec.feature 'タスク管理 機能テスト(検索系)', type: :feature do
       expect(current_path).to eq tasks_path()
       expect(page).to have_content('name', count: 1)
       expect(page).to have_content('name3', count: 1)
+    end
+  end
+end
+RSpec.feature 'タスク管理 機能テスト(ページング)', type: :feature do
+  context '1ページ目のみ（タスク1件）の時' do
+    let!(:task) { create(:task) }
+    scenario 'ページングが表示されないこと' do
+      visit root_path
+      expect(Task.all.size).to eq(1)
+      expect(page.all('td.name').count).to eq 1
+      expect(page).not_to have_selector('.pagination')
+    end
+  end
+  context '1ページ目のみ（タスク5件）の時' do
+    let!(:tasks) { create_list(:task, 5) }
+    scenario 'ページングが表示されないこと' do
+      visit root_path
+      expect(Task.all.size).to eq(5)
+      expect(page.all('td.name').count).to eq 5
+      expect(page).not_to have_selector('.pagination')
+    end
+  end
+  context '2ページ分（タスク10件）のタスクがある時' do
+    let!(:tasks) { create_list(:task, 10) }
+    scenario '1ページ目のページングが適切に表示されること' do
+      visit root_path
+      expect(page.all('td.name').count).to eq 5
+      expect(page).to have_selector('.pagination')
+      expect(page).to_not have_selector('.first')
+      expect(page).to_not have_selector('.prev')
+      expect(page).to have_selector('.next')
+      expect(page).to have_selector('.last')
+    end
+    scenario '2ページ目のページングが適切に表示されること' do
+      visit tasks_path(page: 2)
+      expect(page.all('td.name').count).to eq 5
+      expect(page).to have_selector('.pagination')
+      expect(page).to have_selector('.first')
+      expect(page).to have_selector('.prev')
+      expect(page).to_not have_selector('.next')
+      expect(page).to_not have_selector('.last')
+    end
+  end
+  context '3ページ分（タスク12件）のタスクがある時' do
+    let!(:tasks) { 12.times { |i| create(:task, name: "Task Name #{i}") } }
+    scenario '1ページ目のページングが適切に表示されること' do
+      visit root_path
+      expect(page.all('td.name').count).to eq 5
+      expect(page).to have_selector('.pagination')
+      expect(page).to_not have_selector('.first')
+      expect(page).to_not have_selector('.prev')
+      expect(page).to have_selector('.next')
+      expect(page).to have_selector('.last')
+      expect(page.all('td.name').count).to eq 5
+      0.upto(4) { |i| expect(page).to have_content("Task Name #{i}", count: 1)}
+    end
+    scenario '2ページ目のページングが適切に表示されること' do
+      visit root_path(page: 2)
+      expect(page.all('td.name').count).to eq 5
+      expect(page).to have_selector('.pagination')
+      expect(page).to have_selector('.first')
+      expect(page).to have_selector('.prev')
+      expect(page).to have_selector('.next')
+      expect(page).to have_selector('.last')
+      expect(page.all('td.name').count).to eq 5
+      5.upto(9) { |i| expect(page).to have_content("Task Name #{i}", count: 1)}
+    end
+    scenario '3ページ目のページングが適切に表示されること' do
+      visit root_path(page: 3)
+      expect(page.all('td.name').count).to eq 2
+      expect(page).to have_selector('.pagination')
+      expect(page).to have_selector('.first')
+      expect(page).to have_selector('.prev')
+      expect(page).to_not have_selector('.next')
+      expect(page).to_not have_selector('.last')
+      expect(page.all('td.name').count).to eq 2
+      10.upto(11) { |i| expect(page).to have_content("Task Name #{i}", count: 1)}
+    end
+    scenario '1ページ目の「2」リンクで2ページ目に遷移できること' do
+      visit root_path
+      first(:css, '.page > a', text: '2').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 2)
+    end
+    scenario '1ページ目の「次」リンクで2ページ目に遷移できること' do
+      visit root_path
+      first(:css, '.next > a').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 2)
+    end
+    scenario '1ページ目の「最後」リンクで3ページ目に遷移できること' do
+      visit root_path
+      first(:css, '.last > a').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 3)
+    end
+    scenario '2ページ目の「最初」リンクで1ページ目に遷移できること' do
+      visit root_path(page: 2)
+      first(:css, '.first > a').click
+      expect(current_path).to eq root_path
+    end
+    scenario '2ページ目の「前」リンクで1ページ目に遷移できること' do
+      visit root_path(page: 2)
+      first(:css, '.prev > a').click
+      expect(current_path).to eq root_path
+    end
+    scenario '2ページ目の「次」リンクで3ページ目に遷移できること' do
+      visit root_path(page: 2)
+      first(:css, '.next > a').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 3)
+    end
+    scenario '2ページ目の「最後」リンクで3ページ目に遷移できること' do
+      visit root_path(page: 2)
+      first(:css, '.last > a').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 3)
+    end
+    scenario '3ページ目の「最初」リンクで1ページ目に遷移できること' do
+      visit root_path(page: 3)
+      first(:css, '.first > a').click
+      expect(current_path).to eq root_path
+    end
+    scenario '3ページ目の「前」リンクで2ページ目に遷移できること' do
+      visit root_path(page: 3)
+      first(:css, '.prev > a').click
+      uri = URI.parse(current_url)
+      expect("#{uri.path}?#{uri.query}").to eq root_path(page: 2)
     end
   end
 end
