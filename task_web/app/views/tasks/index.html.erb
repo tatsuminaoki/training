@@ -11,8 +11,8 @@
   <%= form.submit 'Search', name: nil %>
 <% end %>
 
+<%= paginate @tasks %>
 <table border="1">
-  <%= paginate @tasks %>
   <tr>
     <td><%= I18n.t('activerecord.attributes.task.name') %></td>
     <td><%= I18n.t('activerecord.attributes.task.description') %></td>
