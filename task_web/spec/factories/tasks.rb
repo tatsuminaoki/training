@@ -6,6 +6,6 @@ FactoryBot.define do
     priority { :normal }
     user_id { 1 }
     status { :open }
-    sequence(:created_at) { |n| Time.now - (n.days) }
+    sequence(:created_at) { |n| n.days.ago }
   end
 end

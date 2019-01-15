@@ -4,14 +4,14 @@ require 'rails_helper'
 
 RSpec.feature 'タスク管理一覧画面', type: :feature do
   # 初期データ作成
+  let!(:init_tasks) {
+    [
+      create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
+      create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
+      create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
+    ]
+  }
   context '初期表示' do
-    let!(:init_tasks) {
-      [
-        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
-        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
-        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
-      ]
-    }
     scenario 'タスク一覧の表示確認' do
       visit root_path
       init_tasks.each do |task|
@@ -68,6 +68,49 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
       expect(names[0]).to have_content 'name1'
       expect(names[1]).to have_content 'name2'
       expect(names[2]).to have_content 'name3'
+    end
+  end
+  context '検索・絞り込み機能テスト' do
+    scenario 'タスク名で検索 1件HIT' do
+      visit root_path
+      fill_in 'name', with: init_tasks[0].name
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name1', count: 1)
+    end
+    scenario 'タスク名で検索 複数件HIT' do
+      visit root_path
+      fill_in 'name', with: 'name'
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).to have_content('name1', count: 1)
+      expect(page).to have_content('name2', count: 1)
+      expect(page).to have_content('name3', count: 1)
+    end
+    scenario 'タスク名で検索 0件HIT' do
+      visit root_path
+      fill_in 'name', with: 'no_hit_task'
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).not_to have_content 'name'
+    end
+    scenario 'ステータスで絞り込み' do
+      visit root_path
+      select '着手中', from: 'status'
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name2', count: 1)
+    end
+    scenario 'タスク名とステータスで検索' do
+      visit root_path
+      fill_in 'name', with: 'na'
+      select '未着手', from: 'status'
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).to have_content('name', count: 1)
+      expect(page).to have_content('name3', count: 1)
     end
   end
 end
@@ -129,58 +172,6 @@ RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feat
         expect(current_path).to eq tasks_path
       }.to change { Task.count }.by(-1)
       expect(page).to have_content 'タスクの削除に成功しました。'
-    end
-  end
-end
-RSpec.feature 'タスク管理 機能テスト(検索系)', type: :feature do
-  context '検索・絞り込み機能テスト' do
-    let!(:init_tasks) {
-      [
-        create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
-        create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
-        create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
-      ]
-    }
-    scenario 'タスク名で検索 1件HIT' do
-      visit root_path
-      fill_in 'name', with: init_tasks[0].name
-      click_on('Search')
-      expect(current_path).to eq tasks_path()
-      expect(page).to have_content('name', count: 1)
-      expect(page).to have_content('name1', count: 1)
-    end
-    scenario 'タスク名で検索 複数件HIT' do
-      visit root_path
-      fill_in 'name', with: 'name'
-      click_on('Search')
-      expect(current_path).to eq tasks_path()
-      expect(page).to have_content('name1', count: 1)
-      expect(page).to have_content('name2', count: 1)
-      expect(page).to have_content('name3', count: 1)
-    end
-    scenario 'タスク名で検索 0件HIT' do
-      visit root_path
-      fill_in 'name', with: 'no_hit_task'
-      click_on('Search')
-      expect(current_path).to eq tasks_path()
-      expect(page).not_to have_content 'name'
-    end
-    scenario 'ステータスで絞り込み' do
-      visit root_path
-      select '着手中', from: 'status'
-      click_on('Search')
-      expect(current_path).to eq tasks_path()
-      expect(page).to have_content('name', count: 1)
-      expect(page).to have_content('name2', count: 1)
-    end
-    scenario 'タスク名とステータスで検索' do
-      visit root_path
-      fill_in 'name', with: 'na'
-      select '未着手', from: 'status'
-      click_on('Search')
-      expect(current_path).to eq tasks_path()
-      expect(page).to have_content('name', count: 1)
-      expect(page).to have_content('name3', count: 1)
     end
   end
 end
