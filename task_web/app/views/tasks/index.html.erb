@@ -1,41 +1,35 @@
-<% flash.each do |key, value| %>
-  <%= content_tag(:div, value, class: "#{key}") %>
-<% end %>
-
-<h1><%= I18n.t('titles.index') %></h1>
-<%= form_with(url: tasks_path, method: 'get', local: true) do |form| %>
-  <%= form.label I18n.t('activerecord.attributes.task.status') %>
+<%= form_with(url: tasks_path, method: 'get', local: true, class: 'form-inline my-2') do |form| %>
+  <%= form.text_field :name, id: 'task', value: params[:name], class: 'form-control mx-1', placeholder: 'キーワード' %>
+  <%= form.label I18n.t('activerecord.attributes.task.status'), class: 'mx-1' %>
   <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: params[:status] ), include_blank: I18n.t('enums.task.status.all') %>
-  <%= form.label I18n.t('activerecord.attributes.task.name') %>
-  <%= form.text_field :name, id: 'task', value: params[:name] %>
-  <%= form.submit 'Search', name: nil %>
+  <%= form.submit 'Search', name: nil, class: 'btn btn-outline-success mx-2 my-0' %>
 <% end %>
-
 <%= paginate @tasks %>
-<table border="1">
-  <tr>
-    <td><%= I18n.t('activerecord.attributes.task.name') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.description') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_link('due_date', 'DESC') %> <%= sort_link('due_date', 'ASC') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_link('priority', 'DESC') %> <%= sort_link('priority', 'ASC') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.status') %></td>
-    <td><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_link('created_at', 'DESC') %> <%= sort_link('created_at', 'ASC') %></td>
-    <td>#</td>
-    <td>#</td>
-    <td>#</td>
-  </tr>
-  <% @tasks.each do |task| %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
     <tr>
-      <td class="name"><%= task.name %></td>
-      <td class="description"><%= task.description %></td>
-      <td class="due_date"><%= I18n.l(task.due_date, format: :default) %></td>
-      <td class="priority"><%= task.priority_i18n %></td>
-      <td class="status"><%= task.status_i18n %></td>
-      <td class="created_at"><%= I18n.l(task.created_at, format: :long) %></td>
-      <td class="detail"><%= link_to I18n.t('links.show_task'), task %></td>
-      <td class="edit"><%= link_to I18n.t('links.edit_task'), edit_task_path(task) %></td>
-      <td class="delete"><%= link_to I18n.t('links.delete_task'), task, :method=>'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), :target => task.name) } %></td>
+      <th><%= I18n.t('activerecord.attributes.task.name') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.description') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_link('due_date', 'DESC') %> <%= sort_link('due_date', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_link('priority', 'DESC') %> <%= sort_link('priority', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_link('created_at', 'DESC') %> <%= sort_link('created_at', 'ASC') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
-</table>
-<%= link_to I18n.t('links.create_task'), new_task_path %>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td class="name"><%= task.name %></td>
+        <td class="description"><span><%= task.description %></span></td>
+        <td class="due_date"><%= I18n.l(task.due_date, format: :default) %></td>
+        <td class="priority"><%= task.priority_i18n %></td>
+        <td class="status"><%= task.status_i18n %></td>
+        <td class="created_at"><%= I18n.l(task.created_at, format: :long) %></td>
+        <td class="detail"><%= link_to I18n.t('links.show_task'), task %></td>
+        <td class="edit"><%= link_to I18n.t('links.edit_task'), edit_task_path(task) %></td>
+        <td class="delete"><%= link_to I18n.t('links.delete_task'), task, :method=>'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), :target => task.name) } %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
