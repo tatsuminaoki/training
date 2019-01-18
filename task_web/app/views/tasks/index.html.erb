@@ -28,7 +28,7 @@
         <td class="created_at"><%= I18n.l(task.created_at, format: :long) %></td>
         <td class="detail"><%= link_to I18n.t('links.show_task'), task %></td>
         <td class="edit"><%= link_to I18n.t('links.edit_task'), edit_task_path(task) %></td>
-        <td class="delete"><%= link_to I18n.t('links.delete_task'), task, :method=>'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), :target => task.name) } %></td>
+        <td class="delete"><%= link_to I18n.t('links.delete_task'), task, method: 'delete', data: {confirm: I18n.t('messages.action_confirm', :action => I18n.t('actions.delete'), target: task.name) } %></td>
       </tr>
     <% end %>
   </table>
