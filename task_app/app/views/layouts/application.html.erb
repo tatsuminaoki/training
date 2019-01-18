@@ -10,8 +10,8 @@
   </head>
 
   <body>
-    <% if flash.present? %>
-      <div class="alert alert-success"><%= flash.notice %></div>
+    <% flash.each do |alert_type, message| %>
+      <%= tag.div message, class: "alert alert-#{alert_type}"%>
     <% end %>
     <%= yield %>
   </body>
