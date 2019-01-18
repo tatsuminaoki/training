@@ -3,6 +3,8 @@
 class Task < ApplicationRecord
   enum priority: %i[low normal high].freeze
   enum status: %i[open in_progress closed].freeze
+  DEFAULT_ORDER_BY = 'created_at'
+  DEFAULT_ORDER = 'DESC'
   ORDER_BY_VALUES = %w[due_date priority created_at].freeze
   ORDER_VALUES = %w[ASC DESC].freeze
 
@@ -28,11 +30,11 @@ class Task < ApplicationRecord
   end
 
   def self.sort_order(value)
-    ORDER_VALUES.include?(value) ? value.upcase : 'DESC'
+    ORDER_VALUES.include?(value) ? value.upcase : DEFAULT_ORDER
   end
 
   def self.order_column(value)
-    ORDER_BY_VALUES.include?(value) ? value : 'created_at'
+    ORDER_BY_VALUES.include?(value) ? value : DEFAULT_ORDER_BY
   end
 
   private

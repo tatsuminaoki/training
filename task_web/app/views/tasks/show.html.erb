@@ -1,32 +1,31 @@
-<h1><%= I18n.t('titles.show') %></h1>
-
-<table border="1">
+<h4><%= I18n.t('titles.show') %></h4>
+<table class="table table-bordered">
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.name') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.name') %></td>
     <td><%= @task.name %></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.description') %></td>
-    <td><%= @task.description %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.description') %></td>
+    <td><span><%= @task.description %></span></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.due_date') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.due_date') %></td>
     <td><%= @task.due_date %></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.priority') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.priority') %></td>
     <td><%= @task.priority_i18n %></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.status') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.status') %></td>
     <td><%= @task.status_i18n %></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.created_time') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.created_time') %></td>
     <td><%= I18n.l(@task.created_at, format: :long) %></td>
   </tr>
   <tr>
-    <td><%= I18n.t('activerecord.attributes.task.updated_time') %></td>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.updated_time') %></td>
     <td><%= I18n.l(@task.updated_at, format: :long) %></td>
   </tr>
 </table>

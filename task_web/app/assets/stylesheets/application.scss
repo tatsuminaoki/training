@@ -1,0 +1,22 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html {
+  font-size: 62.5%; // 10px
+}
+
+body {
+  font-size: 1rem
+}
+
+.table {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.table span {
+  white-space: pre-line;
+  background-color: transparent;
+  background-color: #EFEFEF;
+  border: 0;
+}

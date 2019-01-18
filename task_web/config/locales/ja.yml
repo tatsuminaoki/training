@@ -43,14 +43,14 @@ ja:
       truncate: "&hellip;"
 
   titles:
-    index: TODOタスク一覧画面
     show: タスクの詳細
     new: タスクの登録
     edit: タスクの編集
 
   links:
     return: 戻る
-    create_task: タスクを追加する
+    index_tasks: タスク一覧
+    create_task: タスク登録
     show_task: 詳細
     edit_task: 編集
     delete_task: 削除
