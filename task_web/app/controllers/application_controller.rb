@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!
+
   rescue_from ActionController::RoutingError, with: :error_404
   rescue_from Exception, with: :error_500
 
