@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :find_task, only: %i[edit update destroy]
 
   def index
     @tasks = Task.all
@@ -46,7 +48,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description)
   end
 
-  def set_task
+  def find_task
     @task = Task.find(params[:id])
   end
 end
