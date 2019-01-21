@@ -51,6 +51,8 @@
 #### user_task_labels：ユーザの作成したタスクとラベルの紐づけ
 | カラム名 | 型 | プライマリキー | NULL | DEFALUT | 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------|:------------|
-| task_labels_id | int | ○ | | | task_labels.id |
-| user_tasks_id | int | ○ | | | user_tasks.id |
+| id | int | ○ | | | ID, UNSINGED |
+| users_id | int | | | | 作成したユーザID, INDEX, FOREIGN KEY users.id |
+| task_labels_id | int | ○ | | | FOREIGN KEY task_labels.id |
+| user_tasks_id | int | ○ | | | FOREIGN KEY user_tasks.id |
 
