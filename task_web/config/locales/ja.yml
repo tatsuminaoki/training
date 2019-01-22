@@ -16,6 +16,11 @@ ja:
         user_id: ユーザID
         created_time: 登録日時
         updated_time: 更新日時
+      user:
+        email: メールアドレス
+        name: ユーザ名
+        password: パスワード
+        password_confirmation: パスワード（確認）
     # バリデーションメッセージ
     errors:
       messages:

@@ -11,15 +11,8 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-  <% if user_signed_in? %>
-    <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
-  <% else %>
-    <p><%= link_to "aa", destroy_user_session_path, method: :delete %></p>
-
-  <% end %>
-
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="navbar-brand">Task Web</div>
+      <a class="navbar-brand" disabled="disabled"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -27,6 +20,9 @@
         <ul class="nav navbar-nav">
           <%= link_index_tasks %>
           <%= link_create_task %>
+          <% if user_signed_in? %>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <% end %>
         </ul>
       </div>
     </nav>
@@ -35,10 +31,11 @@
         <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 mt-2 main">
           <% if flash[:notice] %>
             <div class="alert alert-info"><%= flash[:notice] %></div>
+          <% elsif flash[:alert] %>
+            <div class="alert alert-danger"><%= flash[:alert] %></div>
           <% elsif flash[:error] %>
             <div class="alert alert-danger"><%= flash[:error] %></div>
           <% end %>
-<!--          <div class="alert alert-danger"><%#= flash[:alert] %></div>-->
           <%= yield %>
         </div>
       </div>

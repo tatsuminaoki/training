@@ -2,21 +2,19 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params[:name], params[:status], params[:order_by], params[:order]).page(params[:page])
+    @tasks = current_user.tasks.search(params[:name], params[:status], params[:order_by], params[:order]).page(params[:page])
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.new
   end
 
   def create
-    @task = Task.new(task_params)
-    # TODO: user_id は、一旦、固定
-    @task.user_id = 1
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: create_message('create', 'success')
     else
@@ -26,11 +24,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path, notice: create_message('update', 'success')
     else
@@ -40,7 +38,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     if @task.destroy
       redirect_to tasks_path, notice: create_message('delete', 'success')
     else
