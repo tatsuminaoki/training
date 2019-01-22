@@ -16,9 +16,9 @@ feature 'タスク管理機能', type: :feature do
   feature '登録機能' do
     before do
       visit root_path
-      click_on('新規登録')
-      fill_in 'Name', with: task_name
-      fill_in 'Description', with: task_description
+      click_on('タスク登録')
+      fill_in 'タスク名', with: task_name
+      fill_in '説明', with: task_description
       click_on('送信')
     end
 
@@ -39,7 +39,7 @@ feature 'タスク管理機能', type: :feature do
     before do
       visit root_path
       click_on('編集')
-      fill_in 'Description', with: task_description
+      fill_in '説明', with: task_description
       click_on('送信')
     end
 
