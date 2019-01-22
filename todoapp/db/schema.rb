@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 2019_01_21_021631) do
   end
 
   create_table "task_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "label_user_id", null: false
     t.bigint "label_id", null: false
     t.bigint "task_id", null: false
     t.index ["label_id"], name: "index_task_labels_on_label_id"
+    t.index ["label_user_id"], name: "index_task_labels_on_label_user_id"
     t.index ["task_id"], name: "index_task_labels_on_task_id"
-    t.index ["user_id"], name: "index_task_labels_on_user_id"
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_021631) do
   add_foreign_key "labels", "users"
   add_foreign_key "task_labels", "labels"
   add_foreign_key "task_labels", "tasks"
-  add_foreign_key "task_labels", "users"
+  add_foreign_key "task_labels", "users", column: "label_user_id"
   add_foreign_key "tasks", "users"
   add_foreign_key "users", "groups"
 end
