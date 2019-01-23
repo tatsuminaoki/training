@@ -21,7 +21,8 @@
           <%= link_index_tasks %>
           <%= link_create_task %>
           <% if user_signed_in? %>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            <%= link_edit_user %>
+            <%= link_to I18n.t('links.logout'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
           <% end %>
         </ul>
       </div>

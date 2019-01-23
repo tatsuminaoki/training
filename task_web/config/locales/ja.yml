@@ -20,7 +20,8 @@ ja:
         email: メールアドレス
         name: ユーザ名
         password: パスワード
-        password_confirmation: パスワード（確認）
+        password_confirmation: 確認用パスワード
+        current_password: 現在のパスワード
     # バリデーションメッセージ
     errors:
       messages:
@@ -46,16 +47,29 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "&hellip;"
+    user_registration:
+      password_info: （変更したくない場合は空白のままにしてください）
+      password_length: "（%{minimum}文字以上必須）"
+      current_password_info: （変更時は、現在のパスワードを入力してください）
 
   titles:
-    show: タスクの詳細
-    new: タスクの登録
-    edit: タスクの編集
+    tasks:
+      show: タスクの詳細
+      new: タスクの登録
+      edit: タスクの編集
+    users:
+      new: ユーザ情報の登録
+      edit: ユーザ情報の変更
+      login: ログイン
 
   links:
     return: 戻る
     index_tasks: タスク一覧
     create_task: タスク登録
+    login: ログイン
+    logout: ログアウト
+    sign_up: 新規ユーザ登録
+    edit_user: ユーザ情報変更
     show_task: 詳細
     edit_task: 編集
     delete_task: 削除
@@ -67,6 +81,7 @@ ja:
     action_result: "%{target}の%{action}に%{result}しました。"
 
   actions:
+    login: ログイン
     create: 登録
     update: 更新
     delete: 削除

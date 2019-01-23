@@ -24,5 +24,6 @@ module TaskWeb
                        routing_specs: false,
                        view_specs: false
     end
+    config.action_view.field_error_proc = proc { |html_tag, instance| html_tag }
   end
 end
