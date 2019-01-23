@@ -53,7 +53,7 @@
 | カラム名 | 型 | プライマリキー | NULL | DEFAULT | 説明 |
 |:-----------|:------------:|:------------:|:------------:|:------------|:------------|
 | id | int | ○ | | | ID, UNSINGED |
-| users_id | int | ○ | | | 作成したユーザID, INDEX, FOREIGN KEY users.id |
+| label_user_id | int | ○ | | | 作成したユーザID, INDEX, FOREIGN KEY users.id |
 | label_id | int | ○ | | | FOREIGN KEY labels.id |
 | task_id | int | ○ | | | FOREIGN KEY tasks.id |
 
