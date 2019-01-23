@@ -6,6 +6,4 @@ Rails.application.routes.draw do
   controller :tasks do
     resources :tasks, except: %i[index show]
   end
-
-  get '*path', controller: 'application', action: 'render_404'
 end
