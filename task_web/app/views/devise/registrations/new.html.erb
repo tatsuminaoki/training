@@ -1,4 +1,6 @@
-<%= devise_error_messages %>
+<% resource.errors.full_messages.each do |message| %>
+  <div class="error_field alert alert-danger" role="alert"><%= message %></div>
+<% end %>
 <h4><%= I18n.t('titles.users.new') %></h4>
 <div class="form-horizontal my-2">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>

@@ -19,18 +19,6 @@ module ApplicationHelper
     make_link_tag(active: active, link_str: link_str)
   end
 
-  def devise_error_messages
-    return '' if resource.errors.empty?
-    html = ''
-    # エラーメッセージ用のHTMLを生成
-    resource.errors.full_messages.each do |msg|
-      html += <<-EOF
-        <div class="error_field alert alert-danger" role="alert">#{msg}</div>
-      EOF
-    end
-    html.html_safe
-  end
-
   private
 
   def make_link_tag(active: true, link_str: '')

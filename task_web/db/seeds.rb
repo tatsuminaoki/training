@@ -5,6 +5,6 @@
       email: "gosuke.yasufuku+#{i}@fablic.co.jp",
       name: "ごうすけ #{i}",
       password: "rakuten#{i}",
-      auth_level: 5
+      auth_level: 5,
   )
 end
