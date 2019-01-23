@@ -1,4 +1,4 @@
-<%= link_to "一覧", :controller => "tasks", :action => "index" %>
+<%= link_to '一覧', controller: 'tasks', action: 'index' %>
 
 <table>
   <tbody>
@@ -29,6 +29,6 @@
   </tbody>
 </table>
 
-<%= link_to "編集", :controller => "tasks", :action => "edit" %>
-<%= link_to "削除", @task, :controller => "tasks", :action => "index",
+<%= link_to '編集', controller: 'tasks', action: 'edit' %>
+<%= link_to '削除', @task, controller: 'tasks', action: 'index',
             method: :delete, data: { confirm: "タスク「#{@task.title}」を削除します。よろしいですか？" } %>

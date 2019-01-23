@@ -1,4 +1,4 @@
-<%= link_to "新規作成", :controller => "tasks", :action => "new" %>
+<%= link_to '新規作成', controller: 'tasks', action: 'new' %>
 
 <table>
   <tr>
@@ -21,7 +21,7 @@
       <td><%= task.updated_at.strftime('%Y年%m月%d日') %></td>
       <td><%= link_to '編集', edit_task_path(task) %></td>
       <td>
-        <%= link_to "削除", task, :controller => "tasks", :action => "index",
+        <%= link_to '削除', task, controller: 'tasks', action: 'index',
                     method: :delete, data: { confirm: "タスク「#{task.title}」を削除します。よろしいですか？" } %>
       </td>
     </tr>
