@@ -15,9 +15,9 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to root_url, flash: { success: "タスク「#{@task.name}」を登録しました。" }
+      redirect_to root_url, flash: { success: create_flash_message('create', 'success') }
     else
-      flash[:danger] = "タスク「#{@task.name}」の登録に失敗しました。"
+      flash[:danger] = create_flash_message('create', 'failed')
       render 'new'
     end
   end
@@ -27,18 +27,18 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to root_url, flash: { success: "タスク「#{@task.name}」を更新しました。" }
+      redirect_to root_url, flash: { success: create_flash_message('update', 'success') }
     else
-      flash[:danger] = "タスク「#{@task.name}」の更新に失敗しました。"
+      flash[:danger] = create_flash_message('update', 'failed')
       render 'edit'
     end
   end
 
   def destroy
     if @task.destroy
-      redirect_to root_url, flash: { success: "タスク「#{@task.name}」を削除しました。" }
+      redirect_to root_url, flash: { success: create_flash_message('destroy', 'success') }
     else
-      redirect_to root_url, flash: { danger: "タスク「#{@task.name}」の削除に失敗しました。" }
+      redirect_to root_url, flash: { danger: create_flash_message('destroy', 'failed') }
     end
   end
 
@@ -50,5 +50,9 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def create_flash_message(action, result)
+    I18n.t("flash.#{result}", target: "#{Task.model_name.human}「#{@task.name}」", action: I18n.t("actions.#{action}"))
   end
 end
