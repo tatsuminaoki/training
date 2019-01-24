@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'タスク管理機能', type: :system do
+describe 'タスク管理機能', type: :feature do
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA') }
   let!(:task_a) { FactoryBot.create(:task, title: '最初のタスク', user: user_a) }
 
@@ -35,12 +35,12 @@ describe 'タスク管理機能', type: :system do
       # タスクのフォーム入力
       fill_in :task_title, with: 'たすくだよ'
       fill_in :task_description, with: 'たすくのせつめいだよ'
-      fill_in :task_end_at, with: '002010-01-01' # NOTE: 年は6桁にしないと日付が入力できなかった
+      fill_in :task_end_at, with: '2100-01-01'
 
       # フォームの内容をチェック
       expect(page).to have_field :task_title, with: 'たすくだよ'
       expect(page).to have_field :task_description, with: 'たすくのせつめいだよ'
-      expect(page).to have_field :task_end_at, with: '2010-01-01'
+      expect(page).to have_field :task_end_at, with: '2100-01-01'
 
       # 作成
       click_button '登録する'
@@ -50,7 +50,7 @@ describe 'タスク管理機能', type: :system do
       example '登録後の画面で内容が正常に表示される' do
         expect(page).to have_content 'たすくだよ'
         expect(page).to have_content 'たすくのせつめいだよ'
-        expect(page).to have_content '2010/01/01 00:00:00'
+        expect(page).to have_content '2100/01/01 00:00:00'
       end
     end
   end
