@@ -29,18 +29,20 @@ describe 'タスク管理機能', type: :system do
   end
 
   describe '新規作成機能' do
+    let(:current_date) { Time.now }
+
     before do
       visit new_task_path
 
       # タスクのフォーム入力
       fill_in :task_title, with: 'たすくだよ'
       fill_in :task_description, with: 'たすくのせつめいだよ'
-      fill_in :task_end_at, with: '002010-01-01' # NOTE: 年は6桁にしないと日付が入力できなかった
+      fill_in :task_end_at, with: current_date.to_date
 
       # フォームの内容をチェック
       expect(page).to have_field :task_title, with: 'たすくだよ'
       expect(page).to have_field :task_description, with: 'たすくのせつめいだよ'
-      expect(page).to have_field :task_end_at, with: '2010-01-01'
+      expect(page).to have_field :task_end_at, with: current_date.to_date
 
       # 作成
       click_button 'Create Task'
@@ -50,7 +52,7 @@ describe 'タスク管理機能', type: :system do
       example '登録後の画面で内容が正常に表示される' do
         expect(page).to have_content 'たすくだよ'
         expect(page).to have_content 'たすくのせつめいだよ'
-        expect(page).to have_content '2010年01月01日'
+        expect(page).to have_content current_date.strftime('%Y年%m月%d日')
       end
     end
   end
