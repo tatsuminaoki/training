@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Todoapp</title>
+    <title><%= content_for?(:title) ? yield(:title) : 'todoapp' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,10 @@
   </head>
 
   <body>
+    <header>
+      <%= content_for?(:title) ? yield(:title) : '' %>
+    </header>
+
     <% if flash.notice.present? %>
       <p><%= flash.notice %></p>
     <% end %>
