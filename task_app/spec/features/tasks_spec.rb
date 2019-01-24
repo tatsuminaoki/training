@@ -13,6 +13,25 @@ feature 'タスク管理機能', type: :feature do
     end
   end
 
+  feature 'タスクの並び順' do
+    let!(:tasks) {
+      [
+        FactoryBot.create(:task, name: 'タスク1', description: 'タスク1の説明', created_at: Time.zone.now),
+        FactoryBot.create(:task, name: 'タスク2', description: 'タスク2の説明', created_at: 1.day.ago),
+        FactoryBot.create(:task, name: 'タスク3', description: 'タスク3の説明', created_at: 2.days.ago),
+      ]
+    }
+
+    scenario 'タスクが登録日時の降順で並ぶ' do
+      visit root_path
+
+      page.all('.task-list tbody tr').each_with_index do |element, i|
+        next if i <= 0
+        expect(element.text).to have_content tasks[i - 1].name
+      end
+    end
+  end
+
   feature '登録機能' do
     before do
       visit root_path

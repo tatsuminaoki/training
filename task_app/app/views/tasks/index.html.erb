@@ -5,12 +5,14 @@
   <tr>
     <th><%= Task.human_attribute_name(:name) %></th>
     <th><%= Task.human_attribute_name(:description) %></th>
+    <th><%= Task.human_attribute_name(:created_at) %></th>
     <th>アクション</th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.name %></td>
       <td><%= simple_format(task.description) %></td>
+      <td><%= I18n.l(task.created_at, format: :long) %></td>
       <td>
         <%= link_to I18n.t('actions.edit'), edit_task_path(task) %>
         <%= link_to I18n.t('actions.destroy'), task_path(task), method: :delete,
