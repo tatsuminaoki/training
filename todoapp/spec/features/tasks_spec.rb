@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'タスク管理機能', type: :system do
+describe 'タスク管理機能', type: :feature do
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA') }
   let!(:task_a) { FactoryBot.create(:task, title: '最初のタスク', user: user_a) }
 
