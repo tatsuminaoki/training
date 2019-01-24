@@ -1,3 +1,4 @@
+<h4><%= I18n.t('titles.tasks.index', user_name: current_user.name) %></h4>
 <%= form_with(url: tasks_path, method: 'get', local: true, class: 'form-inline my-2') do |form| %>
   <%= form.text_field :name, id: 'task', value: params[:name], class: 'form-control mx-1', placeholder: 'キーワード' %>
   <%= form.label I18n.t('activerecord.attributes.task.status'), class: 'mx-1' %>

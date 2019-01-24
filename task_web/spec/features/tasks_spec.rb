@@ -4,13 +4,20 @@ require 'rails_helper'
 
 RSpec.feature 'タスク管理一覧画面', type: :feature do
   # 初期データ作成
+  let!(:init_user) { create(:user) }
   let!(:init_tasks) {
     [
-      create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user_id: 1, status: :closed }),
-      create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user_id: 1, status: :in_progress }),
-      create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user_id: 1, status: :open }),
+      create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user: init_user, status: :closed }),
+      create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user: init_user, status: :in_progress }),
+      create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user: init_user, status: :open }),
     ]
   }
+  before do
+    visit root_path
+    fill_in 'user[email]', with: init_user.email
+    fill_in 'user[password]', with: init_user.password
+    click_button 'ログイン'
+  end
   context '初期表示' do
     scenario 'タスク一覧の表示確認' do
       visit root_path
@@ -115,7 +122,14 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
   end
 end
 RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feature do
-  let!(:init_task) { create(:task) }
+  let!(:init_user) { create(:user) }
+  let!(:init_task) { create(:task, user: init_user) }
+  before do
+    visit root_path
+    fill_in 'user[email]', with: init_user.email
+    fill_in 'user[password]', with: init_user.password
+    click_button 'ログイン'
+  end
   context '画面遷移テスト' do
     scenario 'タスクの登録画面への遷移確認' do
       visit root_path
@@ -133,8 +147,9 @@ RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feat
     end
   end
   context '登録・更新・削除テスト' do
-    let(:added_task) { build(:task, { name: 'ゴミ出し', description: '粗大ゴミ出す' }) }
-    let(:updated_task) { build(:task, { name: '家事', description: 'トイレ掃除' }) }
+    let!(:user) { create(:user) }
+    let(:added_task) { build(:task, { name: 'ゴミ出し', description: '粗大ゴミ出す', user: user }) }
+    let(:updated_task) { build(:task, { name: '家事', description: 'トイレ掃除', user: user }) }
     scenario 'タスクの登録確認' do
       visit new_task_path
       expect {
@@ -176,8 +191,15 @@ RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feat
   end
 end
 RSpec.feature 'タスク管理 機能テスト(ページング)', type: :feature do
+  let!(:user) { create(:user) }
+  before do
+    visit root_path
+    fill_in 'user[email]', with: user.email
+    fill_in 'user[password]', with: user.password
+    click_button 'ログイン'
+  end
   context '1ページ目のみ（タスク1件）の時' do
-    let!(:task) { create(:task) }
+    let!(:task) { create(:task, user: user) }
     scenario 'ページングが表示されないこと' do
       visit root_path
       expect(Task.all.size).to eq(1)
@@ -186,7 +208,7 @@ RSpec.feature 'タスク管理 機能テスト(ページング)', type: :feature
     end
   end
   context '1ページ目のみ（タスク5件）の時' do
-    let!(:tasks) { create_list(:task, 5) }
+    let!(:tasks) { create_list(:task, 5, user: user) }
     scenario 'ページングが表示されないこと' do
       visit root_path
       expect(Task.all.size).to eq(5)
@@ -195,7 +217,7 @@ RSpec.feature 'タスク管理 機能テスト(ページング)', type: :feature
     end
   end
   context '2ページ分（タスク10件）のタスクがある時' do
-    let!(:tasks) { create_list(:task, 10) }
+    let!(:tasks) { create_list(:task, 10, user: user) }
     scenario '1ページ目のページングが適切に表示されること' do
       visit root_path
       expect(page.all('td.name').count).to eq 5
@@ -216,7 +238,7 @@ RSpec.feature 'タスク管理 機能テスト(ページング)', type: :feature
     end
   end
   context '3ページ分（タスク12件）のタスクがある時' do
-    let!(:tasks) { 12.times { |i| create(:task, name: "Task Name #{i}") } }
+    let!(:tasks) { 12.times { |i| create(:task, name: "Task Name #{i}", user: user) } }
     scenario '1ページ目のページングが適切に表示されること' do
       visit root_path
       expect(page.all('td.name').count).to eq 5

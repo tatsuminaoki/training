@@ -13,18 +13,21 @@ ja:
         priority: 優先度
         status: ステータス
         due_date: 期限
+        user: ユーザ情報
         user_id: ユーザID
         created_time: 登録日時
         updated_time: 更新日時
       user:
         email: メールアドレス
         name: ユーザ名
+        auth_level: 権限レベル
         password: パスワード
         password_confirmation: 確認用パスワード
         current_password: 現在のパスワード
     # バリデーションメッセージ
     errors:
       messages:
+        required: が必要です
         blank: が空です
         inclusion: が不正です
         invalid: が不正です
@@ -54,6 +57,7 @@ ja:
 
   titles:
     tasks:
+      index: "%{user_name}さんのタスク"
       show: タスクの詳細
       new: タスクの登録
       edit: タスクの編集
