@@ -4,8 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'タスクモデルのテスト', type: :model do
   describe 'タスク' do
+    let!(:init_user) { create(:user) }
     let!(:input) {
-      { name: '買い物', description: '説明文', due_date: Time.zone.today, priority: :high, user_id: 1, status: :closed, created_at: Time.now.getlocal().to_s }
+      { name: '買い物', description: '説明文', due_date: Time.zone.today, priority: :high, user: init_user, status: :closed, created_at: Time.now.getlocal().to_s }
     }
     let!(:task) {
       create(:task, input)
@@ -16,7 +17,7 @@ RSpec.describe 'タスクモデルのテスト', type: :model do
       expect(task.description).to eq input[:description]
       expect(task.due_date).to eq input[:due_date]
       expect(task.priority).to eq input[:priority].to_s
-      expect(task.user_id).to eq input[:user_id]
+      expect(task.user.id).to eq input[:user].id
       expect(task.status).to eq input[:status].to_s
       expect(task.created_at.to_s(:default)).to eq input[:created_at]
     end
@@ -40,11 +41,11 @@ RSpec.describe 'タスクモデルのテスト', type: :model do
       expect(task.errors.full_messages[0]).to eq '優先度 が空です'
       expect(task.errors.full_messages[1]).to eq '優先度 が不正です'
     end
-    it 'ユーザIDは必須であること' do
+    it 'ユーザは必須であること' do
       task = Task.new input.merge(user_id: nil)
       expect(task).not_to be_valid
-      expect(task.errors.full_messages[0]).to eq 'ユーザID が空です'
-      expect(task.errors.full_messages[1]).to eq 'ユーザID が不正です'
+      expect(task.errors.full_messages[0]).to eq 'ユーザ情報 が必要です'
+      expect(task.errors.full_messages[1]).to eq 'ユーザID が空です'
     end
     it 'ステータスは必須であること' do
       task = Task.new input.merge(status: nil)
@@ -80,17 +81,20 @@ RSpec.describe 'タスクモデルのテスト', type: :model do
     it 'ユーザIDに0が入力できないこと' do
       task = Task.new input.merge(user_id: 0)
       expect(task).not_to be_valid
-      expect(task.errors.full_messages).to eq ['ユーザID が不正です']
+      expect(task.errors.full_messages[0]).to eq 'ユーザ情報 が必要です'
+      expect(task.errors.full_messages[1]).to eq 'ユーザID が不正です'
     end
     it 'ユーザIDにマイナスの値を入力できないこと' do
       task = Task.new input.merge(user_id: -1)
       expect(task).not_to be_valid
-      expect(task.errors.full_messages).to eq ['ユーザID が不正です']
+      expect(task.errors.full_messages[0]).to eq 'ユーザ情報 が必要です'
+      expect(task.errors.full_messages[1]).to eq 'ユーザID が不正です'
     end
     it 'ユーザIDに文字を入力できないこと' do
       task = Task.new input.merge(user_id: 'UserID')
       expect(task).not_to be_valid
-      expect(task.errors.full_messages).to eq ['ユーザID が不正です']
+      expect(task.errors.full_messages[0]).to eq 'ユーザ情報 が必要です'
+      expect(task.errors.full_messages[1]).to eq 'ユーザID が不正です'
     end
     it 'ステータスにマイナスの値を入力できないこと' do
       expect {

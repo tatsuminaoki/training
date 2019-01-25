@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum priority: %i[low normal high].freeze
   enum status: %i[open in_progress closed].freeze
-  DEFAULT_ORDER_BY = 'created_at'
-  DEFAULT_ORDER = 'DESC'
+
+  DEFAULT_ORDER_BY = :created_at
+  DEFAULT_ORDER = :DESC
   ORDER_BY_VALUES = %w[due_date priority created_at].freeze
   ORDER_VALUES = %w[ASC DESC].freeze
 

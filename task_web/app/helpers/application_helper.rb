@@ -13,6 +13,12 @@ module ApplicationHelper
     make_link_tag(active: active, link_str: link_str)
   end
 
+  def link_edit_user
+    active = (controller_name == 'registrations' && controller.action_name == 'edit')
+    link_str = link_to I18n.t('links.edit_user'), edit_user_registration_path, class: 'nav-link'
+    make_link_tag(active: active, link_str: link_str)
+  end
+
   private
 
   def make_link_tag(active: true, link_str: '')

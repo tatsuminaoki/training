@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_07_013727) do
+ActiveRecord::Schema.define(version: 2019_01_21_055009) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.text "description"
     t.date "due_date", null: false
     t.integer "priority", limit: 1, default: 0, null: false
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "status", limit: 1, default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(version: 2019_01_07_013727) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "login_id"
     t.string "name"
-    t.string "password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
     t.integer "auth_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

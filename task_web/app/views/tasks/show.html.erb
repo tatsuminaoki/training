@@ -1,4 +1,4 @@
-<h4><%= I18n.t('titles.show') %></h4>
+<h4><%= I18n.t('titles.tasks.show') %></h4>
 <table class="table table-bordered">
   <tr>
     <th scope="row"><%= I18n.t('activerecord.attributes.task.name') %></td>
@@ -29,4 +29,4 @@
     <td><%= I18n.l(@task.updated_at, format: :long) %></td>
   </tr>
 </table>
-<%= link_to I18n.t('links.return'), tasks_path %>
+<%= link_to I18n.t('links.return'), :back %>
