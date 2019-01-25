@@ -6,9 +6,8 @@ describe Task, type: :model do
   describe 'titleのバリデーションチェック' do
     context '何も入力されてないとき' do
       example 'エラーになる' do
-        expect{
-          create(:task, user: user_a, title: '')
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        task = build(:task, user: user_a, title: '')
+        expect(task).to be_invalid
       end
     end
     context '1文字入力されてる時' do
@@ -25,9 +24,8 @@ describe Task, type: :model do
     end
     context '65文字入力されてる時' do
       example 'エラーになる' do
-        expect{
-          create(:task, user: user_a, title: 'a' * 65)
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        task = build(:task, user: user_a, title: 'a' * 65)
+        expect(task).to be_invalid
       end
     end
   end
@@ -35,16 +33,14 @@ describe Task, type: :model do
   describe 'end_atのバリデーションチェック' do
     context '過去日付が入力された時1' do
       example 'エラーになる' do
-        expect{
-          create(:task, user: user_a, end_at: '2019-01-01 23:59:59')
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        task = build(:task, user: user_a, end_at: '2019-01-01 23:59:59')
+        expect(task).to be_invalid
       end
     end
     context '過去日付が入力された時2' do
       example 'エラーになる' do
-        expect{
-          create(:task, user: user_a, end_at: Time.now.to_date - 1)
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        task = build(:task, user: user_a, end_at: Time.now.to_date - 1)
+        expect(task).to be_invalid
       end
     end
     context '現在日付が入力された時' do
