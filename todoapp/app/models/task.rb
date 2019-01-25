@@ -4,5 +4,5 @@ class Task < ApplicationRecord
   STATUS_COMPLETED = 3
 
   belongs_to :user
-
+  scope :recent, -> { order(created_at: :desc) }
 end
