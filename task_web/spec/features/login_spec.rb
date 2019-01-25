@@ -60,14 +60,28 @@ RSpec.feature 'ログイン後テスト', type: :feature do
   end
   context 'タスク一覧画面' do
     let!(:other_user) { create(:user) }
-    let!(:my_tasks) { 12.times { |i| create(:task, name: "My Task Name #{i}", user: init_user) } }
-    let!(:other_tasks) { 12.times { |i| create(:task, name: "Other Task Name #{i}", user: other_user) } }
+    let!(:my_tasks) { create_list(:task, 12, name: 'My Task Name', user: init_user) }
+    let!(:other_tasks) { create_list(:task, 12, name: 'Other Task Name', user: other_user) }
     scenario '自分のタスクのみが表示されること' do
       visit tasks_path
       expect(page).to have_content("#{init_user.name}さんのタスク")
       expect(page).not_to have_content("#{other_user.name}さんのタスク")
       expect(page).to have_content('My Task Name')
       expect(page).not_to have_content('Other Task Name')
+    end
+    scenario '自分のタスク詳細にアクセスできること' do
+      my_tasks.each do |my_task|
+        visit task_path(my_task)
+        expect(page).to have_content 'タスクの詳細'
+        expect(page).to have_content my_task.name
+        expect(page).to have_content my_task.description
+      end
+    end
+    scenario '他人のタスク詳細にアクセスできないこと' do
+      other_tasks.each do |other_task|
+        visit task_path(other_task)
+        expect(page).to have_content('ページが見つかりませんでした')
+      end
     end
   end
   context 'ユーザ情報更新画面' do
