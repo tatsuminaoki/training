@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_021631) do
+ActiveRecord::Schema.define(version: 2019_01_24_073139) do
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 64, null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_021631) do
     t.datetime "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_tasks_on_created_at"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["title"], name: "index_tasks_on_title"
     t.index ["user_id"], name: "index_tasks_on_user_id"
