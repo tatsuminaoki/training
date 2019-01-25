@@ -43,14 +43,14 @@ describe 'タスク管理機能', type: :feature do
       expect(page).to have_field :task_end_at, with: '2100-01-01'
 
       # 作成
-      click_button 'Create Task'
+      click_button '登録する'
     end
 
     context '規作成画面で正しい情報を入力した時' do
       example '登録後の画面で内容が正常に表示される' do
         expect(page).to have_content 'たすくだよ'
         expect(page).to have_content 'たすくのせつめいだよ'
-        expect(page).to have_content '2100年01月01日'
+        expect(page).to have_content '2100/01/01 00:00:00'
       end
     end
   end

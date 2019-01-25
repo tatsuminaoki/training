@@ -24,7 +24,8 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(param)
 
     if @task.save
-      redirect_to @task, notice: "タスク「#{@task.title}」を登録しました。"
+      redirect_to @task,
+                  notice: I18n.t('notification.create', task_title: @task.title)
     else
       render :new
     end
@@ -32,12 +33,14 @@ class TasksController < ApplicationController
 
   def update
     @task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク「#{@task.title}」を更新しました。"
+    redirect_to tasks_url,
+                notice: I18n.t('notification.update', task_title: @task.title)
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_url, notice: "タスク「#{@task.title}」を削除しました。"
+    redirect_to tasks_url,
+                notice: I18n.t('notification.destroy', task_title: @task.title)
   end
 
   private

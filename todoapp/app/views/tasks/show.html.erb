@@ -1,4 +1,6 @@
-<%= link_to '一覧', controller: 'tasks', action: 'index' %>
+<% content_for(:title) { t('.title') } %>
+
+<%= link_to t('tasks.index.title'), controller: 'tasks', action: 'index' %>
 
 <table>
   <tbody>
@@ -16,19 +18,19 @@
     </tr>
     <tr>
       <th><%= Task.human_attribute_name(:end_at) %></th>
-      <td><%= @task.end_at.strftime('%Y年%m月%d日') unless @task.end_at.nil? %></td>
+      <td><%= l(@task.end_at) unless @task.end_at.nil? %></td>
     </tr>
     <tr>
       <th><%= Task.human_attribute_name(:created_at) %></th>
-      <td><%= @task.created_at.strftime('%Y年%m月%d日') %></td>
+      <td><%= l(@task.created_at) %></td>
     </tr>
     <tr>
       <th><%= Task.human_attribute_name(:updated_at) %></th>
-      <td><%= @task.updated_at.strftime('%Y年%m月%d日') %></td>
+      <td><%= l(@task.updated_at) %></td>
     </tr>
   </tbody>
 </table>
 
-<%= link_to '編集', controller: 'tasks', action: 'edit' %>
-<%= link_to '削除', @task, controller: 'tasks', action: 'index',
-            method: :delete, data: { confirm: "タスク「#{@task.title}」を削除します。よろしいですか？" } %>
+<%= link_to t('common.edit'), controller: 'tasks', action: 'edit' %>
+<%= link_to t('common.delete'), @task, controller: 'tasks', action: 'index',
+            method: :delete, data: { confirm: t('notification.confirm_destroy', task_title: @task.title) } %>
