@@ -1,39 +1,39 @@
 require 'rails_helper'
 
-describe 'タスク管理機能', type: :feature do
-  let(:user_a) { FactoryBot.create(:user, name: 'ユーザーA') }
+feature 'タスク管理機能', type: :feature do
+  let(:user_a) { create(:user, name: 'ユーザーA') }
   let!(:task_a) {
-    FactoryBot.create(:task,
-                      title: '最初のタスク',
-                      user: user_a,
-                      created_at: '2010-10-10 00:10:00')
+    create(:task,
+           title: '最初のタスク',
+           user: user_a,
+           created_at: '2010-10-10 00:10:00')
   }
   let!(:task_b) {
-    FactoryBot.create(:task,
-                      title: '2つ目のタスク',
-                      user: user_a,
-                      created_at: '2010-10-10 00:10:01')
+    create(:task,
+           title: '2つ目のタスク',
+           user: user_a,
+           created_at: '2010-10-10 00:10:01')
   }
   let!(:task_c) {
-    FactoryBot.create(:task,
-                      title: '3つ目のタスク',
-                      user: user_a,
-                      created_at: '2010-10-10 00:10:02')
+    create(:task,
+           title: '3つ目のタスク',
+           user: user_a,
+           created_at: '2010-10-10 00:10:02')
   }
 
   shared_examples_for 'ユーザーAが作成したタスクが表示される' do
-    it { expect(page).to have_content '最初のタスク' }
+    scenario { expect(page).to have_content '最初のタスク' }
   end
 
   describe '一覧表示機能' do
     context '一覧表示画面へ遷移した時' do
-      before do
+      background do
         visit tasks_path
       end
 
       it_behaves_like 'ユーザーAが作成したタスクが表示される'
 
-      example 'タスクは作成日付の降順で表示される' do
+      scenario 'タスクは作成日付の降順で表示される' do
         task_a_index = page.body.index('最初のタスク')
         task_b_index = page.body.index('2つ目のタスク')
         task_c_index = page.body.index('3つ目のタスク')
@@ -47,7 +47,7 @@ describe 'タスク管理機能', type: :feature do
 
   describe '詳細表示機能' do
     context '詳細表示画面へ遷移した時' do
-      before do
+      background do
         visit task_path(task_a)
       end
 
@@ -56,7 +56,7 @@ describe 'タスク管理機能', type: :feature do
   end
 
   describe '新規作成機能' do
-    before do
+    background do
       visit new_task_path
 
       # タスクのフォーム入力
@@ -74,7 +74,7 @@ describe 'タスク管理機能', type: :feature do
     end
 
     context '規作成画面で正しい情報を入力した時' do
-      example '登録後の画面で内容が正常に表示される' do
+      scenario '登録後の画面で内容が正常に表示される' do
         expect(page).to have_content 'たすくだよ'
         expect(page).to have_content 'たすくのせつめいだよ'
         expect(page).to have_content '2100/01/01 00:00:00'
