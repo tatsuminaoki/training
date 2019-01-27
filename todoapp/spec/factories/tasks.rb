@@ -3,7 +3,7 @@ FactoryBot.define do
     title { 'テストを書く' }
     description { 'RSpec＆Capybara＆FactoryBotを準備する' }
     status { 1 }
-    end_at { '2010-01-01' }
+    end_at { '2100-01-01' }
     user
   end
 end

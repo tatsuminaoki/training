@@ -1,4 +1,10 @@
-<%= form_with model: @task do |f| %>
+<ul>
+  <% task.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+
+<%= form_with model: task, local: true do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
 

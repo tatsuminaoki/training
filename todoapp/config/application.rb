@@ -19,5 +19,10 @@ module Todoapp
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
+    # form_forが勝手に吐き出す<div class="field_with_errors"></div>を制御する
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      %Q(#{html_tag}).html_safe
+    end
   end
 end
