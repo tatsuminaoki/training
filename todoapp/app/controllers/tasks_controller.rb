@@ -25,8 +25,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    param = task_params.merge(status: Task::STATUS_NEW_TASK)
-    @task = current_user.tasks.new(param)
+    @task = current_user.tasks.new(task_params)
 
     if @task.save
       redirect_to @task,
@@ -51,7 +50,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :end_at)
+    params.require(:task).permit(:title, :description, :status, :end_at)
   end
 
   def sort_params

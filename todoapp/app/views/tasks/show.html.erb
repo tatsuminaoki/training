@@ -17,6 +17,10 @@
       <td><%= @task.description %></td>
     </tr>
     <tr>
+      <th><%= Task.human_attribute_name(:status) %></th>
+      <td><%= @task.status_i18n %></td>
+    </tr>
+    <tr>
       <th><%= Task.human_attribute_name(:end_at) %></th>
       <td><%= l(@task.end_at) unless @task.end_at.nil? %></td>
     </tr>
