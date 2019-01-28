@@ -7,7 +7,7 @@
     <th><%= Task.human_attribute_name(:id) %></th>
     <th><%= Task.human_attribute_name(:title) %></th>
     <th><%= Task.human_attribute_name(:status) %></th>
-    <th><%= Task.human_attribute_name(:end_at) %></th>
+    <th><%= sortable :end_at.to_s, Task.human_attribute_name(:end_at) %></th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th><%= Task.human_attribute_name(:updated_at) %></th>
     <th></th>

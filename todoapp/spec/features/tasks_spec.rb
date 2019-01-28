@@ -6,18 +6,21 @@ feature 'タスク管理機能', type: :feature do
     create(:task,
            title: '最初のタスク',
            user: user_a,
+           end_at: '2100-10-10 00:10:00',
            created_at: '2010-10-10 00:10:00')
   }
   let!(:task_b) {
     create(:task,
            title: '2つ目のタスク',
            user: user_a,
+           end_at: '2100-10-10 00:10:01',
            created_at: '2010-10-10 00:10:01')
   }
   let!(:task_c) {
     create(:task,
            title: '3つ目のタスク',
            user: user_a,
+           end_at: nil,
            created_at: '2010-10-10 00:10:02')
   }
 
@@ -41,6 +44,36 @@ feature 'タスク管理機能', type: :feature do
         # indexが大きいとリストの後ろ側に表示されているとみなす
         expect(task_c_index).to be < task_b_index
         expect(task_b_index).to be < task_a_index
+      end
+    end
+    context '終了期限を昇順でソートした時' do
+      background do
+        visit tasks_path(sort: 'end_at', direction: 'asc')
+      end
+
+      scenario 'タスクは作成日付の降順で表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        # indexが大きいとリストの後ろ側に表示されているとみなす
+        expect(task_c_index).to be < task_a_index
+        expect(task_a_index).to be < task_b_index
+      end
+    end
+    context '終了期限を降順でソートした時' do
+      background do
+        visit tasks_path(sort: 'end_at', direction: 'desc')
+      end
+
+      scenario 'タスクは作成日付の降順で表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        # indexが大きいとリストの後ろ側に表示されているとみなす
+        expect(task_b_index).to be < task_a_index
+        expect(task_a_index).to be < task_c_index
       end
     end
   end
