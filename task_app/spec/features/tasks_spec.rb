@@ -16,11 +16,11 @@ feature 'タスク管理機能', type: :feature do
 
     context '制限を超えた文字数を入力したとき' do
       let(:task_name) { 'a' * 31 }
-      let(:task_description) { 'a' * 201 }
+      let(:task_description) { 'a' * 801 }
 
       scenario '文字数に関するエラーメッセージが表示される' do
         expect(page).to have_selector '#error_explanation', text: '30文字以内'
-        expect(page).to have_selector '#error_explanation', text: '200文字以内'
+        expect(page).to have_selector '#error_explanation', text: '800文字以内'
       end
     end
   end

@@ -37,9 +37,9 @@ RSpec.describe Task, type: :model do
     end
 
     context '説明が201文字のとき' do
-      task = FactoryBot.build(:task, description: 'a' * 201)
+      task = FactoryBot.build(:task, description: 'a' * 801)
       task.valid?
-      it_behaves_like '文字制限に関するエラーが発生する', task.errors[:description], 200
+      it_behaves_like '文字制限に関するエラーが発生する', task.errors[:description], 800
     end
   end
 end
