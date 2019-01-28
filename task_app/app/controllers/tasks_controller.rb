@@ -17,7 +17,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_url, flash: { success: create_flash_message('create', 'success') }
     else
-      flash[:danger] = create_flash_message('create', 'failed')
       render 'new'
     end
   end
@@ -29,7 +28,6 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to root_url, flash: { success: create_flash_message('update', 'success') }
     else
-      flash[:danger] = create_flash_message('update', 'failed')
       render 'edit'
     end
   end
