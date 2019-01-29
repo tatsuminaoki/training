@@ -3,7 +3,7 @@
 <%= link_to t('tasks.new.title'), controller: 'tasks', action: 'new' %>
 
 <%= search_form_for @search, url: tasks_path, enforce_utf8: false do |f| %>
-  <dt><%= f.text_field :title_cont, placeholder: '検索するテキストを入力...' %></dt>
+  <dt><%= f.text_field :title_cont, placeholder: '検索するタイトルを入力...' %></dt>
   <dt><%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]} %></dt>
   <dd><%= f.submit %></dd>
 <% end %>
