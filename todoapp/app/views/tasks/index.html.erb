@@ -2,22 +2,30 @@
 
 <%= link_to t('tasks.new.title'), controller: 'tasks', action: 'new' %>
 
+<%= search_form_for @search, url: tasks_path, enforce_utf8: false do |f| %>
+  <ul>
+    <li><%= f.text_field :title_cont, placeholder: '検索するタイトルを入力...' %></li>
+    <li><%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, include_blank: true %></li>
+  </ul>
+  <%= f.submit %>
+<% end %>
+
 <table>
   <tr>
     <th><%= Task.human_attribute_name(:id) %></th>
     <th><%= Task.human_attribute_name(:title) %></th>
     <th><%= Task.human_attribute_name(:status) %></th>
-    <th><%= sortable :end_at.to_s, Task.human_attribute_name(:end_at) %></th>
+    <th><%= sort_link(@search, :end_at, Task.human_attribute_name(:end_at), default_order: :desc) %></th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th><%= Task.human_attribute_name(:updated_at) %></th>
     <th></th>
     <th></th>
   </tr>
-  <% @tasks.each do |task| %>
+  <% @search_tasks.each do |task| %>
     <tr>
       <td><%= link_to task.id, task_path(task.id) %></td>
       <td><%= task.title %></td>
-      <td><%= task.status %></td>
+      <td><%= task.status_i18n %></td>
       <td><%= l(task.end_at) unless task.end_at.nil? %></td>
       <td><%= l(task.created_at) %></td>
       <td><%= l(task.updated_at) %></td>

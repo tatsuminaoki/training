@@ -6,6 +6,7 @@ feature 'タスク管理機能', type: :feature do
     create(:task,
            title: '最初のタスク',
            user: user_a,
+           status: 'working',
            end_at: '2100-10-10 00:10:00',
            created_at: '2010-10-10 00:10:00')
   }
@@ -13,6 +14,7 @@ feature 'タスク管理機能', type: :feature do
     create(:task,
            title: '2つ目のタスク',
            user: user_a,
+           status: 'completed',
            end_at: '2100-10-10 00:10:01',
            created_at: '2010-10-10 00:10:01')
   }
@@ -20,6 +22,7 @@ feature 'タスク管理機能', type: :feature do
     create(:task,
            title: '3つ目のタスク',
            user: user_a,
+           status: 'working',
            end_at: nil,
            created_at: '2010-10-10 00:10:02')
   }
@@ -46,9 +49,13 @@ feature 'タスク管理機能', type: :feature do
         expect(task_b_index).to be < task_a_index
       end
     end
+
     context '終了期限を昇順でソートした時' do
       background do
-        visit tasks_path(sort: 'end_at', direction: 'asc')
+        visit tasks_path
+        click_link '完了期限'
+        # 昇順にするためには2度押す
+        click_link '完了期限'
       end
 
       scenario 'タスクは作成日付の降順で表示される' do
@@ -61,9 +68,11 @@ feature 'タスク管理機能', type: :feature do
         expect(task_a_index).to be < task_b_index
       end
     end
+
     context '終了期限を降順でソートした時' do
       background do
-        visit tasks_path(sort: 'end_at', direction: 'desc')
+        visit tasks_path
+        click_link '完了期限'
       end
 
       scenario 'タスクは作成日付の降順で表示される' do
@@ -73,6 +82,111 @@ feature 'タスク管理機能', type: :feature do
 
         # indexが大きいとリストの後ろ側に表示されているとみなす
         expect(task_b_index).to be < task_a_index
+        expect(task_a_index).to be < task_c_index
+      end
+    end
+
+    context 'タイトルとステータスで検索した時' do
+      background do
+        visit tasks_path
+
+        fill_in :q_title_cont, with: 'つ目のタスク'
+        select '着手中', from: :q_status_eq
+
+        click_button '検索'
+      end
+
+      scenario '絞り込まれたやつだけ表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_a_index).to be nil
+        expect(task_b_index).to be nil
+        expect(task_c_index).not_to be nil
+      end
+    end
+
+    context 'タイトルで検索した時' do
+      background do
+        visit tasks_path
+
+        fill_in :q_title_cont, with: 'つ目のタスク'
+
+        click_button '検索'
+      end
+
+      scenario '絞り込まれたやつだけ表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_a_index).to be nil
+        expect(task_b_index).not_to be nil
+        expect(task_c_index).not_to be nil
+      end
+    end
+
+    context 'ステータスで検索した時' do
+      background do
+        visit tasks_path
+
+        select '完了', from: :q_status_eq
+
+        click_button '検索'
+      end
+
+      scenario '絞り込まれたやつだけ表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_a_index).to be nil
+        expect(task_b_index).not_to be nil
+        expect(task_c_index).to be nil
+      end
+    end
+
+    context '検索＆終了期限を昇順でソートした時' do
+      background do
+        visit tasks_path
+
+        select '着手中', from: :q_status_eq
+
+        click_button '検索'
+
+        click_link '完了期限'
+        # 昇順にするためには2度押す
+        click_link '完了期限'
+      end
+
+      scenario '絞り込まれた状態でソートされる' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_b_index).to be nil
+        expect(task_c_index).to be < task_a_index
+      end
+    end
+
+    context '検索＆終了期限を降順でソートした時' do
+      background do
+        visit tasks_path
+
+        select '着手中', from: :q_status_eq
+
+        click_button '検索'
+
+        click_link '完了期限'
+      end
+
+      scenario '絞り込まれた状態でソートされる' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_b_index).to be nil
         expect(task_a_index).to be < task_c_index
       end
     end

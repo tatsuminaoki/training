@@ -11,6 +11,9 @@
   <%= f.label :description %>
   <%= f.text_field :description %>
 
+  <%= f.label :status %>
+  <%= f.select :status, Task.statuses_i18n.invert %>
+
   <%= f.label :end_at %>
   <%= f.date_field :end_at, min: Time.now.to_date, max: Time.now.to_date + (365 * 100) %>
 
