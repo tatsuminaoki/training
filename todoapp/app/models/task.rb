@@ -2,7 +2,9 @@ class Task < ApplicationRecord
   validates :title,
             presence: true,
             length: { maximum: 64 }
-  validate :end_at_cannot_be_in_the_past
+  validates :status,
+            presence: true
+  validate :end_at_cannot_be_in_the_past, :status_out_of_range
 
   STATUS_NEW_TASK = 1
   STATUS_WORKING = 2
@@ -23,6 +25,14 @@ class Task < ApplicationRecord
     if end_at.present? && end_at <= Date.yesterday
       errors.add(:end_at,
                  I18n.t('errors.messages.end_at_cannot_be_in_the_past'))
+    end
+  end
+
+  def status_out_of_range
+    # statusが保存できるのは、定義したキーだけだよ
+    unless Task.statuses.keys.include?(status)
+      errors.add(:status,
+                 I18n.t('errors.messages.status_out_of_range'))
     end
   end
 

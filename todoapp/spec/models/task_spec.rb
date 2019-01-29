@@ -4,7 +4,7 @@ describe Task, type: :model do
   let(:user_a) { build(:user, name: 'ユーザーA') }
 
   describe 'titleのバリデーションチェック' do
-    context '何も入力されてないとき' do
+    context '何も入力されてない時' do
       example 'エラーになる' do
         task = build(:task, user: user_a, title: '')
         expect(task).to be_invalid
@@ -26,6 +26,28 @@ describe Task, type: :model do
       example 'エラーになる' do
         task = build(:task, user: user_a, title: 'a' * 65)
         expect(task).to be_invalid
+      end
+    end
+  end
+
+  describe 'statusのバリデーションチェック' do
+    context '何も入力されてない時' do
+      example 'エラーになる' do
+        task = build(:task, user: user_a, status: '')
+        expect(task).to be_invalid
+      end
+    end
+    context '適当な文字が入力された時' do
+      example 'エラーになる' do
+        expect {
+          build(:task, user: user_a, status: 'aaa')
+        }.to raise_error(ArgumentError)
+      end
+    end
+    context 'ちゃんとしたやーつが入力された時' do
+      example '登録可能' do
+        task = build(:task, user: user_a, status: 'completed')
+        expect(task).to be_valid
       end
     end
   end

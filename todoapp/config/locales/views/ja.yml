@@ -19,6 +19,7 @@ ja:
   errors:
     messages:
       end_at_cannot_be_in_the_past: 'は過去の日付を使用できません'
+      status_out_of_range: 'に対象外のステータスが指定されています'
   date:
     formats:
       default: "%Y/%m/%d"
