@@ -48,7 +48,10 @@ feature 'タスク管理機能', type: :feature do
     end
     context '終了期限を昇順でソートした時' do
       background do
-        visit tasks_path(sort: 'end_at', direction: 'asc')
+        visit tasks_path
+        click_link '完了期限'
+        # 昇順にするためには2度押す
+        click_link '完了期限'
       end
 
       scenario 'タスクは作成日付の降順で表示される' do
@@ -63,7 +66,8 @@ feature 'タスク管理機能', type: :feature do
     end
     context '終了期限を降順でソートした時' do
       background do
-        visit tasks_path(sort: 'end_at', direction: 'desc')
+        visit tasks_path
+        click_link '完了期限'
       end
 
       scenario 'タスクは作成日付の降順で表示される' do
