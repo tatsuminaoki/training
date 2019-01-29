@@ -107,6 +107,26 @@ feature 'タスク管理機能', type: :feature do
       end
     end
 
+    context 'タイトルで検索した時' do
+      background do
+        visit tasks_path
+
+        fill_in :q_title_cont, with: 'つ目のタスク'
+
+        click_button '検索'
+      end
+
+      scenario '絞り込まれたやつだけ表示される' do
+        task_a_index = page.body.index('最初のタスク')
+        task_b_index = page.body.index('2つ目のタスク')
+        task_c_index = page.body.index('3つ目のタスク')
+
+        expect(task_a_index).to be nil
+        expect(task_b_index).not_to be nil
+        expect(task_c_index).not_to be nil
+      end
+    end
+
     context 'ステータスで検索した時' do
       background do
         visit tasks_path

@@ -5,7 +5,7 @@
 <%= search_form_for @search, url: tasks_path, enforce_utf8: false do |f| %>
   <ul>
     <li><%= f.text_field :title_cont, placeholder: '検索するタイトルを入力...' %></li>
-    <li><%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]} %></li>
+    <li><%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, include_blank: true %></li>
   </ul>
   <%= f.submit %>
 <% end %>
