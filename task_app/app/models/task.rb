@@ -9,7 +9,7 @@ class Task < ApplicationRecord
 
   validates :name,        presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 800 }
-  validates :priority,    presence: true, inclusion: { in: self.priorities.keys }
+  validates :priority,    inclusion: { in: self.priorities.keys, message: '%<value>は無効です' }
   validate :validate_due_date
 
   private
