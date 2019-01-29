@@ -2,14 +2,14 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = if sort_params.to_hash.length.zero?
-               current_user.tasks.recent
-             else
-               current_user.tasks.order(sort_column + ' ' + sort_direction)
-             end
+    @search = if params[:q]
+                current_user.tasks.ransack(params[:q])
+              else
+                current_user.tasks.ransack(recent: true)
+              end
+    @search_tasks = @search.result
   end
 
   def show
@@ -51,18 +51,6 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :status, :end_at)
-  end
-
-  def sort_params
-    params.permit(:direction, :sort)
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
-  end
-
-  def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : :id.to_s
   end
 
   def set_task

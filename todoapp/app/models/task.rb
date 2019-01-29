@@ -25,4 +25,8 @@ class Task < ApplicationRecord
                  I18n.t('errors.messages.end_at_cannot_be_in_the_past'))
     end
   end
+
+  def self.ransackable_scopes(auth_object = nil)
+    %i[recent]
+  end
 end
