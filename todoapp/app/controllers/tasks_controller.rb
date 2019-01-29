@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  PER = 8
+
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -9,7 +11,7 @@ class TasksController < ApplicationController
               else
                 current_user.tasks.ransack(recent: true)
               end
-    @search_tasks = @search.result
+    @search_tasks = @search.result.page(params[:page]).per(PER)
   end
 
   def show
