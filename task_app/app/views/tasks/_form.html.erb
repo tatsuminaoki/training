@@ -28,6 +28,11 @@
   </div>
 
   <div>
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] } %>
+  </div>
+
+  <div>
     <%= form.submit '送信' %>
   </div>
 <% end %>

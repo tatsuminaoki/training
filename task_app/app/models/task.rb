@@ -2,10 +2,12 @@
 
 class Task < ApplicationRecord
   enum priority: %i[low middle high].freeze
+  enum status: %i[to_do in_progress done].freeze
 
   validates :name,        presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 800 }
   validates :priority,    presence: true
+  validates :status,      presence: true
   validate :validate_due_date
 
   private

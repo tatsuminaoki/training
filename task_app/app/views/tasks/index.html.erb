@@ -6,8 +6,9 @@
     <th><%= Task.human_attribute_name(:id) %></th>
     <th><%= Task.human_attribute_name(:name) %></th>
     <th><%= Task.human_attribute_name(:description) %></th>
-    <th><%= Task.human_attribute_name(:due_date) %><%= sort_link(:due_date) %></th>
+    <th><%= Task.human_attribute_name(:status) %></th>
     <th><%= Task.human_attribute_name(:priority) %><%= sort_link(:priority) %></th>
+    <th><%= Task.human_attribute_name(:due_date) %><%= sort_link(:due_date) %></th>
     <th><%= Task.human_attribute_name(:created_at) %><%= sort_link(:created_at) %></th>
     <th>アクション</th>
   </tr>
@@ -16,8 +17,9 @@
       <td><%= task.id %></td>
       <td><%= task.name %></td>
       <td><%= simple_format(task.description) %></td>
-      <td><%= I18n.l(task.due_date, format: :short) %></td>
+      <td><%= I18n.t("enums.task.status.#{task.status}") %></td>
       <td><%= I18n.t("enums.task.priority.#{task.priority}") %></td>
+      <td><%= I18n.l(task.due_date, format: :short) %></td>
       <td><%= I18n.l(task.created_at, format: :long) %></td>
       <td>
         <%= link_to I18n.t('actions.edit'), edit_task_path(task) %>
