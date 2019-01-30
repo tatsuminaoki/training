@@ -202,6 +202,7 @@ feature 'タスク管理機能', type: :feature do
       end
 
       scenario '8件が表示される' do
+        # ヘッダ部分もtrなので、+1
         expect(all('tr').size).to eq(9)
       end
     end
@@ -217,6 +218,7 @@ feature 'タスク管理機能', type: :feature do
       end
 
       scenario '8件が表示される' do
+        # ヘッダ部分もtrなので、+1
         expect(all('tr').size).to eq(9)
       end
     end
