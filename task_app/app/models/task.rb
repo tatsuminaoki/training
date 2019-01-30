@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  enum priority: {
-    low:    0,
-    middle: 1,
-    high:   2,
-  }
+  enum priority: %i[low middle high].freeze
 
   validates :name,        presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 800 }
-  validates :priority,    inclusion: { in: self.priorities.keys, message: '%<value>は無効です' }
+  validates :priority,    presence: true
   validate :validate_due_date
 
   private

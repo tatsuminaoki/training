@@ -80,9 +80,7 @@ RSpec.describe Task, type: :model do
       context '空のとき' do
         task = FactoryBot.build(:task, priority: '')
         task.valid?
-        scenario '無効となる' do
-          expect(task.errors[:priority]).to include('は無効です')
-        end
+        it_behaves_like '入力を求められる', task.errors[:priority]
       end
 
       context 'enumに存在しない値のとき' do
