@@ -16,7 +16,7 @@ class Task < ApplicationRecord
 
   def date_valid?(date)
     !!Date.parse(date.to_s)
-  rescue
+  rescue TypeError, ArgumentError
     false
   end
 end
