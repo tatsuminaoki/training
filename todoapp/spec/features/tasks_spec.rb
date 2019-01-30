@@ -190,6 +190,44 @@ feature 'タスク管理機能', type: :feature do
         expect(task_a_index).to be < task_c_index
       end
     end
+
+    context 'タスク数が8件の時' do
+      background do
+        # タスクを5個追加で作る（既に3つ作ってるので合計8個）
+        5.times do |i|
+          create(:task, user: user_a)
+        end
+
+        visit tasks_path
+      end
+
+      scenario '8件が表示される' do
+        # ヘッダ部分もtrなので、+1
+        expect(all('tr').size).to eq(9)
+      end
+    end
+
+    context 'タスク数が9件の時' do
+      background do
+        # タスクを6個追加で作る（既に3つ作ってるので合計9個）
+        6.times do |i|
+          create(:task, user: user_a)
+        end
+
+        visit tasks_path
+      end
+
+      scenario '最初ページでは8件が表示される' do
+        # ヘッダ部分もtrなので、+1
+        expect(all('tr').size).to eq(9)
+      end
+
+      scenario '次のページでは1件が表示される' do
+        find_link('Next').click
+        # ヘッダ部分もtrなので、+1
+        expect(all('tr').size).to eq(2)
+      end
+    end
   end
 
   describe '詳細表示機能' do
