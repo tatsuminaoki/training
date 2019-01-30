@@ -24,8 +24,9 @@ class Task < ApplicationRecord
   # ステータスのチェック
   validates :status, presence: true, inclusion: { in: self.statuses.keys }
 
-  def self.search(name, status, order_by, order)
+  def self.search(name, status, order_by, order, user: nil)
     task = self
+    task = task.where(user_id: user[:id]) if user.present?
     task = task.where(status: status) if status.present?
     task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
     task = task.order(order_column(order_by) => sort_order(order))

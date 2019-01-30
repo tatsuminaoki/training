@@ -1,0 +1,53 @@
+<% action = action_names %>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li class="alert alert-danger"><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="form-horizontal my-2">
+  <%= form_with(model: @user, url: admin_users_path(@user), local: true) do |form| %>
+    <div class="form-group row">
+      <%= form.label I18n.t('activerecord.attributes.user.email'), class: 'col-md-2 col-form-label' %>
+      <div class="col-md-10">
+        <%= form.text_field :email, id: :user_email %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= form.label I18n.t('activerecord.attributes.user.name'), class: 'col-md-2 col-form-label' %>
+      <div class="col-md-10">
+        <%= form.text_field :name, id: :user_name %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= form.label I18n.t('activerecord.attributes.user.auth_level'), class: 'col-md-2 col-form-label' %>
+      <div class="col-md-10">
+        <%= form.select :auth_level, User.auth_levels_i18n.invert %>
+        <%#= form.select :auth_level, User.auth_levels.keys.map { |k| [I18n.t("enum.user.role.#{k}"), k] } %>
+
+      </div>
+
+    </div>
+    <div class="form-group row">
+      <%= form.label I18n.t('activerecord.attributes.user.password'), class: 'col-md-2 col-form-label' %>
+      <div class="col-md-10">
+        <%= form.text_field :password, id: :user_password %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= form.label I18n.t('activerecord.attributes.user.password_confirmation'), class: 'col-md-2 col-form-label' %>
+      <div class="col-md-10">
+        <%= form.text_field :password_confirmation, id: :user_password_confirmation %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-10">
+        <%= form.submit I18n.t(action[:action_name]), class: 'btn btn-outline-success' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= link_to I18n.t('links.return'), :back %>

@@ -21,8 +21,30 @@
           <%= link_index_tasks %>
           <%= link_create_task %>
           <% if user_signed_in? %>
-            <%= link_edit_user %>
-            <%= link_to I18n.t('links.logout'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            <li class="dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <%= I18n.t('views.menu.users_admin') %>
+              </a>
+              <ul class="dropdown-menu bg-dark">
+                <%= link_index_users_admin %>
+                <%= link_create_user_admin %>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <%= I18n.t('views.menu.my_user') %>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu bg-dark">
+                <li class="nav-item bg-light">
+                  <%= I18n.t('views.menu.user_name', user_name: current_user.name) %>
+                </li>
+                <%= link_edit_user %>
+                <li class="nav-item">
+                  <%= link_to I18n.t('links.logout'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
+                </li>
+              </ul>
+            </li>
           <% end %>
         </ul>
       </div>

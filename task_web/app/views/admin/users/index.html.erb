@@ -1,0 +1,30 @@
+<h4><%= I18n.t('titles.admin.users.index') %></h4>
+<%= paginate @users %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <tr>
+      <th><%= I18n.t('activerecord.attributes.user.id') %></th>
+      <th><%= I18n.t('activerecord.attributes.user.name') %></th>
+      <th><%= I18n.t('activerecord.attributes.user.email') %></th>
+      <th><%= I18n.t('activerecord.attributes.user.auth_level') %></th>
+      <th><%= I18n.t('activerecord.attributes.user.task_count') %></th>
+      <th><%= I18n.t('activerecord.attributes.user.created_time') %> <%= sort_users_link('created_at', 'DESC') %> <%= sort_users_link('created_at', 'ASC') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="id"><%= user.id %></td>
+        <td class="name"><%= user.name %></td>
+        <td class="email"><%= user.email %></td>
+        <td class="auth_level"><%= user.auth_level_i18n %></td>
+        <td class="task_count"><%= user.tasks.count %></td>
+        <td class="created_at"><%= I18n.l(user.created_at, format: :long) %></td>
+        <td class="detail"><%= link_to I18n.t('links.show_user_admin'), admin_user_path(user) %></td>
+        <td class="edit"><%= link_to I18n.t('links.edit_user_admin'), edit_admin_user_path(user) %></td>
+        <td class="delete"><%= link_to I18n.t('links.delete_user_admin'), admin_user_path(user), method: 'delete', data: {confirm: I18n.t('messages.action_confirm', action: I18n.t('actions.delete'), target: user.name) } %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
