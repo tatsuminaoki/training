@@ -18,6 +18,16 @@
   </div>
 
   <div>
+    <%= form.label :due_date %>
+    <%= form.text_field :due_date, class: 'date-picker' %>
+  </div>
+
+  <div>
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.map { |key, value| [I18n.t("enums.task.priority.#{key}"), key] } %>
+  </div>
+
+  <div>
     <%= form.submit '送信' %>
   </div>
 <% end %>

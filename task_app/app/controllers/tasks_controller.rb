@@ -4,7 +4,9 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    params[:sort_column]    ||= 'created_at'
+    params[:sort_direction] ||= 'desc'
+    @tasks = Task.all.order(params[:sort_column] + ' ' + params[:sort_direction])
   end
 
   def new
@@ -43,7 +45,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :due_date, :priority)
   end
 
   def find_task
