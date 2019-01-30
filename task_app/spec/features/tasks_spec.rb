@@ -87,8 +87,7 @@ feature 'タスク管理機能', type: :feature do
       click_on('タスク登録')
       fill_in 'タスク名', with: task_name
       fill_in '説明', with: task_description
-      select '2月', from: 'task_due_date_2i'
-      select '13', from: 'task_due_date_3i'
+      fill_in '期限', with: '20190213'
       select '高', from: 'task_priority'
       click_on('送信')
     end
@@ -116,8 +115,7 @@ feature 'タスク管理機能', type: :feature do
       click_on('編集')
       fill_in 'タスク名', with: task_name
       fill_in '説明', with: task_description
-      select '2月', from: 'task_due_date_2i'
-      select '13', from: 'task_due_date_3i'
+      fill_in '期限', with: '20190213'
       select '高', from: 'task_priority'
       click_on('送信')
     end
