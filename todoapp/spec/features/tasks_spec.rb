@@ -217,9 +217,15 @@ feature 'タスク管理機能', type: :feature do
         visit tasks_path
       end
 
-      scenario '8件が表示される' do
+      scenario '最初ページでは8件が表示される' do
         # ヘッダ部分もtrなので、+1
         expect(all('tr').size).to eq(9)
+      end
+
+      scenario '次のページでは1件が表示される' do
+        find_link('Next').click
+        # ヘッダ部分もtrなので、+1
+        expect(all('tr').size).to eq(2)
       end
     end
   end
