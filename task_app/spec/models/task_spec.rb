@@ -95,5 +95,59 @@ RSpec.describe Task, type: :model do
         end
       end
     end
+
+    describe 'ステータス' do
+      context '空のとき' do
+        task = FactoryBot.build(:task, status: '')
+        task.valid?
+        it_behaves_like '入力を求められる', task.errors[:status]
+      end
+
+      context 'enumに存在しない値のとき' do
+        scenario 'ArgumentErrorが発生する' do
+          expect { FactoryBot.build(:task, status: 5) }.to raise_error(ArgumentError)
+        end
+      end
+
+      context '文字列のとき' do
+        scenario 'ArgumentErrorが発生する' do
+          expect { FactoryBot.build(:task, status: 'abc') }.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
+
+  describe '検索機能' do
+    let!(:tasks) {
+      [
+        FactoryBot.create(:task, name: 'タスク', status: :to_do),
+        FactoryBot.create(:task, name: 'task', status: :in_progress),
+        FactoryBot.create(:task, name: 'タスク', status: :in_progress),
+      ]
+    }
+
+    context '「タスク」で名前検索したとき' do
+      it '2件のレコードを取得' do
+        expect(Task.search({ name: 'タスク' }).count).to eq 2
+      end
+    end
+
+    context '存在しない名前で検索したとき' do
+      it '0件のレコードを取得' do
+        expect(Task.search({ name: 'abc' }).count).to eq 0
+      end
+    end
+
+    context '「着手中」でステータス検索したとき' do
+      it '2件のレコードを取得' do
+        expect(Task.search({ status: Task.statuses[:in_progress] }).count).to eq 2
+      end
+    end
+
+    context '名前・ステータスで検索したとき' do
+      it '1件のレコードを取得' do
+        expect(Task.search({ name: 'タスク', status: Task.statuses[:in_progress] }).count).to eq 1
+      end
+    end
   end
 end
