@@ -2,7 +2,10 @@
   "name": "todoapp",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^4.0.0-rc.7"
+    "@rails/webpacker": "^4.0.0-rc.7",
+    "bootstrap": "^4.2.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.7"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.1.14"
