@@ -10,6 +10,13 @@ class Task < ApplicationRecord
   validates :status,      presence: true
   validate :validate_due_date
 
+  def self.search(params)
+    output = self
+    output = output.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
+    output = output.where(status: params[:status]) if params[:status].present?
+    output
+  end
+
   private
 
   def validate_due_date
