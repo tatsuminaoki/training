@@ -29,6 +29,12 @@ RSpec.describe Task, type: :model do
         it_behaves_like '入力を求められる', task.errors[:name]
       end
 
+      context '30文字のとき' do
+        it '有効である' do
+          expect(FactoryBot.build(:task, name: 'a' * 30)).to be_valid
+        end
+      end
+
       context '31文字のとき' do
         task = FactoryBot.build(:task, name: 'a' * 31)
         task.valid?
@@ -41,6 +47,12 @@ RSpec.describe Task, type: :model do
         task = FactoryBot.build(:task, description: '')
         task.valid?
         it_behaves_like '入力を求められる', task.errors[:description]
+      end
+
+      context '800文字のとき' do
+        it '有効である' do
+          expect(FactoryBot.build(:task, description: 'a' * 800)).to be_valid
+        end
       end
 
       context '801文字のとき' do

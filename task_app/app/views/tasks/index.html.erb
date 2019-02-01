@@ -3,7 +3,7 @@
 <%= form_with url: root_path, method: 'get', local: true do |form| %>
   <%= form.text_field :name, placeholder: 'タスク名を入力', value: params[:name] %>
   <%= form.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] }, selected: params[:status], include_blank: '指定しない' %>
-  <%= form.submit '検索' %>
+  <%= form.submit I18n.t('links.search') %>
 <% end %>
 <br>
 

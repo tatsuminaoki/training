@@ -222,7 +222,42 @@ feature 'タスク管理機能', type: :feature do
   end
 
   feature '登録・編集機能' do
-    shared_examples_for 'validationエラーが表示される' do
+    shared_examples_for '正常処理とバリデーションエラーの確認' do |link_text, name, description|
+      before do
+        visit root_path
+        click_on(link_text)
+        fill_in 'タスク名', with: task_name
+        fill_in '説明', with: task_description
+        fill_in '期限', with: '20190213'
+        select '高', from: 'task_priority'
+        select '着手中', from: 'task_status'
+        click_on('送信')
+      end
+
+      context '正常値を入力したとき' do
+        let(:task_name) { name }
+        let(:task_description) { description }
+
+        scenario '正常に処理される' do
+          expect(page).to have_selector '.alert-success'
+          expect(page).to have_content name
+          expect(page).to have_content '02/13'
+          expect(page).to have_content '高'
+          expect(page).to have_content '着手中'
+          expect(Task.count).to eq 1
+        end
+      end
+
+      context '制限内の文字数を入力したとき' do
+        let(:task_name) { 'a' * 30 }
+        let(:task_description) { 'a' * 800 }
+
+        scenario '正常に処理される' do
+          expect(page).to have_no_selector '#error_explanation'
+          expect(page).to have_selector '.alert-success'
+        end
+      end
+
       context '空欄のまま送信したとき' do
         let(:task_name) { '' }
         let(:task_description) { '' }
@@ -233,7 +268,7 @@ feature 'タスク管理機能', type: :feature do
         end
       end
 
-      context '制限を超えた文字数を入力したとき' do
+      context '制限外の文字数を入力したとき' do
         let(:task_name) { 'a' * 31 }
         let(:task_description) { 'a' * 801 }
 
@@ -245,60 +280,12 @@ feature 'タスク管理機能', type: :feature do
     end
 
     feature '登録' do
-      before do
-        visit root_path
-        click_on('タスク登録')
-        fill_in 'タスク名', with: task_name
-        fill_in '説明', with: task_description
-        fill_in '期限', with: '20190213'
-        select '高', from: 'task_priority'
-        click_on('送信')
-      end
-
-      context '名前と説明を入力したとき' do
-        let(:task_name) { '最初のタスク' }
-        let(:task_description) { '最初のタスクの説明' }
-
-        scenario '正常に登録される' do
-          expect(page).to have_selector '.alert-success', text: '最初のタスク'
-          expect(page).to have_content '02/13'
-          expect(page).to have_content '高'
-          expect(page).to have_content '未着手'
-          expect(Task.count).to eq 1
-        end
-      end
-
-      it_behaves_like 'validationエラーが表示される'
+      it_behaves_like '正常処理とバリデーションエラーの確認', 'タスク登録', '最初のタスク', '最初のタスクの説明'
     end
 
     feature '編集' do
       let!(:first_task) { FactoryBot.create(:task) }
-
-      before do
-        visit root_path
-        click_on('編集')
-        fill_in 'タスク名', with: task_name
-        fill_in '説明', with: task_description
-        fill_in '期限', with: '20190213'
-        select '高', from: 'task_priority'
-        click_on('送信')
-      end
-
-      context '名前と説明を入力したとき' do
-        let(:task_name) { '掃除' }
-        let(:task_description) { 'トイレ,風呂,キッチン' }
-
-        scenario '正常に更新される' do
-          expect(page).to have_selector '.alert-success', text: '更新しました。'
-          expect(page).to have_content 'トイレ,風呂,キッチン'
-          expect(page).to have_content '02/13'
-          expect(page).to have_content '高'
-          expect(page).to have_content '未着手'
-          expect(Task.count).to eq 1
-        end
-      end
-
-      it_behaves_like 'validationエラーが表示される'
+      it_behaves_like '正常処理とバリデーションエラーの確認', '編集', '掃除', 'トイレ,風呂,キッチン'
     end
   end
 

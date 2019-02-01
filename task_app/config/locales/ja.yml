@@ -43,6 +43,8 @@ ja:
     edit: "%{model_name}編集"
     update: "%{model_name}更新"
     destroy: "%{model_name}削除"
+  links:
+    search: 検索
   flash:
     success: "%{target}を%{action}しました。"
     failed: "%{target}の%{action}に失敗しました。"
