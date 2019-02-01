@@ -12,6 +12,7 @@ module TasksHelper
       sort_direction: direction,
       name:           params[:name],
       status:         params[:status],
+      page:           params[:page],
     }
   end
 end

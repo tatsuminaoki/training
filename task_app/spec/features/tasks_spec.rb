@@ -221,6 +221,27 @@ feature 'タスク管理機能', type: :feature do
     end
   end
 
+  feature 'ページネーション機能' do
+    let!(:tasks) { 10.times { FactoryBot.create(:task) } }
+
+    before { visit root_path }
+
+    context 'タスク件数が10件のとき' do
+      scenario '1ページ目に6件表示される' do
+        expect(page).to have_content '全10件中1 - 6件のタスクが表示されています'
+        expect(page).to have_link '次'
+        expect(page.all('tr').size).to eq 7
+      end
+
+      scenario '2ページ目に4件表示される' do
+        find_link('次').click
+        expect(page).to have_content '全10件中7 - 10件のタスクが表示されています'
+        expect(page).to have_link '前'
+        expect(page.all('tr').size).to eq 5
+      end
+    end
+  end
+
   feature '登録・編集機能' do
     shared_examples_for '正常処理とバリデーションエラーの確認' do |link_text, name, description|
       before do
