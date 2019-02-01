@@ -1,5 +1,8 @@
 <h1><%= I18n.t('actions_with_model.index', model_name: Task.model_name.human) %></h1>
 
+<%= link_to I18n.t('actions_with_model.new', model_name: Task.model_name.human), new_task_path %>
+<br>
+
 <%= form_with url: root_path, method: 'get', local: true do |form| %>
   <%= form.text_field :name, placeholder: 'タスク名を入力', value: params[:name] %>
   <%= form.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] }, selected: params[:status], include_blank: '指定しない' %>
@@ -7,7 +10,12 @@
 <% end %>
 <br>
 
-<%= link_to I18n.t('actions_with_model.new', model_name: Task.model_name.human), new_task_path %>
+
+<div class="task-pagination">
+  <%= paginate @tasks %>
+  <%= page_entries_info @tasks%>
+</div>
+
 <table class="task-list" border="1" cellpadding="3">
   <tr>
     <th><%= Task.human_attribute_name(:id) %></th>
