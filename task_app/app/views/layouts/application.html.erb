@@ -28,7 +28,7 @@
       </div>
     </nav>
 
-    <div class="container-fluid pl-5 pr-5">
+    <div class="container-fluid px-5">
       <% flash.each do |alert_type, message| %>
         <%= tag.div message, class: "alert alert-#{alert_type}"%>
       <% end %>
