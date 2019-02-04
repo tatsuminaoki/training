@@ -50,9 +50,13 @@ feature 'タスク管理機能', type: :feature do
     shared_examples_for '任意の順でソートされる' do |options = {}|
       scenario '並び順が一致する' do
         visit root_path
-        page.find(:xpath, options[:xpath]).click if options[:xpath]
-        sleep 1
-        table_elements = page.all('.task-list tbody tr').map(&:text)
+
+        if options[:sort_column].present? && options[:direction].present?
+          page.find('th', text: options[:sort_column]).click_link(options[:direction])
+          sleep 1
+        end
+
+        table_elements = page.all('tbody tr').map(&:text)
         table_elements.shift
 
         3.times do |i|
@@ -66,18 +70,18 @@ feature 'タスク管理機能', type: :feature do
     end
 
     context '列「登録日時」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[7]/a[1]', order: [2, 1, 0] }
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[7]/a[2]', order: [0, 1, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▲', order: [2, 1, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▼', order: [0, 1, 2] }
     end
 
     context '列「優先度」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[5]/a[1]', order: [2, 0, 1] }
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[5]/a[2]', order: [1, 0, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▲', order: [2, 0, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▼', order: [1, 0, 2] }
     end
 
     context '列「期限」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[6]/a[1]', order: [0, 2, 1] }
-      it_behaves_like '任意の順でソートされる', { xpath: '/html/body/table/tbody/tr[1]/th[6]/a[2]', order: [1, 2, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▲', order: [0, 2, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▼', order: [1, 2, 0] }
     end
   end
 
@@ -189,7 +193,7 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find(:xpath, '/html/body/table/tbody/tr[1]/th[6]/a[2]').click
+        page.find('th', text: '期限').click_link('▼')
         sleep 1
       end
 
@@ -207,7 +211,7 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find(:xpath, '/html/body/table/tbody/tr[1]/th[5]/a[1]').click
+        page.find('th', text: '優先度').click_link('▲')
         sleep 1
       end
 
@@ -245,10 +249,18 @@ feature 'タスク管理機能', type: :feature do
   end
 
   feature '登録・編集機能' do
-    shared_examples_for '正常処理とバリデーションエラーの確認' do |link_text, name, description|
+    shared_examples_for '正常処理とバリデーションエラーの確認' do |action, name, description|
       before do
         visit root_path
-        click_on(link_text)
+
+        case action
+        when :create
+          page.find('#navbarDropdownMenuLink').click
+          page.click_link('タスク登録')
+        when :update
+          click_on('編集')
+        end
+
         fill_in 'タスク名', with: task_name
         fill_in '説明', with: task_description
         fill_in '期限', with: '20190213'
@@ -303,12 +315,12 @@ feature 'タスク管理機能', type: :feature do
     end
 
     feature '登録' do
-      it_behaves_like '正常処理とバリデーションエラーの確認', 'タスク登録', '最初のタスク', '最初のタスクの説明'
+      it_behaves_like '正常処理とバリデーションエラーの確認', :create, '最初のタスク', '最初のタスクの説明'
     end
 
     feature '編集' do
       let!(:first_task) { FactoryBot.create(:task) }
-      it_behaves_like '正常処理とバリデーションエラーの確認', '編集', '掃除', 'トイレ,風呂,キッチン'
+      it_behaves_like '正常処理とバリデーションエラーの確認', :update, '掃除', 'トイレ,風呂,キッチン'
     end
   end
 
