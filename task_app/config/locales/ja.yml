@@ -44,6 +44,7 @@ ja:
     update: "%{model_name}更新"
     destroy: "%{model_name}削除"
   links:
+    manage: "%{model_name}管理"
     search: 検索
   flash:
     success: "%{target}を%{action}しました。"

@@ -1,38 +1,60 @@
 <% if task.errors.any? %>
   <ul id="error_explanation" class="alert alert-danger">
     <% task.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+      <li class="ml-2"><%= message %></li>
     <% end %>
   </ul>
 <% end %>
 
-<%= form_with model: task, local: true do |form| %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with model: task, local: true do |f| %>
+  <div class="form-group row">
+    <div class="col-md-1">
+      <%= f.label :name %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="form-group row">
+    <div class="col-md-1">
+      <%= f.label :description %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :due_date %>
-    <%= form.text_field :due_date, class: 'date-picker' %>
+  <div class="form-group row">
+    <div class="col-md-1">
+      <%= f.label :due_date %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :due_date, class: 'date-picker form-control' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.map { |key, value| [I18n.t("enums.task.priority.#{key}"), key] } %>
+  <div class="form-group row">
+    <div class="col-md-1">
+      <%= f.label :priority %>
+    </div>
+    <div class="col-md-3">
+      <%= f.select :priority, Task.priorities.map { |key, value| [I18n.t("enums.task.priority.#{key}"), key] } %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] } %>
+  <div class="form-group row">
+    <div class="col-md-1">
+      <%= f.label :status %>
+    </div>
+    <div class="col-md-3">
+      <%= f.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] } %>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit '送信' %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.submit '送信', class: 'btn btn-primary btn-sm' %>
+    </div>
   </div>
 <% end %>

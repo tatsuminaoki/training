@@ -15,19 +15,8 @@
  *= require_self
  */
 
+@import 'bootstrap';
+
 body {
-  .alert {
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid black;
-    border-radius: .25rem;
-  }
 
-  .alert-success {
-    background-color: #dff0d8;
-  }
-
-  .alert-danger {
-    background-color: #f8d7da;
-  }
 }
