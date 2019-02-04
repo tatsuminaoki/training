@@ -36,8 +36,7 @@ class Admin::UsersController < ApplicationController
     # 管理者自身の権限を一般へ変更することはできない。
     if params[:id].to_i == current_user.id && params[:user][:auth_level].to_s == :normal.to_s
       flash[:error] = create_message('update', 'error') + I18n.t('messages.alert.self_update_to_normal')
-      render :edit
-      return
+      return render :edit
     end
     if @user.update(user_params)
       redirect_to admin_users_path, notice: create_message('update', 'success')
