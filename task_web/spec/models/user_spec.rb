@@ -35,7 +35,8 @@ RSpec.describe 'ユーザモデルのテスト', type: :model do
       let!(:user) { build(:user, auth_level: nil) }
       it '無効であること' do
         expect(user).not_to be_valid
-        expect(user.errors.full_messages).to eq ['権限レベル が空です']
+        expect(user.errors.full_messages[0]).to eq '権限 が空です'
+        expect(user.errors.full_messages[1]).to eq '権限 が不正です'
       end
     end
     context 'ユーザ名の文字数制限数以上の時' do

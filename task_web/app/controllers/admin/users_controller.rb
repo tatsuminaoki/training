@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
+  before_action :available?
+
   def index
-    # @users = User.includes(task: :user).page(params[:page])
     @users = User.all.page(params[:page])
     @users = User.all.search(params[:order_by], params[:order]).page(params[:page])
-
   end
 
   def show
@@ -33,8 +33,12 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    p 'level= ' + @user.email
-
+    # 管理者自身の権限を一般へ変更することはできない。
+    if params[:id].to_i == current_user.id && params[:user][:auth_level].to_s == :normal.to_s
+      flash[:error] = create_message('update', 'error') + I18n.t('messages.alert.self_update_to_normal')
+      render :edit
+      return
+    end
     if @user.update(user_params)
       redirect_to admin_users_path, notice: create_message('update', 'success')
     else
@@ -45,12 +49,12 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    # 管理者自身のユーザ情報を削除することはできない。
+    return redirect_to admin_users_path, alert: create_message('delete', 'error') + I18n.t('messages.alert.self_delete') if params[:id].to_i == current_user.id
     if @user.destroy
       redirect_to admin_users_path, notice: create_message('delete', 'success')
-      # TODO 自分自身の場合は、リダイレクト先を変える
-      # TODO 最後の１件かどうかはチェックする。
     else
-      redirect_to admin_users_path, error: create_message('delete', 'error')
+      redirect_to admin_users_path, alert: create_message('delete', 'error')
     end
   end
 
@@ -62,5 +66,9 @@ class Admin::UsersController < ApplicationController
 
   def create_message(action, result)
     I18n.t('messages.action_result', target: I18n.t('activerecord.models.user'), action: I18n.t("actions.#{action}"), result: I18n.t("results.#{result}"))
+  end
+
+  def available?
+    raise Forbidden unless current_user.admin?
   end
 end

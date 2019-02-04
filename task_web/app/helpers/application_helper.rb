@@ -16,8 +16,6 @@ module ApplicationHelper
   end
 
   def link_create_task
-    p controller_name
-    p controller.action_name
     active = (controller_name == 'tasks' && controller.action_name == 'new')
     link_str = link_to I18n.t('links.create_task'), new_task_path, class: 'nav-link'
     make_link_tag(active: active, link_str: link_str)
@@ -36,8 +34,6 @@ module ApplicationHelper
   end
 
   def link_create_user_admin
-    p controller_name
-    p controller.action_name
     active = controller.action_name == 'admin/users/new'
     link_str = link_to I18n.t('links.create_user_admin'), new_admin_user_path, class: 'nav-link'
     make_link_tag(active: active, link_str: link_str)

@@ -103,6 +103,9 @@ ja:
   messages:
     action_confirm: "%{target}を%{action}しますか？"
     action_result: "%{target}の%{action}に%{result}しました。"
+    alert:
+      self_delete: 自身を削除することはできません。
+      self_update_to_normal: 自身の権限を一般に変更するすることはできません。
 
   actions:
     login: ログイン

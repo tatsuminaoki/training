@@ -50,7 +50,7 @@ RSpec.feature 'ログイン前テスト', type: :feature do
     end
   end
 end
-RSpec.feature 'ログイン後テスト', type: :feature do
+RSpec.feature '一般ユーザのログイン後テスト', type: :feature do
   let!(:init_user) { create(:user) }
   before do
     visit root_path
@@ -83,10 +83,26 @@ RSpec.feature 'ログイン後テスト', type: :feature do
         expect(page).to have_content('ページが見つかりませんでした')
       end
     end
+    scenario 'マイアカウントが表示されていること' do
+      visit tasks_path
+      expect(page).to have_content('マイアカウント')
+    end
   end
-  context 'ユーザ情報更新画面' do
+  context 'ユーザ管理画面' do
+    scenario 'ユーザ管理メニューが表示されていないこと' do
+      visit tasks_path
+      expect(page).not_to have_content('ユーザ管理')
+      expect(page).not_to have_content('ユーザ一覧')
+      expect(page).not_to have_content('ユーザ登録')
+    end
+    scenario 'ユーザ管理画面に直接アクセスできないこと' do
+      visit admin_users_path
+      expect(page).to have_content('権限がありません')
+    end
+  end
+  context 'アカウント情報更新画面' do
     let!(:updated_user) { build(:user) }
-    scenario 'ユーザ情報を更新できること' do
+    scenario 'アカウント情報を更新できること' do
       visit edit_user_registration_path
       expect {
         fill_in 'user[email]', with: updated_user.email
@@ -99,5 +115,22 @@ RSpec.feature 'ログイン後テスト', type: :feature do
       expect(page).to have_content("#{updated_user.name}さんのタスク")
       expect(page).not_to have_content("#{init_user.name}さんのタスク")
     end
+  end
+end
+RSpec.feature '管理ユーザのログイン後テスト', type: :feature do
+  let!(:admin_user) { create(:user, auth_level: :admin) }
+  before do
+    visit root_path
+    fill_in 'user[email]', with: admin_user.email
+    fill_in 'user[password]', with: admin_user.password
+    click_button 'ログイン'
+  end
+  scenario 'ユーザ管理メニューが表示されること' do
+    visit tasks_path
+    expect(page).to have_content('ユーザ管理')
+  end
+  scenario 'ユーザ管理画面にアクセスできること' do
+    visit admin_users_path
+    expect(page).to have_content('ユーザ情報の管理')
   end
 end

@@ -29,7 +29,7 @@ class Task < ApplicationRecord
     task = task.where(user_id: user[:id]) if user.present?
     task = task.where(status: status) if status.present?
     task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
-    task = task.order(order_column(order_by) => sort_order(order))
+    task = task.order(order_column(order_by) => sort_order(order), id: sort_order(order))
     task
   end
 

@@ -4,9 +4,16 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  class Forbidden < ActionController::ActionControllerError; end
+
   rescue_from Exception, with: :error_500
+  rescue_from Forbidden, with: :error_403
   rescue_from ActionController::RoutingError, with: :error_404
   rescue_from ActiveRecord::RecordNotFound, with: :error_404
+
+  def error_403
+    render template: 'errors/error_403', status: 403, layout: 'application', content_type: 'text/html'
+  end
 
   def error_404
     render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'

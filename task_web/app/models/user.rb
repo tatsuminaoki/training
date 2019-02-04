@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :validatable
   enum auth_level: { normal: 0, admin: 5 }
-  after_initialize :set_default_auth_level, if new_record?
+  after_initialize :set_default_auth_level, if: :new_record?
 
   DEFAULT_ORDER_BY = :created_at
   DEFAULT_ORDER = :DESC
@@ -17,13 +17,17 @@ class User < ApplicationRecord
   # 権限レベルのチェック
   validates :auth_level, presence: true, inclusion: { in: self.auth_levels.keys }
 
+  def self.admin?
+    self.auth_level == :admin
+  end
+
   def set_default_auth_level
     self.auth_level ||= :normal
   end
 
   def self.search(order_by, order)
     user = self
-    user = user.order(order_column(order_by) => sort_order(order))
+    user = user.order(order_column(order_by) => sort_order(order), id: sort_order(order))
     user
   end
 
