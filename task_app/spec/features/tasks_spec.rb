@@ -253,6 +253,8 @@ feature 'タスク管理機能', type: :feature do
 
         case action
         when :create
+          # ハンバーガーボタン→タスク管理→タスク登録の順でクリック(capybaraのscreen sizeはmd以下らしい。)
+          page.find('.navbar-toggler').click
           page.find('#navbarDropdownMenuLink').click
           page.click_link('タスク登録')
         when :update

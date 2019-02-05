@@ -8,52 +8,52 @@
 
 <%= form_with model: task, local: true do |f| %>
   <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
       <%= f.label :name %>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-sm-6 col-md-5 col-lg-3 col-xl-2">
       <%= f.text_field :name, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
       <%= f.label :description %>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-sm-6 col-md-5 col-lg-3 col-xl-2">
       <%= f.text_area :description, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
       <%= f.label :due_date %>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-sm-6 col-md-5 col-lg-3 col-xl-2">
       <%= f.text_field :due_date, class: 'date-picker form-control' %>
     </div>
   </div>
 
   <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
       <%= f.label :priority %>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-sm-6 col-md-5 col-lg-3 col-xl-2">
       <%= f.select :priority, Task.priorities.map { |key, _| [I18n.t("enums.task.priority.#{key}"), key] }%>
     </div>
   </div>
 
   <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2">
       <%= f.label :status %>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-sm-6 col-md-5 col-lg-3 col-xl-2">
       <%= f.select :status, Task.statuses.map { |key, _| [I18n.t("enums.task.status.#{key}"), key] } %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
       <%= f.submit '送信', class: 'btn btn-primary btn-sm' %>
     </div>
   </div>
