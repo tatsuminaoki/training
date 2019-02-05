@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
   # TODO: ログイン周りはあとで追加するよ
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
