@@ -25,13 +25,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     # TODO: あとでログインできるようにするよ
-    user = User.find_by(email: 'aaaa@gmail.com')
+    user = User.find_by(email: 'aaaaa0@gmail.com')
     if user
       return @current_user = user
     end
 
     params = {
-        email: 'aaaa@gmail.com',
+        email: 'aaaaa0@gmail.com',
         encrypted_password: 'aaa',
         name: 'aaa',
         group_id: nil,
