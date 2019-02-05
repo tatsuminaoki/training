@@ -1,1 +1,14 @@
 @import '~bootstrap/dist/css/bootstrap';
+
+/*
+ * bootstrap customize
+ */
+.table {
+  >tbody>tr,
+  >tfoot>tr,
+  >thead>tr {
+    > td, > th {
+      vertical-align: middle;
+    }
+  }
+}

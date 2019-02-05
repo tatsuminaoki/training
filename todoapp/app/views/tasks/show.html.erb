@@ -1,40 +1,33 @@
 <% content_for(:title) { t('.title') } %>
 
-<%= link_to t('tasks.index.title'), controller: 'tasks', action: 'index' %>
+<article class="card mx-auto w-75">
+  <h5 class="card-header text-muted"><%= t('common.detail_title') %></h5>
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:id) %></dt>
+      <dd class="col-sm-9"><%= @task.id %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:title) %></dt>
+      <dd class="col-sm-9"><%= @task.title %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:description) %></dt>
+      <dd class="col-sm-9 text-truncate"><%= @task.description %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:status) %></dt>
+      <dd class="col-sm-9"><%= @task.status_i18n %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:end_at) %></dt>
+      <dd class="col-sm-9"><%= l(@task.end_at) unless @task.end_at.nil? %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:created_at) %></dt>
+      <dd class="col-sm-9"><%= l(@task.created_at) %></dd>
+      <dt class="col-sm-3"><%= Task.human_attribute_name(:updated_at) %></dt>
+      <dd class="col-sm-9"><%= l(@task.updated_at) %></dd>
+    </dl>
 
-<table>
-  <tbody>
-    <tr>
-      <th><%= Task.human_attribute_name(:id) %></th>
-      <td><%= @task.id %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:title) %></th>
-      <td><%= @task.title %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:description) %></th>
-      <td><%= @task.description %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:status) %></th>
-      <td><%= @task.status_i18n %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:end_at) %></th>
-      <td><%= l(@task.end_at) unless @task.end_at.nil? %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:created_at) %></th>
-      <td><%= l(@task.created_at) %></td>
-    </tr>
-    <tr>
-      <th><%= Task.human_attribute_name(:updated_at) %></th>
-      <td><%= l(@task.updated_at) %></td>
-    </tr>
-  </tbody>
-</table>
+    <%= link_to t('common.edit'), edit_task_path(@task), class: 'btn btn-primary mr-2' %>
+    <div class="d-inline-block">
+      <%= button_to t('common.delete'), @task, controller: 'tasks', action: 'index', class: 'btn btn-primary',
+                    method: :delete, data: { confirm: t('notification.confirm_destroy', task_title: @task.title) } %>
+    </div>
+  </div>
+</article>
 
-<%= link_to t('common.edit'), controller: 'tasks', action: 'edit' %>
-<%= link_to t('common.delete'), @task, controller: 'tasks', action: 'index',
-            method: :delete, data: { confirm: t('notification.confirm_destroy', task_title: @task.title) } %>
+
+
+

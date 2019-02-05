@@ -10,14 +10,23 @@
   </head>
 
   <body>
-    <header>
-      <%= content_for?(:title) ? yield(:title) : '' %>
+    <header class="navbar navbar-expand-md navbar-light bg-light mb-3">
+      <div class="navbar-brand"><%= content_for?(:title) ? yield(:title) : '' %></div>
+
+      <nav>
+        <ul class="navbar-nav">
+          <li class="nav-item"><%= link_to t('tasks.index.title'), tasks_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to t('tasks.new.title'), new_task_path, class: 'nav-link' %></li>
+        </ul>
+      </nav>
     </header>
 
-    <% if flash.notice.present? %>
-      <p><%= flash.notice %></p>
-    <% end %>
+    <article class="container">
+      <% if flash.notice.present? %>
+        <div><%= flash.notice %></div>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </article>
   </body>
 </html>

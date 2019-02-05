@@ -1,41 +1,45 @@
 <% content_for(:title) { t('.title') } %>
 
-<%= link_to t('tasks.new.title'), controller: 'tasks', action: 'new' %>
-
-<%= search_form_for @search, url: tasks_path, enforce_utf8: false do |f| %>
-  <ul>
-    <li><%= f.text_field :title_cont, placeholder: '検索するタイトルを入力...' %></li>
-    <li><%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, include_blank: true %></li>
-  </ul>
-  <%= f.submit %>
+<%= search_form_for @search, url: tasks_path, enforce_utf8: false, class: 'form-inline p-3 float-right' do |f| %>
+  <%= f.text_field :title_cont, placeholder: '検索するタイトル...', class: 'p-1 mr-3' %>
+  <%= f.label :status, class: 'p-1 mr-1' %>
+  <%= f.select :status_eq,
+               Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]},
+               { include_blank: true },
+               { class: 'form-control mr-3' } %>
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>
 
-<table>
-  <tr>
-    <th><%= Task.human_attribute_name(:id) %></th>
-    <th><%= Task.human_attribute_name(:title) %></th>
-    <th><%= Task.human_attribute_name(:status) %></th>
-    <th><%= sort_link(@search, :end_at, Task.human_attribute_name(:end_at), default_order: :desc) %></th>
-    <th><%= Task.human_attribute_name(:created_at) %></th>
-    <th><%= Task.human_attribute_name(:updated_at) %></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% @search_tasks.each do |task| %>
+<table class="table text-center table-hover table-striped table-sm mb-3">
+  <thead class="thead-light">
     <tr>
-      <td><%= link_to task.id, task_path(task.id) %></td>
-      <td><%= task.title %></td>
-      <td><%= task.status_i18n %></td>
-      <td><%= l(task.end_at) unless task.end_at.nil? %></td>
-      <td><%= l(task.created_at) %></td>
-      <td><%= l(task.updated_at) %></td>
-      <td><%= link_to t('common.edit'), edit_task_path(task) %></td>
-      <td>
-        <%= link_to t('common.delete'), task, controller: 'tasks', action: 'index',
-                    method: :delete, data: { confirm: t('notification.confirm_destroy', task_title: task.title) } %>
-      </td>
+      <th><%= Task.human_attribute_name(:id) %></th>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
+      <th><%= sort_link(@search, :end_at, Task.human_attribute_name(:end_at), default_order: :desc) %></th>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
+      <th><%= Task.human_attribute_name(:updated_at) %></th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @search_tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.id, task_path(task.id) %></td>
+        <td><%= task.title %></td>
+        <td><%= task.status_i18n %></td>
+        <td><%= l(task.end_at) unless task.end_at.nil? %></td>
+        <td><%= l(task.created_at) %></td>
+        <td><%= l(task.updated_at) %></td>
+        <td><%= link_to t('common.edit'), edit_task_path(task), class: 'btn btn-primary' %></td>
+        <td>
+          <%= button_to t('common.delete'), task, controller: 'tasks', action: 'index', class: 'btn btn-primary',
+                      method: :delete, data: { confirm: t('notification.confirm_destroy', task_title: task.title) } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <%= paginate @search_tasks %>
