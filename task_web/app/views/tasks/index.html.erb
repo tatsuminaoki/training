@@ -11,10 +11,10 @@
     <tr>
       <th><%= I18n.t('activerecord.attributes.task.name') %></th>
       <th><%= I18n.t('activerecord.attributes.task.description') %></th>
-      <th><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_link('due_date', 'DESC') %> <%= sort_link('due_date', 'ASC') %></th>
-      <th><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_link('priority', 'DESC') %> <%= sort_link('priority', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_tasks_link('due_date', 'DESC') %> <%= sort_tasks_link('due_date', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_tasks_link('priority', 'DESC') %> <%= sort_tasks_link('priority', 'ASC') %></th>
       <th><%= I18n.t('activerecord.attributes.task.status') %></th>
-      <th><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_link('created_at', 'DESC') %> <%= sort_link('created_at', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_tasks_link('created_at', 'DESC') %> <%= sort_tasks_link('created_at', 'ASC') %></th>
       <th></th>
       <th></th>
       <th></th>

@@ -8,6 +8,7 @@ ja:
     # モデルごとのアトリビュート名
     attributes:
       task:
+        id: タスクID
         name: タスク名
         description: 説明文
         priority: 優先度
@@ -18,12 +19,16 @@ ja:
         created_time: 登録日時
         updated_time: 更新日時
       user:
+        id: ユーザID
         email: メールアドレス
         name: ユーザ名
-        auth_level: 権限レベル
+        auth_level: 権限
+        task_count: タスク数
         password: パスワード
         password_confirmation: 確認用パスワード
         current_password: 現在のパスワード
+        created_time: 登録日時
+        updated_time: 更新日時
     # バリデーションメッセージ
     errors:
       messages:
@@ -54,6 +59,12 @@ ja:
       password_info: （変更したくない場合は空白のままにしてください）
       password_length: "（%{minimum}文字以上必須）"
       current_password_info: （変更時は、現在のパスワードを入力してください）
+    admin_user:
+      task_count: "%{user_name}さんのタスク（%{task_count}件）"
+    menu:
+      user_name: "ユーザ名：%{user_name}"
+      users_admin: ユーザ管理
+      my_user: マイアカウント
 
   titles:
     tasks:
@@ -62,9 +73,13 @@ ja:
       new: タスクの登録
       edit: タスクの編集
     users:
+      show: ユーザの詳細
       new: ユーザ情報の登録
       edit: ユーザ情報の変更
       login: ログイン
+    admin:
+      users:
+        index: ユーザ情報の管理
 
   links:
     return: 戻る
@@ -73,16 +88,24 @@ ja:
     login: ログイン
     logout: ログアウト
     sign_up: 新規ユーザ登録
-    edit_user: ユーザ情報変更
+    edit_user: アカウント変更
     show_task: 詳細
     edit_task: 編集
     delete_task: 削除
+    index_users_admin: ユーザ一覧
+    create_user_admin: ユーザ登録
+    show_user_admin: 詳細
+    edit_user_admin: 編集
+    delete_user_admin: 削除
     DESC: ▼
     ASC: ▲
 
   messages:
     action_confirm: "%{target}を%{action}しますか？"
     action_result: "%{target}の%{action}に%{result}しました。"
+    alert:
+      self_delete: 自身を削除することはできません。
+      self_update_to_normal: 自身の権限を一般に変更するすることはできません。
 
   actions:
     login: ログイン
@@ -105,6 +128,10 @@ ja:
         open: 未着手
         in_progress: 着手中
         closed: 完了
+    user:
+      auth_level:
+        normal: 一般
+        admin: 管理者
 
   date:
     abbr_day_names:

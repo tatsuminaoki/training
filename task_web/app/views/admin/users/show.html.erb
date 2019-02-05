@@ -1,0 +1,58 @@
+<h4><%= I18n.t('titles.users.show') %></h4>
+<table class="table table-bordered">
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.id') %></td>
+    <td><%= @user.id %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.name') %></td>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.email') %></td>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.auth_level') %></td>
+    <td><%= @user.auth_level %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.created_time') %></td>
+    <td><%= I18n.l(@user.created_at, format: :long) %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.user.updated_time') %></td>
+    <td><%= I18n.l(@user.updated_at, format: :long) %></td>
+  </tr>
+</table>
+
+<h5><%= I18n.t('views.admin_user.task_count', user_name: @user.name, task_count: @user.tasks.count) %></h5>
+<%= form_with(url: admin_user_path, method: 'get', local: true, class: 'form-inline my-2') do |form| %>
+  <%= form.text_field :name, id: 'task', value: params[:name], class: 'form-control mx-1', placeholder: 'キーワード' %>
+  <%= form.label I18n.t('activerecord.attributes.task.status'), class: 'mx-1' %>
+  <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: params[:status] ), include_blank: I18n.t('enums.task.status.all') %>
+  <%= form.submit 'Search', name: nil, class: 'btn btn-outline-success mx-2 my-0' %>
+<% end %>
+<%= paginate @tasks %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <tr>
+      <th><%= I18n.t('activerecord.attributes.task.name') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.description') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_user_tasks_link('due_date', 'DESC') %> <%= sort_user_tasks_link('due_date', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_user_tasks_link('priority', 'DESC') %> <%= sort_user_tasks_link('priority', 'ASC') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.created_time') %> <%= sort_user_tasks_link('created_at', 'DESC') %> <%= sort_user_tasks_link('created_at', 'ASC') %></th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td class="name"><%= task.name %></td>
+        <td class="description"><span><%= task.description %></span></td>
+        <td class="due_date"><%= I18n.l(task.due_date, format: :default) %></td>
+        <td class="priority"><%= task.priority_i18n %></td>
+        <td class="status"><%= task.status_i18n %></td>
+        <td class="created_at"><%= I18n.l(task.created_at, format: :long) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

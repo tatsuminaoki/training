@@ -42,7 +42,7 @@ class TasksController < ApplicationController
     if @task.destroy
       redirect_to tasks_path, notice: create_message('delete', 'success')
     else
-      redirect_to tasks_path, error: create_message('delete', 'error')
+      redirect_to tasks_path, alert: create_message('delete', 'error')
     end
   end
 
