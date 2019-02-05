@@ -41,10 +41,10 @@
     </div>
     <div class="form-group row">
       <div class="col-md-10">
-        <% if !task.id.present? %>
-          <%= form.submit I18n.t('actions.create'), class: 'btn btn-outline-success' %>
-        <% else %>
+        <% if task.id.present? %>
           <%= form.submit I18n.t('actions.update'), class: 'btn btn-outline-success' %>
+        <% else %>
+          <%= form.submit I18n.t('actions.create'), class: 'btn btn-outline-success' %>
         <% end %>
       </div>
     </div>
