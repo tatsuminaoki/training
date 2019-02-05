@@ -2,6 +2,8 @@
 
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :tasks_labels, dependent: :destroy
+  has_many :labels, through: :tasks_labels
 
   enum priority: %i[low normal high].freeze
   enum status: %i[open in_progress closed].freeze
@@ -39,6 +41,23 @@ class Task < ApplicationRecord
 
   def self.order_column(value)
     ORDER_BY_VALUES.include?(value) ? value : DEFAULT_ORDER_BY
+  end
+
+  def self.save_labels(labels)
+    current_labels = self.labels.pluck(:name) unless self.labels.nil?
+    old_labels = current_labels - labels
+    new_labels = labels - current_labels
+
+    # Destroy old labels:
+    old_labels.each do |old_name|
+      self.labels.delete Label.find_by(name: old_name)
+    end
+
+    # Create new labels:
+    new_labels.each do |new_name|
+      task_label = Label.find_or_create_by(name: new_name)
+      self.labels << task_label
+    end
   end
 
   private
