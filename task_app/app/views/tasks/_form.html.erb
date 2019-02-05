@@ -39,7 +39,7 @@
       <%= f.label :priority %>
     </div>
     <div class="col-md-3">
-      <%= f.select :priority, Task.priorities.map { |key, value| [I18n.t("enums.task.priority.#{key}"), key] }%>
+      <%= f.select :priority, Task.priorities.map { |key, _| [I18n.t("enums.task.priority.#{key}"), key] }%>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
       <%= f.label :status %>
     </div>
     <div class="col-md-3">
-      <%= f.select :status, Task.statuses.map { |key, value| [I18n.t("enums.task.status.#{key}"), key] } %>
+      <%= f.select :status, Task.statuses.map { |key, _| [I18n.t("enums.task.status.#{key}"), key] } %>
     </div>
   </div>
 

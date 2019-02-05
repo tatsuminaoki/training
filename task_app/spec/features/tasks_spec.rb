@@ -48,20 +48,18 @@ feature 'タスク管理機能', type: :feature do
     }
 
     shared_examples_for '任意の順でソートされる' do |options = {}|
-      scenario '並び順が一致する' do
+      before do
         visit root_path
+        page.find("##{options[:sort_link_id]}").click if options[:sort_link_id].present?
+      end
 
-        if options[:sort_column].present? && options[:direction].present?
-          page.find('th', text: options[:sort_column]).click_link(options[:direction])
-          sleep 1
-        end
+      scenario '並び順が一致する' do
+        task_a_index = page.text.index(tasks[options[:order][0]].name)
+        task_b_index = page.text.index(tasks[options[:order][1]].name)
+        task_c_index = page.text.index(tasks[options[:order][2]].name)
 
-        table_elements = page.all('tbody tr').map(&:text)
-        table_elements.shift
-
-        3.times do |i|
-          expect(table_elements[i]).to have_content(tasks[options[:order][i]].name)
-        end
+        expect(task_a_index).to be < task_b_index
+        expect(task_b_index).to be < task_c_index
       end
     end
 
@@ -70,18 +68,18 @@ feature 'タスク管理機能', type: :feature do
     end
 
     context '列「登録日時」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▲', order: [2, 1, 0] }
-      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▼', order: [0, 1, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'created_at-asc',  order: [2, 1, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'created_at-desc', order: [0, 1, 2] }
     end
 
     context '列「優先度」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▲', order: [2, 0, 1] }
-      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▼', order: [1, 0, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'priority-asc',  order: [2, 0, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'priority-desc', order: [1, 0, 2] }
     end
 
     context '列「期限」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▲', order: [0, 2, 1] }
-      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▼', order: [1, 2, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'due_date-asc',  order: [0, 2, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_link_id: 'due_date-desc', order: [1, 2, 0] }
     end
   end
 
@@ -193,14 +191,14 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find('th', text: '期限').click_link('▼')
-        sleep 1
+        page.find('#due_date-desc').click
       end
 
       scenario '検索結果2件が期限で降順ソートされる' do
-        expect(page.all('tr').size).to eq 3
-        expect(page.all('tr')[1].text).to have_content 'ラスク4'
-        expect(page.all('tr')[2].text).to have_content 'タスク1'
+        task_a_index = page.text.index(tasks[3].name)
+        task_b_index = page.text.index(tasks[0].name)
+
+        expect(task_a_index).to be < task_b_index
         expect(find_field('name').value).to eq 'スク'
         expect(page).to have_select('status', selected: '着手中')
       end
@@ -211,14 +209,14 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find('th', text: '優先度').click_link('▲')
-        sleep 1
+        page.find('#priority-asc').click
       end
 
       scenario '検索結果2件が優先度で昇順ソートされる' do
-        expect(page.all('tr').size).to eq 3
-        expect(page.all('tr')[1].text).to have_content 'ラスク4'
-        expect(page.all('tr')[2].text).to have_content 'タスク1'
+        task_a_index = page.text.index(tasks[3].name)
+        task_b_index = page.text.index(tasks[0].name)
+
+        expect(task_a_index).to be < task_b_index
         expect(find_field('name').value).to eq 'スク'
         expect(page).to have_select('status', selected: '着手中')
       end
