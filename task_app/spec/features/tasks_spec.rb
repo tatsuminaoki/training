@@ -50,16 +50,18 @@ feature 'タスク管理機能', type: :feature do
     shared_examples_for '任意の順でソートされる' do |options = {}|
       before do
         visit root_path
-        page.find("##{options[:sort_link_id]}").click if options[:sort_link_id].present?
+        if options[:sort_column].present? && options[:direction].present?
+          page.find('th', text: options[:sort_column]).click_link(options[:direction])
+        end
       end
 
       scenario '並び順が一致する' do
-        task_a_index = page.text.index(tasks[options[:order][0]].name)
-        task_b_index = page.text.index(tasks[options[:order][1]].name)
-        task_c_index = page.text.index(tasks[options[:order][2]].name)
+        until has_table?; end
+        table_elements = page.all('tbody tr').map(&:text)
 
-        expect(task_a_index).to be < task_b_index
-        expect(task_b_index).to be < task_c_index
+        3.times do |i|
+          expect(table_elements[i]).to have_content(tasks[options[:order][i]].name)
+        end
       end
     end
 
@@ -68,18 +70,18 @@ feature 'タスク管理機能', type: :feature do
     end
 
     context '列「登録日時」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'created_at-asc',  order: [2, 1, 0] }
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'created_at-desc', order: [0, 1, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▲', order: [2, 1, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▼', order: [0, 1, 2] }
     end
 
     context '列「優先度」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'priority-asc',  order: [2, 0, 1] }
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'priority-desc', order: [1, 0, 2] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▲', order: [2, 0, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▼', order: [1, 0, 2] }
     end
 
     context '列「期限」の「▲/▼」をクリックした時' do
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'due_date-asc',  order: [0, 2, 1] }
-      it_behaves_like '任意の順でソートされる', { sort_link_id: 'due_date-desc', order: [1, 2, 0] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▲', order: [0, 2, 1] }
+      it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▼', order: [1, 2, 0] }
     end
   end
 
@@ -191,14 +193,15 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find('#due_date-desc').click
+        page.find('th', text: '期限').click_link('▼')
       end
 
       scenario '検索結果2件が期限で降順ソートされる' do
-        task_a_index = page.text.index(tasks[3].name)
-        task_b_index = page.text.index(tasks[0].name)
+        until has_table?; end
+        tr = page.all('tbody tr')
 
-        expect(task_a_index).to be < task_b_index
+        expect(tr[0].text).to have_content tasks[3].name
+        expect(tr[1].text).to have_content tasks[0].name
         expect(find_field('name').value).to eq 'スク'
         expect(page).to have_select('status', selected: '着手中')
       end
@@ -209,14 +212,15 @@ feature 'タスク管理機能', type: :feature do
       let(:status) { '着手中' }
 
       before do
-        page.find('#priority-asc').click
+        page.find('th', text: '優先度').click_link('▲')
       end
 
       scenario '検索結果2件が優先度で昇順ソートされる' do
-        task_a_index = page.text.index(tasks[3].name)
-        task_b_index = page.text.index(tasks[0].name)
+        until has_table?; end
+        tr = page.all('tbody tr')
 
-        expect(task_a_index).to be < task_b_index
+        expect(tr[0].text).to have_content tasks[3].name
+        expect(tr[1].text).to have_content tasks[0].name
         expect(find_field('name').value).to eq 'スク'
         expect(page).to have_select('status', selected: '着手中')
       end
@@ -233,7 +237,7 @@ feature 'タスク管理機能', type: :feature do
         expect(page).to have_content '全10件中1 - 6件のタスクが表示されています'
         expect(page).to have_link '次 ›'
         expect(page).to have_no_link '‹ 前'
-        expect(page.all('tr').size).to eq 7 # 1番目のtrはヘッダの為、レコード件数+1
+        expect(page.all('tbody tr').size).to eq 6
       end
 
       scenario '2ページ目に4件表示される' do
@@ -241,7 +245,7 @@ feature 'タスク管理機能', type: :feature do
         expect(page).to have_content '全10件中7 - 10件のタスクが表示されています'
         expect(page).to have_link '‹ 前'
         expect(page).to have_no_link '次 ›'
-        expect(page.all('tr').size).to eq 5 # 1番目のtrはヘッダの為、レコード件数+1
+        expect(page.all('tbody tr').size).to eq 4
       end
     end
   end
