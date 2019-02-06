@@ -8,7 +8,7 @@
 
 userobj = {
   _email: ['aaaaa', 0, '@gmail.com'],
-  password_digest: 'passwaaada',
+  password_digest: BCrypt::Password.create('abc'),
   name: 'おなまえ',
   group_id: nil,
   role: 1

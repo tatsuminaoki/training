@@ -3,6 +3,7 @@
 <article class="card mx-auto w-75">
   <h5 class="card-header text-muted"><%= t('.title') %></h5>
   <article class="card-body">
+    <ul>
     <%= form_with scope: :session, local: true, class: 'form-horizontal' do |f| %>
       <div class="form-group row">
         <%= f.label User.human_attribute_name(:email), class: 'col-form-label col-lg-3 col-sm-3' %>
@@ -13,7 +14,7 @@
         <%= f.password_field :password, class: 'form-control col-7' %>
       </div>
 
-      <%= submit_tag t('.login'), class: 'btn btn-primary' %>
+      <%= f.submit t('.login'), class: 'btn btn-primary' %>
     <% end %>
   </article>
 </article>
