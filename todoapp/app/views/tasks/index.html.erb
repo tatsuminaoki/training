@@ -4,7 +4,7 @@
   <%= f.text_field :title_cont, placeholder: '検索するタイトル...', class: 'p-1 mr-3' %>
   <%= f.label :status, class: 'p-1 mr-1' %>
   <%= f.select :status_eq,
-               Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]},
+               Task.statuses.map{ |k, v| [Task.statuses_i18n[k], v] },
                { include_blank: true },
                { class: 'form-control mr-3' } %>
   <%= f.submit class: 'btn btn-primary' %>
