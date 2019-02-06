@@ -24,23 +24,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    # TODO: あとでログインできるようにするよ
-    user = User.find_by(email: 'aaaaa0@gmail.com')
-    if user
-      return @current_user = user
-    end
-
-    params = {
-        email: 'aaaaa0@gmail.com',
-        encrypted_password: 'aaa',
-        name: 'aaa',
-        group_id: nil,
-        role: 1
-    }
-    user = User.new(params)
-    user.save!
-
-    @current_user = user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def login_required

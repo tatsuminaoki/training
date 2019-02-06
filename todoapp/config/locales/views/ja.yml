@@ -8,6 +8,11 @@ ja:
       title: 'タスク作成'
     edit:
       title: 'タスク編集'
+  sessions:
+    new:
+      title: 'ログイン'
+      password: 'パスワード'
+      login: 'ログインする'
   common:
     edit: '編集'
     delete: '削除'

@@ -145,6 +145,8 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+      user:
+        submit: ログイン
   number:
     currency:
       format:
