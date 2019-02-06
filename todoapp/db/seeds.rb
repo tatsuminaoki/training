@@ -9,7 +9,7 @@
 require 'active_record'
 require 'activerecord-import'
 
-last_insert_user_id = User.maximum(:id)
+last_insert_user_id = User.maximum(:id) || 0
 
 userobj = {
   encrypted_password: 'passwaaada',
@@ -28,7 +28,7 @@ taskobj = {
 users = []
 tasks = []
 10.times do |i|
-  last_insert_user_id = last_insert_user_id.nil? ? 1 : last_insert_user_id + 1
+  last_insert_user_id += 1
   users << User.new(userobj.merge(id: last_insert_user_id, email: "aaaa#{i}@gmail.com"))
   10.times do |_i|
     tasks << Task.new(taskobj.merge(user_id: last_insert_user_id))
