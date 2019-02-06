@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum priority: %i[low middle high].freeze
   enum status: %i[to_do in_progress done].freeze
 
