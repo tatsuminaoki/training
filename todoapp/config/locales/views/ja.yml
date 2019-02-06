@@ -12,7 +12,11 @@ ja:
     new:
       title: 'ログイン'
       password: 'パスワード'
-      login: 'ログインする'
+      login_btn: 'ログインする'
+    logout_btn: 'ログアウトする'
+    flash:
+      invalid_password: 'パスワードが違うよー'
+      invalid_mail: 'メールアドレスが違うよー'
   common:
     edit: '編集'
     delete: '削除'

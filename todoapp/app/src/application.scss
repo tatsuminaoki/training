@@ -12,3 +12,15 @@
     }
   }
 }
+
+.text-danger-flash {
+  animation: flash-danger 0.5s infinite;
+}
+
+@keyframes flash-danger {
+  0% { color: #fd7e14; }
+  25% { color: #0b2e13; }
+  50% { color: #ffc107; }
+  75% { color: #0062cc; }
+  100% { color: #dc3545; }
+}

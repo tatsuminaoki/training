@@ -1,18 +1,17 @@
 class SessionsController < ApplicationController
+  before_action :set_user, only: [:create]
   skip_before_action :login_required
 
   def new
   end
 
   def create
-    user = User.find_by(email: session_params[:email])
-
-    if user&.authenticate(session_params[:password])
-      session[:user_id] = user.id
+    if @user.authenticate(session_params[:password])
+      session[:user_id] = @user.id
       redirect_to root_path
     else
-      flash[:notice] = "ユーザー名かパスワードに誤りがあります"
-      render :new
+      flash.now[:alert] = t('.flash.invalid_password')
+      render 'new'
     end
   end
 
@@ -24,9 +23,9 @@ class SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by!(mail: session_params[:mail])
-  rescue
-    flash.now[:danger] = t('.flash.invalid_mail')
+    @user = User.find_by!(email: session_params[:email])
+  rescue StandardError => e
+    flash.now[:alert] = t('.flash.invalid_mail')
     render action: 'new'
   end
 
