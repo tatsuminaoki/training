@@ -8,7 +8,7 @@
 
 userobj = {
   _email: ['aaaaa', 0, '@gmail.com'],
-  encrypted_password: 'passwaaada',
+  password_digest: 'passwaaada',
   name: 'おなまえ',
   group_id: nil,
   role: 1
@@ -25,7 +25,7 @@ taskobj = {
   userobj[:_email][1] = i
   user = User.create(
     email: userobj[:_email].join,
-    encrypted_password: userobj[:encrypted_password],
+    password_digest: userobj[:password_digest],
     name: userobj[:name],
     group_id: userobj[:group_id],
     role: userobj[:role]

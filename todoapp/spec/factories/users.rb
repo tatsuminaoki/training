@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     email { 'aaaa@gmail.com' }
-    encrypted_password { 'password' }
+    password_digest { 'password' }
     name { 'テストユーザー' }
     group_id { nil }
     role { 1 }
