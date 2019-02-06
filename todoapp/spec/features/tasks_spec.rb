@@ -31,9 +31,14 @@ feature 'タスク管理機能', type: :feature do
     scenario { expect(page).to have_content '最初のタスク' }
   end
 
+  shared_examples_for 'ログイン画面が表示される' do
+    scenario { expect(page).to have_content 'ログイン' }
+  end
+
   describe '一覧表示機能' do
     context '一覧表示画面へ遷移した時' do
       background do
+        login
         visit tasks_path
       end
 
@@ -52,6 +57,7 @@ feature 'タスク管理機能', type: :feature do
 
     context '終了期限を昇順でソートした時' do
       background do
+        login
         visit tasks_path
         click_link '完了期限'
         # 昇順にするためには2度押す
@@ -71,6 +77,7 @@ feature 'タスク管理機能', type: :feature do
 
     context '終了期限を降順でソートした時' do
       background do
+        login
         visit tasks_path
         click_link '完了期限'
       end
@@ -88,6 +95,7 @@ feature 'タスク管理機能', type: :feature do
 
     context 'タイトルとステータスで検索した時' do
       background do
+        login
         visit tasks_path
 
         fill_in :q_title_cont, with: 'つ目のタスク'
@@ -109,6 +117,7 @@ feature 'タスク管理機能', type: :feature do
 
     context 'タイトルで検索した時' do
       background do
+        login
         visit tasks_path
 
         fill_in :q_title_cont, with: 'つ目のタスク'
@@ -129,6 +138,7 @@ feature 'タスク管理機能', type: :feature do
 
     context 'ステータスで検索した時' do
       background do
+        login
         visit tasks_path
 
         select '完了', from: :q_status_eq
@@ -149,6 +159,7 @@ feature 'タスク管理機能', type: :feature do
 
     context '検索＆終了期限を昇順でソートした時' do
       background do
+        login
         visit tasks_path
 
         select '着手中', from: :q_status_eq
@@ -172,6 +183,7 @@ feature 'タスク管理機能', type: :feature do
 
     context '検索＆終了期限を降順でソートした時' do
       background do
+        login
         visit tasks_path
 
         select '着手中', from: :q_status_eq
@@ -193,6 +205,7 @@ feature 'タスク管理機能', type: :feature do
 
     context 'タスク数が8件の時' do
       background do
+        login
         # タスクを5個追加で作る（既に3つ作ってるので合計8個）
         5.times do |i|
           create(:task, user: user_a)
@@ -209,6 +222,7 @@ feature 'タスク管理機能', type: :feature do
 
     context 'タスク数が9件の時' do
       background do
+        login
         # タスクを6個追加で作る（既に3つ作ってるので合計9個）
         6.times do |i|
           create(:task, user: user_a)
@@ -233,6 +247,7 @@ feature 'タスク管理機能', type: :feature do
   describe '詳細表示機能' do
     context '詳細表示画面へ遷移した時' do
       background do
+        login
         visit task_path(task_a)
       end
 
@@ -242,6 +257,7 @@ feature 'タスク管理機能', type: :feature do
 
   describe '新規作成機能' do
     background do
+      login
       visit new_task_path
 
       # タスクのフォーム入力
@@ -264,6 +280,35 @@ feature 'タスク管理機能', type: :feature do
         expect(page).to have_content 'たすくのせつめいだよ'
         expect(page).to have_content '2100/01/01 00:00:00'
       end
+    end
+  end
+
+  describe 'ログイン機能' do
+    context 'ログインしてない時' do
+      background do
+        login
+        visit tasks_path
+      end
+
+      it_behaves_like 'ユーザーAが作成したタスクが表示される'
+    end
+
+    context 'ログインしてる時' do
+      background do
+        visit tasks_path
+      end
+
+      it_behaves_like 'ログイン画面が表示される'
+    end
+
+    context 'ログアウトした時' do
+      background do
+        login
+        visit tasks_path
+        logout
+      end
+
+      it_behaves_like 'ログイン画面が表示される'
     end
   end
 end
