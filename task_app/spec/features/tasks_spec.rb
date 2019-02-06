@@ -50,9 +50,8 @@ feature 'タスク管理機能', type: :feature do
     shared_examples_for '任意の順でソートされる' do |options = {}|
       before do
         visit root_path
-        if options[:sort_column].present? && options[:direction].present?
-          page.find('th', text: options[:sort_column]).click_link(options[:direction])
-        end
+        until has_table?; end
+        page.find('th', text: options[:sort_column]).click_link(options[:direction]) if options[:sort_column].present? && options[:direction].present?
       end
 
       scenario '並び順が一致する' do
