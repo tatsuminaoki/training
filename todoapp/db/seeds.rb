@@ -6,8 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'active_record'
+require 'activerecord-import'
+
+last_insert_user_id = User.maximum(:id) || 0
+
 userobj = {
-  _email: ['aaaaa', 0, '@gmail.com'],
   password_digest: BCrypt::Password.create('abc'),
   name: 'おなまえ',
   group_id: nil,
@@ -21,23 +25,14 @@ taskobj = {
 }
 
 # add users
+users = []
+tasks = []
 10.times do |i|
-  userobj[:_email][1] = i
-  user = User.create(
-    email: userobj[:_email].join,
-    password_digest: userobj[:password_digest],
-    name: userobj[:name],
-    group_id: userobj[:group_id],
-    role: userobj[:role]
-  )
-
-  # add tasks
+  last_insert_user_id += 1
+  users << User.new(userobj.merge(id: last_insert_user_id, email: "aaaa#{i}@gmail.com"))
   10.times do |_i|
-    Task.create(
-      user_id: user.id,
-      title: taskobj[:title],
-      description: taskobj[:description],
-      status: taskobj[:status]
-    )
+    tasks << Task.new(taskobj.merge(user_id: last_insert_user_id))
   end
 end
+User.import users
+Task.import tasks
