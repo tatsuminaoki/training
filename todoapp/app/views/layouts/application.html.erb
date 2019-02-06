@@ -2,6 +2,8 @@
 <html>
   <head>
     <title><%= content_for?(:title) ? yield(:title) : 'todoapp' %></title>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAM//MAEVKSQBHNjsAM/rIACOwjQBGRkYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYWUVYRVlFWZhYWEkYWFhZmFhYTRhYWFmYWUVJGFlFWYRFmZkFWZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,14 +12,23 @@
   </head>
 
   <body>
-    <header>
-      <%= content_for?(:title) ? yield(:title) : '' %>
+    <header class="navbar navbar-expand-md navbar-light bg-light mb-3">
+      <div class="navbar-brand"><%= content_for?(:title) ? yield(:title) : '' %></div>
+
+      <nav>
+        <ul class="navbar-nav">
+          <li class="nav-item"><%= link_to t('tasks.index.title'), tasks_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to t('tasks.new.title'), new_task_path, class: 'nav-link' %></li>
+        </ul>
+      </nav>
     </header>
 
-    <% if flash.notice.present? %>
-      <p><%= flash.notice %></p>
-    <% end %>
+    <article class="container">
+      <% if flash.notice.present? %>
+        <div><%= flash.notice %></div>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </article>
   </body>
 </html>

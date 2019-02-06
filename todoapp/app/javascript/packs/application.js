@@ -9,3 +9,11 @@
 
 import '../../src/application.scss'
 import 'bootstrap/dist/js/bootstrap'
+import Confirm from './components/confirm'
+
+/*
+ * RailsでjQueryを読み込まずにmethod: :deleteのリンクを実現する（confirmの対応）
+ */
+window.onload = () => {
+  document.querySelectorAll('[data-confirm]').forEach(el => new Confirm(el))
+}

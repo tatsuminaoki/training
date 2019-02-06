@@ -38,9 +38,12 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update!(task_params)
-    redirect_to tasks_url,
-                notice: I18n.t('notification.update', task_title: @task.title)
+    if @task.update(task_params)
+      redirect_to tasks_url,
+                  notice: I18n.t('notification.update', task_title: @task.title)
+    else
+      render :edit
+    end
   end
 
   def destroy

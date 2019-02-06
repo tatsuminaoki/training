@@ -223,7 +223,7 @@ feature 'タスク管理機能', type: :feature do
       end
 
       scenario '次のページでは1件が表示される' do
-        find_link('Next').click
+        find_link('次').click
         # ヘッダ部分もtrなので、+1
         expect(all('tr').size).to eq(2)
       end

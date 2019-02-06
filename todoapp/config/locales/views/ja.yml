@@ -11,11 +11,20 @@ ja:
   common:
     edit: '編集'
     delete: '削除'
+    form_title: '入力フォーム'
+    detail_title: '確認'
   notification:
     create: 'タスク「%{task_title}」を登録しました。'
     update: 'タスク「%{task_title}」を更新しました。'
     destroy: 'タスク「%{task_title}」を削除しました。'
     confirm_destroy: 'タスク「%{task_title}」を削除します。よろしいですか？'
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      next: "次 &rsaquo;"
+      previous: "&lsaquo; 前"
+      truncate: "&hellip;"
   errors:
     messages:
       end_at_cannot_be_in_the_past: 'は過去の日付を使用できません'
