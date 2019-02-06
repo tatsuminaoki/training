@@ -38,7 +38,7 @@ Things you may want to cover:
 |modified||datetime|
 
 
-###User
+### User
 | column |remark  |type|
 |:---|:---|:---|
 | id | pk |int|
@@ -50,7 +50,7 @@ Things you may want to cover:
 |registered||datetime|
 |modified||datetime|
 
-###Label
+### Label
 | column |remark  |type|
 |:---|:---|:---|
 | id | pk |int|
