@@ -24,8 +24,10 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    remember_token = User.encrypt(cookies[:user_remember_token])
-    @current_user ||= User.find_by(remember_digest: remember_token)
+    @current_user ||= if cookies[:user_remember_token]
+                        remember_digest = User.encrypt(cookies[:user_remember_token])
+                        User.find_by(remember_digest: remember_digest)
+                      end
   end
 
   def login_required
