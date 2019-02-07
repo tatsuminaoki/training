@@ -33,7 +33,6 @@ Things you may want to cover:
 |priority||int|
 |label_id||int|
 |status|0:未着手/1:着手中/2:完了|int|
-|del_flg|0:active/1:deleted|int|
 |registered||datetime|
 |modified||datetime|
 
@@ -45,8 +44,7 @@ Things you may want to cover:
 |email||varchar|
 |name||varchar|
 |password||varchar
-|admin_flg|0:normaluser/1:admin|int|
-|del_flg|0:active/1:deleted|int|
+|admin_flag|0:normaluser/1:admin|int|
 |registered||datetime|
 |modified||datetime|
 
@@ -55,7 +53,6 @@ Things you may want to cover:
 |:---|:---|:---|
 | id | pk |int|
 |name||varchar|
-|del_flg|0:active/1:deleted|int|
 |registered||datetime|
 |modified||datetime|
 
