@@ -2,7 +2,6 @@
 
 class SessionsController < ApplicationController
   skip_before_action :login_required
-  layout 'login'
 
   def new
     redirect_to root_path if session[:user_id]
@@ -15,7 +14,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path, flash: { success: I18n.t('flash.login.success') }
     else
-      flash[:danger] = I18n.t('flash.login.failed')
+      flash.now[:danger] = I18n.t('flash.login.failed')
       render :new
     end
   end

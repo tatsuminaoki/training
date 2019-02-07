@@ -55,6 +55,7 @@ ja:
     manage: "%{model_name}管理"
     search: 検索
     logout: ログアウト
+    login: ログイン
   flash:
     success: "%{target}を%{action}しました。"
     failed: "%{target}の%{action}に失敗しました。"
