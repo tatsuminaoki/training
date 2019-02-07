@@ -15,8 +15,9 @@ ja:
       login_btn: 'ログインする'
     logout_btn: 'ログアウトする'
     flash:
-      invalid_password: 'パスワードが違うよー'
-      invalid_mail: 'メールアドレスが違うよー'
+      invalid_password: 'メールアドレスかパスワードが違うよー'
+      invalid_mail: 'メールアドレスかパスワードが違うよー'
+      logout: 'ログアウトしました'
   common:
     edit: '編集'
     delete: '削除'

@@ -284,7 +284,7 @@ feature 'タスク管理機能', type: :feature do
   end
 
   describe 'ログイン機能' do
-    context 'ログインしてない時' do
+    context 'ログインしいる時' do
       background do
         login
         visit tasks_path
@@ -293,7 +293,7 @@ feature 'タスク管理機能', type: :feature do
       it_behaves_like 'ユーザーAが作成したタスクが表示される'
     end
 
-    context 'ログインしてる時' do
+    context 'ログインしてない時' do
       background do
         visit tasks_path
       end

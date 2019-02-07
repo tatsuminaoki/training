@@ -12,7 +12,7 @@ require 'activerecord-import'
 last_insert_user_id = User.maximum(:id) || 0
 
 userobj = {
-  password_digest: BCrypt::Password.create('abc'),
+  password: 'abc',
   name: 'おなまえ',
   group_id: nil,
   role: 1
