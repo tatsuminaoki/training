@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   PER = 8
 
   def index
-    @search = User.ransack(params[:q])
+    @search = User.with_task_count.ransack(params[:q])
     @search_tasks = @search.result.page(params[:page]).per(PER)
   end
 

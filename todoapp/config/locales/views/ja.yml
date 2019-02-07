@@ -21,6 +21,7 @@ ja:
     users:
       index:
         title: 'ユーザー一覧'
+        task_count: 'タスク数'
       show:
         title: 'ユーザー詳細'
       new:

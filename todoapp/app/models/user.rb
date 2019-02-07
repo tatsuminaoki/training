@@ -12,6 +12,12 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :delete_all
 
+  scope :with_task_count, lambda {
+    left_outer_joins(:tasks)
+      .select('users.*, count(tasks.id) as tasks_count')
+      .group('users.id')
+  }
+
   ROLE_GENERAL= 1
   ROLE_ADMIN = 2
   enum role: {
