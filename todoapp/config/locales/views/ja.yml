@@ -17,16 +17,26 @@ ja:
     flash:
       invalid_password: 'パスワードが違うよー'
       invalid_mail: 'メールアドレスが違うよー'
+  admin:
+    users:
+      index:
+        title: 'ユーザー一覧'
+      show:
+        title: 'ユーザー詳細'
+      new:
+        title: 'ユーザー作成'
+      edit:
+        title: 'ユーザー編集'
   common:
     edit: '編集'
     delete: '削除'
     form_title: '入力フォーム'
     detail_title: '確認'
   notification:
-    create: 'タスク「%{task_title}」を登録しました。'
-    update: 'タスク「%{task_title}」を更新しました。'
-    destroy: 'タスク「%{task_title}」を削除しました。'
-    confirm_destroy: 'タスク「%{task_title}」を削除します。よろしいですか？'
+    create: '「%{value}」を登録しました。'
+    update: '「%{value}」を更新しました。'
+    destroy: '「%{value}」を削除しました。'
+    confirm_destroy: '「%{value}」を削除します。よろしいですか？'
   views:
     pagination:
       first: "&laquo; 最初"

@@ -24,3 +24,7 @@ ja:
         new_task: 未対応
         working: 着手中
         completed: 完了
+    user:
+      role:
+        general: 一般
+        admin: 管理者
