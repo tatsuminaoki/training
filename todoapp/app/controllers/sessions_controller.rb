@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     if @user.authenticate(session_params[:password])
-      session[:user_id] = @user.id
+      sign_in(@user)
       redirect_to root_path
     else
       flash.now[:alert] = t('.flash.invalid_password')
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    sign_out
     redirect_to root_path
   end
 

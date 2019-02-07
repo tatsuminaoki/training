@@ -24,10 +24,22 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    remember_token = User.encrypt(cookies[:user_remember_token])
+    @current_user ||= User.find_by(remember_digest: remember_token)
   end
 
   def login_required
     redirect_to login_path unless current_user
+  end
+
+  def sign_in(user)
+    remember_token = User.new_remember_token
+    cookies.permanent[:user_remember_token] = remember_token
+    user.update!(remember_digest: User.encrypt(remember_token))
+  end
+
+  def sign_out
+    @current_user = nil
+    cookies.delete(:user_remember_token)
   end
 end
