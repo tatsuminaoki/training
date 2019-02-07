@@ -27,14 +27,14 @@ class Task < ApplicationRecord
   # ステータスのチェック
   validates :status, presence: true, inclusion: { in: self.statuses.keys }
 
-  def self.search(name, status, order_by, order, label_ids, user: nil)
-    labels = trim(label_ids)
+  def self.search(params, user: nil)
+    labels = trim(params[:label_ids])
     task = self
     task = task.where(user_id: user[:id]) if user.present?
-    task = task.where(status: status) if status.present?
-    task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
+    task = task.where(status: params[:status]) if params[:status].present?
+    task = task.where('name LIKE ?', "%#{sanitize_sql_like(params[:name])}%") if params[:name].present?
     task = task.where(id: TaskLabel.where(label_id: labels).select(:task_id)) if labels.present?
-    task = task.order(order_column(order_by) => sort_order(order), id: sort_order(order))
+    task = task.order(order_column(params[:order_by]) => sort_order(params[:order]), id: sort_order(params[:order]))
     task
   end
 

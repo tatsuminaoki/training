@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :all_labels, only: [:edit, :update, :new, :create, :index]
+  before_action :all_labels, only: %w[edit update new create index]
 
   def index
-    @tasks = current_user.tasks.includes(task_labels: :label).search(params[:name], params[:status], params[:order_by], params[:order], params[:label_ids]).page(params[:page])
+    @tasks = current_user.tasks.includes(task_labels: :label).search(params).page(params[:page])
   end
 
   def show

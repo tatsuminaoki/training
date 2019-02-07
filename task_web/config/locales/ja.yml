@@ -41,6 +41,7 @@ ja:
         invalid: が不正です
         not_a_number: が不正です
         greater_than: が不正です
+        record_invalid: レコードが不正です
       models:
         task:
           attributes:

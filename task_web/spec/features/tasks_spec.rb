@@ -5,11 +5,14 @@ require 'rails_helper'
 RSpec.feature 'タスク管理一覧画面', type: :feature do
   # 初期データ作成
   let!(:init_user) { create(:user) }
+  let!(:label1) { create(:label, name: '家事') }
+  let!(:label2) { create(:label, name: 'トレーニング') }
+  let!(:label3) { create(:label, name: '掃除') }
   let!(:init_tasks) {
     [
-      create(:task, { name: 'name1', due_date: '2019-12-31', priority: :high, user: init_user, status: :closed }),
-      create(:task, { name: 'name2', due_date: '2020-12-31', priority: :low, user: init_user, status: :in_progress }),
-      create(:task, { name: 'name3', due_date: '2018-12-31', priority: :normal, user: init_user, status: :open }),
+      create(:task, { name: 'name1', labels: [label1, label2], due_date: '2019-12-31', priority: :high, user: init_user, status: :closed }),
+      create(:task, { name: 'name2', labels: [label2, label3], due_date: '2020-12-31', priority: :low, user: init_user, status: :in_progress }),
+      create(:task, { name: 'name3', labels: [label3, label1], due_date: '2018-12-31', priority: :normal, user: init_user, status: :open }),
     ]
   }
   before do
@@ -110,6 +113,14 @@ RSpec.feature 'タスク管理一覧画面', type: :feature do
       expect(page).to have_content('name', count: 1)
       expect(page).to have_content('name2', count: 1)
     end
+    scenario 'ラベルで絞り込み' do
+      visit root_path
+      select '家事', from: 'label_ids'
+      click_on('Search')
+      expect(current_path).to eq tasks_path()
+      expect(page).to have_content('name1', count: 1)
+      expect(page).to have_content('name3', count: 1)
+    end
     scenario 'タスク名とステータスで検索' do
       visit root_path
       fill_in 'name', with: 'na'
@@ -148,25 +159,32 @@ RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feat
   end
   context '登録・更新・削除テスト' do
     let!(:user) { create(:user) }
-    let(:added_task) { build(:task, { name: 'ゴミ出し', description: '粗大ゴミ出す', user: user }) }
-    let(:updated_task) { build(:task, { name: '家事', description: 'トイレ掃除', user: user }) }
+    let!(:added_label) { create(:label, name: '家事') }
+    let!(:updated_label1) { create(:label, name: 'その他') }
+    let!(:updated_label2) { create(:label, name: 'トレーニング') }
+    let(:added_task) { build(:task, { name: 'ゴミ出し', description: '粗大ゴミ出す', labels: [added_label], user: user }) }
+    let(:updated_task) { build(:task, { name: '掃除', description: 'トイレ掃除', labels: [updated_label1, updated_label2], user: user }) }
     scenario 'タスクの登録確認' do
       visit new_task_path
       expect {
         fill_in 'task_name', with: added_task.name
         fill_in 'task_description', with: added_task.description
+        select added_task.labels[0].name, from: 'task_label_ids'
         click_on('登録')
       }.to change { Task.count }.by(1)
       expect(current_path).to eq tasks_path
       expect(page).to have_content 'タスクの登録に成功しました。'
       expect(page).to have_content added_task.name
       expect(page).to have_content added_task.description
+      expect(page).to have_content added_task.labels[0].name
     end
     scenario 'タスクの更新確認' do
       visit edit_task_path(init_task)
       expect {
         fill_in 'task_name', with: updated_task.name
         fill_in 'task_description', with: updated_task.description
+        select updated_task.labels[0].name, from: 'task_label_ids'
+        select updated_task.labels[1].name, from: 'task_label_ids'
         click_on('更新')
       }.to change { Task.count }.by(0)
       expect(current_path).to eq tasks_path
@@ -175,6 +193,8 @@ RSpec.feature 'タスク管理 機能テスト(遷移・更新系)', type: :feat
       expect(page).to_not have_content init_task.description
       expect(page).to have_content updated_task.name
       expect(page).to have_content updated_task.description
+      expect(page).to have_content updated_task.labels[0].name
+      expect(page).to have_content updated_task.labels[1].name
       init_task.reload
       expect(init_task.name).to eq updated_task.name
       expect(init_task.description).to eq updated_task.description

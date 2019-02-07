@@ -12,7 +12,7 @@ module Admin
 
     def show
       @user = User.find_by(id: params[:id])
-      @tasks = Task.includes(task_labels: :label).search(params[:name], params[:status], params[:order_by], params[:order], params[:label_ids], user: @user).page(params[:page])
+      @tasks = Task.includes(task_labels: :label).search(params, user: @user).page(params[:page])
     end
 
     def new
@@ -37,7 +37,7 @@ module Admin
       @user = User.find(params[:id])
       # 管理者自身の権限を一般へ変更することはできない。
       if params[:id].to_i == current_user.id && params[:user][:auth_level].to_s == :normal.to_s
-        flash[:error] = create_message('update', 'error') + I18n.t('messages.alert.self_update_to_normal')
+        flash[:error] = I18n.t('messages.alert.self_update_to_normal')
         return render :edit
       end
       if @user.update(user_params)
@@ -51,7 +51,7 @@ module Admin
     def destroy
       @user = User.find(params[:id])
       # 管理者自身のユーザ情報を削除することはできない。
-      return redirect_to admin_users_path, alert: create_message('delete', 'error') + I18n.t('messages.alert.self_delete') if params[:id].to_i == current_user.id
+      return redirect_to admin_users_path, alert: I18n.t('messages.alert.self_delete') if params[:id].to_i == current_user.id
       if @user.destroy
         redirect_to admin_users_path, notice: create_message('delete', 'success')
       else

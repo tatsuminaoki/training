@@ -12,7 +12,7 @@ Label.create!(
     [
       { name: 'トレーニング' },
       { name: '学習' },
-      { name: '掃除' },
+      { name: '家事' },
       { name: '自分' },
       { name: '遊び' },
       { name: '仕事' },

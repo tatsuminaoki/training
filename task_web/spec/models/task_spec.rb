@@ -5,8 +5,10 @@ require 'rails_helper'
 RSpec.describe 'タスクモデルのテスト', type: :model do
   describe 'タスク' do
     let!(:init_user) { create(:user) }
+    let!(:label) { FactoryBot.build(:label) }
     let!(:input) {
-      { name: '買い物', description: '説明文', due_date: Time.zone.today, priority: :high, user: init_user, status: :closed, created_at: Time.now.getlocal().to_s }
+      { name: '買い物', description: '説明文', labels: [label], due_date: Time.zone.today, priority: :high,
+        user: init_user, status: :closed, created_at: Time.now.getlocal().to_s }
     }
     let!(:task) {
       create(:task, input)
@@ -15,6 +17,7 @@ RSpec.describe 'タスクモデルのテスト', type: :model do
       expect(task).to be_valid
       expect(task.name).to eq input[:name]
       expect(task.description).to eq input[:description]
+      expect(task.labels).to eq input[:labels]
       expect(task.due_date).to eq input[:due_date]
       expect(task.priority).to eq input[:priority].to_s
       expect(task.user.id).to eq input[:user].id
