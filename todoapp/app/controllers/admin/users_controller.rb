@@ -9,6 +9,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @search = @user.tasks.ransack(params[:q])
+    @search_tasks = @search.result.page(params[:page]).per(PER)
   end
 
   def new

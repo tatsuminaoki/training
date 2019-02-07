@@ -24,6 +24,8 @@ ja:
         task_count: 'タスク数'
       show:
         title: 'ユーザー詳細'
+        user_info: 'ユーザー情報'
+        task_info: 'タスク情報'
       new:
         title: 'ユーザー作成'
       edit:

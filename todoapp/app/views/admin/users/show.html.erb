@@ -1,25 +1,56 @@
 <% content_for(:title) { t('.title') } %>
 
-<article class="card mx-auto w-75">
-  <h5 class="card-header text-muted"><%= t('common.detail_title') %></h5>
-  <div class="card-body">
-    <dl class="row">
-      <dt class="col-sm-3"><%= User.human_attribute_name(:id) %></dt>
-      <dd class="col-sm-9"><%= @user.id %></dd>
-      <dt class="col-sm-3"><%= User.human_attribute_name(:name) %></dt>
-      <dd class="col-sm-9"><%= @user.name %></dd>
-      <dt class="col-sm-3"><%= User.human_attribute_name(:role) %></dt>
-      <dd class="col-sm-9"><%= @user.role_i18n %></dd>
-      <dt class="col-sm-3"><%= User.human_attribute_name(:created_at) %></dt>
-      <dd class="col-sm-9"><%= l(@user.created_at) %></dd>
-      <dt class="col-sm-3"><%= User.human_attribute_name(:updated_at) %></dt>
-      <dd class="col-sm-9"><%= l(@user.updated_at) %></dd>
-    </dl>
-
-    <%= link_to t('common.edit'), edit_admin_user_url(@user), class: 'btn btn-primary mr-2' %>
-    <div class="d-inline-block">
-      <%= button_to t('common.delete'), admin_users_path, class: 'btn btn-primary',
-                    method: :delete, data: { confirm: t('notification.confirm_destroy', value: @user.name) } %>
+<article class="d-flex">
+  <section class="card mx-auto w-25">
+    <h5 class="card-header text-muted"><%= t('.user_info') %></h5>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3"><%= User.human_attribute_name(:id) %></dt>
+        <dd class="col-sm-9"><%= @user.id %></dd>
+        <dt class="col-sm-3"><%= User.human_attribute_name(:name) %></dt>
+        <dd class="col-sm-9"><%= @user.name %></dd>
+        <dt class="col-sm-3"><%= User.human_attribute_name(:role) %></dt>
+        <dd class="col-sm-9"><%= @user.role_i18n %></dd>
+        <dt class="col-sm-3"><%= User.human_attribute_name(:created_at) %></dt>
+        <dd class="col-sm-9"><%= l(@user.created_at) %></dd>
+        <dt class="col-sm-3"><%= User.human_attribute_name(:updated_at) %></dt>
+        <dd class="col-sm-9"><%= l(@user.updated_at) %></dd>
+      </dl>
+      <%= link_to t('common.edit'), edit_admin_user_url(@user), class: 'btn btn-primary mr-2' %>
+      <div class="d-inline-block">
+        <%= button_to t('common.delete'), admin_user_path(@user), class: 'btn btn-primary',
+                      method: :delete, data: { confirm: t('notification.confirm_destroy', value: @user.name) } %>
+      </div>
     </div>
-  </div>
+  </section>
+  <section class="card w-75 ml-2">
+    <h5 class="card-header text-muted"><%= t('.task_info') %></h5>
+    <div class="card-body">
+      <table class="table text-center table-hover table-striped table-sm mb-3">
+        <thead class="thead-light">
+        <tr>
+          <th><%= Task.human_attribute_name(:id) %></th>
+          <th><%= Task.human_attribute_name(:title) %></th>
+          <th><%= Task.human_attribute_name(:status) %></th>
+          <th><%= sort_link(@search, :end_at, Task.human_attribute_name(:end_at), default_order: :desc) %></th>
+          <th><%= Task.human_attribute_name(:created_at) %></th>
+          <th><%= Task.human_attribute_name(:updated_at) %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @search_tasks.each do |task| %>
+          <tr>
+            <td><%= link_to task.id, task_path(task.id) %></td>
+            <td><%= task.title %></td>
+            <td><%= task.status_i18n %></td>
+            <td><%= l(task.end_at) unless task.end_at.nil? %></td>
+            <td><%= l(task.created_at) %></td>
+            <td><%= l(task.updated_at) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= paginate @search_tasks %>
+  </section>
 </article>
