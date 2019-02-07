@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   class Forbidden < ActionController::ActionControllerError; end
 
-  rescue_from Exception, with: :error_500
+  #rescue_from Exception, with: :error_500
   rescue_from Forbidden, with: :error_403
   rescue_from ActionController::RoutingError, with: :error_404
   rescue_from ActiveRecord::RecordNotFound, with: :error_404
@@ -32,5 +32,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(*)
     root_path
+  end
+
+  def all_labels
+    @labels = Label.all
   end
 end

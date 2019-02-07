@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :all_labels, only: [:edit, :update, :new, :create, :index]
+
   def index
-    @tasks = current_user.tasks.search(params[:name], params[:status], params[:order_by], params[:order]).page(params[:page])
+    @tasks = current_user.tasks.includes(task_labels: :label).search(params[:name], params[:status], params[:order_by], params[:order], params[:label_ids]).page(params[:page])
   end
 
   def show
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.includes(task_labels: :label).find(params[:id])
   end
 
   def new
     @task = current_user.tasks.new
+    @task.task_labels.build
   end
 
   def create
@@ -49,7 +52,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :priority, :due_date, :status)
+    params.require(:task).permit(:name, :description, :priority, :due_date, :status, :label_ids, label_ids: [])
   end
 
   def create_message(action, result)

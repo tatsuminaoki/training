@@ -5,6 +5,14 @@
     <td><%= @task.name %></td>
   </tr>
   <tr>
+    <th scope="row"><%= I18n.t('activerecord.attributes.task.label') %></td>
+    <td>
+      <% @task.task_labels.each do |label| %>
+        <%= label_message(label.label.name) %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
     <th scope="row"><%= I18n.t('activerecord.attributes.task.description') %></td>
     <td><span><%= @task.description %></span></td>
   </tr>

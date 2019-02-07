@@ -3,6 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :available?
+    before_action :all_labels, only: :show
 
     def index
       @users = User.all.page(params[:page])
@@ -11,7 +12,7 @@ module Admin
 
     def show
       @user = User.find_by(id: params[:id])
-      @tasks = Task.search(params[:name], params[:status], params[:order_by], params[:order], user: @user).page(params[:page])
+      @tasks = Task.includes(task_labels: :label).search(params[:name], params[:status], params[:order_by], params[:order], params[:label_ids], user: @user).page(params[:page])
     end
 
     def new

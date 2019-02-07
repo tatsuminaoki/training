@@ -14,6 +14,7 @@ ja:
         priority: 優先度
         status: ステータス
         due_date: 期限
+        label: ラベル
         user: ユーザ情報
         user_id: ユーザID
         created_time: 登録日時
@@ -29,6 +30,8 @@ ja:
         current_password: 現在のパスワード
         created_time: 登録日時
         updated_time: 更新日時
+      label:
+        name: ラベル名
     # バリデーションメッセージ
     errors:
       messages:

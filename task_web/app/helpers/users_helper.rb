@@ -12,7 +12,7 @@ module UsersHelper
     order_by = Task::ORDER_BY_VALUES.include?(column) ? column : Task::DEFAULT_ORDER_BY
     order = Task::ORDER_VALUES.to_s.include?(order) ? order : Task::DEFAULT_ORDER
     order_display = 'ASC'.casecmp?(order) ? I18n.t('links.ASC') : I18n.t('links.DESC')
-    link_to_if(!match_sort?(column, order), order_display, admin_user_path(name: params[:name], status: params[:status], order_by: order_by, order: order))
+    link_to_if(!match_sort?(column, order), order_display, admin_user_path(name: params[:name], status: params[:status], order_by: order_by, order: order, label_ids: params[:label_ids]))
   end
 
   private

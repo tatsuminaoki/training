@@ -2,8 +2,9 @@
 
 class Task < ApplicationRecord
   belongs_to :user
-  has_many :tasks_labels, dependent: :destroy
-  has_many :labels, through: :tasks_labels
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
+  accepts_nested_attributes_for :labels
 
   enum priority: %i[low normal high].freeze
   enum status: %i[open in_progress closed].freeze
@@ -26,11 +27,13 @@ class Task < ApplicationRecord
   # ステータスのチェック
   validates :status, presence: true, inclusion: { in: self.statuses.keys }
 
-  def self.search(name, status, order_by, order, user: nil)
+  def self.search(name, status, order_by, order, label_ids, user: nil)
+    labels = trim(label_ids)
     task = self
     task = task.where(user_id: user[:id]) if user.present?
     task = task.where(status: status) if status.present?
     task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
+    task = task.where(id: TaskLabel.where(label_id: labels).select(:task_id)) if labels.present?
     task = task.order(order_column(order_by) => sort_order(order), id: sort_order(order))
     task
   end
@@ -43,21 +46,9 @@ class Task < ApplicationRecord
     ORDER_BY_VALUES.include?(value) ? value : DEFAULT_ORDER_BY
   end
 
-  def self.save_labels(labels)
-    current_labels = self.labels.pluck(:name) unless self.labels.nil?
-    old_labels = current_labels - labels
-    new_labels = labels - current_labels
-
-    # Destroy old labels:
-    old_labels.each do |old_name|
-      self.labels.delete Label.find_by(name: old_name)
-    end
-
-    # Create new labels:
-    new_labels.each do |new_name|
-      task_label = Label.find_or_create_by(name: new_name)
-      self.labels << task_label
-    end
+  def self.trim(array)
+    return nil if array.nil?
+    array.reject { |a| a == '' }
   end
 
   private

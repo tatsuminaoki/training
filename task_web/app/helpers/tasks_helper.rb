@@ -5,12 +5,12 @@ module TasksHelper
     order_by = Task::ORDER_BY_VALUES.include?(column) ? column : Task::DEFAULT_ORDER_BY
     order = Task::ORDER_VALUES.to_s.include?(order) ? order : Task::DEFAULT_ORDER
     order_display = 'ASC'.casecmp?(order) ? I18n.t('links.ASC') : I18n.t('links.DESC')
-    link_to_if(!match_sort_condition?(column, order), order_display, tasks_path(name: params[:name], status: params[:status], order_by: order_by, order: order))
+    link_to_if(!match_sort?(column, order), order_display, tasks_path(name: params[:name], status: params[:status], order_by: order_by, order: order, label_ids: params[:label_ids]))
   end
 
   private
 
-  def match_sort_condition?(column, order)
+  def match_sort?(column, order)
     current_order_by = params[:order_by].presence || Task::DEFAULT_ORDER_BY
     current_order = params[:order].presence || Task::DEFAULT_ORDER
     column == current_order_by && order == current_order
