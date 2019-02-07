@@ -1,0 +1,3 @@
+<% flash.each do |alert_type, message| %>
+  <%= tag.div message, class: "alert alert-#{alert_type}"%>
+<% end %>

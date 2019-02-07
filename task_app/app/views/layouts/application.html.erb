@@ -26,14 +26,20 @@
               <%= link_to I18n.t('actions_with_model.new', model_name: Task.model_name.human), new_task_path, class: 'dropdown-item' %>
             </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.email %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <%= link_to I18n.t('links.logout'), logout_path, method: :delete, class: 'dropdown-item' %>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
 
     <div class="container-fluid px-5">
-      <% flash.each do |alert_type, message| %>
-        <%= tag.div message, class: "alert alert-#{alert_type}"%>
-      <% end %>
+      <%= render 'layouts/shared/flash' %>
       <%= yield %>
     </div>
   </body>
