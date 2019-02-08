@@ -1,13 +1,13 @@
 class CreateTasks < ActiveRecord::Migration[5.2]
   def change
     create_table :tasks do |t|
-      t.string :title
+      t.string :title, null: false
       t.text :description
-      t.integer :user_id
-      t.datetime :limit
-      t.integer :priority
+      t.integer :user_id, null: false
+      t.datetime :limit, null: false
+      t.integer :priority, null: false
       t.integer :label_id
-      t.integer :status
+      t.integer :status, null: false
 
       t.timestamps
     end
