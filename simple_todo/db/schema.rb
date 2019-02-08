@@ -13,28 +13,27 @@
 ActiveRecord::Schema.define(version: 2019_02_08_021306) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.integer "user_id"
-    t.datetime "limit"
-    t.integer "priority"
-    t.integer "label_id"
-    t.integer "status"
+    t.integer "user_id", null: false
+    t.datetime "limit", null: false
+    t.integer "priority", null: false
+    t.integer "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "email"
-    t.string "name"
-    t.string "password"
-    t.integer "admin_flag"
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password", null: false
+    t.integer "admin_flag", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
