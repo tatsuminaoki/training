@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_user, only: [:create]
+  before_action :check_user, only: [:create]
   skip_before_action :login_required
 
   def new
@@ -17,16 +17,16 @@ class SessionsController < ApplicationController
 
   def destroy
     sign_out
-    redirect_to root_path
+    redirect_to root_path, notice: t('.flash.logout')
   end
 
   private
 
-  def set_user
-    @user = User.find_by!(email: session_params[:email])
-  rescue StandardError => e
-    flash.now[:alert] = t('.flash.invalid_mail')
-    render action: 'new'
+  def check_user
+    unless @user = User.find_by(email: session_params[:email])
+      flash.now[:alert] = t('.flash.invalid_mail')
+      render action: 'new'
+    end
   end
 
   def session_params

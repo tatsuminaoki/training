@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     email { 'aaaa@gmail.com' }
-    password_digest { BCrypt::Password.create('abc') }
+    password { 'abc' }
     name { 'テストユーザー' }
     group_id { nil }
     role { 1 }
