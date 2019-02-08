@@ -3,7 +3,6 @@
 module Admin
   class UsersController < ApplicationController
     before_action :available?
-    before_action :all_labels, only: :show
 
     def index
       @users = User.all.page(params[:page])

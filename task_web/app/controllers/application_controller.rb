@@ -33,8 +33,4 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(*)
     root_path
   end
-
-  def all_labels
-    @labels = Label.all
-  end
 end

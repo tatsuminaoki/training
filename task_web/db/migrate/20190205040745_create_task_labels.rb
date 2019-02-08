@@ -6,6 +6,6 @@ class CreateTaskLabels < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :task_labels, [:task_id, :label_id], name:'index_task_labels_on_uniq_key', :unique => true
+    add_index :task_labels, [:task_id, :label_id], name:'index_task_labels_on_uniq_key', unique: true
   end
 end

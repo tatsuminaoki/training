@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :all_labels, only: %w[edit update new create index]
 
   def index
     @tasks = current_user.tasks.includes(task_labels: :label).search(params).page(params[:page])

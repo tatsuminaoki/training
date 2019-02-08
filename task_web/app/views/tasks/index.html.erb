@@ -4,7 +4,7 @@
   <%= form.label I18n.t('activerecord.attributes.task.status'), class: 'mx-1' %>
   <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: params[:status] ), include_blank: I18n.t('enums.task.status.all') %>
   <%= form.label I18n.t('activerecord.attributes.task.label'), class: 'mx-1' %>
-  <%= collection_select(nil, :label_ids, @labels.all, :id, :name, { selected: params[:label_ids]} , { multiple: true, class: "select2-select" }) %>
+  <%= collection_select(nil, :label_ids, Label.all, :id, :name, { selected: params[:label_ids]} , { multiple: true, class: "select2-select" }) %>
   <%= form.submit 'Search', name: nil, class: 'btn btn-outline-success mx-2 my-0' %>
 <% end %>
 <%= paginate @tasks %>
