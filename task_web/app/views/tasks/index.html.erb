@@ -3,6 +3,8 @@
   <%= form.text_field :name, id: 'task', value: params[:name], class: 'form-control mx-1', placeholder: 'キーワード' %>
   <%= form.label I18n.t('activerecord.attributes.task.status'), class: 'mx-1' %>
   <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: params[:status] ), include_blank: I18n.t('enums.task.status.all') %>
+  <%= form.label I18n.t('activerecord.attributes.task.label'), class: 'mx-1' %>
+  <%= collection_select(nil, :label_ids, Label.all, :id, :name, { selected: params[:label_ids]} , { multiple: true, class: "select2-select" }) %>
   <%= form.submit 'Search', name: nil, class: 'btn btn-outline-success mx-2 my-0' %>
 <% end %>
 <%= paginate @tasks %>
@@ -11,6 +13,7 @@
     <tr>
       <th><%= I18n.t('activerecord.attributes.task.name') %></th>
       <th><%= I18n.t('activerecord.attributes.task.description') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.label') %></th>
       <th><%= I18n.t('activerecord.attributes.task.due_date') %> <%= sort_tasks_link('due_date', 'DESC') %> <%= sort_tasks_link('due_date', 'ASC') %></th>
       <th><%= I18n.t('activerecord.attributes.task.priority') %> <%= sort_tasks_link('priority', 'DESC') %> <%= sort_tasks_link('priority', 'ASC') %></th>
       <th><%= I18n.t('activerecord.attributes.task.status') %></th>
@@ -23,6 +26,11 @@
       <tr>
         <td class="name"><%= task.name %></td>
         <td class="description"><span><%= task.description %></span></td>
+        <td>
+          <% task.task_labels.each do |task_label| %>
+            <span class="task_label"><%= task_label.label.name %></span>
+          <% end %>
+        </td>
         <td class="due_date"><%= I18n.l(task.due_date, format: :default) %></td>
         <td class="priority"><%= task.priority_i18n %></td>
         <td class="status"><%= task.status_i18n %></td>

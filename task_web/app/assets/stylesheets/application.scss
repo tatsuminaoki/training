@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "select2";
 
 html {
   font-size: 62.5%; // 10px
@@ -26,4 +27,16 @@ body {
   background-color: transparent;
   background-color: #EFEFEF;
   border: 0;
+}
+
+span.task_label {
+  background-color: #fff;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin-right: 3px;
+  margin-top: 3px;
+  padding: 0 3px;
+  color: #28a745;
 }

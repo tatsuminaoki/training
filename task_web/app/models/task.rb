@@ -2,6 +2,9 @@
 
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
+  accepts_nested_attributes_for :labels
 
   enum priority: %i[low normal high].freeze
   enum status: %i[open in_progress closed].freeze
@@ -24,12 +27,14 @@ class Task < ApplicationRecord
   # ステータスのチェック
   validates :status, presence: true, inclusion: { in: self.statuses.keys }
 
-  def self.search(name, status, order_by, order, user: nil)
+  def self.search(params, user: nil)
+    labels = trim(params[:label_ids])
     task = self
     task = task.where(user_id: user[:id]) if user.present?
-    task = task.where(status: status) if status.present?
-    task = task.where('name LIKE ?', "%#{sanitize_sql_like(name)}%") if name.present?
-    task = task.order(order_column(order_by) => sort_order(order), id: sort_order(order))
+    task = task.where(status: params[:status]) if params[:status].present?
+    task = task.where('name LIKE ?', "%#{sanitize_sql_like(params[:name])}%") if params[:name].present?
+    task = task.where(id: TaskLabel.where(label_id: labels).select(:task_id)) if labels.present?
+    task = task.order(order_column(params[:order_by]) => sort_order(params[:order]), id: sort_order(params[:order]))
     task
   end
 
@@ -39,6 +44,11 @@ class Task < ApplicationRecord
 
   def self.order_column(value)
     ORDER_BY_VALUES.include?(value) ? value : DEFAULT_ORDER_BY
+  end
+
+  def self.trim(array)
+    return nil if array.nil?
+    array.reject { |a| a == '' }
   end
 
   private

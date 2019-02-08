@@ -96,7 +96,7 @@ RSpec.feature 'ユーザ管理 機能テスト(遷移・更新系)', type: :feat
         select '一般', from: 'user_auth_level'
         click_on('更新')
       }.to change { User.count }.by(0)
-      expect(page).to have_content 'ユーザの更新に失敗しました。'
+      expect(page).to have_content '自身の権限を一般に変更するすることはできません。'
     end
     scenario 'ユーザの削除確認（削除対象が自身以外の場合）' do
       visit admin_users_path
@@ -114,7 +114,7 @@ RSpec.feature 'ユーザ管理 機能テスト(遷移・更新系)', type: :feat
         page.accept_confirm "#{admin_user.name}を削除しますか？"
         expect(current_path).to eq admin_users_path
       }.to change { User.count }.by(0)
-      expect(page).to have_content 'ユーザの削除に失敗しました。'
+      expect(page).to have_content '自身を削除することはできません。'
     end
   end
 end

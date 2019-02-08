@@ -5,6 +5,17 @@
       email: "gosuke.yasufuku+#{i}@fablic.co.jp",
       name: "ごうすけ #{i}",
       password: "rakuten#{i}",
-      auth_level: 5,
+      auth_level: :admin,
   )
 end
+Label.create!(
+    [
+      { name: 'トレーニング' },
+      { name: '学習' },
+      { name: '家事' },
+      { name: '自分' },
+      { name: '遊び' },
+      { name: '仕事' },
+      { name: 'その他' },
+    ],
+)
