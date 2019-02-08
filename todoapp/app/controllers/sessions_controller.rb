@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :check_user, only: [:create]
+  before_action :ensure_user_by_email!, only: [:create]
   skip_before_action :login_required
 
   def new
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def check_user
+  def ensure_user_by_email!
     unless @user = User.find_by(email: session_params[:email])
       flash.now[:alert] = t('.flash.invalid_mail')
       render action: 'new'
