@@ -5,5 +5,6 @@ FactoryBot.define do
     due_date { '20190225' }
     priority { Task.priorities[:middle] }
     status { Task.statuses[:in_progress] }
+    user
   end
 end

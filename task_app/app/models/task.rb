@@ -15,8 +15,8 @@ class Task < ApplicationRecord
   # 検索は渡されたレコード、または1から行う
   def self.search(params, initial_records = nil)
     initial_records ||= self
-    initial_records = initial_records.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
-    initial_records = initial_records.where(status: params[:status]) if params[:status].present?
+    initial_records   = initial_records.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
+    initial_records   = initial_records.where(status: params[:status]) if params[:status].present?
     initial_records
   end
 
