@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  # TODO: ログイン周りはあとで追加するよ
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
   root to: 'tasks#index'
   resources :tasks

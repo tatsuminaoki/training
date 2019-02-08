@@ -24,26 +24,24 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    # TODO: あとでログインできるようにするよ
-    user = User.find_by(email: 'aaaaa0@gmail.com')
-    if user
-      return @current_user = user
-    end
-
-    params = {
-        email: 'aaaaa0@gmail.com',
-        encrypted_password: 'aaa',
-        name: 'aaa',
-        group_id: nil,
-        role: 1
-    }
-    user = User.new(params)
-    user.save!
-
-    @current_user = user
+    @current_user ||= if cookies[:user_remember_token]
+                        remember_digest = User.encrypt(cookies[:user_remember_token])
+                        User.find_by(remember_digest: remember_digest)
+                      end
   end
 
   def login_required
     redirect_to login_path unless current_user
+  end
+
+  def sign_in(user)
+    remember_token = User.new_remember_token
+    cookies.permanent[:user_remember_token] = remember_token
+    user.update!(remember_digest: User.encrypt(remember_token))
+  end
+
+  def sign_out
+    @current_user = nil
+    cookies.delete(:user_remember_token)
   end
 end

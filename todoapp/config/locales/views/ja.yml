@@ -8,6 +8,16 @@ ja:
       title: 'タスク作成'
     edit:
       title: 'タスク編集'
+  sessions:
+    new:
+      title: 'ログイン'
+      password: 'パスワード'
+      login_btn: 'ログインする'
+    logout_btn: 'ログアウトする'
+    flash:
+      invalid_password: 'メールアドレスかパスワードが違うよー'
+      invalid_mail: 'メールアドレスかパスワードが違うよー'
+      logout: 'ログアウトしました'
   common:
     edit: '編集'
     delete: '削除'
