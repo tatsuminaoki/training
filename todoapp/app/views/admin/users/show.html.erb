@@ -9,6 +9,8 @@
         <dd class="col-sm-9"><%= @user.id %></dd>
         <dt class="col-sm-3"><%= User.human_attribute_name(:name) %></dt>
         <dd class="col-sm-9"><%= @user.name %></dd>
+        <dt class="col-sm-3"><%= User.human_attribute_name(:email) %></dt>
+        <dd class="col-sm-9"><%= @user.email %></dd>
         <dt class="col-sm-3"><%= User.human_attribute_name(:role) %></dt>
         <dd class="col-sm-9"><%= @user.role_i18n %></dd>
         <dt class="col-sm-3"><%= User.human_attribute_name(:created_at) %></dt>

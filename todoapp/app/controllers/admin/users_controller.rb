@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to admin_users_path,
+      redirect_to admin_user_path(@user),
                   notice: I18n.t('notification.create', value: @user.name)
     else
       render :new
