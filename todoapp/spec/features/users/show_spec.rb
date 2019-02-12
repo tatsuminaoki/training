@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature '管理者機能', type: :feature do
-  let!(:user_a) { create(:user, name: 'ユーザーA') }
+  let!(:user_a) { create(:user, name: 'ユーザーA', role: 2) }
 
   describe '詳細表示機能' do
     context '詳細表示画面へ遷移した時' do
