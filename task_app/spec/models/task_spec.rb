@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+describe Task, type: :model do
   describe 'validation' do
     context '正常値のとき' do
       it { expect(FactoryBot.build(:task)).to be_valid }
