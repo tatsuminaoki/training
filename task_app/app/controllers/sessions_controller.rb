@@ -8,10 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: take_email)
-
-    if user&.authenticate(take_password)
-      session[:user_id] = user.id
+    if user_authenticated?(User.find_by(email: session_params[:email]))
       redirect_to root_path, flash: { success: I18n.t('flash.login.success') }
     else
       flash.now[:danger] = I18n.t('flash.login.failed')
@@ -26,12 +23,13 @@ class SessionsController < ApplicationController
 
   private
 
-  def take_email
-    session_params[:email]
-  end
-
-  def take_password
-    session_params[:password]
+  def user_authenticated?(user)
+    if user&.authenticate(session_params[:password])
+      session[:user_id] = user.id
+      true
+    else
+      false
+    end
   end
 
   def session_params
