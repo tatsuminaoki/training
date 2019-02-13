@@ -67,6 +67,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def login_required_as_admin
-    redirect_to login_path unless current_user&.admin?
+    return if current_user&.admin?
+
+    sign_out
+    redirect_to login_path, notice: t('sessions.flash.logout')
   end
 end
