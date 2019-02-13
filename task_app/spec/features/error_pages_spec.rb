@@ -27,9 +27,11 @@ feature 'エラー画面の表示機能', type: :feature do
   end
 
   feature '内部エラー' do
+    let!(:user) { FactoryBot.create(:user) }
+
     before do
       allow(Task).to receive(:all).and_raise(error)
-      visit root_path
+      login(user)
     end
 
     shared_examples_for 'エラー画面が表示される(内部エラー)' do |http_status, content|

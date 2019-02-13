@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum priority: %i[low middle high].freeze
   enum status: %i[to_do in_progress done].freeze
 
@@ -10,11 +12,12 @@ class Task < ApplicationRecord
   validates :status,      presence: true
   validate :validate_due_date
 
-  def self.search(params)
-    output = self
-    output = output.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
-    output = output.where(status: params[:status]) if params[:status].present?
-    output
+  # 検索は渡されたレコード、または1から行う
+  def self.search(params, initial_records = nil)
+    initial_records ||= self
+    initial_records   = initial_records.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
+    initial_records   = initial_records.where(status: params[:status]) if params[:status].present?
+    initial_records
   end
 
   private
