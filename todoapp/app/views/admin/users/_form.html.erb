@@ -1,0 +1,31 @@
+<article class="card mx-auto w-75">
+  <h5 class="card-header text-muted"><%= t('common.form_title') %></h5>
+  <div class="card-body">
+    <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+
+    <%= form_with url: path, model: user, local: true, class: 'form-horizontal' do |f| %>
+      <div class="form-group row">
+        <%= f.label :name, class: 'col-form-label col-lg-3 col-sm-3' %>
+        <%= f.text_field :name, class: 'form-control col-7' %>
+      </div>
+      <div class="form-group row">
+        <%= f.label :email, class: 'col-form-label col-lg-3 col-sm-3' %>
+        <%= f.text_field :email, class: 'form-control col-7' %>
+      </div>
+      <div class="form-group row">
+        <%= f.label t('sessions.new.password'), class: 'col-form-label col-lg-3 col-sm-3' %>
+        <%= f.password_field :password, class: 'form-control col-7' %>
+      </div>
+      <div class="form-group row">
+        <%= f.label :role, class: 'col-form-label col-lg-3 col-sm-3' %>
+        <%= f.select :role, User.roles_i18n.invert, {}, { class: 'form-control col-7' } %>
+      </div>
+
+      <%= f.submit class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</article>

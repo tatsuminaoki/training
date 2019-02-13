@@ -2,9 +2,29 @@ class User < ApplicationRecord
 
   has_secure_password validations: true
 
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, length: { maximum: 12 }
 
-  has_many :tasks
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,
+            presence: true,
+            uniqueness: true,
+            length: { maximum: 128 },
+            format: { with: VALID_EMAIL_REGEX }
+
+  has_many :tasks, dependent: :delete_all
+
+  scope :with_task_count, lambda {
+    left_outer_joins(:tasks)
+      .select('users.*, count(tasks.id) as tasks_count')
+      .group('users.id')
+  }
+
+  ROLE_GENERAL= 1
+  ROLE_ADMIN = 2
+  enum role: {
+    general: ROLE_GENERAL,
+    admin: ROLE_ADMIN
+  }
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

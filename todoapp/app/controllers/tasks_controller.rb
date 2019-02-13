@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
     if @task.save
       redirect_to @task,
-                  notice: I18n.t('notification.create', task_title: @task.title)
+                  notice: I18n.t('notification.create', value: @task.title)
     else
       render :new
     end
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       redirect_to tasks_url,
-                  notice: I18n.t('notification.update', task_title: @task.title)
+                  notice: I18n.t('notification.update', value: @task.title)
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_url,
-                notice: I18n.t('notification.destroy', task_title: @task.title)
+                notice: I18n.t('notification.destroy', value: @task.title)
   end
 
   private
