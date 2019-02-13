@@ -40,7 +40,7 @@ feature 'ログイン画面', type: :feature do
     end
 
     shared_examples 'ログイン画面が表示される' do
-      scenario 'フラッシュメッセージと共にログインが再表示される' do
+      scenario 'メッセージと共にログイン画面が再表示される' do
         expect(current_path).to eq login_path
         expect(page).to have_selector('.alert-danger', text: 'メールアドレスまたはパスワードが正しくありません')
       end

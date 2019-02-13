@@ -77,6 +77,11 @@ describe User, type: :model do
         let(:password) { 'pass12' }
         it { is_expected.to be_valid }
       end
+
+      context '空白が含まれるとき' do
+        let(:password) { 'pa s12' }
+        it { is_expected.to be_invalid }
+      end
     end
   end
 

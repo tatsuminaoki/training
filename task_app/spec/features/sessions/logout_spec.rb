@@ -13,7 +13,7 @@ feature 'ログアウト機能', type: :feature do
   end
 
   context 'ログイン状態からログアウトしたとき' do
-    scenario 'フラッシュメッセージと共にログイン画面が表示される' do
+    scenario 'メッセージと共にログイン画面が表示される' do
       expect(current_path).to eq login_path
       expect(page).to have_selector('.alert-success', text: 'ログアウトしました')
       expect(page).to have_selector('form', count: 1)

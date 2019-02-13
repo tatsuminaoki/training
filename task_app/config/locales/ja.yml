@@ -62,6 +62,7 @@ ja:
     login:
       success: ログインしました
       failed: メールアドレスまたはパスワードが正しくありません
+      required: サービスを利用するにはログインが必要です
     logout: ログアウトしました
   dialog: "%{target}を%{action}します。よろしいでしょうか？"
 
@@ -186,6 +187,7 @@ ja:
       not_an_integer: は整数で入力してください
       odd: は奇数にしてください
       required: を入力してください
+      space: にスペースを含めないでください
       taken: はすでに存在します
       too_long: は%{count}文字以内で入力してください
       too_short: は%{count}文字以上で入力してください

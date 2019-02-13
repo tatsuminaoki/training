@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :delete_all
 
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, format: { without: /\s/, message: I18n.t('errors.messages.space') }
 end

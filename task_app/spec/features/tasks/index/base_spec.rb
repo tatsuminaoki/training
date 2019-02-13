@@ -10,8 +10,9 @@ feature '一覧画面表示機能', type: :feature do
   context 'ログインせず画面へアクセスしたとき' do
     before { visit root_path }
 
-    scenario 'ログイン画面が表示される' do
+    scenario 'メッセージと共にログイン画面が表示される' do
       expect(current_path).to eq login_path
+      expect(page).to have_selector('.alert-danger', text: 'サービスを利用するにはログインが必要です')
       expect(page).to have_selector('form', count: 1)
     end
   end
@@ -48,7 +49,7 @@ feature 'タスク削除機能', type: :feature do
   end
 
   context '確認ダイアログでOKを押したとき' do
-    scenario 'タスクは削除され、一覧画面にフラッシュメッセージが表示される' do
+    scenario 'タスクは削除され、一覧画面にメッセージが表示される' do
       page.accept_confirm
       expect(page).to have_selector '.alert-success', text: 'タスク「掃除」を削除しました。'
       expect(page.all('tbody tr').size).to eq 0
