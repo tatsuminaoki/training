@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   has_secure_password validations: true
 
   validates :name, presence: true, length: { maximum: 12 }
@@ -25,6 +24,14 @@ class User < ApplicationRecord
     general: ROLE_GENERAL,
     admin: ROLE_ADMIN
   }
+
+  def admin?
+    ROLE_ADMIN == role_before_type_cast
+  end
+
+  def myself?(user)
+    id == user.id
+  end
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

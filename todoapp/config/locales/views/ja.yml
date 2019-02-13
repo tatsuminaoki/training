@@ -41,6 +41,8 @@ ja:
     update: '「%{value}」を更新しました。'
     destroy: '「%{value}」を削除しました。'
     confirm_destroy: '「%{value}」を削除します。よろしいですか？'
+    update_failed_myself_role: '自分の役割は変えれないよ'
+    destroy_failed_myself: '自分は消せないよ'
   views:
     pagination:
       first: "&laquo; 最初"

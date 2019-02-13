@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :login_required_as_admin
 
   PER = 8
 
@@ -32,7 +33,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    @user.assign_attributes(user_params)
+    if @user.myself?(@current_user) && @user.role_changed?
+      redirect_to admin_users_path,
+                  notice: I18n.t('notification.update_failed_myself_role')
+    elsif @user.update(user_params)
       redirect_to admin_users_path,
                   notice: I18n.t('notification.update', value: @user.name)
     else
@@ -41,9 +46,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path,
-                notice: I18n.t('notification.destroy', value: @user.name)
+    if @user.myself?(@current_user)
+      redirect_to admin_users_path,
+                  notice: I18n.t('notification.destroy_failed_myself')
+    else
+      @user.destroy
+      redirect_to admin_users_path,
+                  notice: I18n.t('notification.destroy', value: @user.name)
+    end
   end
 
   private
@@ -54,5 +64,12 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def login_required_as_admin
+    return if current_user&.admin?
+
+    sign_out
+    redirect_to login_path, notice: t('sessions.flash.logout')
   end
 end

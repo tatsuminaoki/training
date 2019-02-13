@@ -15,7 +15,7 @@
   </thead>
   <tbody>
   <% @search_tasks.each do |user| %>
-    <tr>
+    <tr class="<%= 'bg-warning' if user.myself?(@current_user) %>">
       <td><%= link_to user.id, admin_user_path(user.id) %></td>
       <td><%= user.name %></td>
       <td><%= user.role_i18n %></td>
@@ -24,8 +24,12 @@
       <td><%= l(user.updated_at) %></td>
       <td><%= link_to t('common.edit'), edit_admin_user_path(user), class: 'btn btn-primary' %></td>
       <td>
-        <%= button_to t('common.delete'), admin_user_path(user), class: 'btn btn-primary',
-                      method: :delete, data: { confirm: t('notification.confirm_destroy', value: user.name) } %>
+        <%= button_to t('common.delete'),
+                      admin_user_path(user),
+                      class: 'btn btn-primary',
+                      method: :delete,
+                      data: { confirm: t('notification.confirm_destroy', value: user.name) },
+                      disabled: user.myself?(@current_user) %>
       </td>
     </tr>
   <% end %>
