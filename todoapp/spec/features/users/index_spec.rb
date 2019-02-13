@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 feature '管理者機能', type: :feature do
-  let!(:user_a) { create(:user, name: 'ユーザーA', role: 2) }
-  let!(:user_b) { create(:user, name: 'ユーザーB', email: 'b@a.a', role: 2) }
-  let!(:user_c) { create(:user, name: 'ユーザーC', email: 'c@a.a', role: 2) }
+  let!(:user_a) { create(:user, name: 'ユーザーA', role: User::ROLE_ADMIN) }
+  let!(:user_b) { create(:user, name: 'ユーザーB', email: 'b@a.a', role: User::ROLE_ADMIN) }
+  let!(:user_c) { create(:user, name: 'ユーザーC', email: 'c@a.a', role: User::ROLE_ADMIN) }
 
   describe 'ユーザー一覧表示機能' do
     context 'ユーザー一覧画面へ遷移した時' do

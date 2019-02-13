@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature '管理者機能', type: :feature do
-  let!(:user_a) { create(:user, name: 'ユーザーA', role: 2) }
+  let!(:user_a) { create(:user, name: 'ユーザーA', role: User::ROLE_ADMIN) }
 
   describe '新規作成機能' do
     background do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature '管理者機能', type: :feature do
-  let(:user_a) { create(:user, name: 'ユーザーA', role: 2) }
+  let(:user_a) { create(:user, name: 'ユーザーA', role: User::ROLE_ADMIN) }
   let!(:task_a) { create(:task, :first_task, user: user_a) }
 
   describe '詳細表示機能' do
