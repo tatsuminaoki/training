@@ -18,5 +18,29 @@ feature '管理者機能', type: :feature do
         expect(page).to have_content 'ユーザーC'
       end
     end
+
+    context 'ユーザー一覧画面へ遷移した時' do
+      background do
+        login
+        visit admin_users_path
+      end
+
+      scenario 'ユーザーの削除ができる' do
+        find('/html/body/article/table/tbody/tr[2]/td[8]/form/input[2]').click
+        expect(page).to have_content '「ユーザーB」を削除しました。'
+      end
+    end
+
+    context 'ユーザー一覧画面へ遷移した時' do
+      background do
+        login
+        visit admin_users_path
+      end
+
+      scenario 'ログイン中のユーザーは消せない' do
+        find('/html/body/article/table/tbody/tr[1]/td[8]/form/input[2]').click
+        expect(page).to have_content '自分は消せないよ'
+      end
+    end
   end
 end
