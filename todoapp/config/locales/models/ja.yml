@@ -6,6 +6,7 @@ ja:
       user:
         id: ID
         email: メールアドレス
+        password: パスワード
         name: 名前
         role: 役割
         created_at: 登録日時
