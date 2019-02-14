@@ -6,16 +6,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    @labels = current_user.labels
     @search = if params[:q]
-                current_user.tasks.ransack(params[:q])
+                current_user.tasks.includes(:labels).ransack(params[:q])
               else
-                current_user.tasks.ransack(recent: true)
+                current_user.tasks.includes(:labels).ransack(recent: true)
               end
     @search_tasks = @search.result.page(params[:page]).per(PER)
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
@@ -23,7 +23,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def create

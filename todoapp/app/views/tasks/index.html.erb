@@ -7,6 +7,11 @@
                Task.statuses.map{ |k, v| [Task.statuses_i18n[k], v] },
                { include_blank: true },
                { class: 'form-control mr-3' } %>
+  <%= f.label Label.human_attribute_name(:name), class: 'p-1 mr-1' %>
+  <%= f.select :labels_id_eq,
+               @labels.map{ |label| [label.name, label.id] },
+               { include_blank: true },
+               { class: 'form-control mr-3' } %>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>
 
@@ -16,6 +21,7 @@
       <th><%= Task.human_attribute_name(:id) %></th>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:status) %></th>
+      <th><%= Label.human_attribute_name(:name) %></th>
       <th><%= sort_link(@search, :end_at, Task.human_attribute_name(:end_at), default_order: :desc) %></th>
       <th><%= Task.human_attribute_name(:created_at) %></th>
       <th><%= Task.human_attribute_name(:updated_at) %></th>
@@ -29,6 +35,7 @@
         <td><%= link_to task.id, task_path(task.id) %></td>
         <td><%= task.title %></td>
         <td><%= task.status_i18n %></td>
+        <td><%= task.labels.map{ |label| [label.name] }.join('/') %></td>
         <td><%= l(task.end_at) unless task.end_at.nil? %></td>
         <td><%= l(task.created_at) %></td>
         <td><%= l(task.updated_at) %></td>

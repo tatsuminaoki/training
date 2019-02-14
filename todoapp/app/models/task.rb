@@ -16,6 +16,10 @@ class Task < ApplicationRecord
   }
 
   belongs_to :user
+
+  has_many :task_labels, dependent: :delete_all
+  has_many :labels, through: :task_labels
+
   scope :recent, -> { order(created_at: :desc) }
 
   private

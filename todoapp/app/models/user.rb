@@ -11,6 +11,7 @@ class User < ApplicationRecord
             format: { with: VALID_EMAIL_REGEX }
 
   has_many :tasks, dependent: :delete_all
+  has_many :labels, dependent: :delete_all
 
   scope :with_task_count, lambda {
     left_outer_joins(:tasks)
