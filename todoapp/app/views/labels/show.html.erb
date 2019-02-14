@@ -1,0 +1,23 @@
+<% content_for(:title) { t('.title') } %>
+
+<article class="card mx-auto w-75">
+  <h5 class="card-header text-muted"><%= t('common.detail_title') %></h5>
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3"><%= Label.human_attribute_name(:id) %></dt>
+      <dd class="col-sm-9"><%= @label.id %></dd>
+      <dt class="col-sm-3"><%= Label.human_attribute_name(:name) %></dt>
+      <dd class="col-sm-9"><%= @label.name %></dd>
+      <dt class="col-sm-3"><%= Label.human_attribute_name(:created_at) %></dt>
+      <dd class="col-sm-9"><%= l(@label.created_at) %></dd>
+      <dt class="col-sm-3"><%= Label.human_attribute_name(:updated_at) %></dt>
+      <dd class="col-sm-9"><%= l(@label.updated_at) %></dd>
+    </dl>
+
+    <%= link_to t('common.edit'), edit_label_path(@label), class: 'btn btn-primary mr-2' %>
+    <div class="d-inline-block">
+      <%= button_to t('common.delete'), @label, controller: 'labels', action: 'index', class: 'btn btn-primary',
+                    method: :delete, data: { confirm: t('notification.confirm_destroy', value: @label.name) } %>
+    </div>
+  </div>
+</article>

@@ -8,6 +8,15 @@ ja:
       title: 'タスク作成'
     edit:
       title: 'タスク編集'
+  labels:
+    index:
+      title: 'ラベル一覧'
+    show:
+      title: 'ラベル詳細'
+    new:
+      title: 'ラベル作成'
+    edit:
+      title: 'ラベル編集'
   sessions:
     new:
       title: 'ログイン'
