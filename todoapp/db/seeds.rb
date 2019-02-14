@@ -58,11 +58,17 @@ task_labels = []
       name: label_names[_i]
     })
 
-    task_labels << TaskLabel.new({
-      label_user_id: last_insert_user_id,
-      task_id: last_insert_task_id,
-      label_id: last_insert_label_id
-    })
+    # 先頭のタスクはラベルなし
+    if _i.nonzero?
+      task_labels << TaskLabel.new({
+        task_id: last_insert_task_id,
+        label_id: last_insert_label_id - 1
+      })
+      task_labels << TaskLabel.new({
+        task_id: last_insert_task_id,
+        label_id: last_insert_label_id
+      })
+    end
   end
 end
 User.import users

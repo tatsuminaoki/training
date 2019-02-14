@@ -4,9 +4,9 @@ class TasksController < ApplicationController
   PER = 8
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_label, only: [:index, :show, :edit, :new, :create]
 
   def index
-    @labels = current_user.labels
     @search = if params[:q]
                 current_user.tasks.includes(:labels).ransack(params[:q])
               else
@@ -54,10 +54,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :end_at)
+    params.require(:task).permit(:title, :description, :status, :end_at, { label_ids: [] })
   end
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def set_label
+    @labels = current_user.labels
   end
 end
