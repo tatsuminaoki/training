@@ -35,7 +35,7 @@
         <td><%= link_to task.id, task_path(task.id) %></td>
         <td><%= task.title %></td>
         <td><%= task.status_i18n %></td>
-        <td><%= task.labels.map{ |label| [label.name] }.join('/') %></td>
+        <td><%= task_label(task) %></td>
         <td><%= l(task.end_at) unless task.end_at.nil? %></td>
         <td><%= l(task.created_at) %></td>
         <td><%= l(task.updated_at) %></td>
