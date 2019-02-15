@@ -10,8 +10,8 @@ class User < ApplicationRecord
             length: { maximum: 128 },
             format: { with: VALID_EMAIL_REGEX }
 
-  has_many :tasks, dependent: :delete_all
   has_many :labels, dependent: :delete_all
+  has_many :tasks, dependent: :delete_all
 
   scope :with_task_count, lambda {
     left_outer_joins(:tasks)
@@ -32,6 +32,11 @@ class User < ApplicationRecord
 
   def myself?(user)
     id == user.id
+  end
+
+  def destroy
+    TaskLabel.where(label_id: labels.ids).delete_all
+    super
   end
 
   def self.new_remember_token
