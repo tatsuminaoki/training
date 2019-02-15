@@ -7,14 +7,14 @@ feature 'タスク検索機能', type: :feature do
   let!(:tasks) {
     [
       FactoryBot.create(:task, name: 'タスク1', due_date: '20190203', priority: :middle, status: :in_progress, created_at: Time.zone.now, user: user),
-      FactoryBot.create(:task, name: 'タスク2', due_date: '20190209', priority: :high, status: :to_do, created_at: 1.day.ago, user: user),
-      FactoryBot.create(:task, name: 'task3', due_date: '20190206', priority: :low, status: :in_progress, created_at: 2.days.ago, user: user),
-      FactoryBot.create(:task, name: 'ラスク4', due_date: '20190212', priority: :low, status: :in_progress, created_at: 3.days.ago, user: user),
+      FactoryBot.create(:task, name: 'タスク2', due_date: '20190209', priority: :high,   status: :to_do,       created_at: 1.day.ago,     user: user),
+      FactoryBot.create(:task, name: 'task3',  due_date: '20190206', priority: :low,    status: :in_progress, created_at: 2.days.ago,    user: user),
+      FactoryBot.create(:task, name: 'ラスク4', due_date: '20190212', priority: :low,    status: :in_progress, created_at: 3.days.ago,    user: user),
     ]
   }
 
   before do
-    visit login(user)
+    login(user)
     fill_in 'name', with: task_name
     select status, from: 'status'
     click_on('検索')

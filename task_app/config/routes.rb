@@ -7,5 +7,10 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  namespace :admin do
+    root to: 'users#index'
+    resources :users, except: %i[show]
+  end
+
   resources :tasks, except: %i[show]
 end

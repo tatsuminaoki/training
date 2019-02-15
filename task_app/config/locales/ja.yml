@@ -3,7 +3,7 @@ ja:
   activerecord:
     models:
       task: タスク
-      user: ユーザー
+      user: ユーザ
     attributes:
       task:
         id: ID
@@ -44,6 +44,10 @@ ja:
     edit: '編集'
     update: '更新'
     destroy: '削除'
+    submit: 送信
+    search: 検索
+    login: ログイン
+    logout: ログアウト
   actions_with_model:
     index: "%{model_name}一覧"
     new: "%{model_name}登録"
@@ -51,11 +55,8 @@ ja:
     edit: "%{model_name}編集"
     update: "%{model_name}更新"
     destroy: "%{model_name}削除"
-  links:
+  words:
     manage: "%{model_name}管理"
-    search: 検索
-    logout: ログアウト
-    login: ログイン
   flash:
     success: "%{target}を%{action}しました。"
     failed: "%{target}の%{action}に失敗しました。"
@@ -64,6 +65,7 @@ ja:
       failed: メールアドレスまたはパスワードが正しくありません
       required: サービスを利用するにはログインが必要です
     logout: ログアウトしました
+    user_self_destroy: 自身のアカウントは削除できません
   dialog: "%{target}を%{action}します。よろしいでしょうか？"
 
   date:

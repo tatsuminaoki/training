@@ -15,9 +15,9 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(task_params)
 
     if @task.save
-      redirect_to root_url, flash: { success: create_flash_message('create', 'success') }
+      redirect_to root_url, flash: { success: create_flash_message('create', 'success', @task, :name) }
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -26,18 +26,20 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to root_url, flash: { success: create_flash_message('update', 'success') }
+      redirect_to root_url, flash: { success: create_flash_message('update', 'success', @task, :name) }
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      redirect_to root_url, flash: { success: create_flash_message('destroy', 'success') }
+      flash[:success] = create_flash_message('destroy', 'success', @task, :name)
     else
-      redirect_to root_url, flash: { danger: create_flash_message('destroy', 'failed') }
+      flash[:danger] = create_flash_message('destroy', 'failed', @task, :name)
     end
+
+    redirect_to root_url
   end
 
   private
@@ -48,9 +50,5 @@ class TasksController < ApplicationController
 
   def find_task
     @task = current_user.tasks.find(params[:id])
-  end
-
-  def create_flash_message(action, result)
-    I18n.t("flash.#{result}", target: "#{Task.model_name.human}「#{@task.name}」", action: I18n.t("actions.#{action}"))
   end
 end

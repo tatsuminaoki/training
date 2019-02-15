@@ -1,0 +1,37 @@
+<h3><%= I18n.t('actions_with_model.index', model_name: User.model_name.human) %></h3>
+
+<%= form_with url: admin_root_path, method: 'get', local: true, class: 'form-inline mb-3' do |form| %>
+  <%= form.text_field :email, placeholder: 'メールアドレスを入力', value: params[:email], class: 'form-control mr-2 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2' %>
+  <%= form.submit I18n.t('actions.search'), class: 'btn btn-primary btn-sm ml-2' %>
+<% end %>
+
+<div class="user-pagination">
+  <%= paginate @users %>
+  <%= page_entries_info @users %>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <th><%= Task.model_name.human %>数</th>
+      <th><%= User.human_attribute_name(:created_at) %></th>
+      <th><%= User.human_attribute_name(:updated_at) %></th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.tasks.size %></td>
+        <td><%= I18n.l(user.created_at, format: :long) %></td>
+        <td><%= I18n.l(user.updated_at, format: :long) %></td>
+        <td>
+          <%= link_to I18n.t('actions.destroy'), admin_user_path(user), method: :delete,
+              data: { confirm: I18n.t(:dialog, target: "#{User.model_name.human}「#{user.email}」", action: I18n.t('actions.destroy')) } unless user == current_user %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
