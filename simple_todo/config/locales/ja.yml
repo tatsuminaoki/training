@@ -1,7 +1,5 @@
 ja:
   activerecord:
-    models:
-      task:
     attributes:
       task:
         title: 'タイトル'
@@ -10,8 +8,16 @@ ja:
         limit: '締め切り'
         priority: '優先度'
         status: 'ステータス'
-  view:
-    index:
-      title: 'タスク一覧'
-    edit:
-      title: 'タスクの編集'
+  contents:
+    index: 'タスク一覧' 
+    edit: '修正'
+    show: '詳細'
+    destroy: '削除'
+    new: 'タスク作成'
+  messages:
+    confirm: '本当によろしいでしょうか？'
+  flash:
+    task: 
+      created: "タスクが保存されました"
+      updated: "タスクが更新されました"
+      destroyed: "タスクが削除されました"
