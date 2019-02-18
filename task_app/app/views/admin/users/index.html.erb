@@ -28,6 +28,8 @@
         <td><%= I18n.l(user.created_at, format: :long) %></td>
         <td><%= I18n.l(user.updated_at, format: :long) %></td>
         <td>
+          <%= link_to I18n.t('actions_with_model.index', model_name: Task.model_name.human), tasks_admin_user_path(user) %>
+          <%= link_to I18n.t('actions.edit'), edit_admin_user_path(user) %>
           <%= link_to I18n.t('actions.destroy'), admin_user_path(user), method: :delete,
               data: { confirm: I18n.t(:dialog, target: "#{User.model_name.human}「#{user.email}」", action: I18n.t('actions.destroy')) } unless user == current_user %>
         </td>
