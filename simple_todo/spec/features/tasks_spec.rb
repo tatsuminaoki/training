@@ -9,7 +9,7 @@ RSpec.feature "tasks", type: :feature do
   scenario "task list" do
     visit tasks_path
 
-    expect(page).to have_content 'Tasks'
+    expect(page).to have_content t('contents.index')
     expect(page).to have_content 'test title'
   end
 
@@ -27,7 +27,7 @@ RSpec.feature "tasks", type: :feature do
     select '5', from: 'task_priority'
     fill_in 'Status', with: '1'
 
-    click_button 'Create Task'
+    click_button 'submit'
 
     expect(page).to have_content 'Task was successfully created.'
   end
