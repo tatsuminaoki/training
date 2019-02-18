@@ -19,6 +19,11 @@ ja:
         end_at: 完了期限
         created_at: 登録日時
         updated_at: 更新日時
+      label:
+        id: ID
+        name: ラベル
+        created_at: 登録日時
+        updated_at: 更新日時
   enums:
     task:
       status:

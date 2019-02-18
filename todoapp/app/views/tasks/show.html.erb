@@ -12,6 +12,8 @@
       <dd class="col-sm-9 text-truncate"><%= @task.description %></dd>
       <dt class="col-sm-3"><%= Task.human_attribute_name(:status) %></dt>
       <dd class="col-sm-9"><%= @task.status_i18n %></dd>
+      <dt class="col-sm-3"><%= Label.human_attribute_name(:name) %></dt>
+      <dd class="col-sm-9"><%= task_label(@task) %></dd>
       <dt class="col-sm-3"><%= Task.human_attribute_name(:end_at) %></dt>
       <dd class="col-sm-9"><%= l(@task.end_at) unless @task.end_at.nil? %></dd>
       <dt class="col-sm-3"><%= Task.human_attribute_name(:created_at) %></dt>

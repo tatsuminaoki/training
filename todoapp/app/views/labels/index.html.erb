@@ -1,0 +1,31 @@
+<% content_for(:title) { t('.title') } %>
+
+<table class="table text-center table-hover table-striped table-sm mb-3">
+  <thead class="thead-light">
+  <tr>
+    <th><%= Label.human_attribute_name(:id) %></th>
+    <th><%= Label.human_attribute_name(:name) %></th>
+    <th><%= Label.human_attribute_name(:created_at) %></th>
+    <th><%= Label.human_attribute_name(:updated_at) %></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @search_labels.each do |label| %>
+    <tr>
+      <td><%= link_to label.id, label_path(label.id) %></td>
+      <td><%= label.name %></td>
+      <td><%= l(label.created_at) %></td>
+      <td><%= l(label.updated_at) %></td>
+      <td><%= link_to t('common.edit'), edit_label_path(label), class: 'btn btn-primary' %></td>
+      <td>
+        <%= button_to t('common.delete'), label, controller: 'labels', action: 'index', class: 'btn btn-primary',
+                      method: :delete, data: { confirm: t('notification.confirm_destroy', value: label.name) } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @search_labels %>

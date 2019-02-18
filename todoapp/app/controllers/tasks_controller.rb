@@ -4,18 +4,18 @@ class TasksController < ApplicationController
   PER = 8
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_label, only: [:index, :show, :edit, :new, :create]
 
   def index
     @search = if params[:q]
-                current_user.tasks.ransack(params[:q])
+                current_user.tasks.includes(:labels).ransack(params[:q])
               else
-                current_user.tasks.ransack(recent: true)
+                current_user.tasks.includes(:labels).ransack(recent: true)
               end
     @search_tasks = @search.result.page(params[:page]).per(PER)
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
@@ -23,7 +23,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def create
@@ -55,10 +54,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :end_at)
+    params.require(:task).permit(:title, :description, :status, :end_at, { label_ids: [] })
   end
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def set_label
+    @labels = current_user.labels
   end
 end

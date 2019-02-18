@@ -1,0 +1,19 @@
+<article class="card mx-auto w-75">
+  <h5 class="card-header text-muted"><%= t('common.form_title') %></h5>
+  <div class="card-body">
+    <ul>
+      <% label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+
+    <%= form_with model: label, local: true, class: 'form-horizontal' do |f| %>
+      <div class="form-group row">
+        <%= f.label :name, class: 'col-form-label col-lg-2 col-sm-3' %>
+        <%= f.text_field :name, class: 'form-control col-7' %>
+      </div>
+
+      <%= f.submit class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</article>
