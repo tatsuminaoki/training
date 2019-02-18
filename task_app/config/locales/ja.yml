@@ -44,10 +44,6 @@ ja:
     edit: '編集'
     update: '更新'
     destroy: '削除'
-    submit: 送信
-    search: 検索
-    login: ログイン
-    logout: ログアウト
   actions_with_model:
     index: "%{model_name}一覧"
     new: "%{model_name}登録"
@@ -56,6 +52,10 @@ ja:
     update: "%{model_name}更新"
     destroy: "%{model_name}削除"
   words:
+    submit: 送信
+    search: 検索
+    login: ログイン
+    logout: ログアウト
     manage: "%{model_name}管理"
   flash:
     success: "%{target}を%{action}しました。"

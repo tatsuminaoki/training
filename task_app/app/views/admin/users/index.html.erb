@@ -2,7 +2,7 @@
 
 <%= form_with url: admin_root_path, method: 'get', local: true, class: 'form-inline mb-3' do |form| %>
   <%= form.text_field :email, placeholder: 'メールアドレスを入力', value: params[:email], class: 'form-control mr-2 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2' %>
-  <%= form.submit I18n.t('actions.search'), class: 'btn btn-primary btn-sm ml-2' %>
+  <%= form.submit I18n.t('words.search'), class: 'btn btn-primary btn-sm ml-2' %>
 <% end %>
 
 <div class="user-pagination">
