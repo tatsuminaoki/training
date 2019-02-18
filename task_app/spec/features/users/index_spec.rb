@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature '基本機能' do
+feature 'ユーザ管理', type: :feature do
   let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
   let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
 
@@ -12,12 +12,9 @@ feature '基本機能' do
     login(user1, admin_root_path)
   end
 
-  feature '画面表示', type: :feature do
+  feature '画面表示機能' do
     context 'ログインせず画面へアクセスしたとき' do
-      before do
-        logout
-        visit admin_root_path
-      end
+      before { logout(admin_root_path) }
 
       scenario 'メッセージと共にログイン画面が表示される' do
         expect(current_path).to eq login_path
@@ -38,7 +35,7 @@ feature '基本機能' do
     end
   end
 
-  feature 'ユーザ削除', type: :feature do
+  feature 'ユーザ削除機能' do
     context 'user1でログイン後、user2を削除する確認ダイアログでOKを押したとき' do
       scenario 'user2は削除され、ユーザ一覧画面にメッセージが表示される' do
         page.find('tr', text: user2.email).click_link('削除')
@@ -62,6 +59,56 @@ feature '基本機能' do
     context 'user1でログイン時、自身のアカウントを削除しようとしたとき' do
       scenario 'ユーザ一覧画面に削除するリンクは存在しない' do
         expect(page.find('tr', text: user1.email)).to have_no_link('削除')
+      end
+    end
+  end
+
+  feature 'ユーザ検索機能' do
+    before do
+      fill_in 'email', with: email
+      click_on('検索')
+    end
+
+    context '「user1」でアドレス検索をしたとき' do
+      let(:email) { 'user1' }
+
+      scenario '検索結果は1件' do
+        expect(page.all('tbody tr').size).to eq 1
+        expect(page).to have_content(user1.email, count: 1)
+        expect(find_field('email').value).to eq 'user1'
+      end
+    end
+
+    context '「hoge」でアドレス検索をしたとき' do
+      let(:email) { 'hoge' }
+
+      scenario '検索結果は0件' do
+        expect(page.all('tbody tr').size).to eq 0
+        expect(find_field('email').value).to eq 'hoge'
+      end
+    end
+  end
+
+  feature 'ページネーション機能' do
+    before do
+      (3..10).each { |i| FactoryBot.create(:user, email: "user#{i}@example.com") }
+      visit admin_root_path
+    end
+
+    context 'ユーザ数が10のとき' do
+      scenario '1ページ目に6ユーザが表示される' do
+        expect(page).to have_content '全10件中1 - 6件のユーザが表示されています'
+        expect(page).to have_link '次 ›'
+        expect(page).to have_no_link '‹ 前'
+        expect(page.all('tbody tr').size).to eq 6
+      end
+
+      scenario '2ページ目に4ユーザが表示される' do
+        find_link('次').click
+        expect(page).to have_content '全10件中7 - 10件のユーザが表示されています'
+        expect(page).to have_link '‹ 前'
+        expect(page).to have_no_link '次 ›'
+        expect(page.all('tbody tr').size).to eq 4
       end
     end
   end

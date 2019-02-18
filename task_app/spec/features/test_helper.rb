@@ -9,7 +9,8 @@ module TestHelper
     visit visit_path if visit_path
   end
 
-  def logout
+  def logout(visit_path = nil)
     page.driver.browser.manage.delete_all_cookies
+    visit visit_path if visit_path
   end
 end
