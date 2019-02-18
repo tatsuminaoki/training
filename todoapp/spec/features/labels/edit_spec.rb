@@ -20,6 +20,9 @@ feature 'ラベル管理機能', type: :feature do
 
         click_button '更新する'
         expect(page).to have_content '「ラベル更新したよ」を更新しました。'
+
+        element = find('/html/body/article/table/tbody/tr[1]/td[2]')
+        expect(element.text).to have_content 'ラベル更新したよ'
       end
     end
   end
