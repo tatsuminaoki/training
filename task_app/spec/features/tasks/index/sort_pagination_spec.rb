@@ -14,7 +14,7 @@ feature 'タスクソート機能', type: :feature do
 
   shared_examples_for '任意の順でソートされる' do |options = {}|
     before do
-      visit login(user)
+      login(user)
       until has_text?(options[:sort_column]); end
       page.find('th', text: options[:sort_column]).click_link(options[:direction]) if options[:sort_column].present? && options[:direction].present?
     end
@@ -51,7 +51,7 @@ end
 
 feature 'ページネーション機能', type: :feature do
   let!(:user) { FactoryBot.create(:user) }
-  let!(:tasks) { 10.times { FactoryBot.create(:task, user: user) } }
+  let!(:tasks) { FactoryBot.create_list(:task, 10, user: user) }
 
   before { login(user) }
 
