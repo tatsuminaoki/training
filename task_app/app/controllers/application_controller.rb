@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     render file: Rails.root.join('public', '500.html'), status: 500, layout: false, content_type: 'text/html'
   end
 
+  def create_flash_message(action, result, record, attribute)
+    I18n.t("flash.#{result}", target: "#{record.class.model_name.human}「#{record[attribute]}」", action: I18n.t("actions.#{action}"))
+  end
+
   private
 
   def current_user

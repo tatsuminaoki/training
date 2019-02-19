@@ -100,4 +100,22 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '検索機能' do
+    let!(:user1) { FactoryBot.create(:user, email: 'test1@gmail.com') }
+    let!(:user2) { FactoryBot.create(:user, email: 'test2@gmail.com') }
+    let!(:user3) { FactoryBot.create(:user, email: 'foo@gmail.com') }
+
+    context '「test」でアドレス検索したとき' do
+      it '2件のレコードを取得' do
+        expect(User.search({ email: 'test' }).count).to eq 2
+      end
+    end
+
+    context '存在しないアドレスで検索したとき' do
+      it '0件のレコードを取得' do
+        expect(User.search({ email: 'abc' }).count).to eq 0
+      end
+    end
+  end
 end
