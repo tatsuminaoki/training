@@ -35,7 +35,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_url, notice: t('flash.task.created')
+    redirect_to tasks_url, notice: t('flash.task.destroyed')
   end
 
   private
