@@ -9,12 +9,12 @@ feature 'ユーザ管理', type: :feature do
   before do
     FactoryBot.create_list(:task, 3, user: user1)
     FactoryBot.create_list(:task, 2, user: user2)
-    login(user1, admin_root_path)
+    login(user1, admin_users_path)
   end
 
   feature '画面表示機能' do
     context 'ログインせず画面へアクセスしたとき' do
-      before { logout(admin_root_path) }
+      before { logout(admin_users_path) }
 
       scenario 'メッセージと共にログイン画面が表示される' do
         expect(current_path).to eq login_path
@@ -25,7 +25,7 @@ feature 'ユーザ管理', type: :feature do
 
     context 'user1でログインした状態でアクセスしたとき' do
       scenario 'ユーザ一覧画面が表示され、ユーザ数と各ユーザのタスク数を確認できる' do
-        expect(current_path).to eq admin_root_path
+        expect(current_path).to eq admin_users_path
         expect(page.all('tbody tr').size).to eq 2
         expect(page).to have_content(user1.email, count: 1)
         expect(page).to have_content(user2.email, count: 1)
@@ -92,7 +92,7 @@ feature 'ユーザ管理', type: :feature do
   feature 'ページネーション機能' do
     before do
       (3..10).each { |i| FactoryBot.create(:user, email: "user#{i}@example.com") }
-      visit admin_root_path
+      visit admin_users_path
     end
 
     context 'ユーザ数が10のとき' do

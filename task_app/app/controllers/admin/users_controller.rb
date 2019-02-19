@@ -2,7 +2,7 @@
 
 module Admin
   class UsersController < ApplicationController
-    before_action :find_user, only: %i[destroy]
+    before_action :find_user, only: :destroy
 
     def index
       @users = User.search(params).page(params[:page])
@@ -17,7 +17,7 @@ module Admin
         flash[:danger] = create_flash_message('destroy', 'failed', @user, :email)
       end
 
-      redirect_to admin_root_url
+      redirect_to admin_users_url
     end
 
     private
