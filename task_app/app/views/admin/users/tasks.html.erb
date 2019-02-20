@@ -1,6 +1,6 @@
 <h3 class="mb-3"><%= I18n.t('words.resource', owner: "#{@user.email}", item: I18n.t('actions_with_model.index', model_name: Task.model_name.human)) %></h3>
 
-<%= form_with url: tasks_admin_user_path(@user), method: 'get', local: true, class: 'form-inline mb-3' do |form| %>
+<%= form_with url: tasks_admin_user_path(@user), method: :get, local: true, class: 'form-inline mb-3' do |form| %>
   <%= form.text_field :name, placeholder: 'タスク名を入力', value: params[:name], class: 'form-control mr-2 col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2' %>
   <%= form.select :status, Task.statuses.map { |key, _| [I18n.t("enums.task.status.#{key}"), key] }, selected: params[:status], include_blank: '指定しない' %>
   <%= form.submit I18n.t('words.search'), class: 'btn btn-primary btn-sm ml-2' %>

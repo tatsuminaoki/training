@@ -38,7 +38,7 @@ feature 'タスクソート機能', type: :feature do
     ]
   }
 
-  shared_examples_for '任意の順でソートされる' do |options = {}|
+  shared_examples 'リンククリックでソートされる' do |options = {}|
     before do
       login(user, tasks_admin_user_path(user))
       until has_text?(options[:sort_column]); end
@@ -46,7 +46,20 @@ feature 'タスクソート機能', type: :feature do
     end
 
     scenario '並び順が一致する' do
-      until has_table?; end
+      until has_selector?('tbody tr', count: 3); end
+      tr = page.all('tbody tr')
+
+      tr.each.with_index do |element, i|
+        expect(element.text).to have_content(tasks[options[:order][i]].name)
+      end
+    end
+  end
+
+  shared_examples 'パラメータ指定でソートされる' do |options = {}|
+    before { login(user, tasks_admin_user_path(user, sort_column: options[:sort_column], sort_direction: options[:direction])) }
+
+    scenario '並び順が一致する' do
+      until has_selector?('tbody tr', count: 3); end
       tr = page.all('tbody tr')
 
       tr.each.with_index do |element, i|
@@ -56,22 +69,34 @@ feature 'タスクソート機能', type: :feature do
   end
 
   context '一覧画面で何もしないとき' do
-    it_behaves_like '任意の順でソートされる', { order: [0, 1, 2] }
+    it_behaves_like 'リンククリックでソートされる', { order: [0, 1, 2] }
   end
 
   context '列「登録日時」の「▲/▼」をクリックした時' do
-    it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▲', order: [2, 1, 0] }
-    it_behaves_like '任意の順でソートされる', { sort_column: '登録日時', direction: '▼', order: [0, 1, 2] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '登録日時', direction: '▲', order: [2, 1, 0] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '登録日時', direction: '▼', order: [0, 1, 2] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'created_at', direction: 'asc',  order: [2, 1, 0] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'created_at', direction: 'desc', order: [0, 1, 2] }
   end
 
   context '列「優先度」の「▲/▼」をクリックした時' do
-    it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▲', order: [2, 0, 1] }
-    it_behaves_like '任意の順でソートされる', { sort_column: '優先度', direction: '▼', order: [1, 0, 2] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '優先度', direction: '▲', order: [2, 0, 1] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '優先度', direction: '▼', order: [1, 0, 2] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'priority', direction: 'asc',  order: [2, 0, 1] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'priority', direction: 'desc', order: [1, 0, 2] }
   end
 
   context '列「期限」の「▲/▼」をクリックした時' do
-    it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▲', order: [0, 2, 1] }
-    it_behaves_like '任意の順でソートされる', { sort_column: '期限', direction: '▼', order: [1, 2, 0] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '期限', direction: '▲', order: [0, 2, 1] }
+    it_behaves_like 'リンククリックでソートされる', { sort_column: '期限', direction: '▼', order: [1, 2, 0] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'due_date', direction: 'asc',  order: [0, 2, 1] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'due_date', direction: 'desc', order: [1, 2, 0] }
+  end
+
+  context '空や許可されていないパラメータを指定してソートしたとき(column: foo, direction: bar)' do
+    # 登録日時の降順でソートされる
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'priority', direction: '',    order: [0, 1, 2] }
+    it_behaves_like 'パラメータ指定でソートされる', { sort_column: 'foo',      direction: 'bar', order: [0, 1, 2] }
   end
 end
 

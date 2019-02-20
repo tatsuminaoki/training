@@ -46,7 +46,7 @@ module Admin
     end
 
     def tasks
-      @tasks = Task.search(params, @user.tasks).order("#{params[:sort_column] || 'created_at'} #{params[:sort_direction] || 'desc'}").page(params[:page])
+      @tasks = Task.search(params, @user.tasks).page(params[:page])
     end
 
     private
