@@ -27,9 +27,7 @@ class Task < ApplicationRecord
   def self.sort_tasks(column, direction)
     # 以下のunless文はどちらかがfalseの場合条件成立
     return { created_at: :desc } unless SORT_COLUMNS.include?(column&.to_sym) && SORT_DIRECTION.include?(direction&.to_sym)
-    output = {}
-    output[column] = direction
-    output
+    [[column, direction]].to_h
   end
 
   private
