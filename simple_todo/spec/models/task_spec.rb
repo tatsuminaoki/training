@@ -11,7 +11,7 @@ RSpec.describe Task, type: :model do
 
       task = Task.new(
         description: '',
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
@@ -23,7 +23,7 @@ RSpec.describe Task, type: :model do
         description: '',
         user_id: 1,
         status: 1,
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
@@ -34,7 +34,7 @@ RSpec.describe Task, type: :model do
         description: '',
         user_id: 1,
         status: 1,
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
@@ -45,7 +45,7 @@ RSpec.describe Task, type: :model do
         description: 'a'*200,
         user_id: 1,
         status: 1,
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
@@ -56,7 +56,7 @@ RSpec.describe Task, type: :model do
         description: 'a'*201,
         user_id: 1,
         status: 1,
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
@@ -67,7 +67,7 @@ RSpec.describe Task, type: :model do
         description: 'a'*200,
         user_id: 1,
         status: 1,
-        limit: '2019-02-20 12:29:00'
+        limit: '2019-03-28 12:29:00'
       )
       expect(task).to be_valid
     end
