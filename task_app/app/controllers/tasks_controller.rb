@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[edit update destroy]
 
   def index
-    @tasks = Task.search(params, current_user.tasks).order("#{params[:sort_column] || 'created_at'} #{params[:sort_direction] || 'desc'}").page(params[:page])
+    @tasks = Task.search(params, current_user.tasks).page(params[:page])
   end
 
   def new

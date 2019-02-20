@@ -169,9 +169,9 @@ describe Task, type: :model do
     let!(:tasks) {
       [
         # userを指定せずにtaskをcreateした場合、createする度に同一のuserを作成する為、emailのunique制約にひっかかる
-        FactoryBot.create(:task, user: user, name: 'タスク', status: :to_do),
-        FactoryBot.create(:task, user: user, name: 'task', status: :in_progress),
-        FactoryBot.create(:task, user: user, name: 'タスク', status: :in_progress),
+        FactoryBot.create(:task, due_date: '20190203', priority: :middle, name: 'タスク1', created_at: Time.zone.now, status: :to_do,       user: user),
+        FactoryBot.create(:task, due_date: '20190209', priority: :high,   name: 'task2',  created_at: 1.day.ago,     status: :in_progress, user: user),
+        FactoryBot.create(:task, due_date: '20190206', priority: :low,    name: 'タスク3', created_at: 2.days.ago,    status: :in_progress, user: user),
       ]
     }
 
@@ -196,6 +196,45 @@ describe Task, type: :model do
     context '名前・ステータスで検索したとき' do
       it '1件のレコードを取得' do
         expect(Task.search({ name: 'タスク', status: Task.statuses[:in_progress] }).count).to eq 1
+      end
+    end
+
+    context '期限の降順でソートしたとき' do
+      it '期限の降順で3件のレコードを取得' do
+        records = Task.search({ sort_column: 'due_date', sort_direction: 'desc' })
+        expect(records.count).to eq 3
+        expect(records[0].name).to eq 'task2'
+        expect(records[1].name).to eq 'タスク3'
+        expect(records[2].name).to eq 'タスク1'
+      end
+    end
+
+    context '名前検索した結果を優先順位の昇順でソートしたとき' do
+      it '優先順位の昇順で2件のレコードを取得' do
+        records = Task.search({ name: 'タスク', sort_column: 'priority', sort_direction: 'asc' })
+        expect(records.count).to eq 2
+        expect(records[0].name).to eq 'タスク3'
+        expect(records[1].name).to eq 'タスク1'
+      end
+    end
+
+    context '許可されていないパラメータでソートしたとき' do
+      it '登録日時の降順でソートされる' do
+        records = Task.search({ sort_column: 'foo', sort_direction: 'bar' })
+        expect(records.count).to eq 3
+        expect(records[0].name).to eq 'タスク1'
+        expect(records[1].name).to eq 'task2'
+        expect(records[2].name).to eq 'タスク3'
+      end
+    end
+
+    context '空のパラメータでソートしたとき' do
+      it '登録日時の降順でソートされる' do
+        records = Task.search({ sort_column: '', sort_direction: 'desc' })
+        expect(records.count).to eq 3
+        expect(records[0].name).to eq 'タスク1'
+        expect(records[1].name).to eq 'task2'
+        expect(records[2].name).to eq 'タスク3'
       end
     end
   end

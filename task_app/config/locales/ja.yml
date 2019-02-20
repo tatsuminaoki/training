@@ -57,6 +57,8 @@ ja:
     login: ログイン
     logout: ログアウト
     manage: "%{model_name}管理"
+    back: 戻る
+    resource: "%{owner}の%{item}"
   flash:
     success: "%{target}を%{action}しました。"
     failed: "%{target}の%{action}に失敗しました。"

@@ -20,6 +20,7 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
         <%= link_to I18n.t('actions.index'), admin_users_path, class: 'dropdown-item' %>
+        <%= link_to I18n.t('actions_with_model.new', model_name: User.model_name.human), new_admin_user_path, class: 'dropdown-item' %>
       </div>
     </li>
   </ul>

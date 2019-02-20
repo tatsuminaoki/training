@@ -1,6 +1,32 @@
 # frozen_string_literal: true
 
+# 各ユーザのタスク一覧画面に関するspec
+
 require 'rails_helper'
+
+feature '画面表示機能', type: :feature do
+  let!(:user) { FactoryBot.create(:user) }
+
+  context 'ログインせず画面へアクセスしたとき' do
+    before { visit tasks_admin_user_path(user) }
+
+    scenario 'メッセージと共にログイン画面が表示される' do
+      expect(current_path).to eq login_path
+      expect(page).to have_selector('.alert-danger', text: 'サービスを利用するにはログインが必要です')
+      expect(page).to have_selector('form', count: 1)
+    end
+  end
+
+  context 'ログインした状態でアクセスしたとき' do
+    before { login(user, tasks_admin_user_path(user)) }
+
+    scenario 'ユーザのタスク一覧画面が表示される' do
+      expect(current_path).to eq tasks_admin_user_path(user)
+      expect(page).to have_content "#{user.email}のタスク一覧"
+      expect(page).to have_selector('table', count: 1)
+    end
+  end
+end
 
 feature 'タスクソート機能', type: :feature do
   let!(:user) { FactoryBot.create(:user) }
@@ -14,7 +40,7 @@ feature 'タスクソート機能', type: :feature do
 
   shared_examples 'リンククリックでソートされる' do |options = {}|
     before do
-      login(user)
+      login(user, tasks_admin_user_path(user))
       until has_text?(options[:sort_column]); end
       page.find('th', text: options[:sort_column]).click_link(options[:direction]) if options[:sort_column].present? && options[:direction].present?
     end
@@ -30,7 +56,7 @@ feature 'タスクソート機能', type: :feature do
   end
 
   shared_examples 'パラメータ指定でソートされる' do |options = {}|
-    before { login(user, tasks_path(sort_column: options[:sort_column], sort_direction: options[:direction])) }
+    before { login(user, tasks_admin_user_path(user, sort_column: options[:sort_column], sort_direction: options[:direction])) }
 
     scenario '並び順が一致する' do
       until has_selector?('tbody tr', count: 3); end
@@ -78,7 +104,7 @@ feature 'ページネーション機能', type: :feature do
   let!(:user) { FactoryBot.create(:user) }
   let!(:tasks) { FactoryBot.create_list(:task, 10, user: user) }
 
-  before { login(user) }
+  before { login(user, tasks_admin_user_path(user)) }
 
   context 'タスク件数が10件のとき' do
     scenario '1ページ目に6件表示される' do

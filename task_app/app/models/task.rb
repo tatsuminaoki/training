@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  SORT_COLUMNS = %i[priority due_date created_at].freeze
+  SORT_DIRECTION = %i[asc desc].freeze
+
   belongs_to :user
 
   enum priority: %i[low middle high].freeze
@@ -17,7 +20,14 @@ class Task < ApplicationRecord
     initial_records ||= self
     initial_records   = initial_records.where('name LIKE ?', "%#{params[:name]}%") if params[:name].present?
     initial_records   = initial_records.where(status: params[:status]) if params[:status].present?
+    initial_records   = initial_records.order(sort_tasks(params[:sort_column], params[:sort_direction]))
     initial_records
+  end
+
+  def self.sort_tasks(column, direction)
+    # 以下のunless文はどちらかがfalseの場合条件成立
+    return { created_at: :desc } unless SORT_COLUMNS.include?(column&.to_sym) && SORT_DIRECTION.include?(direction&.to_sym)
+    [[column, direction]].to_h
   end
 
   private
