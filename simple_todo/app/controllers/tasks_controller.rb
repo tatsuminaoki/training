@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
+
   end
 
   def show
@@ -35,7 +36,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_url, notice: t('flash.task.created')
+    redirect_to tasks_url, notice: t('flash.task.destroyed')
   end
 
   private
