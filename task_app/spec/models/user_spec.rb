@@ -118,4 +118,22 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '管理者数制御機能' do
+    let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
+    let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
+
+    context 'user2の権限を一般に更新したとき' do
+      it '正常に更新される' do
+        expect(user2.update(role: :general)).to eq true
+      end
+    end
+
+    context 'user2->user1の順で権限を一般に更新したとき' do
+      it 'user1の権限は更新できない' do
+        expect(user2.update(role: :general)).to eq true
+        expect(user1.update(role: :general)).to eq false
+      end
+    end
+  end
 end

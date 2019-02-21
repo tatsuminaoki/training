@@ -15,6 +15,7 @@
     <tr>
       <th><%= User.human_attribute_name(:email) %></th>
       <th><%= Task.model_name.human %>数</th>
+      <th><%= User.human_attribute_name(:role) %></th>
       <th><%= User.human_attribute_name(:created_at) %></th>
       <th><%= User.human_attribute_name(:updated_at) %></th>
       <th>アクション</th>
@@ -25,6 +26,7 @@
       <tr>
         <td><%= user.email %></td>
         <td><%= user.tasks.size.to_s(:delimited) %></td>
+        <td><%= I18n.t("enums.user.role.#{user.role}") %></td>
         <td><%= I18n.l(user.created_at, format: :long) %></td>
         <td><%= I18n.l(user.updated_at, format: :long) %></td>
         <td>

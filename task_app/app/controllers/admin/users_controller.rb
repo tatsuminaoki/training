@@ -2,6 +2,7 @@
 
 module Admin
   class UsersController < ApplicationController
+    before_action :forbid_accessing
     before_action :find_user, only: %i[edit update destroy tasks]
 
     def index
@@ -51,8 +52,12 @@ module Admin
 
     private
 
+    def forbid_accessing
+      raise Forbidden unless current_user.admin?
+    end
+
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation, :role)
     end
 
     def find_user
