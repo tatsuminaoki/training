@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_090400) do
+ActiveRecord::Schema.define(version: 2019_02_19_024640) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2019_02_12_090400) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
+    t.string "title", limit: 40, null: false
+    t.string "description", limit: 200
     t.integer "user_id", null: false
     t.datetime "limit", null: false
     t.integer "priority", null: false

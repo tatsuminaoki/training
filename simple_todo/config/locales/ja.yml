@@ -21,6 +21,9 @@ ja:
     new: タスク作成
   messages:
     confirm: 本当によろしいでしょうか？
+    required: は必須です
+    too_long: は最大%{count}文字まで使用できます
+    timeover: は過去の時間は設定できません
   flash:
     task:
       created: タスクが保存されました
