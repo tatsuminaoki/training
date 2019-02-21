@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature '更新とバリデーションエラー機能', type: :feature do
+feature 'ユーザ編集機能', type: :feature do
   let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
   let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
 
