@@ -1,5 +1,50 @@
 # training
 
+# 画面設計
+
+![ ](screen_design.jpg)
+
+### テーブル設計
+#### taskテーブル
+| カラム名 | 型 | プライマリーキー | Allow_NULL | DEFAULT | 説明 | INDEX |
+|:---|:---:|---:|---:|---:|---:|---:|
+|id |INT |○ | | |タスクのID | |
+|user_id |INT | | | |タスクのユーザーID | |
+|name |VARCHAR | | | |タスクの名前 |○ |
+|content |VARCHAR | |○ | |タスクの内容  |○ |
+|priority |ENUM | | |3 |1,高　2,中　3,低 |○ |
+|status |ENUM | | |1 |1,未着手　2,着手　3,完了 |○ |
+|endtime |DATETIME | |○ | |タスクの終了時刻 | |
+|created_at |DATETIME | | | |登録日時 | |
+|updated_at |DATETIME | | | |更新日時 | |
+
+#### labelテーブル
+| カラム名 | 型 | プライマリーキー | Allow_NULL | DEFAULT | 説明 | INDEX |
+|:---|:---:|---:|---:|---:|---:|---:|
+|id |INT |○ | | |ラベルのID | |
+|name |ENUM | | | |1,家事　2,勉強　3,買い物 4,読書 5,その他 | |
+|created_at |DATETIME | | | |登録日時 | |
+|updated_at |DATETIME | | | |更新日時 | |
+
+#### task_labelテーブル
+| カラム名 | 型 | プライマリーキー | Allow_NULL | DEFAULT | 説明 | INDEX |
+|:---|:---:|---:|---:|---:|---:|---:|
+|id |INT |○ | | |task_labelのID | |
+|task_id |INT | | | |task_id | |
+|label_id |INT | | | |label_id | |
+|created_at |DATETIME | | | |登録日時 | |
+|updated_at |DATETIME | | | |更新日時 | |
+
+#### userテーブル
+| カラム名 | 型 | プライマリーキー | Allow_NULL | DEFAULT | 説明 | INDEX |
+|:---|:---:|---:|---:|---:|---:|---:|
+|id |INT |○ | | |userのID | |
+|name |VARCHAR | | | |userの名前 | |
+|email |VARCHAR | | | |userのemail | |
+|password_digest |VARCHAR | | | |userのパスワード | |
+|created_at |DATETIME | | | |登録日時 | |
+|updated_at |DATETIME | | | |更新日時 | |
+
 ## このカリキュラムについて
 
 この文書は、Fablicで必須とされるRuby on Railsとその周辺技術の基礎を習得するための新入社員教育用カリキュラムです。
