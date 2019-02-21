@@ -83,6 +83,46 @@ describe User, type: :model do
         it { is_expected.to be_invalid }
       end
     end
+
+    describe '権限(role)' do
+      let(:user) { FactoryBot.build(:user, role: role) }
+      subject { user }
+
+      context '空のとき' do
+        let(:role) { '' }
+        it { is_expected.to be_invalid }
+      end
+
+      context '正常値(整数)のとき' do
+        let(:role) { User.roles[:admin] }
+        it { is_expected.to be_valid }
+      end
+
+      context '正常値(シンボル)のとき' do
+        let(:role) { :admin }
+        it { is_expected.to be_valid }
+      end
+
+      context '正常値(文字列)のとき' do
+        let(:role) { 'admin' }
+        it { is_expected.to be_valid }
+      end
+
+      context '不整値(整数)のとき' do
+        let(:role) { 5 }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+
+      context '不整値(シンボル)のとき' do
+        let(:role) { :abc }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+
+      context '不整値(文字列)のとき' do
+        let(:role) { 'abc' }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+    end
   end
 
   describe 'has_many :tasks, dependent: :delete_all' do
