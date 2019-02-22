@@ -13,11 +13,11 @@
 ActiveRecord::Schema.define(version: 2019_02_22_005619) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.text "name"
+    t.integer "user_id", null: false
+    t.text "name", null: false
     t.text "content"
-    t.integer "priority"
-    t.integer "status"
+    t.integer "priority", null: false
+    t.integer "status", null: false
     t.datetime "endtime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
