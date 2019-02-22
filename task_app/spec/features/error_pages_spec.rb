@@ -30,7 +30,7 @@ feature 'エラー画面の表示機能(非ログイン状態)', type: :feature 
 end
 
 feature 'エラー画面の表示機能(ログイン状態)', type: :feature do
-  let!(:user) { FactoryBot.create(:user, role: :general) }
+  let!(:user) { FactoryBot.create(:user) }
 
   shared_examples '内部エラーによりエラー画面が表示される' do |http_status, content|
     before do

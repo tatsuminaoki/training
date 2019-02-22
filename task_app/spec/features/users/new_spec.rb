@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 feature '画面表示機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
 
   context 'タスク一覧画面からボタンクリックで画面遷移したとき' do
     before do
@@ -20,7 +20,7 @@ feature '画面表示機能', type: :feature do
 end
 
 feature 'ユーザ登録機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
 
   before do
     login(user, new_admin_user_path)

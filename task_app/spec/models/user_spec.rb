@@ -160,8 +160,8 @@ describe User, type: :model do
   end
 
   describe '管理者数制御機能' do
-    let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
-    let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
+    let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com', role: :admin) }
+    let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com', role: :admin) }
 
     context 'user2の権限を一般に更新したとき' do
       it '正常に更新される' do

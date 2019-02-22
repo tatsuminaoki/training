@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 feature 'ユーザ編集機能', type: :feature do
-  let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
-  let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
+  let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com', role: :admin) }
+  let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com', role: :admin) }
 
   before do
     login(user1, admin_users_path)
@@ -92,7 +92,7 @@ feature 'ユーザ編集機能', type: :feature do
 end
 
 feature '管理者数制御機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
 
   before do
     login(user, admin_users_path)

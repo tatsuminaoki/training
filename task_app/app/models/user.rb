@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # パスワードが入力された時のみ実行される
   validates :password, length: { minimum: 6 }, format: { without: /\s/, message: I18n.t('errors.messages.space') }, if: :password, on: :update
   validates :role, presence: true
-  validate :keep_admin_more_than_one, if: :general?, on: :update # roleカラムがgeneralに更新された時に実行される
+  validate :keep_admin_at_least_one, if: :general?, on: :update # roleカラムがgeneralに更新された時に実行される
 
   def self.search(params)
     output = self.includes(:tasks)
@@ -23,9 +23,9 @@ class User < ApplicationRecord
 
   private
 
-  def keep_admin_more_than_one
+  def keep_admin_at_least_one
     return if User.admin.count > 1
-    errors.add(:base, :keep_admin_more_than_one)
+    errors.add(:base, :keep_admin_at_least_one)
     throw :abort
   end
 end
