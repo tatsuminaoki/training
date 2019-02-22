@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  name: 
+  content: 
+  priority: 
+  status: 
+  endtime: 
+
+two:
+  user_id: 
+  name: 
+  content: 
+  priority: 
+  status: 
+  endtime: 
