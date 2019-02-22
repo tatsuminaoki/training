@@ -83,6 +83,46 @@ describe User, type: :model do
         it { is_expected.to be_invalid }
       end
     end
+
+    describe '権限(role)' do
+      let(:user) { FactoryBot.build(:user, role: role) }
+      subject { user }
+
+      context '空のとき' do
+        let(:role) { '' }
+        it { is_expected.to be_invalid }
+      end
+
+      context '正常値(整数)のとき' do
+        let(:role) { User.roles[:admin] }
+        it { is_expected.to be_valid }
+      end
+
+      context '正常値(シンボル)のとき' do
+        let(:role) { :admin }
+        it { is_expected.to be_valid }
+      end
+
+      context '正常値(文字列)のとき' do
+        let(:role) { 'admin' }
+        it { is_expected.to be_valid }
+      end
+
+      context '不整値(整数)のとき' do
+        let(:role) { 5 }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+
+      context '不整値(シンボル)のとき' do
+        let(:role) { :abc }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+
+      context '不整値(文字列)のとき' do
+        let(:role) { 'abc' }
+        it { expect { subject }.to raise_error(ArgumentError) }
+      end
+    end
   end
 
   describe 'has_many :tasks, dependent: :delete_all' do
@@ -115,6 +155,24 @@ describe User, type: :model do
     context '存在しないアドレスで検索したとき' do
       it '0件のレコードを取得' do
         expect(User.search({ email: 'abc' }).count).to eq 0
+      end
+    end
+  end
+
+  describe '管理者数制御機能' do
+    let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com', role: :admin) }
+    let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com', role: :admin) }
+
+    context 'user2の権限を一般に更新したとき' do
+      it '正常に更新される' do
+        expect(user2.update(role: :general)).to eq true
+      end
+    end
+
+    context 'user2->user1の順で権限を一般に更新したとき' do
+      it 'user1の権限は更新できない' do
+        expect(user2.update(role: :general)).to eq true
+        expect(user1.update(role: :general)).to eq false
       end
     end
   end

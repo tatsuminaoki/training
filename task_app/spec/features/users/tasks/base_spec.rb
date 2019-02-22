@@ -5,7 +5,7 @@
 require 'rails_helper'
 
 feature '画面表示機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
 
   context 'ログインせず画面へアクセスしたとき' do
     before { visit tasks_admin_user_path(user) }
@@ -29,7 +29,7 @@ feature '画面表示機能', type: :feature do
 end
 
 feature 'タスクソート機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
   let!(:tasks) {
     [
       FactoryBot.create(:task, name: 'タスク1', due_date: '20190203', priority: :middle, status: :in_progress, created_at: Time.zone.now, user: user),
@@ -101,7 +101,7 @@ feature 'タスクソート機能', type: :feature do
 end
 
 feature 'ページネーション機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
   let!(:tasks) { FactoryBot.create_list(:task, 10, user: user) }
 
   before { login(user, tasks_admin_user_path(user)) }

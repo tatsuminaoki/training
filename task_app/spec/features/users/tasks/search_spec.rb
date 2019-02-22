@@ -5,7 +5,7 @@
 require 'rails_helper'
 
 feature 'タスク検索機能', type: :feature do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, role: :admin) }
   let!(:tasks) {
     [
       FactoryBot.create(:task, name: 'タスク1', due_date: '20190203', priority: :middle, status: :in_progress, created_at: Time.zone.now, user: user),

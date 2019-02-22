@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 feature 'ユーザ管理', type: :feature do
-  let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com') }
+  let!(:user1) { FactoryBot.create(:user, email: 'user1@example.com', role: :admin) }
   let!(:user2) { FactoryBot.create(:user, email: 'user2@example.com') }
 
   before do
