@@ -6,4 +6,4 @@
 <p>終了時間: <%= @task.endtime %></p>
 
 <%= link_to "編集", edit_task_path(@task.id) %>
-<%= link_to '削除', task_path(@task.id), method: :delete, data: { confirm: '本当に編集していいですか？' } %>
+<%= link_to '削除', task_path(@task.id), method: :delete, data: { confirm: '本当に削除していいですか？' } %>
