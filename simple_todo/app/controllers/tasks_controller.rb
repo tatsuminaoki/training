@@ -9,6 +9,7 @@ class TasksController < ApplicationController
     if params[:status].present?
       @tasks = @tasks.status_search(params[:status]).order(created_at: :desc)
     end
+    @tasks = @tasks.page(params[:page])
   end
 
   def show
