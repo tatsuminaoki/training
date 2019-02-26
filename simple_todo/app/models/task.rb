@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  enum status: { 'not yet': 0, 'on going': 1, 'done': 2}
+  enum status: { '未着手': 0, '着手中': 1, '完了': 2}
 
   validates :title ,:user_id, :limit, :status, presence: { message: I18n.t('messages.required') }
   validates :title, length: { maximum: 40, too_long: I18n.t('messages.too_long') }

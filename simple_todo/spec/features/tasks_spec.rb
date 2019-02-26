@@ -37,7 +37,7 @@ RSpec.feature 'tasks', type: :feature do
     select '22', from: 'task_limit_4i'
     select '59', from: 'task_limit_5i'
     select '5', from: 'task_priority'
-    select 'done', from: 'task_status'
+    select '完了', from: 'task_status'
 
     click_button '登録する'
 
@@ -57,7 +57,7 @@ RSpec.feature 'tasks', type: :feature do
       select '22', from: 'task_limit_4i'
       select '59', from: 'task_limit_5i'
       select '5', from: 'task_priority'
-      select 'done', from: 'task_status'
+      select '完了', from: 'task_status'
 
       click_button '登録する'
     }.to change{Task.count}.by(1)
@@ -100,7 +100,7 @@ RSpec.feature 'tasks', type: :feature do
     visit tasks_path
     
     expect{
-      select 'done', from: 'status'
+      select '完了', from: 'status'
       click_button 'Search'  
     }.to change{page.all('td.title').count}.to(2)
   end
@@ -114,7 +114,7 @@ RSpec.feature 'tasks', type: :feature do
     visit tasks_path
 
     expect{
-      select 'not yet', from: 'status'
+      select '未着手', from: 'status'
       click_button 'Search'  
     }.to change{page.all('td.title').count}.to(1)
 
@@ -144,7 +144,7 @@ RSpec.feature 'tasks', type: :feature do
     
     expect{
       fill_in 'title', with: 'test title 3'
-      select 'done', from: 'status'
+      select '完了', from: 'status'
       click_button 'Search'  
     }.to change{page.all('td.title').count}.to(1)
   end
@@ -159,7 +159,7 @@ RSpec.feature 'tasks', type: :feature do
     
     expect{
       fill_in 'title', with: 'x'
-      select 'done', from: 'status'
+      select '完了', from: 'status'
       click_button 'Search'  
     }.to change{page.all('td.title').count}.to(0)
   end
