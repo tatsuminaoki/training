@@ -10,6 +10,16 @@ ja:
         limit: 締め切り
         priority: 優先度
         status: ステータス
+      task/status:
+        yet: 未着手
+        doing: 着手中
+        done: 完了
+  enums:
+    task:
+      status:
+        yet: 未着手
+        doing: 着手中
+        done: 完了
   attributes:   
     created_at: 作成日時
     updated_at: 更新日時
@@ -19,6 +29,7 @@ ja:
     show: 詳細
     destroy: 削除
     new: タスク作成
+    search: 検索
   messages:
     confirm: 本当によろしいでしょうか？
     required: は必須です

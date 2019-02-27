@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.feature "tasks", type: :feature do
+RSpec.feature 'tasks', type: :feature do
 
   background do
     task = FactoryBot.create(:task)
   end
 
-  scenario "task list" do
+  scenario 'task list' do
     visit tasks_path
 
     expect(page).to have_content 'タスク一覧'
     expect(Task.count).to equal 1
   end
 
-  scenario "task list sort order" do
+  scenario 'task list sort order' do
     2.times{
       sleep(1)
       task = FactoryBot.create(:task)
@@ -25,7 +25,7 @@ RSpec.feature "tasks", type: :feature do
     expect(task_titles[2]).to have_content 'test title 2'
   end
 
-  scenario "task new" do
+  scenario 'task new' do
     visit new_task_path
 
     fill_in 'タイトル', with: 'test Title'
@@ -37,14 +37,14 @@ RSpec.feature "tasks", type: :feature do
     select '22', from: 'task_limit_4i'
     select '59', from: 'task_limit_5i'
     select '5', from: 'task_priority'
-    fill_in 'ステータス', with: '1'
+    find("option[value='done']").select_option
 
     click_button '登録する'
 
     expect(page).to have_content 'タスクが保存されました'
   end
 
-  scenario "task add count" do
+  scenario 'task add count' do
     visit new_task_path
 
     expect{
@@ -57,13 +57,13 @@ RSpec.feature "tasks", type: :feature do
       select '22', from: 'task_limit_4i'
       select '59', from: 'task_limit_5i'
       select '5', from: 'task_priority'
-      fill_in 'ステータス', with: '1'
+      find("option[value='done']").select_option
 
       click_button '登録する'
     }.to change{Task.count}.by(1)
   end
 
-  scenario "task edit" do
+  scenario 'task edit' do
     visit tasks_path
     click_link '修正'
 
@@ -76,15 +76,91 @@ RSpec.feature "tasks", type: :feature do
     expect(page).to have_content 'new Title'
   end  
 
-  scenario "task delete" do
+  scenario 'task delete' do
     visit tasks_path
     click_link '削除'
 
     expect(page).to have_content 'タスクが削除されました'
   end
 
-  scenario "task delete count" do
+  scenario 'task delete count' do
     visit tasks_path
     expect{click_link '削除'}.to change{Task.count}.by(-1)
+  end
+
+  scenario 'click search without filling form' do
+    visit tasks_path
+    expect{click_button '検索'}.to change{Task.count}.by(0)
+  end
+
+  scenario 'click search status' do
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 2',status:2)
+
+    visit tasks_path
+    
+    expect{
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
+    }.to change{page.all('td.title').count}.to(2)
+  end
+
+  scenario 'search with status' do
+    create(:task, title: 'test title 0',status:0)
+    create(:task, title: 'test title 1',status:1)
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 2',status:2)
+
+    visit tasks_path
+
+    expect{
+      find('#status').find("option[value='0']").select_option
+      click_button '検索'  
+    }.to change{page.all('td.title').count}.to(1)
+
+  end
+
+  scenario 'search with title' do
+    create(:task, title: 'test title 0',status:0)
+    create(:task, title: 'test title 1',status:1)
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 2',status:2)
+
+    visit tasks_path
+    
+    expect{
+      fill_in 'title', with: 'test title 2'
+      click_button '検索'  
+    }.to change{page.all('td.title').count}.to(2)
+  end
+
+  scenario 'search with title and status' do
+    create(:task, title: 'test title 0',status:0)
+    create(:task, title: 'test title 1',status:1)
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 3',status:2)
+
+    visit tasks_path
+    
+    expect{
+      fill_in 'title', with: 'test title 3'
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
+    }.to change{page.all('td.title').count}.to(1)
+  end
+
+  scenario 'search with title and status:no result' do
+    create(:task, title: 'test title 0',status:0)
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 2',status:2)
+    create(:task, title: 'test title 3',status:2)
+
+    visit tasks_path
+    
+    expect{
+      fill_in 'title', with: 'x'
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
+    }.to change{page.all('td.title').count}.to(0)
   end
 end

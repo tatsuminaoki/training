@@ -3,7 +3,12 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order(created_at: :desc)
-
+    if params[:title].present?
+      @tasks = @tasks.title_search(params[:title]).order(created_at: :desc)
+    end
+    if params[:status].present?
+      @tasks = @tasks.status_search(params[:status]).order(created_at: :desc)
+    end
   end
 
   def show
