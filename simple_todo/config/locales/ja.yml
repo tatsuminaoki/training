@@ -40,3 +40,9 @@ ja:
       created: タスクが保存されました
       updated: タスクが更新されました
       destroyed: タスクが削除されました
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      previous: 以前
+      next: 次
