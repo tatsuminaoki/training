@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
 
-  describe "validations" do  
+  describe "validations" do
+    before(:each) do
+      create(:user)
+    end
+
     it 'valid if task has all required contents' do
       task = create(:task)
       expect(task).to be_valid
@@ -51,12 +55,11 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'title_search(title)' do
-
     before(:each) do
+      create(:user)
       create(:task, title: 'test title 1')
       create(:task, title: 'test title 2')
     end
-
     context 'search with title:null' do
       it 'displays all tasks' do
         expect(Task.title_search(nil).size).to eq 2
@@ -78,6 +81,7 @@ RSpec.describe Task, type: :model do
 
   describe 'status_search(status)' do
     before(:each) do
+      create(:user)
       create(:task, title: 'test title 0',status:0)
       create(:task, title: 'test title 1',status:1)
       create(:task, title: 'test title 2',status:1)
