@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  TASKS_PER_PAGE = 8
+  
   def index
     @tasks = Task.all.includes(:user).order(created_at: :desc)
     if params[:title].present?
@@ -9,6 +10,7 @@ class TasksController < ApplicationController
     if params[:status].present?
       @tasks = @tasks.status_search(params[:status]).order(created_at: :desc)
     end
+    @tasks = @tasks.page(params[:page]).per(TASKS_PER_PAGE)
   end
 
   def show
