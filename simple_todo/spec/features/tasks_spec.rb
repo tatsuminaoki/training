@@ -37,7 +37,7 @@ RSpec.feature 'tasks', type: :feature do
     select '22', from: 'task_limit_4i'
     select '59', from: 'task_limit_5i'
     select '5', from: 'task_priority'
-    select '完了', from: 'task_status'
+    find("option[value='done']").select_option
 
     click_button '登録する'
 
@@ -57,7 +57,7 @@ RSpec.feature 'tasks', type: :feature do
       select '22', from: 'task_limit_4i'
       select '59', from: 'task_limit_5i'
       select '5', from: 'task_priority'
-      select '完了', from: 'task_status'
+      find("option[value='done']").select_option
 
       click_button '登録する'
     }.to change{Task.count}.by(1)
@@ -90,7 +90,7 @@ RSpec.feature 'tasks', type: :feature do
 
   scenario 'click search without filling form' do
     visit tasks_path
-    expect{click_button 'Search'}.to change{Task.count}.by(0)
+    expect{click_button '検索'}.to change{Task.count}.by(0)
   end
 
   scenario 'click search status' do
@@ -100,8 +100,8 @@ RSpec.feature 'tasks', type: :feature do
     visit tasks_path
     
     expect{
-      select '完了', from: 'status'
-      click_button 'Search'  
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
     }.to change{page.all('td.title').count}.to(2)
   end
 
@@ -114,8 +114,8 @@ RSpec.feature 'tasks', type: :feature do
     visit tasks_path
 
     expect{
-      select '未着手', from: 'status'
-      click_button 'Search'  
+      find('#status').find("option[value='0']").select_option
+      click_button '検索'  
     }.to change{page.all('td.title').count}.to(1)
 
   end
@@ -130,7 +130,7 @@ RSpec.feature 'tasks', type: :feature do
     
     expect{
       fill_in 'title', with: 'test title 2'
-      click_button 'Search'  
+      click_button '検索'  
     }.to change{page.all('td.title').count}.to(2)
   end
 
@@ -144,8 +144,8 @@ RSpec.feature 'tasks', type: :feature do
     
     expect{
       fill_in 'title', with: 'test title 3'
-      select '完了', from: 'status'
-      click_button 'Search'  
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
     }.to change{page.all('td.title').count}.to(1)
   end
 
@@ -159,8 +159,8 @@ RSpec.feature 'tasks', type: :feature do
     
     expect{
       fill_in 'title', with: 'x'
-      select '完了', from: 'status'
-      click_button 'Search'  
+      find('#status').find("option[value='2']").select_option
+      click_button '検索'  
     }.to change{page.all('td.title').count}.to(0)
   end
 end

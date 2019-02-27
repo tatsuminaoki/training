@@ -6,8 +6,8 @@
   <%= label_tag Task.human_attribute_name(:title) %>
   <%= text_field_tag :title %>
   <%= label_tag Task.human_attribute_name(:status) %>
-  <%= select_tag :status, options_for_select(Task.statuses), include_blank:true %>
-  <%= submit_tag 'Search', :title => nil %>
+  <%= select_tag :status, options_for_select(Task.statuses.to_a.map{|k,v| [Task.human_attribute_name("status.#{k}"),v]}), include_blank:true %>
+  <%= submit_tag t('contents.search'), :title => nil %>
 <% end %>
 
 <table>
@@ -33,7 +33,7 @@
         <td class='user_id' ><%= task.user_id %></td>
         <td class='limit' ><%= task.limit %></td>
         <td class='priority' ><%= task.priority %></td>
-        <td class='status' ><%= task.status %></td>
+        <td class='status' ><%= task.status_i18n %></td>
         <td class='created_at' ><%= task.created_at %></td>
         <td class='updated_at' ><%= task.updated_at %></td>
         <td><%= link_to t('contents.show') , task %></td>

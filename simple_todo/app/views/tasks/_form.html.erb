@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [k,k] } %>
+    <%= form.select :status, Task.statuses.to_a.map{|k,v| [Task.human_attribute_name("status.#{k}"),k]} , class: "form-control" %>
   </div>
 
   <div class="actions">
