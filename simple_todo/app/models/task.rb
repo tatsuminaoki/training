@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum status: %i[yet doing done]
 
   validates :title ,:user_id, :limit, :status, presence: { message: I18n.t('messages.required') }
