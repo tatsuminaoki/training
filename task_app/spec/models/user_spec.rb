@@ -141,6 +141,22 @@ describe User, type: :model do
     end
   end
 
+  describe 'has_many :labels, dependent: :delete_all' do
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:label1) { FactoryBot.create(:label, name: 'ラベル1', user: user) }
+    let!(:label2) { FactoryBot.create(:label, name: 'ラベル2', user: user) }
+
+    context 'ユーザを削除したとき' do
+      it '削除されたユーザのラベルも削除される' do
+        expect(User.count).to eq 1
+        expect(Label.where(user_id: user.id).count).to eq 2
+        user.destroy
+        expect(User.count).to eq 0
+        expect(Label.where(user_id: user.id).empty?).to eq true
+      end
+    end
+  end
+
   describe '検索機能' do
     let!(:user1) { FactoryBot.create(:user, email: 'test1@gmail.com') }
     let!(:user2) { FactoryBot.create(:user, email: 'test2@gmail.com') }
