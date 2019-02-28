@@ -108,7 +108,7 @@ RSpec.describe Task, type: :model do
       create(:task, title: 'test title 2', user_id: 1)
     end
 
-    context 'get task with user_id' do
+    context 'get task with user data' do
       it 'get user name' do
         expect(Task.find(1).user.name).to eq 'test user'
         expect(Task.find(1).user.email).to eq 'test@test.com'
