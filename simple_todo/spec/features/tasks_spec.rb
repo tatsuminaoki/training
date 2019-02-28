@@ -4,7 +4,8 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'task list page' do
     background do
-      task = FactoryBot.create(:task)
+      create(:user)
+      create(:task)
       visit tasks_path
     end
 
@@ -46,6 +47,7 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'new task add page' do
     background do
+      create(:user)
       visit new_task_path
     end
 
@@ -83,6 +85,7 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'search feature' do
     background do
+      create(:user)
       create(:task, title: 'test title 0',status:0)
       create(:task, title: 'test title 1',status:1)
       create(:task, title: 'test title 2',status:2)
@@ -134,6 +137,7 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'pagenation' do
     background do
+      create(:user)
       10.times{
         create(:task)
       }
