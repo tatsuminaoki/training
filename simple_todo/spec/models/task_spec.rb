@@ -101,17 +101,13 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'user-task relation' do
-    before(:each) do
-      create(:user, name: 'test user', email: 'test@test.com' )
-      create(:task, title: 'test title 0', user_id: 1)
-      create(:task, title: 'test title 1', user_id: 1)
-      create(:task, title: 'test title 2', user_id: 1)
-    end
+    let(:user) { create(:user, name: 'test user', email: 'test@test.com') }
+    let(:task) { create(:task, title: 'test title 0', user_id: user.id ) }
 
     context 'get task with user data' do
       it 'get user name' do
-        expect(Task.find(1).user.name).to eq 'test user'
-        expect(Task.find(1).user.email).to eq 'test@test.com'
+        expect(task.user.name).to eq 'test user'
+        expect(task.user.email).to eq 'test@test.com'
       end
     end
   end
