@@ -48,4 +48,21 @@ describe Task, type: :model do
       end
     end
   end
+
+  describe 'has_many :task_labels, dependent: :delete_all' do
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:label1) { FactoryBot.create(:label, name: 'ラベル1', user: user) }
+    let!(:label2) { FactoryBot.create(:label, name: 'ラベル2', user: user) }
+    let!(:task) { FactoryBot.create(:task, labels: [label1, label2], user: user) }
+
+    context 'ラベル2を削除したとき' do
+      it 'タスクからラベル2が削除される' do
+        expect(Label.count).to eq 2
+        expect(task.labels.exists?(name: label2.name)).to eq true
+        label2.destroy
+        expect(Label.count).to eq 1
+        expect(task.labels.exists?(name: label2.name)).to eq false
+      end
+    end
+  end
 end
