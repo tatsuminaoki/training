@@ -7,12 +7,12 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-
-
   </head>
     <header>
-      hello <%= current_user.name %> sama
+      <% if current_user %>
+      <%= current_user.name %> 様
+      <%= link_to t('contents.logout'), logout_url , method: :delete %>
+      <% end %>
     </header>
   <body>
     <%= yield %>

@@ -7,10 +7,10 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       puts 'find'
       log_in user
-      redirect_to tasks_url, notice: 'login!'
+      redirect_to tasks_url, notice: I18n.t('messages.welcome')
     else
       puts 'else'
-      flash.now[:danger] = 'Invaild email/password'
+      flash.now[:danger] = I18n.t('messages.wrong_info')
       render 'new'
     end
   end
