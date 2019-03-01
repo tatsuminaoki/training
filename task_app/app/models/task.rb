@@ -20,7 +20,7 @@ class Task < ApplicationRecord
   # 検索は渡されたレコード、または1から行う
   def self.search(params, initial_records = nil)
     initial_records ||= self
-    initial_records   = initial_records.where('tasks.name LIKE ?', "%#{sanitize_name_param(params[:name])}%") if params[:name].present?
+    initial_records   = initial_records.where('tasks.name LIKE ?', "%#{sanitize_sql_like(params[:name])}%") if params[:name].present?
     initial_records   = initial_records.where(tasks: { status: params[:status] }) if params[:status].present?
     search_by_label(initial_records, params[:label], params[:sort_column], params[:sort_direction])
   end
@@ -35,10 +35,6 @@ class Task < ApplicationRecord
     # 以下のunless文はどちらかがfalseの場合条件成立
     return { created_at: :desc } unless SORT_COLUMNS.include?(column&.to_sym) && SORT_DIRECTION.include?(direction&.to_sym)
     [[column, direction]].to_h
-  end
-
-  def self.sanitize_name_param(param)
-    param.gsub(/%|_/, '%' => '\%', '_' => '\_') # ハッシュロケットでないと正しく動作しない
   end
 
   private
