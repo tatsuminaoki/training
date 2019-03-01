@@ -8,6 +8,10 @@ class Task < ApplicationRecord
   validates :description, length: { maximum: 200, too_long: I18n.t('messages.too_long') }
   validate :limit_date_validate
 
+  def self.user_search(user_id)
+    Task.where(user_id: user_id)
+  end
+
   def self.title_search(title)
     Task.where(['title Like ?',"%#{title}%"])
   end

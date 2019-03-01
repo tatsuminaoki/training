@@ -3,19 +3,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-    puts params[:session][:email].to_s
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    user = User.find_by(email: params[:email].downcase)
+    if user && user.authenticate(params[:password])
+      puts 'find'
       log_in user
-      redirect_to user
+      redirect_to tasks_url, notice: 'login!'
     else
+      puts 'else'
       flash.now[:danger] = 'Invaild email/password'
       render 'new'
     end
   end
 
   def destroy
-    log_out
+    session[:user_id] = nil
     redirect_to root_url
   end
 end
