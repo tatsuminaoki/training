@@ -223,6 +223,18 @@ describe Task, type: :model do
       end
     end
 
+    context '「%」で名前検索したとき' do
+      it '0件のレコードを取得' do
+        expect(Task.search({ name: '%' }).count).to eq 0
+      end
+    end
+
+    context '「_」で名前検索したとき' do
+      it '0件のレコードを取得' do
+        expect(Task.search({ name: '_' }).count).to eq 0
+      end
+    end
+
     context '存在しない名前で検索したとき' do
       it '0件のレコードを取得' do
         expect(Task.search({ name: 'abc' }).count).to eq 0
