@@ -165,4 +165,36 @@ RSpec.feature 'tasks', type: :feature do
     end
   end
 
+  feature 'login' do
+    background do
+      user1 = create(:user, email:'test@test.com', password:'password1')
+      user2 = create(:user, email:'test2@test.com', password:'password2')
+      create(:task, user_id: user1.id, title: 'task for user1')
+      create(:task, user_id: user2.id, title: 'task for user2')
+      visit tasks_path
+    end
+
+    scenario 'login success' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password1'
+      click_button 'ログイン'
+      expect(page).to have_content 'ログインしました！'
+    end
+
+    scenario 'login fail' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password2'
+      click_button 'ログイン'
+      expect(page).to have_content 'E-Mail パスワード E-mailまたはパスワードを確認してください'
+    end
+
+    scenario 'displays task belongs to logined user' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password1'
+      click_button 'ログイン'
+      task_titles = page.all('td.title')
+      expect(task_titles.count).to eq(1)
+      expect(task_titles[0]).to have_content 'task for user1'
+    end
+  end
 end
