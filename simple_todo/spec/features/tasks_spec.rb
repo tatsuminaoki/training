@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'tasks', type: :feature do
-
   feature 'task list page' do
     background do
-      create(:user)
-      create(:task)
+      user = create(:user, email:'test@test.com', password:'password')
+      create(:task, user_id:1)
       visit tasks_path
+      login(user)
     end
 
     scenario 'task list' do
@@ -47,7 +47,9 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'new task add page' do
     background do
-      create(:user)
+      user = create(:user, email:'test@test.com', password:'password')
+      visit tasks_path
+      login(user)
       visit new_task_path
     end
 
@@ -85,12 +87,13 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'search feature' do
     background do
-      create(:user)
-      create(:task, title: 'test title 0',status:0)
-      create(:task, title: 'test title 1',status:1)
-      create(:task, title: 'test title 2',status:2)
-      create(:task, title: 'test title 3',status:2)
+      user = create(:user, email:'test@test.com', password:'password')
+      create(:task, title: 'test title 0',status:0, user_id:1)
+      create(:task, title: 'test title 1',status:1, user_id:1)
+      create(:task, title: 'test title 2',status:2, user_id:1)
+      create(:task, title: 'test title 3',status:2, user_id:1)
       visit tasks_path
+      login(user)
     end
 
     scenario 'click search without filling form' do
@@ -137,11 +140,12 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'pagenation' do
     background do
-      create(:user)
+      user = create(:user, email:'test@test.com', password:'password')
       10.times{
         create(:task)
       }
       visit tasks_path
+      login(user)
     end
     
     scenario 'displays 8 tasks in first page ' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
 
-  describe "validations" do
+  describe 'validations' do
     before(:each) do
       create(:user)
     end
