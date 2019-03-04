@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: [:new, :create]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   TASKS_PER_PAGE = 8
   
@@ -58,7 +58,7 @@ class TasksController < ApplicationController
 
     def require_login
       unless user_signed_in?
-        redirect_to login_path
+        redirect_to login_path, notice: t('messages.plz_login')
       end
     end
 end

@@ -4,7 +4,7 @@ RSpec.feature 'tasks', type: :feature do
   feature 'task list page' do
     background do
       user = create(:user, email:'test@test.com', password:'password')
-      create(:task, user_id:1)
+      create(:task, user_id:user.id)
       visit tasks_path
       login(user)
     end
@@ -88,10 +88,10 @@ RSpec.feature 'tasks', type: :feature do
   feature 'search feature' do
     background do
       user = create(:user, email:'test@test.com', password:'password')
-      create(:task, title: 'test title 0',status:0, user_id:1)
-      create(:task, title: 'test title 1',status:1, user_id:1)
-      create(:task, title: 'test title 2',status:2, user_id:1)
-      create(:task, title: 'test title 3',status:2, user_id:1)
+      create(:task, title: 'test title 0',status:0, user_id:user.id)
+      create(:task, title: 'test title 1',status:1, user_id:user.id)
+      create(:task, title: 'test title 2',status:2, user_id:user.id)
+      create(:task, title: 'test title 3',status:2, user_id:user.id)
       visit tasks_path
       login(user)
     end

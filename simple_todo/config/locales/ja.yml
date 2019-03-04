@@ -42,6 +42,7 @@ ja:
     timeover: は過去の時間は設定できません
     welcome: ログインしました！
     wrong_info: E-mailまたはパスワードを確認してください
+    plz_login: ログインしてください！
   flash:
     task:
       created: タスクが保存されました
