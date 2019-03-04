@@ -197,4 +197,17 @@ RSpec.feature 'tasks', type: :feature do
       expect(task_titles[0]).to have_content 'task for user1'
     end
   end
+
+  feature 'logout' do
+    background do
+      user = create(:user, email:'test@test.com', password:'password')
+      visit tasks_path
+      login(user)
+    end
+    scenario 'logout and redirect to login page' do
+      click_link 'ログアウト'
+      expect(page.all("input[name='email']").count).to eq(1)
+      expect(page.all("input[name='password']").count).to eq(1)
+    end
+  end
 end
