@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong><%= t('activerecord.attributes.task.label') %>:</strong>
+  <% @task.labels.each do |label| %>
+    <%= label.name %>
+  <% end %>
+</p>
+<p>
   <strong><%= t('activerecord.attributes.task.title') %>:</strong>
   <%= @task.title %>
 </p>

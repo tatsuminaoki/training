@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   TASKS_PER_PAGE = 8
-  
+
   def index
     @tasks = Task.all.user_search(session[:user_id]).includes(:user)
     if params[:title].present?
@@ -18,10 +18,12 @@ class TasksController < ApplicationController
   end
 
   def new
+    @labels = Label.all
     @task = Task.new
   end
 
   def edit
+    @labels = Label.all
     @task = Task.find(params[:id])
   end
 
@@ -53,7 +55,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :user_id, :limit, :priority, :status)
+      params.require(:task).permit(:title, :description, :user_id, :limit, :priority, :status, {:label_ids => []})
     end
 
     def require_login
