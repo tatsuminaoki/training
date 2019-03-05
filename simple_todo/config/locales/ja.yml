@@ -14,6 +14,9 @@ ja:
         yet: 未着手
         doing: 着手中
         done: 完了
+      user:
+        email: E-Mail
+        password: パスワード
   enums:
     task:
       status:
@@ -30,11 +33,16 @@ ja:
     destroy: 削除
     new: タスク作成
     search: 検索
+    login : ログイン
+    logout: ログアウト
   messages:
     confirm: 本当によろしいでしょうか？
     required: は必須です
     too_long: は最大%{count}文字まで使用できます
     timeover: は過去の時間は設定できません
+    welcome: ログインしました！
+    wrong_info: E-mailまたはパスワードを確認してください
+    plz_login: ログインしてください！
   flash:
     task:
       created: タスクが保存されました

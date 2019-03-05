@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'tasks', type: :feature do
-
   feature 'task list page' do
     background do
-      create(:user)
-      create(:task)
+      user = create(:user, email:'test@test.com', password:'password')
+      create(:task, user_id:user.id)
       visit tasks_path
+      login(user)
     end
 
     scenario 'task list' do
@@ -47,7 +47,9 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'new task add page' do
     background do
-      create(:user)
+      user = create(:user, email:'test@test.com', password:'password')
+      visit tasks_path
+      login(user)
       visit new_task_path
     end
 
@@ -85,12 +87,13 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'search feature' do
     background do
-      create(:user)
-      create(:task, title: 'test title 0',status:0)
-      create(:task, title: 'test title 1',status:1)
-      create(:task, title: 'test title 2',status:2)
-      create(:task, title: 'test title 3',status:2)
+      user = create(:user, email:'test@test.com', password:'password')
+      create(:task, title: 'test title 0',status:0, user_id:user.id)
+      create(:task, title: 'test title 1',status:1, user_id:user.id)
+      create(:task, title: 'test title 2',status:2, user_id:user.id)
+      create(:task, title: 'test title 3',status:2, user_id:user.id)
       visit tasks_path
+      login(user)
     end
 
     scenario 'click search without filling form' do
@@ -137,11 +140,12 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'pagenation' do
     background do
-      create(:user)
+      user = create(:user, email:'test@test.com', password:'password')
       10.times{
         create(:task)
       }
       visit tasks_path
+      login(user)
     end
     
     scenario 'displays 8 tasks in first page ' do
@@ -161,4 +165,49 @@ RSpec.feature 'tasks', type: :feature do
     end
   end
 
+  feature 'login' do
+    background do
+      user1 = create(:user, email:'test@test.com', password:'password1')
+      user2 = create(:user, email:'test2@test.com', password:'password2')
+      create(:task, user_id: user1.id, title: 'task for user1')
+      create(:task, user_id: user2.id, title: 'task for user2')
+      visit tasks_path
+    end
+
+    scenario 'login success' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password1'
+      click_button 'ログイン'
+      expect(page).to have_content 'ログインしました！'
+    end
+
+    scenario 'login fail' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password2'
+      click_button 'ログイン'
+      expect(page).to have_content 'E-Mail パスワード E-mailまたはパスワードを確認してください'
+    end
+
+    scenario 'displays task belongs to logined user' do
+      fill_in :email, with: 'test@test.com'
+      fill_in :password, with: 'password1'
+      click_button 'ログイン'
+      task_titles = page.all('td.title')
+      expect(task_titles.count).to eq(1)
+      expect(task_titles[0]).to have_content 'task for user1'
+    end
+  end
+
+  feature 'logout' do
+    background do
+      user = create(:user, email:'test@test.com', password:'password')
+      visit tasks_path
+      login(user)
+    end
+    scenario 'logout and redirect to login page' do
+      click_link 'ログアウト'
+      expect(page.all("input[name='email']").count).to eq(1)
+      expect(page.all("input[name='password']").count).to eq(1)
+    end
+  end
 end

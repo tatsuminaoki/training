@@ -1,0 +1,9 @@
+<%= form_tag '/login' do %>
+  <%= flash[:notice] %><br>
+  <%= User.human_attribute_name(:email) %>
+  <input type='email' name='email'><br>
+  <%= User.human_attribute_name(:password) %>
+  <input type='password' name='password'><br>
+  <%= submit_tag t('contents.login'), :title => nil %>
+<%= flash[:danger] %>
+<% end %>
