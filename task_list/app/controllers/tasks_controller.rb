@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def create
     Task.create(task_params)
-    redirect_to tasks_path, notice: "タスクを作成しました！"
+    redirect_to tasks_path, notice: 'タスクを作成しました！'
   end
 
   def index
@@ -21,13 +21,13 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "タスクを編集しました！"
+      redirect_to tasks_path, notice: 'タスクを編集しました！'
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path(@task.id), notice:"タスクを削除しました！"
+    redirect_to tasks_path(@task.id), notice: 'タスクを削除しました！'
   end
 
   private
