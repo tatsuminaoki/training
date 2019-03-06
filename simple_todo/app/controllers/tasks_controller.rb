@@ -4,12 +4,16 @@ class TasksController < ApplicationController
   TASKS_PER_PAGE = 8
 
   def index
+    @labels = Label.all
     @tasks = Task.all.user_search(session[:user_id]).includes(:user)
     if params[:title].present?
       @tasks = @tasks.title_search(params[:title])
     end
     if params[:status].present?
       @tasks = @tasks.status_search(params[:status])
+    end
+    if params[:label_id].present?
+      @tasks = @tasks.label_search(params[:label_id])
     end
     @tasks = @tasks.page(params[:page]).order(created_at: :desc).per(TASKS_PER_PAGE)
   end

@@ -21,6 +21,11 @@ class Task < ApplicationRecord
     Task.where(status: status)
   end
 
+  def self.label_search(label_id)
+    task_ids = Label.joins(:labels_tasks).where('labels_tasks.label_id in (?)', label_id).pluck(:task_id)
+    Task.where(id: task_ids)
+  end
+
   def limit_date_validate
     if limit < Time.zone.now.to_datetime
       errors.add(:limit , I18n.t('messages.timeover'))
