@@ -44,11 +44,10 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_content 'タスクを削除しました！'
   end
   scenario 'タスク一覧が作成日時の順番で並ぶこと' do
-    Task.create(name: 'first', priority: 1, status: 1)
-    Task.create(name: 'second', priority: 1, status: 1, created_at: Time.current + 1.days)
+    Task.create(name: 'Housework', priority: 1, status: 1, created_at: Time.current + 1.days)
     visit tasks_path
     task = all('table td')
     task_0 = task[0]
-    expect(task_0).to have_content 'second'
+    expect(task_0).to have_content 'Housework'
   end
 end
