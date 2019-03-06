@@ -8,26 +8,28 @@ class TasksController < ApplicationController
 
   def create
     Task.create(task_params)
-    redirect_to tasks_path, notice: flash.now[:alert] = I18n.t('.activerecord.flash.task_create')
+    redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
   end
 
   def index
     @tasks = Task.all
   end
 
-  def show; end
+  def show
+  end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: flash.now[:alert] = I18n.t('.activerecord.flash.task_edit')
+      redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path(@task.id), notice: flash.now[:alert] = I18n.t('.activerecord.flash.task_delete')
+    redirect_to tasks_path(@task.id), notice: I18n.t('activerecord.flash.task_delete')
   end
 
   private
