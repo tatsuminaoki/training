@@ -9,7 +9,7 @@
   <%= label_tag Task.human_attribute_name(:label) %>
   <% @labels.each do |label| %>
     <%= check_box_tag 'label_id[]', label.id, false, id: "label_id_#{label.id}" %>
-    <%= label.name %> 
+    <%= label_tag "label_id_#{label.id}", label.name %>
   <% end %>
 
   <br>

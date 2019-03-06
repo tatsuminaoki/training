@@ -4,7 +4,8 @@ RSpec.feature 'tasks', type: :feature do
   feature 'task list page' do
     background do
       user = create(:user, email:'test@test.com', password:'password')
-      create(:task, user_id:user.id)
+      label = create(:label, name:'work')
+      create(:task, user_id: user.id, :labels => [label])
       visit tasks_path
       login(user)
     end
@@ -18,11 +19,12 @@ RSpec.feature 'tasks', type: :feature do
       click_link '修正'
       fill_in 'タイトル', with: 'new Title'
       fill_in '説明', with: 'new Description'
-
+      check 'work'
       click_button '更新する'
 
       expect(page).to have_content 'タスクが更新されました'
       expect(page).to have_content 'new Title'
+      expect(page).to have_content 'work'
     end
 
     scenario 'task delete' do
@@ -48,6 +50,7 @@ RSpec.feature 'tasks', type: :feature do
   feature 'new task add page' do
     background do
       user = create(:user, email:'test@test.com', password:'password')
+      create(:label, name:'work')
       visit tasks_path
       login(user)
       visit new_task_path
@@ -63,9 +66,11 @@ RSpec.feature 'tasks', type: :feature do
       select '22', from: 'task_limit_4i'
       select '59', from: 'task_limit_5i'
       select '5', from: 'task_priority'
+      check 'work'
       find("option[value='done']").select_option
       click_button '登録する'
       expect(page).to have_content 'タスクが保存されました'
+      expect(page).to have_content 'work'
     end
 
     scenario 'add task' do
@@ -79,6 +84,7 @@ RSpec.feature 'tasks', type: :feature do
         select '22', from: 'task_limit_4i'
         select '59', from: 'task_limit_5i'
         select '5', from: 'task_priority'
+        check 'work'
         find("option[value='done']").select_option
         click_button '登録する'
       }.to change{Task.count}.by(1)
@@ -88,10 +94,13 @@ RSpec.feature 'tasks', type: :feature do
   feature 'search feature' do
     background do
       user = create(:user, email:'test@test.com', password:'password')
-      create(:task, title: 'test title 0',status:0, user_id:user.id)
-      create(:task, title: 'test title 1',status:1, user_id:user.id)
-      create(:task, title: 'test title 2',status:2, user_id:user.id)
-      create(:task, title: 'test title 3',status:2, user_id:user.id)
+      label_work = create(:label, name:'work')
+      label_family = create(:label, name:'family')
+      label_private = create(:label, name:'private')
+      create(:task, title: 'test title 0', status:0, user_id: user.id, :labels => [label_work, label_private])
+      create(:task, title: 'test title 1', status:1, user_id: user.id, :labels => [label_private, label_family])
+      create(:task, title: 'test title 2', status:2, user_id: user.id, :labels => [label_family])
+      create(:task, title: 'test title 3', status:2, user_id: user.id, :labels => [label_family])
       visit tasks_path
       login(user)
     end
@@ -136,6 +145,47 @@ RSpec.feature 'tasks', type: :feature do
         click_button '検索'
       }.to change{page.all('td.title').count}.to(0)
     end
+
+    scenario 'search with label work(single task)' do
+      expect{
+        check 'work'
+        click_button '検索'
+      }.to change{page.all('td.title').count}.to(1)
+    end
+
+    scenario 'search with label private(multiple task) ' do
+      expect{
+        check 'private'
+        click_button '検索'
+      }.to change{page.all('td.title').count}.to(2)
+    end
+
+    scenario 'search with title and status and label' do
+      expect{
+        fill_in 'title', with: 'test title 3'
+        find('#status').find("option[value='2']").select_option
+        click_button '検索'
+      }.to change{page.all('td.title').count}.to(1)
+    end
+
+    scenario 'search with title and status' do
+      expect{
+        fill_in 'title', with: 'test title 3'
+        find('#status').find("option[value='2']").select_option
+        check 'family'
+        click_button '検索'
+      }.to change{page.all('td.title').count}.to(1)
+    end
+
+    scenario 'search with title and status - no result' do
+      expect{
+        fill_in 'title', with: 'test title 3'
+        find('#status').find("option[value='2']").select_option
+        check 'private'
+        click_button '検索'
+      }.to change{page.all('td.title').count}.to(0)
+    end
+
   end
 
   feature 'pagenation' do
