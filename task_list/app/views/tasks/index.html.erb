@@ -4,11 +4,11 @@
 <% end %>
 <table>
   <tr>
-    <th>名前</th>
-    <th>内容</th>
-    <th>優先順位</th>
-    <th>スターテス</th>
-    <th>終了時間</th>
+    <th><%= I18n.t('activerecord.attributes.task.name') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.content') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.status') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.endtime') %></th>
   </tr>
 
 <% @tasks.each do |task| %>

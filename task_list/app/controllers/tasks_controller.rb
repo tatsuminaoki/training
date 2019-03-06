@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :set_task, only: [:destroy, :show, :edit, :update]
   def new
@@ -6,7 +8,7 @@ class TasksController < ApplicationController
 
   def create
     Task.create(task_params)
-    redirect_to tasks_path, notice: 'タスクを作成しました！'
+    redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
   end
 
   def index
@@ -21,13 +23,13 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: 'タスクを編集しました！'
+      redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path(@task.id), notice: 'タスクを削除しました！'
+    redirect_to tasks_path(@task.id), notice: I18n.t('activerecord.flash.task_delete')
   end
 
   private
