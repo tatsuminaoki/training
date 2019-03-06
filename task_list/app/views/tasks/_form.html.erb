@@ -1,4 +1,13 @@
 <%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
+      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= form.label :name %>
   <%= form.text_field :name %>
   <%= form.label :content %>

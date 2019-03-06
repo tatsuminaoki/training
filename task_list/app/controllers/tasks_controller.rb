@@ -7,8 +7,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.create(task_params)
-    redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
+    else
+      render 'new'
+    end
   end
 
   def index
@@ -22,8 +26,11 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
+    else
+      render 'edit'
     end
   end
 

@@ -50,4 +50,19 @@ RSpec.feature "Tasks", type: :feature do
     task_0 = task[0]
     expect(task_0).to have_content 'Housework'
   end
+  scenario 'name,priority,statusがあればタスク投稿ができる' do
+    expect(create(:task)).to be_valid
+  end
+  scenario 'nameが空では登録できない' do
+    expect(build(:task, name: '')).to_not be_valid
+  end
+  scenario 'priorityが空では登録できない' do
+    expect(build(:task, priority: '')).to_not be_valid
+  end
+  scenario 'statusが空では登録できない' do
+    expect(build(:task, status: '')).to_not be_valid
+  end
+  scenario 'nameが31文字以上だと登録できない' do
+    expect(build(:task, name: "#{'a'*31}")).to_not be_valid
+  end
 end
