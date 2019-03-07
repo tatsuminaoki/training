@@ -50,4 +50,51 @@ RSpec.feature "Tasks", type: :feature do
     task_0 = task[0]
     expect(task_0).to have_content 'Housework'
   end
+  scenario 'name,priority,statusがあればタスク投稿ができる' do
+    expect(create(:task)).to be_valid
+  end
+  scenario 'nameが空では登録できない' do
+    expect(build(:task, name: '')).to_not be_valid
+  end
+  scenario 'priorityが空では登録できない' do
+    expect(build(:task, priority: '')).to_not be_valid
+  end
+  scenario 'statusが空では登録できない' do
+    expect(build(:task, status: '')).to_not be_valid
+  end
+  scenario 'nameが31文字以上だと登録できない' do
+    expect(build(:task, name: "#{'a'*31}")).to_not be_valid
+  end
+  scenario 'nameが空のときにバリデーションエラーメッセージが出ること' do
+    visit new_task_path
+    fill_in 'タスク名', with: ''
+    fill_in '優先順位', with: '1'
+    fill_in 'ステータス', with: '1'
+    click_button '登録する'
+    expect(page).to have_content 'タスク名を入力してください'
+  end
+  scenario 'priorityが空のときにバリデーションエラーメッセージが出ること' do
+    visit new_task_path
+    fill_in 'タスク名', with: 'Study'
+    fill_in '優先順位', with: ''
+    fill_in 'ステータス', with: '1'
+    click_button '登録する'
+    expect(page).to have_content '優先順位を入力してください'
+  end
+  scenario 'atatusが空のときにバリデーションエラーメッセージが出ること' do
+    visit new_task_path
+    fill_in 'タスク名', with: 'Study'
+    fill_in '優先順位', with: '1'
+    fill_in 'ステータス', with: ''
+    click_button '登録する'
+    expect(page).to have_content 'ステータスを入力してください'
+  end
+  scenario 'nameが31文字以上ときにバリデーションエラーメッセージが出ること' do
+    visit new_task_path
+    fill_in 'タスク名', with: "#{'a'*31}"
+    fill_in '優先順位', with: '1'
+    fill_in 'ステータス', with: '1'
+    click_button '登録する'
+    expect(page).to have_content 'タスク名は30文字以内で入力してください'
+  end
 end
