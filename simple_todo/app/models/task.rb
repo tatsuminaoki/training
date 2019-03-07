@@ -22,8 +22,7 @@ class Task < ApplicationRecord
   end
 
   def self.label_search(label_id)
-    task_ids = Label.joins(:labels_tasks).where('labels_tasks.label_id in (?)', label_id).pluck(:task_id)
-    Task.where(id: task_ids)
+    Task.includes(:labels).where(labels: {id: label_id})
   end
 
   def limit_date_validate

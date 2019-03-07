@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.feature 'tasks', type: :feature do
   feature 'task list page' do
     background do
-      user = create(:user, email:'test@test.com', password:'password')
-      label = create(:label, name:'work')
-      create(:task, user_id: user.id, :labels => [label])
+      user = create(:user, email: 'test@test.com', password: 'password')
+      label = create(:label, name: 'work')
+      create(:task, user_id: user.id, labels: [label])
       visit tasks_path
       login(user)
     end
@@ -49,8 +49,8 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'new task add page' do
     background do
-      user = create(:user, email:'test@test.com', password:'password')
-      create(:label, name:'work')
+      user = create(:user, email: 'test@test.com', password: 'password')
+      create(:label, name: 'work')
       visit tasks_path
       login(user)
       visit new_task_path
@@ -93,14 +93,14 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'search feature' do
     background do
-      user = create(:user, email:'test@test.com', password:'password')
-      label_work = create(:label, name:'work')
-      label_family = create(:label, name:'family')
-      label_private = create(:label, name:'private')
-      create(:task, title: 'test title 0', status:0, user_id: user.id, :labels => [label_work, label_private])
-      create(:task, title: 'test title 1', status:1, user_id: user.id, :labels => [label_private, label_family])
-      create(:task, title: 'test title 2', status:2, user_id: user.id, :labels => [label_family])
-      create(:task, title: 'test title 3', status:2, user_id: user.id, :labels => [label_family])
+      user = create(:user, email: 'test@test.com', password: 'password')
+      label_work = create(:label, name: 'work')
+      label_family = create(:label, name: 'family')
+      label_private = create(:label, name: 'private')
+      create(:task, title: 'test title 0', status:0, user_id: user.id, labels: [label_work, label_private])
+      create(:task, title: 'test title 1', status:1, user_id: user.id, labels: [label_private, label_family])
+      create(:task, title: 'test title 2', status:2, user_id: user.id, labels: [label_family])
+      create(:task, title: 'test title 3', status:2, user_id: user.id, labels: [label_family])
       visit tasks_path
       login(user)
     end
@@ -190,7 +190,7 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'pagenation' do
     background do
-      user = create(:user, email:'test@test.com', password:'password')
+      user = create(:user, email: 'test@test.com', password: 'password')
       10.times{
         create(:task)
       }
@@ -217,8 +217,8 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'login' do
     background do
-      user1 = create(:user, email:'test@test.com', password:'password1')
-      user2 = create(:user, email:'test2@test.com', password:'password2')
+      user1 = create(:user, email: 'test@test.com', password: 'password1')
+      user2 = create(:user, email: 'test2@test.com', password: 'password2')
       create(:task, user_id: user1.id, title: 'task for user1')
       create(:task, user_id: user2.id, title: 'task for user2')
       visit tasks_path
@@ -250,7 +250,7 @@ RSpec.feature 'tasks', type: :feature do
 
   feature 'logout' do
     background do
-      user = create(:user, email:'test@test.com', password:'password')
+      user = create(:user, email: 'test@test.com', password: 'password')
       visit tasks_path
       login(user)
     end
