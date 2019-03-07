@@ -65,4 +65,24 @@ RSpec.feature "Tasks", type: :feature do
   scenario 'nameが31文字以上だと登録できない' do
     expect(build(:task, name: "#{'a'*31}")).to_not be_valid
   end
+  scenario 'nameが空のときにバリデーションエラーメッセージが出ること' do
+    task = build(:task, name: '')
+    task.valid?
+    expect(task.errors.messages[:name]).to include 'を入力してください'
+  end
+  scenario 'priorityが空のときにバリデーションエラーメッセージが出ること' do
+    task = build(:task, priority: '')
+    task.valid?
+    expect(task.errors.messages[:priority]).to include 'を入力してください'
+  end
+  scenario 'atatusが空のときにバリデーションエラーメッセージが出ること' do
+    task = build(:task, status: '')
+    task.valid?
+    expect(task.errors.messages[:status]).to include 'を入力してください'
+  end
+  scenario 'nameが31文字以上ときにバリデーションエラーメッセージが出ること' do
+    task = build(:task, name: "#{'a'*31}")
+    task.valid?
+    expect(task.errors.messages[:name]).to include 'は30文字以内で入力してください'
+  end
 end

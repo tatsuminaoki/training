@@ -1,13 +1,9 @@
-<%= form_with(model: @task, local: true) do |form| %>
-  <% if @task.errors.any? %>
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<% if @task.errors.present? %>
+  <% @task.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
   <% end %>
+<% end %>
+<%= form_with(model: @task, local: true) do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
   <%= form.label :content %>
