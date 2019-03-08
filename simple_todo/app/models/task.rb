@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_and_belongs_to_many :labels
 
   enum status: %i[yet doing done]
 
@@ -18,6 +19,10 @@ class Task < ApplicationRecord
 
   def self.status_search(status)
     Task.where(status: status)
+  end
+
+  def self.label_search(label_id)
+    Task.includes(:labels).where(labels: {id: label_id})
   end
 
   def limit_date_validate
