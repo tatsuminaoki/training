@@ -97,4 +97,12 @@ RSpec.feature "Tasks", type: :feature do
     click_button '登録する'
     expect(page).to have_content 'タスク名は30文字以内で入力してください'
   end
+  scenario '一覧画面にて終了期限でソートできること' do
+    create(:task, name: 'Housework', endtime: Time.current, created_at: Time.current - 1.days)
+    visit root_path
+    click_link '終了時間'
+    task = all('table td')
+    task_0 = task[0]
+    expect(task_0).to have_content 'Housework'
+  end
 end

@@ -15,6 +15,6 @@
   <%= form.label :status %>
   <%= form.text_field :status %>
   <%= form.label :endtime %>
-  <%= form.text_field :endtime %>
+  <%= form.datetime_select :endtime, :include_blank => true %>
   <%= form.submit %>
 <% end %>
