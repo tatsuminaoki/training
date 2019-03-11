@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+table td.title {
+  width: 100px;
+}
+
+table td.user_id {
+  width: 100px;
+}
+
+table td.priority {
+  width: 100px;
+} 
+
+table td.status {
+  width: 100px;
+} 
