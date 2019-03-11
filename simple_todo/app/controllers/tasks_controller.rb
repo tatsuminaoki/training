@@ -32,6 +32,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    @labels = Label.all
     @task = Task.new(task_params)
     if @task.save
       redirect_to @task, notice: t('flash.task.created')
