@@ -17,10 +17,9 @@ class TasksController < ApplicationController
   end
 
   def index
-    if params[:sort] == 'endtime'
-      @tasks = Task.all.order('endtime IS NULL')
-    else
-      @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc)
+    if params[:sort].present?
+      @tasks = Task.all.order(params[:sort])
     end
   end
 
