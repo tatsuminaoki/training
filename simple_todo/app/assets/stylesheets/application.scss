@@ -19,13 +19,34 @@ table td.title {
 }
 
 table td.user_id {
-  width: 100px;
+  width: 80px;
 }
-
 table td.priority {
-  width: 100px;
+  width: 90px;
 } 
 
 table td.status {
   width: 100px;
 } 
+
+.main-search {
+  margin: 10px 0 10px 10px;
+  height: 50px;
+  width: 770px;
+  padding: 5px;
+}
+
+.main-search-group{
+  float: left;
+  margin-right: 20px;
+}
+
+.checkbox-list input[type="checkbox"] {
+  display: inline-block;
+}
+
+.checkbox-list input[type="checkbox"] + label {
+  display: inline-block;
+  margin-left: 10px;
+  width: 100px;
+}

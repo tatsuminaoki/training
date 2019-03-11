@@ -2,5 +2,5 @@
 
 <%= render 'form', task: @task %>
 
-<%= link_to t('contents.edit'), @task %> |
-<%= link_to t('contents.index'), tasks_path %>
+<%= link_to t('contents.edit'), @task, class: "btn btn-success" %>
+<%= link_to t('contents.index'), tasks_path, class: "btn btn-primary" %>

@@ -10,8 +10,10 @@
   </head>
   <header>
     <% if current_user %>
-    <%= current_user.name %> 
-    <%= link_to t('contents.logout'), logout_url , method: :delete %>
+    <div class="alert alert-primary" role="alert">
+      <%= current_user.name %> 
+      <%= link_to t('contents.logout'), logout_url , method: :delete ,class: "alert-link" %>
+    </div>
     <% end %>
   </header>
   <body>

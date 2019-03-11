@@ -1,49 +1,48 @@
-  <%= form_with(model: task, local: true) do |form| %>
+<%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
       <ul>
-      <% task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="form-group">
     <%= form.label :label %>
-    <%= form.collection_check_boxes(:label_ids, @labels, :id, :name) %>
+    <div class="checkbox-list">
+      <%= form.collection_check_boxes(:label_ids, @labels, :id, :name) %>
+    </div>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <%= form.number_field :user_id, class: "form-control" %>
   </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :limit %>
-    <%= form.datetime_select :limit %>
+    <%= form.datetime_select :limit, class: "form-control" %>
   </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :priority %>
-    <%= form.select :priority, [[1,1], [2,2], [3,3], [4,4], [5,5]] %>
+    <%= form.select :priority, [[1,1], [2,2], [3,3], [4,4], [5,5]], class: "form-control"%>
   </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.to_a.map{|k,v| [Task.human_attribute_name("status.#{k}"),k]} , class: "form-control" %>
+  <div class="form-group">
+    <div class="dropdown">
+      <%= form.label :status %>
+      <%= form.select :status, Task.statuses.to_a.map{|k,v| [Task.human_attribute_name("status.#{k}"),k]} , class: "btn btn-secondary dropdown-toggle" %>
+    </div>
   </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
