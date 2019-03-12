@@ -1,20 +1,22 @@
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>">
-    <%= message %>
-  </div>
-<% end %>
-<%= form_tag '/login' do %>
-  <div class="form-group">
-    <label for="exampleInputEmail1">
-      <%= User.human_attribute_name(:email) %>
-    </label>
-    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">
-      <%= User.human_attribute_name(:password) %>
-    </label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <%= submit_tag t('contents.login'), :title => nil, class: "btn btn-primary" %>
-<% end %>
+<div class="login-main" >
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>">
+      <%= message %>
+    </div>
+  <% end %>
+  <%= form_tag '/login' do %>
+    <div class="form-group">
+      <label for="exampleInputEmail1">
+        <%= User.human_attribute_name(:email) %>
+      </label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">
+        <%= User.human_attribute_name(:password) %>
+      </label>
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <%= submit_tag t('contents.login'), :title => nil, class: "btn btn-primary" %>
+  <% end %>
+</div>
