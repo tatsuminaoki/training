@@ -20,7 +20,7 @@ class TasksController < ApplicationController
     @tasks =
     case params[:sort]
     when 'endtime_ASC'
-      Task.all.order(Arel.sql('endtime IS NULL'))
+      Task.all.order(Arel.sql('endtime IS NULL, endtime ASC'))
     when 'endtime_DESC'
       Task.all.order('endtime DESC')
     else
