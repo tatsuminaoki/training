@@ -1,9 +1,9 @@
 <h1>タスク一覧</h1>
-<%= link_to I18n.t('helpers.submit.create_order'), sort: 'created_at DESC' %>
+<%= link_to I18n.t('helpers.submit.create_order'), sort: 'created_at_DESC' %>
 <% if request.fullpath.include?('DESC') %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime IS NULL, endtime ASC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_ASC' %>
 <% else %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime DESC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_DESC' %>
 <% end %>
 <table>
   <tr>
