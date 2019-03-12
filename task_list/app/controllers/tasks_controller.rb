@@ -17,7 +17,15 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks =
+    case params[:sort]
+    when 'endtime_ASC'
+      Task.all.order(Arel.sql('endtime IS NULL, endtime ASC'))
+    when 'endtime_DESC'
+      Task.all.order('endtime DESC')
+    else
+      Task.all.order('created_at DESC')
+    end
   end
 
   def show

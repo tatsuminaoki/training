@@ -166,6 +166,7 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+      create_order: 作成順
   number:
     currency:
       format:

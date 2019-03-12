@@ -1,4 +1,10 @@
 <h1>タスク一覧</h1>
+<%= link_to I18n.t('helpers.submit.create_order'), sort: 'created_at_DESC' %>
+<% if request.fullpath.include?('DESC') %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_ASC' %>
+<% else %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_DESC' %>
+<% end %>
 <table>
   <tr>
     <th><%= I18n.t('activerecord.attributes.task.name') %></th>
@@ -14,10 +20,16 @@
     <td><%= task.content %></td>
     <td><%= task.priority %></td>
     <td><%= task.status %></td>
+    <% if task.endtime %>
+    <td><%= task.endtime.strftime('%Y年%m月%d日 %H:%M') %></td>
+    <% else %>
     <td><%= task.endtime %></td>
+    <% end %>
     <td><%= link_to '詳細', task_path(task.id) %></td>
   </tr>
 <% end %>
 </table>
 
 <%= link_to '投稿', new_task_path %>
+
+
