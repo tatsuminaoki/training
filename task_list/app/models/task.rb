@@ -3,12 +3,6 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
   enum status: { 未着手: 0, 着手: 1, 完了: 2 }
-  scope :get_by_name, ->(name) {
-  where("name like ?", "%#{name}%")
-  }
-  scope :get_by_status, ->(status) {
-  where(status: status)
-  }
 
   def self.sort_and_search(params)
     tasks = Task.all
