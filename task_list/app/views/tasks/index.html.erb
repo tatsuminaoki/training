@@ -5,6 +5,13 @@
 <% else %>
   <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_DESC' %>
 <% end %>
+<%= form_tag(tasks_path, method: "get") do %>
+<%= label_tag :name, I18n.t('activerecord.attributes.task.name') %>
+<%= text_field_tag :name, params[:name] %>
+<%= label_tag :name, I18n.t('activerecord.attributes.task.status') %>
+<%= select_tag :status, options_for_select(Task.statuses), include_blank: true %>
+<%= submit_tag "検索" %>
+<% end %>
 <table>
   <tr>
     <th><%= I18n.t('activerecord.attributes.task.name') %></th>
@@ -31,5 +38,3 @@
 </table>
 
 <%= link_to '投稿', new_task_path %>
-
-
