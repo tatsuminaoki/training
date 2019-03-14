@@ -16,22 +16,5 @@ class Task < ApplicationRecord
       else
         tasks.order(created_at: :desc)
     end
-    # tasks = tasks.where('name LIKE ?', "%#{sanitize_sql_like(params[:name])}%") if params[:name].present?
-    # tasks = tasks.where(status: params[:status]) if params[:status].present?
   end
-  private
-
-  # User.where(name: "hoge").order(create_at: :desc)
-  # def name_search
-  #   if params[:name].present?
-  #     @tasks_name = tasks.where('name LIKE ?', "%#{sanitize_sql_like(params[:name])}%")
-  #   else
-  #     @tasks_name = Task.all
-  #   end
-  #   if params[:status].present?
-  #     tasks_status = @tasks_name.where(status: params[:status])
-  #   else
-  #     tasks_status = @tasks_name
-  #   end
-  # end
 end
