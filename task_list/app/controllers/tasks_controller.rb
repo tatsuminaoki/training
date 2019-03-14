@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
     else
-      flash[:alert] =  "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
       render 'new'
     end
   end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
     else
-      flash[:alert] =  "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
       render 'edit'
     end
   end
