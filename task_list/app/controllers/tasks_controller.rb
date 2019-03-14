@@ -18,6 +18,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.sort_and_search(params)
+    @search_attr = params
   end
 
   def show

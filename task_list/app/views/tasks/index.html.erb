@@ -5,11 +5,11 @@
 <% else %>
   <%= link_to I18n.t('activerecord.attributes.task.endtime'), sort: 'endtime_DESC' %>
 <% end %>
-<%= form_tag(tasks_path, method: "get") do %>
+<%= form_tag(tasks_path, method: "get", locals: { search_attr: @search_attr }) do %>
 <%= label_tag :name, I18n.t('activerecord.attributes.task.name') %>
 <%= text_field_tag :name, params[:name] %>
-<%= label_tag :name, I18n.t('activerecord.attributes.task.status') %>
-<%= select_tag :status, options_for_select(Task.statuses), include_blank: true %>
+<%= label_tag :status, I18n.t('activerecord.attributes.task.status') %>
+<%= select_tag :status, options_for_select(Task.statuses, @search_attr[:status]), include_blank: true %>
 <%= submit_tag "検索" %>
 <% end %>
 <table>
