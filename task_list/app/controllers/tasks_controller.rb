@@ -11,21 +11,14 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
     else
-      flash[:alert] =  "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
       render 'new'
     end
   end
 
   def index
-    @tasks =
-    case params[:sort]
-    when 'endtime_ASC'
-      Task.all.order(Arel.sql('endtime IS NULL, endtime ASC'))
-    when 'endtime_DESC'
-      Task.all.order('endtime DESC')
-    else
-      Task.all.order('created_at DESC')
-    end
+    @tasks = Task.all.sort_and_search(params)
+    @search_attr = params
   end
 
   def show
@@ -39,7 +32,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
     else
-      flash[:alert] =  "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
       render 'edit'
     end
   end

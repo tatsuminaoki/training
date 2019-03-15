@@ -1,3 +1,4 @@
+# frozen_string_literal: true.
 <% if @task.errors.present? %>
   <ul>
   <% @task.errors.full_messages.each do |msg| %>
@@ -13,7 +14,7 @@
   <%= form.label :priority %>
   <%= form.text_field :priority %>
   <%= form.label :status %>
-  <%= form.text_field :status %>
+  <%= form.select :status, Task.statuses.keys.to_a, {} %>
   <%= form.label :endtime %>
   <%= form.datetime_select :endtime, :include_blank => true %>
   <%= form.submit %>
