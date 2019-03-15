@@ -123,4 +123,17 @@ RSpec.feature 'Tasks', type: :feature do
     expect(page).to have_content '着手タスク'
     expect(page).not_to have_content 'Math'
   end
+  scenario 'ページネーション機能により16件中10件のタスクが最初のページに表示されていること' do
+    15.times{ create(:task) }
+    visit root_path
+    # 1件のタスクにつき6個のtdがある
+    expect(all('tr td').size).to eq(60)
+  end
+  scenario 'ページネーション機能により16件中6件のタスクが2ページ目に表示されていること' do
+    15.times{ create(:task) }
+    visit root_path
+    click_link '次 ›'
+    # 1件のタスクにつき6個のtdがある
+    expect(all('tr td').size).to eq(36)
+  end
 end
