@@ -3,7 +3,6 @@
 //
 //= require action_cable
 //= require_self
-//= require jquery/dist/jquery.js
 //= require_tree ./channels
 
 (function() {
