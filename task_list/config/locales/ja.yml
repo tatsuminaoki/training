@@ -1,21 +1,5 @@
 ---
 ja:
-  views:
-    pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      previous: "&lsaquo; 前"
-      next: "次 &rsaquo;"
-      truncate: "..."
-  helpers:
-    page_entries_info:
-      one_page:
-        display_entries:
-          zero: ""
-          one: "<strong>1-1</strong>/1件中"
-          other: "<strong>1-%{count}</strong>/%{count}件中"
-      more_pages:
-        display_entries: "<strong>%{first}-%{last}</strong>/%{total}件中"
   activerecord:
     models:
       task: 'タスク'
@@ -175,7 +159,22 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: ""
+          one: "<strong>1-1</strong>/1件中"
+          other: "<strong>1-%{count}</strong>/%{count}件中"
+      more_pages:
+        display_entries: "<strong>%{first}-%{last}</strong>/%{total}件中"
     select:
       prompt: 選択してください
     submit:
