@@ -1,9 +1,15 @@
 <h1>タスク詳細</h1>
-<p><%= I18n.t('activerecord.attributes.task.name') %>:<%= @task.name %></p>
-<p><%= I18n.t('activerecord.attributes.task.content') %>:<%= @task.content %></p>
-<p><%= I18n.t('activerecord.attributes.task.priority') %>:<%= @task.priority %></p>
-<p><%= I18n.t('activerecord.attributes.task.status') %>:<%= @task.status %></p>
-<p><%= I18n.t('activerecord.attributes.task.endtime') %>:<%= @task.endtime %></p>
+<div class = 'task'>
+  <p><%= I18n.t('activerecord.attributes.task.name') %>:<%= @task.name %></p>
+  <p><%= I18n.t('activerecord.attributes.task.content') %>:<%= @task.content %></p>
+  <p><%= I18n.t('activerecord.attributes.task.priority') %>:<%= @task.priority %></p>
+  <p><%= I18n.t('activerecord.attributes.task.status') %>:<%= @task.status %></p>
+  <% if @task.endtime %>
+    <p><%= I18n.t('activerecord.attributes.task.endtime') %>:<%= @task.endtime.strftime('%Y/%m/%d %H:%M') %></p>
+  <% else %>
+    <p><%= I18n.t('activerecord.attributes.task.endtime') %>:<%= @task.endtime %></p>
+  <% end %>
+</div>
 
-<%= link_to '編集', edit_task_path(@task.id) %>
-<%= link_to '削除', task_path(@task.id), method: :delete, data: { confirm: '本当に削除していいですか？' } %>
+<%= link_to '編集', edit_task_path(@task.id), class: 'btn btn-info' %>
+<%= link_to '削除', task_path(@task.id), class: 'btn btn-danger', method: :delete, data: { confirm: '本当に削除していいですか？' } %>

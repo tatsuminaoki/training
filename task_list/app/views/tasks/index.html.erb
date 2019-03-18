@@ -1,42 +1,46 @@
 <h1>タスク一覧</h1>
-<%= link_to I18n.t('helpers.submit.create_order'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", sort: 'created_at_DESC' %>
+<span>並び替え</span>
+<%= link_to I18n.t('helpers.submit.create_order'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'created_at_DESC' %>
 <% if request.fullpath.include?('DESC') %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", sort: 'endtime_ASC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'endtime_ASC' %>
 <% else %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", sort: 'endtime_DESC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'endtime_DESC' %>
 <% end %>
 <%= form_tag(tasks_path, method: "get", locals: { search_attr: @search_attr }) do %>
 <%= label_tag :name, I18n.t('activerecord.attributes.task.name') %>
 <%= text_field_tag :name, params[:name] %>
+<%= label_tag :priority, I18n.t('activerecord.attributes.task.priority') %>
+<%= select_tag :priority, options_for_select(Task.priorities, @search_attr[:priority]), include_blank: true %>
 <%= label_tag :status, I18n.t('activerecord.attributes.task.status') %>
 <%= select_tag :status, options_for_select(Task.statuses, @search_attr[:status]), include_blank: true %>
-<%= submit_tag "検索" %>
+<%= submit_tag "検索", class:'btn btn-primary' %>
 <% end %>
-<table>
-  <tr>
-    <th><%= I18n.t('activerecord.attributes.task.name') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.content') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.status') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.endtime') %></th>
+<%= page_entries_info @tasks %>
+<table class = 'inline-block table-bordered'>
+  <tr class = 'row task-title'>
+    <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.name') %></th>
+    <th class = 'col-md-5 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.priority') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.status') %></th>
+    <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.endtime') %></th>
   </tr>
 
 <% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.name %></td>
-    <td><%= task.content %></td>
-    <td><%= task.priority %></td>
-    <td><%= task.status %></td>
+<div class = 'container-fluid'>
+  <tr class = 'row task'>
+    <td class = 'col-md-2 col-xs-3'><%= task.name %></td>
+    <td class = 'col-md-5 col-xs-3'><%= task.content %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.priority %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.status %></td>
     <% if task.endtime %>
-    <td><%= task.endtime.strftime('%Y年%m月%d日 %H:%M') %></td>
+    <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
     <% else %>
-    <td><%= task.endtime %></td>
+    <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
     <% end %>
-    <td><%= link_to '詳細', task_path(task.id) %></td>
+    <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
   </tr>
+  </div>
 <% end %>
 </table>
 <%= paginate @tasks %>
-<%= page_entries_info @tasks %>
 
-<%= link_to '投稿', new_task_path %>

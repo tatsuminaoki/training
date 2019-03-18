@@ -5,6 +5,7 @@ RSpec.feature 'Tasks', type: :feature do
   background do
     @task = create(:task)
   end
+
   feature '画面遷移' do
     scenario 'root_pathから投稿ページに遷移すること' do
       visit root_path

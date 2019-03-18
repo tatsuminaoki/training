@@ -6,15 +6,27 @@
   </ul>
 <% end %>
 <%= form_with(model: @task, local: true) do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :content %>
-  <%= form.text_field :content %>
-  <%= form.label :priority %>
-  <%= form.text_field :priority %>
-  <%= form.label :status %>
-  <%= form.select :status, Task.statuses.keys.to_a, {} %>
-  <%= form.label :endtime %>
-  <%= form.datetime_select :endtime, :include_blank => true %>
-  <%= form.submit %>
+  <div class = 'task_name'>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class = 'task_cintent'>
+    <%= form.label :content %>
+    <%= form.text_field :content, :placeholder => "空欄でもOKです!" %>
+  </div>
+  <div class = 'task_priority'>
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.to_a, {} %>
+  </div>
+  <div class = 'task_status'>
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys.to_a, {} %>
+  </div>
+  <div class = 'task_endtime'>
+    <%= form.label :endtime %>
+    <%= form.datetime_select :endtime, :include_blank => true %>
+  </div>
+  <div class = 'task_new_post' >
+    <%= form.submit class:'btn btn-primary' %>
+  </div>
 <% end %>

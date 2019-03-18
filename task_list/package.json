@@ -1,5 +1,8 @@
 {
   "name": "task_list",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1"
+  }
 }

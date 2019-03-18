@@ -1,3 +1,57 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  text-align: center;
+}
+// task_index
+.inline-block {
+  // display: inline-block;
+  width: 100%;
+}
+// header
+header {
+  width: 100%;
+  background-color: #d2faf3;
+  height: 60px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+ }
+
+ header ul {
+  margin: 0 auto;
+  list-style: none;
+
+ }
+
+ header ul li {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #00008b;
+  float: right;
+  width: auto;
+  font-size: 18px;
+ }
+
+//  tasks.index
+.task-title {
+  background-color: #ccf7ff;
+  margin-top: 12px;
+}
+
+table th{
+  padding : 12px 10px;
+}
+
+table td{
+  padding : 12px 10px;
+}
+
+// tasks.show
+.task {
+  background-color: #f0f8ff;
+  margin-top: 5px;
+}
