@@ -47,25 +47,16 @@ RSpec.feature 'Tasks', type: :feature do
     scenario 'nameが空のときにバリデーションエラーメッセージが出ること' do
       visit new_task_path
       fill_in 'タスク名', with: ''
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスク名を入力してください'
     end
 
-    scenario 'priorityが空のときにバリデーションエラーメッセージが出ること' do
-      visit new_task_path
-      fill_in 'タスク名', with: 'Study'
-      fill_in '優先順位', with: ''
-      select '未着手', from: 'ステータス'
-      click_button '登録する'
-      expect(page).to have_content '優先順位を入力してください'
-    end
-
     scenario 'nameが31文字以上ときにバリデーションエラーメッセージが出ること' do
       visit new_task_path
       fill_in 'タスク名', with: ('a' * 31)
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスク名は30文字以内で入力してください'
@@ -76,7 +67,7 @@ RSpec.feature 'Tasks', type: :feature do
     scenario '新規タスクの作成' do
       visit new_task_path
       fill_in 'タスク名', with: 'Study'
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスクを作成しました！'
@@ -86,7 +77,7 @@ RSpec.feature 'Tasks', type: :feature do
     scenario 'タスクの編集' do
       visit "tasks/#{@task.id}/edit"
       fill_in 'タスク名', with: 'English'
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '更新する'
       expect(page).to have_content 'タスクを編集しました！'
