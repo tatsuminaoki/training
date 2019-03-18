@@ -37,5 +37,10 @@
 <% end %>
 </table>
 <%= paginate @tasks %>
+<p><%= @tasks.total_count %>件中<%= (@tasks.offset_value + 1) %>〜<%= @tasks.offset_value + @tasks.length %>件を表示しています。</p>
+
+<%# 日本語化に挑戦してみてダメだったコード %>
+<%= I18n.t('helpers.page_entries_info.one_page.display_entries.one') %>
+<%= page_entries_info @tasks %>
 
 <%= link_to '投稿', new_task_path %>

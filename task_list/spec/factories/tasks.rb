@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :task do
-    name { 'Math' }
+    sequence(:name) { |n| "Task#{n}" }
     priority { 1 }
     status { 2 }
     endtime { Time.current }
