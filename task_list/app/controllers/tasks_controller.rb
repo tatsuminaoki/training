@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all.sort_and_search(params)
+    @tasks = Task.all.sort_and_search(params).page(params[:page]).per(10)
     @search_attr = params
   end
 
