@@ -8,7 +8,7 @@ ja:
       task:
         name: 'タスク名'
         content: '内容'
-        priority: '優先順位'
+        priority: '優先度'
         status: 'ステータス'
         endtime: '終了時間'
       user:
@@ -28,6 +28,16 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  enums:
+    task:
+      priority:
+        high: '高'
+        middle: '中'
+        low: '低'
+      status:
+        waiting: '未着手'
+        working: '着手'
+        completed: '完了'
   date:
     abbr_day_names:
     - 日

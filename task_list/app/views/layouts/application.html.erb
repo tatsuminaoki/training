@@ -9,12 +9,22 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <% if flash[:notice] %>
-      <%= flash[:notice] %>
-    <% elsif flash[:alert] %>
-      <%= flash[:alert] %>
-    <% end %>
-    <%= yield %>
+  <body class = 'top-width'>
+  <header>
+    <ul>
+      <%# ユーザー管理機能を作ったら正しい遷移先に変える %>
+      <li><%= link_to 'ユーザー管理', new_task_path, class:"square_btn" %></li>
+      <li><%= link_to 'タスク一覧', tasks_path, class:"square_btn" %></li>
+      <li><%= link_to 'タスク投稿', new_task_path, class:"square_btn" %></li>
+    </ul>
+  </header>
+    <div class = 'top-width'>
+      <% if flash[:notice] %>
+        <%= flash[:notice] %>
+      <% elsif flash[:alert] %>
+        <%= flash[:alert] %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

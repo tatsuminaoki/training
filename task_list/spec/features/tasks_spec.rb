@@ -5,6 +5,7 @@ RSpec.feature 'Tasks', type: :feature do
   background do
     @task = create(:task)
   end
+
   feature '画面遷移' do
     scenario 'root_pathから投稿ページに遷移すること' do
       visit root_path
@@ -27,6 +28,10 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   feature 'バリデーション' do
+    scenario 'name,priority,statusがあればタスク投稿ができる' do
+      expect(create(:task)).to be_valid
+    end
+
     scenario 'nameが空では登録できない' do
       expect(build(:task, name: '')).to_not be_valid
     end
@@ -46,25 +51,16 @@ RSpec.feature 'Tasks', type: :feature do
     scenario 'nameが空のときにバリデーションエラーメッセージが出ること' do
       visit new_task_path
       fill_in 'タスク名', with: ''
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスク名を入力してください'
     end
 
-    scenario 'priorityが空のときにバリデーションエラーメッセージが出ること' do
-      visit new_task_path
-      fill_in 'タスク名', with: 'Study'
-      fill_in '優先順位', with: ''
-      select '未着手', from: 'ステータス'
-      click_button '登録する'
-      expect(page).to have_content '優先順位を入力してください'
-    end
-
     scenario 'nameが31文字以上ときにバリデーションエラーメッセージが出ること' do
       visit new_task_path
       fill_in 'タスク名', with: ('a' * 31)
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスク名は30文字以内で入力してください'
@@ -75,7 +71,7 @@ RSpec.feature 'Tasks', type: :feature do
     scenario '新規タスクの作成' do
       visit new_task_path
       fill_in 'タスク名', with: 'Study'
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '登録する'
       expect(page).to have_content 'タスクを作成しました！'
@@ -85,7 +81,7 @@ RSpec.feature 'Tasks', type: :feature do
     scenario 'タスクの編集' do
       visit "tasks/#{@task.id}/edit"
       fill_in 'タスク名', with: 'English'
-      fill_in '優先順位', with: '1'
+      select '高', from: '優先度'
       select '未着手', from: 'ステータス'
       click_button '更新する'
       expect(page).to have_content 'タスクを編集しました！'
@@ -106,10 +102,6 @@ RSpec.feature 'Tasks', type: :feature do
       task = all('table td')
       task1 = task[0]
       expect(task1).to have_content 'Housework'
-    end
-
-    scenario 'name,priority,statusがあればタスク投稿ができる' do
-      expect(create(:task)).to be_valid
     end
 
     scenario '一覧画面にて終了期限で降順にソートできること' do
@@ -146,6 +138,15 @@ RSpec.feature 'Tasks', type: :feature do
       select '着手', from: 'status'
       click_button '検索'
       expect(page).to have_content '着手タスク'
+      expect(page).not_to have_content 'Task1'
+    end
+
+    scenario '優先度で検索ができていること' do
+      create(:task, name: '優先度高タスク', status: 0)
+      visit root_path
+      select '高', from: 'priority'
+      click_button '検索'
+      expect(page).to have_content '優先度高タスク'
       expect(page).not_to have_content 'Task1'
     end
   end
