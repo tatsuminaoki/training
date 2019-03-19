@@ -10,28 +10,29 @@
 <%= label_tag :name, I18n.t('activerecord.attributes.task.name') %>
 <%= text_field_tag :name, params[:name] %>
 <%= label_tag :priority, I18n.t('activerecord.attributes.task.priority') %>
-<%= select_tag :priority, options_for_select(Task.priorities, @search_attr[:priority]), include_blank: true %>
+<%= select_tag :priority, options_for_select(Task.priorities_i18n.invert, @search_attr[:priority]), include_blank: true %>
 <%= label_tag :status, I18n.t('activerecord.attributes.task.status') %>
-<%= select_tag :status, options_for_select(Task.statuses, @search_attr[:status]), include_blank: true %>
+<%= select_tag :status, options_for_select(Task.statuses_i18n.invert, @search_attr[:status]), include_blank: true %>
 <%= submit_tag "検索", class:'btn btn-primary' %>
 <% end %>
 <%= page_entries_info @tasks %>
-<table class = 'inline-block table-bordered'>
+<table class = 'inline-block'>
   <tr class = 'row task-title'>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.name') %></th>
     <th class = 'col-md-5 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.priority') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.status') %></th>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.endtime') %></th>
+    <th class = 'col-md-1 col-xs-3'>詳細</th>
   </tr>
 
 <% @tasks.each do |task| %>
 <div class = 'container-fluid'>
   <tr class = 'row task'>
     <td class = 'col-md-2 col-xs-3'><%= task.name %></td>
-    <td class = 'col-md-5 col-xs-3'><%= task.content %></td>
-    <td class = 'col-md-1 col-xs-3'><%= task.priority %></td>
-    <td class = 'col-md-1 col-xs-3'><%= task.status %></td>
+    <td class = 'col-md-5 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.priority_i18n %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.status_i18n %></td>
     <% if task.endtime %>
     <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
     <% else %>

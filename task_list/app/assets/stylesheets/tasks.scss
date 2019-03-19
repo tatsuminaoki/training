@@ -4,11 +4,6 @@
 body {
   text-align: center;
 }
-// task_index
-.inline-block {
-  // display: inline-block;
-  width: 100%;
-}
 // header
 header {
   width: 100%;
@@ -36,18 +31,28 @@ header {
   font-size: 18px;
  }
 
+// tasks_form
+.list {
+  list-style: none;
+}
+
 //  tasks.index
 .task-title {
   background-color: #ccf7ff;
-  margin-top: 12px;
 }
 
 table th{
-  padding : 12px 10px;
+  padding: 12px 10px;
+  border: dotted 1px #e6e6fa;
 }
 
 table td{
-  padding : 12px 10px;
+  padding: 12px 10px;
+  border: dotted 1px #e6e6fa;
+}
+
+.inline-block {
+  width: 100%;
 }
 
 // tasks.show

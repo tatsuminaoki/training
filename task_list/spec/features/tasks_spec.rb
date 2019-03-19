@@ -28,6 +28,10 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   feature 'バリデーション' do
+    scenario 'name,priority,statusがあればタスク投稿ができる' do
+      expect(create(:task)).to be_valid
+    end
+
     scenario 'nameが空では登録できない' do
       expect(build(:task, name: '')).to_not be_valid
     end
@@ -100,10 +104,6 @@ RSpec.feature 'Tasks', type: :feature do
       expect(task1).to have_content 'Housework'
     end
 
-    scenario 'name,priority,statusがあればタスク投稿ができる' do
-      expect(create(:task)).to be_valid
-    end
-
     scenario '一覧画面にて終了期限で降順にソートできること' do
       create(:task, name: 'Housework', endtime: (Time.current + 1.day), created_at: Time.current)
       visit root_path
@@ -138,6 +138,15 @@ RSpec.feature 'Tasks', type: :feature do
       select '着手', from: 'status'
       click_button '検索'
       expect(page).to have_content '着手タスク'
+      expect(page).not_to have_content 'Task1'
+    end
+
+    scenario '優先度で検索ができていること' do
+      create(:task, name: '優先度高タスク', status: 0)
+      visit root_path
+      select '高', from: 'priority'
+      click_button '検索'
+      expect(page).to have_content '優先度高タスク'
       expect(page).not_to have_content 'Task1'
     end
   end
