@@ -3,8 +3,11 @@ class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :priority, presence: true
   validates :status, presence: true
+
   enum status: { waiting:0,  working:1, completed:2 }
   enum priority: { high:0, middle:1, low:2 }
+
+  belongs_to :user
 
   def self.sort_and_search(params)
     tasks = Task.all
