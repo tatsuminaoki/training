@@ -2,12 +2,15 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: [:destroy, :show, :edit, :update]
+  before_action :loggin_check, only: [:new, :edit, :show, :destroy, :index]
+  before_action :user_check, only: [:edit, :destroy]
   def new
     @task = Task.new
   end
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
     else
@@ -17,7 +20,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all.includes(:user).sort_and_search(params).page(params[:page]).per(10)
+    @tasks = current_user.tasks.sort_and_search(params).page(params[:page]).per(10)
     @search_attr = params
   end
 
@@ -50,5 +53,18 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def loggin_check
+    if session[:user_id] == nil
+      redirect_to new_session_path, notice:"ログインしてください"
+    end
+  end
+
+  def user_check
+    @task = Task.find(params[:id])
+    unless current_user.id == @task.user_id
+      redirect_to tasks_path, notice:"投稿者以外は編集,削除はできません"
+    end
   end
 end

@@ -18,6 +18,9 @@ ja:
         password: 'パスワード'
         password_confirmation: '確認用パスワード'
         remember_me: 'ログインを記憶'
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
     flash:
       task_create: 'タスクを作成しました！'
       task_edit: 'タスクを編集しました！'
@@ -177,6 +180,11 @@ ja:
       next: "次 &rsaquo;"
       truncate: "..."
   helpers:
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
+        Log_in: 'ログイン'
     page_entries_info:
       one_page:
         display_entries:
@@ -192,6 +200,7 @@ ja:
       submit: 保存する
       update: 更新する
       create_order: 作成順
+      login: 'ログイン'
   number:
     currency:
       format:
