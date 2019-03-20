@@ -18,9 +18,6 @@ ja:
         password: 'パスワード'
         password_confirmation: '確認用パスワード'
         remember_me: 'ログインを記憶'
-      session:
-        email: 'メールアドレス'
-        password: 'パスワード'
     flash:
       task_create: 'タスクを作成しました！'
       task_edit: 'タスクを編集しました！'
