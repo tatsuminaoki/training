@@ -177,6 +177,11 @@ ja:
       next: "次 &rsaquo;"
       truncate: "..."
   helpers:
+    label:
+      session:
+        email: 'メールアドレス'
+        password: 'パスワード'
+        login: 'ログイン'
     page_entries_info:
       one_page:
         display_entries:
@@ -192,6 +197,7 @@ ja:
       submit: 保存する
       update: 更新する
       create_order: 作成順
+      login: 'ログイン'
   number:
     currency:
       format:

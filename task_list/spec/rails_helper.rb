@@ -57,4 +57,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  RSpec.configure do |config|
+    config.include LoginMacros
+  end
 end
