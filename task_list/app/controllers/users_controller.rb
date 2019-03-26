@@ -26,6 +26,6 @@ class UsersController < ApplicationController
 
   def check_current_user
     @user = User.find(params[:id])
-    redirect_to tasks_path, notice: '本人しか閲覧できません' if current_user != @user
+    redirect_to tasks_path, alert: '本人しか閲覧できません' if current_user != @user
   end
 end
