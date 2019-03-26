@@ -181,7 +181,7 @@ ja:
       session:
         email: 'メールアドレス'
         password: 'パスワード'
-        Log_in: 'ログイン'
+        login: 'ログイン'
     page_entries_info:
       one_page:
         display_entries:

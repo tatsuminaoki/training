@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user!, :only => [:show]
-  before_action :user_check, only: [:show]
+  before_action :check_current_user, only: [:show]
   def new
     @user = User.new
   end
@@ -25,10 +24,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def user_check
+  def check_current_user
     @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to tasks_path, notice:'本人しか閲覧できません'
-    end
+    redirect_to tasks_path, notice: '本人しか閲覧できません' if current_user != @user
   end
 end

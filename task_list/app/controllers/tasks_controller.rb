@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, only: [:destroy, :show, :edit, :update]
-  before_action :loggin_check, only: [:new, :edit, :show, :destroy, :index]
-  before_action :user_check, only: [:edit, :destroy]
+  before_action :set_task, only: %i[destroy show edit update]
+  before_action :login_check, only: %i[new edit show destroy index]
+  before_action :check_task_auther, only: %i[edit destroy]
   def new
     @task = Task.new
   end
@@ -55,16 +55,12 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def loggin_check
-    if session[:user_id] == nil
-      redirect_to new_session_path, notice:"ログインしてください"
-    end
+  def login_check
+    redirect_to new_session_path, notice: 'ログインしてください' if session[:user_id].nil?
   end
 
-  def user_check
-    @task = Task.find(params[:id])
-    unless current_user.id == @task.user_id
-      redirect_to tasks_path, notice:"投稿者以外は編集,削除はできません"
-    end
+  def check_task_auther
+    set_task
+    redirect_to tasks_path, notice: '投稿者以外は編集,削除はできません' if current_user.id != @task.user_id
   end
 end

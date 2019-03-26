@@ -2,13 +2,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
+  given(:user1) { create :user }
+
   background do
-    @user = create(:user)
-    visit new_session_path
-    fill_in 'メールアドレス', with: @user.email
-    fill_in 'パスワード', with: @user.password
-    click_button 'ログイン'
-    @task = create(:task, user_id: @user.id)
+    login(user1)
+    @task = create(:task, user_id: user1.id)
   end
 
   feature '画面遷移' do
@@ -102,7 +100,7 @@ RSpec.feature 'Tasks', type: :feature do
 
   feature '検索、ソート機能' do
     scenario 'タスク一覧が作成日時の順番で並ぶこと' do
-      create(:task, name: 'Housework', created_at: Time.current + 1.days, user_id: @user.id)
+      create(:task, name: 'Housework', created_at: Time.current + 1.days, user_id: user1.id)
       visit tasks_path
       task = all('table td')
       task1 = task[0]
@@ -110,7 +108,7 @@ RSpec.feature 'Tasks', type: :feature do
     end
 
     scenario '一覧画面にて終了期限で降順にソートできること' do
-      create(:task, name: 'Housework', endtime: (Time.current + 1.day), created_at: Time.current, user_id: @user.id)
+      create(:task, name: 'Housework', endtime: (Time.current + 1.day), created_at: Time.current, user_id: user1.id)
       visit root_path
       click_link '終了時間'
       task = all('table td')
@@ -119,7 +117,7 @@ RSpec.feature 'Tasks', type: :feature do
     end
 
     scenario '一覧画面にて終了期限で昇順にソートできること' do
-      create(:task, name: 'Study', endtime: (Time.current - 1.day), created_at: Time.current, user_id: @user.id)
+      create(:task, name: 'Study', endtime: (Time.current - 1.day), created_at: Time.current, user_id: user1.id)
       visit root_path
       click_link '終了時間'
       click_link '終了時間'
@@ -129,7 +127,7 @@ RSpec.feature 'Tasks', type: :feature do
     end
 
     scenario 'タスク名で検索ができていること' do
-      create(:task, name: 'English', user_id: @user.id)
+      create(:task, name: 'English', user_id: user1.id)
       visit root_path
       fill_in 'タスク名', with: 'English'
       click_button '検索'
@@ -138,7 +136,7 @@ RSpec.feature 'Tasks', type: :feature do
     end
 
     scenario 'ステータスで検索ができていること' do
-      create(:task, name: '着手タスク', status: 1, user_id: @user.id)
+      create(:task, name: '着手タスク', status: 1, user_id: user1.id)
       visit root_path
       select '着手', from: 'status'
       click_button '検索'
@@ -147,7 +145,7 @@ RSpec.feature 'Tasks', type: :feature do
     end
 
     scenario '優先度で検索ができていること' do
-      create(:task, name: '優先度高タスク', priority: 0, user_id: @user.id)
+      create(:task, name: '優先度高タスク', priority: 0, user_id: user1.id)
       visit root_path
       select '高', from: 'priority'
       click_button '検索'
@@ -158,7 +156,7 @@ RSpec.feature 'Tasks', type: :feature do
 
   feature 'ページネーション' do
     background do
-      15.times{ create(:task, user_id: @user.id) }
+      15.times { create(:task, user_id: user1.id) }
     end
 
     scenario 'ページネーション機能により16件中10件のタスクが最初のページに表示されていること' do

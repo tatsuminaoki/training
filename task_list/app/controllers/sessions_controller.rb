@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :loggin_check, only: [:new, :create]
+  before_action :login_check, only: %i[new create]
 
   def new
   end
@@ -24,9 +24,9 @@ class SessionsController < ApplicationController
 
   private
 
-  def loggin_check
-    if session[:user_id] != nil
-      redirect_to new_session_path, notice:'もうログインしています'
+  def login_check
+    unless session[:user_id].nil?
+      redirect_to new_session_path, notice: 'もうログインしています'
     end
   end
 end

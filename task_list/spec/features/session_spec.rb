@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Sessions', type: :feature do
   feature 'ログイン' do
-    before do
-      user = create(:user, id: 1)
+    background do
+      user = create(:user)
       visit new_session_path
       fill_in 'メールアドレス', with: user.email
       fill_in 'パスワード', with: user.password
@@ -20,8 +20,8 @@ RSpec.feature 'Sessions', type: :feature do
     end
   end
 
-  before do
-    @user = create(:user, id: 2)
+  background do
+    @user = create(:user)
     visit new_session_path
   end
 
