@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :check_current_user, only: [:show]
+  before_action :check_current_user, only: %i[show edit update]
+  before_action :set_user, only: %i[edit update]
   def new
     @user = User.new
   end
@@ -14,8 +15,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.all
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to admin_users_path, notice: I18n.t('activerecord.flash.user_edit')
+    else
+      flash[:alert] = "#{@user.errors.count}件のエラーがあります"
+      render 'edit'
+    end
+  end
+
   def show
-    @user = User.find(params[:id])
+    @tasks = @user.tasks.page(params[:page]).per(10)
   end
 
   private
@@ -25,7 +42,11 @@ class UsersController < ApplicationController
   end
 
   def check_current_user
+    set_user
+    redirect_to tasks_path, alert: '本人しか閲覧、編集できません' if current_user != @user
+  end
+
+  def set_user
     @user = User.find(params[:id])
-    redirect_to tasks_path, alert: '本人しか閲覧できません' if current_user != @user
   end
 end

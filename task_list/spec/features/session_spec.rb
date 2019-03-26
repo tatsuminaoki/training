@@ -4,10 +4,8 @@ RSpec.feature 'Sessions', type: :feature do
   feature 'ログイン' do
     background do
       user = create(:user)
-      visit new_session_path
-      fill_in 'メールアドレス', with: user.email
-      fill_in 'パスワード', with: user.password
-      click_button 'ログイン'
+      login(user)
+      @task = create(:task, user_id: user.id)
     end
 
     scenario 'ログインするとフラッシュメッセージが表示される' do
@@ -20,21 +18,21 @@ RSpec.feature 'Sessions', type: :feature do
     end
   end
 
-  background do
-    @user = create(:user)
-    visit new_session_path
-  end
-
   feature 'ログインのバリデーション' do
+    background do
+      @user_login = create(:user)
+      visit new_session_path
+    end
+
     scenario 'emailが空のときにバリデーションエラーメッセージが出ること' do
       fill_in 'メールアドレス', with: ''
-      fill_in 'パスワード', with: @user.password
+      fill_in 'パスワード', with: @user_login.password
       click_button 'ログイン'
       expect(page).to have_content 'ログインに失敗しました'
     end
 
     scenario 'passwordが空のときにバリデーションエラーメッセージが出ること' do
-      fill_in 'メールアドレス', with: @user.email
+      fill_in 'メールアドレス', with: @user_login.email
       fill_in 'パスワード', with: ''
       click_button 'ログイン'
       expect(page).to have_content 'ログインに失敗しました'

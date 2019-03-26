@@ -1,0 +1,35 @@
+<h1><%= @user.name %>さんのタスク一覧</h1>
+<%= link_to '削除', admin_user_path(user_id: @user.id), class: 'btn btn-danger', method: :delete, data: { confirm: '本当に削除していいですか？' } %>
+<h2><%= @user.name %>さんのタスク一覧</h2>
+<%= page_entries_info @tasks %>
+
+<table class = 'inline-block'>
+  <tr class = 'row task-title'>
+    <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.name') %></th>
+    <th class = 'col-md-5 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.priority') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.status') %></th>
+    <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.endtime') %></th>
+    <th class = 'col-md-1 col-xs-3'></th>
+  </tr>
+
+<% @tasks.each do |task| %>
+<div class = 'container-fluid'>
+  <tr class = 'row task'>
+    <td class = 'col-md-2 col-xs-3'><%= task.name %></td>
+    <td class = 'col-md-5 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.priority_i18n %></td>
+    <td class = 'col-md-1 col-xs-3'><%= task.status_i18n %></td>
+    <% if task.endtime %>
+    <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
+    <% else %>
+    <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
+    <% end %>
+    <% if task.user == current_user %>
+    <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
+    <% end %>
+  </tr>
+  </div>
+<% end %>
+</table>
+<%= paginate @tasks %>

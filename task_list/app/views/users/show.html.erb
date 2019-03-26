@@ -1,3 +1,4 @@
-<h1><%= @user.name %>のページ</h1>
+<h1><%= @user.name %>のマイページ</h1>
 
 <p><%= I18n.t('activerecord.attributes.user.email') %>: <%= @user.email %></p>
+<td class = 'col-md-1 col-xs-3'><%= link_to '編集', edit_user_path(@user.id), class: 'btn btn-info'%></td>

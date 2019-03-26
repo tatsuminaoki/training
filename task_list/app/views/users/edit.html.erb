@@ -1,0 +1,29 @@
+<h1>ユーザー編集</h1>
+
+  <% if @user.errors.present? %>
+    <div id='error_explanation'>
+      <h2><%= pluralize(@user.errors.count, 'error') %></h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li class = 'list'><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_with(model:[:admin, @user], local: true) do |form| %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :email %>
+  <%= form.email_field :email %>
+
+  <%= form.label :password %>
+  <%= form.password_field :password %>
+
+  <%= form.label :password_confirmation %>
+  <%= form.password_field :password_confirmation %>
+
+  <%= form.submit '更新', class:'btn btn-primary' %>
+<% end %>
