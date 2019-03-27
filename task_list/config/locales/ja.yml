@@ -18,10 +18,14 @@ ja:
         password: 'パスワード'
         password_confirmation: '確認用パスワード'
         remember_me: 'ログインを記憶'
+        task_amount: 'タスク数'
+        show: '詳細'
     flash:
       task_create: 'タスクを作成しました！'
       task_edit: 'タスクを編集しました！'
       task_delete: 'タスクを削除しました！'
+      user_edit: 'ユーザー情報を編集しました！'
+      user_delete: 'ユーザー情報を削除しました！'
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

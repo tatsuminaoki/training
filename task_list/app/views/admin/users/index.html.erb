@@ -1,0 +1,9 @@
+<h1>ユーザー一覧</h1>
+
+<% @users.each do |user| %>
+  <div class = 'user_index'>
+    <p><%= I18n.t('activerecord.attributes.user.name') %>:<%= user.name %></p>
+    <p><%= I18n.t('activerecord.attributes.user.task_amount') %>:<%= tasks_amount(user) %></p>
+    <p><%= link_to I18n.t('activerecord.attributes.user.show'), admin_user_path(user.id) %></p>
+  </div>
+<% end %>
