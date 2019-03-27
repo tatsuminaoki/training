@@ -3,7 +3,7 @@ module  Admin::UsersHelper
     user.tasks.count
   end
 
-  def loged_in?
+  def logged_in?
     current_user.present?
   end
 end
