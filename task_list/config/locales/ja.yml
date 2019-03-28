@@ -20,12 +20,14 @@ ja:
         remember_me: 'ログインを記憶'
         task_amount: 'タスク数'
         show: '詳細'
+        admin: '管理者権限'
     flash:
       task_create: 'タスクを作成しました！'
       task_edit: 'タスクを編集しました！'
       task_delete: 'タスクを削除しました！'
       user_edit: 'ユーザー情報を編集しました！'
       user_delete: 'ユーザー情報を削除しました！'
+      last_admin_user_delete: '管理者がいなくなってしまいます（ ;  ; ）'
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

@@ -1,5 +1,31 @@
-<h1><%= @user.name %>さんのタスク一覧</h1>
-<%= link_to '削除', admin_user_path(user_id: @user.id), class: 'btn btn-danger', method: :delete, data: { confirm: '本当に削除していいですか？' } %>
+<h1><%= @user.name %>さんのページ</h1>
+
+<% if @user.errors.present? %>
+  <div id='error_explanation'>
+    <h2><%= pluralize(@user.errors.count, 'error') %></h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li class = 'list'><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model:[:admin, @user], local: true) do |form| %>
+
+  <%= form.label :admin %>
+　<label><%= form.radio_button :admin, true %>あり</label>
+　<label><%= form.radio_button :admin, false %>なし</label>
+
+  <div class = admin_user_password>
+    <%= form.label :password %>
+    <%= form.password_field :password, class:"form-control" %>
+  </div>
+
+  <%= form.submit '管理者権限変更', class:'btn btn-primary' %>
+<% end %>
+
+<p><%= link_to 'ユーザー削除', admin_user_path(user_id: @user.id), class: 'btn btn-danger', method: :delete, data: { confirm: '本当に削除していいですか？' } %></p>
 <h2><%= @user.name %>さんのタスク一覧</h2>
 <%= page_entries_info @tasks %>
 
@@ -21,12 +47,12 @@
     <td class = 'col-md-1 col-xs-3'><%= task.priority_i18n %></td>
     <td class = 'col-md-1 col-xs-3'><%= task.status_i18n %></td>
     <% if task.endtime %>
-    <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
+      <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
     <% else %>
-    <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
+      <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
     <% end %>
     <% if task.user == current_user %>
-    <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
+      <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
     <% end %>
   </tr>
   </div>
