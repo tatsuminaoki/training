@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :admin_user
+  before_action :admin_user_check
   before_action :set_user, only: %i[show destroy update edit]
   before_action :count_admin_user, only: %i[destroy update]
   before_action :login_check, only: %i[destroy index]
@@ -20,7 +20,7 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: I18n.t('activerecord.flash.user_edit')
     else
-      flash[:alert] = "#{@user.errors.count}件のエラーがあります"
+      flash[:alert] = "#{@user.errors.count}件のエラーがあります、#{@user.errors.full_messages}"
       redirect_to admin_user_path(@user)
     end
   end
@@ -48,7 +48,7 @@ class Admin::UsersController < ApplicationController
     redirect_to new_user_path if session[:user_id].nil?
   end
 
-  def admin_user
+  def admin_user_check
     redirect_to root_path, alert: '管理者以外は閲覧することができません' unless current_user.admin?
   end
 

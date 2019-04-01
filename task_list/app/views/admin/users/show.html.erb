@@ -12,14 +12,10 @@
 <% end %>
 
 <%= form_with(model:[:admin, @user], local: true) do |form| %>
-
-  <%= form.label :admin %>
-　<label><%= form.radio_button :admin, true %>あり</label>
-　<label><%= form.radio_button :admin, false %>なし</label>
-
-  <div class = admin_user_password>
-    <%= form.label :password %>
-    <%= form.password_field :password, class:"form-control" %>
+  <div>
+    <%= form.label :admin %>
+　  <label><%= form.radio_button :admin, true %>あり</label>
+　  <label><%= form.radio_button :admin, false %>なし</label>
   </div>
 
   <%= form.submit '管理者権限変更', class:'btn btn-primary' %>
