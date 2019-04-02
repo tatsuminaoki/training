@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_users_path, notice: I18n.t('activerecord.flash.user_edit')
+      redirect_to user_path(@user), notice: I18n.t('activerecord.flash.user_edit')
     else
       flash[:alert] = "#{@user.errors.count}件のエラーがあります"
       render 'edit'
@@ -32,7 +32,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @tasks = @user.tasks.page(params[:page]).per(10)
   end
 
   private

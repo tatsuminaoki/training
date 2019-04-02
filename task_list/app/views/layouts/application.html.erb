@@ -14,7 +14,9 @@
     <% if logged_in? %>
       <ul>
         <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
-        <li><%= link_to 'ユーザー管理', admin_users_path %></li>
+        <% if current_user.admin? %>
+          <li><%= link_to 'ユーザー管理', admin_users_path %></li>
+        <% end %>
         <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
         <li><%= link_to 'タスク一覧', tasks_path %></li>
         <li><%= link_to 'タスク投稿', new_task_path %></li>
