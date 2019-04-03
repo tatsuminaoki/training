@@ -9,6 +9,10 @@
   <% else %>
     <p><%= I18n.t('activerecord.attributes.task.endtime') %>:<%= @task.endtime %></p>
   <% end %>
+  <%= I18n.t('activerecord.attributes.task.label') %>:
+  <% @task.labels.each do |task_label| %>
+    <%= task_label.name %>
+  <% end %>
 </div>
 
 <%= link_to '編集', edit_task_path(@task.id), class: 'btn btn-info' %>

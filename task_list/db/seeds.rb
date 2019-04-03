@@ -8,7 +8,7 @@
 # coding: utf-8
 # User.create!(name: 'テスト太郎', email: 'test@test.com', password_digest: '111111')
 User.create!(
-  email: 'test@example.com',
-  password_digest: '111111',
-  name: 'テスト太郎',
+  email: 'test3@example.com',
+  password: '111111',
+  name: 'テスト太郎'
 )

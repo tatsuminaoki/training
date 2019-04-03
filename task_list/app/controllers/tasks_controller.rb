@@ -6,6 +6,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.task_labels.build
   end
 
   def create
@@ -47,7 +48,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :content, :priority, :status, :endtime)
+    params.require(:task).permit(:name, :content, :priority, :status, :endtime, { :label_ids=> [] })
   end
 
   def set_task

@@ -4,6 +4,7 @@ ja:
     models:
       task: 'タスク'
       user: 'ユーザー'
+      label: 'ラベル'
     attributes:
       task:
         name: 'タスク名'
@@ -11,6 +12,7 @@ ja:
         priority: '優先度'
         status: 'ステータス'
         endtime: '終了時間'
+        label: 'ラベル'
       user:
         name: '名前'
         email: 'メールアドレス'

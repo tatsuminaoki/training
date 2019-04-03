@@ -1,10 +1,10 @@
 <h1>タスク一覧</h1>
 <span>並び替え</span>
-<%= link_to I18n.t('helpers.submit.create_order'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'created_at_DESC' %>
+<%= link_to I18n.t('helpers.submit.create_order'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", label: "#{@search_attr[:label]}", sort: 'created_at_DESC' %>
 <% if request.fullpath.include?('DESC') %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'endtime_ASC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", label: "#{@search_attr[:label]}", sort: 'endtime_ASC' %>
 <% else %>
-  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", sort: 'endtime_DESC' %>
+  <%= link_to I18n.t('activerecord.attributes.task.endtime'), name: "#{@search_attr[:name]}", status: "#{@search_attr[:status]}", priority: "#{@search_attr[:priority]}", label: "#{@search_attr[:label]}", sort: 'endtime_DESC' %>
 <% end %>
 <%= form_tag(tasks_path, method: "get", locals: { search_attr: @search_attr }) do %>
 <%= label_tag :name, I18n.t('activerecord.attributes.task.name') %>
@@ -13,16 +13,20 @@
 <%= select_tag :priority, options_for_select(Task.priorities_i18n.invert, @search_attr[:priority]), include_blank: true %>
 <%= label_tag :status, I18n.t('activerecord.attributes.task.status') %>
 <%= select_tag :status, options_for_select(Task.statuses_i18n.invert, @search_attr[:status]), include_blank: true %>
-<%= submit_tag "検索", class:'btn btn-primary' %>
+<%= label_tag :label, I18n.t('activerecord.attributes.task.label') %>
+<%= select_tag :label, options_for_select(label_names, @search_attr[:label]), include_blank: true %>
+
+<%= submit_tag '検索', class:'btn btn-primary' %>
 <% end %>
 <%= page_entries_info @tasks %>
 <table class = 'inline-block'>
   <tr class = 'row task-title'>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.name') %></th>
-    <th class = 'col-md-5 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
+    <th class = 'col-md-4 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.priority') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.status') %></th>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.endtime') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.label') %></th>
     <th class = 'col-md-1 col-xs-3'>詳細</th>
   </tr>
 
@@ -30,18 +34,22 @@
 <div class = 'container-fluid'>
   <tr class = 'row task'>
     <td class = 'col-md-2 col-xs-3'><%= task.name %></td>
-    <td class = 'col-md-5 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
+    <td class = 'col-md-4 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
     <td class = 'col-md-1 col-xs-3'><%= task.priority_i18n %></td>
     <td class = 'col-md-1 col-xs-3'><%= task.status_i18n %></td>
     <% if task.endtime %>
-    <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
+      <td class = 'col-md-2 col-xs-3'><%= task.endtime.strftime('%Y/%m/%d %H:%M') %></td>
     <% else %>
-    <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
+      <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
     <% end %>
+    <td class = 'col-md-1 col-xs-3'>
+    <% task.labels.each do |task_label| %>
+      <%= task_label.name %>
+    <% end %>
+  </td>
     <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
   </tr>
   </div>
 <% end %>
 </table>
 <%= paginate @tasks %>
-
