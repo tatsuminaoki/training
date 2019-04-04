@@ -13,7 +13,7 @@ class LabelsController < ApplicationController
     if @label.save
       redirect_to labels_path, notice: I18n.t('activerecord.flash.label_create')
     else
-      flash[:alert] = "#{@label.errors.count}件のエラーがあります"
+      flash[:alert] = I18n.t('activerecord.flash.errors_count', errors_count: @label.errors.count)
       render 'new'
     end
   end

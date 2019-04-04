@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       flash[:notice] = '登録しました。ログインしてください。'
       redirect_to new_session_path
     else
+      flash[:alert] = I18n.t('activerecord.flash.errors_count', errors_count: @user.errors.count)
       render 'new'
     end
   end
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: I18n.t('activerecord.flash.user_edit')
     else
-      flash[:alert] = "#{@user.errors.count}件のエラーがあります"
+      flash[:alert] = I18n.t('activerecord.flash.errors_count', errors_count: @user.errors.count)
       render 'edit'
     end
   end

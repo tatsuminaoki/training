@@ -1,5 +1,13 @@
 <h1>ラベル作成</h1>
 
+<% if @label.errors.present? %>
+  <ul>
+  <% @label.errors.full_messages.each do |msg| %>
+    <li class = 'list'><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <%= form_with(model: @label, local: true) do |f| %>
   <div class = 'label_name'>
     <%= f.label :name %>

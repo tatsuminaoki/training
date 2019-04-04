@@ -23,7 +23,10 @@ ja:
         task_amount: 'タスク数'
         show: '詳細'
         admin: '管理者権限'
+      label:
+        name: 'ラベル'
     flash:
+      errors_count: "%{errors_count}件のエラーがあります"
       label_delete: 'ラベルを削除しました！'
       label_create: 'ラベルを作成しました！'
       task_create: 'タスクを作成しました！'
