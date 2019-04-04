@@ -14,6 +14,7 @@ default: &default
   host: localhost
   
 development:
+  <<: *default
   database: training
   
 # Warning: The database defined as "test" will be erased and
