@@ -24,6 +24,8 @@ ja:
         show: '詳細'
         admin: '管理者権限'
     flash:
+      label_delete: 'ラベルを削除しました！'
+      label_create: 'ラベルを作成しました！'
       task_create: 'タスクを作成しました！'
       task_edit: 'タスクを編集しました！'
       task_delete: 'タスクを削除しました！'

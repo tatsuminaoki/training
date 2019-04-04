@@ -1,6 +1,6 @@
 module TasksHelper
   def label_names
-    Label.all.map.each do |label|
+    current_user.labels.all.map.each do |label|
     label.name
     end
   end

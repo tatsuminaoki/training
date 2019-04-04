@@ -33,7 +33,7 @@
 
   <div class = 'task_label'>
     <%= form.label :label %>
-    <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) do |b| %>
+    <%= form.collection_check_boxes(:label_ids, current_user.labels, :id, :name) do |b| %>
       <%= b.label { b.check_box + b.text } %>
     <% end %>
   </div>
