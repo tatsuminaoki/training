@@ -10,23 +10,35 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
+
   <div class = 'task_content'>
     <%= form.label :content %>
     <%= form.text_area :content, :placeholder => '空欄でもOKです!' %>
   </div>
+
   <div class = 'task_priority'>
     <%= form.label :priority %>
     <%= form.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %>
   </div>
+
   <div class = 'task_status'>
     <%= form.label :status %>
     <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %>
   </div>
+
   <div class = 'task_endtime'>
     <%= form.label :endtime %>
     <%= form.datetime_select :endtime, :include_blank => true %>
   </div>
-  <div class = 'task_new_post' >
+
+  <div class = 'task_label'>
+    <%= form.label :label %>
+    <%= form.collection_check_boxes(:label_ids, current_user.labels, :id, :name) do |b| %>
+      <%= b.label { b.check_box + b.text } %>
+    <% end %>
+  </div>
+
+  <div class = 'task_new_post'>
     <%= form.submit class:'btn btn-primary' %>
   </div>
 <% end %>

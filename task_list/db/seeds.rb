@@ -9,6 +9,7 @@
 # User.create!(name: 'テスト太郎', email: 'test@test.com', password_digest: '111111')
 User.create!(
   email: 'test@example.com',
-  password_digest: '111111',
+  password: '111111',
   name: 'テスト太郎',
+  admin: 'true'
 )

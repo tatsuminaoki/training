@@ -6,6 +6,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.task_labels.build
   end
 
   def create
@@ -14,7 +15,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_create')
     else
-      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = I18n.t('activerecord.flash.errors_count', errors_count: @task.errors.count)
       render 'new'
     end
   end
@@ -34,7 +35,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_path, notice: I18n.t('activerecord.flash.task_edit')
     else
-      flash[:alert] = "#{@task.errors.count}件のエラーがあります"
+      flash[:alert] = I18n.t('activerecord.flash.errors_count', errors_count: @task.errors.count)
       render 'edit'
     end
   end
@@ -47,7 +48,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :content, :priority, :status, :endtime)
+    params.require(:task).permit(:name, :content, :priority, :status, :endtime, { :label_ids=> [] })
   end
 
   def set_task

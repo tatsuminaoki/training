@@ -28,10 +28,11 @@
 <table class = 'inline-block'>
   <tr class = 'row task-title'>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.name') %></th>
-    <th class = 'col-md-5 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
+    <th class = 'col-md-4 col-xs-3'><%= I18n.t('activerecord.attributes.task.content') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.priority') %></th>
     <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.status') %></th>
     <th class = 'col-md-2 col-xs-3'><%= I18n.t('activerecord.attributes.task.endtime') %></th>
+    <th class = 'col-md-1 col-xs-3'><%= I18n.t('activerecord.attributes.task.label') %></th>
     <th class = 'col-md-1 col-xs-3'></th>
   </tr>
 
@@ -39,7 +40,7 @@
 <div class = 'container-fluid'>
   <tr class = 'row task'>
     <td class = 'col-md-2 col-xs-3'><%= task.name %></td>
-    <td class = 'col-md-5 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
+    <td class = 'col-md-4 col-xs-3'><%= simple_format(truncate(task.content, length: 50)) %></td>
     <td class = 'col-md-1 col-xs-3'><%= task.priority_i18n %></td>
     <td class = 'col-md-1 col-xs-3'><%= task.status_i18n %></td>
     <% if task.endtime %>
@@ -47,6 +48,11 @@
     <% else %>
       <td class = 'col-md-2 col-xs-3'><%= task.endtime %></td>
     <% end %>
+    <td class = 'col-md-1 col-xs-3'>
+    <% task.labels.each do |task_label| %>
+      <%= task_label.name %>
+    <% end %>
+  </td>
     <% if task.user == current_user %>
       <td class = 'col-md-1 col-xs-3'><%= link_to '詳細', task_path(task.id) %></td>
     <% end %>

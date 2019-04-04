@@ -1,0 +1,8 @@
+<h1>ラベル一覧</h1>
+
+<% @labels.each do |label| %>
+  <p><%= label.name %>
+  <%= link_to '削除', label_path(label.id), class: 'btn btn-danger', method: :delete, data: { confirm: '本当に削除していいですか？' } %></p>
+<% end %>
+
+<p><%= link_to 'ラベル作成', new_label_path, class: 'btn btn-info'%></p>
