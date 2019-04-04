@@ -10,7 +10,7 @@
 
 |  カラム名  |  型         |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | ------ | --------- | ------- | :-------: | :------------: | :------: |
-| user_id   | int         |        |           | ユーザーID |       |        ◯        |     ◯     |
+| user_id   | int         |        |           | ユーザーID |       |        ◯        |          |
 | user_name | varchar(20) |        |           | ユーザー名 |   ◯   |                  |     ◯    | 
 | password  | varchar(64) |        |       | ハッシュ済みパスワード |      |             |          |
 
@@ -19,7 +19,7 @@
 
 |  カラム名  |  型         |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | :----: | :-------: | ----- | :-----: | :-----------: | :------: |
-| task_id   | int         |        |           | タスクID |       |       ◯       |    ◯     |
+| task_id   | int         |        |           | タスクID |       |       ◯       |         |
 | user_id   | int         |        |           | ユーザーID |  ◯  |               |          |
 | task_name | varchar(255) |        |           | タスク名 |      |               |          | 
 | contents  | varchar(255) |    ◯   |   null    | タスク内容 |      |              |          |
@@ -28,11 +28,11 @@
 | finished_date | date     |    ◯   |           | 終了期限 |        |              |          |
 
 
-### statusスマスター
+### statusマスター
 
 |  カラム名  |  型         |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | ------ | --------- | ------- | ------- | :-------------: | :------: |
-| status_id | tinyint     |        |           | ステータスID |       |        ◯       |     ◯    |
+| status_id | tinyint     |        |           | ステータスID |       |        ◯       |         |
 | status_name | varchar(20) |      |           | ステータス名 |       |                |     ◯    |
 
 
@@ -40,7 +40,7 @@
 
 |  カラム名  |  型         |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | ------ | --------- | ------- | ------- | :-------------: | :------: |
-| priority_id | tinyint     |        |          | 優先順位ID |       |        ◯       |     ◯    |
+| priority_id | tinyint     |        |          | 優先順位ID |       |        ◯       |         |
 | priority_name | varchar(20) |      |           | 優先順位名 |       |                |     ◯    |
 
 
@@ -48,7 +48,7 @@
 
 |  カラム名  |      型      |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | ------ | --------- | ------- | :-----: | :-------------: | :------: |
-| task_label_id | tinyint |        |          | タスク＿ラベルID |  ◯  |        ◯       |     ◯    |
+| task_label_id | tinyint |        |          | タスク＿ラベルID |  ◯  |        ◯       |         |
 | label_id  | tinyint     |        |           | ラベルID |          |                 |          |
 
 
@@ -56,7 +56,7 @@
 
 |  カラム名  |  型         |  NULL  |  DEFAULT  |	 内容  |  INDEX  |  プライマリーキー  |  unique  |
 | --------  | ----------  | ------ | --------- | ------- | ------- | :-----------: | :------: |
-| label_id | tinyint     |        |          | ラベルID |       |        ◯       |     ◯    |
+| label_id | tinyint     |        |          | ラベルID |       |        ◯       |         |
 | label_name | varchar(20) |      |           | ラベル名 |       |                |     ◯    |
 
 
