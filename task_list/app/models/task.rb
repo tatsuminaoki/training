@@ -19,7 +19,6 @@ class Task < ApplicationRecord
     tasks = tasks.where(priority: params[:priority]) if params[:priority].present?
     tasks = tasks.where(status: params[:status]) if params[:status].present?
     if params[:label].present?
-      # tasks = tasks.joins(:task_labels).where('task_labels.label_id = ?', params[:label])
       tasks = tasks.joins(:labels).where('labels.name LIKE ?', params[:label])
     end
 
