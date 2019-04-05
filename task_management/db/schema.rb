@@ -12,9 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_04_05_032501) do
 
-  create_table "tasks", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "INTEGER PRIMARY KEY NOT NULL"
+  create_table "tasks", primary_key: "task_id", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "task_name"
     t.string "contents"
     t.datetime "created_at", null: false
