@@ -11,7 +11,7 @@ default: &default
 
 development:
   adapter: mysql2
-  database: fril_toyonaga
+  database: tudu 
   host: 127.0.0.1
   port: 3306
   username: root
