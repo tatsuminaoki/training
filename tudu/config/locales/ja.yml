@@ -1,0 +1,28 @@
+ja:
+  task:
+    index:
+      title: "タスク一覧"
+    show:
+      title: "タスク詳細"
+    new:
+      title: "タスク新規登録"
+    edit:
+      title: "タスク編集"
+    create:
+      success: "タスクを登録しました"
+    update:
+      success: "タスクを保存しました"
+    delete:
+      success: "タスクを削除しました"
+      confirm: "本当に削除してよろしいですか？"
+    label:
+      name: "タスク名"
+      content: "タスク詳細"
+      operation: "操作"
+  action:
+    show: "詳細"
+    edit: "編集"
+    delete: "削除"
+    create: "登録"
+    update: "変更を保存する"
+

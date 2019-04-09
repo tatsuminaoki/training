@@ -1,4 +1,4 @@
-<h1>タスク新規登録</h1>
+<h1><%= t('task.new.title') %></h1>
 <div>
   <%= form_for(@task) do |f| %>
     <div>
@@ -10,7 +10,7 @@
       <%= f.text_area :content %>
     </div>
     <div>
-      <%= f.submit "登録" %>
+      <%= f.submit t('action.create') %>
     </div>
   <% end %>
 </div>

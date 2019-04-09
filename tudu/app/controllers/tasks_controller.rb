@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = "タスクを登録しました"
+      flash[:success] = t('task.create.success')
       redirect_to root_url
     else
       # TODO: Validation 対応後チェック
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(task_params)
-      flash[:success] = "タスクを保存しました"
+      flash[:success] = t('task.update.success')
       redirect_to root_url
     else
       # TODO: Validation 対応後チェック
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
   # 削除
   def destroy
     Task.find(params[:id]).destroy
-    flash[:success] = "タスクを削除しました"
+    flash[:success] = t('task.delete.success')
     redirect_to tasks_url
   end
 
