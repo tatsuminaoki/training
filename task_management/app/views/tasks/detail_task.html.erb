@@ -1,5 +1,13 @@
 <h1>タスク詳細</h1>
+
+<% if flash[:notice] %>
+  <p>
+    <%= flash[:notice] %>
+  </p>
+<% end %>
+
   <h2><%= @task[:task_name] %></h2>
   <p><%= @task[:contents] %></p>
 
 <%= link_to "一覧へ", root_path %>
+<%= link_to "修正", edit_task_path %>
