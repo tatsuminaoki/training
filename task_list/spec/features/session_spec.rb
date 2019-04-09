@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature 'Sessions', type: :feature do
   feature 'ログイン' do
     background do
-      maintenance = create(:maintenance)
       user = create(:user)
       login(user)
       @task = create(:task, user_id: user.id)
@@ -21,7 +20,6 @@ RSpec.feature 'Sessions', type: :feature do
 
   feature 'ログインのバリデーション' do
     background do
-      maintenance = create(:maintenance)
       @user_login = create(:user)
       visit new_session_path
     end
@@ -38,6 +36,16 @@ RSpec.feature 'Sessions', type: :feature do
       fill_in 'パスワード', with: ''
       click_button 'ログイン'
       expect(page).to have_content 'ログインに失敗しました'
+    end
+  end
+
+  feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit new_session_path
+      expect(page).to have_content 'ログイン'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit new_session_path
+      expect(page).to have_content 'メンテナンス中'
     end
   end
 end

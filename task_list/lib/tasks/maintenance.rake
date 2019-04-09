@@ -9,6 +9,6 @@ namespace :maintenance do
   desc 'メンテナンス終了'
   task finish: :environment do
     # is_maintenance 更新　
-    Maintenance.all.last.update!(is_maintenance: 0)
+    Maintenance.last.update!(is_maintenance: 0)
   end
 end

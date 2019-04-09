@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def indicate_maintenance_display_duaring_maintenance
-    if Maintenance.last.is_maintenance == 'start'
+    if Maintenance.last&.is_maintenance == 'start'
       redirect_to maintenances_path
     end
   end

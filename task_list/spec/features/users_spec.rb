@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Users', type: :feature do
   background do
-    maintenance = create(:maintenance)
     @user = create(:user)
   end
 
@@ -104,6 +103,16 @@ RSpec.feature 'Users', type: :feature do
       fill_in '確認用パスワード', with: 'bbbbbb'
       click_button '登録'
       expect(page).to have_content '確認用パスワードとパスワードの入力が一致しません'
+    end
+  end
+
+  feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit new_user_path
+      expect(page).to have_content '新規ユーザー登録'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit new_user_path
+      expect(page).to have_content 'メンテナンス中'
     end
   end
 end

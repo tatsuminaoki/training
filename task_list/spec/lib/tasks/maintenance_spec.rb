@@ -15,11 +15,12 @@ describe 'maintenance' do
 
   it 'メンテナンスが始まること' do
     @rake[task_start].invoke
-    expect(Maintenance.all.last.is_maintenance).to eq('start')
+    expect(Maintenance.last.is_maintenance).to eq('start')
   end
 
   it 'メンテナンスが終了すること' do
+    maintenance = create(:maintenance)
     @rake[task_finish].invoke
-    expect(Maintenance.all.last.is_maintenance).to eq('end')
+    expect(Maintenance.last.is_maintenance).to eq('end')
   end
 end

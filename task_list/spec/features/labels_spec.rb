@@ -4,11 +4,18 @@ RSpec.feature 'Labels', type: :feature do
   given(:user1) { create :user }
 
   background do
-    maintenance = create(:maintenance)
     login(user1)
   end
 
   feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit new_label_path
+      expect(page).to have_content 'ラベル作成'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit new_label_path
+      expect(page).to have_content 'メンテナンス中'
+    end
+
     scenario 'root_pathからラベル投稿ページに遷移すること' do
       visit root_path
       click_link 'マイページ'

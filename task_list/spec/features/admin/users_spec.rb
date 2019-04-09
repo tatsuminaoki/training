@@ -3,13 +3,20 @@ require 'rails_helper'
 RSpec.feature 'AdminUsers', type: :feature do
   describe Admin::UsersController do
     background do
-    maintenance = create(:maintenance)
     @admin_user = create(:user, admin: true)
     @general_user = create(:user)
     login(@admin_user)
     end
 
     feature '画面遷移' do
+      scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+        visit admin_users_path
+        expect(page).to have_content 'ユーザー一覧'
+        maintenance = create(:maintenance, is_maintenance: 1)
+        visit admin_users_path
+        expect(page).to have_content 'メンテナンス中'
+      end
+
       scenario 'root_pathからユーザー管理画面に遷移できる' do
         visit root_path
         click_link 'ユーザー管理'

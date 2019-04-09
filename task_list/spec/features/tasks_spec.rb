@@ -5,12 +5,19 @@ RSpec.feature 'Tasks', type: :feature do
   given(:user1) { create :user }
 
   background do
-    maintenance = create(:maintenance)
     login(user1)
     @task = create(:task, user_id: user1.id)
   end
 
   feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit root_path
+      expect(page).to have_content 'タスク一覧'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit root_path
+      expect(page).to have_content 'メンテナンス中'
+    end
+
     scenario 'root_pathから投稿ページに遷移すること' do
       visit root_path
       click_link 'タスク投稿'
