@@ -8,12 +8,12 @@ class TasksController < ApplicationController
   end
 
   def detail_task
-    task_id = params[:task_id]
+    task_id = params[:id]
     @task = Task.find(task_id)
   end
 
   def edit_task
-    task_id = params[:task_id]
+    task_id = params[:id]
     @task = Task.find(task_id)
   end
 
