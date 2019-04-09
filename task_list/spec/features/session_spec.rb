@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Sessions', type: :feature do
   feature 'ログイン' do
     background do
+      maintenance = create(:maintenance)
       user = create(:user)
       login(user)
       @task = create(:task, user_id: user.id)
@@ -20,6 +21,7 @@ RSpec.feature 'Sessions', type: :feature do
 
   feature 'ログインのバリデーション' do
     background do
+      maintenance = create(:maintenance)
       @user_login = create(:user)
       visit new_session_path
     end

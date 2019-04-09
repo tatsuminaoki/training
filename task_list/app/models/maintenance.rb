@@ -1,3 +1,3 @@
 class Maintenance < ApplicationRecord
-  enum maintenance_enum: [:end, :start]
+  enum is_maintenance: %i[end start]
 end

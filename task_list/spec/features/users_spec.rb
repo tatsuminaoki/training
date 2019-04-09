@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Users', type: :feature do
   background do
+    maintenance = create(:maintenance)
     @user = create(:user)
   end
 

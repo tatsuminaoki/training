@@ -2,13 +2,13 @@ namespace :maintenance do
 
   desc 'メンテナンススタート'
   task start: :environment do
-    # maintenances_enum 作成　
-    Maintenance.create!(maintenance_enum: 1)
+    # is_maintenance 作成　
+    Maintenance.create!(is_maintenance: 1)
   end
 
   desc 'メンテナンス終了'
   task finish: :environment do
-    # maintenances_enum 作成　
-    Maintenance.create!(maintenance_enum: 0)
+    # is_maintenance 更新　
+    Maintenance.all.last.update!(is_maintenance: 0)
   end
 end

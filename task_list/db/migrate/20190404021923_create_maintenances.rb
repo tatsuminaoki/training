@@ -1,8 +1,7 @@
 class CreateMaintenances < ActiveRecord::Migration[5.2]
   def change
     create_table :maintenances do |t|
-      t.boolean :start, default: false
-      t.boolean :finish, default: true
+      t.integer :is_maintenance, limit: 1, null: false
 
       t.timestamps
     end

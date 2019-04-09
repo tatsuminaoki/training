@@ -5,6 +5,7 @@ RSpec.feature 'Tasks', type: :feature do
   given(:user1) { create :user }
 
   background do
+    maintenance = create(:maintenance)
     login(user1)
     @task = create(:task, user_id: user1.id)
   end
@@ -161,15 +162,15 @@ RSpec.feature 'Tasks', type: :feature do
 
     scenario 'ページネーション機能により16件中10件のタスクが最初のページに表示されていること' do
       visit root_path
-      # 1件のタスクにつき6個のtdがある
-      expect(all('tr td').size).to eq(60)
+      # 1件のタスクにつき7個のtdがある
+      expect(all('tr td').size).to eq(70)
     end
 
     scenario 'ページネーション機能により16件中6件のタスクが2ページ目に表示されていること' do
       visit root_path
       click_link '次 ›'
-      # 1件のタスクにつき6個のtdがある
-      expect(all('tr td').size).to eq(36)
+      # 1件のタスクにつき7個のtdがある
+      expect(all('tr td').size).to eq(42)
     end
   end
 end

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.feature 'AdminUsers', type: :feature do
   describe Admin::UsersController do
     background do
+    maintenance = create(:maintenance)
     @admin_user = create(:user, admin: true)
     @general_user = create(:user)
     login(@admin_user)
@@ -26,7 +27,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '一般ユーザーの管理者権限をありに変更できること' do
         visit admin_user_path(@general_user)
         choose 'あり'
-        fill_in 'パスワード', with: @general_user.password
         click_button '管理者権限変更'
         expect(page).to have_checked_field('あり')
       end
@@ -34,7 +34,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '自分以外の管理者権限をなしに変更できること' do
         visit admin_user_path(@general_user)
         choose 'なし'
-        fill_in 'パスワード', with: @general_user.password
         click_button '管理者権限変更'
         expect(page).to have_checked_field('なし')
       end
@@ -48,7 +47,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '管理者が自分だけの時に、管理者権限をなしに変更できないこと' do
         visit admin_user_path(@admin_user)
         choose 'なし'
-        fill_in 'パスワード', with: @admin_user.password
         click_button '管理者権限変更'
         expect(page).to have_content '管理者がいなくなってしまいます（ ; ; ）'
       end

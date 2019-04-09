@@ -1,18 +1,20 @@
 class ApplicationController < ActionController::Base
-  before_action :indicate_maintenance_display_dualing_maintenance, if: :use_before_action?
+  before_action :indicate_maintenance_display_duaring_maintenance, unless: :maintenance_controller?
   before_action :set_current_user
 
   protect_from_forgery with: :exception
   include SessionsHelper
 
-  def indicate_maintenance_display_dualing_maintenance
-    if Maintenance.last.maintenance_enum == 'start'
-      redirect_to maintenances_path
-    end
+  private
+
+  def maintenance_controller?
+    self.controller_name == 'maintenances'
   end
 
-  def use_before_action?
-    true
+  def indicate_maintenance_display_duaring_maintenance
+    if Maintenance.last.is_maintenance == 'start'
+      redirect_to maintenances_path
+    end
   end
 
   def set_current_user

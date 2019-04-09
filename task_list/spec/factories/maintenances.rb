@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :maintenance do
-    start { "MyString" }
-    finish { "MyString" }
+    is_maintenance { 0 }
   end
 end
