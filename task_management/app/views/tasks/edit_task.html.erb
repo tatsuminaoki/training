@@ -6,3 +6,5 @@
   内容<%= form.text_field :contents %><br>
   <%= form.submit %>
 <% end %>
+
+<%= link_to "削除", destroy_task_path(@task[:id]), method: :delete %>
