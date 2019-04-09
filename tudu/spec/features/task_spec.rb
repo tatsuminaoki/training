@@ -41,7 +41,7 @@ RSpec.feature "task management", :type => :feature do
 
   scenario "end user view task list and delete" do
 
-    visit "/tasks/#{@task.id}"
+    visit "/"
     expect(page).to have_text(@task.name)
     expect(page).to have_text(@task.content)
 
@@ -52,6 +52,22 @@ RSpec.feature "task management", :type => :feature do
     click_link "削除"
     expect(page).to have_text("タスクを削除しました")
     expect(page).not_to have_link("削除")
+
+    today = Time.zone.now
+    # 並び順のテスト
+    10.times do |i|
+      params = {
+        :name => "name_#{i}",
+        :content => "content_#{i}",
+        :created_at => today
+      }
+      @task = Task.new(params)
+      @task.save
+      today = today + 10
+    end
+    visit "/"
+    first_row = @task
+    expect(page.all("tr")[1].text).to include first_row.name
 
   end
 
