@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   # 詳細
