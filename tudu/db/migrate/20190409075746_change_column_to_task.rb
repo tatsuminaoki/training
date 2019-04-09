@@ -1,9 +1,4 @@
 class ChangeColumnToTask < ActiveRecord::Migration[5.2]
-  ### def change
-  ###   change_column :tasks, :name, :string, limit: 50, null: false
-  ###   change_column :tasks, :content, :text, null: false
-  ### end
-
   def up
     change_column :tasks, :name, :string, limit: 50, null: false
     change_column :tasks, :content, :text, null: false
