@@ -1,0 +1,18 @@
+<h1>タスク詳細</h1>
+<div>
+  <div>
+    タスク名:
+    <%= @task.name %>
+  </div>
+  <div>
+    タスク内容:
+    <%= @task.content %>
+  </div>
+  <div>
+    <ul>
+      <li><%= link_to '編集', edit_task_path(@task) %></li>
+      <li><%= link_to '削除', @task, method: :delete,
+        data: { confirm: "本当に削除してよろしいですか？" } %></li>
+    </ul>
+  </div>
+</div>

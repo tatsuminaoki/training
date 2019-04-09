@@ -5,6 +5,11 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  # 詳細
+  def show
+    @task = Task.find(params[:id])
+  end
+
   # 新規作成
   def new
     @task = Task.new
