@@ -7,6 +7,11 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def detail_task
+    task_id = params[:task_id]
+    @task = Task.find(task_id)
+  end
+
   def create
     @task = Task.new(task_params)
     if @task.save
