@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_021923) do
+ActiveRecord::Schema.define(version: 2019_04_10_052951) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["name"], name: "index_labels_on_name", length: 10
     t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
@@ -37,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_021923) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "name", null: false
+    t.string "name", limit: 30, null: false
     t.text "content"
     t.integer "priority", null: false
     t.integer "status", null: false
@@ -45,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_021923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["name"], name: "index_tasks_on_name", length: 30
+    t.index ["name"], name: "index_tasks_on_name"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
