@@ -3,8 +3,18 @@
   <tr>
     <th><%= t('activerecord.attributes.task.name') %></th>
     <th><%= t('activerecord.attributes.task.content') %></th>
-    <th><%= t('activerecord.attributes.task.expire_date') %></th>
-    <th><%= t('activerecord.attributes.task.created_at') %></th>
+    <th>
+      <%
+          expire_date_order = params[:sort] == "expire_date" &&
+            params[:order] == "asc" ? "desc" : "asc"
+      %>
+      <%= link_to t('activerecord.attributes.task.expire_date'),
+        root_path(sort: 'expire_date', order: expire_date_order)
+      %>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.task.created_at') %>
+    </th>
     <th><%= t('action.table_heading_operation') %></th>
   </tr>
   <% @tasks.each do |task| %>

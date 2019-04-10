@@ -1,8 +1,16 @@
 class TasksController < ApplicationController
+  SORT = [
+    "expire_date"
+  ]
+
+  ORDER = [
+    "asc", "desc"
+  ]
+
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(search_order_sql)
   end
 
   # 詳細
@@ -58,5 +66,23 @@ class TasksController < ApplicationController
     params.require(:task).permit(
       :name, :content, :expire_date
     )
+  end
+
+  def search_params
+    params.permit(
+      :sort, :order
+    )
+  end
+
+  # TODO: 検索条件モデルを作成し、バリデートもそちらに委譲したい気持ち
+  def search_order_sql
+    search_condition = search_params
+    sort_value = search_condition[:sort].downcase if search_condition[:sort].present?
+    order_value = search_condition[:order].downcase if search_condition[:order].present?
+    if SORT.include?(sort_value) && ORDER.include?(order_value)
+      "#{search_condition[:sort]} #{search_condition[:order]}"
+    else
+      "created_at desc"
+    end
   end
 end
