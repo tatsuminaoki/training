@@ -31,4 +31,4 @@
 /config/master.key
 
 # Ignore files in vendor
-/vendor
+/vendor/*
