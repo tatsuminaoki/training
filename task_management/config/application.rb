@@ -18,6 +18,7 @@ module TaskManagement
 
     # i18n導入に伴い　デフォルトのロケールを日本語にする
     config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     # タイムゾーンを日本（東京）に変更
     config.time_zone = 'Tokyo'
   end

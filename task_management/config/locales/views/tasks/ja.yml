@@ -1,0 +1,16 @@
+ja:
+  task_name: タスク名
+  contents: 内容
+  tasks:
+    list:
+      title : タスク一覧
+      new: 新規作成
+    new_task:
+      title: タスク新規作成
+    edit_task:
+      title: タスク修正
+      delete: 削除
+    detail_task:
+      title: タスク詳細
+      go_list: 一覧へ
+      go_edit: 修正

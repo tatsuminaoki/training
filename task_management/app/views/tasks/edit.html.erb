@@ -1,10 +1,10 @@
-<h1>タスク修正</h1>
+<h1><%= t '.title' %></h1>
 
 
 <%= form_for @task do |form| %>
-  タスク名<%= form.text_field :task_name %><br>
-  内容<%= form.text_field :contents %><br>
+  <%= t 'task_name' %><%= form.text_field :task_name %><br>
+  <%= t 'contents' %><%= form.text_field :contents %><br>
   <%= form.submit %>
 <% end %>
 
-<%= link_to "削除", task_path(@task[:id]), method: :delete %>
+<%= link_to t('.delete'), task_path(@task[:id]), method: :delete %>
