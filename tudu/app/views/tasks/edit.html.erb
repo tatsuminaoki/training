@@ -11,6 +11,10 @@
       <%= f.text_area :content %>
     </div>
     <div>
+      <%= f.label :expire_date %>
+      <%= f.date_field :expire_date %>
+    </div>
+    <div>
       <%= f.submit t('action.update') %>
     </div>
   <% end %>
