@@ -11,8 +11,8 @@
     <tr>
       <td><%= task.name %></td>
       <td><%= task.content %></td>
-      <td><%= task.expire_date %></td>
-      <td><%= task.created_at %></td>
+      <td><%= l(task.expire_date.to_date) if task.expire_date.present? %></td>
+      <td><%= l(task.created_at.to_datetime) %></td>
       <td>
         <ul>
           <li><%= link_to t('action.show'), task_path(task) %></li>

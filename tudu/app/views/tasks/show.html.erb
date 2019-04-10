@@ -10,7 +10,7 @@
   </div>
   <div>
     <%= t('activerecord.attributes.task.expire_date') %>:
-    <%= l(@task.expire_date) %>
+    <%= l(@task.expire_date) if @task.expire_date.present? %>
   </div>
   <div>
     <%= t('activerecord.attributes.task.created_at') %>:
