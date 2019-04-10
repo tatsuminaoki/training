@@ -40,7 +40,7 @@ RSpec.feature "task_test", :type => :feature do
 
   scenario "delete task" do
 
-    visit "/edit_task/#{@task.id}"
+    visit "/tasks/#{@task.id}/edit"
     expect(page).to have_field "task[task_name]", with: @task.task_name
     expect(page).to have_field "task[contents]", with: @task.contents
 
