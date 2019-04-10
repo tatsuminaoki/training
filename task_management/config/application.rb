@@ -18,5 +18,7 @@ module TaskManagement
 
     # i18n導入に伴い　デフォルトのロケールを日本語にする
     config.i18n.default_locale = :ja
+    # タイムゾーンを日本（東京）に変更
+    config.time_zone = 'Tokyo'
   end
 end
