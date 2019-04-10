@@ -10,6 +10,14 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit root_path
+      expect(page).to have_content 'タスク一覧'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit root_path
+      expect(page).to have_content 'メンテナンス中'
+    end
+
     scenario 'root_pathから投稿ページに遷移すること' do
       visit root_path
       click_link 'タスク投稿'
@@ -161,15 +169,15 @@ RSpec.feature 'Tasks', type: :feature do
 
     scenario 'ページネーション機能により16件中10件のタスクが最初のページに表示されていること' do
       visit root_path
-      # 1件のタスクにつき6個のtdがある
-      expect(all('tr td').size).to eq(60)
+      # 1件のタスクにつき7個のtdがある
+      expect(all('tr td').size).to eq(70)
     end
 
     scenario 'ページネーション機能により16件中6件のタスクが2ページ目に表示されていること' do
       visit root_path
       click_link '次 ›'
-      # 1件のタスクにつき6個のtdがある
-      expect(all('tr td').size).to eq(36)
+      # 1件のタスクにつき7個のtdがある
+      expect(all('tr td').size).to eq(42)
     end
   end
 end

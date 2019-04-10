@@ -38,4 +38,14 @@ RSpec.feature 'Sessions', type: :feature do
       expect(page).to have_content 'ログインに失敗しました'
     end
   end
+
+  feature '画面遷移' do
+    scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+      visit new_session_path
+      expect(page).to have_content 'ログイン'
+      maintenance = create(:maintenance, is_maintenance: 1)
+      visit new_session_path
+      expect(page).to have_content 'メンテナンス中'
+    end
+  end
 end

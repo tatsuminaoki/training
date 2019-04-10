@@ -9,6 +9,14 @@ RSpec.feature 'AdminUsers', type: :feature do
     end
 
     feature '画面遷移' do
+      scenario 'メンテナンス中に正しくメンテナンス画面に遷移すること' do
+        visit admin_users_path
+        expect(page).to have_content 'ユーザー一覧'
+        maintenance = create(:maintenance, is_maintenance: 1)
+        visit admin_users_path
+        expect(page).to have_content 'メンテナンス中'
+      end
+
       scenario 'root_pathからユーザー管理画面に遷移できる' do
         visit root_path
         click_link 'ユーザー管理'
@@ -26,7 +34,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '一般ユーザーの管理者権限をありに変更できること' do
         visit admin_user_path(@general_user)
         choose 'あり'
-        fill_in 'パスワード', with: @general_user.password
         click_button '管理者権限変更'
         expect(page).to have_checked_field('あり')
       end
@@ -34,7 +41,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '自分以外の管理者権限をなしに変更できること' do
         visit admin_user_path(@general_user)
         choose 'なし'
-        fill_in 'パスワード', with: @general_user.password
         click_button '管理者権限変更'
         expect(page).to have_checked_field('なし')
       end
@@ -48,7 +54,6 @@ RSpec.feature 'AdminUsers', type: :feature do
       scenario '管理者が自分だけの時に、管理者権限をなしに変更できないこと' do
         visit admin_user_path(@admin_user)
         choose 'なし'
-        fill_in 'パスワード', with: @admin_user.password
         click_button '管理者権限変更'
         expect(page).to have_content '管理者がいなくなってしまいます（ ; ; ）'
       end
