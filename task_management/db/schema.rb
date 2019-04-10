@@ -13,10 +13,11 @@
 ActiveRecord::Schema.define(version: 2019_04_09_004451) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "task_name"
+    t.string "task_name", null: false
     t.string "contents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["task_name"], name: "index_tasks_on_task_name", unique: true
   end
 
 end
