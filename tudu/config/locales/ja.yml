@@ -1,4 +1,9 @@
 ja:
+  activerecord:
+    attributes:
+      task:
+        name: "タスク名"
+        content: "タスク詳細"
   task:
     index:
       title: "タスク一覧"
@@ -25,4 +30,7 @@ ja:
     delete: "削除"
     create: "登録"
     update: "変更を保存する"
+  validates:
+    presence: "%{attribute}は必須入力です"
+    length: "%{attribute}は%{count}文字以内で入力してください"
 
