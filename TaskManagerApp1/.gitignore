@@ -32,3 +32,6 @@
 
 # Ignore files in vendor
 /vendor/*
+
+# Ignore .DS_Store
+.DS_Store
