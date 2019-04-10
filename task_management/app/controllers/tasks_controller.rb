@@ -1,18 +1,19 @@
 class TasksController < ApplicationController
-  def list
+
+  def index
     @tasks = Task.all
   end
 
-  def new_task
+  def new
     @task = Task.new
   end
 
-  def detail_task
+  def show
     task_id = params[:id]
     @task = Task.find(task_id)
   end
 
-  def edit_task
+  def edit
     task_id = params[:id]
     @task = Task.find(task_id)
   end
