@@ -20,16 +20,13 @@ ja:
     delete:
       success: "タスクを削除しました"
       confirm: "本当に削除してよろしいですか？"
-    label:
-      name: "タスク名"
-      content: "タスク詳細"
-      operation: "操作"
   action:
     show: "詳細"
     edit: "編集"
     delete: "削除"
     create: "登録"
     update: "変更を保存する"
+    table_heading_operation: "操作"
   validates:
     presence: "%{attribute}は必須入力です"
     length: "%{attribute}は%{count}文字以内で入力してください"

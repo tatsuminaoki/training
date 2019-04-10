@@ -1,12 +1,13 @@
 <h1><%= t('task.edit.title') %></h1>
 <div>
   <%= form_for(@task) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
     <div>
-      <%= f.label :name, t('task.label.name') %>
+      <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
     <div>
-      <%= f.label :content, t('task.label.content') %>
+      <%= f.label :content %>
       <%= f.text_area :content %>
     </div>
     <div>
