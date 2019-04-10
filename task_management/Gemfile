@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.2'
 
+# install i18n
+gem 'rails-i18n', '~> 5.1'
 # install step5
 gem 'mysql2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
