@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     @task = task.update(task_params)
     if @task
       flash[:notice] = "タスクを編集しました"
-      redirect_to detail_task_path(task_id)
+      redirect_to task_path(task_id)
     else
       render 'edit_task'
     end
