@@ -4,6 +4,7 @@
     <th><%= t('activerecord.attributes.task.name') %></th>
     <th><%= t('activerecord.attributes.task.content') %></th>
     <th><%= t('activerecord.attributes.task.expire_date') %></th>
+    <th><%= t('activerecord.attributes.task.created_at') %></th>
     <th><%= t('action.table_heading_operation') %></th>
   </tr>
   <% @tasks.each do |task| %>
@@ -11,6 +12,7 @@
       <td><%= task.name %></td>
       <td><%= task.content %></td>
       <td><%= task.expire_date %></td>
+      <td><%= task.created_at %></td>
       <td>
         <ul>
           <li><%= link_to t('action.show'), task_path(task) %></li>
