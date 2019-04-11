@@ -1,6 +1,6 @@
-<h1><%= t '.title' %></h1>
+<h1><%= t('view.index.title') %></h1>
 
-<%= link_to t('.new'), new_task_path %>
+<%= link_to t('view.index.new'), new_task_path %>
 
 <% if flash[:notice] %>
   <p>
@@ -11,7 +11,7 @@
 
 <table>
   <tr>
-    <th><%= t 'task_name' %></th><th><%= t 'contents' %></th>
+    <th><%= t('activerecord.attributes.task.task_name') %></th><th><%= t('activerecord.attributes.task.contents') %></th>
   </tr>
   
   <% @tasks.each do |task| %>

@@ -1,4 +1,4 @@
-<h1><%= t '.title' %></h1>
+<h1><%= t('view.show.title') %></h1>
 
 <% if flash[:notice] %>
   <p>
@@ -9,5 +9,5 @@
   <h2><%= @task[:task_name] %></h2>
   <p><%= @task[:contents] %></p>
 
-<%= link_to t('.go_list'), root_path %>
-<%= link_to t('.go_edit'), edit_task_path %>
+<%= link_to t('view.show.go_list'), root_path %>
+<%= link_to t('view.show.go_edit'), edit_task_path %>
