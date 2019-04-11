@@ -1,16 +1,19 @@
 <h1><%= t('task.index.title') %></h1>
 <table class="p-task-list">
-  <tr>
-    <th><%= t('activerecord.attributes.task.name') %></th>
-    <th><%= t('activerecord.attributes.task.content') %></th>
-    <th>
-      <%= sortable("expire_date", t('activerecord.attributes.task.expire_date')) %>
-    </th>
-    <th>
-      <%= t('activerecord.attributes.task.created_at') %>
-    </th>
-    <th><%= t('action.table_heading_operation') %></th>
-  </tr>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.task.name') %></th>
+      <th><%= t('activerecord.attributes.task.content') %></th>
+      <th>
+        <%= sortable("expire_date", t('activerecord.attributes.task.expire_date')) %>
+      </th>
+      <th>
+        <%= t('activerecord.attributes.task.created_at') %>
+      </th>
+      <th><%= t('action.table_heading_operation') %></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.name %></td>
@@ -25,6 +28,6 @@
             data: { confirm: t('task.delete.confirm') } %></li>
         </ul>
       </td>
-    </tr>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>
