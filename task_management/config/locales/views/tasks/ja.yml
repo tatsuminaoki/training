@@ -2,15 +2,15 @@ ja:
   task_name: タスク名
   contents: 内容
   tasks:
-    list:
+    index:
       title : タスク一覧
       new: 新規作成
-    new_task:
+    new:
       title: タスク新規作成
-    edit_task:
+    edit:
       title: タスク修正
       delete: 削除
-    detail_task:
+    show:
       title: タスク詳細
       go_list: 一覧へ
       go_edit: 修正
