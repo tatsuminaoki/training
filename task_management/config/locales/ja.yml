@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        task_name: タスク名
+        contents: 内容
+  view:
+    index:
+      title : タスク一覧
+      new: 新規作成
+    new:
+      title: タスク新規作成
+    edit:
+      title: タスク修正
+      delete: 削除
+    show:
+      title: タスク詳細
+      go_list: 一覧へ
+      go_edit: 修正

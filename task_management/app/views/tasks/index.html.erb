@@ -1,0 +1,24 @@
+<h1><%= t('view.index.title') %></h1>
+
+<%= link_to t('view.index.new'), new_task_path %>
+
+<% if flash[:notice] %>
+  <p>
+    <font color="#ff0000"><%= flash[:notice] %></font>
+  </p>
+<% end %>
+
+
+<table>
+  <tr>
+    <th><%= t('activerecord.attributes.task.task_name') %></th><th><%= t('activerecord.attributes.task.contents') %></th>
+  </tr>
+  
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.task_name, task_path(task) %></td>
+      <td><%= task.contents %></td>
+    </tr>
+  <% end %>
+
+</table>

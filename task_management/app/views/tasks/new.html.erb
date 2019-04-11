@@ -1,0 +1,8 @@
+<h1><%= t('view.new.title') %></h1>
+
+
+<%= form_for @task do |form| %>
+  <%= t('activerecord.attributes.task.task_name') %><%= form.text_field :task_name %><br>
+  <%= t('activerecord.attributes.task.contents') %><%= form.text_field :contents %><br>
+  <%= form.submit %>
+<% end %>

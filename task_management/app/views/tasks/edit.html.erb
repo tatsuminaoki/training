@@ -1,0 +1,10 @@
+<h1><%= t('view.edit.title') %></h1>
+
+
+<%= form_for @task do |form| %>
+  <%= t('activerecord.attributes.task.task_name') %><%= form.text_field :task_name %><br>
+  <%= t('activerecord.attributes.task.contents') %><%= form.text_field :contents %><br>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to t('view.edit.delete'), task_path(@task[:id]), method: :delete %>
