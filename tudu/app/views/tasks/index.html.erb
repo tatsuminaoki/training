@@ -1,10 +1,10 @@
-<h1>タスク一覧</h1>
+<h1><%= t('task.index.title') %></h1>
 <table>
   <thead>
     <tr>
-      <th>タスク名</th>
-      <th>タスク詳細</th>
-      <th>操作</th>
+      <th><%= t('task.label.name') %></th>
+      <th><%= t('task.label.content') %></th>
+      <th><%= t('task.label.operation') %></th>
     </tr>
   </thead>
   <tbody>
@@ -14,10 +14,10 @@
         <td><%= task.content %></td>
         <td>
           <ul>
-            <li><%= link_to '詳細', task_path(task) %></li>
-            <li><%= link_to '編集', edit_task_path(task) %></li>
-            <li><%= link_to '削除', task, method: :delete,
-              data: { confirm: "本当に削除してよろしいですか？" } %></li>
+            <li><%= link_to t('action.show'), task_path(task) %></li>
+            <li><%= link_to t('action.edit'), edit_task_path(task) %></li>
+            <li><%= link_to t('action.delete'), task, method: :delete,
+              data: { confirm: t('task.delete.confirm') } %></li>
           </ul>
         </td>
       </tr>

@@ -1,16 +1,16 @@
-<h1>タスク編集</h1>
+<h1><%= t('task.edit.title') %></h1>
 <div>
   <%= form_for(@task) do |f| %>
     <div>
-      <%= f.label :name %>
+      <%= f.label :name, t('task.label.name') %>
       <%= f.text_field :name %>
     </div>
     <div>
-      <%= f.label :content %>
+      <%= f.label :content, t('task.label.content') %>
       <%= f.text_area :content %>
     </div>
     <div>
-      <%= f.submit "変更を保存する" %>
+      <%= f.submit t('action.update') %>
     </div>
   <% end %>
 </div>
