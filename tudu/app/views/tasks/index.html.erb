@@ -1,16 +1,10 @@
 <h1><%= t('task.index.title') %></h1>
-<table>
+<table class="p-task-list">
   <tr>
     <th><%= t('activerecord.attributes.task.name') %></th>
     <th><%= t('activerecord.attributes.task.content') %></th>
     <th>
-      <%
-          expire_date_order = params[:sort] == "expire_date" &&
-            params[:order] == "asc" ? "desc" : "asc"
-      %>
-      <%= link_to t('activerecord.attributes.task.expire_date'),
-        root_path(sort: 'expire_date', order: expire_date_order)
-      %>
+      <%= sortable("expire_date", t('activerecord.attributes.task.expire_date')) %>
     </th>
     <th>
       <%= t('activerecord.attributes.task.created_at') %>
