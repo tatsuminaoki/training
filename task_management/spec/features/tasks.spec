@@ -51,4 +51,24 @@ RSpec.feature "task_test", :type => :feature do
 
   end
 
+  scenario "validation creating new task" do
+
+    visit "/"
+    click_link "新規作成"
+    fill_in "task[task_name]", :with => ""
+    fill_in "task[contents]", :with => "test contents"
+    click_button "Create Task"
+    expect(page).to have_text(I18n.t("validates.presence"))
+
+    fill_in "task[task_name]", :with => "バリデーションテスト"
+    fill_in "task[contents]", :with => ""
+    click_button "Create Task"
+    expect(page).to have_text("内容は必須入力です")
+
+  #   fill_in "task[task_name]", :with => "#{a * 256}"
+  #   fill_in "task[contents]", :with => ""
+  #   click_button "Create Task"
+  #   expect(page).to have_text("タスク名は255文字必須入力です")
+  end
+
 end
