@@ -15,7 +15,7 @@ RSpec.feature "task_test", :type => :feature do
   scenario "Create new task" do
 
     visit "/"
-    click_link "新規作成"
+    click_link(I18n.t("views.tasks.tasks.index.new"))
     fill_in "task[task_name]", :with => "featureテスト"
     fill_in "task[contents]", :with => "featureテスト中です。"
     click_button "Create Task"
