@@ -1,0 +1,9 @@
+<% if object.errors.any? %>
+  <ul>
+    <% object.errors.messages.each do |key, messages| %>
+	    <% messages.each do |message| %>
+	      <li><font color="#ff0000"><%= message %></font></li>
+	    <% end %>
+	  <% end %>
+  </ul>
+<% end %>

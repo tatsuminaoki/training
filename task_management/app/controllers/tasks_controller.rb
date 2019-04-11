@@ -24,7 +24,7 @@ class TasksController < ApplicationController
       flash[:notice] = "新規タスクを追加しました"
       redirect_to root_path
     else
-      render 'new_task'
+      render 'new'
     end
   end
 
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
       flash[:notice] = "タスクを編集しました"
       redirect_to task_path(task_id)
     else
-      render 'edit_task'
+      render 'edit'
     end
   end
 
