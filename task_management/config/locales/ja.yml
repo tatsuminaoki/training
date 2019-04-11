@@ -6,9 +6,9 @@ ja:
       task:
         task_name: タスク名
         contents: 内容
-    validates:
-      presence: "%{attribute}は必須入力です"
-      length: "%{attribute}は%{count}文字以内で入力してください"
+  validates:
+    presence: "%{attribute}は必須入力です"
+    length: "%{attribute}は%{count}文字以内で入力してください"
   view:
     index:
       title : タスク一覧
@@ -23,4 +23,3 @@ ja:
       go_list: 一覧へ
       go_edit: 修正
       task: "タスク"
-  
