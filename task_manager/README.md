@@ -1,24 +1,53 @@
-# README
+# Table Schema
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Task
 
-Things you may want to cover:
+|Column|Type|
+|:---|:---|
+|id|integer|
+|name|string|
+|due_date|datetime|
+|priority|integer|
+|staus_id|integer|
+|description|text|
+|created_by|integer|
+|created_at|datetime|
+|updated_at|datetime|
 
-* Ruby version
+## Task_label
 
-* System dependencies
+|Column|Type|
+|:---|:---|
+|task_id|integer|
+|label_id|integer|
+|created_at|datetime|
+|updated_at|datetime|
 
-* Configuration
+## Label
 
-* Database creation
+|Column|Type|
+|:---|:---|
+|id|integer|
+|name|string|
+|created_at|datetime|
+|updated_at|datetime|
 
-* Database initialization
+## Status
 
-* How to run the test suite
+|Column|Type|
+|:---|:---|
+|id|integer|
+|name|string|
+|created_at|datetime|
+|updated_at|datetime|
 
-* Services (job queues, cache servers, search engines, etc.)
+## User
 
-* Deployment instructions
-
-* ...
+|Column|Type|
+|:---|:---|
+|id|integer|
+|name|string|
+|email|string|
+|password|string|
+|created_at|datetime|
+|updated_at|datetime|
