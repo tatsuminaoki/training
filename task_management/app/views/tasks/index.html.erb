@@ -20,7 +20,7 @@
     <tr>
       <td><%= link_to task.task_name, task_path(task) %></td>
       <td><%= task.contents %></td>
-      <td align="center"><%= task.status_id %></td>
+      <td align="center"><%= task.status.status_name %></td>
     </tr>
   <% end %>
 
