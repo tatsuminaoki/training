@@ -378,7 +378,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 |Column|Type|
 |:---|:---|
-|id|bignt|
+|id|bigint|
 |name|string|
 |due_date|date|
 |priority|integer|
@@ -392,8 +392,8 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 |Column|Type|
 |:---|:---|
-|task_id|bignt|
-|label_id|bignt|
+|task_id|bigint|
+|label_id|bigint|
 |created_at|datetime|
 |updated_at|datetime|
 
@@ -401,7 +401,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 |Column|Type|
 |:---|:---|
-|id|bignt|
+|id|bigint|
 |name|string|
 |created_at|datetime|
 |updated_at|datetime|
@@ -410,7 +410,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 |Column|Type|
 |:---|:---|
-|id|bignt|
+|id|bigint|
 |name|string|
 |email|string|
 |password|string|
