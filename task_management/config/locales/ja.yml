@@ -15,6 +15,9 @@ ja:
     index:
       title : タスク一覧
       new: 新規作成
+      no_select: 未選択
+      filter: 絞り込み
+      all_items: 全件表示
     new:
       title: タスク新規作成
     edit:

@@ -1,7 +1,16 @@
 class TasksController < ApplicationController
 
   def index
-    @tasks = Task.all
+    task_name = params[:name]
+    status_id = params[:status_id]
+
+    if task_name.present?
+      @tasks = Task.where(task_name: task_name)
+    elsif status_id.present?
+      @tasks = Task.where(status_id: status_id)
+    else
+      @tasks = Task.all
+    end
   end
 
   def new

@@ -2,12 +2,24 @@
 
 <%= link_to t('view.index.new'), new_task_path %>
 
-<% if flash[:notice] %>
-  <p>
-    <font color="#ff0000"><%= flash[:notice] %></font>
-  </p>
-<% end %>
+<p>
+  <% if flash[:notice] %>
+    <p>
+      <font color="#ff0000"><%= flash[:notice] %></font>
+    </p>
+  <% end %>
+</p>
 
+<p>
+  <%= form_tag("/", method: "get") do %>
+    <%= label_tag(:q, t('activerecord.attributes.task.task_name')) %>
+    <%= text_field_tag('name') %>
+    or
+    <%= select_tag :status_id, options_from_collection_for_select(Status.all, :id, :status_name), :prompt => t('view.index.no_select') %>
+    <%= submit_tag(t('view.index.filter')) %>
+    <%= link_to t('view.index.all_items'), root_path %>
+  <% end %>
+</p>
 
 <table>
   <tr>
