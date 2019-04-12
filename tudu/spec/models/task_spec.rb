@@ -9,25 +9,25 @@ RSpec.describe Task, type: :model do
   it "is invalid with task" do
 
     params = [
-      # name なし, content あり 
+      # name なし, content あり
       {
         name: nil,
         content: 'content',
       },
-      # name あり, content なし 
+      # name あり, content なし
       {
         name: 'name',
         content: nil,
       },
-      # name あり (文字数オーバー) , content あり 
+      # name あり (文字数オーバー) , content あり
       {
-        name: 'a' * 51,
+        name: 'a' * 21,
         content: 'content',
       },
-      # name あり, content あり (文字数オーバー)  
+      # name あり, content あり (文字数オーバー)
       {
         name: 'name',
-        content: 'c' * 501 
+        content: 'c' * 501
       },
     ]
 
