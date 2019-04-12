@@ -10,9 +10,11 @@ word_delete_task_link = "削除"
 RSpec.feature "task_test", :type => :feature do
 
   before do
+    status_id = 1
     params = {
       :task_name => "feature test task",
-      :contents => "feature test contents"
+      :contents => "feature test contents",
+      :status_id => status_id
     }
 
     @task = Task.new(params)
@@ -25,6 +27,7 @@ RSpec.feature "task_test", :type => :feature do
     click_link(word_move_create_task_link)
     fill_in "task[task_name]", :with => "featureテスト"
     fill_in "task[contents]", :with => "featureテスト中です。"
+    select '完了', from: 'task_status_id'
     click_button(word_create_button)
     expect(page).to have_text("新規タスクを追加しました")
     expect(page).to have_link(@task.task_name)
@@ -88,6 +91,14 @@ RSpec.feature "task_test", :type => :feature do
     fill_in "task[contents]", :with => "test test"
     click_button(word_create_button)
     expect(page).to have_text(I18n.t("validates.unique"))
+  end
+
+  scenario "search task" do
+
+    visit "/"
+    fill_in "name", :with => @task.task_name
+    click_button(I18n.t("view.index.filter"))
+    expect(page).to have_text @task.task_name
   end
 
 end
