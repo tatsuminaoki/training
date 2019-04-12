@@ -12,8 +12,7 @@ class TasksController < ApplicationController
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    # TODO: cssの実装
-    @tasks = Task.all.order(order_params)
+    @tasks = Task.all.search(search_params).order(get_order_params)
   end
 
   # 詳細
@@ -71,23 +70,29 @@ class TasksController < ApplicationController
     )
   end
 
-  def search_params
+  def order_params
     params.permit(
       :sort, :order
     )
   end
 
-  def order_params
+  def search_params
+    params.permit(
+      :q, :status
+    )
+  end
+
+  def get_order_params
     "#{sort_column} #{sort_order}"
   end
 
   def sort_order
-    order_value = search_params[:order].downcase if search_params[:order].present?
+    order_value = order_params[:order].downcase if order_params[:order].present?
     ORDER.include?(order_value) ? order_value : "desc"
   end
 
   def sort_column
-    sort_value = search_params[:sort].downcase if search_params[:sort].present?
+    sort_value = order_params[:sort].downcase if order_params[:sort].present?
     SORT.include?(sort_value) ? sort_value : "created_at"
   end
 end

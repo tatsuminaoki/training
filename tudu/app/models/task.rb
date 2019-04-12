@@ -7,6 +7,24 @@ class Task < ApplicationRecord
     length: { maximum: 500, message: I18n.translate("validates.length") }
   validate :expire_date_is_valid?
 
+  STATUS_NOT_YET = 0
+  STATUS_DOING = 1
+  STATUS_DONE = 2
+
+  STATUS = {
+    STATUS_NOT_YET => '未着手',
+    STATUS_DOING => '着手中',
+    STATUS_DONE => '完了'
+  }.freeze
+
+  def self.search(search_params)
+    task = self
+    task = task.where(status: search_params[:status]) if search_params[:status].present?
+    task = task.where(['name LIKE ?', "%#{search_params[:q]}%"]) if search_params[:q].present?
+
+    task
+  end
+
   private
     def expire_date_is_valid?
       begin
