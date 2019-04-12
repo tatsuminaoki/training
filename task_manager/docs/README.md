@@ -382,7 +382,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 |name|string|
 |due_date|datetime|
 |priority|integer|
-|staus_id|integer|
+|status|integer|
 |description|text|
 |created_by|integer|
 |created_at|datetime|
@@ -398,15 +398,6 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 |updated_at|datetime|
 
 #### Label
-
-|Column|Type|
-|:---|:---|
-|id|integer|
-|name|string|
-|created_at|datetime|
-|updated_at|datetime|
-
-#### Status
 
 |Column|Type|
 |:---|:---|
