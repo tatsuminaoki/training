@@ -5,6 +5,7 @@ ja:
         name: "タスク名"
         content: "タスク詳細"
         expire_date: "終了期限"
+        status: "ステータス"
         created_at: "作成日時"
   task:
     index:

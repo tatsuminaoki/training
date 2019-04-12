@@ -1,7 +1,7 @@
 <h1><%= t('task.index.title') %></h1>
 
 <div>
-  <%= form_tag(root_path, method: :get) do %>
+  <%= form_tag(root_path, method: :get, enforce_utf8: false) do %>
     <div>
       検索キーワード:
       <%= text_field_tag 'q', params[:q], { size: 20 } %>
@@ -22,8 +22,9 @@
       <th><%= t('activerecord.attributes.task.name') %></th>
       <th><%= t('activerecord.attributes.task.content') %></th>
       <th>
-        <%= sortable("expire_date", t('activerecord.attributes.task.expire_date')) %>
+        <%= sortable("expire_date", t('activerecord.attributes.task.expire_date'), @search_params) %>
       </th>
+      <th><%= t('activerecord.attributes.task.status') %></th>
       <th>
         <%= t('activerecord.attributes.task.created_at') %>
       </th>
@@ -36,6 +37,7 @@
       <td><%= task.name %></td>
       <td><%= task.content %></td>
       <td><%= l(task.expire_date.to_date) if task.expire_date.present? %></td>
+      <td><%= Task::STATUS.fetch(task.status) %></td>
       <td><%= l(task.created_at.to_datetime) %></td>
       <td>
         <ul>

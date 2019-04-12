@@ -12,7 +12,8 @@ class TasksController < ApplicationController
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    @tasks = Task.all.search(search_params).order(get_order_params)
+    @search_params = search_params
+    @tasks = Task.all.search(@search_params).order(get_order_params)
   end
 
   # 詳細
