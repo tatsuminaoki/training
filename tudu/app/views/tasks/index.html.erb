@@ -1,22 +1,26 @@
 <h1><%= t('task.index.title') %></h1>
 <table>
-  <tr>
-    <th><%= t('task.label.name') %></th>
-    <th><%= t('task.label.content') %></th>
-    <th><%= t('task.label.operation') %></th>
-  </tr>
-  <% @tasks.each do |task| %>
+  <thead>
     <tr>
-      <td><%= task.name %></td>
-      <td><%= task.content %></td>
-      <td>
-        <ul>
-          <li><%= link_to t('action.show'), task_path(task) %></li>
-          <li><%= link_to t('action.edit'), edit_task_path(task) %></li>
-          <li><%= link_to t('action.delete'), task, method: :delete,
-            data: { confirm: t('task.delete.confirm') } %></li>
-        </ul>
-      </td>
+      <th><%= t('task.label.name') %></th>
+      <th><%= t('task.label.content') %></th>
+      <th><%= t('task.label.operation') %></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.content %></td>
+        <td>
+          <ul>
+            <li><%= link_to t('action.show'), task_path(task) %></li>
+            <li><%= link_to t('action.edit'), edit_task_path(task) %></li>
+            <li><%= link_to t('action.delete'), task, method: :delete,
+              data: { confirm: t('task.delete.confirm') } %></li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
