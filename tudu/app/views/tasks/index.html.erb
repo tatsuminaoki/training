@@ -1,22 +1,26 @@
 <h1><%= t('task.index.title') %></h1>
 <table>
-  <tr>
-    <th><%= t('activerecord.attributes.task.name') %></th>
-    <th><%= t('activerecord.attributes.task.content') %></th>
-    <th><%= t('action.table_heading_operation') %></th>
-  </tr>
-  <% @tasks.each do |task| %>
+  <thead>
     <tr>
-      <td><%= task.name %></td>
-      <td><%= task.content %></td>
-      <td>
-        <ul>
-          <li><%= link_to t('action.show'), task_path(task) %></li>
-          <li><%= link_to t('action.edit'), edit_task_path(task) %></li>
-          <li><%= link_to t('action.delete'), task, method: :delete,
-            data: { confirm: t('task.delete.confirm') } %></li>
-        </ul>
-      </td>
+      <th><%= t('activerecord.attributes.task.name') %></th>
+      <th><%= t('activerecord.attributes.task.content') %></th>
+      <th><%= t('action.table_heading_operation') %></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.content %></td>
+        <td>
+          <ul>
+            <li><%= link_to t('action.show'), task_path(task) %></li>
+            <li><%= link_to t('action.edit'), edit_task_path(task) %></li>
+            <li><%= link_to t('action.delete'), task, method: :delete,
+              data: { confirm: t('task.delete.confirm') } %></li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
