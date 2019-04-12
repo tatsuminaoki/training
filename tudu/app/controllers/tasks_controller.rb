@@ -9,6 +9,10 @@ class TasksController < ApplicationController
     "asc", "desc"
   ]
 
+  SEARCH_QUERY = [
+    :q, :status, :sort, :order
+  ]
+
   # 一覧
   def index
     # TODO: ページネーション STEP14
@@ -71,16 +75,13 @@ class TasksController < ApplicationController
     )
   end
 
+  # TODO: 検索モデルに処理を委譲したい気持ちです
   def order_params
-    params.permit(
-      :sort, :order
-    )
+    params.permit(SEARCH_QUERY).slice(:sort, :order)
   end
 
   def search_params
-    params.permit(
-      :q, :status
-    )
+    params.permit(SEARCH_QUERY).slice(:q, :status)
   end
 
   def get_order_params
