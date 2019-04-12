@@ -380,7 +380,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 |:---|:---|
 |id|bignt|
 |name|string|
-|due_date|datetime|
+|due_date|date|
 |priority|integer|
 |status|integer|
 |description|text|
