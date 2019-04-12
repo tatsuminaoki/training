@@ -11,13 +11,16 @@
 
 <table>
   <tr>
-    <th><%= t('activerecord.attributes.task.task_name') %></th><th><%= t('activerecord.attributes.task.contents') %></th>
+    <th><%= t('activerecord.attributes.task.task_name') %></th>
+    <th><%= t('activerecord.attributes.task.contents') %></th>
+    <th><%= t('activerecord.attributes.task.status_id') %></th>
   </tr>
   
   <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.task_name, task_path(task) %></td>
       <td><%= task.contents %></td>
+      <td align="center"><%= task.status_id %></td>
     </tr>
   <% end %>
 

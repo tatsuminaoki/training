@@ -6,6 +6,7 @@ ja:
       task:
         task_name: タスク名
         contents: 内容
+        status_id: ステータスID
   validates:
     presence: "%{attribute}は必須入力です"
     length: "%{attribute}は%{count}文字以内で入力してください"
