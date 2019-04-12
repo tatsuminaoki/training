@@ -369,3 +369,50 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - AWSに環境構築をしてデプロイしてみましょう
 - ミドルウェアはNginx+Unicornを推奨構成とします
 - EC2のインスタンス等はサーバ要件を参照してください
+
+## アプリ仕様
+
+### Table Schema
+
+#### Task
+
+|Column|Type|
+|:---|:---|
+|id|bigint|
+|name|string|
+|due_date|date|
+|priority|integer|
+|status|integer|
+|description|text|
+|created_by|integer|
+|created_at|datetime|
+|updated_at|datetime|
+
+#### Task_label
+
+|Column|Type|
+|:---|:---|
+|task_id|bigint|
+|label_id|bigint|
+|created_at|datetime|
+|updated_at|datetime|
+
+#### Label
+
+|Column|Type|
+|:---|:---|
+|id|bigint|
+|name|string|
+|created_at|datetime|
+|updated_at|datetime|
+
+#### User
+
+|Column|Type|
+|:---|:---|
+|id|bigint|
+|name|string|
+|email|string|
+|password|string|
+|created_at|datetime|
+|updated_at|datetime|
