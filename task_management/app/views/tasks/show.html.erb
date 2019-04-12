@@ -6,6 +6,7 @@
   </p>
 <% end %>
 
+  <p><%= "#{t('activerecord.attributes.status.status')}:#{@task.status.status_name}" %></p>
   <h2><%= @task[:task_name] %></h2>
   <p><%= @task[:contents] %></p>
 

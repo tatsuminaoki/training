@@ -5,5 +5,6 @@
 <%= form_for @task do |form| %>
   <%= t('activerecord.attributes.task.task_name') %><%= form.text_field :task_name %><br>
   <%= t('activerecord.attributes.task.contents') %><%= form.text_field :contents %><br>
+  <%= form.collection_select :status_id, Status.all, :id, :status_name %><br><br>
   <%= form.submit %>
 <% end %>
