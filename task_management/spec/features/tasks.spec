@@ -10,6 +10,20 @@ word_delete_task_link = "削除"
 RSpec.feature "task_test", :type => :feature do
 
   before do
+    # 今回はinsertが三件なので、activerecord-importを
+    # インストールせずに処理する
+    status_master_params = [
+      {:id => 1, :status_name => "未着手"},
+      {:id => 2, :status_name => "着手中"},
+      {:id => 3, :status_name => "完了"}
+    ]
+
+    status_master_params.each { |status_params|
+      @status = Status.new(status_params)
+      @status.save
+    }
+
+    # タスクデータ挿入
     status_id = 1
     params = {
       :task_name => "feature test task",
