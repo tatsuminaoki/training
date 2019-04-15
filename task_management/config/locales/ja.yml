@@ -9,6 +9,7 @@ ja:
   validates:
     presence: "%{attribute}は必須入力です"
     length: "%{attribute}は%{count}文字以内で入力してください"
+    unique: "既に登録済みのタスク名です"
   view:
     index:
       title : タスク一覧
