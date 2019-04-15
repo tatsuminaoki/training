@@ -83,6 +83,11 @@ RSpec.feature "task_test", :type => :feature do
     fill_in "task[contents]", :with => max_string
     click_button(word_create_button)
     expect(page).to have_text(I18n.t("activerecord.attributes.task.contents") + "は255文字以内で入力してください")
+
+    fill_in "task[task_name]", :with => "feature test task"
+    fill_in "task[contents]", :with => "test test"
+    click_button(word_create_button)
+    expect(page).to have_text(I18n.t("validates.unique"))
   end
 
 end
