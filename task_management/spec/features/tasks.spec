@@ -6,6 +6,7 @@ word_move_create_task_link = "新規作成"
 word_move_edit_task_link = "修正"
 word_change_task_button = "更新する"
 word_delete_task_link = "削除"
+word_filter_task_button = "絞り込み"
 
 RSpec.feature "task_test", :type => :feature do
 
@@ -111,7 +112,7 @@ RSpec.feature "task_test", :type => :feature do
 
     visit "/"
     fill_in "name", :with => @task.task_name
-    click_button(I18n.t("view.index.filter"))
+    click_button(word_filter_task_button)
     expect(page).to have_text @task.task_name
   end
 
