@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  belongs_to :status 
+  belongs_to :status
+  belongs_to :user
 
   validates :task_name,
     uniqueness: { message: I18n.t("validates.unique") },

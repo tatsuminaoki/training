@@ -7,11 +7,11 @@ class TasksController < ApplicationController
     items_limit = 5
 
     if task_name.present?
-      @tasks = Task.where(task_name: task_name).page(params[:page]).per(items_limit)
+      @tasks = Task.includes([:status, :user]).where(task_name: task_name).page(params[:page]).per(items_limit)
     elsif status_id.present?
-      @tasks = Task.where(status_id: status_id).page(params[:page]).per(items_limit)
+      @tasks = Task.includes([:status, :user]).where(status_id: status_id).page(params[:page]).per(items_limit)
     else
-      @tasks = Task.page(params[:page]).per(items_limit)
+      @tasks = Task.includes([:status, :user]).page(params[:page]).per(items_limit)
     end
   end
 
