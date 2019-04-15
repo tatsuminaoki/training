@@ -3,7 +3,6 @@ class TasksController < ApplicationController
 
   # 一覧
   def index
-    # TODO: ページネーション STEP14
     @search_task = SearchTask.new(params)
     @tasks = @search_task.execute()
   end
