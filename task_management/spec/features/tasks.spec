@@ -25,7 +25,7 @@ RSpec.feature "task_test", :type => :feature do
     click_link(word_move_create_task_link)
     fill_in "task[task_name]", :with => "featureテスト"
     fill_in "task[contents]", :with => "featureテスト中です。"
-    click_button(word_move_create_task_link)
+    click_button(word_create_button)
     expect(page).to have_text("新規タスクを追加しました")
     expect(page).to have_link(@task.task_name)
     expect(page).to have_text(@task.contents)
