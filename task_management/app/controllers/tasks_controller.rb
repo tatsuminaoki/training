@@ -3,13 +3,15 @@ class TasksController < ApplicationController
   def index
     task_name = params[:name]
     status_id = params[:status_id]
+    # ページ件数
+    items_limit = 5
 
     if task_name.present?
       @tasks = Task.where(task_name: task_name)
     elsif status_id.present?
       @tasks = Task.where(status_id: status_id)
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(items_limit)
     end
   end
 
