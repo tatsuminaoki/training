@@ -1,5 +1,12 @@
 require "rails_helper"
 
+# 日本語表記用変数
+word_create_button = "登録する"
+word_move_create_task_link = "新規作成"
+word_move_edit_task_link = "修正"
+word_change_task_button = "更新する"
+word_delete_task_link = "削除"
+
 RSpec.feature "task_test", :type => :feature do
 
   before do
@@ -15,10 +22,10 @@ RSpec.feature "task_test", :type => :feature do
   scenario "Create new task" do
 
     visit "/"
-    click_link(I18n.t("view.index.new"))
+    click_link(word_move_create_task_link)
     fill_in "task[task_name]", :with => "featureテスト"
     fill_in "task[contents]", :with => "featureテスト中です。"
-    click_button(I18n.t("helpers.submit.create"))
+    click_button(word_move_create_task_link)
     expect(page).to have_text("新規タスクを追加しました")
     expect(page).to have_link(@task.task_name)
     expect(page).to have_text(@task.contents)
@@ -29,11 +36,11 @@ RSpec.feature "task_test", :type => :feature do
 
     visit "/"
     click_link @task.task_name
-    click_link(I18n.t("view.show.go_edit"))
+    click_link(word_move_edit_task_link)
     fill_in "task[task_name]", :with => "featureテスト edited!!"
     fill_in "task[contents]", :with => "featureテスト進行中!"
-    expect(page).to have_link(I18n.t("view.edit.delete"))
-    click_button(I18n.t("helpers.submit.update"))
+    expect(page).to have_link(word_delete_task_link)
+    click_button(word_change_task_button)
     expect(page).to have_text("タスクを編集しました")
 
   end
@@ -44,9 +51,9 @@ RSpec.feature "task_test", :type => :feature do
     expect(page).to have_field "task[task_name]", with: @task.task_name
     expect(page).to have_field "task[contents]", with: @task.contents
 
-    expect(page).to have_button((I18n.t("helpers.submit.update")))
+    expect(page).to have_button(word_change_task_button)
 
-    click_link(I18n.t("view.edit.delete"))
+    click_link(word_delete_task_link)
     expect(page).to have_text("タスクを削除しました")
 
   end
@@ -56,25 +63,25 @@ RSpec.feature "task_test", :type => :feature do
     max_string = "a" * 256
 
     visit "/"
-    click_link(I18n.t("view.index.new"))
+    click_link(word_move_create_task_link)
     fill_in "task[task_name]", :with => ""
     fill_in "task[contents]", :with => "test contents"
-    click_button(I18n.t("helpers.submit.create"))
+    click_button(word_create_button)
     expect(page).to have_text(I18n.t("activerecord.attributes.task.task_name") + "は必須入力です")
 
     fill_in "task[task_name]", :with => "バリデーションテスト"
     fill_in "task[contents]", :with => ""
-    click_button(I18n.t("helpers.submit.create"))
+    click_button(word_create_button)
     expect(page).to have_text(I18n.t("activerecord.attributes.task.contents") + "は必須入力です")
 
     fill_in "task[task_name]", :with => max_string
     fill_in "task[contents]", :with => "test contents"
-    click_button(I18n.t("helpers.submit.create"))
+    click_button(word_create_button)
     expect(page).to have_text(I18n.t("activerecord.attributes.task.task_name") + "は255文字以内で入力してください")
 
     fill_in "task[task_name]", :with => "バリデーションテスト"
     fill_in "task[contents]", :with => max_string
-    click_button(I18n.t("helpers.submit.create"))
+    click_button(word_create_button)
     expect(page).to have_text(I18n.t("activerecord.attributes.task.contents") + "は255文字以内で入力してください")
   end
 
