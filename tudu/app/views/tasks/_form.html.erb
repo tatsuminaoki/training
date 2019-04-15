@@ -1,0 +1,18 @@
+<%= form_for(task) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+  <div>
+    <%= f.label :expire_date %>
+    <%= f.date_field :expire_date %>
+  </div>
+  <div>
+    <%= f.submit submit_label %>
+  </div>
+<% end %>
