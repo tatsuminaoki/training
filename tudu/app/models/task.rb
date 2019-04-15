@@ -17,14 +17,6 @@ class Task < ApplicationRecord
     STATUS_DONE => '完了'
   }.freeze
 
-  def self.search(search_params)
-    task = self
-    task = task.where(status: search_params[:status]) if search_params[:status].present?
-    task = task.where(['name LIKE ?', "%#{search_params[:q]}%"]) if search_params[:q].present?
-
-    task
-  end
-
   private
     def expire_date_is_valid?
       begin

@@ -1,23 +1,11 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
-  SORT = [
-    "expire_date"
-  ]
-
-  ORDER = [
-    "asc", "desc"
-  ]
-
-  SEARCH_QUERY = [
-    :q, :status, :sort, :order
-  ]
-
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    @search_params = search_params
-    @tasks = Task.all.search(@search_params).order(get_order_params)
+    @search_task = SearchTask.new(params)
+    @tasks = @search_task.execute()
   end
 
   # 詳細
@@ -37,7 +25,6 @@ class TasksController < ApplicationController
       flash[:success] = t('task.create.success')
       redirect_to root_url
     else
-      # TODO: Validation 対応後チェック
       render 'new'
     end
 
@@ -55,7 +42,6 @@ class TasksController < ApplicationController
       flash[:success] = t('task.update.success')
       redirect_to root_url
     else
-      # TODO: Validation 対応後チェック
       render 'edit'
     end
   end
@@ -75,26 +61,11 @@ class TasksController < ApplicationController
     )
   end
 
-  # TODO: 検索モデルに処理を委譲したい気持ちです
-  def order_params
-    params.permit(SEARCH_QUERY).slice(:sort, :order)
-  end
-
-  def search_params
-    params.permit(SEARCH_QUERY).slice(:q, :status)
-  end
-
-  def get_order_params
-    "#{sort_column} #{sort_order}"
-  end
-
   def sort_order
-    order_value = order_params[:order].downcase if order_params[:order].present?
-    ORDER.include?(order_value) ? order_value : "desc"
+    @search_task.sort_order
   end
 
   def sort_column
-    sort_value = order_params[:sort].downcase if order_params[:sort].present?
-    SORT.include?(sort_value) ? sort_value : "created_at"
+    @search_task.sort_column
   end
 end
