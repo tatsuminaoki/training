@@ -14,6 +14,8 @@ class TasksTest < ApplicationSystemTestCase
     visit tasks_url
     click_on "New Task"
 
+    fill_in "Description", with: @task.description
+    fill_in "Name", with: @task.name
     click_on "Create Task"
 
     assert_text "Task was successfully created"
@@ -24,6 +26,8 @@ class TasksTest < ApplicationSystemTestCase
     visit tasks_url
     click_on "Edit", match: :first
 
+    fill_in "Description", with: @task.description
+    fill_in "Name", with: @task.name
     click_on "Update Task"
 
     assert_text "Task was successfully updated"
