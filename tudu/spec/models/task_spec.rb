@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   it "is valid with task" do
-    task = Task.new(name: "name1", content: "content1")
+    task = build(:task)
     expect(task).to be_valid
   end
 
@@ -29,10 +29,26 @@ RSpec.describe Task, type: :model do
         name: 'name',
         content: 'c' * 501
       },
+      {
+        name: 'name',
+        content: 'content',
+        status: 4
+      },
+      {
+        name: 'name',
+        content: 'content',
+        exipire_date: "invalid-date"
+      }
     ]
 
     params.each do |param|
-      task = Task.new(name: param[:name], content: param[:content])
+      task = build(
+        :task,
+        name: param[:name],
+        content: param[:content],
+        status: param[:status],
+        expire_date: param[:expire_date]
+      )
       expect(task).not_to be_valid
     end
   end

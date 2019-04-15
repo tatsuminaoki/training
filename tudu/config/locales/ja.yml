@@ -34,6 +34,7 @@ ja:
     presence: "%{attribute}は必須入力です"
     length: "%{attribute}は%{count}文字以内で入力してください"
     date: "%{attribute}は日付を入力してください"
+    inclusion: "%{attribute}の値が不正です"
   date:
     formats:
       default: ! "%Y/%m/%d"
