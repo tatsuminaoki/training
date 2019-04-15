@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_080959) do
+ActiveRecord::Schema.define(version: 2019_04_15_081605) do
 
   create_table "statuses", id: :integer, limit: 1, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "status_name", null: false
@@ -25,9 +25,10 @@ ActiveRecord::Schema.define(version: 2019_04_15_080959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status_id", limit: 1, default: 1, null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["status_id"], name: "fk_rails_dce14077b1"
     t.index ["task_name"], name: "index_tasks_on_task_name", unique: true
+    t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -38,4 +39,5 @@ ActiveRecord::Schema.define(version: 2019_04_15_080959) do
   end
 
   add_foreign_key "tasks", "statuses"
+  add_foreign_key "tasks", "users"
 end
