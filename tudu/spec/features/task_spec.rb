@@ -1,19 +1,19 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "task management", :type => :feature do
+RSpec.feature 'task management', :type => :feature do
 
-  describe "create task" do
-    context "create a new task" do
-      scenario "End User Create a new task" do
+  describe 'create task' do
+    context 'create a new task' do
+      scenario 'End User Create a new task' do
 
         visit new_task_path
 
-        input_name = "タスク名1"
-        input_content = "タスク内容1"
-        fill_in "task[name]", with: input_name
-        fill_in "task[content]", with: input_content
-        click_button "登録"
-        expect(page).to have_text("タスクを登録しました")
+        input_name = 'タスク名1'
+        input_content = 'タスク内容1'
+        fill_in 'task[name]', with: input_name
+        fill_in 'task[content]', with: input_content
+        click_button '登録'
+        expect(page).to have_text('タスクを登録しました')
 
         expect(page).to have_text(input_name)
         expect(page).to have_text(input_content)
@@ -21,9 +21,9 @@ RSpec.feature "task management", :type => :feature do
     end
   end
 
-  describe "update task" do
-    context "update a new task" do
-      scenario "End user update a task" do
+  describe 'update task' do
+    context 'update a new task' do
+      scenario 'End user update a task' do
 
         task = create(:task)
         visit root_path
@@ -32,12 +32,12 @@ RSpec.feature "task management", :type => :feature do
 
         visit edit_task_path(task)
 
-        input_name = "タスク名1 update"
-        input_content = "タスク内容1 update"
-        fill_in "task[name]", with: input_name
-        fill_in "task[content]", with: input_content
-        click_button "変更を保存する"
-        expect(page).to have_text("タスクを保存しました")
+        input_name = 'タスク名1 update'
+        input_content = 'タスク内容1 update'
+        fill_in 'task[name]', with: input_name
+        fill_in 'task[content]', with: input_content
+        click_button '変更を保存する'
+        expect(page).to have_text('タスクを保存しました')
 
         expect(page).to have_text(input_name)
         expect(page).to have_text(input_content)
@@ -45,9 +45,9 @@ RSpec.feature "task management", :type => :feature do
     end
   end
 
-  describe "show task" do
-    context "show a task" do
-      scenario "End user show a task" do
+  describe 'show task' do
+    context 'show a task' do
+      scenario 'End user show a task' do
         task = create(:task)
         visit task_path(task)
         expect(page).to have_text(task.name)
@@ -56,14 +56,14 @@ RSpec.feature "task management", :type => :feature do
     end
   end
 
-  describe "delete task" do
-    context "delete a task" do
-      scenario "End user delete task" do
+  describe 'delete task' do
+    context 'delete a task' do
+      scenario 'End user delete task' do
         task1 = create(:task)
         task2 = create(
           :task,
-          name: "dummy2 name",
-          content: "dummy2 content"
+          name: 'dummy2 name',
+          content: 'dummy2 content'
         )
         visit root_path
         expect(page).to have_text(task1.name)
@@ -71,8 +71,8 @@ RSpec.feature "task management", :type => :feature do
         expect(page).to have_text(task2.name)
         expect(page).to have_text(task2.content)
 
-        click_link("削除", match: :first)
-        expect(page).to have_text("タスクを削除しました")
+        click_link('削除', match: :first)
+        expect(page).to have_text('タスクを削除しました')
 
         expect(page).to have_text(task2.name)
         expect(page).to have_text(task2.content)
@@ -83,8 +83,8 @@ RSpec.feature "task management", :type => :feature do
     end
   end
 
-  describe "view task list" do
-    context "when default display" do
+  describe 'view task list' do
+    context 'when default display' do
       task = nil
       background do
         today = Time.zone.now
@@ -100,10 +100,10 @@ RSpec.feature "task management", :type => :feature do
         end
       end
 
-      scenario "End user view task list" do
+      scenario 'End user view task list' do
         visit root_path
         first_row = task
-        expect(page.all("tr")[1].text).to include first_row.name
+        expect(page.all('tr')[1].text).to include first_row.name
 
       end
     end
