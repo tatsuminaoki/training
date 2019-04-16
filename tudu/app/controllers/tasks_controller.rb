@@ -33,7 +33,6 @@ class TasksController < ApplicationController
       flash[:success] = t('task.create.success')
       redirect_to root_url
     else
-      # TODO: Validation 対応後チェック
       render 'new'
     end
 
@@ -51,7 +50,6 @@ class TasksController < ApplicationController
       flash[:success] = t('task.update.success')
       redirect_to root_url
     else
-      # TODO: Validation 対応後チェック
       render 'edit'
     end
   end
