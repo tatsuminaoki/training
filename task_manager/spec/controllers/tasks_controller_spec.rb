@@ -29,7 +29,7 @@ RSpec.describe TasksController, type: :controller do
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: 'name', description: 'description'}
   }
 
   let(:invalid_attributes) {
@@ -97,14 +97,15 @@ RSpec.describe TasksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'new name', description: 'new description'}
       }
 
       it "updates the requested task" do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: new_attributes}, session: valid_session
         task.reload
-        skip("Add assertions for updated state")
+        change(task, :name).from('name').to('new name')
+        change(task, :description).from('ndescription').to('new description')
       end
 
       it "redirects to the task" do
