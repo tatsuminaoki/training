@@ -12,7 +12,6 @@ class TasksController < ApplicationController
   # 一覧
   def index
     # TODO: ページネーション STEP14
-    # TODO: cssの実装
     @tasks = Task.all.order(order_params)
   end
 
