@@ -87,7 +87,7 @@ RSpec.describe TasksController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'returns a success response (i.e. to display the 'new' template)' do
+      it 'returns a success response (i.e. to display the "new" template)' do
         post :create, params: {task: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
@@ -116,7 +116,7 @@ RSpec.describe TasksController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'returns a success response (i.e. to display the 'edit' template)' do
+      it 'returns a success response (i.e. to display the "edit" template)' do
         task = Task.create! valid_attributes
         put :update, params: {id: task.to_param, task: invalid_attributes}, session: valid_session
         expect(response).to be_successful
