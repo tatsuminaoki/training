@@ -1,22 +1,32 @@
-<%= form_for(task) do |f| %>
+<%= form_for(task, html: { class: "form-horizontal" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, { class: "control-label col-md-2" } %>
+    <div class="col-md-2">
+      <%= f.text_field :name, { class: "form-control" } %>
+    </div>
   </div>
-  <div>
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <%= f.label :content, { class: "control-label col-md-2" } %>
+    <div class="col-md-2">
+      <%= f.text_area :content, { class: "form-control" } %>
+    </div>
   </div>
-  <div>
-    <%= f.label :expire_date %>
-    <%= f.date_field :expire_date %>
+  <div class="form-group">
+    <%= f.label :expire_date, { class: "control-label col-md-2" } %>
+    <div class="col-md-2">
+      <%= f.date_field :expire_date, { class: "form-control" } %>
+    </div>
   </div>
-  <div>
-    <%= f.label :status %>
-    <%= f.select :status, Task::STATUS.invert %>
+  <div class="form-group">
+    <%= f.label :status, { class: "control-label col-md-2" } %>
+    <div class="col-md-2">
+      <%= f.select :status, Task::STATUS.invert, {}, { class: "form-control" } %>
+    </div>
   </div>
-  <div>
-    <%= f.submit submit_label %>
+  <div class="form-group">
+    <div class="col-xs-offset-2">
+      <%= f.submit submit_label, { class: "btn btn-primary" } %>
+    </div>
   </div>
 <% end %>
