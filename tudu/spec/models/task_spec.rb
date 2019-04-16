@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
 
   context 'validate task' do
-    scenario "is valid with task" do
+    scenario 'is valid with task' do
       task = build(:task)
       expect(task).to be_valid
     end
 
-    scenario "is invalid with task" do
+    scenario 'is invalid with task' do
 
       params = [
         # name なし, content あり
