@@ -109,7 +109,7 @@ RSpec.feature 'task management', :type => :feature do
     end
 
     context 'when expired_date sort' do
-      scenario "End user view task list and sort" do
+      scenario 'End user view task list and sort' do
         today = Time.zone.now
         expire_date = Time.zone.today
         task = nil
@@ -129,12 +129,12 @@ RSpec.feature 'task management', :type => :feature do
         visit root_path
         last_expire_date_task = task
         # 昇順
-        click_link("終了期限")
-        expect(page.all("tr")[5].text).to include last_expire_date_task.name
+        click_link('終了期限')
+        expect(page.all('tr')[5].text).to include last_expire_date_task.name
 
         # 降順
-        click_link("終了期限")
-        expect(page.all("tr")[1].text).to include last_expire_date_task.name
+        click_link('終了期限')
+        expect(page.all('tr')[1].text).to include last_expire_date_task.name
       end
     end
   end

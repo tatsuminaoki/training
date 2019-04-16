@@ -2,11 +2,11 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
   SORT = [
-    "expire_date"
+    'expire_date'
   ]
 
   ORDER = [
-    "asc", "desc"
+    'asc', 'desc'
   ]
 
   # 一覧
@@ -81,11 +81,11 @@ class TasksController < ApplicationController
 
   def sort_order
     order_value = search_params[:order].downcase if search_params[:order].present?
-    ORDER.include?(order_value) ? order_value : "desc"
+    ORDER.include?(order_value) ? order_value : 'desc'
   end
 
   def sort_column
     sort_value = search_params[:sort].downcase if search_params[:sort].present?
-    SORT.include?(sort_value) ? sort_value : "created_at"
+    SORT.include?(sort_value) ? sort_value : 'created_at'
   end
 end
