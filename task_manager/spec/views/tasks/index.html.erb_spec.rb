@@ -10,7 +10,7 @@ RSpec.describe 'tasks/index', type: :view do
            ])
   end
 
-  it 'renders a list of tasks' do
+  xit 'renders a list of tasks' do
     render
   end
 end
