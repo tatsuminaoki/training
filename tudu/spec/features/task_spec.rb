@@ -107,6 +107,35 @@ RSpec.feature 'task management', :type => :feature do
 
       end
     end
-  end
 
+    context 'when expired_date sort' do
+      scenario 'End user view task list and sort' do
+        today = Time.zone.now
+        expire_date = Time.zone.today
+        task = nil
+        5.times do |i|
+          task = create(
+            :task,
+            name: "name_#{i}",
+            content: "content_#{i}",
+            created_at: today,
+            expire_date: expire_date
+          )
+          today = today + 10
+          expire_date = expire_date + 3
+        end
+
+        # task に入っているのは、終了期限が一番後
+        visit root_path
+        last_expire_date_task = task
+        # 昇順
+        click_link('終了期限')
+        expect(page.all('tr')[5].text).to include last_expire_date_task.name
+
+        # 降順
+        click_link('終了期限')
+        expect(page.all('tr')[1].text).to include last_expire_date_task.name
+      end
+    end
+  end
 end

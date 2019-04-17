@@ -4,6 +4,8 @@ ja:
       task:
         name: "タスク名"
         content: "タスク詳細"
+        expire_date: "終了期限"
+        created_at: "作成日時"
   task:
     index:
       title: "タスク一覧"
@@ -30,4 +32,10 @@ ja:
   validates:
     presence: "%{attribute}は必須入力です"
     length: "%{attribute}は%{count}文字以内で入力してください"
-
+    date: "%{attribute}は日付を入力してください"
+  date:
+    formats:
+      default: ! "%Y/%m/%d"
+  time:
+    formats:
+      default: ! "%Y/%m/%d %H:%M:%S"
