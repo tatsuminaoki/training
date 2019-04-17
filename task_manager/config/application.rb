@@ -21,5 +21,8 @@ module TaskManager
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}')]
     config.i18n.available_locales = [:en, :ja]
     config.i18n.default_locale = :ja
+
+    # timezone
+    config.time_zone = 'Tokyo'
   end
 end
