@@ -5,7 +5,8 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result
   end
 
   # GET /tasks/1
