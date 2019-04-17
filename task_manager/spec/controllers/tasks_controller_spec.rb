@@ -81,9 +81,10 @@ RSpec.describe TasksController, type: :controller do
       it 'updates the requested task' do
         task = Task.create! valid_attributes
         put :update, params: { id: task.to_param, task: new_attributes }, session: valid_session
-        task.reload
-        change(task, :name).from('name').to('new name')
-        change(task, :description).from('ndescription').to('new description')
+        expect { task.reload }.to(
+          change(task, :name).from('name').to('new name')
+          .and(change(task, :description).from('description').to('new description')),
+        )
       end
 
       it 'redirects to the task' do
