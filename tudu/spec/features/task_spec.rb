@@ -138,7 +138,7 @@ RSpec.feature 'task management', :type => :feature do
     end
 
     context 'when search' do
-      scenario "end user search task" do
+      scenario 'end user search task' do
         today = Time.zone.now
         expire_date = Time.zone.today
 
@@ -158,7 +158,7 @@ RSpec.feature 'task management', :type => :feature do
 
         params = [
           {
-            q: "name_0",
+            q: 'name_0',
             expect: 1
           },
           {
@@ -166,23 +166,23 @@ RSpec.feature 'task management', :type => :feature do
             expect: 3
           },
           {
-            q: "not exist",
+            q: 'not exist',
             expect: 0
           },
         ]
 
         visit root_path
-        expect(page.all("tbody > tr").length).to eq 10
+        expect(page.all('tbody > tr').length).to eq 10
 
         params.each do |param|
           if param[:q].present?
-            fill_in "q", with: param[:q]
+            fill_in 'q', with: param[:q]
           end
           if param[:status].present?
-            select Task::STATUS.fetch(param[:status]), from: "status"
+            select Task::STATUS.fetch(param[:status]), from: 'status'
           end
-          click_button "検索"
-          expect(page.all("tbody > tr").length).to eq param[:expect]
+          click_button '検索'
+          expect(page.all('tbody > tr').length).to eq param[:expect]
           visit root_path
         end
       end

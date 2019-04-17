@@ -37,7 +37,7 @@ RSpec.describe Task, type: :model do
         {
           name: 'name',
           content: 'content',
-          exipire_date: "invalid-date"
+          exipire_date: 'invalid-date'
         }
       ]
 
