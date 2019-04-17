@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   # 詳細
   def show
+    # TODO: STEP17 で user_id も条件に加える
     @task = Task.find(params[:id])
   end
 
@@ -20,6 +21,10 @@ class TasksController < ApplicationController
   # 保存 (from new)
   def create
     @task = Task.new(task_params)
+
+    # TODO: STEP17 で動的に入れる
+    @task.user_id = 1
+
     if @task.save
       flash[:success] = t('task.create.success')
       redirect_to root_url
@@ -37,6 +42,10 @@ class TasksController < ApplicationController
   # 保存 (from edit)
   def update
     @task = Task.find(params[:id])
+
+    # TODO: STEP17 で動的に入れる
+    @task.user_id = 1
+
     if @task.update_attributes(task_params)
       flash[:success] = t('task.update.success')
       redirect_to root_url
@@ -47,6 +56,7 @@ class TasksController < ApplicationController
 
   # 削除
   def destroy
+    # TODO: STEP17 で user_id も条件に加える
     Task.find(params[:id]).destroy
     flash[:success] = t('task.delete.success')
     redirect_to tasks_url
