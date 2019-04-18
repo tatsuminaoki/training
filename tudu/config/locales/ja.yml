@@ -30,6 +30,7 @@ ja:
     login:
       title: 'ログイン'
       failed: 'メールアドレスまたはパスワードが正しくありません'
+      not_login: 'ログインしてください'
   action:
     show: "詳細"
     edit: "編集"

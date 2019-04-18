@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
+  before_action :logged_in_user
+
   # 一覧
   def index
     @search_task = SearchTask.new(params)
@@ -76,5 +78,12 @@ class TasksController < ApplicationController
 
   def sort_column
     @search_task.sort_column
+  end
+
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = t('session.login.not_login')
+      redirect_to login_url
+    end
   end
 end
