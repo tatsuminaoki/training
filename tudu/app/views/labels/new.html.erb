@@ -1,2 +1,7 @@
-<h1>Labels#new</h1>
-<p>Find me in app/views/labels/new.html.erb</p>
+<h1><%= t('label.new.title') %></h1>
+<div class="task-form">
+  <%= render "form", {
+    label: @label,
+    submit_label: t('action.create')
+  } %>
+</div>

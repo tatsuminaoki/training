@@ -1,2 +1,7 @@
-<h1>Labels#edit</h1>
-<p>Find me in app/views/labels/edit.html.erb</p>
+<h1><%= t('label.edit.title') %></h1>
+<div class="task-form">
+  <%= render "form", {
+    label: @label,
+    submit_label: t('action.update')
+  } %>
+</div>

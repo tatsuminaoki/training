@@ -10,6 +10,10 @@ ja:
       user:
         email: "メールアドレス"
         password: "パスワード"
+      label:
+        name: 'ラベル名'
+        created_at: '作成日時'
+        updated_at: '更新日時'
   task:
     index:
       title: "タスク一覧"
@@ -31,6 +35,20 @@ ja:
       title: 'ログイン'
       failed: 'メールアドレスまたはパスワードが正しくありません'
       not_login: 'ログインしてください'
+  label:
+    index:
+      title: 'ラベル一覧'
+    new:
+      title: 'ラベル新規登録'
+    create:
+      success: 'ラベルを登録しました'
+    update:
+      success: 'ラベルを保存しました'
+    edit:
+      title: 'ラベル編集'
+    delete:
+      success: 'ラベルを削除しました'
+      confirm: '本当に削除してよろしいですか？'
   action:
     show: "詳細"
     edit: "編集"
