@@ -13,6 +13,7 @@ en:
       task:
         name: name
         description: description
+        created_at: created at
   tasks:
     index:
       title: Tasks
@@ -30,7 +31,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -56,7 +57,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - January
     - February
     - March
