@@ -151,6 +151,15 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+    page:
+      bad_request: 不正なリクエストです。
+      check: サイトの管理者の場合は、ログを確認して下さい。
+      forbidden: アクセス制限されています。
+      incomplete_request: 不正なリクエストを受け取りました。正しいリクエストか確認して下さい。
+      may_have_moved: URLを間違えているか、ページが移動した可能性があります。
+      not_exist: お探しのページは見つかりません。
+      no_permmition: アクセスするための許可がありません。
+      temporary_error: 一時的なエラーが発生しました。
   helpers:
     select:
       prompt: 選択してください
