@@ -13,6 +13,10 @@
     <%= l(@task.expire_date) if @task.expire_date.present? %>
   </div>
   <div>
+    <%= t('activerecord.attributes.task.status') %>:
+    <%= Task::STATUS.fetch(@task.status) %>
+  </div>
+  <div>
     <%= t('activerecord.attributes.task.created_at') %>:
     <%= l(@task.created_at) %>
   </div>

@@ -1,10 +1,23 @@
 class Task < ApplicationRecord
+  STATUS_NOT_YET = 0
+  STATUS_DOING = 1
+  STATUS_DONE = 2
+
+  STATUS = {
+    STATUS_NOT_YET => '未着手',
+    STATUS_DOING => '着手中',
+    STATUS_DONE => '完了'
+  }.freeze
+
   validates :name,
     presence: { message: I18n.translate('validates.presence') },
     length: { maximum: 50, message: I18n.translate('validates.length') }
   validates :content,
     presence: { message: I18n.translate('validates.presence') },
     length: { maximum: 500, message: I18n.translate('validates.length') }
+  validates :status,
+    presence: { message: I18n.translate('validates.presence') },
+    inclusion: { in: Task::STATUS.keys, message: I18n.translate('validates.inclusion') }
   validate :expire_date_is_valid?
 
   private

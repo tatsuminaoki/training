@@ -104,7 +104,6 @@ RSpec.feature 'task management', :type => :feature do
         visit root_path
         first_row = task
         expect(page.all('tr')[1].text).to include first_row.name
-
       end
     end
 
@@ -135,6 +134,57 @@ RSpec.feature 'task management', :type => :feature do
         # 降順
         click_link('終了期限')
         expect(page.all('tr')[1].text).to include last_expire_date_task.name
+      end
+    end
+
+    context 'when search' do
+      scenario 'end user search task' do
+        today = Time.zone.now
+        expire_date = Time.zone.today
+
+        10.times do |i|
+          params = {
+            :name => "name_#{i - 1}",
+            :content => "content_#{i - 1}",
+            :created_at => today,
+            :status => (i - 1) % Task::STATUS.keys.length,
+            :expire_date => expire_date
+          }
+          @task = Task.new(params)
+          @task.save
+          today = today + 10
+          expire_date = expire_date + 3
+        end
+
+        params = [
+          {
+            q: 'name_0',
+            expect: 1
+          },
+          {
+            status: 1,
+            expect: 3
+          },
+          {
+            q: 'not exist',
+            expect: 0
+          },
+        ]
+
+        visit root_path
+        expect(page.all('tbody > tr').length).to eq 10
+
+        params.each do |param|
+          if param[:q].present?
+            fill_in 'q', with: param[:q]
+          end
+          if param[:status].present?
+            select Task::STATUS.fetch(param[:status]), from: 'status'
+          end
+          click_button '検索'
+          expect(page.all('tbody > tr').length).to eq param[:expect]
+          visit root_path
+        end
       end
     end
   end
