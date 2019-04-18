@@ -11,7 +11,7 @@ class SearchTask
     "asc", "desc"
   ]
 
-  def initialize(params)
+  def initialize(params, user_id = nil)
     self.filtered_params = params.permit(
       :q, :status, :sort, :order, :page
     )
@@ -21,6 +21,8 @@ class SearchTask
     self.sort = self.filtered_params[:sort] if self.filtered_params[:sort].present?
     self.order = self.filtered_params[:order] if self.filtered_params[:order].present?
     self.page = self.filtered_params[:page] if self.filtered_params[:page].present?
+
+    self.user_id = user_id
   end
 
   def execute
@@ -30,8 +32,7 @@ class SearchTask
     task = task.page(self.filtered_params[:page]).per(PER_PAGE)
     task = task.order(make_order)
 
-    # TODO: STEP17 で動的に入れる
-    task = task.where(user_id: 1)
+    task = task.where(user_id: self.user_id) if self.user_id.present?
 
     # TODO: STEP16 bullet の動作確認用
     # コメントインすると、N + 1 のエラーは発生しなくなる
@@ -58,7 +59,7 @@ class SearchTask
   end
 
   protected
-  attr_accessor :filtered_params, :q, :status, :sort, :order, :page
+  attr_accessor :filtered_params, :q, :status, :sort, :order, :page, :user_id
 
   private
   def make_order

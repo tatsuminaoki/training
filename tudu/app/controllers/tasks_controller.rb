@@ -2,16 +2,16 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
   before_action :logged_in_user
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   # 一覧
   def index
-    @search_task = SearchTask.new(params)
+    @search_task = SearchTask.new(params, current_user.id)
     @tasks = @search_task.execute()
   end
 
   # 詳細
   def show
-    # TODO: STEP17 で user_id も条件に加える
     @task = Task.find(params[:id])
   end
 
@@ -22,11 +22,7 @@ class TasksController < ApplicationController
 
   # 保存 (from new)
   def create
-    @task = Task.new(task_params)
-
-    # TODO: STEP17 で動的に入れる
-    @task.user_id = 1
-
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = t('task.create.success')
       redirect_to root_url
@@ -44,10 +40,6 @@ class TasksController < ApplicationController
   # 保存 (from edit)
   def update
     @task = Task.find(params[:id])
-
-    # TODO: STEP17 で動的に入れる
-    @task.user_id = 1
-
     if @task.update_attributes(task_params)
       flash[:success] = t('task.update.success')
       redirect_to root_url
@@ -58,7 +50,6 @@ class TasksController < ApplicationController
 
   # 削除
   def destroy
-    # TODO: STEP17 で user_id も条件に加える
     Task.find(params[:id]).destroy
     flash[:success] = t('task.delete.success')
     redirect_to tasks_url
@@ -87,5 +78,10 @@ class TasksController < ApplicationController
       flash[:danger] = t('session.login.not_login')
       redirect_to login_url
     end
+  end
+
+  def correct_user
+    @task = Task.where(id: params[:id]).where(user_id: current_user.id)
+    redirect_to(login_url) unless @task.present?
   end
 end
