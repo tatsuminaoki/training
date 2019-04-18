@@ -2,6 +2,15 @@ require "rails_helper"
 
 RSpec.feature "task management", :type => :feature do
 
+  background do
+    @user = create(:user)
+
+    visit login_path
+    fill_in 'session[email]', with: @user.email
+    fill_in 'session[password]', with: 'hogehoge'
+    click_button 'ログイン'
+  end
+
   scenario "End User Create a new task" do
 
     visit new_task_path
@@ -19,7 +28,11 @@ RSpec.feature "task management", :type => :feature do
 
   scenario "end user update a task" do
 
-    task = create(:task)
+    task = create(
+      :task,
+      user_id: @user.id
+    )
+
     visit root_path
     expect(page).to have_text(task.name)
     expect(page).to have_text(task.content)
@@ -39,7 +52,10 @@ RSpec.feature "task management", :type => :feature do
 
   scenario "end user show a task" do
 
-    task = create(:task)
+    task = create(
+      :task,
+      user_id: @user.id
+    )
     visit task_path(task)
     expect(page).to have_text(task.name)
     expect(page).to have_text(task.content)
@@ -48,11 +64,15 @@ RSpec.feature "task management", :type => :feature do
 
   scenario "end user view task list and delete" do
 
-    task1 = create(:task)
+    task1 = create(
+      :task,
+      user_id: @user.id
+    )
     task2 = create(
       :task,
       name: "dummy2 name",
-      content: "dummy2 content"
+      content: "dummy2 content",
+      user_id: @user.id
     )
     visit tasks_url
     expect(page).to have_text(task1.name)
@@ -75,7 +95,8 @@ RSpec.feature "task management", :type => :feature do
       params = {
         :name => "name_#{i}",
         :content => "content_#{i}",
-        :created_at => today
+        :created_at => today,
+        :user_id => @user.id
       }
       @task = Task.new(params)
       @task.save
@@ -97,7 +118,8 @@ RSpec.feature "task management", :type => :feature do
         name: "name_#{i}",
         content: "content_#{i}",
         created_at: today,
-        expire_date: expire_date
+        expire_date: expire_date,
+        user_id: @user.id
       )
       today = today + 10
       expire_date = expire_date + 3
@@ -126,7 +148,8 @@ RSpec.feature "task management", :type => :feature do
         :content => "content_#{i - 1}",
         :created_at => today,
         :status => (i - 1) % Task::STATUS.keys.length,
-        :expire_date => expire_date
+        :expire_date => expire_date,
+        :user_id => @user.id
       }
       @task = Task.new(params)
       @task.save
