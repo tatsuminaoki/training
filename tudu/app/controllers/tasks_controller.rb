@@ -18,11 +18,13 @@ class TasksController < ApplicationController
   # 新規作成
   def new
     @task = Task.new
+    @labels = current_user.labels
   end
 
   # 保存 (from new)
   def create
     @task = current_user.tasks.build(task_params)
+    @labels = current_user.labels
     if @task.save
       flash[:success] = t('task.create.success')
       redirect_to root_url
@@ -35,11 +37,13 @@ class TasksController < ApplicationController
   # 編集
   def edit
     @task = Task.find(params[:id])
+    @labels = current_user.labels
   end
 
   # 保存 (from edit)
   def update
     @task = Task.find(params[:id])
+    @labels = current_user.labels
     if @task.update_attributes(task_params)
       flash[:success] = t('task.update.success')
       redirect_to root_url
@@ -59,7 +63,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(
-      :name, :content, :expire_date, :status
+      # MEMO labels: にすると model にしないといけない
+      # :name, :content, :expire_date, :status, labels: []
+      :name, :content, :expire_date, :status, label_ids: []
     )
   end
 

@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_and_belongs_to_many :labels
 
   STATUS_NOT_YET = 0
   STATUS_DOING = 1

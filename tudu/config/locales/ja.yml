@@ -7,6 +7,7 @@ ja:
         expire_date: "終了期限"
         status: "ステータス"
         created_at: "作成日時"
+        labels: "ラベル"
       user:
         email: "メールアドレス"
         password: "パスワード"
