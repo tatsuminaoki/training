@@ -5,6 +5,10 @@ body {
   padding-top: 60px;
 }
 
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
 #logo {
   float: left;
   color: #fff;
