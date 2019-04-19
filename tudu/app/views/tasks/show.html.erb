@@ -1,30 +1,54 @@
 <h1><%= t('task.show.title') %></h1>
-<div>
-  <div>
-    <%= t('activerecord.attributes.task.name') %>:
-    <%= @task.name %>
+<div class="p-task-detail">
+  <div class="p-task-detail-info">
+    <div class="row">
+      <div class="col-xs-2">
+        <%= t('activerecord.attributes.task.name') %>
+      </div>
+      <div class="col-xs-2">
+        <%= @task.name %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= t('activerecord.attributes.task.content') %>
+      </div>
+      <div class="col-xs-2">
+        <%= @task.content %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= t('activerecord.attributes.task.expire_date') %>
+      </div>
+      <div class="col-xs-2">
+        <%= l(@task.expire_date) if @task.expire_date.present? %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= t('activerecord.attributes.task.status') %>
+      </div>
+      <div class="col-xs-2">
+        <%= Task::STATUS.fetch(@task.status) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= t('activerecord.attributes.task.created_at') %>
+      </div>
+      <div class="col-xs-2">
+        <%= l(@task.created_at) %>
+      </div>
+    </div>
   </div>
+  <div class="p-task-detail-links">
+    <div class="row">
+      <ul class="list-inline col-xs-2">
+        <li><%= link_to t('action.edit'), edit_task_path(@task), { class: 'btn btn-primary' } %></li>
+        <li><%= link_to t('action.delete'), @task, class: 'btn btn-danger', method: :delete,
+          data: { confirm: t('task.delete.confirm') } %></li>
+      </ul>
+    </div>
   <div>
-    <%= t('activerecord.attributes.task.content') %>:
-    <%= @task.content %>
-  </div>
-  <div>
-    <%= t('activerecord.attributes.task.expire_date') %>:
-    <%= l(@task.expire_date) if @task.expire_date.present? %>
-  </div>
-  <div>
-    <%= t('activerecord.attributes.task.status') %>:
-    <%= Task::STATUS.fetch(@task.status) %>
-  </div>
-  <div>
-    <%= t('activerecord.attributes.task.created_at') %>:
-    <%= l(@task.created_at) %>
-  </div>
-  <div>
-    <ul>
-      <li><%= link_to t('action.edit'), edit_task_path(@task) %></li>
-      <li><%= link_to t('action.delete'), @task, method: :delete,
-        data: { confirm: t('task.delete.confirm') } %></li>
-    </ul>
-  </div>
 </div>
