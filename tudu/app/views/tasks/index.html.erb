@@ -32,21 +32,21 @@
       <th>
         <%= t('activerecord.attributes.task.created_at') %>
       </th>
+      <th>
+        <%= t('activerecord.attributes.task.labels') %>
+      </th>
       <th><%= t('action.table_heading_operation') %></th>
     </tr>
   </thead>
   <tbody>
   <% @tasks.each do |task| %>
-    <%
-      # TODO: STEP16 bullet の動作確認用
-      task.user.email
-    %>
     <tr>
       <td><%= task.name %></td>
       <td><%= task.content %></td>
       <td><%= l(task.expire_date.to_date) if task.expire_date.present? %></td>
       <td><%= Task::STATUS.fetch(task.status) %></td>
       <td><%= l(task.created_at.to_datetime) %></td>
+      <td><%= display_label(task) %></td>
       <td>
         <ul class="list-inline">
           <li><%= link_to t('action.show'), task_path(task), { class: "btn btn-default" } %></li>

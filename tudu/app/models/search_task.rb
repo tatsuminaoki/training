@@ -34,10 +34,6 @@ class SearchTask
 
     task = task.where(user_id: self.user_id) if self.user_id.present?
 
-    # TODO: STEP16 bullet の動作確認用
-    # コメントインすると、N + 1 のエラーは発生しなくなる
-    ### task = task.includes(:user)
-
     task
   end
 
