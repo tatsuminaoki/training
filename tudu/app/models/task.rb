@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   STATUS_NOT_YET = 0
   STATUS_DOING = 1
   STATUS_DONE = 2

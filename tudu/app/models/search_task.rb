@@ -30,6 +30,13 @@ class SearchTask
     task = task.page(self.filtered_params[:page]).per(PER_PAGE)
     task = task.order(make_order)
 
+    # TODO: STEP17 で動的に入れる
+    task = task.where(user_id: 1)
+
+    # TODO: STEP16 bullet の動作確認用
+    # コメントインすると、N + 1 のエラーは発生しなくなる
+    ### task = task.includes(:user)
+
     task
   end
 

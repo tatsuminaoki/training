@@ -37,6 +37,10 @@
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
+      <%
+        # TODO: STEP16 bullet の動作確認用
+        task.user.email
+      %>
       <tr>
         <td><%= task.name %></td>
         <td><%= task.content %></td>
