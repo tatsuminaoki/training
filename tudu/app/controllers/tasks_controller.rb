@@ -31,7 +31,6 @@ class TasksController < ApplicationController
     else
       render 'new'
     end
-
   end
 
   # 編集

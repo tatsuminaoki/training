@@ -4,11 +4,11 @@ class SearchTask
   PER_PAGE = 10
 
   SORT = [
-    "expire_date"
+    'expire_date'
   ]
 
   ORDER = [
-    "asc", "desc"
+    'asc', 'desc'
   ]
 
   def initialize(params)
@@ -49,12 +49,12 @@ class SearchTask
 
   def sort_order
     order_value = self.filtered_params[:order].downcase if self.filtered_params[:order].present?
-    ORDER.include?(order_value) ? order_value : "desc"
+    ORDER.include?(order_value) ? order_value : 'desc'
   end
 
   def sort_column
     sort_value = self.filtered_params[:sort].downcase if self.filtered_params[:sort].present?
-    SORT.include?(sort_value) ? sort_value : "created_at"
+    SORT.include?(sort_value) ? sort_value : 'created_at'
   end
 
   protected
