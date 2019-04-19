@@ -13,6 +13,7 @@ ja:
       task:
         name: 名前
         description: 詳細
+        created_at: 作成日時
   tasks:
     index:
       title: タスク一覧
