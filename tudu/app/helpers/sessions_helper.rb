@@ -16,17 +16,4 @@ module SessionsHelper
   def log_out
     session.delete(:user_id)
   end
-
-  def redirect_back_or(default)
-    redirect_to(session[:forwarding_url] || default)
-    session.delete(:forwarding_url)
-  end
-
-  def store_location
-    if request.get?
-      session[:forwarding_url] = request.original_url
-    else
-      session.delete(:forwarding_url)
-    end
-  end
 end

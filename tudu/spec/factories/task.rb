@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
-    name { 'dummy name' }
-    content { 'dummy content' }
-    status { 0 }
+    sequence(:name) { |n| "name_#{n}" }
+    sequence(:content) { |n| "dummy content_#{n}" }
+    sequence(:status) { 0 }
   end
 end
