@@ -69,9 +69,8 @@ class TasksController < ApplicationController
   end
 
   def logged_in_user
-    store_location
-
     unless logged_in?
+      store_location
       flash[:danger] = t('session.login.not_login')
       redirect_to login_url
     end
