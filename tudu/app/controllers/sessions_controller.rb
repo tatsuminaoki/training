@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    redirect_to root_url logged_in?
+    redirect_to root_url if logged_in?
 
     @next = next_params[:next]
   end
