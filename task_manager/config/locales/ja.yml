@@ -13,6 +13,7 @@ ja:
       task:
         name: 名前
         description: 詳細
+        due_date: 終了期限
         created_at: 作成日時
   tasks:
     index:
@@ -31,7 +32,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -57,7 +58,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
