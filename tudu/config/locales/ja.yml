@@ -63,6 +63,7 @@ ja:
     length: "%{attribute}は%{count}文字以内で入力してください"
     date: "%{attribute}は日付を入力してください"
     inclusion: "%{attribute}の値が不正です"
+    unique: "%{attribute}は登録済みです"
   date:
     formats:
       default: ! "%Y/%m/%d"
