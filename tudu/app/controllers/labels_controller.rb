@@ -1,4 +1,6 @@
 class LabelsController < ApplicationController
+  before_action :logged_in_user
+
   def index
     @labels = Label.where(user_id: current_user.id).all().order('created_at desc')
   end

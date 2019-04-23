@@ -78,15 +78,6 @@ class TasksController < ApplicationController
     @search_task.sort_column
   end
 
-  def logged_in_user
-    store_location
-
-    unless logged_in?
-      flash[:danger] = t('session.login.not_login')
-      redirect_to login_url
-    end
-  end
-
   def correct_user
     @task = Task.where(id: params[:id]).where(user_id: current_user.id)
     redirect_to(login_url) unless @task.present?
