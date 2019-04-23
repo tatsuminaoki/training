@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   # 一覧
   def index
     @search_task = SearchTask.new(params, current_user.id)
+    @labels = Label.where(user_id: current_user.id)
     @tasks = @search_task.execute()
   end
 

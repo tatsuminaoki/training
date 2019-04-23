@@ -13,6 +13,15 @@
       <div class="col-xs-2">
         <%= select_tag :status, options_for_select(Task::STATUS.invert, :selected => params[:status]),  { include_blank: '---', class: "form-control" } %>
       </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-2 control-label" for="status">ラベル</label>
+      <div class="col-xs-2">
+        <%= collection_select nil, :label, @labels, :id, :name, { include_blank: '---', :selected => params[:label] }, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-2"></div>
       <div class="col-xs-2">
         <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
       </div>

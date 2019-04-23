@@ -13,11 +13,12 @@ class SearchTask
 
   def initialize(params, user_id = nil)
     self.filtered_params = params.permit(
-      :q, :status, :sort, :order, :page
+      :q, :status, :label, :sort, :order, :page
     )
 
     self.q = self.filtered_params[:q] if self.filtered_params[:q].present?
     self.status = self.filtered_params[:status] if self.filtered_params[:status].present?
+    self.label = self.filtered_params[:label] if self.filtered_params[:label].present?
     self.sort = self.filtered_params[:sort] if self.filtered_params[:sort].present?
     self.order = self.filtered_params[:order] if self.filtered_params[:order].present?
     self.page = self.filtered_params[:page] if self.filtered_params[:page].present?
@@ -33,6 +34,10 @@ class SearchTask
     task = task.order(make_order)
 
     task = task.where(user_id: self.user_id) if self.user_id.present?
+
+    if self.label.present?
+      task = task.joins(:labels).where("labels.id = #{self.label}")
+    end
 
     task
   end
@@ -55,7 +60,7 @@ class SearchTask
   end
 
   protected
-  attr_accessor :filtered_params, :q, :status, :sort, :order, :page, :user_id
+  attr_accessor :filtered_params, :q, :status, :label, :sort, :order, :page, :user_id
 
   private
   def make_order
