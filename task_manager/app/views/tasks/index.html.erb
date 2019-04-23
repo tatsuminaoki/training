@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
+      <th><%= t('activerecord.attributes.task.status') %></th>
       <th><%= t('activerecord.attributes.task.description') %></th>
       <th><%= sort_link(@q, :created_at, t('activerecord.attributes.task.created_at'), default_order: :desc) %></th>
       <th colspan="3"></th>
@@ -16,6 +17,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
+        <td><%= task.status_text %></td>
         <td><%= task.description %></td>
         <td><%= task.created_at %></td>
         <td><%= link_to 'Show', task %></td>
