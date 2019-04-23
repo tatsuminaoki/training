@@ -24,5 +24,11 @@ RSpec.describe Task, type: :model do
         expect(task.save).to be_falsey
       end
     end
+    context 'with string of appropriate length' do
+      it 'could save' do
+        task.name = ('a' * 64).to_s
+        expect(task.save).to be_truthy
+      end
+    end
   end
 end
