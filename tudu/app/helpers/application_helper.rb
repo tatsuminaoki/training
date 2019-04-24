@@ -10,4 +10,8 @@ module ApplicationHelper
 
     link_to title, params, { :class => css_class }
   end
+
+  def redirect_location
+    request.fullpath if request.get?
+  end
 end

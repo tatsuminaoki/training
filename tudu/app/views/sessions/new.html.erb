@@ -1,0 +1,23 @@
+<h1><%= t('session.login.title') %></h1>
+
+<div>
+  <%= form_for(:session, url: login_path(next: @next), html: { class: "form-horizontal" }) do |f| %>
+    <div class="form-group">
+      <%= f.label :email, t('activerecord.attributes.user.email'), { class: "control-label col-md-2" } %>
+      <div class="col-md-2">
+        <%= f.email_field :email, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, t('activerecord.attributes.user.password'), { class: "control-label col-md-2" } %>
+      <div class="col-md-2">
+        <%= f.password_field :password, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-offset-2">
+        <%= f.submit t('action.login'), { class: "btn btn-primary" } %>
+      </div>
+    </div>
+  <% end %>
+</div>

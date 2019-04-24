@@ -2,10 +2,18 @@ require 'rails_helper'
 
 RSpec.feature 'task management', :type => :feature do
 
+  background do
+    @user = create(:user)
+
+    visit login_path
+    fill_in 'session[email]', with: @user.email
+    fill_in 'session[password]', with: 'hogehoge'
+    click_button 'ログイン'
+  end
+
   describe 'create task' do
     context 'create a new task' do
       scenario 'End User Create a new task' do
-
         visit new_task_path
 
         input_name = 'タスク名1'
@@ -24,8 +32,10 @@ RSpec.feature 'task management', :type => :feature do
   describe 'update task' do
     context 'update a new task' do
       scenario 'End user update a task' do
-
-        task = create(:task)
+        task = create(
+          :task,
+          user: @user,
+        )
         visit root_path
         expect(page).to have_text(task.name)
         expect(page).to have_text(task.content)
@@ -37,8 +47,8 @@ RSpec.feature 'task management', :type => :feature do
         fill_in 'task[name]', with: input_name
         fill_in 'task[content]', with: input_content
         click_button '変更を保存する'
-        expect(page).to have_text('タスクを保存しました')
 
+        expect(page).to have_text('タスクを保存しました')
         expect(page).to have_text(input_name)
         expect(page).to have_text(input_content)
       end
@@ -48,7 +58,10 @@ RSpec.feature 'task management', :type => :feature do
   describe 'show task' do
     context 'show a task' do
       scenario 'End user show a task' do
-        task = create(:task)
+        task = create(
+          :task,
+          user: @user,
+        )
         visit task_path(task)
         expect(page).to have_text(task.name)
         expect(page).to have_text(task.content)
@@ -59,17 +72,15 @@ RSpec.feature 'task management', :type => :feature do
   describe 'delete task' do
     context 'delete a task' do
       scenario 'End user delete task' do
-        task1 = create(:task)
-        task2 = create(
-          :task,
-          name: 'dummy2 name',
-          content: 'dummy2 content'
-        )
+        tasks = create_list(:task, 2, user: @user)
+        task1 = tasks[1]
+        task2 = tasks[0]
         visit root_path
-        expect(page).to have_text(task1.name)
-        expect(page).to have_text(task1.content)
+
         expect(page).to have_text(task2.name)
         expect(page).to have_text(task2.content)
+        expect(page).to have_text(task1.name)
+        expect(page).to have_text(task1.content)
 
         click_link('削除', match: :first)
         expect(page).to have_text('タスクを削除しました')
@@ -85,48 +96,19 @@ RSpec.feature 'task management', :type => :feature do
 
   describe 'view task list' do
     context 'when default display' do
-      task = nil
-      background do
-        today = Time.zone.now
-        task = nil
-        10.times do |i|
-          task = create(
-            :task,
-            name: "name_#{i}",
-            content: "content_#{i}",
-            created_at: today
-          )
-          today = today + 10
-        end
-      end
-
       scenario 'End user view task list' do
+        tasks = create_list(:task, 10, user: @user)
         visit root_path
-        first_row = task
-        expect(page.all('tr')[1].text).to include first_row.name
+        expect(page.all('tr')[1].text).to include tasks.last.name
       end
     end
 
     context 'when expired_date sort' do
       scenario 'End user view task list and sort' do
-        today = Time.zone.now
-        expire_date = Time.zone.today
-        task = nil
-        5.times do |i|
-          task = create(
-            :task,
-            name: "name_#{i}",
-            content: "content_#{i}",
-            created_at: today,
-            expire_date: expire_date
-          )
-          today = today + 10
-          expire_date = expire_date + 3
-        end
-
+        tasks = create_list(:task, 5, user: @user)
         # task に入っているのは、終了期限が一番後
         visit root_path
-        last_expire_date_task = task
+        last_expire_date_task = tasks.last
         # 昇順
         click_link('終了期限')
         expect(page.all('tr')[5].text).to include last_expire_date_task.name
@@ -139,26 +121,12 @@ RSpec.feature 'task management', :type => :feature do
 
     context 'when search' do
       scenario 'end user search task' do
-        today = Time.zone.now
-        expire_date = Time.zone.today
-
-        10.times do |i|
-          params = {
-            :name => "name_#{i - 1}",
-            :content => "content_#{i - 1}",
-            :created_at => today,
-            :status => (i - 1) % Task::STATUS.keys.length,
-            :expire_date => expire_date
-          }
-          @task = Task.new(params)
-          @task.save
-          today = today + 10
-          expire_date = expire_date + 3
-        end
-
+        tasks_1 = create_list(:task, 2, user: @user, status: 0)
+        tasks_2 = create_list(:task, 3, user: @user, status: 1)
+        tasks_3 = create_list(:task, 5, user: @user, status: 2)
         params = [
           {
-            q: 'name_0',
+            q: tasks_1.first.name,
             expect: 1
           },
           {
