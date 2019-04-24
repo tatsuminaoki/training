@@ -32,19 +32,24 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe "due_date validates" do
+  describe 'due_date validates' do
+    context 'with nil' do
+      it 'could save' do
+        task.due_date = nil
+        expect(task.save).to be_truthy
+      end
+    end
     context 'with in the past' do
       it 'could not save' do
-        task.due_date = Date.yesterday
+        task.due_date = Time.zone.yesterday
         expect(task.save).to be_falsey
       end
     end
-    context "with in the future" do
+    context 'with in the future' do
       it 'could save' do
-        task.due_date = Date.today
+        task.due_date = Time.zone.today
         expect(task.save).to be_truthy
       end
     end
   end
-
 end
