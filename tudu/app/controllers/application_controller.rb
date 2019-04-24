@@ -14,12 +14,10 @@ class ApplicationController < ActionController::Base
     render template: 'errors/error_500', status: 500, layout: 'application', content_type: 'text/html'
   end
 
-  def logged_in_user
-    store_location
+  def ensure_log_in_user!
+    return true if logged_in?
 
-    unless logged_in?
-      flash[:danger] = t('session.login.not_login')
-      redirect_to login_url
-    end
+    flash[:danger] = t('session.login.not_login')
+    redirect_to login_url(next: redirect_location)
   end
 end

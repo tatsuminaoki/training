@@ -76,13 +76,6 @@ class TasksController < ApplicationController
     @search_task.sort_column
   end
 
-  def ensure_log_in_user!
-    return true if logged_in?
-
-    flash[:danger] = t('session.login.not_login')
-    redirect_to login_url(next: redirect_location)
-  end
-
   def ensure_task_owner!
     task = Task.where(
       id: params[:id],
