@@ -14,6 +14,7 @@ ja:
         name: 名前
         status: ステータス
         description: 詳細
+        due_date: 終了期限
         created_at: 作成日時
   enumerize:
     task:
@@ -149,6 +150,7 @@ ja:
       not_an_integer: は整数で入力してください
       odd: は奇数にしてください
       other_than: は%{count}以外の値にしてください
+      past_days: は過去の日付を入力できません。
       present: は入力しないでください
       required: を入力してください
       taken: はすでに存在します

@@ -7,7 +7,7 @@ RSpec.describe TasksController, type: :controller do
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { name: 'name', description: 'description' }
+    { name: 'name', description: 'description', due_date: Date.current }
   }
 
   let(:invalid_attributes) {
@@ -75,7 +75,7 @@ RSpec.describe TasksController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { name: 'new name', description: 'new description' }
+        { name: 'new name', description: 'new description', due_date: Date.tomorrow }
       }
 
       it 'updates the requested task' do
@@ -83,7 +83,8 @@ RSpec.describe TasksController, type: :controller do
         put :update, params: { id: task.to_param, task: new_attributes }, session: valid_session
         expect { task.reload }.to(
           change(task, :name).from('name').to('new name')
-          .and(change(task, :description).from('description').to('new description')),
+          .and(change(task, :description).from('description').to('new description'))
+          .and(change(task, :due_date).from(Date.current).to(Date.tomorrow)),
         )
       end
 
