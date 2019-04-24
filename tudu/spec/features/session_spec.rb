@@ -9,7 +9,7 @@ RSpec.feature 'session management', :type => :feature do
         visit login_path
 
         expect(page).not_to have_text('ホーム')
-        fill_in 'session[email]', with: @user.email
+        fill_in 'session[email]', with: 'hogehoge@example.com'
         fill_in 'session[password]', with: 'hogehoge'
         click_button 'ログイン'
 

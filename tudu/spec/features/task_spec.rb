@@ -34,7 +34,7 @@ RSpec.feature 'task management', :type => :feature do
       scenario 'End user update a task' do
         task = create(
           :task,
-          user: @user
+          user: @user,
         )
         visit root_path
         expect(page).to have_text(task.name)
@@ -60,7 +60,7 @@ RSpec.feature 'task management', :type => :feature do
       scenario 'End user show a task' do
         task = create(
           :task,
-          user: @user
+          user: @user,
         )
         visit task_path(task)
         expect(page).to have_text(task.name)
