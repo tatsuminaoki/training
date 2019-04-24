@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_order
 
-  before_action :logged_in_user
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_log_in_user!
+  before_action :ensure_task_owner!, only: [:show, :edit, :update, :destroy]
 
   # 一覧
   def index
@@ -32,19 +32,17 @@ class TasksController < ApplicationController
     else
       render 'new'
     end
-
   end
 
   # 編集
   def edit
-    @task = Task.find(params[:id])
     @labels = current_user.labels
   end
 
   # 保存 (from edit)
   def update
-    @task = Task.find(params[:id])
     @labels = current_user.labels
+
     if @task.update_attributes(task_params)
       flash[:success] = t('task.update.success')
       redirect_to root_url
@@ -55,7 +53,7 @@ class TasksController < ApplicationController
 
   # 削除
   def destroy
-    Task.find(params[:id]).destroy
+    @task.destroy
     flash[:success] = t('task.delete.success')
     redirect_to tasks_url
   end
@@ -78,8 +76,20 @@ class TasksController < ApplicationController
     @search_task.sort_column
   end
 
-  def correct_user
-    @task = Task.where(id: params[:id]).where(user_id: current_user.id)
-    redirect_to(login_url) unless @task.present?
+  def ensure_log_in_user!
+    return true if logged_in?
+
+    flash[:danger] = t('session.login.not_login')
+    redirect_to login_url(next: redirect_location)
+  end
+
+  def ensure_task_owner!
+    task = Task.where(
+      id: params[:id],
+      user_id: current_user.id
+    )
+    redirect_to(root_url) unless task.present?
+
+    @task = task.first()
   end
 end

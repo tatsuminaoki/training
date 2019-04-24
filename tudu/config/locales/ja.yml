@@ -36,6 +36,8 @@ ja:
       title: 'ログイン'
       failed: 'メールアドレスまたはパスワードが正しくありません'
       not_login: 'ログインしてください'
+    logout:
+      success: 'ログアウトしました'
   label:
     index:
       title: 'ラベル一覧'
