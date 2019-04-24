@@ -13,6 +13,7 @@ ja:
       task:
         name: 名前
         description: 詳細
+        due_date: 終了期限
         created_at: 作成日時
   tasks:
     index:
@@ -31,7 +32,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -57,7 +58,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -141,6 +142,7 @@ ja:
       not_an_integer: は整数で入力してください
       odd: は奇数にしてください
       other_than: は%{count}以外の値にしてください
+      past_days: は過去の日付を入力できません。
       present: は入力しないでください
       required: を入力してください
       taken: はすでに存在します
