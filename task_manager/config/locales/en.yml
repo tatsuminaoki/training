@@ -180,6 +180,7 @@ en:
       prompt: Please select
     submit:
       create: Create %{model}
+      seaech: Search %{model}
       submit: Save %{model}
       update: Update %{model}
   number:
