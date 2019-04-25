@@ -32,6 +32,21 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe "status validates" do
+    context 'with nil' do
+      it 'could not save' do
+        task.status = nil
+        expect(task.save).to be_falsey
+      end
+    end
+    context 'with not nil' do
+      it 'could save' do
+        task.status = 1
+        expect(task.save).to be_truthy
+      end
+    end
+  end
+
   describe 'due_date validates' do
     context 'with nil' do
       it 'could save' do
