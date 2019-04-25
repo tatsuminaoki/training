@@ -2,6 +2,8 @@
 
 <h1><%= t('.title') %></h1>
 
+<%= paginate @tasks %>
+
 <table>
   <thead>
     <tr>
@@ -29,5 +31,7 @@
 </table>
 
 <br>
+
+<%= paginate @tasks %>
 
 <%= link_to 'New Task', new_task_path %>
