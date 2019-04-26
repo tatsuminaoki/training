@@ -177,6 +177,7 @@ en:
       temporary_error: We're sorry, but something went wrong.
   helpers:
     select:
+      all: All
       prompt: Please select
     submit:
       create: Create %{model}

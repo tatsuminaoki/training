@@ -173,6 +173,7 @@ ja:
       temporary_error: 一時的なエラーが発生しました。
   helpers:
     select:
+      all: 全て
       prompt: 選択してください
     submit:
       create: 登録する
