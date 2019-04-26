@@ -32,7 +32,7 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe "status validates" do
+  describe 'status validates' do
     context 'with nil' do
       it 'could not save' do
         task.status = nil
@@ -45,13 +45,12 @@ RSpec.describe Task, type: :model do
         expect(task.save).to be_truthy
       end
     end
-    context "with out of range number" do
+    context 'with out of range number' do
       it 'could not save' do
         task.status = 4
         expect(task.save).to be_falsey
       end
     end
-
   end
 
   describe 'due_date validates' do
