@@ -38,7 +38,13 @@
         <%= t('activerecord.attributes.task.labels') %>
       </div>
       <div class="col-xs-2">
-        <%= display_label(@task) %>
+        <% if @task.labels.any? %>
+          <ul class="list-unstyled">
+            <% @task.labels.each do |label| %>
+              <li><%= label.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
     <div class="row">

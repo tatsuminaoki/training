@@ -1,6 +1,9 @@
 class Label < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :tasks
+  scope :recent, -> {
+    order(created_at: :desc)
+  }
 
   validates :name,
     presence: { message: I18n.translate('validates.presence') },

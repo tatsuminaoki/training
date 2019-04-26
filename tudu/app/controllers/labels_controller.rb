@@ -2,7 +2,7 @@ class LabelsController < ApplicationController
   before_action :ensure_log_in_user!
 
   def index
-    @labels = Label.where(user_id: current_user.id).all().order('created_at desc')
+    @labels = current_user.labels.recent
   end
 
   def new
