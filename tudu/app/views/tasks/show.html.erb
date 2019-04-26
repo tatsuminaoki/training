@@ -38,7 +38,13 @@
         <%= t('activerecord.attributes.task.labels') %>
       </div>
       <div class="col-xs-2">
-        <%= display_label(@task) %>
+        <% if @task.labels.any? %>
+          <ul class="list-unstyled">
+            <% @task.labels.each do |label| %>
+              <li><%= label.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
     <div class="row">
@@ -53,8 +59,8 @@
   <div class="p-task-detail-links">
     <div class="row">
       <ul class="list-inline col-xs-2">
-        <li><%= link_to t('action.edit'), edit_task_path(@task), { class: "btn btn-primary" } %></li>
-        <li><%= link_to t('action.delete'), @task, class: "btn btn-danger", method: :delete,
+        <li><%= link_to t('action.edit'), edit_task_path(@task), { class: 'btn btn-primary' } %></li>
+        <li><%= link_to t('action.delete'), @task, class: 'btn btn-danger', method: :delete,
           data: { confirm: t('task.delete.confirm') } %></li>
       </ul>
     </div>

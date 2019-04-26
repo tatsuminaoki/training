@@ -31,11 +31,15 @@ ja:
     delete:
       success: "タスクを削除しました"
       confirm: "本当に削除してよろしいですか？"
+    _form:
+      no_label: 'ラベルがありません'
   session:
     login:
       title: 'ログイン'
       failed: 'メールアドレスまたはパスワードが正しくありません'
       not_login: 'ログインしてください'
+    logout:
+      success: 'ログアウトしました'
   label:
     index:
       title: 'ラベル一覧'
@@ -70,6 +74,14 @@ ja:
   time:
     formats:
       default: ! "%Y/%m/%d %H:%M:%S"
+  header:
+    task_management: 'タスク管理'
+    task_index: 'タスク一覧'
+    task_new: 'タスク作成'
+    label_management: 'ラベル管理'
+    label_index: 'ラベル一覧'
+    label_new: 'ラベル作成'
+    logout: 'ログアウト'
   views:
     pagination:
       first: "&laquo; 最初"

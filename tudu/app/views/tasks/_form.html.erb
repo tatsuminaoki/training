@@ -30,7 +30,7 @@
       <% if labels.present? %>
         <%= f.collection_select :label_ids, @labels, :id, :name, { include_blank: false }, { class: "form-control", multiple: true } %>
       <% else %>
-        ラベルがありません
+        <%= t('task._form.no_label') %>
       <% end %>
     </div>
   </div>
