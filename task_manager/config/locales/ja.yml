@@ -12,9 +12,17 @@ ja:
     attributes:
       task:
         name: 名前
+        status: ステータス
         description: 詳細
         due_date: 終了期限
         created_at: 作成日時
+  enumerize:
+    task:
+      status:
+        new: 新規
+        wip: 着手
+        done: 完了
+        pending: 保留
   tasks:
     index:
       title: タスク一覧
@@ -165,9 +173,11 @@ ja:
       temporary_error: 一時的なエラーが発生しました。
   helpers:
     select:
+      all: 全て
       prompt: 選択してください
     submit:
       create: 登録する
+      search: 検索
       submit: 保存する
       update: 更新する
   number:

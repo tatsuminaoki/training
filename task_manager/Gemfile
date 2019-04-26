@@ -40,9 +40,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Ransack for search and sort
 gem 'ransack'
-
 # Error handling
 gem 'rambulance'
+# Enumerated attributes with I18n
+gem 'enumerize'
 # Pagenation
 gem 'kaminari'
 
