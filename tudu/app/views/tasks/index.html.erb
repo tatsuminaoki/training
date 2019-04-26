@@ -13,6 +13,15 @@
       <div class="col-xs-2">
         <%= select_tag :status, options_for_select(Task::STATUS.invert, :selected => params[:status]),  { include_blank: '---', class: "form-control" } %>
       </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-2 control-label" for="status">ラベル</label>
+      <div class="col-xs-2">
+        <%= collection_select nil, :label, @labels, :id, :name, { include_blank: '---', :selected => params[:label] }, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-2"></div>
       <div class="col-xs-2">
         <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
       </div>
@@ -20,7 +29,7 @@
   <% end %>
 </div>
 
-<table class="p-task-list table table-hover">
+<table class="table table-hover">
   <thead>
     <tr>
       <th scope="row"><%= t('activerecord.attributes.task.name') %></th>
@@ -32,15 +41,14 @@
       <th>
         <%= t('activerecord.attributes.task.created_at') %>
       </th>
+      <th>
+        <%= t('activerecord.attributes.task.labels') %>
+      </th>
       <th><%= t('action.table_heading_operation') %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
-      <%
-        # TODO: STEP16 bullet の動作確認用
-        task.user.email
-      %>
       <tr>
         <td><%= task.name %></td>
         <td><%= task.content %></td>
@@ -48,10 +56,19 @@
         <td><%= Task::STATUS.fetch(task.status) %></td>
         <td><%= l(task.created_at.to_datetime) %></td>
         <td>
+          <% if task.labels.any? %>
+            <ul class="list-unstyled">
+              <% task.labels.each do |label| %>
+                <li><%= label.name %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
+        <td>
           <ul class="list-inline">
-            <li><%= link_to t('action.show'), task_path(task), { class: 'btn btn-default' } %></li>
-            <li><%= link_to t('action.edit'), edit_task_path(task), { class: 'btn btn-primary' } %></li>
-            <li><%= link_to t('action.delete'), task, class: 'btn btn-danger', method: :delete,
+            <li><%= link_to t('action.show'), task_path(task), { class: "btn btn-default" } %></li>
+            <li><%= link_to t('action.edit'), edit_task_path(task), { class: "btn btn-primary" } %></li>
+            <li><%= link_to t('action.delete'), task, class: "btn btn-danger", method: :delete,
               data: { confirm: t('task.delete.confirm') } %></li>
           </ul>
         </td>

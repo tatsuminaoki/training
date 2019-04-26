@@ -7,9 +7,14 @@ ja:
         expire_date: "終了期限"
         status: "ステータス"
         created_at: "作成日時"
+        labels: "ラベル"
       user:
         email: "メールアドレス"
         password: "パスワード"
+      label:
+        name: 'ラベル名'
+        created_at: '作成日時'
+        updated_at: '更新日時'
   task:
     index:
       title: "タスク一覧"
@@ -26,6 +31,8 @@ ja:
     delete:
       success: "タスクを削除しました"
       confirm: "本当に削除してよろしいですか？"
+    _form:
+      no_label: 'ラベルがありません'
   session:
     login:
       title: 'ログイン'
@@ -33,6 +40,20 @@ ja:
       not_login: 'ログインしてください'
     logout:
       success: 'ログアウトしました'
+  label:
+    index:
+      title: 'ラベル一覧'
+    new:
+      title: 'ラベル新規登録'
+    create:
+      success: 'ラベルを登録しました'
+    update:
+      success: 'ラベルを保存しました'
+    edit:
+      title: 'ラベル編集'
+    delete:
+      success: 'ラベルを削除しました'
+      confirm: '本当に削除してよろしいですか？'
   action:
     show: "詳細"
     edit: "編集"
@@ -46,12 +67,21 @@ ja:
     length: "%{attribute}は%{count}文字以内で入力してください"
     date: "%{attribute}は日付を入力してください"
     inclusion: "%{attribute}の値が不正です"
+    unique: "%{attribute}は登録済みです"
   date:
     formats:
       default: ! "%Y/%m/%d"
   time:
     formats:
       default: ! "%Y/%m/%d %H:%M:%S"
+  header:
+    task_management: 'タスク管理'
+    task_index: 'タスク一覧'
+    task_new: 'タスク作成'
+    label_management: 'ラベル管理'
+    label_index: 'ラベル一覧'
+    label_new: 'ラベル作成'
+    logout: 'ログアウト'
   views:
     pagination:
       first: "&laquo; 最初"

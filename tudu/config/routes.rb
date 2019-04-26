@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'tasks#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :tasks
+  resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get '*path', controller: 'application', action: 'render_404'
 end

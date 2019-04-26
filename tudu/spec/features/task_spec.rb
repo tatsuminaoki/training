@@ -143,12 +143,9 @@ RSpec.feature 'task management', :type => :feature do
         expect(page.all('tbody > tr').length).to eq 10
 
         params.each do |param|
-          if param[:q].present?
-            fill_in 'q', with: param[:q]
-          end
-          if param[:status].present?
-            select Task::STATUS.fetch(param[:status]), from: 'status'
-          end
+          fill_in 'q', with: param[:q] if param[:q].present?
+          select Task::STATUS.fetch(param[:status]), from: 'status' if param[:status].present?
+
           click_button '検索'
           expect(page.all('tbody > tr').length).to eq param[:expect]
           visit root_path

@@ -5,6 +5,10 @@ body {
   padding-top: 60px;
 }
 
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
 #logo {
   float: left;
   color: #fff;
@@ -36,7 +40,7 @@ body {
   margin-left: -76px;
 }
 
-.task-form {
+.task-form, .label-form {
   margin-top: 40px;
 }
 

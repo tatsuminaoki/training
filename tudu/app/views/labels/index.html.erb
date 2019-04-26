@@ -1,0 +1,31 @@
+<h1><%= t('label.index.title') %></h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.label.name') %></th>
+      <th>
+        <%= t('activerecord.attributes.label.created_at') %>
+      </th>
+      <th>
+        <%= t('activerecord.attributes.label.updated_at') %>
+      </th>
+      <th><%= t('action.table_heading_operation') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= l(label.created_at.to_datetime) %></td>
+        <td><%= l(label.updated_at.to_datetime) %></td>
+        <td>
+          <ul class="list-inline">
+            <li><%= link_to t('action.edit'), edit_label_path(label), { class: "btn btn-primary" } %></li>
+            <li><%= link_to t('action.delete'), label, class: "btn btn-danger", method: :delete,
+              data: { confirm: t('label.delete.confirm') } %></li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

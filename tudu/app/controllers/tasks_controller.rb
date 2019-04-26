@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   # 一覧
   def index
     @search_task = SearchTask.new(params, current_user.id)
+    @labels = current_user.labels
     @tasks = @search_task.execute()
   end
 
@@ -18,11 +19,13 @@ class TasksController < ApplicationController
   # 新規作成
   def new
     @task = Task.new
+    @labels = current_user.labels
   end
 
   # 保存 (from new)
   def create
     @task = current_user.tasks.build(task_params)
+    @labels = current_user.labels
     if @task.save
       flash[:success] = t('task.create.success')
       redirect_to root_url
@@ -33,10 +36,13 @@ class TasksController < ApplicationController
 
   # 編集
   def edit
+    @labels = current_user.labels
   end
 
   # 保存 (from edit)
   def update
+    @labels = current_user.labels
+
     if @task.update_attributes(task_params)
       flash[:success] = t('task.update.success')
       redirect_to root_url
@@ -56,7 +62,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(
-      :name, :content, :expire_date, :status
+      # MEMO labels: にすると model にしないといけない
+      # :name, :content, :expire_date, :status, labels: []
+      :name, :content, :expire_date, :status, label_ids: []
     )
   end
 
@@ -66,13 +74,6 @@ class TasksController < ApplicationController
 
   def sort_column
     @search_task.sort_column
-  end
-
-  def ensure_log_in_user!
-    return true if logged_in?
-
-    flash[:danger] = t('session.login.not_login')
-    redirect_to login_url(next: redirect_location)
   end
 
   def ensure_task_owner!
