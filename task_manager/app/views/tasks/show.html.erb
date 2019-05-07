@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.task.user_id') + ':' %></strong>
+  <%= @task.user.name %>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.task.due_date') + ':' %></strong>
   <%= @task.due_date %>
 </p>
