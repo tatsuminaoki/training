@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
 
-  before_action :render_maintenace!, if: :maintenace_mode?
+  before_action :render_maintenance!, if: :maintenance_mode?
 
   include ApplicationHelper
   include SessionsHelper
@@ -16,12 +16,12 @@ class ApplicationController < ActionController::Base
     render template: 'errors/error_500', status: 500, layout: 'application', content_type: 'text/html'
   end
 
-  def maintenace_mode?
+  def maintenance_mode?
     file_path = Rails.root.to_s + '/maintenance.txt'
     File.exists?(file_path)
   end
 
-  def render_maintenace!
+  def render_maintenance!
     render(
       file: Rails.public_path.join('503.html'),
       content_type: 'text/html',
