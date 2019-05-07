@@ -62,6 +62,8 @@ group :development do
   gem 'fablicop', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # kill N+1 queries
+  gem 'bullet'
 end
 
 group :test do
