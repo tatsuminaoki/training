@@ -2,7 +2,7 @@
 
 <h1><%= t('.title') %></h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
@@ -20,9 +20,9 @@
         <td><%= task.description %></td>
         <td><%= task.due_date%></td>
         <td><%= task.created_at %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', task, class: 'btn page-link text-dark d-inline-block' %></td>
+        <td><%= link_to 'Edit', edit_task_path(task), class: 'btn btn-secondary' %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>

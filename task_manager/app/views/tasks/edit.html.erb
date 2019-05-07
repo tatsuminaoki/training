@@ -2,5 +2,9 @@
 
 <%= render 'form', task: @task %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<div class="btn-group">
+  <%= link_to 'Show', @task, class: 'btn page-link text-dark d-inline-block' %>
+</div>
+<div class="btn-group">
+  <%= link_to 'Back', tasks_path, class: 'btn btn-secondary' %>
+</div>
