@@ -44,6 +44,8 @@ gem 'ransack'
 gem 'rambulance'
 # Enumerated attributes with I18n
 gem 'enumerize'
+# Pagenation
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
