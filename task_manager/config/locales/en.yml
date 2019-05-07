@@ -12,8 +12,16 @@ en:
     attributes:
       task:
         name: name
+        status: status
         description: description
         created_at: created at
+  enumerize:
+    task:
+      status:
+        new: New
+        wip: WIP
+        done: Done
+        pending: Pending
   tasks:
     index:
       title: Tasks
@@ -169,9 +177,11 @@ en:
       temporary_error: We're sorry, but something went wrong.
   helpers:
     select:
+      all: All
       prompt: Please select
     submit:
       create: Create %{model}
+      seaech: Search %{model}
       submit: Save %{model}
       update: Update %{model}
   number:
