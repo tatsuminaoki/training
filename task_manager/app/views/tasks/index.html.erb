@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%= render 'shared/flash_messages' %>
 
 <h1><%= t('.title') %></h1>
 
@@ -8,12 +8,14 @@
 
   <%= f.label :search_by_status, t('activerecord.attributes.task.status') %>
   <%= f.select :search_by_status, Task.status.options, {include_blank: t('helpers.select.all') } %>
-  <div class="actions"><%= f.submit t('helpers.submit.search') %></div>
+  <%= f.submit t('helpers.submit.search'), class: "btn page-link text-dark d-inline-block" %>
 <% end %>
+
+<%= link_to 'New Task', new_task_path, class: 'btn btn-outline-primary m-1' %>
 
 <%= paginate @tasks %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
@@ -31,11 +33,11 @@
         <td><%= task.name %></td>
         <td><%= task.status_text %></td>
         <td><%= task.description %></td>
-        <td><%= task.due_date%></td>
-        <td><%= task.created_at %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= l(task.due_date) %></td>
+        <td><%= l(task.created_at, format: :short) %></td>
+        <td><%= link_to 'Show', task, class: 'btn btn-outline-dark' %></td>
+        <td><%= link_to 'Edit', edit_task_path(task), class: 'btn btn-outline-info' %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, class: 'btn btn-outline-danger', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -44,5 +46,3 @@
 <br>
 
 <%= paginate @tasks %>
-
-<%= link_to 'New Task', new_task_path %>
