@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+<% flash.each do |name, msg| %>
+  <div class="alert alert-<%= name %>">
+    <a class="close" data-dismiss="alert">×</a>
+    <%= msg %>
+  </div>
+<% end %>
 
 <h1><%= t('.title') %></h1>
 
