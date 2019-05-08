@@ -34,7 +34,7 @@
 
       <div class="form-group">
         <%= form.label :due_date %>
-        <%= form.date_select :due_date, default: Date.tomorrow %>
+        <%= form.date_field :due_date, value: Time.current.strftime("%Y-%m-%d") %>
       </div>
 
       <%= form.submit "Submit", class: "btn btn-default btn-primary" %>
