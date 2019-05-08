@@ -11,6 +11,8 @@
   <%= f.submit t('helpers.submit.search'), class: "btn page-link text-dark d-inline-block" %>
 <% end %>
 
+<%= link_to 'New Task', new_task_path, class: 'btn btn-outline-primary m-1' %>
+
 <%= paginate @tasks %>
 
 <table class="table table-striped">
@@ -44,5 +46,3 @@
 <br>
 
 <%= paginate @tasks %>
-
-<%= link_to 'New Task', new_task_path, class: 'btn btn-outline-primary' %>
