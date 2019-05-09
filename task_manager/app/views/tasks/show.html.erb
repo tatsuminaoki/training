@@ -22,7 +22,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.task.due_date') + ':' %></strong>
-  <%= l(@task.due_date) %>
+  <%= @task.due_date ? l(@task.due_date) : '-' %>
 </p>
 
 <div class="btn-group" %>
