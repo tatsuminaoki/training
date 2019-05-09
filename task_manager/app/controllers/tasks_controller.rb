@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @q = Task.ransack(params[:q])
+    @q = Task.includes(:user).ransack(params[:q])
     @tasks = @q.result.page(params[:page])
   end
 
@@ -57,6 +57,6 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :status, :description, :due_date)
+    params.require(:task).permit(:name, :user_id, :status, :description, :due_date)
   end
 end

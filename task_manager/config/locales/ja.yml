@@ -9,12 +9,17 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         name: 名前
+        user: 担当
         status: ステータス
         description: 詳細
         due_date: 終了期限
+        created_at: 作成日時
+      user:
+        name: 名前
         created_at: 作成日時
   enumerize:
     task:

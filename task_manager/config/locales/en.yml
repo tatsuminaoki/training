@@ -9,11 +9,17 @@ en:
           has_many: Cannot delete record because dependent %{record} exist
     models:
       task: task
+      user: user
     attributes:
       task:
         name: name
+        user_id: user
         status: status
         description: description
+        due_date: due date
+        created_at: created at
+      user:
+        name: name
         created_at: created at
   enumerize:
     task:
