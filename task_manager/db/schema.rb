@@ -13,13 +13,13 @@
 ActiveRecord::Schema.define(version: 2019_05_07_082341) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "name", null: false
     t.integer "status", default: 0, null: false
     t.text "description"
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["created_at"], name: "index_tasks_on_created_at"
     t.index ["due_date"], name: "index_tasks_on_due_date"
     t.index ["status"], name: "index_tasks_on_status"
