@@ -13,7 +13,7 @@ ja:
     attributes:
       task:
         name: 名前
-        user_id: 担当
+        user: 担当
         status: ステータス
         description: 詳細
         due_date: 終了期限
