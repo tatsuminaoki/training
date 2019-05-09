@@ -1,27 +1,32 @@
 # frozen_string_literal: true
 
-User.create!([
-               {
-                 name: '名前テスト',
-               },
-               {
-                 name: 'test name',
-               },
-             ])
+5.times do |i|
+  User.create!(name: "name #{i}")
+end
 
 Task.create!([
                {
                  user_id: User.first.id,
                  name: 'test task name',
                  status: 1,
-                 description: 'test test test',
-                 due_date: Date.current.tomorrow,
+                 description: 'aaaabbbbcccc',
+                 due_date: Date.current.since(5.days),
                },
                {
                  user_id: User.second.id,
-                 name: 'test task name aaaaaa',
+                 name: 'task name aaaaaa',
                  status: 2,
                  description: 'test test test',
                  due_date: Date.current.since(3.days),
                },
              ])
+
+20.times do |i|
+  Task.create!([{
+                 user_id: User.first.id,
+                 name: "name #{i}",
+                 status: 0,
+                 description: i.to_s * 20,
+                 due_date: Date.current.tomorrow,
+               }])
+end
