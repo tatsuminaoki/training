@@ -4,7 +4,7 @@
   User.create!(
     name: "username#{i}",
     password: 'password',
-    )
+  )
 end
 
 Task.create!([
