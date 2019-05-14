@@ -24,7 +24,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
 
     if @task.save
       redirect_to @task, success: I18n.t('.flash.success.task.create')
@@ -57,6 +57,6 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :user_id, :status, :description, :due_date)
+    params.require(:task).permit(:name, :status, :description, :due_date)
   end
 end
