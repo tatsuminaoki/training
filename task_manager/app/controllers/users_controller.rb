@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
-      redirect_to @user, success: 'User was successfully created.'
+      redirect_to @user, success: I18n.t('.flash.success.user.create')
     else
       render :new
     end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      redirect_to @user, success: 'User was successfully updated.'
+      redirect_to @user, success: I18n.t('.flash.success.user.update')
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    redirect_to users_url, success: 'User was successfully destroyed.'
+    redirect_to login_path, success: I18n.t('.flash.success.user.destroy')
   end
 
   private

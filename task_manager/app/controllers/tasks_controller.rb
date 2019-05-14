@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to @task, success: 'Task was successfully created.'
+      redirect_to @task, success: I18n.t('.flash.success.task.create')
     else
       render :new
     end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      redirect_to @task, success: 'Task was successfully updated.'
+      redirect_to @task, success: I18n.t('.flash.success.task.update')
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
-    redirect_to tasks_url, success: 'Task was successfully destroyed.'
+    redirect_to tasks_url, success: I18n.t('.flash.success.task.destroy')
   end
 
   private

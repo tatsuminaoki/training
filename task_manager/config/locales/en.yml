@@ -203,6 +203,15 @@ en:
     errors:
       login: You need to log in or sign up before continuing.
       invalid_session_data: Invalid name/password combination
+    success:
+      user:
+        create: User was successfully created.
+        update: User was successfully updated.
+        destroy: User was successfylly destroyed.
+      task:
+        create: Task was successfully created.
+        update: Task was successfully updated.
+        destroy: Task was successfylly destroyed.
   helpers:
     select:
       all: All

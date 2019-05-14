@@ -198,6 +198,15 @@ ja:
     errors:
       login: ログインしてください
       session_params: 名前またはパスワードが正しくありません。
+    success:
+      user:
+        create: 新規登録しました。
+        update: ユーザー情報を更新しました。
+        destroy: ユーザー情報を削除しました。
+      task:
+        create: 新規登録しました。
+        update: タスクを更新しました。
+        destroy: タスクを削除しました。
   helpers:
     select:
       all: 全て
