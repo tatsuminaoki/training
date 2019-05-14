@@ -21,6 +21,8 @@ en:
       user:
         name: name
         created_at: created at
+        password: password
+        password_confirmation: confirmation
   enumerize:
     task:
       status:
@@ -28,6 +30,13 @@ en:
         wip: WIP
         done: Done
         pending: Pending
+  sessions:
+    new:
+      title: Log in
+      name: Name
+      password: Password
+      new_user: New user?
+      sign_up: Sign up now!
   tasks:
     index:
       title: Tasks
@@ -35,6 +44,15 @@ en:
       title: Editing Task
     new:
       title: New Task
+    show:
+      title: details
+  users:
+    edit:
+      title: setting
+    new:
+      title: sign up
+    show:
+      title: user info
   date:
     abbr_day_names:
     - Sun
@@ -181,6 +199,10 @@ en:
       not_exist: The page you were looking for doesn't exist.
       no_permmition: You are not authorized to access this page.
       temporary_error: We're sorry, but something went wrong.
+  flash:
+    errors:
+      login: You need to log in or sign up before continuing.
+      invalid_session_data: Invalid name/password combination
   helpers:
     select:
       all: All

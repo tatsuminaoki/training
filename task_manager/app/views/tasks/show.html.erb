@@ -1,5 +1,7 @@
 <%= render 'shared/flash_messages' %>
 
+<h1><%= t('.title') %></h1>
+
 <p>
   <strong><%= t('activerecord.attributes.task.name') + ':' %></strong>
   <%= @task.name %>
@@ -25,9 +27,9 @@
   <%= @task.due_date ? l(@task.due_date) : '-' %>
 </p>
 
-<div class="btn-group" %>
+<div class="btn-group" >
   <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-outline-info' %>
 </div>
-<div class="btn-group" %>
+<div class="btn-group" >
   <%= link_to 'Back', tasks_path, class: 'btn btn-outline-secondary' %>
 </div>
