@@ -18,3 +18,6 @@
 <div class="btn-group">
   <%= link_to 'Back', root_url, class: 'btn btn-outline-secondary' %>
 </div>
+<div class="btn-group">
+  <%= link_to 'Destroy', @user, method: :delete, class: 'btn btn-outline-danger', data: { confirm: 'Are you sure?' } %>
+</div>
