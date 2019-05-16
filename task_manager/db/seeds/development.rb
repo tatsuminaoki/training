@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 5.times do |i|
-  User.create!(name: "name #{i}")
+  User.create!(
+    name: "username#{i}",
+    password: 'password',
+  )
 end
 
 Task.create!([

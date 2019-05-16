@@ -2,5 +2,12 @@
 
 class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
-  validates :name, presence: true
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
+
+  validates :name, presence: true, uniqueness: true
+
+  def self.digest(string)
+    BCrypt::Password.create(string)
+  end
 end

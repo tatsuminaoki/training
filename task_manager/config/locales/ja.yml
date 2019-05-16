@@ -21,6 +21,8 @@ ja:
       user:
         name: 名前
         created_at: 作成日時
+        password: パスワード
+        password_confirmation: パスワード(確認)
   enumerize:
     task:
       status:
@@ -28,6 +30,13 @@ ja:
         wip: 着手
         done: 完了
         pending: 保留
+  sessions:
+    new:
+      title: ログイン
+      name: 名前
+      password: パスワード
+      new_user: 新規ユーザーは
+      sign_up: こちらから登録
   tasks:
     index:
       title: タスク一覧
@@ -35,6 +44,15 @@ ja:
       title: タスク編集
     new:
       title: 新規タスク
+    show:
+      title: タスク詳細
+  users:
+    edit:
+      title: 設定変更
+    new:
+      title: 新規登録
+    show:
+      title: ユーザー設定
   date:
     abbr_day_names:
     - 日
@@ -176,6 +194,19 @@ ja:
       not_exist: お探しのページは見つかりません。
       no_permmition: アクセスするための許可がありません。
       temporary_error: 一時的なエラーが発生しました。
+  flash:
+    errors:
+      login: ログインしてください
+      session_params: 名前またはパスワードが正しくありません。
+    success:
+      user:
+        create: 新規登録しました。
+        update: ユーザー情報を更新しました。
+        destroy: ユーザー情報を削除しました。
+      task:
+        create: 新規登録しました。
+        update: タスクを更新しました。
+        destroy: タスクを削除しました。
   helpers:
     select:
       all: 全て

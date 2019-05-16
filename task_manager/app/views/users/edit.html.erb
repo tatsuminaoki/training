@@ -1,0 +1,9 @@
+<h1><%= t('.title') %></h1>
+
+<%= render 'form', user: @user %>
+
+<div class="mt-1">
+  <div class="btn-group">
+    <%= link_to 'Back', @user, class: 'btn btn-outline-dark' %>
+  </div>
+</div>
