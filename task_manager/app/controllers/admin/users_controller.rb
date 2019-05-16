@@ -6,6 +6,7 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users
   def index
+    @tasks_count = Task.group(:user_id).count
     @users = User.all
   end
 

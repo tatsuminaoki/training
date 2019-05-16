@@ -21,6 +21,7 @@ en:
       user:
         name: name
         created_at: created at
+        number_of_tasks: tasks
         password: password
         password_confirmation: confirmation
   enumerize:

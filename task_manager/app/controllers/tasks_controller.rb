@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @q = Task.where(user_id: current_user.id).ransack(params[:q])
+    @q = Task.where(user_id: params[:scope_id] || current_user.id).ransack(params[:q])
     @tasks = @q.result.page(params[:page])
   end
 

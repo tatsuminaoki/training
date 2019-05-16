@@ -21,6 +21,7 @@ ja:
       user:
         name: 名前
         created_at: 作成日時
+        number_of_tasks: タスク数
         password: パスワード
         password_confirmation: パスワード(確認)
   enumerize:
