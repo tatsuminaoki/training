@@ -19,18 +19,6 @@ RSpec.describe User, type: :model do
         expect(user.save).to be_truthy
       end
     end
-    context 'with too short string' do
-      it 'could not save' do
-        user.name = ('a' * 3).to_s
-        expect(user.save).to be_falsey
-      end
-    end
-    context 'with string of appropriate length' do
-      it 'could save' do
-        user.name = ('a' * 4).to_s
-        expect(user.save).to be_truthy
-      end
-    end
     context 'with not uniqueness name' do
       it 'could not save' do
         user.name = 'same name'
