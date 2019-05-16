@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:session][:name])
     if user&.authenticate(params[:session][:password])
       log_in user
-      redirect_to user
+      redirect_to tasks_path
     else
       flash.now[:danger] = I18n.t('.flash.errors.session_params')
       render 'new'

@@ -1,52 +1,51 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :set_user, only: %i[show edit update destroy]
 
-  # GET /users
+  # GET /admin/users
   def index
     @users = User.all
   end
 
-  # GET /users/1
+  # GET /admin/users/1
   def show
   end
 
-  # GET /users/new
+  # GET /admin/users/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
+  # GET /admin/users/1/edit
   def edit
   end
 
-  # POST /users
+  # POST /admin/users
   def create
     @user = User.new(user_params)
 
     if @user.save
-      log_in @user
-      redirect_to tasks_path, success: I18n.t('.flash.success.user.create')
+      redirect_to admin_users_path, success: I18n.t('.flash.success.user.create')
     else
       render :new
     end
   end
 
-  # PATCH/PUT /users/1
+  # PATCH/PUT /admin/users/1
   def update
     if @user.update(user_params)
-      redirect_to @user, success: I18n.t('.flash.success.user.update')
+      redirect_to admin_users_path, success: I18n.t('.flash.success.user.update')
     else
       render :edit
     end
   end
 
-  # DELETE /users/1
+  # DELETE /admin/users/1
   def destroy
     @user.destroy
-    redirect_to login_path, success: I18n.t('.flash.success.user.destroy')
+    redirect_to admin_users_path, success: I18n.t('.flash.success.user.destroy')
   end
 
   private
