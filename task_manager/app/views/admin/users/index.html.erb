@@ -4,6 +4,8 @@
 
 <%= link_to 'New User', new_admin_user_path, class: 'btn btn-outline-primary m-1' %>
 
+<%= paginate @users %>
+
 <table class='table table-striped'>
   <thead>
     <tr>
@@ -29,3 +31,4 @@
 
 <br>
 
+<%= paginate @users%>

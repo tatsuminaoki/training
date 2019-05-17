@@ -6,8 +6,8 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users
   def index
+    @users = User.all.page(params[:page])
     @tasks_count = Task.group(:user_id).count
-    @users = User.all
   end
 
   # GET /admin/users/1
