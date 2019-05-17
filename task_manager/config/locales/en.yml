@@ -20,6 +20,7 @@ en:
         created_at: created at
       user:
         name: name
+        role: role
         created_at: created at
         number_of_tasks: tasks
         password: password
@@ -31,6 +32,10 @@ en:
         wip: WIP
         done: Done
         pending: Pending
+    user:
+      role:
+        general: general
+        administrator: administrator
   sessions:
     new:
       title: Log in
