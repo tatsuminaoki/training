@@ -62,7 +62,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'redirects to the created user' do
         post :create, params: { user: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(User.last)
+        expect(response).to redirect_to(root_path)
       end
     end
 
