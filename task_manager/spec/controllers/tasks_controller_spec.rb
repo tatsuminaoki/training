@@ -47,14 +47,14 @@ RSpec.describe TasksController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       task = current_user.tasks.create! valid_attributes
-      get :show, params: { id: task.to_param }, session: valid_session
+      get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe 'GET #new' do
     it 'returns a success response' do
-      get :new, params: {}, session: valid_session
+      get :new, params: { user_id: current_user.id,}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe TasksController, type: :controller do
   describe 'GET #edit' do
     it 'returns a success response' do
       task = current_user.tasks.create! valid_attributes
-      get :edit, params: { id: task.to_param }, session: valid_session
+      get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -71,19 +71,19 @@ RSpec.describe TasksController, type: :controller do
     context 'with valid params' do
       it 'creates a new Task' do
         expect {
-          post :create, params: { task: valid_attributes }, session: valid_session
+          post :create, params: { user_id: current_user.id, task: valid_attributes }, session: valid_session
         }.to change(Task, :count).by(1)
       end
 
       it 'redirects to the created task' do
-        post :create, params: { task: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(Task.last)
+        post :create, params: { user_id: current_user.id, task: valid_attributes }, session: valid_session
+        expect(response).to redirect_to([current_user, Task.last])
       end
     end
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the "new" template)' do
-        post :create, params: { task: invalid_attributes }, session: valid_session
+        post :create, params: { user_id: current_user.id, task: invalid_attributes }, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -97,7 +97,7 @@ RSpec.describe TasksController, type: :controller do
 
       it 'updates the requested task' do
         task = current_user.tasks.create! valid_attributes
-        put :update, params: { id: task.to_param, task: new_attributes }, session: valid_session
+        put :update, params: { user_id: task.user.id, id: task.to_param, task: new_attributes }, session: valid_session
         expect { task.reload }.to(
           change(task, :name).from('name').to('new name')
           .and(change(task, :status).from(0).to(1))
@@ -108,15 +108,15 @@ RSpec.describe TasksController, type: :controller do
 
       it 'redirects to the task' do
         task = current_user.tasks.create! valid_attributes
-        put :update, params: { id: task.to_param, task: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(task)
+        put :update, params: { user_id: task.user.id, id: task.to_param, task: valid_attributes }, session: valid_session
+        expect(response).to redirect_to([current_user, task])
       end
     end
 
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the "edit" template)' do
         task = current_user.tasks.create! valid_attributes
-        put :update, params: { id: task.to_param, task: invalid_attributes }, session: valid_session
+        put :update, params: { user_id: task.user.id, id: task.to_param, task: invalid_attributes }, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -126,14 +126,14 @@ RSpec.describe TasksController, type: :controller do
     it 'destroys the requested task' do
       task = current_user.tasks.create! valid_attributes
       expect {
-        delete :destroy, params: { id: task.to_param }, session: valid_session
+        delete :destroy, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
       }.to change(Task, :count).by(-1)
     end
 
     it 'redirects to the tasks list' do
       task = current_user.tasks.create! valid_attributes
-      delete :destroy, params: { id: task.to_param }, session: valid_session
-      expect(response).to redirect_to(tasks_url)
+      delete :destroy, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
+      expect(response).to redirect_to(user_tasks_path(current_user))
     end
   end
 end

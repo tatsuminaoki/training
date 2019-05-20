@@ -1,4 +1,4 @@
-<%= form_with(model: task, local: true, class: 'form-horizontal center') do |form| %>
+<%= form_with(model: task, url: [@tasks_user, task], local: true, class: 'form-horizontal center') do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">

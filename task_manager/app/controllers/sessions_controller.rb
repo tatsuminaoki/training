@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     if @user&.authenticate(params[:session][:password])
       log_in @user
-      redirect_to tasks_path
+      redirect_to user_tasks_path(@user)
     else
       flash.now[:danger] = I18n.t('.flash.errors.session_params')
       render 'new'

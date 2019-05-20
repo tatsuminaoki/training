@@ -21,7 +21,7 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= l(user.created_at, format: :long) %></td>
-        <td><%= link_to @tasks_count[user.id] || '0', tasks_path(scope_id: user), class: 'btn btn-link font-weight-bold' %></td>
+        <td><%= link_to @tasks_count[user.id] || '0', user_tasks_path(user), class: 'btn btn-link font-weight-bold' %></td>
         <td><%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-outline-info' %></td>
         <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, class: 'btn btn-outline-danger', data: { confirm: 'Are you sure?' } %></td>
       </tr>
