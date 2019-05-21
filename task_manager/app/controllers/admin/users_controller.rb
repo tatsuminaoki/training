@@ -3,6 +3,7 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :authenticate_admin
 
   # GET /admin/users
   def index
@@ -59,5 +60,9 @@ class Admin::UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:name, :role, :password, :password_confirmation)
+  end
+
+  def authenticate_admin
+    redirect_to root_path unless current_user.administrator?
   end
 end

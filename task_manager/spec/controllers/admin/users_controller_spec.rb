@@ -13,6 +13,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   let(:valid_attributes) {
     {
       name: 'user name',
+      role: '1',
       password: 'password',
       password_digest: User.digest('password'),
     }
@@ -35,12 +36,24 @@ RSpec.describe Admin::UsersController, type: :controller do
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
+
+    it 'redirect to root path as general user' do
+      log_in create(:other_user)
+      get :index, params: {}, session: valid_session
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe 'GET #new' do
     it 'returns a success response' do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
+    end
+
+    it 'redirect to root path as general user' do
+      log_in create(:other_user)
+      get :new, params: {}, session: valid_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -49,6 +62,13 @@ RSpec.describe Admin::UsersController, type: :controller do
       user = User.create! valid_attributes
       get :edit, params: { id: user.to_param }, session: valid_session
       expect(response).to be_successful
+    end
+
+    it 'redirect to root path as general user' do
+      log_in create(:other_user)
+      user = User.create! valid_attributes
+      get :edit, params: { id: user.to_param }, session: valid_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -63,6 +83,12 @@ RSpec.describe Admin::UsersController, type: :controller do
       it 'redirects to the created user' do
         post :create, params: { user: valid_attributes }, session: valid_session
         expect(response).to redirect_to(admin_users_path)
+      end
+
+      it 'redirect to root path as general user' do
+        log_in create(:other_user)
+        post :create, params: { user: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -93,6 +119,13 @@ RSpec.describe Admin::UsersController, type: :controller do
         put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
         expect(response).to redirect_to(admin_users_path)
       end
+
+      it 'redirect to root path as general user' do
+        log_in create(:other_user)
+        user = User.create! valid_attributes
+        put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(root_path)
+      end
     end
 
     context 'with invalid params' do
@@ -116,6 +149,13 @@ RSpec.describe Admin::UsersController, type: :controller do
       user = User.create! valid_attributes
       delete :destroy, params: { id: user.to_param }, session: valid_session
       expect(response).to redirect_to(admin_users_path)
+    end
+
+    it 'redirect to root path as general user' do
+      log_in create(:other_user)
+      user = User.create! valid_attributes
+      delete :destroy, params: { id: user.to_param }, session: valid_session
+      expect(response).to redirect_to(root_path)
     end
   end
 end
