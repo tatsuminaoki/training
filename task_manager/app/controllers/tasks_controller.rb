@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @q = Task.includes(:user).where(user_id: params[:user_id]).ransack(params[:q])
+    @q = Task.includes(:user).where(user_id: @tasks_user.id).ransack(params[:q])
     @tasks = @q.result.page(params[:page])
   end
 
