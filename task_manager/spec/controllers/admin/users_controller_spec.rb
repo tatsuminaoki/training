@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe Admin::UsersController, type: :controller do
   before do
     user = create(:user)
     log_in user
@@ -29,10 +29,10 @@ RSpec.describe UsersController, type: :controller do
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe 'GET #show' do
+  describe 'GET #index' do
     it 'returns a success response' do
-      user = User.create! valid_attributes
-      get :show, params: { id: user.to_param }, session: valid_session
+      User.create! valid_attributes
+      get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'redirects to the created user' do
         post :create, params: { user: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(admin_users_path)
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe UsersController, type: :controller do
       it 'redirects to the user' do
         user = User.create! valid_attributes
         put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(user)
+        expect(response).to redirect_to(admin_users_path)
       end
     end
 
@@ -115,7 +115,7 @@ RSpec.describe UsersController, type: :controller do
     it 'redirects to the users list' do
       user = User.create! valid_attributes
       delete :destroy, params: { id: user.to_param }, session: valid_session
-      expect(response).to redirect_to(login_path)
+      expect(response).to redirect_to(admin_users_path)
     end
   end
 end

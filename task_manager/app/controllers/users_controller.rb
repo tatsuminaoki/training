@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
-      redirect_to @user, success: I18n.t('.flash.success.user.create')
+      redirect_to root_path, success: I18n.t('.flash.success.user.create')
     else
       render :new
     end

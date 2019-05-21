@@ -21,6 +21,7 @@ ja:
       user:
         name: 名前
         created_at: 作成日時
+        number_of_tasks: タスク数
         password: パスワード
         password_confirmation: パスワード(確認)
   enumerize:
@@ -53,6 +54,10 @@ ja:
       title: 新規登録
     show:
       title: ユーザー設定
+  admin:
+    users:
+      index:
+        title: ユーザ一覧
   date:
     abbr_day_names:
     - 日
