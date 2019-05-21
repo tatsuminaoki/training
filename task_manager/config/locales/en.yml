@@ -35,7 +35,7 @@ en:
     user:
       role:
         general: general
-        administrator: administrator
+        admin: administrator
   sessions:
     new:
       title: Log in

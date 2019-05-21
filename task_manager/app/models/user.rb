@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   has_secure_password
-  enumerize :role, in: { general: 0, administrator: 1 }, predicates: true
+  enumerize :role, in: { general: 0, admin: 1 }, predicates: true
 
   validates :name, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
