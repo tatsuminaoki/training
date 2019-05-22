@@ -3,11 +3,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :set_user, only: %i[show edit update destroy]
-
-  # GET /users
-  def index
-    @users = User.all
-  end
+  before_action -> { correct_user(@user) }, except: %i[new create]
 
   # GET /users/1
   def show

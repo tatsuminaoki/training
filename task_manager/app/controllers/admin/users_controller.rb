@@ -3,17 +3,13 @@
 module Admin
   class UsersController < ApplicationController
     skip_before_action :require_login, only: %i[new create]
-    before_action :set_user, only: %i[show edit update destroy]
+    before_action :set_user, only: %i[edit update destroy]
     before_action :authenticate_admin
 
     # GET /admin/users
     def index
       @users = User.all.page(params[:page])
       @tasks_count = Task.group(:user_id).count
-    end
-
-    # GET /admin/users/1
-    def show
     end
 
     # GET /admin/users/new

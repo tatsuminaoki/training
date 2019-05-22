@@ -2,7 +2,8 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  before_action :set_tasks_user, only: %i[index new edit create update destroy]
+  before_action :set_tasks_user
+  before_action -> { correct_user(@tasks_user) }
 
   # GET /tasks
   def index
