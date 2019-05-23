@@ -26,10 +26,10 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    task = @tasks_user.tasks.new(task_params)
+    @task = @tasks_user.tasks.new(task_params)
 
-    if task.save
-      redirect_to [@tasks_user, task], success: I18n.t('.flash.success.task.create')
+    if @task.save
+      redirect_to [@tasks_user, @task], success: I18n.t('.flash.success.task.create')
     else
       render :new
     end
