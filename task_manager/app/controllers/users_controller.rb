@@ -41,8 +41,11 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
-    redirect_to login_path, success: I18n.t('.flash.success.user.destroy')
+    if @user.destroy
+      redirect_to login_path, success: I18n.t('.flash.success.user.destroy')
+    else
+      redirect_to user_path(@user), danger: @user.errors[:base][0]
+    end
   end
 
   private
