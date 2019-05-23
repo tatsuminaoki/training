@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
-
-  describe "GET #index" do
-    it "returns http success" do
+  describe 'GET #index' do
+    it 'returns http success' do
       get :index, params: {}
 
       expect(response).to be_successful
@@ -11,8 +10,8 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "returns http success" do
+  describe 'GET #new' do
+    it 'returns http success' do
       get :new
 
       expect(response).to be_successful
@@ -20,7 +19,7 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "POST #create" do
+  describe 'POST #create' do
     let(:params) do
       {
         task: {
@@ -30,7 +29,7 @@ RSpec.describe TasksController, type: :controller do
       }
     end
 
-    it "creates a new task and returns success" do
+    it 'creates a new task and returns success' do
       post :create, params: params
 
       expect(response).to have_http_status(:redirect)
@@ -38,10 +37,10 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "GET #show" do
+  describe 'GET #show' do
     let(:task) { create(:task) }
 
-    it "returns a success response" do
+    it 'returns a success response' do
       get :show, params: { id: task.to_param }
 
       expect(response).to be_successful
@@ -49,9 +48,9 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
     let(:task) { create(:task) }
-    it "returns a success response" do
+    it 'returns a success response' do
       get :edit, params: { id: task.to_param }
 
       expect(response).to be_successful
@@ -59,7 +58,7 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe 'PATCH #update' do
     let(:task) { create(:task) }
     let(:params) do
       {
@@ -71,7 +70,7 @@ RSpec.describe TasksController, type: :controller do
       }
     end
 
-    it "updates a new task and returns success" do
+    it 'updates a new task and returns success' do
       patch :update, params: params
 
       expect(response).to have_http_status(:redirect)
@@ -80,10 +79,10 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let(:task) { create(:task, status: :work_in_progress) }
 
-    it "destroys the requested task" do
+    it 'destroys the requested task' do
       delete :destroy, params: { id: task.to_param }
 
       expect(response).to have_http_status(:redirect)

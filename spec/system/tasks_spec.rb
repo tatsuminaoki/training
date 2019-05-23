@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-
   specify 'User operates from creation to editing to deletion' do
     visit root_path
 
