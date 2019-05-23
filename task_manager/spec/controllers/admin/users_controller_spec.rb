@@ -134,6 +134,12 @@ RSpec.describe Admin::UsersController, type: :controller do
         put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
         expect(response).to redirect_to(root_path)
       end
+
+      it 'keep admin user role for last one' do
+        user.role = 'general'
+        user.valid?
+        expect(user.errors[:base][0]).to include('少なくとも1人の管理者が必要です')
+      end
     end
 
     context 'with invalid params' do
@@ -164,6 +170,12 @@ RSpec.describe Admin::UsersController, type: :controller do
       user = User.create! valid_attributes
       delete :destroy, params: { id: user.to_param }, session: valid_session
       expect(response).to redirect_to(root_path)
+    end
+
+    it 'keep last admin user' do
+      expect {
+        delete :destroy, params: { id: user.to_param }, session: valid_session
+      }.to change(User, :count).by(0)
     end
   end
 end

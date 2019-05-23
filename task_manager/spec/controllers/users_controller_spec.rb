@@ -181,6 +181,13 @@ RSpec.describe UsersController, type: :controller do
         delete :destroy, params: { id: user.to_param }, session: valid_session
         expect(response).to redirect_to(login_path)
       end
+
+      it 'keep last admin user' do
+        admin_user
+        expect {
+          delete :destroy, params: { id: admin_user.to_param }, session: valid_session
+        }.to change(User, :count).by(0)
+      end
     end
     context 'by not correct user' do
       it 'redirects to root path' do
