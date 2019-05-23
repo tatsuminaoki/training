@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+
+    attributes:
+      task:
+        description: 説明
+        name: タスク名
+        status: ステータス

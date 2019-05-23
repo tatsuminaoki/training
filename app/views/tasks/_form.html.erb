@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys, {prompt: '選択してください'} %>
+    <%= form.select :status, Task.statuses.map { |k, v| [t(".status.#{k}"), k] }, {prompt: '選択してください'} %>
   </div>
 
   <div class="actions">

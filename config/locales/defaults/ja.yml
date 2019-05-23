@@ -145,6 +145,11 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+  messages:
+    created: '%{item}の登録が完了しました。'
+    updated: '%{item}の更新が完了しました。'
+    deleted: '%{item}の削除が完了しました。'
+    changed: '%{item}の変更が完了しました。'
   number:
     currency:
       format:
@@ -205,3 +210,10 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  button:
+    new: 新規
+    show: 詳細
+    edit: 編集
+    destroy: 削除
+    back: 戻る
+    search: 検索

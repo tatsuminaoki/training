@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to @task, notice: t('messages.created', item: @task.model_name.human) }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @task, notice: t('messages.updated', item: @task.model_name.human) }
       else
         format.html { render :edit }
       end

@@ -10,13 +10,13 @@ RSpec.describe 'Tasks', type: :system do
 
     click_on 'New Task'
 
-    fill_in 'Name', with: 'task name'
-    fill_in 'Description', with: 'hoge'
-    select 'work_in_progress', from: 'Status'
+    fill_in 'タスク名', with: 'task name'
+    fill_in '説明', with: 'hoge'
+    select 'work_in_progress', from: 'ステータス'
 
-    click_on 'Create Task'
+    click_on '登録する'
 
-    expect(page).to have_content('Task was successfully created.')
+    expect(page).to have_content('タスクの登録が完了しました。')
     expect(page).to have_content('task name')
     expect(page).to have_content('hoge')
     expect(page).to have_content('work_in_progress')
@@ -24,13 +24,13 @@ RSpec.describe 'Tasks', type: :system do
     click_on 'Edit'
 
     expect(page).to have_content('Editing Task')
-    fill_in 'Name', with: 'update'
-    fill_in 'Description', with: 'hoge-update'
-    select 'completed', from: 'Status'
+    fill_in 'タスク名', with: 'update'
+    fill_in '説明', with: 'hoge-update'
+    select 'completed', from: 'ステータス'
 
-    click_on 'Update Task'
+    click_on '更新する'
 
-    expect(page).to have_content('Task was successfully updated.')
+    expect(page).to have_content('タスクの更新が完了しました。')
     expect(page).to have_content('update')
     expect(page).to have_content('hoge-update')
     expect(page).to have_content('completed')

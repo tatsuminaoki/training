@@ -151,6 +151,11 @@ en:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
+  messages:
+    created: '%{item} was successfully created'
+    updated: '%{item} was successfully updated'
+    deleted: '%{item} was successfully deleted'
+    changed: '%{item} was successfully changed'
   number:
     currency:
       format:
@@ -213,3 +218,10 @@ en:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: pm
+  button:
+    new: New
+    show: Show
+    edit: Edit
+    destroy: Destroy
+    back: Back
+    search: Search
