@@ -7,4 +7,15 @@ inherit_gem:
     # - "config/rspec.yml"
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'vendor/bundle/**/*'
+    - 'config/**/*'
+    - 'Gemfile'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
