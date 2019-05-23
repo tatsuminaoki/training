@@ -7,6 +7,11 @@ en:
         restrict_dependent_destroy:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
+      models:
+        user:
+          attributes:
+            base:
+              at_least_one_admin: Requires at least one admin user
     models:
       task: task
       user: user
@@ -20,6 +25,7 @@ en:
         created_at: created at
       user:
         name: name
+        role: role
         created_at: created at
         number_of_tasks: tasks
         password: password
@@ -31,6 +37,10 @@ en:
         wip: WIP
         done: Done
         pending: Pending
+    user:
+      role:
+        general: general
+        admin: administrator
   sessions:
     new:
       title: Log in

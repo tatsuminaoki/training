@@ -37,6 +37,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'role varidates' do
+    context 'with nil' do
+      it 'could not save' do
+        user.role = nil
+        expect(user.save).to be_falsey
+      end
+    end
+    context 'with not nil' do
+      it 'could save' do
+        user.role = 0
+        expect(user.save).to be_truthy
+      end
+    end
+    context 'with out of range number' do
+      it 'could not save' do
+        user.role = 2
+        expect(user.save).to be_falsey
+      end
+    end
+  end
+
   describe 'password varidates' do
     context 'with nil' do
       it 'could not save' do

@@ -4,15 +4,18 @@ require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
   before do
-    user = create(:user)
     log_in user
   end
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
+  let(:user) { create(:admin_user) }
+  let(:general_user) { create(:user) }
+
   let(:valid_attributes) {
     {
       name: 'user name',
+      role: '1',
       password: 'password',
       password_digest: User.digest('password'),
     }
@@ -27,13 +30,25 @@ RSpec.describe Admin::UsersController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) {
+    {
+      name: user.name,
+      password: 'password',
+      password_digest: User.digest('password'),
+    }
+  }
 
   describe 'GET #index' do
     it 'returns a success response' do
       User.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
+    end
+
+    it 'redirect to root path as general user' do
+      log_in general_user
+      get :index, params: {}, session: valid_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -42,6 +57,12 @@ RSpec.describe Admin::UsersController, type: :controller do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
+
+    it 'redirect to root path as general user' do
+      log_in general_user
+      get :new, params: {}, session: valid_session
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe 'GET #edit' do
@@ -49,6 +70,13 @@ RSpec.describe Admin::UsersController, type: :controller do
       user = User.create! valid_attributes
       get :edit, params: { id: user.to_param }, session: valid_session
       expect(response).to be_successful
+    end
+
+    it 'redirect to root path as general user' do
+      log_in general_user
+      user = User.create! valid_attributes
+      get :edit, params: { id: user.to_param }, session: valid_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -63,6 +91,12 @@ RSpec.describe Admin::UsersController, type: :controller do
       it 'redirects to the created user' do
         post :create, params: { user: valid_attributes }, session: valid_session
         expect(response).to redirect_to(admin_users_path)
+      end
+
+      it 'redirect to root path as general user' do
+        log_in general_user
+        post :create, params: { user: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -93,6 +127,19 @@ RSpec.describe Admin::UsersController, type: :controller do
         put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
         expect(response).to redirect_to(admin_users_path)
       end
+
+      it 'redirect to root path as general user' do
+        log_in general_user
+        user = User.create! valid_attributes
+        put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'keep admin user role for last one' do
+        user.role = 'general'
+        user.valid?
+        expect(user.errors[:base][0]).to include('少なくとも1人の管理者が必要です')
+      end
     end
 
     context 'with invalid params' do
@@ -116,6 +163,19 @@ RSpec.describe Admin::UsersController, type: :controller do
       user = User.create! valid_attributes
       delete :destroy, params: { id: user.to_param }, session: valid_session
       expect(response).to redirect_to(admin_users_path)
+    end
+
+    it 'redirect to root path as general user' do
+      log_in general_user
+      user = User.create! valid_attributes
+      delete :destroy, params: { id: user.to_param }, session: valid_session
+      expect(response).to redirect_to(root_path)
+    end
+
+    it 'keep last admin user' do
+      expect {
+        delete :destroy, params: { id: user.to_param }, session: valid_session
+      }.to change(User, :count).by(0)
     end
   end
 end

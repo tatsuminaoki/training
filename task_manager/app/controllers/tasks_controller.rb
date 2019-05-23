@@ -2,11 +2,12 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  before_action :set_tasks_user, only: %i[index new edit create update destroy]
+  before_action :set_tasks_user
+  before_action -> { correct_user(@tasks_user) }
 
   # GET /tasks
   def index
-    @q = Task.includes(:user).where(user_id: params[:user_id]).ransack(params[:q])
+    @q = Task.includes(:user).where(user_id: @tasks_user.id).ransack(params[:q])
     @tasks = @q.result.page(params[:page])
   end
 
@@ -25,10 +26,10 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    task = @tasks_user.tasks.new(task_params)
+    @task = @tasks_user.tasks.new(task_params)
 
-    if task.save
-      redirect_to [@tasks_user, task], success: I18n.t('.flash.success.task.create')
+    if @task.save
+      redirect_to [@tasks_user, @task], success: I18n.t('.flash.success.task.create')
     else
       render :new
     end

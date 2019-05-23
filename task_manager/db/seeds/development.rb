@@ -3,6 +3,7 @@
 5.times do |i|
   User.create!(
     name: "username#{i}",
+    role: 1,
     password: 'password',
   )
 end
