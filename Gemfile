@@ -42,6 +42,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 group :development do
