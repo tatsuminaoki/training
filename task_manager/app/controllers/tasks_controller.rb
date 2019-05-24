@@ -7,7 +7,9 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @q = Task.includes(:user).where(user_id: @tasks_user.id).ransack(params[:q])
+    @q = Task.includes(:user).includes(:taggings).
+         where(user_id: @tasks_user.id).search_by_tag(params[:tag_name]).
+         ransack(params[:q])
     @tasks = @q.result.page(params[:page])
   end
 
@@ -59,7 +61,7 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :status, :description, :due_date)
+    params.require(:task).permit(:name, :tag_list, :status, :description, :due_date)
   end
 
   def set_tasks_user
