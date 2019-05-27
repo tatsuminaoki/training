@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -62,4 +63,11 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
+  config.before(:each) do |example|
+    if example.metadata[:type] == :system
+      unless example.metadata[:js]
+        driven_by :rack_test
+      end
+    end
+  end
 end
