@@ -8,6 +8,9 @@
 
   <%= f.label :search_by_status, t('activerecord.attributes.task.status') %>
   <%= f.select :search_by_status, Task.status.options, {include_blank: t('helpers.select.all') } %>
+
+  <%= f.label :tags_name_cont, t('activerecord.attributes.task.tags') %>
+  <%= f.search_field :tags_name_cont %>
   <%= f.submit t('helpers.submit.search'), class: "btn page-link text-dark d-inline-block" %>
 <% end %>
 
