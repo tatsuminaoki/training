@@ -48,6 +48,8 @@ gem 'jquery-rails'
 gem 'enumerize'
 # Pagenation
 gem 'kaminari'
+# puts into maintenance mode
+gem 'turnout'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
