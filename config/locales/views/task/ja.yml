@@ -4,7 +4,9 @@ status: &status
   completed: 完了
 ja:
   tasks:
-    show:
+    index:
       status: *status
     form:
+      status: *status
+    show:
       status: *status

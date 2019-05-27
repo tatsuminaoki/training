@@ -4,7 +4,9 @@ status: &status
   completed: Completed
 en:
   tasks:
-    show:
+    index:
       status: *status
     form:
+      status: *status
+    show:
       status: *status
