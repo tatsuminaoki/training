@@ -150,6 +150,7 @@ ja:
     updated: '%{item}の更新が完了しました。'
     deleted: '%{item}の削除が完了しました。'
     changed: '%{item}の変更が完了しました。'
+    confirm: '本当によろしいですか？'
   number:
     currency:
       format:
