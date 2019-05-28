@@ -16,6 +16,7 @@ RSpec.describe TasksController, type: :controller do
   let(:valid_attributes) {
     {
       name: 'name',
+      tag_list: 'tag',
       status: 0,
       description: 'description',
       due_date: Date.current,
@@ -107,7 +108,7 @@ RSpec.describe TasksController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { name: 'new name', status: 1, description: 'new description', due_date: Date.tomorrow }
+        { name: 'new name', tag_list: 'new tag', status: 1, description: 'new description', due_date: Date.tomorrow }
       }
 
       it 'updates the requested task' do
@@ -115,6 +116,7 @@ RSpec.describe TasksController, type: :controller do
         put :update, params: { user_id: task.user.id, id: task.to_param, task: new_attributes }, session: valid_session
         expect { task.reload }.to(
           change(task, :name).from('name').to('new name')
+          .and(change(task, :tag_list).from(['tag']).to(['new tag']))
           .and(change(task, :status).from(0).to(1))
           .and(change(task, :description).from('description').to('new description'))
           .and(change(task, :due_date).from(Date.current).to(Date.tomorrow)),

@@ -18,6 +18,7 @@ en:
     attributes:
       task:
         name: name
+        tags: tags
         user_id: user
         status: status
         description: description
@@ -57,6 +58,9 @@ en:
       title: New Task
     show:
       title: details
+    form:
+      tags:
+        placeholder: Please enter comma separated
   users:
     edit:
       title: setting

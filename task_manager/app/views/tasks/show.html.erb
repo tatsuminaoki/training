@@ -8,6 +8,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.task.tags') + ':' %></strong>
+  <%= render 'tag_list', tasks_user: @tasks_user, tag_list: @task.tag_list %>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.task.status') + ':' %></strong>
   <%= @task.status %>
 </p>
