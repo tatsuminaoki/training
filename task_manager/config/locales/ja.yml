@@ -7,12 +7,18 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+      models:
+        user:
+          attributes:
+            base:
+              at_least_one_admin: 少なくとも1人の管理者が必要です
     models:
       task: タスク
       user: ユーザー
     attributes:
       task:
         name: 名前
+        tags: タグ
         user: 担当
         status: ステータス
         description: 詳細
@@ -20,6 +26,7 @@ ja:
         created_at: 作成日時
       user:
         name: 名前
+        role: 権限
         created_at: 作成日時
         number_of_tasks: タスク数
         password: パスワード
@@ -31,6 +38,10 @@ ja:
         wip: 着手
         done: 完了
         pending: 保留
+    user:
+      role:
+        general: 一般
+        admin: 管理者
   sessions:
     new:
       title: ログイン
@@ -47,6 +58,9 @@ ja:
       title: 新規タスク
     show:
       title: タスク詳細
+    form:
+      tags:
+        placeholder: カンマ区切りで入力してください
   users:
     edit:
       title: 設定変更

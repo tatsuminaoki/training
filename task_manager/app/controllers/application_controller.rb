@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
 
     redirect_to login_path, danger: I18n.t('.flash.errors.login')
   end
+
+  def correct_user(user)
+    return if current_user.admin? || current_user?(user)
+    redirect_to root_path
+  end
 end

@@ -2,12 +2,15 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  before_action :set_tasks_user, only: %i[index new edit create update destroy]
+  before_action :set_tasks_user
+  before_action -> { correct_user(@tasks_user) }
 
   # GET /tasks
   def index
-    @q = Task.includes(:user).where(user_id: params[:user_id]).ransack(params[:q])
-    @tasks = @q.result.page(params[:page])
+    @q = Task.includes(:user).includes(:taggings).
+         where(user_id: @tasks_user.id).search_by_tag(params[:tag_name]).
+         ransack(params[:q])
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /tasks/1
@@ -25,10 +28,10 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    task = @tasks_user.tasks.new(task_params)
+    @task = @tasks_user.tasks.new(task_params)
 
-    if task.save
-      redirect_to [@tasks_user, task], success: I18n.t('.flash.success.task.create')
+    if @task.save
+      redirect_to [@tasks_user, @task], success: I18n.t('.flash.success.task.create')
     else
       render :new
     end
@@ -58,7 +61,7 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :status, :description, :due_date)
+    params.require(:task).permit(:name, :tag_list, :status, :description, :due_date)
   end
 
   def set_tasks_user

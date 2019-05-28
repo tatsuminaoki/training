@@ -1,0 +1,5 @@
+<% tag_list.each do |tag| %>
+  <span class="badge badge-secondary">
+    <%= link_to tag, user_tasks_path(user_id: tasks_user.id, tag_name: tag), class: 'text-white' %>
+  </span>
+<% end %>

@@ -4,15 +4,19 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   before do
-    user = create(:user)
-    log_in user
+    log_in general_user
   end
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
+  let(:general_user) { create(:user) }
+  let(:other_user) { create(:other_user) }
+  let(:admin_user) { create(:admin_user) }
+
   let(:valid_attributes) {
     {
       name: 'name',
+      tag_list: 'tag',
       status: 0,
       description: 'description',
       due_date: Date.current,
@@ -30,7 +34,7 @@ RSpec.describe TasksController, type: :controller do
   # TasksController. Be sure to keep this updated too.
   let(:valid_session) {
     {
-      name: 'user name',
+      name: general_user.name,
       password: 'password',
       password_digest: User.digest('password'),
     }
@@ -38,24 +42,36 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      current_user.tasks.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response).to be_successful
+      expect(response).to render_template(:index)
+    end
+
+    it 'returns a success response' do
+      log_in admin_user
+      get :index, params: { user_id: current_user.id }, session: valid_session
+      expect(response).to render_template(:index)
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      task = current_user.tasks.create! valid_attributes
+      task = general_user.tasks.create! valid_attributes
       get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
-      expect(response).to be_successful
+      expect(response).to render_template(:show)
+    end
+
+    it 'returns a success response' do
+      log_in other_user
+      task = general_user.tasks.create! valid_attributes
+      get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
+      expect(response).to redirect_to(:root)
     end
   end
 
   describe 'GET #new' do
     it 'returns a success response' do
       get :new, params: { user_id: current_user.id }, session: valid_session
-      expect(response).to be_successful
+      expect(response).to render_template(:new)
     end
   end
 
@@ -63,7 +79,7 @@ RSpec.describe TasksController, type: :controller do
     it 'returns a success response' do
       task = current_user.tasks.create! valid_attributes
       get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
-      expect(response).to be_successful
+      expect(response).to render_template(:edit)
     end
   end
 
@@ -84,7 +100,7 @@ RSpec.describe TasksController, type: :controller do
     context 'with invalid params' do
       it 'returns a success response (i.e. to display the "new" template)' do
         post :create, params: { user_id: current_user.id, task: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
   end
@@ -92,7 +108,7 @@ RSpec.describe TasksController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { name: 'new name', status: 1, description: 'new description', due_date: Date.tomorrow }
+        { name: 'new name', tag_list: 'new tag', status: 1, description: 'new description', due_date: Date.tomorrow }
       }
 
       it 'updates the requested task' do
@@ -100,6 +116,7 @@ RSpec.describe TasksController, type: :controller do
         put :update, params: { user_id: task.user.id, id: task.to_param, task: new_attributes }, session: valid_session
         expect { task.reload }.to(
           change(task, :name).from('name').to('new name')
+          .and(change(task, :tag_list).from(['tag']).to(['new tag']))
           .and(change(task, :status).from(0).to(1))
           .and(change(task, :description).from('description').to('new description'))
           .and(change(task, :due_date).from(Date.current).to(Date.tomorrow)),
@@ -117,7 +134,7 @@ RSpec.describe TasksController, type: :controller do
       it 'returns a success response (i.e. to display the "edit" template)' do
         task = current_user.tasks.create! valid_attributes
         put :update, params: { user_id: task.user.id, id: task.to_param, task: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
     end
   end

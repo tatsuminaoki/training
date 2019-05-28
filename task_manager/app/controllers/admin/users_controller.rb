@@ -3,16 +3,13 @@
 module Admin
   class UsersController < ApplicationController
     skip_before_action :require_login, only: %i[new create]
-    before_action :set_user, only: %i[show edit update destroy]
+    before_action :set_user, only: %i[edit update destroy]
+    before_action :authenticate_admin
 
     # GET /admin/users
     def index
       @users = User.all.page(params[:page])
       @tasks_count = Task.group(:user_id).count
-    end
-
-    # GET /admin/users/1
-    def show
     end
 
     # GET /admin/users/new
@@ -46,8 +43,11 @@ module Admin
 
     # DELETE /admin/users/1
     def destroy
-      @user.destroy
-      redirect_to admin_users_path, success: I18n.t('.flash.success.user.destroy')
+      if @user.destroy
+        redirect_to admin_users_path, success: I18n.t('.flash.success.user.destroy')
+      else
+        redirect_to admin_users_path, danger: @user.errors[:base][0]
+      end
     end
 
     private
@@ -59,7 +59,11 @@ module Admin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation)
+      params.require(:user).permit(:name, :role, :password, :password_confirmation)
+    end
+
+    def authenticate_admin
+      redirect_to root_path unless current_user.admin?
     end
   end
 end

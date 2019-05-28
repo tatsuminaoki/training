@@ -3,6 +3,7 @@
 class Task < ApplicationRecord
   extend Enumerize
   belongs_to :user
+  acts_as_taggable
 
   enumerize :status, in: { new: 0, wip: 1, done: 2, pending: 3 }
   validates :name, presence: true, length: { maximum: 64 }
@@ -11,6 +12,7 @@ class Task < ApplicationRecord
   validate :due_date_cannot_be_in_the_past
 
   scope :search_by_status, -> (status) { where(status: status) }
+  scope :search_by_tag, -> (tag) { tagged_with([tag]) if tag.present? }
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[search_by_status]
