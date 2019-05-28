@@ -8,3 +8,4 @@ ja:
         description: 説明
         name: タスク名
         status: ステータス
+        created_at: 作成日
