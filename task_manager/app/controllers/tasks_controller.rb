@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     @q = Task.includes(:user).includes(:taggings).
          where(user_id: @tasks_user.id).search_by_tag(params[:tag_name]).
          ransack(params[:q])
-    @tasks = @q.result.page(params[:page])
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /tasks/1
