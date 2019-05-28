@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= Task.human_attribute_name(:name) %>:</strong>
   <%= @task.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= Task.human_attribute_name(:description) %>:</strong>
   <%= @task.description %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @task.status %>
+  <%= t(".status.#{@task.status}") %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', root_path %>
+<%= link_to t('buttons.edit'), edit_task_path(@task) %> |
+<%= link_to t('buttons.back'), root_path %>

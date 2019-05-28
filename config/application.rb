@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 
 module Training
   class Application < Rails::Application
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -31,6 +34,10 @@ module Training
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # time zone
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
 
     config.generators do |g|
       g.test_framework :rspec,

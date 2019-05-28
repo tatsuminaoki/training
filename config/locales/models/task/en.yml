@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      task: Task  #g
+
+    attributes:
+      task:
+        description: Description  #g
+        name: Name  #g
+        status: Status  #g

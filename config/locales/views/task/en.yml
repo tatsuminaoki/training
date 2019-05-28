@@ -1,0 +1,12 @@
+status: &status
+  waiting: Waiting
+  work_in_progress: Work in progress
+  completed: Completed
+en:
+  tasks:
+    index:
+      status: *status
+    form:
+      status: *status
+    show:
+      status: *status

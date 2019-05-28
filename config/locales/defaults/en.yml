@@ -1,0 +1,15 @@
+---
+en:
+  messages:
+    created: '%{item} was successfully created'
+    updated: '%{item} was successfully updated'
+    deleted: '%{item} was successfully deleted'
+    changed: '%{item} was successfully changed'
+    confirm: 'Are you sure?'
+  buttons:
+    new: New
+    show: Show
+    edit: Edit
+    destroy: Destroy
+    back: Back
+    search: Search
