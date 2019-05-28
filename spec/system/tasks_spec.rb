@@ -42,4 +42,18 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content('hoge-update')
     expect(page).to have_content('完了')
   end
+
+  context '一覧表示' do
+    before do
+      create(:task, { name: 'task1', created_at: Time.zone.now })
+      create(:task, { name: 'task2', created_at: 1.day.ago })
+    end
+
+    scenario '一覧のソート順が登録日の降順であること' do
+      visit root_path
+
+      tds = page.all('td')
+      expect(tds[0]).to have_content 'task1'
+    end
+  end
 end
