@@ -211,7 +211,7 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
-  button:
+  buttons:
     new: 新規
     show: 詳細
     edit: 編集

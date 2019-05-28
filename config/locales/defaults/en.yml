@@ -219,7 +219,7 @@ en:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: pm
-  button:
+  buttons:
     new: New
     show: Show
     edit: Edit

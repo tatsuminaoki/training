@@ -18,9 +18,9 @@
         <td><%= task.name %></td>
         <td><%= t(".status.#{task.status}") %></td>
         <td><%= task.description %></td>
-        <td><%= link_to t('button.show'), task %></td>
-        <td><%= link_to t('button.edit'), edit_task_path(task) %></td>
-        <td><%= link_to t('button.destroy'), task, method: :delete, data: { confirm: t('messages.confirm') } %></td>
+        <td><%= link_to t('buttons.show'), task %></td>
+        <td><%= link_to t('buttons.edit'), edit_task_path(task) %></td>
+        <td><%= link_to t('buttons.destroy'), task, method: :delete, data: { confirm: t('messages.confirm') } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to t('button.new'), new_task_path %>
+<%= link_to t('buttons.new'), new_task_path %>
