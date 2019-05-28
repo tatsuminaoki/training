@@ -48,8 +48,6 @@ gem 'jquery-rails'
 gem 'enumerize'
 # Pagenation
 gem 'kaminari'
-# puts into maintenance mode
-gem 'turnout'
 # Tagging
 gem 'acts-as-taggable-on', '~> 6.0'
 
