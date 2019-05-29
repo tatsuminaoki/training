@@ -6,14 +6,14 @@ class SwitchMaintenanceMode
   end
 
   def exist_503_file?
-    File.exist?("#{Rails.public_path}/tmp/503.html")
+    File.exist?(Rails.public_path.join('tmp', '503.html').to_s)
   end
 
   def cp_503_file
-    FileUtils.cp "#{Rails.public_path}/503.html", "#{Rails.public_path}/tmp/503.html"
+    FileUtils.cp Rails.public_path.join('503.html').to_s, Rails.public_path.join('tmp', '503.html').to_s
   end
 
   def rm_503_file
-    FileUtils.rm "#{Rails.public_path}/tmp/503.html"
+    FileUtils.rm Rails.public_path.join('tmp', '503.html').to_s
   end
 end

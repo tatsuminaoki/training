@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    File.exist?("#{Rails.public_path}/tmp/503.html")
+    File.exist?(Rails.public_path.join('tmp', '503.html').to_s)
   end
 
   def render_503
