@@ -46,6 +46,12 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(:root)
       end
     end
+
+    it 'render the 503 page' do
+      SwitchMaintenanceMode.new.exec
+      get :show, params: { id: user.to_param }, session: valid_session
+      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+    end
   end
 
   describe 'GET #new' do
@@ -62,6 +68,12 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
+
+    it 'render the 503 page' do
+      SwitchMaintenanceMode.new.exec
+      get :new, params: {}, session: valid_session
+      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+    end
   end
 
   describe 'GET #edit' do
@@ -77,6 +89,12 @@ RSpec.describe UsersController, type: :controller do
         get :edit, params: { id: user.to_param }, session: valid_session
         expect(response).to redirect_to(:root)
       end
+    end
+
+    it 'render the 503 page' do
+      SwitchMaintenanceMode.new.exec
+      get :edit, params: { id: user.to_param }, session: valid_session
+      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
     end
   end
 

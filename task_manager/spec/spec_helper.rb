@@ -93,4 +93,10 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.after(:each) do
+    # Get rid of the 503 file
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/tmp/503.html"])
+    end
+  end
 end
