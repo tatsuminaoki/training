@@ -55,7 +55,7 @@ RSpec.describe TasksController, type: :controller do
     it 'render the 503 page' do
       SwitchMaintenanceMode.new.exec
       get :index, params: {}, session: valid_session
-      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe TasksController, type: :controller do
       SwitchMaintenanceMode.new.exec
       task = general_user.tasks.create! valid_attributes
       get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
-      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
     end
   end
 
@@ -90,7 +90,7 @@ RSpec.describe TasksController, type: :controller do
     it 'render the 503 page' do
       SwitchMaintenanceMode.new.exec
       get :new, params: { user_id: current_user.id }, session: valid_session
-      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
     end
   end
 
@@ -105,7 +105,7 @@ RSpec.describe TasksController, type: :controller do
       SwitchMaintenanceMode.new.exec
       task = current_user.tasks.create! valid_attributes
       get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
-      expect(response).to render_template(file: "#{Rails.root}/public/503.html")
+      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
     end
   end
 

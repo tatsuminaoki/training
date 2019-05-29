@@ -95,8 +95,6 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
   config.after(:each) do
     # Get rid of the 503 file
-    if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root}/public/tmp/503.html"])
-    end
+    FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', '503.html')]) if Rails.env.test?
   end
 end
