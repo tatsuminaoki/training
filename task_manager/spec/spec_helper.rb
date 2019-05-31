@@ -94,7 +94,7 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
   config.after(:each) do
-    # Get rid of the 503 file
-    FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', '503.html')]) if Rails.env.test?
+    # Get rid of the maintenance file
+    FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance.html')]) if Rails.env.test?
   end
 end

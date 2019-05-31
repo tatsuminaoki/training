@@ -52,9 +52,9 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      MaintenanceMode.start
       get :index, params: {}, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 
@@ -71,9 +71,9 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      MaintenanceMode.start
       get :new, params: {}, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 
@@ -92,11 +92,11 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      MaintenanceMode.start
       user = User.create! valid_attributes
       get :edit, params: { id: user.to_param }, session: valid_session
       get :new, params: {}, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 

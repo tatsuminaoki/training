@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'rake'
+Rails.application.load_tasks
 
 RSpec.describe UsersController, type: :controller do
   before do
@@ -48,9 +50,10 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      # MaintenanceMode.start
+      Rake::Task['maintenance_mode:start'].invoke
       get :show, params: { id: user.to_param }, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 
@@ -70,9 +73,9 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      MaintenanceMode.start
       get :new, params: {}, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 
@@ -92,9 +95,9 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'render the 503 page' do
-      SwitchMaintenanceMode.new.exec
+      MaintenanceMode.start
       get :edit, params: { id: user.to_param }, session: valid_session
-      expect(response).to render_template(file: Rails.root.join('public', '503.html').to_s)
+      expect(response).to render_template('errors/maintenance')
     end
   end
 

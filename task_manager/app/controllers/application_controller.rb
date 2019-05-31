@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
   before_action :set_locale, :require_login
-  before_action :render_503, if: :maintenance_mode?
+  before_action :display_maintenance_page, if: :maintenance?
   add_flash_types :success, :danger
 
   private
@@ -23,16 +23,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def maintenance_mode?
-    File.exist?(Rails.public_path.join('tmp', '503.html').to_s)
+  def maintenance?
+    # File.exist? Rails.public_path.join('tmp', 'maintenance.html').to_s
+    File.exist? Constants::MAINTENANCE_FILE
   end
 
-  def render_503
-    render(
-      file: Rails.public_path.join('503.html'),
-      content_type: 'text/html',
-      layout: false,
-      status: :service_unavailable,
-    )
+  def display_maintenance_page
+    render 'errors/maintenance', layout: nil
   end
 end
