@@ -12,8 +12,6 @@ describe 'maintenace_mode' do
   end
 
   describe 'start' do
-    subject { @rake['maintenance_mode:start'].invoke }
-
     context 'when not maintenance mode' do
       it 'turn on' do
         MaintenanceMode.start
@@ -32,8 +30,6 @@ describe 'maintenace_mode' do
   end
 
   describe 'stop' do
-    subject { @rake['maintenance_mode:stop'] }
-
     context 'when not maintenance mode' do
       it 'do not raise any errors' do
         MaintenanceMode.stop
