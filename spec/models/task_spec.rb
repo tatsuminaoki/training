@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe '#save' do
-    let(:task) { build(:task, name: 'a' * 1) }
+    let(:task) { build(:task, name: 'a' * 1, status: 1) }
 
     before do
       task.save
@@ -25,7 +25,7 @@ RSpec.describe Task, type: :model do
     end
 
     context 'nameへ20文字の入力があると' do
-      let(:task) { build(:task, name: 'a' * 20) }
+      let(:task) { build(:task, name: 'a' * 20, status: 2) }
 
       it 'creates records in task' do
         expect(Task.count).to eq(1)
@@ -39,6 +39,24 @@ RSpec.describe Task, type: :model do
       it '桁数超過のエラーメッセージが出ること' do
         expect(Task.count).to eq(0)
         expect(task.errors[:name]).to include('は20文字以内で入力してください')
+      end
+    end
+
+    context 'statusへ既定値以外(-1)の入力があると' do
+      it 'statusにマイナスの値で永続化できないこと' do
+        expect { task.assign_attributes(status: -1)}.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'statusへ既定値以外(0)の入力があると' do
+      it 'statusに0の値で永続化できないこと' do
+        expect { task.assign_attributes(status: 0)}.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'statusへ既定値以外(4)の入力があると' do
+      it 'statusに4の値で永続化できないこと' do
+        expect { task.assign_attributes(status: 4)}.to raise_error(ArgumentError)
       end
     end
   end
