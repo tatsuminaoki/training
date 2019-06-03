@@ -56,4 +56,33 @@ RSpec.describe 'Tasks', type: :system do
       expect(tds[0]).to have_content 'task1'
     end
   end
+
+  context '一覧検索' do
+    before do
+      create(:task, { name: 'task_name_1' })
+      create(:task, { name: 'task_name_2', status: :work_in_progress })
+    end
+
+    scenario 'タスク名で検索できること' do
+      visit root_path
+
+      fill_in 'name', with: 'task_name_1'
+
+      click_on '検索'
+
+      expect(page).to have_content('task_name_1')
+      expect(page).to_not have_content('task_name_2')
+    end
+
+    scenario 'ステータスで検索できること' do
+      visit root_path
+
+      select '着手', from: 'status'
+
+      click_on '検索'
+
+      expect(page).to have_content('task_name_2')
+      expect(page).to_not have_content('task_name_1')
+    end
+  end
 end

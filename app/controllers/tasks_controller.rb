@@ -4,7 +4,13 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    if params[:commit].nil?
+      @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    else
+      @tasks = Task.name_like(params[:name]).
+                 status(params[:status]).
+                 page(params[:page])
+    end
   end
 
   def new

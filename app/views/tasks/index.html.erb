@@ -2,8 +2,25 @@
 
 <h1>Tasks</h1>
 
-<%= paginate @tasks %>
+<%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <%= f.label Task.human_attribute_name(:name) %>
+      <%= f.text_field :name, value: params[:name], placeholder: "タスク名を検索", class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label Task.human_attribute_name(:status) %>
+      <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [t(".status.#{k}"), k] }, selected: params[:status]), prompt: "選択してください", class: "form-control" %>
+    </div>
+  </div>
+  <div class="btn-group">
+    <%= f.submit "検索", class: "btn btn-default btn-primary" %>
+  </div>
+<% end %>
 
+<br>
+
+<%= paginate @tasks %>
 ページ: <%= @tasks.current_page %>/<%= @tasks.total_pages %>
 総件数: <%= @tasks.total_count %>
 
@@ -27,13 +44,6 @@
           <td><%= t(".status.#{task.status}") %></td>
           <td><%= task.description %></td>
           <td><%= link_to t('buttons.show'), task, class: "btn btn-info" %></td>
-          <!-- <td>
-            <%= link_to task_path(task), class: 'btn btn-info' do %>
-              <span class="glyphicon glyphicon-info-sign">
-                <%= t('buttons.show') %>
-              </span>
-            <% end %>
-          </td> -->
           <td><%= link_to t('buttons.edit'), edit_task_path(task), class: "btn btn-primary" %></td>
           <td><%= link_to t('buttons.destroy'), task, class: "btn btn-danger", method: :delete, data: { confirm: t('messages.confirm') } %></td>
         </tr>
