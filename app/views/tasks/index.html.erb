@@ -2,6 +2,11 @@
 
 <h1>Tasks</h1>
 
+<%= paginate @tasks %>
+
+ページ: <%= @tasks.current_page %>/<%= @tasks.total_pages %>
+総件数: <%= @tasks.total_count %>
+
 <div class="table-responsive">
   <table border="table table-striped table-bordered table-hover">
     <thead>
@@ -36,6 +41,8 @@
     </tbody>
   </table>
 </div>
+
+<%= paginate @tasks %>
 
 <br>
 
