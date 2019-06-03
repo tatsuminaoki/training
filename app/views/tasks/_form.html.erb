@@ -1,32 +1,36 @@
-<%= form_with(model: task, local: true) do |form| %>
+<%= form_with(model: task, local: true, class: "form-horizontal") do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-      <% task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <div class="alert alert-danger">
+        <div class='alert-heading'>
+          <a class="close" data-dismiss="alert">×</a>
+          <h2><%= t('errors.template.header', model: task.model_name.human, count: task.errors.count) %></h2>
+        </div>
+        <ul>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k, v| [t(".status.#{k}"), k] }, {prompt: '選択してください'} %>
+    <%= form.select :status, Task.statuses.map { |k, v| [t(".status.#{k}"), k] }, {prompt: '選択してください'}, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="btn-group">
+    <%= form.submit :class => "btn btn-default btn-primary" %>
   </div>
 <% end %>

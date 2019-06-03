@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+  add_flash_types :success, :info, :warning, :danger
+
   private
 
   def render_not_found

@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: t('messages.created', item: @task.model_name.human) }
+        format.html { redirect_to @task, success: t('messages.created', item: @task.model_name.human) }
       else
         format.html { render :new }
       end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: t('messages.updated', item: @task.model_name.human) }
+        format.html { redirect_to @task, success: t('messages.updated', item: @task.model_name.human) }
       else
         format.html { render :edit }
       end
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy!
     respond_to do |format|
-      format.html { redirect_to root_path, notice: t('messages.deleted', item: @task.model_name.human) }
+      format.html { redirect_to root_path, success: t('messages.deleted', item: @task.model_name.human) }
     end
   end
 
