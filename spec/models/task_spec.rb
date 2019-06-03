@@ -44,19 +44,19 @@ RSpec.describe Task, type: :model do
 
     context 'statusへ既定値以外(-1)の入力があると' do
       it 'statusにマイナスの値で永続化できないこと' do
-        expect { task.assign_attributes(status: -1)}.to raise_error(ArgumentError)
+        expect { task.assign_attributes(status: -1) }.to raise_error(ArgumentError)
       end
     end
 
     context 'statusへ既定値以外(0)の入力があると' do
       it 'statusに0の値で永続化できないこと' do
-        expect { task.assign_attributes(status: 0)}.to raise_error(ArgumentError)
+        expect { task.assign_attributes(status: 0) }.to raise_error(ArgumentError)
       end
     end
 
     context 'statusへ既定値以外(4)の入力があると' do
       it 'statusに4の値で永続化できないこと' do
-        expect { task.assign_attributes(status: 4)}.to raise_error(ArgumentError)
+        expect { task.assign_attributes(status: 4) }.to raise_error(ArgumentError)
       end
     end
   end
