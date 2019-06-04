@@ -5,11 +5,17 @@ class TasksController < ApplicationController
 
   def index
     if params[:commit].nil?
-      @tasks = Task.all.order(created_at: :desc).page(params[:page])
+      @tasks = Task.all.page(params[:page])
     else
       @tasks = Task.name_like(params[:name]).
                  status(params[:status]).
                  page(params[:page])
+    end
+
+    if params[:sort_key].present? && params[:sort_value].present?
+      @tasks = @tasks.order("#{params[:sort_key]}": params[:sort_value])
+    else
+      @tasks = @tasks.order(created_at: :desc)
     end
   end
 

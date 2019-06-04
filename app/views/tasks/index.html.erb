@@ -29,7 +29,7 @@
     <thead>
       <tr>
         <th><%= Task.human_attribute_name(:name) %></th>
-        <th><%= Task.human_attribute_name(:created_at) %></th>
+        <th><%= link_to Task.human_attribute_name(:created_at), tasks_path(params: request.query_parameters.merge(sort_key: :created_at, sort_value: "#{params[:sort_value] == "asc" ? "desc" : "asc"}")) %></th>
         <th><%= Task.human_attribute_name(:status) %></th>
         <th><%= Task.human_attribute_name(:description) %></th>
         <th colspan="3"></th>
