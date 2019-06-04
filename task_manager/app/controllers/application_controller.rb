@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance?
-    # File.exist? Rails.public_path.join('tmp', 'maintenance.html').to_s
     File.exist? Constants::MAINTENANCE_FILE
   end
 
