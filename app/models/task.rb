@@ -5,6 +5,6 @@ class Task < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
 
-  scope :name_like, -> name { where('name like ?', "%#{name}%") if name.present? }
-  scope :status, -> status { where(status: status) if status.present? }
+  scope :name_like, -> (name) { where('name like ?', "%#{name}%") if name.present? }
+  scope :status, -> (status) { where(status: status) if status.present? }
 end
