@@ -41,6 +41,11 @@ RSpec.describe TasksController, type: :controller do
   }
 
   describe 'GET #index' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       get :index, params: {}, session: valid_session
       expect(response).to render_template(:index)
@@ -60,6 +65,11 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'GET #show' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       task = general_user.tasks.create! valid_attributes
       get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
@@ -82,6 +92,11 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'GET #new' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       get :new, params: { user_id: current_user.id }, session: valid_session
       expect(response).to render_template(:new)
@@ -95,6 +110,11 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'GET #edit' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       task = current_user.tasks.create! valid_attributes
       get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session

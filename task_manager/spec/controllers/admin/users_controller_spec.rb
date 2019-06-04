@@ -39,6 +39,11 @@ RSpec.describe Admin::UsersController, type: :controller do
   }
 
   describe 'GET #index' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       User.create! valid_attributes
       get :index, params: {}, session: valid_session
@@ -59,6 +64,11 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'GET #new' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
@@ -78,6 +88,11 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'GET #edit' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       user = User.create! valid_attributes
       get :edit, params: { id: user.to_param }, session: valid_session
