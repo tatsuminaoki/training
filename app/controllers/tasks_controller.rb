@@ -12,8 +12,8 @@ class TasksController < ApplicationController
                  page(params[:page])
     end
 
-    if params[:sort_key].present? && params[:sort_value].present?
-      @tasks = @tasks.order("#{params[:sort_key]}": params[:sort_value])
+    if params[:sort].present?
+      @tasks = @tasks.order(created_at: params[:sort])
     else
       @tasks = @tasks.order(created_at: :desc)
     end
