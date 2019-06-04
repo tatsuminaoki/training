@@ -95,6 +95,6 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
   config.after(:each) do
     # Get rid of the maintenance file
-    FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance.html')]) if Rails.env.test?
+    FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
   end
 end
