@@ -49,8 +49,22 @@ RSpec.describe 'Tasks', type: :system do
       create(:task, { name: 'task2', created_at: 1.day.ago })
     end
 
-    scenario '一覧のソート順が登録日の降順であること' do
+    scenario '一覧の初期表示のソート順が登録日の降順であること' do
       visit root_path
+
+      tds = page.all('td')
+      expect(tds[0]).to have_content 'task1'
+    end
+
+    scenario '一覧のソート順が登録日の昇順/降順と切り替わること' do
+      visit root_path
+
+      click_on '▲'
+
+      tds = page.all('td')
+      expect(tds[0]).to have_content 'task2'
+
+      click_on '▼'
 
       tds = page.all('td')
       expect(tds[0]).to have_content 'task1'
