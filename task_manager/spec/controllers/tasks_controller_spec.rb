@@ -41,6 +41,11 @@ RSpec.describe TasksController, type: :controller do
   }
 
   describe 'GET #index' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       get :index, params: {}, session: valid_session
       expect(response).to render_template(:index)
@@ -51,9 +56,20 @@ RSpec.describe TasksController, type: :controller do
       get :index, params: { user_id: current_user.id }, session: valid_session
       expect(response).to render_template(:index)
     end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      get :index, params: {}, session: valid_session
+      expect(response).to render_template('errors/maintenance')
+    end
   end
 
   describe 'GET #show' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       task = general_user.tasks.create! valid_attributes
       get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
@@ -66,20 +82,50 @@ RSpec.describe TasksController, type: :controller do
       get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
       expect(response).to redirect_to(:root)
     end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      task = general_user.tasks.create! valid_attributes
+      get :show, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
+      expect(response).to render_template('errors/maintenance')
+    end
   end
 
   describe 'GET #new' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       get :new, params: { user_id: current_user.id }, session: valid_session
       expect(response).to render_template(:new)
     end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      get :new, params: { user_id: current_user.id }, session: valid_session
+      expect(response).to render_template('errors/maintenance')
+    end
   end
 
   describe 'GET #edit' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     it 'returns a success response' do
       task = current_user.tasks.create! valid_attributes
       get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
       expect(response).to render_template(:edit)
+    end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      task = current_user.tasks.create! valid_attributes
+      get :edit, params: { user_id: task.user.id, id: task.to_param }, session: valid_session
+      expect(response).to render_template('errors/maintenance')
     end
   end
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'rake'
+Rails.application.load_tasks
 
 RSpec.describe UsersController, type: :controller do
   before do
@@ -33,6 +35,11 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session) { {} }
 
   describe 'GET #show' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     context 'by correct user' do
       it 'returns a success response' do
         get :show, params: { id: user.to_param }, session: valid_session
@@ -46,9 +53,21 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(:root)
       end
     end
+
+    it 'render the 503 page' do
+      # MaintenanceMode.start
+      Rake::Task['maintenance_mode:start'].invoke
+      get :show, params: { id: user.to_param }, session: valid_session
+      expect(response).to render_template('errors/maintenance')
+    end
   end
 
   describe 'GET #new' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     context 'by correct user' do
       it 'returns a success response' do
         get :new, params: {}, session: valid_session
@@ -62,9 +81,20 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      get :new, params: {}, session: valid_session
+      expect(response).to render_template('errors/maintenance')
+    end
   end
 
   describe 'GET #edit' do
+    after do
+      # Get rid of the maintenance file
+      FileUtils.rm_rf(Dir[Rails.root.join('public', 'tmp', 'maintenance')]) if Rails.env.test?
+    end
+
     context 'by correct user' do
       it 'returns a success response' do
         get :edit, params: { id: user.to_param }, session: valid_session
@@ -77,6 +107,12 @@ RSpec.describe UsersController, type: :controller do
         get :edit, params: { id: user.to_param }, session: valid_session
         expect(response).to redirect_to(:root)
       end
+    end
+
+    it 'render the 503 page' do
+      MaintenanceMode.start
+      get :edit, params: { id: user.to_param }, session: valid_session
+      expect(response).to render_template('errors/maintenance')
     end
   end
 
