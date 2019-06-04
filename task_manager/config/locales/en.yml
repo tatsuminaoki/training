@@ -215,6 +215,7 @@ en:
       forbidden: Forbidden.
       incomplete_request: The service received a incomplete request.
       maintenance: Maintenance now...
+      maintenance_now: It is under maintenance now. Please wait for the maintenance to complete.
       may have moved: You may have mistyped the address or the page may have moved.
       not_exist: The page you were looking for doesn't exist.
       no_permmition: You are not authorized to access this page.

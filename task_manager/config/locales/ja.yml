@@ -210,6 +210,7 @@ ja:
       forbidden: アクセス制限されています。
       incomplete_request: 不正なリクエストを受け取りました。正しいリクエストか確認して下さい。
       maintenance: メンテナンス中です。
+      maintenance_now: ただいまメンテナンスを行なっております。メンテナンスが終了するまでもうしばらくお待ちください。
       may_have_moved: URLを間違えているか、ページが移動した可能性があります。
       not_exist: お探しのページは見つかりません。
       no_permmition: アクセスするための許可がありません。
