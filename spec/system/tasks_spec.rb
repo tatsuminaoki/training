@@ -54,6 +54,7 @@ RSpec.describe 'Tasks', type: :system do
 
       tds = page.all('td')
       expect(tds[0]).to have_content 'task1'
+      expect(tds[7]).to have_content 'task2'
     end
 
     scenario '一覧のソート順が登録日の昇順/降順と切り替わること' do
@@ -91,6 +92,18 @@ RSpec.describe 'Tasks', type: :system do
     scenario 'ステータスで検索できること' do
       visit root_path
 
+      select '着手', from: 'status'
+
+      click_on '検索'
+
+      expect(page).to have_content('task_name_2')
+      expect(page).to_not have_content('task_name_1')
+    end
+
+    scenario 'タスク名とステータスで検索できること' do
+      visit root_path
+
+      fill_in 'name', with: 'task_name_2'
       select '着手', from: 'status'
 
       click_on '検索'
