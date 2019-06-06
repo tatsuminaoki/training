@@ -9,3 +9,4 @@ ja:
         name: タスク名
         status: ステータス
         created_at: 作成日
+        finished_on: 終了期限

@@ -9,3 +9,4 @@ en:
         name: Name  #g
         status: Status  #g
         created_at: Created at
+        finished_on: Finished on

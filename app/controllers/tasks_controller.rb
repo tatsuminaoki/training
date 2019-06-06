@@ -63,6 +63,7 @@ class TasksController < ApplicationController
       :name,
       :description,
       :status,
+      :finished_on,
     )
   end
 end
