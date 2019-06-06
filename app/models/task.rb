@@ -12,6 +12,6 @@ class Task < ApplicationRecord
   scope :status, -> (status) { where(status: status) if status.present? }
 
   def validates_past_date_not_allowed
-    errors.add(:finished_on, 'に過去日は指定できません') if finished_on.past?
+    errors.add(:finished_on, I18n.t('errors.messages.past_days')) if finished_on.past?
   end
 end
