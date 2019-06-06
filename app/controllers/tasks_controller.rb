@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     @tasks = if params[:commit].nil?
                Task.all.page(params[:page])
              else
@@ -13,7 +13,7 @@ class TasksController < ApplicationController
              end
 
     @tasks = if params[:sort].present?
-               @tasks.order(created_at: params[:sort])
+               @tasks.order(finished_on: params[:sort])
              else
                @tasks.order(created_at: :desc)
              end
