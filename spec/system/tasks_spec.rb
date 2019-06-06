@@ -45,8 +45,8 @@ RSpec.describe 'Tasks', type: :system do
 
   context '一覧表示' do
     before do
-      create(:task, { name: 'task1', created_at: Time.zone.now })
-      create(:task, { name: 'task2', created_at: 1.day.ago })
+      create(:task, { name: 'task1', created_at: Time.zone.now, finished_on: 1.day.since.to_date })
+      create(:task, { name: 'task2', created_at: 1.day.ago, finished_on: Date.current })
     end
 
     scenario '一覧の初期表示のソート順が登録日の降順であること' do
@@ -54,7 +54,7 @@ RSpec.describe 'Tasks', type: :system do
 
       tds = page.all('td')
       expect(tds[0]).to have_content 'task1'
-      expect(tds[7]).to have_content 'task2'
+      expect(tds[8]).to have_content 'task2'
     end
 
     scenario '一覧のソート順が登録日の昇順/降順と切り替わること' do
