@@ -2,6 +2,8 @@
 
 <h1>Tasks</h1>
 
+<%= link_to t('buttons.new'), new_task_path, class: "btn btn-primary float-right" %>
+
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
   <div class="form-row">
     <div class="form-group col-md-4">
@@ -53,7 +55,3 @@
 </div>
 
 <%= paginate @tasks %>
-
-<br>
-
-<%= link_to t('buttons.new'), new_task_path, class: "btn btn-primary pull-right" %>
