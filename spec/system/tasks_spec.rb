@@ -78,6 +78,15 @@ RSpec.describe 'Tasks', type: :system do
       create(:task, { name: 'task_name_2', status: :work_in_progress })
     end
 
+    scenario '検索項目に入力なしで検索できること' do
+      visit root_path
+
+      click_on '検索'
+
+      expect(page).to have_content('task_name_1')
+      expect(page).to have_content('task_name_2')
+    end
+
     scenario 'タスク名で検索できること' do
       visit root_path
 
