@@ -6,7 +6,7 @@ RSpec.describe 'Tasks', type: :system do
   specify 'User operates from creation to editing to deletion' do
     visit root_path
 
-    expect(page).to have_content('Tasks')
+    expect(page).to have_content('タスク管理')
 
     click_on '新規'
 
@@ -37,7 +37,7 @@ RSpec.describe 'Tasks', type: :system do
 
     click_on '戻る'
 
-    expect(page).to have_content('Tasks')
+    expect(page).to have_content('タスク管理')
     expect(page).to have_content('update')
     expect(page).to have_content('hoge-update')
     expect(page).to have_content('完了')
