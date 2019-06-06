@@ -57,7 +57,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(tds[8]).to have_content 'task2'
     end
 
-    scenario '一覧のソート順が登録日の昇順/降順と切り替わること' do
+    scenario '一覧のソート順が終了期限の昇順/降順と切り替わること' do
       visit root_path
 
       click_on '▲'
