@@ -2,5 +2,7 @@
 
 <%= render 'form', task: @task %>
 
-<%= link_to t('buttons.show'), @task %> |
-<%= link_to t('buttons.back'), root_path %>
+<div class="mt-1">
+  <%= link_to t('buttons.show'), @task, class: "btn btn-info" %>
+  <%= link_to t('buttons.back'), root_path, class: "btn btn-secondary" %>
+</div>

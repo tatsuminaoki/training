@@ -12,12 +12,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_531_002_052) do
+ActiveRecord::Schema.define(version: 20_190_606_025_415) do
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'name', limit: 20, null: false
     t.text 'description'
     t.integer 'status', limit: 1, default: 1, null: false, unsigned: true
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.date 'finished_on', null: false
+    t.index ['finished_on'], name: 'index_tasks_on_finished_on'
+    t.index ['status'], name: 'index_tasks_on_status'
   end
 end

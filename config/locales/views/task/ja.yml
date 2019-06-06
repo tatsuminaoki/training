@@ -6,6 +6,8 @@ ja:
   tasks:
     index:
       status: *status
+      title: タスク管理
+      placeholder: タスク名を検索
     form:
       status: *status
     show:

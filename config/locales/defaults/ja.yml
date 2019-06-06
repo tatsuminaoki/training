@@ -13,3 +13,8 @@ ja:
     destroy: 削除
     back: 戻る
     search: 検索
+  errors:
+    messages:
+      past_days: は過去の日付を入力できません。
+  page: ページ
+  total_count: 総件数

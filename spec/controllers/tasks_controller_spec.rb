@@ -27,6 +27,7 @@ RSpec.describe TasksController, type: :controller do
         task: {
           name: 'task name',
           status: :waiting,
+          finished_on: Date.current,
         },
       }
     end
@@ -36,6 +37,34 @@ RSpec.describe TasksController, type: :controller do
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(task_path(assigns(:task).id))
+    end
+
+    context '終了期限に入力がないと' do
+      before do
+        params[:task][:finished_on] = nil
+      end
+
+      it "returns a success response (i.e. to display the 'new' template)" do
+        post :create, params: params
+
+        expect(response).to be_successful
+        expect(response).to render_template('tasks/new')
+        expect(assigns(:task).errors[:finished_on]).to be_present
+      end
+    end
+
+    context '終了期限に過去日を入力すると' do
+      before do
+        params[:task][:finished_on] = 1.day.ago.to_date
+      end
+
+      it "returns a success response (i.e. to display the 'new' template)" do
+        post :create, params: params
+
+        expect(response).to be_successful
+        expect(response).to render_template('tasks/new')
+        expect(assigns(:task).errors[:finished_on]).to be_present
+      end
     end
   end
 
