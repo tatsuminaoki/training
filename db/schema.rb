@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,15 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_606_025_415) do
-  create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
-    t.string 'name', limit: 20, null: false
-    t.text 'description'
-    t.integer 'status', limit: 1, default: 1, null: false, unsigned: true
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.date 'finished_on', null: false
-    t.index ['finished_on'], name: 'index_tasks_on_finished_on'
-    t.index ['status'], name: 'index_tasks_on_status'
+ActiveRecord::Schema.define(version: 2019_06_07_080859) do
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.text "description"
+    t.integer "status", limit: 1, default: 1, null: false, unsigned: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "finished_on", null: false
+    t.index ["finished_on"], name: "index_tasks_on_finished_on"
+    t.index ["status"], name: "index_tasks_on_status"
   end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
 end
