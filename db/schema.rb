@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_610_012_537) do
+ActiveRecord::Schema.define(version: 20_190_610_013_610) do
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'name', limit: 20, null: false
     t.text 'description'
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20_190_610_012_537) do
     t.date 'finished_on', null: false
     t.index ['finished_on'], name: 'index_tasks_on_finished_on'
     t.index ['status'], name: 'index_tasks_on_status'
+  end
+
+  create_table 'user_credentials', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.bigint 'user_id', null: false, unsigned: true
+    t.string 'password_digest', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_user_credentials_on_user_id'
   end
 
   create_table 'user_tokens', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
