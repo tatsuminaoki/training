@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
 <h1>Task Detail</h1>
 
-<div class="">
-  <%= @task.title %>
-  <%= @task.detail %>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"><%= @task.title %></h4>
+    <p class="card-text"> <%= @task.detail %></p>
+  </div>
 </div>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_task_path(@task), class: "btn btn-primary" %>
+<%= link_to 'Back', tasks_path, class: "btn btn-primary" %>
