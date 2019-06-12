@@ -50,7 +50,7 @@ describe TasksController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let(:task) { create(:task, title: 'old title', detail: "old detail") }
+    let(:task) { create(:task, title: 'old title', detail: 'old detail') }
     let(:update_attributes) { { title: 'new title', detail: 'new detail' } }
 
     it 'ステータスコードが302(リダイレクト)' do
@@ -61,7 +61,7 @@ describe TasksController, type: :request do
     it 'タスクを更新できる' do
       expect do
         put task_url(task), params: { task: update_attributes }
-      end.to change{ Task.last.title }.from('old title').to('new title')
+      end.to change { Task.last.title }.from('old title').to('new title')
     end
 
     it 'showにリダイレクトされる' do
@@ -71,20 +71,20 @@ describe TasksController, type: :request do
   end
 
   describe 'DELETE #destroy' do
-   it 'ステータスコードが302(リダイレクト)' do
-     delete task_url(task)
-     expect(response.status).to eq 302
-   end
+    it 'ステータスコードが302(リダイレクト)' do
+      delete task_url(task)
+      expect(response.status).to eq 302
+    end
 
-   it 'タスクを削除できる' do
-     expect do
-       delete task_url(task)
-     end.to change(Task, :count).by(-1)
-   end
+    it 'タスクを削除できる' do
+      expect do
+        delete task_url(task)
+      end.to change(Task, :count).by(-1)
+    end
 
-   it 'indexにリダイレクトされる' do
-     delete task_url(task)
-     expect(response).to redirect_to(tasks_url)
-   end
+    it 'indexにリダイレクトされる' do
+      delete task_url(task)
+      expect(response).to redirect_to(tasks_url)
+    end
   end
 end
