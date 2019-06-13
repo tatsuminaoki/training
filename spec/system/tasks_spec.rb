@@ -49,8 +49,8 @@ RSpec.describe 'Tasks', type: :system do
 
   context '一覧表示' do
     before do
-      create(:task, { name: 'task1', created_at: Time.zone.now, finished_on: 1.day.since.to_date })
-      create(:task, { name: 'task2', created_at: 1.day.ago, finished_on: Date.current })
+      create(:task, { name: 'task1', created_at: Time.zone.now, finished_on: 1.day.since.to_date, user: user })
+      create(:task, { name: 'task2', created_at: 1.day.ago, finished_on: Date.current, user: user })
     end
 
     scenario '一覧の初期表示のソート順が登録日の降順であること' do
@@ -82,8 +82,8 @@ RSpec.describe 'Tasks', type: :system do
 
   context '一覧検索' do
     before do
-      create(:task, { name: 'task_name_1' })
-      create(:task, { name: 'task_name_2', status: :work_in_progress })
+      create(:task, { name: 'task_name_1', user: user })
+      create(:task, { name: 'task_name_2', status: :work_in_progress, user: user })
     end
 
     scenario '検索項目に入力なしで検索できること' do

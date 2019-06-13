@@ -75,7 +75,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:task) { create(:task) }
+    let(:task) { create(:task, user: user) }
 
     it 'returns a success response' do
       get :show, params: { id: task.to_param }
@@ -83,10 +83,27 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to be_successful
       expect(response).to render_template('tasks/show')
     end
+
+    context '他のユーザーが作成したタスクを参照すると' do
+      let(:other_user) {
+        create(:user,
+               name: 'other user',
+               email: 'other@test.com',
+               email_confirmation: 'other@test.com',
+              )
+      }
+      let(:task) { create(:task, user: other_user) }
+
+      it 'returns not found' do
+        get :show, params: { id: task.to_param }
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 
   describe 'GET #edit' do
-    let(:task) { create(:task) }
+    let(:task) { create(:task, user: user) }
     it 'returns a success response' do
       get :edit, params: { id: task.to_param }
 
@@ -96,7 +113,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:task) { create(:task) }
+    let(:task) { create(:task, user: user) }
     let(:params) do
       {
         id: task.id,
@@ -117,7 +134,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:task) { create(:task, status: :work_in_progress) }
+    let(:task) { create(:task, status: :work_in_progress, user: user) }
 
     it 'destroys the requested task' do
       delete :destroy, params: { id: task.to_param }

@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
   end
 
   def require_user
-    return unless user.blank?
+    return if user.present?
     flash.now[:danger] = 'メールアドレスまたはパスワードが違います。'
     render :new
   end

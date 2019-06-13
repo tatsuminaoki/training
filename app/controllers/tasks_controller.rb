@@ -5,9 +5,9 @@ class TasksController < ApplicationController
 
   def index # rubocop:disable Metrics/AbcSize
     @tasks = if params[:commit].nil?
-               Task.all.page(params[:page])
+               current_user.tasks.all.page(params[:page])
              else
-               Task.name_like(params[:name]).
+               current_user.tasks.name_like(params[:name]).
                           status(params[:status]).
                           page(params[:page])
              end
@@ -20,11 +20,12 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    # @task = Task.new
+    @task = current_user.tasks.new
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
 
     if @task.save
       redirect_to @task, success: t('messages.created', item: @task.model_name.human)
@@ -55,7 +56,8 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    # TODO: 他のtask参照しようとしたらのspec足したい
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params

@@ -36,6 +36,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'bcrypt'
 gem 'bootstrap', '~> 4.3.1'
+gem 'bullet'
 gem 'i18n_generators'
 gem 'jquery-rails'
 gem 'kaminari'

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :user_tokens, dependent: :destroy
   has_one :user_credential, dependent: :destroy
+
+  has_many :user_tokens, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   attr_accessor :email_confirmation
 
