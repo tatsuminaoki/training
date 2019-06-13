@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  let(:user) { create(:user) }
+
+  before do
+    user_login(user: user)
+  end
+
   describe 'GET #index' do
     it 'returns http success' do
       get :index, params: {}

@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
+  let(:user) { create(:user) }
+
   specify 'User operates from creation to editing to deletion' do
+    user_login(user: user)
+
     visit root_path
 
     expect(page).to have_content('タスク管理')
@@ -50,6 +54,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario '一覧の初期表示のソート順が登録日の降順であること' do
+      user_login(user: user)
+
       visit root_path
 
       tds = page.all('td')
@@ -58,6 +64,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario '一覧のソート順が終了期限の昇順/降順と切り替わること' do
+      user_login(user: user)
+
       visit root_path
 
       click_on '▲'
@@ -79,6 +87,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario '検索項目に入力なしで検索できること' do
+      user_login(user: user)
+
       visit root_path
 
       click_on '検索'
@@ -88,6 +98,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario 'タスク名で検索できること' do
+      user_login(user: user)
+
       visit root_path
 
       fill_in 'name', with: 'task_name_1'
@@ -99,6 +111,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario 'ステータスで検索できること' do
+      user_login(user: user)
+
       visit root_path
 
       select '着手', from: 'status'
@@ -110,6 +124,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     scenario 'タスク名とステータスで検索できること' do
+      user_login(user: user)
+
       visit root_path
 
       fill_in 'name', with: 'task_name_2'
