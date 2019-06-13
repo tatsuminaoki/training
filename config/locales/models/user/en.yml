@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      user: User
+
+    attributes:
+      user:
+        name: Name
+        email: Email
+        email_confirmation: Email Confirmation
+        created_at: Created at

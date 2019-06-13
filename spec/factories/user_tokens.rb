@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :user_token do
-    token { 'MyString' }
+    association(:user)
   end
 end
+

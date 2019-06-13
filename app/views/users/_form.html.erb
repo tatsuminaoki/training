@@ -1,0 +1,36 @@
+<%= form_with(model: user, local: true, class: "form-horizontal") do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        <div class='alert-heading'>
+          <a class="close" data-dismiss="alert">×</a>
+          <h2><%= t('errors.template.header', model: user.model_name.human, count: user.errors.count) %></h2>
+        </div>
+        <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email_confirmation %>
+    <%= form.text_field :email_confirmation, class: "form-control" %>
+  </div>
+
+  <div class="btn-group">
+    <%= form.submit :class => "btn btn-default btn-primary" %>
+  </div>
+<% end %>

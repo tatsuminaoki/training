@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    email { 'MyString' }
-    name { 'MyString' }
+    email { 'test@test.com' }
+    email_confirmation { 'test@test.com' }
+    name { 'User Name' }
   end
 end

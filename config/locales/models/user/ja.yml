@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+
+    attributes:
+      user:
+        name: ユーザー名
+        email: メールアドレス
+        email_confirmation: メールアドレス(確認)
+        created_at: 作成日
