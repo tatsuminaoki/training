@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :user_credential do
-    password_digest { 'MyString' }
+    password_digest { 'Password' }
   end
 end
