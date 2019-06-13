@@ -7,7 +7,5 @@ Rails.application.routes.draw do
   resources :users, only: %i[new create]
   resources :user_credentials, only: %i[new create]
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/letter_opener'
-  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

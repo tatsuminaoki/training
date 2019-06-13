@@ -23,9 +23,7 @@ class UserCredentialsController < ApplicationController
   private
 
   def require_valid_user
-    unless user_token.expires_at >= Time.zone.now
-      raise Forbidden
-    end
+    raise Forbidden unless user_token.expires_at >= Time.zone.now
   end
 
   def user_token

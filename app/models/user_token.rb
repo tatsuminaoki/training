@@ -6,7 +6,7 @@ class UserToken < ApplicationRecord
   before_create :initialize_token
   before_create :initialize_expires_at
 
-  TOKEN_EXPIRE_TERM = 2.day
+  TOKEN_EXPIRE_TERM = 2.days
 
   private
 

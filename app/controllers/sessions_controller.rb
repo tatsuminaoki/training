@@ -36,16 +36,12 @@ class SessionsController < ApplicationController
   end
 
   def require_user
-    unless user.present?
-      flash.now[:danger] = 'メールアドレスまたはパスワードが違います。'
-      render :new
-      return
-    end
+    return unless user.blank?
+    flash.now[:danger] = 'メールアドレスまたはパスワードが違います。'
+    render :new
   end
 
   def redirect_if_logged_in
-    if current_user
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user
   end
 end

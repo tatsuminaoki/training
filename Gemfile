@@ -34,25 +34,25 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'bcrypt'
 gem 'bootstrap', '~> 4.3.1'
 gem 'i18n_generators'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'rails-i18n'
-gem 'bcrypt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
   gem 'factory_bot_rails'
+  gem 'letter_opener_web'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'letter_opener_web'
 end
 
 group :development do

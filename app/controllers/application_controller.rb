@@ -15,9 +15,7 @@ class ApplicationController < ActionController::Base
   private
 
   def require_session
-    unless current_user
-      redirect_to new_session_path
-    end
+    redirect_to new_session_path unless current_user
   end
 
   helper_method def current_user
@@ -25,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_forbidden
-    render file: "public/403.html", layout: false, status: 403
+    render file: 'public/403.html', layout: false, status: 403
   end
 
   def render_not_found
