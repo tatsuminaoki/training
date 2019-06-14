@@ -56,7 +56,6 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    # TODO: 他のtask参照しようとしたらのspec足したい
     @task = current_user.tasks.find(params[:id])
   end
 
