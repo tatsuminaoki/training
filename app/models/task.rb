@@ -7,8 +7,8 @@ class Task < ApplicationRecord
 
   def self.search(params)
     tasks = Task.all
-    tasks = tasks.where('title LIKE ?', "%#{sanitize_sql_like(params[:title])}%") if params[:title]
-    tasks = tasks.where(status: params[:status]) if params[:status]
+    tasks = tasks.where('title LIKE ?', "%#{sanitize_sql_like(params[:title])}%") if params[:title].present?
+    tasks = tasks.where(status: params[:status]) if params[:status].present?
     tasks
   end
 end

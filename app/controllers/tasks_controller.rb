@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.search(params)
+    @params = params
   end
 
   def show
