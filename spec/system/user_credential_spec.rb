@@ -15,8 +15,8 @@ RSpec.describe 'UserCredentials', type: :system do
 
     expect(page).to have_content('入力が一致しません')
 
-    fill_in 'user_credential[password]', with: 'hoge'
-    fill_in 'user_credential[password_confirmation]', with: 'hoge'
+    fill_in 'user_credential[password]', with: 'hogefuga'
+    fill_in 'user_credential[password_confirmation]', with: 'hogefuga'
 
     click_on '登録する'
 

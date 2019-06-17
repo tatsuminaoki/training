@@ -56,7 +56,7 @@ RSpec.describe UserCredentialsController, type: :controller do
 
     context '異なるパスワードで' do
       before do
-        params[:user_credential][:password_confirmation] = 'hoge'
+        params[:user_credential][:password_confirmation] = 'hogefuga'
       end
 
       it 'パスワード設定できないこと' do
@@ -65,6 +65,24 @@ RSpec.describe UserCredentialsController, type: :controller do
         expect(response).to be_successful
         expect(response).to render_template('user_credentials/new')
         expect(assigns(:user_credential).errors[:password_confirmation]).to be_present
+        expect(UserCredential.count).to eq(0)
+      end
+    end
+
+    context '6文字以下のパスワードで' do
+      let(:password) { 'a' * 5 }
+
+      before do
+        params[:user_credential][:password] = password
+        params[:user_credential][:password_confirmation] = password
+      end
+
+      it 'パスワード設定できないこと' do
+        post :create, params: params
+
+        expect(response).to be_successful
+        expect(response).to render_template('user_credentials/new')
+        expect(assigns(:user_credential).errors[:password]).to be_present
         expect(UserCredential.count).to eq(0)
       end
     end
