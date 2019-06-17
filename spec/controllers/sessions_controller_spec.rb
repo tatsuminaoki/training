@@ -10,6 +10,21 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to be_successful
       expect(response).to render_template('sessions/new')
     end
+
+    context 'すでにログインしている状態で' do
+      let(:user) { create(:user) }
+
+      before do
+        user_login(user: user)
+      end
+
+      it 'root_path にリダイレクトされること' do
+        get :new, params: {}
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   describe 'POST #create' do
