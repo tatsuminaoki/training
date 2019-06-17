@@ -5,6 +5,8 @@ class Task < ApplicationRecord
 
   enum status: %i[todo doing done]
 
+  belongs_to :user
+
   def self.search(params)
     tasks = Task.all
     tasks = tasks.where('title LIKE ?', "%#{sanitize_sql_like(params[:title])}%") if params[:title].present?
