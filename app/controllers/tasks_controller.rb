@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update destroy]
+  before_action :task, only: %i[show edit update destroy]
 
   def index # rubocop:disable Metrics/AbcSize
     @tasks = if params[:commit].nil?
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
 
   private
 
-  def set_task
+  def task
     @task = current_user.tasks.find(params[:id])
   end
 
