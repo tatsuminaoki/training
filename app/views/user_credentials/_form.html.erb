@@ -1,13 +1,13 @@
-<%= form_with(model: @user_credential, url: user_credentials_path(id: @user_token.token), local: true, class: "form-horizontal") do |form| %>
-  <% if @user_credential.errors.any? %>
+<%= form_with(model: user_credential, url: user_credentials_path(id: @user_token.token), local: true, class: "form-horizontal") do |form| %>
+  <% if user_credential.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
         <div class='alert-heading'>
           <a class="close" data-dismiss="alert">×</a>
-          <h2><%= t('errors.template.header', model: @user_credential.model_name.human, count: @user_credential.errors.count) %></h2>
+          <h2><%= t('errors.template.header', model: user_credential.model_name.human, count: user_credential.errors.count) %></h2>
         </div>
         <ul>
-        <% @user_credential.errors.full_messages.each do |message| %>
+        <% user_credential.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
         </ul>
