@@ -3,7 +3,7 @@
 <table class="table table-striped">
   <div class="form-group">
     <%= form_with url: tasks_path, method: :get, local: true do |f| %>
-      <%= f.text_field :title, value: params[:name] %>
+      <%= f.text_field :title, value: params[:title] %>
       <%= f.select :status, options_for_select(Task.statuses, params[:status]), include_blank: true, class: 'form-control' %>
       <%= f.submit '検索' %>
     <% end %>
