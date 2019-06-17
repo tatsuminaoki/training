@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user.user_credential.authenticate(params[:session][:password])
+    if user.user_credential&.authenticate(params[:session][:password])
       session[:current_user_id] = user.id
 
       redirect_to root_path

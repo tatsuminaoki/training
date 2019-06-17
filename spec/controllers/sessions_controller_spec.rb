@@ -28,9 +28,29 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context '間違ったパスワードで' do
+      before do
+        params[:session][:password] = 'hogefuga'
+      end
+
+      it 'ログインできないこと' do
+        post :create, params: params
+
+        expect(response).to be_successful
+        expect(response).to render_template('sessions/new')
+      end
     end
 
     context 'パスワード未設定の状態で' do
+      before do
+        user_credential.destroy!
+      end
+
+      it 'ログインできないこと' do
+        post :create, params: params
+
+        expect(response).to be_successful
+        expect(response).to render_template('sessions/new')
+      end
     end
   end
 
