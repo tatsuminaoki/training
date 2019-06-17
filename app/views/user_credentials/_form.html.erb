@@ -1,4 +1,4 @@
-<%= form_with(model: user_credential, url: user_credentials_path(id: @user_token.token), local: true, class: "form-horizontal") do |form| %>
+<%= form_with(model: user_credential, url: user_credentials_path(id: token), local: true, class: "form-horizontal") do |form| %>
   <% if user_credential.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
