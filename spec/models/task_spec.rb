@@ -84,7 +84,7 @@ RSpec.describe Task, type: :model do
           expect(task).to be_valid
         end
       end
-      context 'ステータスが規定値[todo,doing,done]以外の場合' do
+      context 'ステータスが規定値(todo: 0, doing: 1, done: 2)以外の場合' do
         it 'ArgumentErrorが発生する' do
           expect { build(:task, status: 9) }.to raise_error(ArgumentError)
         end
