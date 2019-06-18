@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :sessions, only: %i[new create destroy]
   resources :users, only: %i[new create]
   resources :user_credentials, only: %i[new create]
+  namespace :admin do
+    resources :users
+  end
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
