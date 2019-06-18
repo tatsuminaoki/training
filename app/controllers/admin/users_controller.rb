@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :user, only: %i[show]
+  before_action :user, only: %i[show edit update]
 
   def index
     @users = User.all.order(created_at: :desc)
@@ -24,6 +24,17 @@ class Admin::UsersController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to admin_users_path, success: t('messages.updated', item: @user.model_name.human)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user
@@ -32,10 +43,12 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
+      :id,
       :name,
       :email,
       :email_confirmation,
       user_credential_attributes: [
+        :id,
         :password,
         :password_confirmation,
       ]

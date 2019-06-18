@@ -50,4 +50,49 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to render_template('admin/users/show')
     end
   end
+
+  describe 'GET #edit' do
+    it 'returns a success response' do
+      get :edit, params: { id: user.to_param }
+
+      expect(response).to be_successful
+      expect(response).to render_template('admin/users/edit')
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:user_1) {
+      create(:user,
+             name: 'user1',
+             email: 'user1@test.com',
+             email_confirmation: 'user1@test.com',
+            )
+    }
+    let(:user_credential_1) { user_1.create_user_credential(password: 'password') }
+
+    let(:password) { 'a' * 6 }
+    let(:params) do
+      {
+        id: user_1.id,
+        user: {
+          name: 'user2',
+          email: 'user2@test.com',
+          email_confirmation: 'user2@test.com',
+          user_credential_attributes: {
+            id: user_credential_1.id,
+            password: password,
+            password_confirmation: password,
+          },
+        },
+      }
+    end
+
+    it 'updates a new user and returns success' do
+      patch :update, params: params
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(admin_users_path)
+      expect(user_1.reload.name).to eq('user2')
+    end
+  end
 end
