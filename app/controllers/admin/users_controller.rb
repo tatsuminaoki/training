@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
+  before_action :user, only: %i[show]
+
   def index
     @users = User.all.order(created_at: :desc)
   end
@@ -19,7 +21,14 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
   private
+
+  def user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(

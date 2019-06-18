@@ -41,4 +41,13 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to redirect_to(admin_users_path)
     end
   end
+
+  describe 'GET #show' do
+    it 'returns a success response' do
+      get :show, params: { id: user.to_param }
+
+      expect(response).to be_successful
+      expect(response).to render_template('admin/users/show')
+    end
+  end
 end
