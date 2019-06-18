@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum status: { waiting: 1, work_in_progress: 2, completed: 3 }
 
   validates :name, presence: true, length: { maximum: 20 }

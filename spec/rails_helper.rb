@@ -70,4 +70,7 @@ RSpec.configure do |config|
       end
     end
   end
+
+  config.include UserSession::ControllerSpecHelper, type: :controller
+  config.include UserSession::SystemSpecHelper, type: :system
 end
