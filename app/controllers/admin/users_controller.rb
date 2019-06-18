@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :user, only: %i[show edit update]
+  before_action :user, only: %i[show edit update destroy]
 
   def index
     @users = User.all.order(created_at: :desc)
@@ -33,6 +33,11 @@ class Admin::UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy!
+    redirect_to admin_users_path, success: t('messages.deleted', item: @user.model_name.human)
   end
 
   private

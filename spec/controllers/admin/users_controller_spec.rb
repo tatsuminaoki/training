@@ -95,4 +95,24 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(user_1.reload.name).to eq('user2')
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:user_2) {
+      create(:user,
+             name: 'user2',
+             email: 'user2@test.com',
+             email_confirmation: 'user2@test.com',
+            )
+    }
+    let!(:user_credential_2) { user_2.create_user_credential(password: 'password') }
+    let!(:task) { create(:task, user: user_2) }
+
+    it 'destroys the requested user' do
+      delete :destroy, params: { id: user_2.to_param }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(admin_users_path)
+      expect(Task.count).to eq(0)
+    end
+  end
 end
