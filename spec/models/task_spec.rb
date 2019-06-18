@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'valid?' do
     let(:task) { create(:task) }
+    let(:user) { create(:user) }
 
     context 'タイトルと詳細とステータスがある場合' do
       it 'タスクが正常に作成される' do
