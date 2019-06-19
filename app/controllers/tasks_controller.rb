@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.search(params)
+    @tasks = Task.all.includes(:user).search(params)
     @params = params
   end
 
@@ -46,6 +46,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.fetch(:task, {}).permit(:title, :detail, :status)
+    params.fetch(:task, {}).permit(:title, :detail, :status, :user_id)
   end
 end

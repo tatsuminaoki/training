@@ -31,7 +31,7 @@ describe TasksController, type: :request do
     end
   end
 
-  describe 'POST #create' do
+  xdescribe 'POST #create' do
     it 'ステータスコードが302(リダイレクト)' do
       post tasks_url, params: { task: attributes_for(:task) }
       expect(response.status).to eq 302
