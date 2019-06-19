@@ -13,4 +13,4 @@ user = User.create!(
   email: 'test@test.com',
   email_confirmation: 'test@test.com',
 )
-user.create_user_credential!(password_digest: BCrypt::Password.create('test'))
+user.create_user_credential!(password_digest: BCrypt::Password.create('123456'))
