@@ -18,6 +18,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
 
     if @task.save
       redirect_to @task, success: 'タスクを作成しました'
@@ -46,6 +47,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.fetch(:task, {}).permit(:title, :detail, :status)
+    params.fetch(:task, {}).permit(:title, :detail, :status, :user_id)
   end
 end
