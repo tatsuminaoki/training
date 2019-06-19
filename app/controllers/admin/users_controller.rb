@@ -52,11 +52,11 @@ class Admin::UsersController < ApplicationController
       :name,
       :email,
       :email_confirmation,
-      user_credential_attributes: [
-        :id,
-        :password,
-        :password_confirmation,
-      ]
+      user_credential_attributes: %i[
+        id
+        password
+        password_confirmation
+      ],
     )
   end
 end

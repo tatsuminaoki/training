@@ -27,7 +27,7 @@ RSpec.describe 'Admin::Users', type: :system do
     expect(page).to have_content('hogehoge')
     expect(page).to have_content('fugafuga@test.com')
 
-    first(:link, "編集").click
+    first(:link, '編集').click
 
     expect(page).to have_content('ユーザー編集')
 
@@ -44,7 +44,7 @@ RSpec.describe 'Admin::Users', type: :system do
 
     expect(page).to have_content('ユーザー管理')
 
-    first(:link, "削除").click
+    first(:link, '削除').click
 
     # TODO: headless chrome が無効だと効かないのでコメントアウトします
     # expect(page.driver.browser.switch_to.alert.text).to eq '本当によろしいですか？'
