@@ -1,4 +1,6 @@
 class User < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 50 }
+  has_secure_password validations: true
+
+  validates :mail, presence: true, uniqueness: true
   has_many :tasks
 end
