@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :prevent_unauthorized_changes, only: [:show, :create]
 
   def index
-    @tasks = Task.all.includes(:user).search(params)
+    tasks = Task.all.search(params)
+    @tasks = tasks.includes(:user).select { |task| task.user_id == current_user.id }
     @params = params
   end
 
@@ -48,5 +50,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.fetch(:task, {}).permit(:title, :detail, :status, :user_id)
+  end
+
+  def prevent_unauthorized_changes
+    redirect_to root_path, warning: '別のユーザーのタスクです' unless @task.user_id == current_user.id
   end
 end
