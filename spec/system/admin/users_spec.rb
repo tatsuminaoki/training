@@ -33,8 +33,6 @@ RSpec.describe 'Admin::Users', type: :system do
 
     fill_in 'ユーザー名', with: 'hoge-update'
     fill_in 'メールアドレス(確認)', with: 'fugafuga@test.com'
-    fill_in 'パスワード', with: 'hogehoge'
-    fill_in 'パスワード(確認)', with: 'hogehoge'
 
     click_on '更新する'
 

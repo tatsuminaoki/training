@@ -4,5 +4,5 @@ class UserCredential < ApplicationRecord
   belongs_to :user
   has_secure_password
 
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, on: :create
 end

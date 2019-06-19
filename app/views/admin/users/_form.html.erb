@@ -32,15 +32,17 @@
       <%= form.text_field :email_confirmation, class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <%= credential_form.label :password %>
-      <%= credential_form.password_field :password, class: 'form-control' %>
-    </div>
+    <% unless user.persisted? %>
+      <div class="form-group">
+        <%= credential_form.label :password %>
+        <%= credential_form.password_field :password, class: 'form-control' %>
+      </div>
 
-    <div class="form-group">
-      <%= credential_form.label :password_confirmation %>
-      <%= credential_form.password_field :password_confirmation, class: 'form-control' %>
-    </div>
+      <div class="form-group">
+        <%= credential_form.label :password_confirmation %>
+        <%= credential_form.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+    <% end %>
 
     <div class="btn-group">
       <%= form.submit :class => "btn btn-default btn-primary" %>
