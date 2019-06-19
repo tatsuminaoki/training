@@ -10,7 +10,8 @@
 
 user = User.create!(
   name: 'User-name',
-  email: 'test@test.com',
-  email_confirmation: 'test@test.com',
+  email: 'test@example.com',
+  email_confirmation: 'test@example.com',
 )
-user.create_user_credential!(password_digest: BCrypt::Password.create('123456'))
+user_credential = UserCredential.new(user: user, password_digest: BCrypt::Password.create('123456'))
+user_credential.save!(validate: false)
