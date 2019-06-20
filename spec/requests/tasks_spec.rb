@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 describe TasksController, type: :request do
-  let!(:task) { create(:task) }
+  let!(:user) { create(:user) }
+  let!(:task) { create(:task, user_id: user.id) }
+
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:signed_in?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
 
   describe 'GET #index' do
     it 'ステータスコードが200' do
@@ -31,20 +37,20 @@ describe TasksController, type: :request do
     end
   end
 
-  xdescribe 'POST #create' do
+  describe 'POST #create' do
     it 'ステータスコードが302(リダイレクト)' do
-      post tasks_url, params: { task: attributes_for(:task) }
+      post tasks_url, params: { task: attributes_for(:task, user_id: user.id) }
       expect(response.status).to eq 302
     end
 
     it 'タスクを保存できる' do
       expect do
-        post tasks_url, params: { task: attributes_for(:task) }
+        post tasks_url, params: { task: attributes_for(:task, user_id: user.id) }
       end.to change(Task, :count).by(1)
     end
 
     it 'showにリダイレクトされる' do
-      post tasks_url, params: { task: attributes_for(:task) }
+      post tasks_url, params: { task: attributes_for(:task, user_id: user.id) }
       expect(response).to redirect_to(task_path(Task.last))
     end
   end

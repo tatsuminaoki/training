@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :prevent_unauthorized_changes, only: [:show, :create]
+  before_action :prevent_unauthorized_changes, only: [:show, :edit]
 
   def index
     tasks = Task.all.search(params)

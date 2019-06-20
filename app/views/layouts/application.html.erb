@@ -17,7 +17,7 @@
     <% end %>
     <body>
       <% if signed_in? %>
-        <%= "#{current_user.name} さんでログイン中" %>
+        <%= "#{current_user&.name} さんでログイン中" %>
         <p><%= link_to 'ログアウト', logout_path, method: :delete %></p>
       <% end %>
       <%= yield %>
