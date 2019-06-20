@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :user_tokens, dependent: :destroy
   has_many :tasks, dependent: :destroy
 
+  accepts_nested_attributes_for :user_credential
+
   attr_accessor :email_confirmation
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

@@ -1,0 +1,11 @@
+status: &status
+  waiting: 未着手
+  work_in_progress: 着手
+  completed: 完了
+ja:
+  admin:
+    users:
+      index:
+        title: ユーザー管理
+      show:
+        status: *status

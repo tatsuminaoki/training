@@ -1,0 +1,8 @@
+<h1>ユーザー編集</h1>
+
+<%= render 'form', user: @user %>
+
+<div class="mt-1">
+  <%= link_to t('buttons.show'), admin_user_path(@user), class: "btn btn-info" %>
+  <%= link_to t('buttons.back'), admin_users_path, class: "btn btn-secondary" %>
+</div>
