@@ -72,4 +72,23 @@ RSpec.describe 'Admin::Users', type: :system do
       expect(page).not_to have_content('ユーザー登録')
     end
   end
+
+  context '一人のみ管理者ユーザーが自身の権限を一般に変更しようとすると' do
+    specify '権限を変更できないこと' do
+      user_login(user: user)
+
+      click_on 'ユーザー管理'
+
+      expect(page).to have_content('ユーザー管理')
+
+      click_on '編集'
+
+      select '一般', from: '権限'
+      fill_in 'メールアドレス(確認)', with: 'test@test.com'
+
+      click_on '更新する'
+
+      expect(page).to have_content('権限は、最後の管理ユーザーは変更できません。')
+    end
+  end
 end

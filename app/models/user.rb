@@ -18,4 +18,12 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :email, confirmation: true
   validates :email_confirmation, presence: true, on: :create
+
+  validate :validates_last_admin_user, on: :update, if: -> { role_changed? }
+
+  def validates_last_admin_user
+    if User.count == 1 && User.first.role_management?
+      errors.add(:role, 'は、最後の管理ユーザーは変更できません。')
+    end
+  end
 end

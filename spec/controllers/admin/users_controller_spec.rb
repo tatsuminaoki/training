@@ -7,6 +7,11 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   before do
     user_login(user: user)
+
+    create(:user,
+      email: 'test2@example.com',
+      email_confirmation: 'test2@example.com',
+    )
   end
 
   shared_context 'without_permission' do
