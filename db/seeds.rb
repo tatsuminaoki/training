@@ -12,6 +12,7 @@ user = User.create!(
   name: 'User-name',
   email: 'test@example.com',
   email_confirmation: 'test@example.com',
+  role: User.roles[:management],
 )
 user_credential = UserCredential.new(user: user, password_digest: BCrypt::Password.create('123456'))
 user_credential.save!(validate: false)

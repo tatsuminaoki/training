@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_credential
 
+  enum role: { general: 1, management: 2 }
+
   attr_accessor :email_confirmation
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
