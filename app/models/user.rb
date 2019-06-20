@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_credential
 
-  enum role: { general: 1, management: 2 }
+  enum role: { general: 1, management: 2 }, _prefix: true
 
   attr_accessor :email_confirmation
 

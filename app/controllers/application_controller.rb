@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
   end
 
+  def authorize?
+    return if current_user.role_management?
+
+    redirect_to root_path
+  end
+
   def render_forbidden
     render file: 'public/403.html', layout: false, status: 403
   end

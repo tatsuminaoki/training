@@ -16,5 +16,6 @@ ja:
   errors:
     messages:
       past_days: は過去の日付を入力できません。
+      can_not_delete_myself: 自身のデータは削除できません
   page: ページ
   total_count: 総件数

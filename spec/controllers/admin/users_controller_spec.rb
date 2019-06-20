@@ -9,12 +9,29 @@ RSpec.describe Admin::UsersController, type: :controller do
     user_login(user: user)
   end
 
+  shared_context 'without_permission' do
+    before do
+      user.role_general!
+    end
+  end
+
   describe 'GET #index' do
     it 'returns http success' do
       get :index, params: {}
 
       expect(response).to be_successful
       expect(response).to render_template('admin/users/index')
+    end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        get :index, params: {}
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -40,6 +57,17 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_users_path)
     end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        post :create, params: params
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -49,6 +77,17 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to be_successful
       expect(response).to render_template('admin/users/show')
     end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        get :show, params: { id: user.to_param }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   describe 'GET #edit' do
@@ -57,6 +96,17 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       expect(response).to be_successful
       expect(response).to render_template('admin/users/edit')
+    end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        get :edit, params: { id: user.to_param }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -94,6 +144,17 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to redirect_to(admin_users_path)
       expect(user_1.reload.name).to eq('user2')
     end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        patch :update, params: params
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -113,6 +174,27 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_users_path)
       expect(Task.count).to eq(0)
+    end
+
+    context 'without user permission' do
+      include_context 'without_permission'
+
+      it 'redirects to root_path page' do
+        delete :destroy, params: { id: user_2.to_param }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'ログインユーザー自身のデータを削除しようとすると' do
+      it '削除できないこと' do
+        delete :destroy, params: { id: user.to_param }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(admin_users_path)
+        expect(user.reload.name).to eq('User Name')
+      end
     end
   end
 end

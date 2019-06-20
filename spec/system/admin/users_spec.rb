@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admin::Users', type: :system do
   let(:user) { create(:user) }
 
-  specify 'User operates from creation to editing to deletion' do
+  specify 'Administrator user operates from creation to editing to deletion' do
     user_login(user: user)
 
     click_on 'ユーザー管理'
@@ -50,5 +50,26 @@ RSpec.describe 'Admin::Users', type: :system do
     # page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_content('ユーザーの削除が完了しました。')
+  end
+
+  context '一般ユーザーがユーザー管理機能を操作するしようとすると' do
+    before do
+      user.role_general!
+    end
+
+    specify 'redirects to root_path page' do
+      user_login(user: user)
+
+      expect(page).not_to have_content('ユーザー管理')
+
+      visit admin_users_path
+
+      expect(page).not_to have_content('ユーザー管理')
+
+      visit new_admin_user_path
+
+      expect(page).not_to have_content('ユーザー管理')
+      expect(page).not_to have_content('ユーザー登録')
+    end
   end
 end
