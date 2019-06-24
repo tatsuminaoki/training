@@ -54,6 +54,10 @@ RSpec.describe 'Admin::Users', type: :system do
 
   context '一般ユーザーがユーザー管理機能を操作するしようとすると' do
     before do
+      create(:user,
+             email: 'test2@example.com',
+             email_confirmation: 'test2@example.com',
+            )
       user.role_general!
     end
 
