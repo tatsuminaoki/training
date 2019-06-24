@@ -3,7 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :user, only: %i[show edit update destroy]
-    before_action :authorize?
+    before_action :redirect_if_unauthorized
 
     def index
       @users = User.all.order(created_at: :desc)

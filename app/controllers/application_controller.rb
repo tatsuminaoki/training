@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
   end
 
-  def authorize?
+  def redirect_if_unauthorized
     return if current_user.role_management?
 
     redirect_to root_path
