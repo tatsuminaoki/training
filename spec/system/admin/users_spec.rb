@@ -78,6 +78,14 @@ RSpec.describe 'Admin::Users', type: :system do
   end
 
   context '一人のみ管理者ユーザーが自身の権限を一般に変更しようとすると' do
+    before do
+      create(:user,
+             email: 'test3@example.com',
+             email_confirmation: 'test3@example.com',
+             role: :general,
+            )
+    end
+
     specify '権限を変更できないこと' do
       user_login(user: user)
 
@@ -85,7 +93,12 @@ RSpec.describe 'Admin::Users', type: :system do
 
       expect(page).to have_content('ユーザー管理')
 
-      click_on '編集'
+      # TODO: headless chromeを有効にしないと下記コメントアウトでの指定ができない(?)ので直接遷移するように記述しています
+      # tds = all('td')
+      # tds[14].click
+      visit edit_admin_user_path(user)
+
+      expect(page).to have_content('ユーザー編集')
 
       select '一般', from: '権限'
       fill_in 'メールアドレス(確認)', with: 'test@test.com'
