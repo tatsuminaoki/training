@@ -22,6 +22,6 @@ class User < ApplicationRecord
   validate :validates_last_admin_user, on: :update, if: -> { role_changed? }
 
   def validates_last_admin_user
-    errors.add(:role, 'は、最後の管理ユーザーは変更できません。') if User.count == 1 && User.first.role_management?
+    errors.add(:role, 'は、変更できません。変更する場合は、別の管理者ユーザーを用意してください。') if User.count == 1 && User.first.role_management?
   end
 end

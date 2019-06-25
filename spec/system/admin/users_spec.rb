@@ -92,7 +92,7 @@ RSpec.describe 'Admin::Users', type: :system do
 
       click_on '更新する'
 
-      expect(page).to have_content('権限は、最後の管理ユーザーは変更できません。')
+      expect(page).to have_content('権限は、変更できません。変更する場合は、別の管理者ユーザーを用意してください。')
     end
   end
 end
