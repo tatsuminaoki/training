@@ -56,7 +56,7 @@ describe TasksController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let(:task) { create(:task, title: 'old title', detail: 'old detail') }
+    let(:task) { create(:task, title: 'old title', detail: 'old detail', user_id: user.id) }
     let(:update_attributes) { { title: 'new title', detail: 'new detail' } }
 
     it 'ステータスコードが302(リダイレクト)' do
