@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_075213) do
+ActiveRecord::Schema.define(version: 2019_06_25_005132) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_075213) do
     t.string "mail"
     t.string "password_digest"
     t.string "remember_token"
+    t.index ["mail"], name: "index_users_on_mail", unique: true
   end
 
   add_foreign_key "tasks", "users"
