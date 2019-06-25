@@ -24,6 +24,6 @@ class SessionsController < ApplicationController
   def set_user
     @user = User.find_by!(mail: params[:mail])
   rescue
-    render action: 'new'
+    render action: 'new', warning: 'ログインに失敗しました'
   end
 end
