@@ -15,7 +15,7 @@
         <%= link_to "Rails Training", root_path, id: "logo", class: "navbar-brand" %>
         <ul class="navbar-nav ml-auto">
           <% if current_user.role_management? %>
-            <li class='nav-item'>
+            <li class="nav-item">
               <%= link_to 'ユーザー管理', admin_users_path, class: 'nav-link' %>
             </li>
           <% end %>
