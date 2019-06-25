@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def index
     tasks = Task.search(params)
-    @tasks = tasks.includes(:user).select { |task| task.user_id == current_user.id }
+    @tasks = tasks.includes(:user).where(user_id: current_user.id)
     @params = params
   end
 
