@@ -6,7 +6,7 @@ module Admin
     before_action :redirect_if_unauthorized
 
     def index
-      @users = User.all.order(created_at: :desc)
+      @users = User.includes(:tasks).order(created_at: :desc)
     end
 
     def new
