@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :prevent_unauthorized_changes, only: [:show, :edit, :update, :destroy]
 
   def index
-    tasks = Task.all.search(params)
+    tasks = Task.search(params)
     @tasks = tasks.includes(:user).select { |task| task.user_id == current_user.id }
     @params = params
   end
