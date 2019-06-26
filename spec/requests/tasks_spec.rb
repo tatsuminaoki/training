@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 describe TasksController, type: :request do
-  let!(:task) { create(:task) }
+  let!(:user) { create(:user) }
+  let!(:task) { create(:task, user_id: user.id) }
+
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:signed_in?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
 
   describe 'GET #index' do
     it 'ステータスコードが200' do
@@ -31,60 +37,28 @@ describe TasksController, type: :request do
     end
   end
 
-  xdescribe 'POST #create' do
-    it 'ステータスコードが302(リダイレクト)' do
-      post tasks_url, params: { task: attributes_for(:task) }
-      expect(response.status).to eq 302
-    end
-
-    it 'タスクを保存できる' do
-      expect do
-        post tasks_url, params: { task: attributes_for(:task) }
-      end.to change(Task, :count).by(1)
-    end
-
-    it 'showにリダイレクトされる' do
-      post tasks_url, params: { task: attributes_for(:task) }
-      expect(response).to redirect_to(task_path(Task.last))
-    end
+  describe 'POST #create' do
+    subject { post tasks_url, params: { task: attributes_for(:task) } }
+    it { is_expected.to eq 302 }
+    it { expect{subject}.to change(Task, :count).by(1) }
+    it { is_expected.to redirect_to(task_path(Task.last)) }
   end
 
   describe 'PATCH #update' do
-    let(:task) { create(:task, title: 'old title', detail: 'old detail') }
+    let(:task) { create(:task, title: 'old title', detail: 'old detail', user_id: user.id) }
     let(:update_attributes) { { title: 'new title', detail: 'new detail' } }
+    subject { put task_url(task), params: { task: update_attributes } }
 
-    it 'ステータスコードが302(リダイレクト)' do
-      put task_url(task), params: { task: update_attributes }
-      expect(response.status).to eq 302
-    end
-
-    it 'タスクを更新できる' do
-      expect do
-        put task_url(task), params: { task: update_attributes }
-      end.to change { Task.last.title }.from('old title').to('new title')
-    end
-
-    it 'showにリダイレクトされる' do
-      put task_url(task), params: { task: update_attributes }
-      expect(response).to redirect_to(task_path(Task.last))
-    end
+    it { is_expected.to eq 302 }
+    it { expect{subject}.to change { Task.last.title }.from('old title').to('new title') }
+    it { is_expected.to redirect_to(task_path(Task.last)) }
   end
 
   describe 'DELETE #destroy' do
-    it 'ステータスコードが302(リダイレクト)' do
-      delete task_url(task)
-      expect(response.status).to eq 302
-    end
+    subject { delete task_url(task) }
 
-    it 'タスクを削除できる' do
-      expect do
-        delete task_url(task)
-      end.to change(Task, :count).by(-1)
-    end
-
-    it 'indexにリダイレクトされる' do
-      delete task_url(task)
-      expect(response).to redirect_to(tasks_url)
-    end
+    it { is_expected.to eq 302 }
+    it { expect{subject}.to change(Task, :count).by(-1) }
+    it { is_expected.to redirect_to(tasks_url) }
   end
 end
