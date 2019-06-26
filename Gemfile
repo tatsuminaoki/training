@@ -43,7 +43,6 @@ gem 'rails-i18n'
 
 gem 'enum_help'
 
-
 gem 'bcrypt'
 
 gem 'turnout'
