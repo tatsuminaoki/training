@@ -20,9 +20,9 @@ class User < ApplicationRecord
   validates :email, confirmation: true
   validates :email_confirmation, presence: true, on: :create
 
-  validate :validates_last_admin_user, on: :update, if: -> { role_changed? }
+  validate :validates_last_admin_user, on: :update, if: -> { role_changed? && role_general? }
 
   def validates_last_admin_user
-    errors.add(:role, 'は、変更できません。変更する場合は、別の管理者ユーザーを用意してください。') if User.where(role: User.roles[:management]).count == MINIMUM_NUMBER_OF_ADMINISTRATORS
+    errors.add(:role, 'は、変更できません。変更する場合は、別の管理者ユーザーを用意してください。') if User.role_management.count == MINIMUM_NUMBER_OF_ADMINISTRATORS
   end
 end

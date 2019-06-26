@@ -160,6 +160,43 @@ RSpec.describe Admin::UsersController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
     end
+
+    context '2人以上の管理者ユーザーのみの状態から、一般ユーザーに更新すると' do
+      let(:user_3) {
+        create(:user,
+               name: 'user3',
+               email: 'user3@example.com',
+               email_confirmation: 'user3@example.com',
+              )
+      }
+      let(:user_credential_3) { user_3.create_user_credential(password: 'password') }
+
+      let(:password) { 'a' * 6 }
+      let(:params) do
+        {
+          id: user_3.id,
+          user: {
+            name: 'user3-update',
+            email: 'user3@example.com',
+            email_confirmation: 'user3@example.com',
+            role: :general,
+            user_credential_attributes: {
+              id: user_credential_3.id,
+              password: password,
+              password_confirmation: password,
+            },
+          },
+        }
+      end
+
+      it '一般ユーザーに更新できること' do
+        patch :update, params: params
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(admin_users_path)
+        expect(user_3.reload.name).to eq('user3-update')
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
