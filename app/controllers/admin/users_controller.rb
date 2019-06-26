@@ -3,9 +3,10 @@
 module Admin
   class UsersController < ApplicationController
     before_action :user, only: %i[show edit update destroy]
+    before_action :redirect_if_unauthorized
 
     def index
-      @users = User.all.order(created_at: :desc)
+      @users = User.includes(:tasks).order(created_at: :desc)
     end
 
     def new
@@ -37,8 +38,12 @@ module Admin
     end
 
     def destroy
-      @user.destroy!
-      redirect_to admin_users_path, success: t('messages.deleted', item: @user.model_name.human)
+      if current_user == @user
+        redirect_to admin_users_path, danger: t('errors.messages.can_not_delete_myself', item: @user.model_name.human)
+      else
+        @user.destroy!
+        redirect_to admin_users_path, success: t('messages.deleted', item: @user.model_name.human)
+      end
     end
 
     private
@@ -51,6 +56,7 @@ module Admin
       params.require(:user).permit(
         :id,
         :name,
+        :role,
         :email,
         :email_confirmation,
         user_credential_attributes: %i[

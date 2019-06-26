@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admin::Users', type: :system do
   let(:user) { create(:user) }
 
-  specify 'User operates from creation to editing to deletion' do
+  specify 'Administrator user operates from creation to editing to deletion' do
     user_login(user: user)
 
     click_on 'ユーザー管理'
@@ -50,5 +50,62 @@ RSpec.describe 'Admin::Users', type: :system do
     # page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_content('ユーザーの削除が完了しました。')
+  end
+
+  context '一般ユーザーがユーザー管理機能を操作するしようとすると' do
+    before do
+      create(:user,
+             email: 'test2@example.com',
+             email_confirmation: 'test2@example.com',
+            )
+      user.role_general!
+    end
+
+    specify 'redirects to root_path page' do
+      user_login(user: user)
+
+      expect(page).not_to have_content('ユーザー管理')
+
+      visit admin_users_path
+
+      expect(page).not_to have_content('ユーザー管理')
+
+      visit new_admin_user_path
+
+      expect(page).not_to have_content('ユーザー管理')
+      expect(page).not_to have_content('ユーザー登録')
+    end
+  end
+
+  context '一人のみ管理者ユーザーが自身の権限を一般に変更しようとすると' do
+    before do
+      create(:user,
+             email: 'test3@example.com',
+             email_confirmation: 'test3@example.com',
+             role: :general,
+            )
+    end
+
+    specify '権限を変更できないこと' do
+      user_login(user: user)
+
+      click_on 'ユーザー管理'
+
+      expect(page).to have_content('ユーザー管理')
+
+      # TODO: headless chromeを有効にしないと下記コメントアウトでの指定ができない(?)ので直接遷移するように記述しています
+      # tds = all('td')
+      # tds[14].click
+      visit edit_admin_user_path(user)
+
+      expect(page).to have_content('ユーザー編集')
+
+      select '一般', from: '権限'
+      fill_in 'メールアドレス(確認)', with: 'test@test.com'
+
+      click_on '更新する'
+
+      expect(page).to have_content('権限は、変更できません。変更する場合は、別の管理者ユーザーを用意してください。')
+    end
   end
 end

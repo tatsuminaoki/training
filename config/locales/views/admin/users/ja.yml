@@ -2,10 +2,16 @@ status: &status
   waiting: 未着手
   work_in_progress: 着手
   completed: 完了
+roles: &roles
+  general: 一般
+  management: 管理者
 ja:
   admin:
     users:
       index:
         title: ユーザー管理
+        roles: *roles
+      form:
+        roles: *roles
       show:
         status: *status

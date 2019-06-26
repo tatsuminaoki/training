@@ -12,15 +12,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_613_051_221) do
+ActiveRecord::Schema.define(version: 20_190_619_071_904) do
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
-    t.bigint 'user_id', null: false, unsigned: true
     t.string 'name', limit: 20, null: false
     t.text 'description'
     t.integer 'status', limit: 1, default: 1, null: false, unsigned: true
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.date 'finished_on', null: false
+    t.bigint 'user_id', null: false, unsigned: true
     t.index ['finished_on'], name: 'index_tasks_on_finished_on'
     t.index ['status'], name: 'index_tasks_on_status'
     t.index ['user_id'], name: 'index_tasks_on_user_id'
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20_190_613_051_221) do
     t.string 'name', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'role', limit: 1, default: 1, null: false, unsigned: true
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
 end

@@ -8,4 +8,5 @@ ja:
         name: ユーザー名
         email: メールアドレス
         email_confirmation: メールアドレス(確認)
+        role: 権限
         created_at: 作成日
