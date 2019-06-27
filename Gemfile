@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'database_rewinder'
 end
 
 group :development do
