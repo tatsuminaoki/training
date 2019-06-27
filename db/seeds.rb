@@ -15,10 +15,10 @@
 #   role: User.roles[:management],
 # )
 
-user = User.find_or_create_by!(email: 'test@example.com') do |user|
-  user.name = 'User-name'
-  user.email_confirmation = 'test@example.com'
-  user.role = User.roles[:management]
+user = User.find_or_create_by!(email: 'test@example.com') do |create_user|
+  create_user.name = 'User-name'
+  create_user.email_confirmation = 'test@example.com'
+  create_user.role = User.roles[:management]
 end
 
 if user.user_credential.blank?
