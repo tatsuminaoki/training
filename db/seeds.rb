@@ -21,7 +21,7 @@ user = User.find_or_create_by!(email: 'test@example.com') do |user|
   user.role = User.roles[:management]
 end
 
-unless user.user_credential.present?
+if user.user_credential.blank?
   user_credential = UserCredential.new(user: user, password_digest: BCrypt::Password.create('123456'))
   user_credential.save!(validate: false)
 end

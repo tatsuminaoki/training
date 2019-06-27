@@ -47,6 +47,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
+  gem 'database_rewinder'
   gem 'factory_bot_rails'
   gem 'letter_opener_web'
   gem 'pry-byebug'
@@ -55,7 +56,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'database_rewinder'
 end
 
 group :development do

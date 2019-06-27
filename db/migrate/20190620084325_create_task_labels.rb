@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTaskLabels < ActiveRecord::Migration[5.2]
   def change
     create_table :task_labels do |t|
@@ -7,6 +9,6 @@ class CreateTaskLabels < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :task_labels, [:task_id, :label_id], name:'index_task_label_on_uniq_key', :unique => true
+    add_index :task_labels, %i[task_id label_id], name: 'index_task_label_on_uniq_key', unique: true
   end
 end

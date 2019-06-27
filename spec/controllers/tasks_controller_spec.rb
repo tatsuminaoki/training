@@ -76,7 +76,7 @@ RSpec.describe TasksController, type: :controller do
 
     context 'ラベルも選択すると' do
       before do
-        params[:task][:label_ids] = [ Label.pluck(:id).first, Label.pluck(:id).last ]
+        params[:task][:label_ids] = [Label.pluck(:id).first, Label.pluck(:id).last]
       end
 
       it 'ラベルも登録できること' do
@@ -146,7 +146,7 @@ RSpec.describe TasksController, type: :controller do
         task: {
           name: 'update',
           status: :completed,
-          label_ids: [ Label.pluck(:id).first, Label.pluck(:id).last ],
+          label_ids: [Label.pluck(:id).first, Label.pluck(:id).last],
         },
       }
     end
