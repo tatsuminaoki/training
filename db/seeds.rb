@@ -8,13 +8,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# user = User.create!(
-#   name: 'User-name',
-#   email: 'test@example.com',
-#   email_confirmation: 'test@example.com',
-#   role: User.roles[:management],
-# )
-
 user = User.find_or_create_by!(email: 'test@example.com') do |create_user|
   create_user.name = 'User-name'
   create_user.email_confirmation = 'test@example.com'
