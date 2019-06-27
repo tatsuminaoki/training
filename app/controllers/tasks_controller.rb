@@ -4,23 +4,25 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index # rubocop:disable Metrics/AbcSize
-    @tasks = if params[:commit].nil?
-               current_user.tasks.all.page(params[:page])
-             else
-               current_user.tasks.name_like(params[:name]).
-                          status(params[:status]).
-                          page(params[:page])
-             end
+    relation = current_user.tasks.includes(task_labels: :label)
+
+    if params[:commit].present?
+      label_ids = params[:label_ids].reject(&:blank?)
+
+      relation = relation.name_like(params[:name]).
+                   status(params[:status])
+      relation = relation.where(id: TaskLabel.label_id(label_ids).pluck(:task_id)) if label_ids.present?
+    end
+    relation = relation.page(params[:page])
 
     @tasks = if params[:sort].present?
-               @tasks.order(finished_on: params[:sort])
+               relation.order(finished_on: params[:sort])
              else
-               @tasks.order(created_at: :desc)
+               relation.order(created_at: :desc)
              end
   end
 
   def new
-    # @task = Task.new
     @task = current_user.tasks.new
   end
 
@@ -56,7 +58,7 @@ class TasksController < ApplicationController
   private
 
   def task
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.includes(task_labels: :label).find(params[:id])
   end
 
   def task_params
@@ -65,6 +67,7 @@ class TasksController < ApplicationController
       :description,
       :status,
       :finished_on,
+      label_ids: [],
     )
   end
 end

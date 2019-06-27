@@ -17,6 +17,7 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'タスク名', with: 'task name'
     fill_in '説明', with: 'hoge'
     select '着手', from: 'ステータス'
+    select '映画', from: 'task[label_ids][]'
 
     click_on '登録する'
 
@@ -24,6 +25,7 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content('task name')
     expect(page).to have_content('hoge')
     expect(page).to have_content('着手')
+    expect(page).to have_content('映画')
 
     click_on '編集'
 
@@ -31,6 +33,7 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'タスク名', with: 'update'
     fill_in '説明', with: 'hoge-update'
     select '完了', from: 'ステータス'
+    select '旅行', from: 'task[label_ids][]'
 
     click_on '更新する'
 
@@ -38,6 +41,8 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content('update')
     expect(page).to have_content('hoge-update')
     expect(page).to have_content('完了')
+    expect(page).to have_content('映画')
+    expect(page).to have_content('旅行')
 
     click_on '戻る'
 
@@ -60,7 +65,7 @@ RSpec.describe 'Tasks', type: :system do
 
       tds = page.all('td')
       expect(tds[0]).to have_content 'task1'
-      expect(tds[8]).to have_content 'task2'
+      expect(tds[9]).to have_content 'task2'
     end
 
     scenario '一覧のソート順が終了期限の昇順/降順と切り替わること' do
@@ -84,6 +89,8 @@ RSpec.describe 'Tasks', type: :system do
     before do
       create(:task, { name: 'task_name_1', user: user })
       create(:task, { name: 'task_name_2', status: :work_in_progress, user: user })
+
+      user.tasks.first.task_labels.create!(label_id: Label.pluck(:id).first)
     end
 
     scenario '検索項目に入力なしで検索できること' do
@@ -135,6 +142,23 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content('task_name_2')
       expect(page).to_not have_content('task_name_1')
+    end
+
+    scenario 'タスク名とステータスとラベル名で検索できること' do
+      user_login(user: user)
+
+      visit root_path
+
+      fill_in 'name', with: 'task_name_1'
+      select '未着手', from: 'status'
+      select 'ジム', from: 'label_ids[]'
+
+      click_on '検索'
+
+      expect(page).to have_content('task_name_1')
+      expect(page).to have_content('未着手')
+      expect(page).to have_content('ジム')
+      expect(page).to_not have_content('task_name_2')
     end
   end
 end

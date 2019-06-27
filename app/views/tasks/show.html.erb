@@ -6,6 +6,13 @@
 </p>
 
 <p>
+  <strong><%= Label.human_attribute_name(:name) %>:</strong>
+  <% @task.task_labels.each do |label| %>
+    <%= label.label.name %>
+  <% end %>
+</p>
+
+<p>
   <strong><%= Task.human_attribute_name(:description) %>:</strong>
   <%= @task.description %>
 </p>
