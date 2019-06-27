@@ -16,3 +16,11 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require select2
+
+$(document).ready(function() {
+  $('.select2-select').select2({
+    placeholder: '選択してください',
+    allowClear: true,
+  });
+});
