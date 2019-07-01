@@ -10,9 +10,13 @@
       <%= f.label Task.human_attribute_name(:name) %>
       <%= f.text_field :name, value: params[:name], placeholder: t('.placeholder'), class: "form-control" %>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <%= f.label Task.human_attribute_name(:status) %>
       <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [t(".status.#{k}"), k] }, selected: params[:status]), prompt: t('helpers.select.prompt'), class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label Label.human_attribute_name(:name) %>
+      <%= f.collection_select(:label_ids, Label.all, :id, :name, { selected: params[:label_ids] }, { multiple: true, class: 'form-control select2-select' }) %>
     </div>
   </div>
   <div class="btn-group">
@@ -31,6 +35,7 @@
     <thead>
       <tr>
         <th><%= Task.human_attribute_name(:name) %></th>
+        <th><%= Label.human_attribute_name(:name) %></th>
         <th><%= Task.human_attribute_name(:created_at) %></th>
         <th><%= Task.human_attribute_name(:status) %></th>
         <th><%= Task.human_attribute_name(:description) %></th>
@@ -43,6 +48,11 @@
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.name %></td>
+          <td>
+            <% task.task_labels.each do |task_label| %>
+              <span class="task_label"><%= task_label.label.name %></span>
+            <% end %>
+          </td>
           <td><%= l(task.created_at, format: :long) %></td>
           <td><%= t(".status.#{task.status}") %></td>
           <td><%= task.description %></td>

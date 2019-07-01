@@ -34,6 +34,7 @@ RSpec.describe TasksController, type: :controller do
           name: 'task name',
           status: :waiting,
           finished_on: Date.current,
+          label_ids: [],
         },
       }
     end
@@ -72,16 +73,35 @@ RSpec.describe TasksController, type: :controller do
         expect(assigns(:task).errors[:finished_on]).to be_present
       end
     end
+
+    context 'ラベルも選択すると' do
+      before do
+        params[:task][:label_ids] = [Label.pluck(:id).first, Label.pluck(:id).last]
+      end
+
+      it 'ラベルも登録できること' do
+        post :create, params: params
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(task_path(assigns(:task).id))
+        expect(user.tasks.first.labels.first.name).to eq('食べる')
+      end
+    end
   end
 
   describe 'GET #show' do
     let(:task) { create(:task, user: user) }
+
+    before do
+      task.task_labels.create!(label_id: Label.pluck(:id).first)
+    end
 
     it 'returns a success response' do
       get :show, params: { id: task.to_param }
 
       expect(response).to be_successful
       expect(response).to render_template('tasks/show')
+      expect(task.labels.first.name).to eq('ジム')
     end
 
     context '他のユーザーが作成したタスクを参照すると' do
@@ -104,11 +124,17 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'GET #edit' do
     let(:task) { create(:task, user: user) }
+
+    before do
+      task.task_labels.create!(label_id: Label.pluck(:id).last)
+    end
+
     it 'returns a success response' do
       get :edit, params: { id: task.to_param }
 
       expect(response).to be_successful
       expect(response).to render_template('tasks/edit')
+      expect(task.labels.first.name).to eq('食べる')
     end
   end
 
@@ -120,6 +146,7 @@ RSpec.describe TasksController, type: :controller do
         task: {
           name: 'update',
           status: :completed,
+          label_ids: [Label.pluck(:id).first, Label.pluck(:id).last],
         },
       }
     end
@@ -130,6 +157,7 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(task_path(assigns(:task).id))
       expect(task.reload.name).to eq('update')
+      expect(task.labels.first.name).to eq('食べる')
     end
   end
 
@@ -142,6 +170,7 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(root_path)
       expect(Task.count).to eq(0)
+      expect(TaskLabel.count).to eq(0)
     end
   end
 end

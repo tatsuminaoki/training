@@ -1,0 +1,8 @@
+<h1>Editing Label</h1>
+
+<%= render 'form', label: @label %>
+
+<div class="mt-1">
+  <%= link_to t('buttons.show'), @label, class: "btn btn-info" %>
+  <%= link_to t('buttons.back'), labels_path, class: "btn btn-secondary" %>
+</div>

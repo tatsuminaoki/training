@@ -8,7 +8,12 @@ ja:
       status: *status
       title: タスク管理
       placeholder: タスク名を検索
+    new:
+      title: タスク登録
+    edit:
+      title: タスク編集
     form:
       status: *status
     show:
       status: *status
+      title: タスク詳細

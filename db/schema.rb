@@ -12,7 +12,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_619_071_904) do
+ActiveRecord::Schema.define(version: 20_190_620_084_325) do
+  create_table 'labels', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.string 'name', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['name'], name: 'index_labels_on_name', unique: true
+  end
+
+  create_table 'task_labels', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.integer 'task_id', null: false, unsigned: true
+    t.integer 'label_id', null: false, unsigned: true
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index %w[task_id label_id], name: 'index_task_label_on_uniq_key', unique: true
+  end
+
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'name', limit: 20, null: false
     t.text 'description'
