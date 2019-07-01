@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LabelsController < ApplicationController
-  before_action :label, only: [:show, :edit, :update, :destroy]
+  before_action :label, only: %i[show edit update destroy]
   before_action :redirect_if_unauthorized
 
   def index
