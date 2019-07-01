@@ -11,6 +11,10 @@ ja:
       index:
         title: ユーザー管理
         roles: *roles
+      new:
+        title: ユーザー登録
+      edit:
+        title: ユーザー編集
       form:
         roles: *roles
       show:

@@ -2,3 +2,9 @@ ja:
   labels:
     index:
       title: ラベル管理
+    new:
+      title: ラベル登録
+    edit:
+      title: ラベル編集
+    show:
+      title: ラベル詳細

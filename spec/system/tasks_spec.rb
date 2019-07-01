@@ -29,7 +29,7 @@ RSpec.describe 'Tasks', type: :system do
 
     click_on '編集'
 
-    expect(page).to have_content('Editing Task')
+    expect(page).to have_content('タスク編集')
     fill_in 'タスク名', with: 'update'
     fill_in '説明', with: 'hoge-update'
     select '完了', from: 'ステータス'
