@@ -18,7 +18,7 @@ describe 'maintenace_mode' do
 
     it 'メンテナンスモードのファイルがあること' do
       expect(@rake[task_start].invoke).to be_truthy
-      expect(File.exist?(maintenance_file)).to be_truthy
+      expect(File.exist?(maintenance_file)).to be true
     end
   end
 
@@ -27,7 +27,7 @@ describe 'maintenace_mode' do
 
     it 'メンテナンスモードのファイルがないこと' do
       expect(@rake[task_end].invoke).to be_truthy
-      expect(File.exist?(maintenance_file)).not_to be_truthy
+      expect(File.exist?(maintenance_file)).to be false
     end
   end
 end
