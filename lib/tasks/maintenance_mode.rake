@@ -4,10 +4,10 @@ namespace :maintenance_mode do
   desc 'メンテナンス開始'
   task :start do
     if File.exist? 'tmp/maintenance.yml'
-      p 'メンテナンスモードです'
+      puts 'メンテナンスモードです'
     else
       sh 'cp config/maintenance.yml tmp/maintenance.yml'
-      p 'メンテナンスモードに入りました'
+      puts 'メンテナンスモードに入りました'
     end
   end
 
@@ -15,9 +15,9 @@ namespace :maintenance_mode do
   task :end do
     if File.exist? 'tmp/maintenance.yml'
       sh 'rm tmp/maintenance.yml'
-      p 'メンテナンスモードを終了しました'
+      puts 'メンテナンスモードを終了しました'
     else
-      p 'メンテナンスモードではありません'
+      puts 'メンテナンスモードではありません'
     end
   end
 end

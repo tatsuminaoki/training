@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :maintenance_page, if: :maintenance?
   before_action :require_session
 
   rescue_from Exception, with: :render_error
@@ -38,5 +39,13 @@ class ApplicationController < ActionController::Base
 
   def render_error
     render file: 'public/500.html', layout: false, status: 500
+  end
+
+  def maintenance?
+    File.exist? 'tmp/maintenance.yml'
+  end
+
+  def maintenance_page
+    render file: 'public/maintenance.html', layout: false
   end
 end
