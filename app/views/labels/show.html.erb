@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= Task.human_attribute_name(:name) %>:</strong>
+  <%= @label.name %>
+</p>
+
+<%= link_to t('buttons.edit'), edit_label_path(@label), class: "btn btn-primary" %>
+<%= link_to t('buttons.back'), labels_path, class: "btn btn-secondary" %>

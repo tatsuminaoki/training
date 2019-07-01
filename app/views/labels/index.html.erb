@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= t('.title') %></h1>
+
+<%= link_to t('buttons.new'), new_label_path, class: "btn btn-primary float-right" %>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th><%= Label.human_attribute_name(:name) %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @labels.each do |label| %>
+        <tr>
+          <td><%= label.name %></td>
+          <td><%= link_to t('buttons.show'), label, class: "btn btn-info" %></td>
+          <td><%= link_to t('buttons.edit'), edit_label_path(label), class: "btn btn-primary" %></td>
+          <td><%= link_to t('buttons.destroy'), label, class: "btn btn-danger", method: :delete, data: { confirm: t('messages.confirm') } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

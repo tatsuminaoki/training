@@ -16,6 +16,11 @@
         <ul class="navbar-nav ml-auto">
           <% if current_user.role_management? %>
             <li class="nav-item">
+              <%= link_to 'ラベル管理', labels_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+          <% if current_user.role_management? %>
+            <li class="nav-item">
               <%= link_to 'ユーザー管理', admin_users_path, class: 'nav-link' %>
             </li>
           <% end %>
