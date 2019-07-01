@@ -15,6 +15,7 @@ RSpec.describe 'Admin::Users', type: :system do
     click_on '新規'
 
     fill_in 'ユーザー名', with: 'hogehoge'
+    select '管理者', from: '権限'
     fill_in 'メールアドレス', with: 'fugafuga@test.com'
     fill_in 'メールアドレス(確認)', with: 'fugafuga@test.com'
     fill_in 'パスワード', with: 'hogehoge'
