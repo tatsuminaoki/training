@@ -1,0 +1,10 @@
+<h1>タスクリスト</h1>
+<%= link_to '追加', new_task_path, class: "btn btn-primary" %>
+<ul class="list-group">
+  <% @tasks.each do |task| %>
+    <li class="list-group-item">
+      <h2><%= task.title %></h2>
+      <p><%= task.description %></p>
+    </li>
+  <% end %>
+</ul>
