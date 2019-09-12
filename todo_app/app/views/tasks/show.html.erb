@@ -1,0 +1,21 @@
+<% if (msg = flash[:success]).present? -%>
+  <p class='flash_error'><%= msg -%></p>
+<% end -%>
+
+<h1><%= hyphen_if_blank(@task.name) -%></h1>
+
+<p>ID: <%= @task.id -%></p>
+
+<p>
+  <%= Task.human_attribute_name(:detail) -%>:
+  <br />
+  <%= @task.detail-%>
+</p>
+
+<div>
+  <%= link_to '編集', edit_task_path(@task.id) %>
+</div>
+<div>
+  <%= link_to '削除', task_path(@task.id), method: :delete %>
+</div>
+<%= render 'links' -%>
