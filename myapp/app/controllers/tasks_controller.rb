@@ -11,23 +11,59 @@ class TasksController < ApplicationController
   end
 
   def create
-    @params = params.require(:task).permit(:title, :description)
-    @task = Task.new(@params)
+    @task = Task.new(checked_task)
 
-    if @task.save
+    begin
+      @task.save
       # とりあえずリストに飛ばす
       redirect_to action: 'index'
-    else
+    rescue => e
+      logger.error e
       render :new
     end
   end
 
   def edit
+    begin
+      @task = Task.find(checked_id)
+    rescue => e
+      logger.error e
+      redirect_to action: 'index'
+      return
+    end
   end
 
   def update
+    @task = Task.find(checked_id)
+
+    begin
+      @task.update(checked_task)
+      redirect_to action: 'index'
+    rescue => e
+      logger.error e
+      render :new
+    end
   end
 
   def destroy
-  end    
+  end
+
+  private
+
+  def checked_id
+    @id = params[:id].to_i
+
+    if @id <= 0
+      # 値が不正
+      logger.debug("値が不正:" + @id.to_s)
+      redirect_to action: 'index'
+      return
+    end
+
+    @id
+  end
+
+  def checked_task
+    params.require(:task).permit(:title, :description)
+  end
 end
