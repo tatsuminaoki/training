@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   def index
+    @title = 'タスクリスト'
     @tasks = Task.all
   end
 
@@ -7,6 +8,7 @@ class TasksController < ApplicationController
   end
 
   def new
+    @title = 'タスク作成'
     @task = Task.new
   end
 
@@ -15,15 +17,17 @@ class TasksController < ApplicationController
 
     begin
       @task.save
-      # とりあえずリストに飛ばす
+      flash[:success] = '登録されました'
       redirect_to action: 'index'
     rescue => e
       logger.error e
+      flash[:danger] = '登録に失敗しました'
       render :new
     end
   end
 
   def edit
+    @title = 'タスク編集'
     begin
       @task = Task.find(checked_id)
     rescue => e
@@ -38,9 +42,11 @@ class TasksController < ApplicationController
 
     begin
       @task.update(checked_task)
+      flash[:success] = '更新されました'
       redirect_to action: 'index'
     rescue => e
       logger.error e
+      flash[:danger] = '更新に失敗しました'
       render :new
     end
   end
