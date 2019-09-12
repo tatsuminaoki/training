@@ -1,10 +1,11 @@
-<h1>タスクリスト</h1>
-<%= link_to '追加', new_task_path, class: "btn btn-primary" %>
+<%= link_to '＋', new_task_path, class: "btn btn-primary rounded-circle p-0", style: "font-size:2rem;width:3rem;height:3rem;position:absolute;top:0;right:0;" %>
 <ul class="list-group">
   <% @tasks.each do |task| %>
     <li class="list-group-item">
       <h2><%= task.title %></h2>
       <p><%= task.description %></p>
+      <%= link_to '編集', edit_task_path(task.id), class: "btn btn-success float-right" %>
+      <%= link_to '削除', task_path(task.id), method: :delete, data:{ confirm: '削除します。本当にいいですか？'}, class: "btn btn-danger float-right" %>
     </li>
   <% end %>
 </ul>
