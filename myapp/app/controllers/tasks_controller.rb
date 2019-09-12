@@ -38,20 +38,29 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(checked_id)
-
     begin
+      @task = Task.find(checked_id)
       @task.update(checked_task)
       flash[:success] = '更新されました'
       redirect_to action: 'index'
     rescue => e
       logger.error e
       flash[:danger] = '更新に失敗しました'
-      render :new
+      render :edit
     end
   end
 
   def destroy
+    begin
+      @task = Task.find(checked_id)
+      @task.destroy
+      flash[:success] = '削除しました'
+      redirect_to action: 'index'
+    rescue => e
+      logger.error e
+      flash[:danger] = '削除に失敗しました'
+      redirect_to action: 'index'
+    end
   end
 
   private
