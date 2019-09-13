@@ -1,0 +1,19 @@
+<% if (msg = flash[:success]).present? %>
+  <p class='flash_error'><%= msg -%></p>
+<% end %>
+
+<% if @tasks.blank? %>
+  <p>タスクは登録されていません</p>
+<% else %>
+    <% @tasks.each do |task| %>
+      <div>
+        <%= link_to task_path(task.id) do -%>
+          <%= "#{task.id} : #{hyphen_if_blank(task.name)}" -%>
+        <% end %>
+      </div>
+    <% end %>
+<% end %>
+
+<div style='margin-top: 2em;'>
+  <%= link_to '新規作成', new_task_path %>
+</div>

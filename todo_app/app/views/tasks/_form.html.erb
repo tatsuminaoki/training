@@ -1,0 +1,28 @@
+<% if @task.errors.present? %>
+  <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg -%></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @task do |f| %>
+  <ul>
+    <li>
+      <label>
+        <%= Task.human_attribute_name(:name) -%>
+        :
+        <%= f.text_field :name -%>
+      </label>
+    </li>
+    <li>
+      <label>
+        <%= Task.human_attribute_name(:detail) -%>
+        :
+        <%= f.text_area :detail -%>
+      </label>
+    </li>
+  </ul>
+
+  <%= f.submit %>
+<% end %>
