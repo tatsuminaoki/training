@@ -10,9 +10,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(get_resource_params)
+    @task = Task.new(task_params)
     if @task.save
-      redirect_to task_path(@task.id), flash: {success: 'タスクを作成しました。'}
+      redirect_to task_path(@task.id), flash: { success: 'タスクを作成しました。' }
     else
       render :new
     end
@@ -28,8 +28,8 @@ class TasksController < ApplicationController
 
   def update
     @task = find_resource
-    if @task.update(get_resource_params)
-      redirect_to task_path(@task.id), flash: {success: 'タスクを更新しました。'}
+    if @task.update(task_params)
+      redirect_to task_path(@task.id), flash: { success: 'タスクを更新しました。' }
     else
       render :new
     end
@@ -38,9 +38,9 @@ class TasksController < ApplicationController
   def destroy
     @task = find_resource
     if @task.destroy
-      redirect_to tasks_path, flash: {success: "タスクを削除しました。 id=#{@task.id}"}
+      redirect_to tasks_path, flash: { success: "タスクを削除しました。 id=#{@task.id}" }
     else
-      redirect_to task_path(@task.id), flash: {error: "タスクの削除に削除しました。 id=#{@task.id}"}
+      redirect_to task_path(@task.id), flash: { error: "タスクの削除に削除しました。 id=#{@task.id}" }
     end
   end
 
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
     Task.find(params[:id])
   end
 
-  def get_resource_params
+  def task_params
     params.require(:task).permit(:name, :detail)
   end
 end
