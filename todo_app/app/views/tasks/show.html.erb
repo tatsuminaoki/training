@@ -1,4 +1,7 @@
 <% if (msg = flash[:success]).present? -%>
+  <p class='flash_success'><%= msg -%></p>
+<% end -%>
+<% if (msg = flash[:error]).present? -%>
   <p class='flash_error'><%= msg -%></p>
 <% end -%>
 

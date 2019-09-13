@@ -1,10 +1,10 @@
-<% if @task.errors.present? -%>
+<% if @task.errors.present? %>
   <ul>
-    <% @task.errors.full_messages.each do |msg| -%>
+    <% @task.errors.full_messages.each do |msg| %>
       <li><%= msg -%></li>
-    <% end -%>
+    <% end %>
   </ul>
-<% end -%>
+<% end %>
 
 <%= form_for @task do |f| %>
   <ul>
@@ -25,4 +25,4 @@
   </ul>
 
   <%= f.submit %>
-<% end -%>
+<% end %>

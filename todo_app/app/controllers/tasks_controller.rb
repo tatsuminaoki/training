@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
@@ -35,18 +37,21 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = find_resource
-    @task.destroy!
-    redirect_to tasks_path, flash: {success: "タスクを削除しました。 id=#{@task.id}"}
+    @task = self.find_resource
+    if @task.destroy
+      redirect_to tasks_path, flash: {success: "タスクを削除しました。 id=#{@task.id}"}
+    else
+      redirect_to task_path(@task.id), flash: {error: "タスクの削除に削除しました。 id=#{@task.id}"}
+    end
   end
 
-protected
+  protected
 
   def find_resource
     Task.find(params[:id])
   end
 
   def get_resource_params
-    params[:task]&.permit(:name, :detail) || {}
+    params.require(:task).permit(:name, :detail)
   end
 end
