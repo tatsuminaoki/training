@@ -30,11 +30,13 @@ class TasksController < ApplicationController
     @task = Task.find(checked_id)
   rescue => e
     logger.error e
+    flash[:danger] = '存在しないタスクです'
     redirect_to action: 'index'
   end
 
   def update
     @task = Task.find(checked_id)
+
     @task.update(checked_task)
     flash[:success] = '更新されました'
     redirect_to action: 'index'
@@ -45,16 +47,14 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    begin
-      @task = Task.find(checked_id)
-      @task.destroy
-      flash[:success] = '削除しました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '削除に失敗しました'
-      redirect_to action: 'index'
-    end
+    @task = Task.find(checked_id)
+    @task.destroy
+    flash[:success] = '削除しました'
+    redirect_to action: 'index'
+  rescue => e
+    logger.error e
+    flash[:danger] = '削除に失敗しました'
+    redirect_to action: 'index'
   end
 
   private
@@ -65,8 +65,7 @@ class TasksController < ApplicationController
     if @id <= 0
       # 値が不正
       logger.debug("値が不正:" + @id.to_s)
-      redirect_to action: 'index'
-      return
+      raise
     end
 
     @id
