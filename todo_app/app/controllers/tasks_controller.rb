@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(self.get_resource_params)
+    @task = Task.new(get_resource_params)
     if @task.save
       redirect_to task_path(@task.id), flash: {success: 'タスクを作成しました。'}
     else
@@ -19,16 +19,16 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = self.find_resource
+    @task = find_resource
   end
 
   def edit
-    @task = self.find_resource
+    @task = find_resource
   end
 
   def update
-    @task = self.find_resource
-    if @task.update(self.get_resource_params)
+    @task = find_resource
+    if @task.update(get_resource_params)
       redirect_to task_path(@task.id), flash: {success: 'タスクを更新しました。'}
     else
       render :new
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = self.find_resource
+    @task = find_resource
     if @task.destroy
       redirect_to tasks_path, flash: {success: "タスクを削除しました。 id=#{@task.id}"}
     else
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
     end
   end
 
-  protected
+  private
 
   def find_resource
     Task.find(params[:id])
