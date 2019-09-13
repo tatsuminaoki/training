@@ -28,8 +28,7 @@ class TasksController < ApplicationController
 
   def update
     @task = self.find_resource
-    @task.attributes = self.get_resource_params
-    if @task.save
+    if @task.update(self.get_resource_params)
       redirect_to task_path(@task.id), flash: {success: 'タスクを更新しました。'}
     else
       render :new
