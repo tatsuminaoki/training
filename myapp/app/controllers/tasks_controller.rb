@@ -16,39 +16,32 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(checked_task)
 
-    begin
-      @task.save
-      flash[:success] = '登録されました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '登録に失敗しました'
-      render :new
-    end
+    @task.save
+    flash[:success] = '登録されました'
+    redirect_to action: 'index'
+  rescue => e
+    logger.error e
+    flash[:danger] = '登録に失敗しました'
+    render :new
   end
 
   def edit
     @title = 'タスク編集'
-    begin
-      @task = Task.find(checked_id)
-    rescue => e
-      logger.error e
-      redirect_to action: 'index'
-      return
-    end
+    @task = Task.find(checked_id)
+  rescue => e
+    logger.error e
+    redirect_to action: 'index'
   end
 
   def update
-    begin
-      @task = Task.find(checked_id)
-      @task.update(checked_task)
-      flash[:success] = '更新されました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '更新に失敗しました'
-      render :edit
-    end
+    @task = Task.find(checked_id)
+    @task.update(checked_task)
+    flash[:success] = '更新されました'
+    redirect_to action: 'index'
+  rescue => e
+    logger.error e
+    flash[:danger] = '更新に失敗しました'
+    render :edit
   end
 
   def destroy
