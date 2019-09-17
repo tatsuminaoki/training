@@ -24,5 +24,7 @@ module TodoApp
                   routing_specs: false
       generator.fixture_replacement :factory_bot, dir: "spec/factories"
     end
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
   end
 end
