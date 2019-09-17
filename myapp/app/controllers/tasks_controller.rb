@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
 
   def show
-      redirect_to action: 'index'
+    redirect_to action: 'index'
   end
 
   def new
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   rescue => e
     logger.error e
     flash[:danger] = '更新に失敗しました'
-    render :edit
+    redirect_to action: 'index'
   end
 
   def destroy
@@ -63,8 +63,7 @@ class TasksController < ApplicationController
     @id = params[:id].to_i
 
     if @id <= 0
-      # 値が不正
-      logger.debug("値が不正:" + @id.to_s)
+      logger.error("値が不正:" + params[:id])
       raise
     end
 
@@ -72,6 +71,13 @@ class TasksController < ApplicationController
   end
 
   def checked_task
-    params.require(:task).permit(:title, :description)
+    @task = params.require(:task).permit(:title, :description)
+
+    if @task[:title] == ''
+      logger.error('タイトルが空')
+      raise
+    end
+
+    @task
   end
 end
