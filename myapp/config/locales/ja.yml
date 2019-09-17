@@ -1,0 +1,18 @@
+ja:
+  tasks:
+    index:
+      title: タスクリスト
+    new:
+      title: タスク登録
+    edit:
+      title: タスク編集
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+        task:
+          id: ID
+          title: タイトル
+          description: 説明
+          created_at: 作成日
+          updated_at: 更新日

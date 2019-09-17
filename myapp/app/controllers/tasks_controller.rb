@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   def index
-    @title = 'タスクリスト'
     @tasks = Task.all
   end
 
@@ -9,7 +8,6 @@ class TasksController < ApplicationController
   end
 
   def new
-    @title = 'タスク作成'
     @task = Task.new
   end
 
@@ -26,7 +24,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @title = 'タスク編集'
     @task = Task.find(checked_id)
   rescue => e
     logger.error e
