@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'fablicop', '~> 0.1.0'
+gem 'ltsv-logger'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
