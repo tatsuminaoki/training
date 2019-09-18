@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(checked_task)
 
-    @task.save
+    @task.save!
     flash[:success] = '登録されました'
     redirect_to tasks_url
   rescue => e
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(checked_id)
 
-    @task.update(checked_task)
+    @task.update!(checked_task)
     flash[:success] = '更新されました'
     redirect_to tasks_url
   rescue => e
