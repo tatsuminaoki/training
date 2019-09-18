@@ -16,6 +16,15 @@ module TodoApp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.generators do |generator|
+      generator.test_framework :rspec,
+                       fixtures: true,
+               controller_specs: true,
+                   helper_specs: false,
+                  routing_specs: false
+      generator.fixture_replacement :factory_bot, dir: "spec/factories"
+    end
+
     #add custom config
     config.time_zone = 'Asia/Tokyo'
     config.active_record.default_timezone = :local
