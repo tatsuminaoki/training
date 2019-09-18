@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    redirect_to action: 'index'
+    redirect_to tasks_url
   end
 
   def new
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
     @task.save
     flash[:success] = '登録されました'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   rescue => e
     logger.error e
     flash[:danger] = '登録に失敗しました'
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   rescue => e
     logger.error e
     flash[:danger] = '存在しないタスクです'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   end
 
   def update
@@ -39,22 +39,22 @@ class TasksController < ApplicationController
 
     @task.update(checked_task)
     flash[:success] = '更新されました'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   rescue => e
     logger.error e
     flash[:danger] = '更新に失敗しました'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   end
 
   def destroy
     @task = Task.find(checked_id)
     @task.destroy
     flash[:success] = '削除しました'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   rescue => e
     logger.error e
     flash[:danger] = '削除に失敗しました'
-    redirect_to action: 'index'
+    redirect_to tasks_url
   end
 
   private
