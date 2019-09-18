@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :find_resource, only: [:show, :edit, :update, :destroy]
+
   def index
-    search_params = params.permit(q: [:name, :utf8, :commit, { status: [] }])
+    search_params = params.permit(q: [:name, { statuses: [] }])
     @search_query = search_params[:q] || {}
 
     @tasks = Task.includes(:user)
-    @tasks = @tasks.where(status: @search_query[:status]) if @search_query[:status].present?
+    @tasks = @tasks.where(status: @search_query[:statuses]) if @search_query[:statuses].present?
     @tasks = @tasks.name_like(@search_query[:name]) if @search_query[:name].present?
   end
 
@@ -23,16 +25,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
-    @task = find_resource
-  end
-
-  def edit
-    @task = find_resource
-  end
-
   def update
-    @task = find_resource
     if @task.update(task_params)
       redirect_to task_path(@task.id), flash: { success: 'タスクを更新しました。' }
     else
@@ -41,7 +34,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = find_resource
     if @task.destroy
       redirect_to tasks_path, flash: { success: "タスクを削除しました。 id=#{@task.id}" }
     else
@@ -52,7 +44,7 @@ class TasksController < ApplicationController
   private
 
   def find_resource
-    Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def task_params

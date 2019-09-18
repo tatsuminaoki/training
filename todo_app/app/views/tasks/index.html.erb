@@ -15,7 +15,7 @@
       :
       <% Task.statuses_i18n.each do |key, text| %>
         <label>
-          <%= f.check_box :status, {multiple: true, checked: @search_query[:status]&.include?(key)}, key, false -%>
+          <%= f.check_box :statuses, {multiple: true, checked: @search_query[:status]&.include?(key)}, key, false -%>
           <%= text -%>
         </label>
       <% end %>
