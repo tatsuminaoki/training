@@ -24,5 +24,9 @@ module TodoApp
                   routing_specs: false
       generator.fixture_replacement :factory_bot, dir: "spec/factories"
     end
+
+    #add custom config
+    config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
