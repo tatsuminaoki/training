@@ -73,7 +73,7 @@ class TasksController < ApplicationController
   def checked_task
     @task = params.require(:task).permit(:title, :description)
 
-    if @task[:title] == ''
+    if @task[:title].blank?
       logger.error('タイトルが空')
       raise
     end
