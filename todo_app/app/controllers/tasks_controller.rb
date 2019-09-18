@@ -5,7 +5,7 @@ class TasksController < ApplicationController
     search_params = params.permit(q: [:name, :utf8, :commit, { status: [] }])
     @search_query = search_params[:q] || {}
 
-    @tasks = Task.where(nil)
+    @tasks = Task.includes(:user)
     @tasks = @tasks.where(status: @search_query[:status]) if @search_query[:status].present?
     @tasks = @tasks.name_like(@search_query[:name]) if @search_query[:name].present?
   end
