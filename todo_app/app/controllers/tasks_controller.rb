@@ -4,11 +4,11 @@ class TasksController < ApplicationController
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
 
   def index
-    search_params = params.permit(q: [:name, { status: [] }])
+    search_params = params.permit(q: [:name, { statuses: [] }])
     @search_query = search_params[:q] || {}
 
     @tasks = Task.where(nil)
-    @tasks = @tasks.where(status: @search_query[:status]) if @search_query[:status].present?
+    @tasks = @tasks.where(status: @search_query[:statuses]) if @search_query[:statuses].present?
     @tasks = @tasks.name_like(@search_query[:name]) if @search_query[:name].present?
   end
 

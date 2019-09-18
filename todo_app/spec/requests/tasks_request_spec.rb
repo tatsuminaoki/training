@@ -51,8 +51,8 @@ RSpec.describe 'Tasks', type: :request do
       end
 
       context 'when status query exists' do
-        it 'searched by status' do
-          get tasks_path(q: { status: [:done] })
+        it 'searched by statuses' do
+          get tasks_path(q: { statuses: [:done] })
           expect(response.body).not_to include('hogehoge')
           expect(response.body).not_to include('fugafuga')
           expect(response.body).to include('hogefuga')
