@@ -27,9 +27,9 @@ RSpec.describe 'Tasks', type: :request do
 
     describe 'search' do
       before do
-        create(:task, name: 'hogehoge', status: 'initial')
-        create(:task, name: 'fugafuga', status: 'in_progress')
-        create(:task, name: 'hogefuga', status: 'done')
+        create(:task, name: 'hogehoge', status: :initial)
+        create(:task, name: 'fugafuga', status: :in_progress)
+        create(:task, name: 'hogefuga', status: :done)
       end
 
       context 'when queries not exists' do
@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :request do
 
       context 'when status query exists' do
         it 'searched by status' do
-          get tasks_path(q: { status: ['done'] })
+          get tasks_path(q: { status: [:done] })
           expect(response.body).not_to include('hogehoge')
           expect(response.body).not_to include('fugafuga')
           expect(response.body).to include('hogefuga')
