@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action  :validation, only: [:create, :update]
+
   def index
     @title = 'タスクリスト'
     @tasks = Task.all
@@ -43,7 +45,7 @@ class TasksController < ApplicationController
   rescue => e
     logger.error e
     flash[:danger] = '更新に失敗しました'
-    redirect_to tasks_url
+    render :edit
   end
 
   def destroy
@@ -71,13 +73,13 @@ class TasksController < ApplicationController
   end
 
   def checked_task
-    @task = params.require(:task).permit(:title, :description)
+    params.require(:task).permit(:title, :description)
+  end
 
-    if @task[:title].blank?
-      logger.error('タイトルが空')
-      raise
+  def validation
+    if checked_task[:title].blank?
+      flash[:danger] = 'タイトルは必須入力です'
+      redirect_back(fallback_location: root_path)
     end
-
-    @task
   end
 end
