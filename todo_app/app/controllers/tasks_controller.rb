@@ -2,7 +2,12 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    search_params = params.permit(q: [:name, :utf8, :commit, { status: [] }])
+    @search_query = search_params[:q] || {}
+
+    @tasks = Task.where(nil)
+    @tasks = @tasks.where(status: @search_query[:status]) if @search_query[:status].present?
+    @tasks = @tasks.name_like(@search_query[:name]) if @search_query[:name].present?
   end
 
   def new
@@ -51,6 +56,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :detail)
+    params.require(:task).permit(:name, :detail, :status)
   end
 end

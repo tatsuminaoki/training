@@ -4,5 +4,6 @@ FactoryBot.define do
   factory :task do
     name { Faker::Name.name }
     detail { Faker::Lorem.sentence }
+    status { 'initial' }
   end
 end
