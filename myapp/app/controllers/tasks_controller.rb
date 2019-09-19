@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(@param_id)
-    @task.destroy
+    @task.destroy!
     flash[:success] = '削除しました'
     redirect_to tasks_url
   rescue => e
