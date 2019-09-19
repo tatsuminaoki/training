@@ -1,20 +1,10 @@
 FactoryBot.define do
-  factory :task do
-    title       { 'Task' }
-    description { 'Description' }
+  factory :task, class: Task do
+    sequence(:title) { |n| "Task#{n}"}
+    sequence(:description) { |n| "Description#{n}"}
   end
 
-  factory :task1, class: Task do
-    title       { 'Task1' }
-    description { 'Description1' }
-  end
-
-  factory :task2, class: Task do
-    title       { 'Task2' }
-    description { 'Description2' }
-  end
-
-  factory :task3, class: Task do
+  factory :blank_task, class: Task do
     title       { '' }
     description { '' }
   end
