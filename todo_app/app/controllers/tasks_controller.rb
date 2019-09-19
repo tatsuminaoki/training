@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  before_action :find_resource, only: %i[show edit update destroy]
 
   def index
     search_params = params.permit(q: [:name, { statuses: [] }])

@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: redirect('/tasks')
 
   resources :tasks
+  resources :sessions, only: %i[new create]
 end
