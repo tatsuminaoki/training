@@ -59,6 +59,7 @@ Temporary Items
 /tmp/
 /log/
 /public/packs/
+/public/packs-test/
 
 # Used by dotenv library to load environment variables.
 # .env

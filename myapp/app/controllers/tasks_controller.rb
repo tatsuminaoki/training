@@ -1,11 +1,14 @@
 class TasksController < ApplicationController
+  before_action  :valid_task, only: [:create, :update]
+  before_action  :valid_id, only: [:edit, :update, :destroy]
+
   def index
     @title = 'タスクリスト'
     @tasks = Task.all
   end
 
   def show
-      redirect_to action: 'index'
+    redirect_to tasks_url
   end
 
   def new
@@ -14,72 +17,66 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(checked_task)
+    @task = Task.new(@param_task)
 
-    begin
-      @task.save
-      flash[:success] = '登録されました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '登録に失敗しました'
-      render :new
-    end
+    @task.save!
+    flash[:success] = '登録されました'
+    redirect_to tasks_url
+  rescue => e
+    logger.error e
+    flash[:danger] = '登録に失敗しました'
+    render :new
   end
 
   def edit
     @title = 'タスク編集'
-    begin
-      @task = Task.find(checked_id)
-    rescue => e
-      logger.error e
-      redirect_to action: 'index'
-      return
-    end
+    @task = Task.find(@param_id)
+  rescue => e
+    logger.error e
+    flash[:danger] = '存在しないタスクです'
+    redirect_to tasks_url
   end
 
   def update
-    begin
-      @task = Task.find(checked_id)
-      @task.update(checked_task)
-      flash[:success] = '更新されました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '更新に失敗しました'
-      render :edit
-    end
+    @task = Task.find(@param_id)
+
+    @task.update!(@param_task)
+    flash[:success] = '更新されました'
+    redirect_to tasks_url
+  rescue => e
+    logger.error e
+    flash[:danger] = '更新に失敗しました'
+    render :edit
   end
 
   def destroy
-    begin
-      @task = Task.find(checked_id)
-      @task.destroy
-      flash[:success] = '削除しました'
-      redirect_to action: 'index'
-    rescue => e
-      logger.error e
-      flash[:danger] = '削除に失敗しました'
-      redirect_to action: 'index'
-    end
+    @task = Task.find(@param_id)
+    @task.destroy!
+    flash[:success] = '削除しました'
+    redirect_to tasks_url
+  rescue => e
+    logger.error e
+    flash[:danger] = '削除に失敗しました'
+    redirect_to tasks_url
   end
 
   private
 
-  def checked_id
-    @id = params[:id].to_i
+  def valid_id
+    @param_id = params[:id].to_i
 
-    if @id <= 0
-      # 値が不正
-      logger.debug("値が不正:" + @id.to_s)
-      redirect_to action: 'index'
-      return
+    if @param_id <= 0
+      logger.error("値が不正:" + params[:id])
+      flash[:danger] = '値が不正です'
+      redirect_back(fallback_location: root_path)
     end
-
-    @id
   end
 
-  def checked_task
-    params.require(:task).permit(:title, :description)
+  def valid_task
+    @param_task = params.require(:task).permit(:title, :description)
+    if @param_task[:title].blank?
+      flash[:danger] = 'タイトルは必須入力です'
+      redirect_back(fallback_location: root_path)
+    end
   end
 end
