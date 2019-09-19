@@ -27,7 +27,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @title = 'タスク編集'
     @task = Task.find(@param_id)
   rescue => e
     logger.error e
