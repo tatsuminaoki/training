@@ -1,0 +1,36 @@
+<%= render "alert" %>
+<h1>タスク詳細</h1>
+<div>
+  <p>
+    <strong>タスク名：</strong>
+    <%= @task.name %>
+  </p>
+  <p>
+    <strong>タスク内容：</strong><br>
+    <p>
+      <%= @task.description %>
+    </p>
+  </p>
+  <p>
+    <strong>ステータス：</strong>
+    <% if @task.status == 1 %>未着手
+    <% elsif @task.status == 2 %>着手中
+    <% elsif @task.status == 3 %>完了
+    <% else %>未設定
+    <% end %>
+  </p>
+  <p>
+    <strong>優先順位：</strong>
+    <% if @task.status == 1 %>低
+    <% elsif @task.status == 2 %>中
+    <% elsif @task.status == 3 %>高
+    <% else %>未設定
+    <% end %>
+  </p>
+  <p>
+    <strong>完了期限：</strong>
+     <%= @task.duedate.to_s(:long) %>
+  </p>
+  <br>
+  <%= link_to '戻る', root_path %>
+</div>
