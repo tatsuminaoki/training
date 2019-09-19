@@ -24,6 +24,41 @@ RSpec.describe 'Tasks', type: :request do
         expect(response.body).to include('タスクは登録されていません')
       end
     end
+
+    describe 'search' do
+      before do
+        create(:task, name: 'hogehoge', status: :initial)
+        create(:task, name: 'fugafuga', status: :in_progress)
+        create(:task, name: 'hogefuga', status: :done)
+      end
+
+      context 'when queries not exists' do
+        it 'displays all tasks' do
+          get tasks_path
+          expect(response.body).to include('hogehoge')
+          expect(response.body).to include('fugafuga')
+          expect(response.body).to include('hogefuga')
+        end
+      end
+
+      context 'when name query exists' do
+        it 'searched by name' do
+          get tasks_path(q: { name: 'hoge' })
+          expect(response.body).to include('hogehoge')
+          expect(response.body).not_to include('fugafuga')
+          expect(response.body).to include('hogefuga')
+        end
+      end
+
+      context 'when status query exists' do
+        it 'searched by statuses' do
+          get tasks_path(q: { statuses: [:done] })
+          expect(response.body).not_to include('hogehoge')
+          expect(response.body).not_to include('fugafuga')
+          expect(response.body).to include('hogefuga')
+        end
+      end
+    end
   end
 
   describe 'GET /tasks/new' do

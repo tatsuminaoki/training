@@ -5,4 +5,5 @@ ja:
     attributes:
       task:
         name: タスク名
+        status: 'ステータス'
         detail: 詳細

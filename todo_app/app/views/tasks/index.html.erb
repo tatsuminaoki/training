@@ -2,15 +2,48 @@
   <p class='flash_error'><%= msg -%></p>
 <% end %>
 
+<div>
+  <h2>絞り込み</h2>
+  <%= form_for :q, method: :get do |f| %>
+    <div>
+      <%= Task.human_attribute_name(:name) -%>
+      :
+      <%= f.text_field :name, value: @search_query[:name] -%>
+    </div>
+    <div>
+      <%= Task.human_attribute_name(:status) -%>
+      :
+      <% Task.statuses_i18n.each do |key, text| %>
+        <label>
+          <%= f.check_box :statuses, {multiple: true, checked: @search_query[:status]&.include?(key)}, key, false -%>
+          <%= text -%>
+        </label>
+      <% end %>
+    </div>
+    <%= f.submit '検索' %>
+  <% end %>
+</div>
+
+<hr>
+
+<h2>一覧</h2>
 <% if @tasks.blank? %>
   <p>タスクは登録されていません</p>
 <% else %>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td><%= Task.human_attribute_name(:name) -%></td>
+      <td><%= Task.human_attribute_name(:status) -%></td>
+      <td></td>
+    </tr>
     <% @tasks.each do |task| %>
-      <div>
-        <%= link_to task_path(task.id) do -%>
-          <%= "#{task.id} : #{hyphen_if_blank(task.name)}" -%>
-        <% end %>
-      </div>
+      <tr>
+        <td><%= task.id -%></td>
+        <td><%= hyphen_if_blank(task.name) -%></td>
+        <td><%= task.status_i18n -%></td>
+        <td><%= link_to '開く', task_path(task.id) -%></td>
+      </tr>
     <% end %>
 <% end %>
 

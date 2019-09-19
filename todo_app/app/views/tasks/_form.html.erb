@@ -17,6 +17,18 @@
     </li>
     <li>
       <label>
+        <%= Task.human_attribute_name(:status) -%>
+        :
+        <% Task.statuses_i18n.each do |key, text| %>
+          <label>
+            <%= f.radio_button :status, key %>
+            <%= text %>
+          </label>
+        <% end %>
+      </label>
+    </li>
+    <li>
+      <label>
         <%= Task.human_attribute_name(:detail) -%>
         :
         <%= f.text_area :detail -%>
