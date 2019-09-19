@@ -47,8 +47,16 @@
         <td><%= link_to '開く', task_path(task.id) -%></td>
       </tr>
     <% end %>
+  </table>
 <% end %>
 
 <div style='margin-top: 2em;'>
   <%= link_to '新規作成', new_task_path %>
+</div>
+
+<div style='margin-top: 2em;'>
+  <%= form_for :session, url: session_path, method: :post do |f| %>
+    <%= hidden_field_tag :_method, 'delete' %>
+    <%= f.submit 'ログアウト' %>
+  <% end %>
 </div>

@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id if user.present?
   end
 
+  def logout
+    @current_user = nil
+    session.delete :user_id
+  end
+
   def logged_in?
     !!current_user
   end
