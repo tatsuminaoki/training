@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :tasks
   resource :session, only: [:new, :create, :destroy]
+  resource :maintenance, only: :show
 end
