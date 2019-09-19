@@ -5,5 +5,6 @@ FactoryBot.define do
     name { Faker::Name.name }
     detail { Faker::Lorem.sentence }
     status { :initial }
+    association :user
   end
 end
