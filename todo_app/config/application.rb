@@ -25,6 +25,9 @@ module TodoApp
       generator.fixture_replacement :factory_bot, dir: "spec/factories"
     end
 
+    #add custom config
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
+    config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
