@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action -> { redirect_to new_session_path }, unless: :logged_in?
   before_action :find_resource, only: %i[show edit update destroy]
 
   def index
