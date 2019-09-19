@@ -33,6 +33,7 @@
   <table>
     <tr>
       <td>ID</td>
+      <td>USER Name</td>
       <td><%= Task.human_attribute_name(:name) -%></td>
       <td><%= Task.human_attribute_name(:status) -%></td>
       <td></td>
@@ -40,6 +41,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.id -%></td>
+        <td><%= task.user&.name -%></td>
         <td><%= hyphen_if_blank(task.name) -%></td>
         <td><%= task.status_i18n -%></td>
         <td><%= link_to '開く', task_path(task.id) -%></td>

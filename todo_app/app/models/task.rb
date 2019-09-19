@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   # 未着手・着手中・完了
   enum status: { initial: 0, in_progress: 1, done: 2 }
 
+  belongs_to :user, optional: true
+
   validates :name, presence: true
   validates :status, presence: true
 
