@@ -23,15 +23,11 @@
   </div>
   <div>
     <%= f.label 'ステータス' %><br>
-    <label><%= f.radio_button :status, 1, :checked => true %>未着手</label>
-    <label><%= f.radio_button :status, 2 %>着手中</label>
-    <label><%= f.radio_button :status, 3 %>完了</label>
+    <%= f.select :status, Task.statuses.keys, {prompt: '選択してください'}%>
   </div>
   <div>
     <%= f.label '優先順位' %><br>
-    <label><%= f.radio_button :priority, 1, :checked => true %>低</label>
-    <label><%= f.radio_button :priority, 2 %>中</label>
-    <label><%= f.radio_button :priority, 3 %>高</label>
+    <%= f.select :priority, Task.priorities.keys, {prompt: '選択してください'}%>
   </div>
   <div>
     <%= f.label '完了期限' %><br>

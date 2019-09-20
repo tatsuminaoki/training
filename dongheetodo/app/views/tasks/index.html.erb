@@ -15,20 +15,8 @@
     <tr>
       <td><%= t.id %></td>
       <td><%= t.name %></td>
-      <td>
-        <% if t.status == 1 %>未着手
-        <% elsif t.status == 2 %>着手中　
-        <% elsif t.status == 3 %>完了
-        <% else %>未設定
-        <% end %>
-      </td>
-      <td>
-        <% if t.priority == 1 %>低
-        <% elsif t.priority == 2 %>中
-        <% elsif t.priority == 3 %>高
-        <% else %>未設定
-        <% end %>
-      </td>
+      <td><%= t.status %></td>
+      <td><%= t.priority %></td>
       <td><%= t.duedate.to_s(:long) %></td>
       <td><%= link_to '詳細', task_path(t) %></td>
       <td><%= link_to '修正', edit_task_path(t) %></td>
