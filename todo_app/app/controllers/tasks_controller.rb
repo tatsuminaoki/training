@@ -14,12 +14,11 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(user: current_user)
+    @task = current_user.tasks.new
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.user = current_user
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to task_path(@task.id), flash: { success: 'タスクを作成しました。' }
     else
@@ -39,7 +38,7 @@ class TasksController < ApplicationController
     if @task.destroy
       redirect_to tasks_path, flash: { success: "タスクを削除しました。 id=#{@task.id}" }
     else
-      redirect_to task_path(@task.id), flash: { error: "タスクの削除に削除しました。 id=#{@task.id}" }
+      redirect_to task_path(@task.id), flash: { error: "タスクの削除に失敗しました。 id=#{@task.id}" }
     end
   end
 

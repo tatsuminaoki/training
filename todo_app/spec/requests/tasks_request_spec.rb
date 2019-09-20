@@ -81,6 +81,15 @@ RSpec.describe 'Tasks', type: :request do
             expect(response.body).to include('hogefuga')
           end
         end
+
+        context 'when status and name query exists' do
+          it 'searched by statuses and name' do
+            get tasks_path(q: { statuses: [:done], name: 'hoge' })
+            expect(response.body).not_to include('hogehoge')
+            expect(response.body).not_to include('fugafuga')
+            expect(response.body).to include('hogefuga')
+          end
+        end
       end
     end
   end
@@ -327,7 +336,7 @@ RSpec.describe 'Tasks', type: :request do
 
         it 'sets flash message' do
           delete task_path(id: task.id)
-          expect(flash[:error]).to include('タスクの削除に削除しました。')
+          expect(flash[:error]).to include('タスクの削除に失敗しました。')
         end
       end
 
