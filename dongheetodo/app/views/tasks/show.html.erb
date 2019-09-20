@@ -21,7 +21,7 @@
   </p>
   <p>
     <strong>完了期限：</strong>
-     <%= @task.duedate.to_s(:long) %>
+     <%= @task.duedate && @task.duedate.to_s(:long) %>
   </p>
   <br>
   <%= link_to '戻る', root_path %>
