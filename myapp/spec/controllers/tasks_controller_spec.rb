@@ -47,16 +47,45 @@ describe TasksController, type: :request do
         end.to_not change(Task, :count)
       end
     end
+    
+    context '例外が発生した場合' do
+      it 'Exceptionは500エラーが発生する' do
+        allow_any_instance_of(Task).to receive(:save!).and_raise(Exception)
+        post tasks_url, params: { task: FactoryBot.attributes_for(:task) }
+        expect(response).to have_http_status :internal_server_error
+      end
+      it '例外が発生した場合はエラーを表示し遷移しない' do
+        allow_any_instance_of(Task).to receive(:save!).and_raise(ActiveRecord::RecordNotFound, 'nanikashira error')
+        post tasks_url, params: { task: FactoryBot.attributes_for(:task) }
+        expect(response.body).to include '登録に失敗しました'
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 
   describe 'GET #edit' do
     let(:task) { FactoryBot.create :task }
   
-    it 'リクエストが成功し、タイトルと説明が表示されていること' do
-      get edit_task_url task
-      expect(response).to have_http_status :ok
-      expect(response.body).to include 'Task'
-      expect(response.body).to include 'Description'
+    context '正常なパラメータの場合' do
+      it 'リクエストが成功し、タイトルと説明が表示されていること' do
+        get edit_task_url task
+        expect(response).to have_http_status :ok
+        expect(response.body).to include 'Task'
+        expect(response.body).to include 'Description'
+      end
+    end
+
+    context 'パラメータが不正な場合' do
+      it '存在しないIDなら404へ遷移すること' do
+        undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
+        get edit_task_url undefined_task
+        expect(response).to have_http_status :not_found
+      end
+      it '不正なIDなら404へ遷移すること' do
+        undefined_task = FactoryBot.attributes_for(:task, id: -1)
+        get edit_task_url undefined_task
+        expect(response).to have_http_status :not_found
+      end
     end
   end
 
@@ -90,21 +119,40 @@ describe TasksController, type: :request do
         end.to_not change(Task.find(task.id), :title)
       end
     end
+
+    context '例外が発生した場合' do
+      it '例外が発生した場合はエラーを表示し遷移しない' do
+        allow_any_instance_of(Task).to receive(:update!).and_raise(ActiveRecord::RecordNotFound, 'nanikashira error')
+        put task_url task, params: { task: FactoryBot.attributes_for(:task, title: 'Update Task') }
+        expect(response.body).to include '更新に失敗しました'
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
-    let!(:task) { FactoryBot.create :task }
+    context '正常なパラメータの場合' do
+      let!(:task) { FactoryBot.create :task }
 
-    it 'TOPへのリダイレクトが成功すること' do
-      delete task_url task
-      expect(response).to have_http_status :found
-      expect(response).to redirect_to tasks_url
+      it 'TOPへのリダイレクトが成功すること' do
+        delete task_url task
+        expect(response).to have_http_status :found
+        expect(response).to redirect_to tasks_url
+      end
+
+      it 'タスクが削除されること' do
+        expect do
+          delete task_url task
+        end.to change(Task, :count).by(-1)
+      end
     end
 
-    it 'タスクが削除されること' do
-      expect do
-        delete task_url task
-      end.to change(Task, :count).by(-1)
+    context 'パラメータが不正な場合' do
+      it '存在しないIDなら404へ遷移すること' do
+        undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
+        delete task_url undefined_task
+        expect(response).to have_http_status :not_found
+      end
     end
   end
 end

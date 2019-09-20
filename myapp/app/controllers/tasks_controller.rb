@@ -6,10 +6,6 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
-  def show
-    redirect_to tasks_url
-  end
-
   def new
     @task = Task.new
   end
@@ -64,7 +60,7 @@ class TasksController < ApplicationController
     if @param_id <= 0
       logger.error("値が不正:" + params[:id])
       flash[:danger] = '値が不正です'
-      redirect_back(fallback_location: root_path)
+      render_404
     end
   end
 
