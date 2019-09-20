@@ -1,0 +1,39 @@
+<%= form_with model: @task do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@task.errors.count, "error") %> 件のエラーが発生しました。以下を確認してください。
+      </h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% # TODO: ログイン機能追加後、user_idを動的に当てるように修正 %>
+  <%= f.hidden_field :user_id, :value => 1 %>
+  <div>
+    <%= f.label 'タスク名' %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label 'タスク内容' %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label 'ステータス' %><br>
+    <%= f.select :status, Task.statuses.keys, {prompt: '選択してください'}%>
+  </div>
+  <div>
+    <%= f.label '優先順位' %><br>
+    <%= f.select :priority, Task.priorities.keys, {prompt: '選択してください'}%>
+  </div>
+  <div>
+    <%= f.label '完了期限' %><br>
+    <%= f.datetime_select :duedate %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

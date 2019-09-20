@@ -1,0 +1,28 @@
+<%= render "notice" %>
+<h1>タスク詳細</h1>
+<div>
+  <p>
+    <strong>タスク名：</strong>
+    <%= @task.name %>
+  </p>
+  <p>
+    <strong>タスク内容：</strong><br>
+    <p>
+      <%= @task.description %>
+    </p>
+  </p>
+  <p>
+    <strong>ステータス：</strong>
+    <%= @task.status %>
+  </p>
+  <p>
+    <strong>優先順位：</strong>
+    <%= @task.priority %>
+  </p>
+  <p>
+    <strong>完了期限：</strong>
+     <%= @task.duedate.to_s(:long) %>
+  </p>
+  <br>
+  <%= link_to '戻る', root_path %>
+</div>
