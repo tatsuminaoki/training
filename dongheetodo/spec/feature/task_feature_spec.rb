@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "[タスクCRUD]" do
+RSpec.feature "[タスクCRUD]", js: true do
   background do
     # TODO: ログイン機能追加後、user_idを動的に当てるように修正
     @user = User.create!(id: 1, email: "donghee_kim@fablic.co.jp", password_digest: "hogehoge")
@@ -35,6 +35,8 @@ RSpec.feature "[タスクCRUD]" do
   end
   scenario "タスクを削除する" do
     visit tasks_path
-    expect(page).to have_content "削除"
+    all("tbody tr ")[0].click_link "削除"
+    accept_alert "本当に削除しますか？"
+    expect(page).to have_content "正常に削除しました"
   end
 end
