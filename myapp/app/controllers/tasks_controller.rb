@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   rescue => e
     logger.error e
     flash[:danger] = '削除に失敗しました'
-    render_404
+    redirect_to tasks_url
   end
 
   private
