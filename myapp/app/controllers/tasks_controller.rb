@@ -3,7 +3,6 @@ class TasksController < ApplicationController
   before_action  :valid_id, only: [:edit, :update, :destroy]
 
   def index
-    @title = 'タスクリスト'
     @tasks = Task.all
   end
 
@@ -12,7 +11,6 @@ class TasksController < ApplicationController
   end
 
   def new
-    @title = 'タスク作成'
     @task = Task.new
   end
 
@@ -29,12 +27,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @title = 'タスク編集'
     @task = Task.find(@param_id)
-  rescue => e
-    logger.error e
-    flash[:danger] = '存在しないタスクです'
-    redirect_to tasks_url
   end
 
   def update
