@@ -28,9 +28,6 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(@param_id)
-  rescue => e
-    logger.error e
-    render_404(e)
   end
 
   def update
