@@ -1,0 +1,41 @@
+en:
+  activerecord:
+    models:
+      task: "task"
+    attributes:
+      task:
+        id: "ID"
+        name: "task name"
+        description: "description"
+        status:
+          name: "status"
+          todo: "to-do"
+          doing: "doing"
+          done: "done"
+        priority:
+          name: "priority"
+          low: "low"
+          mid: "mid"
+          high: "high"
+        duedate: "due date"
+        created_at: "created date"
+        updated_at: "updated date"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "task name is blank."
+            status:
+              blank: "status is blank"
+            priority:
+              blank: "priority is blank"
+    tasks:
+      edit:
+        title: "Edit"
+      index:
+        title: "Task List"
+      new:
+        title: "Create"
+      show:
+        title: "Detail"

@@ -1,0 +1,21 @@
+en:
+  dict:
+    "colon": "\:"
+  button:
+    show: "show"
+    edit: "edit"
+    delete: "delete"
+    create: "create"
+    back: "back"
+  alert:
+    task:
+      delete: "Are you sure you want to delete this task？"
+      select: "Select..."
+  message:
+    task:
+      complete_create: "Your task has been created successfully."
+      complete_update: "Your task has been updated successfully."
+      complete_delete: "Your task has been deleted successfully."
+    error:
+      occurred: " error(s) has been occurred."
+      check: "Please check the message(s) as below."

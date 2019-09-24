@@ -1,0 +1,21 @@
+ja:
+  dict:
+    colon: "："
+  button:
+    show: "詳細"
+    edit: "修正"
+    delete: "削除"
+    create: "作成"
+    back: "戻る"
+  alert:
+    task:
+      delete: "本当に削除しますか？"
+      select: "選択してください。"
+  message:
+    task:
+      complete_create: "正常に作成しました。"
+      complete_update: "正常に更新しました。"
+      complete_delete: "正常に削除しました。"
+    error:
+      occurred: "件のエラーが発生しました。"
+      check: "以下のメッセージを確認してください。"

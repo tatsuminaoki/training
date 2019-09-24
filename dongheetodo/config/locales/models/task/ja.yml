@@ -1,0 +1,41 @@
+ja:
+  activerecord:
+    models:
+      task: "タスク"
+    attributes:
+      task:
+        id: "ID"
+        name: "タスク名"
+        description: "タスク詳細"
+        status:
+          name: "ステータス"
+          todo: "未着手"
+          doing: "着手中"
+          done: "完了"
+        priority:
+          name: "優先順位"
+          low: "低"
+          mid: "中"
+          high: "高"
+        duedate: "完了期限"
+        created_at: "作成日"
+        updated_at: "更新日"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "タスク名が空白です。"
+            status:
+              blank: "ステータスが空白です。"
+            priority:
+              blank: "優先順位が空白です。"
+    tasks:
+      edit:
+        title: "タスク修正"
+      index:
+        title: "タスク一覧"
+      new:
+        title: "タスク作成"
+      show:
+        title: "タスク詳細"

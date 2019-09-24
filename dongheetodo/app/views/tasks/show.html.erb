@@ -1,28 +1,28 @@
 <%= render "notice" %>
-<h1>タスク詳細</h1>
+<h1><%= t :'activerecord.tasks.show.title' %></h1>
 <div>
   <p>
-    <strong>タスク名：</strong>
+    <strong><%= t "activerecord.attributes.task.name" %><%= t "dict.colon" %></strong>
     <%= @task.name %>
   </p>
   <p>
-    <strong>タスク内容：</strong><br>
+    <strong><%= t "activerecord.attributes.task.description" %><%= t "dict.colon" %></strong><br>
     <p>
       <%= @task.description %>
     </p>
   </p>
   <p>
-    <strong>ステータス：</strong>
+    <strong><%= t "activerecord.attributes.task.status.name" %><%= t "dict.colon" %></strong>
     <%= @task.status %>
   </p>
   <p>
-    <strong>優先順位：</strong>
+    <strong><%= t "activerecord.attributes.task.priority.name" %><%= t "dict.colon" %></strong>
     <%= @task.priority %>
   </p>
   <p>
-    <strong>完了期限：</strong>
-     <%= @task.duedate.to_s(:long) %>
+    <strong><%= t "activerecord.attributes.task.duedate" %><%= t "dict.colon" %></strong>
+     <%= @task.duedate && @task.duedate.to_s(:long) %>
   </p>
   <br>
-  <%= link_to '戻る', root_path %>
+  <%= link_to t("button.back"), root_path %>
 </div>
