@@ -17,7 +17,7 @@
       <td><%= t.name %></td>
       <td><%= t.status %></td>
       <td><%= t.priority %></td>
-      <td><%= t.duedate.to_s(:long) %></td>
+      <td><%= t.duedate&.to_s(:long) %></td>
       <td><%= link_to '詳細', task_path(t) %></td>
       <td><%= link_to '修正', edit_task_path(t) %></td>
       <td><%= link_to '削除', task_path(t), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
