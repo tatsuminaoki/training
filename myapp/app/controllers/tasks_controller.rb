@@ -24,9 +24,6 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(@param_id)
-  rescue => e
-    logger.error e
-    render_404(e)
   end
 
   def update
@@ -49,7 +46,7 @@ class TasksController < ApplicationController
   rescue => e
     logger.error e
     flash[:danger] = '削除に失敗しました'
-    render_404
+    redirect_to tasks_url
   end
 
   private
