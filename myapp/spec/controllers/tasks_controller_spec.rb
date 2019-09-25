@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe TasksController, type: :request do
   describe 'GET #index' do
     before do
@@ -7,8 +9,8 @@ describe TasksController, type: :request do
     it 'リクエストが成功すること、タイトルが表示されていること' do
       get tasks_url
       expect(response).to have_http_status :ok
-      expect(response.body).to include "Task1"
-      expect(response.body).to include "Task2"
+      expect(response.body).to include 'Task1'
+      expect(response.body).to include 'Task2'
     end
   end
 
@@ -47,7 +49,7 @@ describe TasksController, type: :request do
         end.to_not change(Task, :count)
       end
     end
-    
+
     context '例外が発生した場合' do
       it 'Exceptionは500エラーが発生する' do
         allow_any_instance_of(Task).to receive(:save!).and_raise(Exception)
@@ -65,7 +67,7 @@ describe TasksController, type: :request do
 
   describe 'GET #edit' do
     let(:task) { FactoryBot.create :task }
-  
+
     context '正常なパラメータの場合' do
       it 'リクエストが成功し、タイトルと説明が表示されていること' do
         get edit_task_url task
@@ -77,7 +79,7 @@ describe TasksController, type: :request do
 
     context 'パラメータが不正な場合' do
       it '存在しないIDなら404へ遷移すること' do
-        undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
+        undefined_task = FactoryBot.attributes_for(:task, id: 999_999_999)
         get edit_task_url undefined_task
         expect(response).to have_http_status :not_found
       end
@@ -92,7 +94,7 @@ describe TasksController, type: :request do
 
   describe 'PUT #update' do
     let!(:task) { FactoryBot.create :task }
-  
+
     context '正常なパラメータの場合' do
       it 'TOPへのリダイレクトが成功すること' do
         put task_url task, params: { task: FactoryBot.attributes_for(:task, title: 'Update Task') }
@@ -150,7 +152,7 @@ describe TasksController, type: :request do
 
     context 'パラメータが不正な場合' do
       it '存在しないIDならTOPへリダイレクトすること' do
-        undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
+        undefined_task = FactoryBot.attributes_for(:task, id: 999_999_999)
         delete task_url undefined_task
         expect(response).to have_http_status :found
         expect(response).to redirect_to tasks_url
