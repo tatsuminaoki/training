@@ -2,26 +2,26 @@
 <h1><%= t :'activerecord.tasks.show.title' %></h1>
 <div>
   <p>
-    <strong><%= t "activerecord.attributes.task.name" %><%= t "dict.colon" %></strong>
+    <strong><%= t "label.task.name" %><%= t "label.colon" %></strong>
     <%= @task.name %>
   </p>
   <p>
-    <strong><%= t "activerecord.attributes.task.description" %><%= t "dict.colon" %></strong><br>
+    <strong><%= t "label.task.description" %><%= t "label.colon" %></strong><br>
     <p>
       <%= @task.description %>
     </p>
   </p>
   <p>
-    <strong><%= t "activerecord.attributes.task.status.name" %><%= t "dict.colon" %></strong>
+    <strong><%= t "label.task.status" %><%= t "label.colon" %></strong>
     <%= @task.status %>
   </p>
   <p>
-    <strong><%= t "activerecord.attributes.task.priority.name" %><%= t "dict.colon" %></strong>
+    <strong><%= t "label.task.priority" %><%= t "label.colon" %></strong>
     <%= @task.priority %>
   </p>
   <p>
-    <strong><%= t "activerecord.attributes.task.duedate" %><%= t "dict.colon" %></strong>
-     <%= @task.duedate && @task.duedate.to_s(:long) %>
+    <strong><%= t "label.task.duedate" %><%= t "label.colon" %></strong>
+     <%= @task.duedate&.to_s(:long) %>
   </p>
   <br>
   <%= link_to t("button.back"), root_path %>
