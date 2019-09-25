@@ -15,9 +15,9 @@
     <tr>
       <td><%= task.id %></td>
       <td><%= task.name %></td>
-      <td><%= task.status %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.duedate&.to_s(:long) %></td>
+      <td><%= t "activerecord.enum.task.status.#{task.status}" %></td>
+      <td><%= t "activerecord.enum.task.priority.#{task.priority}" %></td>
+      <td><%= l task.duedate, format: :short, default: "" %></td>
       <td><%= link_to t("button.show"), task_path(task) %></td>
       <td><%= link_to t("button.edit"), edit_task_path(task) %></td>
       <td><%= link_to t("button.delete"), task_path(task), method: :delete, data: { confirm: t("alert.task.delete") } %></td>

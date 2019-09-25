@@ -1,6 +1,14 @@
 ja:
-  dict:
+  label:
     colon: "："
+    task:
+      id: "ID"
+      name: "タスク名"
+      description: "タスク詳細"
+      status: "ステータス"
+      priority: "優先順位"
+      duedate: "完了期限"
+      config: "操作"
   button:
     show: "詳細"
     edit: "修正"
@@ -10,7 +18,7 @@ ja:
   alert:
     task:
       delete: "本当に削除しますか？"
-      select: "選択してください。"
+      select: "選択してください"
   message:
     task:
       complete_create: "正常に作成しました。"

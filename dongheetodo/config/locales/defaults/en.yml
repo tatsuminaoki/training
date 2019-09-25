@@ -1,6 +1,14 @@
 en:
-  dict:
-    "colon": "\:"
+  label:
+    colon: ":"
+    task:
+      id: "ID"
+      name: "name"
+      description: "description"
+      status: "status"
+      priority: "priority"
+      duedate: "due date"
+      config: "config"
   button:
     show: "show"
     edit: "edit"

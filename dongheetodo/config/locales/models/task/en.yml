@@ -1,35 +1,40 @@
 en:
   activerecord:
+    enum:
+      task:
+        status:
+          todo: "to-do"
+          doing: "doing"
+          done: "done"
+        priority:
+          low: "low"
+          mid: "middle"
+          high: "high"
+
     models:
       task: "task"
+
     attributes:
       task:
         id: "ID"
         name: "task name"
         description: "description"
         status:
-          name: "status"
+          one: "status"
+          other: "statuses"
           todo: "to-do"
           doing: "doing"
           done: "done"
         priority:
-          name: "priority"
+          one: "priority"
+          other: "priorities"
           low: "low"
-          mid: "mid"
+          mid: "medium"
           high: "high"
         duedate: "due date"
         created_at: "created date"
         updated_at: "updated date"
-    errors:
-      models:
-        user:
-          attributes:
-            name:
-              blank: "task name is blank."
-            status:
-              blank: "status is blank"
-            priority:
-              blank: "priority is blank"
+
     tasks:
       edit:
         title: "Edit"
@@ -38,4 +43,4 @@ en:
       new:
         title: "Create"
       show:
-        title: "Detail"
+        title: "Details"
