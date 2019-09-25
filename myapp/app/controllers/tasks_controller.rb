@@ -1,9 +1,14 @@
 class TasksController < ApplicationController
   before_action  :valid_task, only: [:create, :update]
   before_action  :valid_id, only: [:edit, :update, :destroy]
+  before_action  :valid_status, only: [:index]
 
   def index
-    @tasks = Task.all
+    if @param_status.nil?
+      @tasks = Task.all
+    else
+      @tasks = Task.where(status: @param_status)
+    end
   end
 
   def new
@@ -62,10 +67,24 @@ class TasksController < ApplicationController
   end
 
   def valid_task
-    @param_task = params.require(:task).permit(:title, :description)
+    @param_task = params.require(:task).permit(:title, :description, :status)
     if @param_task[:title].blank?
       flash[:danger] = 'タイトルは必須入力です'
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def valid_status
+    if params[:status].nil?
+      @param_status = nil
+      return
+    end
+
+    @param_status = params[:status].to_i
+    
+    if @param_status > Task.statuses[:completed]
+      flash[:danger] = '値が不正です'
+      render_404
     end
   end
 end
