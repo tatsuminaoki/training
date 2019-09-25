@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Task, type: :model do
+describe Task, type: :model do
   describe 'タイトルのバリデーション' do
     before do
       task = FactoryBot.attributes_for(:task)
@@ -13,13 +11,12 @@ RSpec.describe Task, type: :model do
         expect(@task).to be_valid
       end
     end
+
     context 'タイトルが101文字な場合' do
       it 'エラーとなる' do
         @task.title = "a" * 101
         expect(@task).not_to be_valid
       end
-    end
-    context '空のチェックはcontroller specでチェックしている' do
     end
   end
 
@@ -35,6 +32,7 @@ RSpec.describe Task, type: :model do
         expect(@task).to be_valid
       end
     end
+    
     context '説明が1001文字な場合' do
       it 'エラーとなる' do
         @task.description = "a" * 1001

@@ -81,10 +81,11 @@ describe TasksController, type: :request do
         get edit_task_url undefined_task
         expect(response).to have_http_status :not_found
       end
-      it '不正なIDなら404へ遷移すること' do
+      it '不正なIDならROOTへリダイレクトすること' do
         undefined_task = FactoryBot.attributes_for(:task, id: -1)
         get edit_task_url undefined_task
-        expect(response).to have_http_status :not_found
+        expect(response).to have_http_status :found
+        expect(response).to redirect_to root_url
       end
     end
   end
@@ -148,10 +149,11 @@ describe TasksController, type: :request do
     end
 
     context 'パラメータが不正な場合' do
-      it '存在しないIDなら404へ遷移すること' do
+      it '存在しないIDならTOPへリダイレクトすること' do
         undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
         delete task_url undefined_task
-        expect(response).to have_http_status :not_found
+        expect(response).to have_http_status :found
+        expect(response).to redirect_to tasks_url
       end
     end
   end
