@@ -27,6 +27,7 @@ gem 'fablicop', '~> 0.1.0'
 gem 'rails-i18n'
 gem 'ltsv-logger'
 gem "simplecov"
+gem "enum_help"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
