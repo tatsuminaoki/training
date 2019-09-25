@@ -1,14 +1,31 @@
 describe TasksController, type: :request do
   describe 'GET #index' do
     before do
-      create_list(:task, 2)
+      create_list(:task, 2, status: Task.statuses[:completed])
     end
 
-    it 'リクエストが成功すること、タイトルが表示されていること' do
-      get tasks_url
-      expect(response).to have_http_status :ok
-      expect(response.body).to include "Task1"
-      expect(response.body).to include "Task2"
+    context '全件表示の場合' do
+      it 'リクエストが成功すること、タイトルが表示されていること' do
+        get tasks_url
+        expect(response).to have_http_status :ok
+        expect(response.body).to include "Task1"
+        expect(response.body).to include "Task2"
+      end
+    end
+
+    context 'ステータスで絞り込む場合' do
+      it 'リクエストが成功すること' do
+        #get tasks_url, params: { status: Task.statuses[:complated] }
+        get tasks_url, params: { status: 2 }
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context '不正なステータスの場合' do
+      it '不正なIDなら404へ遷移すること' do
+        get tasks_url, params: { status: 999999999999 }
+        expect(response).to have_http_status :not_found
+      end
     end
   end
 
@@ -151,7 +168,8 @@ describe TasksController, type: :request do
       it '存在しないIDなら404へ遷移すること' do
         undefined_task = FactoryBot.attributes_for(:task, id: 999999999)
         delete task_url undefined_task
-        expect(response).to have_http_status :not_found
+        expect(response).to have_http_status :found
+        expect(response).to redirect_to tasks_url
       end
     end
   end
