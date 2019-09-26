@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action  :valid_task, only: [:create, :update]
-  before_action  :valid_id, only: [:edit, :update, :destroy]
-  before_action  :valid_status, only: [:index]
+  before_action  :valid_task, only: %i[create update]
+  before_action  :valid_id, only: %i[edit update destroy]
+  before_action  :valid_status, only: %i[index]
 
   def index
     if @param_status.nil?
@@ -21,7 +23,7 @@ class TasksController < ApplicationController
     @task.save!
     flash[:success] = '登録されました'
     redirect_to tasks_url
-  rescue => e
+  rescue StandardError => e
     logger.error e
     flash[:danger] = '登録に失敗しました'
     render :new
@@ -37,7 +39,7 @@ class TasksController < ApplicationController
     @task.update!(@param_task)
     flash[:success] = '更新されました'
     redirect_to tasks_url
-  rescue => e
+  rescue StandardError => e
     logger.error e
     flash[:danger] = '更新に失敗しました'
     render :edit
@@ -48,7 +50,7 @@ class TasksController < ApplicationController
     @task.destroy!
     flash[:success] = '削除しました'
     redirect_to tasks_url
-  rescue => e
+  rescue StandardError => e
     logger.error e
     flash[:danger] = '削除に失敗しました'
     redirect_to tasks_url
@@ -60,9 +62,9 @@ class TasksController < ApplicationController
     @param_id = params[:id].to_i
 
     if @param_id <= 0
-      logger.error("値が不正:" + params[:id])
+      logger.error('値が不正:' + params[:id])
       flash[:danger] = '値が不正です'
-      render_404
+      redirect_back(fallback_location: root_path)
     end
   end
 
