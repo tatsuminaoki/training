@@ -1,27 +1,27 @@
 <%= render "notice" %>
-<h1><%= t :'activerecord.tasks.show.title' %></h1>
+<h1><%= t("activerecord.tasks.show.title") %></h1>
 <div>
   <p>
-    <strong><%= t "label.task.name" %><%= t "label.colon" %></strong>
+    <strong><%= t("label.task.name") %><%= t("label.colon") %></strong>
     <%= @task.name %>
   </p>
   <p>
-    <strong><%= t "label.task.description" %><%= t "label.colon" %></strong><br>
+    <strong><%= t("label.task.description") %><%= t("label.colon") %></strong><br>
     <p>
       <%= @task.description %>
     </p>
   </p>
   <p>
-    <strong><%= t "label.task.status" %><%= t "label.colon" %></strong>
-    <%= t "activerecord.enum.task.status.#{@task.status}" %>
+    <strong><%= t("label.task.status") %><%= t("label.colon")%></strong>
+    <%= t("activerecord.enum.task.status.#{@task.status}") %>
   </p>
   <p>
-    <strong><%= t "label.task.priority" %><%= t "label.colon" %></strong>
-    <%= t "activerecord.enum.task.priority.#{@task.priority}" %>
+    <strong><%= t("label.task.priority") %><%= t("label.colon") %></strong>
+    <%= t("activerecord.enum.task.priority.#{@task.priority}") %>
   </p>
   <p>
-    <strong><%= t "label.task.duedate" %><%= t "label.colon" %></strong>
-    <%= l @task.duedate, format: :short, default: "" %>
+    <strong><%= t("label.task.duedate") %><%= t("label.colon") %></strong>
+    <%= l(@task.duedate, format: :short, default: "") %>
   </p>
   <br>
   <%= link_to t("button.back"), root_path %>
