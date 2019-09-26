@@ -59,10 +59,5 @@ describe Task, type: :model do
         expect(@task).to be_valid
       end
     end
-
-    context '範囲外のステータスの場合' do
-      it 'コントローラーでチェックしているのでここではしない' do
-      end
-    end
   end
 end

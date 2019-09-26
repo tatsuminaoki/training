@@ -23,9 +23,10 @@ describe TasksController, type: :request do
     end
 
     context '不正なステータスの場合' do
-      it '不正なIDなら404へ遷移すること' do
-        get tasks_url, params: { status: 999999999999 }
-        expect(response).to have_http_status :not_found
+      it '件数が0件になる' do
+        expect do
+          get tasks_url, params: { status: 999999999999 }
+        end.to change(Task, :count).by(0)
       end
     end
   end

@@ -86,7 +86,7 @@ class TasksController < ApplicationController
     
     if @param_status > Task.statuses[:completed]
       flash[:danger] = '値が不正です'
-      render_404
+      redirect_back(fallback_location: root_path)
     end
   end
 end
