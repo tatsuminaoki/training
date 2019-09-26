@@ -3,6 +3,9 @@ class TaskController < ApplicationController
     @task = Task.all
   end
 
+  def new
+  end
+
   def create
   end
 

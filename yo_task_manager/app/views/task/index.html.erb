@@ -1,7 +1,19 @@
-<h1>タスク一覧</h1>
-
-<% if @task.present? %>
-  <p>タスク数:<%= @task.count %>件</p>
-<% else %>
-  <p>タスクはありません。</p>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+      <h1>タスク一覧</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <% if @task.present? %>
+        <p>タスク数:<%= @task.count %>件</p>
+      <% else %>
+        <p>タスクはありません。</p>
+      <% end %>
+    </div>
+    <div class="col-sm">
+      <%= button_to 'タスク追加', { controller: 'task', action: 'new' }, { method: :get, class: 'btn btn-primary' } %>
+    </div>
+  </div>
+</div>
