@@ -1,3 +1,2 @@
-# app/javascript/packs/application.js
-
-import '../stylesheets/application'
+@import './bootstrap_custom.scss';
+@import './task.scss';
