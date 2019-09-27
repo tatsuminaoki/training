@@ -29,6 +29,28 @@ describe TasksController, type: :request do
         end.to change(Task, :count).by(0)
       end
     end
+
+    context 'ページを指定した場合' do
+      it 'リクエストが成功すること' do
+        get tasks_url, params: { page: 1 }
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context '存在しないページを指定した場合' do
+      it '件数が0件になる' do
+        expect do
+          get tasks_url, params: { page: 999999999999 }
+        end.to change(Task, :count).by(0)
+      end
+    end
+
+    context 'ステータスとページを同時に指定した場合' do
+      it 'リクエストが成功すること' do
+        get tasks_url, params: { status: 2, page: 1 }
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 
   describe 'GET #new' do

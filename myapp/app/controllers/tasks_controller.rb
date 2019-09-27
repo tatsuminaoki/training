@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  PER = 8
+
   before_action  :valid_task, only: %i[create update]
   before_action  :valid_id, only: %i[edit update destroy]
 
   def index
+    page = params[:page] || 1
     if params[:status].nil?
-      @tasks = Task.all
+      @tasks = Task.page(page).per(PER)
     else
       param_status = params[:status].to_i
-      @tasks = Task.where(status: param_status)
+      @tasks = Task.page(page).per(PER).where(status: param_status)
     end
   end
 
