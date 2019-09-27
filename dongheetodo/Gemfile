@@ -36,6 +36,7 @@ end
 # Run against the latest stable release
 group :development, :test do
   gem 'rspec-rails', '~> 3.8'
+  gem 'launchy'
 end
 
 group :development do
