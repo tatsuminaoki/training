@@ -4,8 +4,12 @@ RSpec.feature "Tasks", type: :feature, js: true do
   background do
     # TODO: ログイン機能追加後、user_idを動的に当てるように修正
     user = User.create!(id: 1, email: "donghee_kim@fablic.co.jp", password_digest: "hogehoge")
-    Task.create!(user_id: user.id, name: "hoge", description: "hogehoge",
-                         priority: Task.priorities[:中], status: Task.statuses[:完了])
+    @task1 = Task.create!(user_id: user.id, name: "task1", description: "task1",
+                 priority: Task.priorities[:low], status: Task.statuses[:todo])
+    @task2 = Task.create!(user_id: user.id, name: "task2", description: "task2",
+                 priority: Task.priorities[:mid], status: Task.statuses[:doing])
+    @task3 = Task.create!(user_id: user.id, name: "task3", description: "task3",
+                 priority: Task.priorities[:mid], status: Task.statuses[:doing])
   end
 
   scenario "タスク一覧を表示する" do
@@ -45,5 +49,20 @@ RSpec.feature "Tasks", type: :feature, js: true do
     all("tbody tr ")[0].click_link "削除"
     accept_alert "本当に削除しますか？"
     expect(page).to have_content "正常に削除しました"
+  end
+
+  scenario "タスク一覧の並び順を作成日の降順にする" do
+    visit tasks_path
+    all("thead th")[5].click_link "created_at_sort_desc"
+    save_and_open_page
+    expect(page).to have_link "created_at_sort_asc"
+  end
+
+  scenario "タスク一覧の並び順を作成日の昇順にする（元に戻す）" do
+    visit tasks_path
+    all("thead th")[5].click_link "created_at_sort_desc"
+    all("thead th")[5].click_link "created_at_sort_asc"
+    save_and_open_page
+    expect(page).to have_link "created_at_sort_desc"
   end
 end

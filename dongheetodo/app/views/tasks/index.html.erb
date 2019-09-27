@@ -10,9 +10,9 @@
     <th><%= t("label.task.duedate") %></th>
     <th><%= t('label.task.created_at') %>
     <% if @created_at_sort == 'desc' %>
-      <a href="<%= root_path(created_at_sort: 'asc') %>">▼</a>
+      <a id="created_at_sort_asc" href="<%= tasks_path(created_at_sort: 'asc') %>">▼</a>
     <% else %>
-      <a href="<%= root_path(created_at_sort: 'desc') %>">▲</a>
+      <a id="created_at_sort_desc" href="<%= tasks_path(created_at_sort: 'desc') %>">▲</a>
     <% end %>
     </th>
     <th><%= t('label.task.updated_at') %>
