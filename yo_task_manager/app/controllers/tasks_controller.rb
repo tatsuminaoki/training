@@ -15,7 +15,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
-      render action: 'new'
+      render :new
     end
   end
 
