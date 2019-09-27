@@ -1,0 +1,54 @@
+ja:
+  activerecord:
+    enum:
+      task:
+        status:
+          todo: "未着手"
+          doing: "着手中"
+          done: "完了"
+        priority:
+          low: "低"
+          mid: "中"
+          high: "高"
+
+    models:
+      task: "タスク"
+
+    attributes:
+      task:
+        id: "ID"
+        name: "タスク名"
+        description: "タスク詳細"
+        status:
+          todo: "未着手"
+          doing: "着手中"
+          done: "完了"
+        priority:
+          low: "低"
+          mid: "中"
+          high: "高"
+        duedate: "完了期限"
+        created_at: "作成日"
+        updated_at: "更新日"
+
+    tasks:
+      edit:
+        title: "タスク修正"
+      index:
+        title: "タスク一覧"
+      new:
+        title: "タスク作成"
+      show:
+        title: "タスク詳細"
+
+    date:
+      formats:
+        default: "%Y/%m/%d"
+        long: "%Y年%m月%d日(%a)"
+        short: "%m/%d"
+
+    time:
+      formats:
+        default: "%Y/%m/%d %H:%M:%S"
+        long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+        short: "%y/%m/%d %H:%M"
