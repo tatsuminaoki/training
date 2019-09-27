@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task, notice: "正常に作成しました"
+      redirect_to @task, notice: t("message.task.complete_create")
     else
       render "new"
     end
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to @task, notice: "正常に更新しました"
+      redirect_to @task, notice: t("message.task.complete_update")
     else
       render "edit"
     end
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to root_path, notice: "正常に削除しました"
+    redirect_to root_path, notice: t("message.task.complete_delete")
   end
 
   private
