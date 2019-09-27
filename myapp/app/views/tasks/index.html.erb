@@ -1,15 +1,17 @@
-<h1><%= t '.title' %></h1>
-<%= link_to '＋', new_task_path, class: "btn btn-primary rounded-circle p-0 btn-add" %>
-<div class="container" style="padding:10px;">
-  <div class="row">
-    <div class="col">
-      <%= link_to '全件', tasks_path, class: "btn btn-large btn-primary btn-status" %>
-    </div>
-    <% Task.statuses.each do |k, v| %>
+<div class="fixed-top">
+  <h1><%= t '.title' %></h1>
+  <%= link_to '＋', new_task_path, class: "btn btn-primary rounded-circle p-0 btn-add" %>
+  <div class="container" style="padding:10px;">
+    <div class="row">
       <div class="col">
-        <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(status: v), class: "btn btn-large btn-secondary btn-status" %>
+        <%= link_to '全件', tasks_path, class: "btn btn-large btn-primary btn-status" %>
       </div>
-    <% end %>
+      <% Task.statuses.each do |k, v| %>
+        <div class="col">
+          <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(status: v), class: "btn btn-large btn-secondary btn-status" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <ul class="list-group">
