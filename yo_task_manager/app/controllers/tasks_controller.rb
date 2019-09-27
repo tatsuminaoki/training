@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
     @task = Task.all.reverse
   end
@@ -18,15 +19,21 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
-    @task = Task.find(params[:id])
-  end
+  def show; end
 
-  def edit
+  def edit; end
+
+  def update
+    if @task.update(task_params)
+      flash[:success] = 'タスクが更新されました。'
+      redirect_to tasks_path
+    else
+      flash.now[:danger] = '問題が発生しました。タスクが更新されていません。'
+      render :edit
+    end
   end
 
   def destroy
-    @task = Task.find(params[:id])
     if @task.destroy
       flash[:success] = 'タスクが削除されました。'
     else
@@ -38,5 +45,9 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(:title, :body)
+    end
+
+    def set_task
+      @task = Task.find(params[:id])
     end
 end

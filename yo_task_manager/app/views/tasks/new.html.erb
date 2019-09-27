@@ -7,36 +7,5 @@
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, class: 'alert-' + name %>
   <% end %>
-  <table class="table table-dark">
-    <%= form_for @task do |f| %>
-      <div class="row">
-        <tbody>
-          <tr>
-            <th scope="col">
-              <%= f.label :title %>:
-            </th>
-            <td>
-              <%= f.text_field :title %>
-            </td>
-          </tr>
-          <tr>
-            <th scope="col">
-              <%= f.label :body %>
-            </th>
-            <td>
-              <%= f.text_area :body %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <%= f.button '追加', class: 'btn btn-primary' %>
-            </td>
-            <td>
-              <%= link_to '取り消し', tasks_path, class: 'btn btn-light' %>
-            </td>
-          </tr>
-        </tbody>
-      </div>
-    <% end %>
-  </table>
+  <%= render partial: "form", locals: { task: @task, button_name: '追加' } %>
 </div>
