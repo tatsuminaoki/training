@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @task = Task.all
+    @task = Task.all.reverse
   end
 
   def new
@@ -11,6 +11,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:success] = 'タスクが保存されました。'
+      redirect_to tasks_path
     else
       flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
       render action: 'new'
