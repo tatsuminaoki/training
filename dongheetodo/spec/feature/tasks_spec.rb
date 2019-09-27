@@ -19,7 +19,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
     fill_in "task_description", with: "ダミー内容"
     select "完了", from: "task_status"
     select "中", from: "task_priority"
-    click_button "Create Task"
+    click_button "登録する"
     expect(page).to have_content "正常に作成しました"
   end
 
@@ -36,7 +36,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
     fill_in "task_description", with: "テストのため更新します"
     select "未着手", from: "task_status"
     select "低", from: "task_priority"
-    click_button "Update Task"
+    click_button "更新する"
     expect(page).to have_content "正常に更新しました"
   end
 
