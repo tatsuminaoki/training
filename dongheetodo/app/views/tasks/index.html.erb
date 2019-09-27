@@ -8,6 +8,14 @@
     <th><%= t("label.task.status") %></th>
     <th><%= t("label.task.priority") %></th>
     <th><%= t("label.task.duedate") %></th>
+    <th><%= t('label.task.created_at') %>
+    <% if @created_at_sort == 'desc' %>
+      <a href="<%= root_path(created_at_sort: 'asc') %>">▼</a>
+    <% else %>
+      <a href="<%= root_path(created_at_sort: 'desc') %>">▲</a>
+    <% end %>
+    </th>
+    <th><%= t('label.task.updated_at') %>
     <th colspan="3"><%= t("label.task.config") %></th>
   </thead>
   <tbody>
@@ -18,6 +26,8 @@
       <td><%= t("activerecord.enum.task.status.#{task.status}") %></td>
       <td><%= t("activerecord.enum.task.priority.#{task.priority}") %></td>
       <td><%= l(task.duedate, format: :short, default: "") %></td>
+      <td><%= l(task.created_at, format: :short, default: "") %></td>
+      <td><%= l(task.updated_at, format: :short, default: "") %></td>
       <td><%= link_to t("button.show"), task_path(task) %></td>
       <td><%= link_to t("button.edit"), edit_task_path(task) %></td>
       <td><%= link_to t("button.delete"), task_path(task), method: :delete, data: { confirm: t("alert.task.delete") } %></td>
