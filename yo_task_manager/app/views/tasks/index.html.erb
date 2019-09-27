@@ -13,7 +13,7 @@
       <% end %>
     </div>
     <div class="col-sm">
-      <%= button_to 'タスク追加', { controller: 'tasks', action: 'new' }, { method: :get, class: 'btn btn-primary' } %>
+      <%= link_to 'タスク追加', new_task_path, class: 'btn btn-primary' %>
     </div>
   </div>
   <% flash.each do |name, msg| %>
@@ -25,9 +25,9 @@
         <thead class="thead-dark">
           <tr>
             <th>ID</th>
-            <th>title</th>
-            <th>detail</th>
-            <th>actions</th>
+            <th>タスク名</th>
+            <th>詳細</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -37,8 +37,8 @@
               <td><%= t.title %></td>
               <td><%= t.body %></td>
               <td>
-                <%= link_to '詳細', task_path(t), method: :get, class: 'btn btn-info' %>
-                <%= link_to '編集', edit_task_path(t), method: :get, class: 'btn btn-warning' %>
+                <%= link_to '詳細', task_path(t), class: 'btn btn-info' %>
+                <%= link_to '編集', edit_task_path(t), class: 'btn btn-warning' %>
                 <%= link_to '削除', task_path(t), method: :delete, class: 'btn btn-danger' %>
               </td>
             </tr>
