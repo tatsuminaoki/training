@@ -1,2 +1,11 @@
-<h1>Task#create</h1>
-<p>Find me in app/views/task/create.html.erb</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+      <h1>タスク追加</h1>
+    </div>
+  </div>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: 'alert-' + name %>
+  <% end %>
+  <%= link_to 'タスク一覧へ', tasks_path, class: 'btn btn-light' %>
+</div>

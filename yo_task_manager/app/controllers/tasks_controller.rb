@@ -8,6 +8,13 @@ class TasksController < ApplicationController
   end
 
   def create
+    @task = Task.new(task_params)
+    if @task.save
+      flash[:success] = 'タスクが保存されました。'
+    else
+      flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
+      render action: 'new'
+    end
   end
 
   def show
@@ -18,4 +25,9 @@ class TasksController < ApplicationController
 
   def destroy
   end
+
+  private
+    def task_params
+      params.require(:task).permit(:title, :body)
+    end
 end
