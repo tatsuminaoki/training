@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   validates :title,
             length: { in: 1..100 }
   validates :description,
