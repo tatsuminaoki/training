@@ -1,15 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature, js: true do
+
   background do
-    # TODO: ログイン機能追加後、user_idを動的に当てるように修正
-    user = User.create!(id: 1, email: "donghee_kim@fablic.co.jp", password_digest: "hogehoge")
-    @task1 = Task.create!(user_id: user.id, name: "task1", description: "task1",
-                 priority: Task.priorities[:low], status: Task.statuses[:todo])
-    @task2 = Task.create!(user_id: user.id, name: "task2", description: "task2",
-                 priority: Task.priorities[:mid], status: Task.statuses[:doing])
-    @task3 = Task.create!(user_id: user.id, name: "task3", description: "task3",
-                 priority: Task.priorities[:mid], status: Task.statuses[:doing])
+    create(:user)
   end
 
   scenario "タスク一覧を表示する" do
