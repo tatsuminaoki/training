@@ -9,11 +9,11 @@
         <% end %>
       </div>
       <div class="col">
-        <%= link_to '全件', tasks_path, class: "btn btn-large btn-primary btn-status" %>
+        <%= link_to '全件', tasks_path(user_id: @user_id), class: "btn btn-large btn-primary btn-status" %>
       </div>
       <% Task.statuses.each do |k, v| %>
         <div class="col">
-          <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(status: v), class: "btn btn-large btn-secondary btn-status" %>
+          <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(user_id: @user_id, status: v), class: "btn btn-large btn-secondary btn-status" %>
         </div>
       <% end %>
     </div>

@@ -74,7 +74,7 @@ class TasksController < ApplicationController
   end
 
   def valid_task
-    @param_task = params.require(:task).permit(:title, :description, :status)
+    @param_task = params.require(:task).permit(:title, :description, :status, :user_id)
     if @param_task[:title].blank?
       flash[:danger] = 'タイトルは必須入力です'
       redirect_back(fallback_location: root_path)
