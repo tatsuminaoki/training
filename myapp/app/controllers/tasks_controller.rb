@@ -8,11 +8,13 @@ class TasksController < ApplicationController
 
   def index
     page = params[:page] || 1
+    @user_id = params[:user_id] || User.select(:id).order(:id).limit(1)[0].id
+
     if params[:status].nil?
-      @tasks = Task.page(page).per(PER)
+      @tasks = Task.page(page).per(PER).where(user_id: @user_id)
     else
       param_status = params[:status].to_i
-      @tasks = Task.page(page).per(PER).where(status: param_status)
+      @tasks = Task.page(page).per(PER).where(status: param_status, user_id: @user_id)
     end
   end
 
