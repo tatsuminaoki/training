@@ -1,0 +1,30 @@
+<%= form_for task do |f| %>
+  <table class="table table-dark">
+    <tbody>
+      <tr>
+        <th scope="col">
+          <%= f.label 'タスク名' %>
+        </th>
+        <td>
+          <%= f.text_field :title %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">
+          <%= f.label '詳細' %>
+        </th>
+        <td>
+          <%= f.text_area :body %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div class="d-flex justify-content-around">
+            <%= f.submit button_name, class: 'btn btn-primary' %>
+            <%= link_to '取り消し', tasks_path, class: 'btn btn-light' %>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

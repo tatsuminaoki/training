@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+      <h1>タスク詳細</h1>
+    </div>
+  </div>
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: 'alert-' + name %>
+  <% end %>
+  <table class="table table-dark">
+    <tbody>
+      <tr>
+        <th>ID</th>
+        <td><%= @task.id %></td>
+      </tr>
+      <tr>
+        <th>タスク名</th>
+        <td><%= @task.title %></td>
+      </tr>
+      <tr>
+        <th>詳細</th>
+        <td><%= @task.body %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-around">
+    <%= link_to '←タスク一覧へ', tasks_path, class: 'btn btn-primary' %>
+    <%= link_to '編集', edit_task_path(@task), method: :get, class: 'btn btn-warning' %>
+    <%= link_to '削除', task_path(@task), method: :delete, class: 'btn btn-danger' %>
+  </div>
+</div>
