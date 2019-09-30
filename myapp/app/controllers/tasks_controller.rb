@@ -8,7 +8,7 @@ class TasksController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @user_id = params[:user_id].to_i
+    @user_id = params[:user_id].to_i unless params[:user_id].nil?
 
     @tasks = Task.page(page).per(PER).includes(:user)
     @tasks = @tasks.where(status: params[:status].to_i) unless params[:status].nil?
