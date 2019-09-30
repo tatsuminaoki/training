@@ -20,10 +20,14 @@ ja:
         name: "タスク名"
         description: "タスク詳細"
         status:
+          one: "ステータス"
+          other: "ステータス"
           todo: "未着手"
           doing: "着手中"
           done: "完了"
         priority:
+          one: "優先順位"
+          other: "優先順位"
           low: "低"
           mid: "中"
           high: "高"
