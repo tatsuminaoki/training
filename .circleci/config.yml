@@ -1,9 +1,0 @@
-jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.5.5
-    steps:
-      - run: |
-        bundle install
-        bundle exec rake db:schema:load
-        RAILS_ENV=test bundle exec rspec spec
