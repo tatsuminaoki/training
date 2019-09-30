@@ -8,6 +8,8 @@ en:
       status: "status"
       priority: "priority"
       duedate: "due date"
+      created_at: "created at"
+      updated_at: "updated at"
       config: "config"
   button:
     show: "show"
