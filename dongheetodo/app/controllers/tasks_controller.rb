@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
     @created_at_sort = params[:created_at_sort]
-    if @created_at_sort === 'desc' || @created_at_sort === 'asc'
-      @tasks = Task.all.order(created_at: @created_at_sort)
+    @tasks = if @created_at_sort === 'desc' || @created_at_sort === 'asc'
+      Task.all.order(created_at: @created_at_sort)
+    else
+      Task.all
     end
   end
 
