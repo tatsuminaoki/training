@@ -8,6 +8,8 @@ ja:
       status: "ステータス"
       priority: "優先順位"
       duedate: "完了期限"
+      created_at: "作成日"
+      updated_at: "修正日"
       config: "操作"
   button:
     show: "詳細"
