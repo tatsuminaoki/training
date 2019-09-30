@@ -26,6 +26,7 @@
         <div class="row">
           <div class="col-1">
             <span class="badge badge-secondary"><%= I18n.t("enums.task.status.#{task.status}") %></span>
+            <span class="badge badge-secondary"><%= task.user.login_id %></span>
           </div>
           <div class="col">
             <h2>&nbsp;<%= task.title %></h2>
