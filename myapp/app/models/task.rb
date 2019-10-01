@@ -17,5 +17,6 @@ class Task < ApplicationRecord
     tasks = Task.page(page).per(per).includes(:user)
     tasks = tasks.where(status: status) unless status.nil?
     tasks = tasks.where(user_id: user_id) if user_id
+    return tasks
   end
 end
