@@ -9,9 +9,9 @@ class TasksController < ApplicationController
   def index
     page = params[:page] || 1
     @user_id = params[:user_id].to_i unless params[:user_id].nil?
-    status = params[:status] ? params[:status].to_i : nil
+    @status = params[:status].blank? ? nil : params[:status].to_i
 
-    @tasks = Task.search_task(page, PER, @user_id, status)
+    @tasks = Task.search_task(page, PER, @user_id, @status)
   end
 
   def new
