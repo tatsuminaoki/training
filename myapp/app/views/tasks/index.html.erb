@@ -5,11 +5,11 @@
     <div class="row">
       <div class="col">
         <%= form_with url: tasks_path do |f| %>
-          <%= f.select :user_id, User.all.map { |user| [user.login_id, 'tasks?user_id=' + user.id.to_s] }, {selected: @user_id}, {class: "custom-select", onchange: "location.href=value;"} %>
+          <%= f.select :user_id, User.all.map { |user| [user.login_id, 'tasks?user_id=' + user.id.to_s] }, { include_blank: 'ユーザー選択', selected: 'tasks?user_id=' + @user_id.to_s }, {class: "custom-select", onchange: "location.href=value;"} %>
         <% end %>
       </div>
       <div class="col">
-        <%= link_to '全件', tasks_path(user_id: @user_id), class: "btn btn-large btn-primary btn-status" %>
+        <%= link_to '全件', root_path, class: "btn btn-large btn-primary btn-status" %>
       </div>
       <% Task.statuses.each do |k, v| %>
         <div class="col">
