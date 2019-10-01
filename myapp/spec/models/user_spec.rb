@@ -38,6 +38,16 @@ RSpec.describe User, type: :model do
         expect(@user).not_to be_valid
       end
     end
+
+    context '重複したログインIDの場合' do
+      it 'エラーになる' do
+        create(:user, login_id: 'hoge')
+        duplicate_user = FactoryBot.attributes_for(:user, login_id: 'hoge')
+        user = User.new(duplicate_user)
+        user.valid?
+        expect(user.errors[:login_id]).to include('はすでに存在します')
+      end
+    end
   end
 
   describe 'パスワードのバリデーション' do

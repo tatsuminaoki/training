@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :login_id,
             presence: true,
             length: { in: 1..100 },
+            uniqueness: { case_sensitive: true },
             format: { with: /\A[a-z\d]{1,100}+\z/i, message: '100文字以内の英数字のみが使えます' }
   validates :password_digest,
             presence: true,
