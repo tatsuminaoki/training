@@ -9,4 +9,7 @@ class Task < ApplicationRecord
   validates :description, length: { maximum: 255 }
   validates :status, presence: true, inclusion: { in: Task.statuses.keys }
   validates :priority, presence: true, inclusion: { in: Task.priorities.keys }
+
+  scope :order_by_created_at, ->(order) { order(created_at: order) }
+  scope :order_by_duedate, ->(order) { order(duedate: order) }
 end
