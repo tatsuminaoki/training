@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 foo = User.find_by(login_id: 'foo')
 bar = User.find_by(login_id: 'bar')
