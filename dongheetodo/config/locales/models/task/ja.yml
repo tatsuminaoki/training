@@ -6,10 +6,12 @@ ja:
           todo: "未着手"
           doing: "着手中"
           done: "完了"
+          all: 'すべて'
         priority:
           low: "低"
           mid: "中"
           high: "高"
+          all: 'すべて'
 
     models:
       task: "タスク"

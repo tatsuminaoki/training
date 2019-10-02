@@ -6,10 +6,12 @@ en:
           todo: "to-do"
           doing: "doing"
           done: "done"
+          all: 'all'
         priority:
           low: "low"
           mid: "middle"
           high: "high"
+          all: 'all'
 
     models:
       task: "task"
