@@ -2,8 +2,8 @@ ja:
   label:
     colon: "："
     sort:
-      by: '並び替え対象'
-      order: 'ソート順'
+      by: '並び替え'
+      order: '並び順'
       asc: '昇順'
       desc: '降順'
     task:
