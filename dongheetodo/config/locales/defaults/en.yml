@@ -1,6 +1,11 @@
 en:
   label:
     colon: ":"
+    sort:
+      by: 'sort by'
+      order: 'order'
+      asc: 'ascending'
+      desc: 'descending'
     task:
       id: "ID"
       name: "name"
@@ -17,6 +22,7 @@ en:
     delete: "delete"
     create: "create"
     back: "back"
+    search: "search"
   alert:
     task:
       delete: "Are you sure you want to delete this task？"

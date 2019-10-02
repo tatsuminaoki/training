@@ -1,6 +1,11 @@
 ja:
   label:
     colon: "："
+    sort:
+      by: '並び替え対象'
+      order: 'ソート順'
+      asc: '昇順'
+      desc: '降順'
     task:
       id: "ID"
       name: "タスク名"
@@ -17,6 +22,7 @@ ja:
     delete: "削除"
     create: "作成"
     back: "戻る"
+    search: "検索"
   alert:
     task:
       delete: "本当に削除しますか？"
