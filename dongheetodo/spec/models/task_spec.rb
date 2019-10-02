@@ -53,5 +53,21 @@ RSpec.describe Task, type: :model do
         expect(task.errors.messages[:priority]).to include 'を入力してください'
       end
     end
+
+    context 'enum外の変な値がステータスとして指定された場合' do
+      it 'エラーが発生する' do
+        wrong_status = Faker::Games::Pokemon.name
+        p wrong_status
+        expect{ task.status = wrong_status }.to raise_error ArgumentError
+      end
+    end
+
+    context 'enum外の変な値が優先順位として指定された場合' do
+      it 'エラーが発生する' do
+        wrong_priority = Faker::Creature::Cat.name
+        p wrong_priority
+        expect{ task.priority = wrong_priority }.to raise_error ArgumentError
+      end
+    end
   end
 end
