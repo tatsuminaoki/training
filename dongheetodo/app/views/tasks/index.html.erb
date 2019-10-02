@@ -1,5 +1,18 @@
 <%= render "layouts/notice" %>
 <h1><%= t("activerecord.tasks.index.title") %></h1>
+<div>
+  <%= form_tag(tasks_path, method: :get) do %>
+    <%= label_tag(:name, t('label.task.name')) %>:
+    <%= text_field_tag(:name) %>
+    <%= label_tag(:status, t('label.task.status')) %>:
+    <%= select_tag(:status, options_for_select(Task.statuses.map{ |k,v| [t("activerecord.attributes.task.status.#{k}"), k] }, params[:status]), include_blank: true) %>
+    <%= label_tag(:sort_by, t('label.sort.by')) %>
+    <%= select_tag(:sort_by, options_for_select(Task.sort_bies.map{ |k,v| [t("label.task.#{k}"), k] }, params[:sort_by])) %>
+    <%= label_tag(:order, t('label.sort.order')) %>:
+    <%= select_tag(:order, options_for_select(Task.orders.map{ |k,v| [t("label.sort.#{k}"), k] }, params[:order])) %>
+    <%= submit_tag(t('button.search'), name: nil) %>
+  <% end %>
+</div>
 <%= link_to t("button.create"), new_task_path %>
 <table>
   <thead>
