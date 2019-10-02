@@ -12,4 +12,11 @@ class Task < ApplicationRecord
   enum status: { waiting: 0, working: 1, completed: 2 }
   validates :status,
             inclusion: { in: Task.statuses.keys }
+
+  def self.search_task(page, per, user_id = 0, status = nil)
+    tasks = Task.page(page).per(per).includes(:user)
+    tasks = tasks.where(status: status) unless status.nil?
+    tasks = tasks.where(user_id: user_id) if user_id
+    tasks
+  end
 end
