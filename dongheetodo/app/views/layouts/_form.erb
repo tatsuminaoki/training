@@ -1,16 +1,5 @@
-<%= form_with model: @task do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@task.errors.count, "error") %><%= t("message.error.occurred") %><%= t("message.error.check") %>
-      </h2>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with model: @task, local: true do |f| %>
+  <%= render "layouts/errors", model: f.object %>
   <% # TODO: ログイン機能追加後、user_idを動的に当てるように修正 %>
   <%= f.hidden_field :user_id, :value => 1 %>
   <div>

@@ -18,7 +18,13 @@
 !/storage/.keep
 
 /public/assets
+/public/packs
+/public/packs-test
+/node_modules/*
 .byebug_history
+.browserslistrc
+.generators
+.rakeTasks
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature, js: true do
 
-  given!(:user) { create(:user) }
+  given!(:user) { create(:user, :with_tasks) }
 
   scenario "タスク一覧を表示する" do
     visit tasks_path
