@@ -7,6 +7,8 @@ RSpec.describe Task, type: :model do
 
     context '正しいタスク名の場合' do
       it '正常に生成される' do
+        task.name = Faker::String.random(length: 255)
+        p "length: #{task.name.length}, name: #{task.name}"
         task.valid?
         expect(task).to be_truthy
       end
