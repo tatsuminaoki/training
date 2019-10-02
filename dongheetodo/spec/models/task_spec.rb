@@ -7,7 +7,7 @@ RSpec.describe Task, type: :model do
 
     context '正しいタスク名の場合' do
       it '正常に生成される' do
-        task.name = Faker::Name.name
+        task.name = Faker::String.random(length: 255)
         task.valid?
         expect(task).to be_truthy
       end
@@ -50,6 +50,20 @@ RSpec.describe Task, type: :model do
         task.priority = nil
         task.valid?
         expect(task.errors.messages[:priority]).to include 'を入力してください'
+      end
+    end
+
+    context 'enum外の変な値がステータスとして指定された場合' do
+      it 'エラーが発生する' do
+        wrong_status = Faker::Games::Pokemon.name
+        expect{ task.status = wrong_status }.to raise_error ArgumentError
+      end
+    end
+
+    context 'enum外の変な値が優先順位として指定された場合' do
+      it 'エラーが発生する' do
+        wrong_priority = Faker::Creature::Cat.name
+        expect{ task.priority = wrong_priority }.to raise_error ArgumentError
       end
     end
   end
