@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
     @tasks = Task.page(page).per(PER).includes(:user)
     @tasks = @tasks.where(status: params[:status].to_i) unless params[:status].nil?
-    @tasks = @tasks.where(user_id: @user_id) if @user_id
+    @tasks = @tasks.where(user_id: @current_user[:id]) if @current_user[:id]
   end
 
   def new
@@ -33,6 +33,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(@param_id)
+    redirect_to tasks_url unless @task[:user_id] == @current_user[:id]
   end
 
   def update
@@ -71,10 +72,11 @@ class TasksController < ApplicationController
   end
 
   def valid_task
-    @param_task = params.require(:task).permit(:title, :description, :status, :user_id)
+    @param_task = params.require(:task).permit(:title, :description, :status)
     if @param_task[:title].blank?
       flash[:danger] = 'タイトルは必須入力です'
       redirect_back(fallback_location: root_path)
     end
+    @param_task[:user_id] = @current_user[:id]
   end
 end

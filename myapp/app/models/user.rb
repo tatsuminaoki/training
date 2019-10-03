@@ -15,4 +15,12 @@ class User < ApplicationRecord
             length: { in: 8..100 },
             allow_nil: true,
             format: { with: /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}+\z/, message: '8〜100文字の半角英小文字大文字数字をそれぞれ1種類以上含む必要があります' }
+
+  def self.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def self.encrypt(token)
+    Digest::SHA256.hexdigest(token.to_s)
+  end
 end
