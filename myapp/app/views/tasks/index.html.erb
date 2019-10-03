@@ -4,11 +4,16 @@
   <div class="container container-head">
     <div class="row">
       <div class="col">
-        <%= link_to '全件', tasks_path, class: "btn btn-large btn-primary btn-status" %>
+        <%= form_with url: tasks_path do |f| %>
+          <%= f.select :user_id, User.all.map { |user| [user.login_id, search_params(user.id, @status)] }, { include_blank: 'ユーザー選択', selected: search_params(@user_id, @status) }, {class: "custom-select", onchange: "location.href=value;"} %>
+        <% end %>
+      </div>
+      <div class="col">
+        <%= link_to '全件', root_path, class: "btn btn-large btn-primary btn-status" %>
       </div>
       <% Task.statuses.each do |k, v| %>
         <div class="col">
-          <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(status: v), class: "btn btn-large btn-secondary btn-status" %>
+          <%= link_to I18n.t("enums.task.status.#{k}"), tasks_path(user_id: @user_id, status: v), class: "btn btn-large btn-secondary btn-status" %>
         </div>
       <% end %>
     </div>
@@ -21,6 +26,7 @@
         <div class="row">
           <div class="col-1">
             <span class="badge badge-secondary"><%= I18n.t("enums.task.status.#{task.status}") %></span>
+            <span class="badge badge-secondary"><%= task.user.login_id %></span>
           </div>
           <div class="col">
             <h2>&nbsp;<%= task.title %></h2>

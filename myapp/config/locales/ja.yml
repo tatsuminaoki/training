@@ -9,12 +9,20 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         id: ID
         title: タイトル
         description: 説明
         status: ステータス
+        user_id: ユーザーID
+        created_at: 作成日
+        updated_at: 更新日
+      user:
+        id: ID
+        login_id: ログインID
+        password_digest: パスワード
         created_at: 作成日
         updated_at: 更新日
   enums:

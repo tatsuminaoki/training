@@ -8,12 +8,10 @@ class TasksController < ApplicationController
 
   def index
     page = params[:page] || 1
-    if params[:status].nil?
-      @tasks = Task.page(page).per(PER)
-    else
-      param_status = params[:status].to_i
-      @tasks = Task.page(page).per(PER).where(status: param_status)
-    end
+    @user_id = params[:user_id].to_i unless params[:user_id].nil?
+    @status = params[:status].blank? ? nil : params[:status].to_i
+
+    @tasks = Task.search_task(page, PER, @user_id, @status)
   end
 
   def new
@@ -72,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def valid_task
-    @param_task = params.require(:task).permit(:title, :description, :status)
+    @param_task = params.require(:task).permit(:title, :description, :status, :user_id)
     if @param_task[:title].blank?
       flash[:danger] = 'タイトルは必須入力です'
       redirect_back(fallback_location: root_path)
