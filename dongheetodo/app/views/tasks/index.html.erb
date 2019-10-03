@@ -2,7 +2,7 @@
 <h1><%= t("activerecord.tasks.index.title") %></h1>
 <fieldset>
   <legend><%= t('button.search') %></legend>
-  <%= form_tag(tasks_path, method: :get) do %>
+  <%= form_tag(tasks_path, method: :get, id: 'search_form') do %>
     <%= label_tag(:name, t('label.task.name')) %>:
     <%= text_field_tag(:name, params[:name]) %>
     <%= label_tag(:status, t('label.task.status')) %>:
