@@ -24,8 +24,8 @@ RSpec.describe TasksController, type: :controller do
     let(:task_params) { {title: 'タイトル', body: '長い説明文ですよ！'} }
     it 'save as new task and redirect_to tasks_path with flash msg' do
       post :create, params: { task: task_params }
-      expect(Task.last.title).to eq task_params[:title]
-      expect(Task.last.body).to eq task_params[:body]
+      expect(Task.last.title).to eq 'タイトル'
+      expect(Task.last.body).to eq '長い説明文ですよ！'
       expect(response).to redirect_to(tasks_path)
       expect(flash[:success]).to match 'タスクが保存されました。'
     end
@@ -36,6 +36,7 @@ RSpec.describe TasksController, type: :controller do
     it 'renders show template' do
       get :show, params: { id: task }
       expect(response).to render_template('show')
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -44,6 +45,7 @@ RSpec.describe TasksController, type: :controller do
       task = Task.create
       get :edit, params: { id: task }
       expect(response).to render_template('edit')
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -53,8 +55,8 @@ RSpec.describe TasksController, type: :controller do
     it 'update the original_task title and body and redirect_to tasks_path with flash msg' do
       patch :update, params: { id: original_task.id, task: new_params }
       updated_task = Task.find(original_task.id)
-      expect(updated_task.title).to eq new_params[:title]
-      expect(updated_task.body).to eq new_params[:body]
+      expect(updated_task.title).to eq '新しい'
+      expect(updated_task.body).to eq '新しい説明'
       expect(response).to redirect_to(tasks_path)
       expect(flash[:success]).to match 'タスクが更新されました。'
     end
@@ -64,7 +66,7 @@ RSpec.describe TasksController, type: :controller do
     let!(:exist_task) { Task.create(title: '削除されるべきタスク', body: 'このタスクは削除されるべきです。') }
     it 'should delete the task and redirect_to tasks_path with flash msg' do
       delete :destroy, params: { id: exist_task.id }
-      expect(Task.find_by(id: exist_task.id)).to be_nil
+      expect{Task.find(exist_task.id)}.to raise_exception(ActiveRecord::RecordNotFound)
       expect(response).to redirect_to(tasks_path)
       expect(flash[:success]).to match 'タスクが削除されました。'
     end
