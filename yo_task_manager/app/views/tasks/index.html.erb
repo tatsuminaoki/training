@@ -13,7 +13,7 @@
       <% end %>
     </div>
     <div class="col-sm">
-      <%= link_to 'タスク追加', new_task_path, class: 'btn btn-primary' %>
+      <%= button_to 'タスク追加', new_task_path, method: :get, class: 'btn btn-primary' %>
     </div>
   </div>
   <% flash.each do |name, msg| %>
