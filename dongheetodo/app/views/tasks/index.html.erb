@@ -14,7 +14,8 @@
     <%= submit_tag(t('button.search'), name: nil) %>
   <% end %>
 </fieldset>
-<%= link_to t("button.create"), new_task_path %>
+<%= link_to t("button.create"), new_task_path %><br>
+<%= @tasks.total_count %>&nbsp;<%= t('label.items') %>
 <table>
   <thead>
     <th><%= t("label.task.id") %></th>
@@ -43,3 +44,6 @@
     <% end %>
   </tbody>
 </table>
+<br>
+<%= paginate @tasks %>
+
