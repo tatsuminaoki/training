@@ -62,7 +62,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  RSpec.configure do |config|
-    config.include FactoryBot::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
+  # テストが失敗したときにだけ自動的にsave_and_open_pageを呼んでブラウザを起動する
+  config.after do |example|
+    if example.metadata[:type] == :feature && example.exception.present? && example.metadata[:open_on_error] == true
+      save_and_open_page
+    end
   end
 end

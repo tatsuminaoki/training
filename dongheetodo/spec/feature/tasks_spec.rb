@@ -4,12 +4,12 @@ RSpec.feature "Tasks", type: :feature, js: true do
 
   given!(:user) { create(:user, :with_tasks) }
 
-  scenario "タスク一覧を表示する" do
+  scenario "タスク一覧を表示する", open_on_error: true do
     visit tasks_path
     expect(page).to have_content "タスク一覧"
   end
 
-  scenario "タスクを作成する" do
+  scenario "タスクを作成する", open_on_error: true do
     visit new_task_path
     fill_in "task_name", with: "ダミーデータ"
     fill_in "task_description", with: "ダミー内容"
@@ -19,13 +19,13 @@ RSpec.feature "Tasks", type: :feature, js: true do
     expect(page).to have_content "正常に作成しました"
   end
 
-  scenario "タスク詳細を表示する" do
+  scenario "タスク詳細を表示する", open_on_error: true do
     visit root_path
     all("tbody tr ")[0].click_link "詳細"
     expect(page).to have_content "タスク詳細"
   end
 
-  scenario "タスクを更新する" do
+  scenario "タスクを更新する", open_on_error: true do
     visit root_path
     all("tbody tr ")[0].click_link "修正"
     fill_in "task_name", with: "更新するよー"
@@ -36,7 +36,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
     expect(page).to have_content "正常に更新しました"
   end
 
-  scenario "タスクを削除する" do
+  scenario "タスクを削除する", open_on_error: true do
     visit tasks_path
     all("tbody tr ")[0].click_link "削除"
     accept_alert "本当に削除しますか？"
