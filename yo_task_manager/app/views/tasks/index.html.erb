@@ -32,14 +32,14 @@
         </thead>
         <tbody>
           <% @tasks.each do |t| %>
-            <tr>
+            <tr id="task-<%= t.id %>">
               <td><%= t.id %></td>
               <td><%= t.title %></td>
               <td><%= t.body %></td>
               <td>
-                <%= link_to '詳細', task_path(t), class: 'btn btn-info' %>
-                <%= link_to '編集', edit_task_path(t), class: 'btn btn-warning' %>
-                <%= link_to '削除', task_path(t), method: :delete, class: 'btn btn-danger' %>
+                <%= button_to '詳細', task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
+                <%= button_to '編集', edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>
+                <%= button_to '削除', task_path(t), method: :delete, class: 'btn btn-danger', form: { style: 'display: inline-block;' } %>
               </td>
             </tr>
           <% end %>
