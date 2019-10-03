@@ -25,7 +25,7 @@ describe TasksController, type: :request do
     context '不正なステータスの場合' do
       it '件数が0件になる' do
         expect do
-          get tasks_url, params: { status: 999999999999 }
+          get tasks_url, params: { status: 999_999_999_999 }
         end.to change(Task, :count).by(0)
       end
     end
@@ -40,7 +40,7 @@ describe TasksController, type: :request do
     context '存在しないページを指定した場合' do
       it '件数が0件になる' do
         expect do
-          get tasks_url, params: { page: 999999999999 }
+          get tasks_url, params: { page: 999_999_999_999 }
         end.to change(Task, :count).by(0)
       end
     end
@@ -73,6 +73,12 @@ describe TasksController, type: :request do
           post tasks_url, params: { task: FactoryBot.attributes_for(:task) }
         end.to change(Task, :count).by(1)
       end
+
+      it 'ユーザーが作成されていればタスクも登録できる' do
+        user = create(:user)
+        task = build(:task, user_id: user.id)
+        expect(task).to be_valid
+      end
     end
 
     context 'パラメータが不正(titleが空)な場合' do
@@ -95,6 +101,7 @@ describe TasksController, type: :request do
         post tasks_url, params: { task: FactoryBot.attributes_for(:task) }
         expect(response).to have_http_status :internal_server_error
       end
+
       it '例外が発生した場合はエラーを表示し遷移しない' do
         allow_any_instance_of(Task).to receive(:save!).and_raise(ActiveRecord::RecordNotFound, 'nanikashira error')
         post tasks_url, params: { task: FactoryBot.attributes_for(:task) }
@@ -122,6 +129,7 @@ describe TasksController, type: :request do
         get edit_task_url undefined_task
         expect(response).to have_http_status :not_found
       end
+
       it '不正なIDならROOTへリダイレクトすること' do
         undefined_task = FactoryBot.attributes_for(:task, id: -1)
         get edit_task_url undefined_task
