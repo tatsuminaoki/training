@@ -1,13 +1,9 @@
 <div class="fixed-top">
   <h1><%= t '.title' %></h1>
+  <%= link_to 'ログアウト', logout_path, method: :delete, data:{}, class: "btn float-right btn-logout" %>
   <%= link_to '＋', new_task_path, class: "btn btn-primary rounded-circle p-0 btn-add" %>
   <div class="container container-head">
     <div class="row">
-      <div class="col">
-        <%= form_with url: tasks_path do |f| %>
-          <%= f.select :user_id, User.all.map { |user| [user.login_id, 'tasks?user_id=' + user.id.to_s] }, {selected: @user_id}, {class: "custom-select", onchange: "location.href=value;"} %>
-        <% end %>
-      </div>
       <div class="col">
         <%= link_to '全件', tasks_path(user_id: @user_id), class: "btn btn-large btn-primary btn-status" %>
       </div>
@@ -26,7 +22,6 @@
         <div class="row">
           <div class="col-1">
             <span class="badge badge-secondary"><%= I18n.t("enums.task.status.#{task.status}") %></span>
-            <span class="badge badge-secondary"><%= task.user.login_id %></span>
           </div>
           <div class="col">
             <h2>&nbsp;<%= task.title %></h2>
