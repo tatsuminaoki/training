@@ -138,7 +138,6 @@ RSpec.describe Task, type: :model do
                               status: Task.statuses[:doing],
                               target: 'id',
                               order: 'desc'})
-        p result.length
         if result.length === 1
           expect(result).not_to be_empty
         elsif result.length > 1
