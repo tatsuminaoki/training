@@ -1,6 +1,7 @@
 en:
   label:
     colon: ":"
+    items: "item(s)"
     sort:
       by: 'sort by'
       order: 'order'
