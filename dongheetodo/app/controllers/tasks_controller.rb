@@ -1,14 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @created_at_sort = params[:created_at_sort]
-    @duedate_sort = params[:duedate_sort]
-    @tasks = if @created_at_sort === 'desc' || @created_at_sort === 'asc'
-               Task.all.order_by_created_at(@created_at_sort)
-             elsif @duedate_sort === 'desc' || @duedate_sort === 'asc'
-               Task.all.order_by_duedate(@duedate_sort)
-             else
-               Task.all
-             end
+    @tasks = Task.search(params)
   end
 
   def show
