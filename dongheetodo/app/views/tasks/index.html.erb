@@ -7,8 +7,16 @@
     <th><%= t("label.task.name") %></th>
     <th><%= t("label.task.status") %></th>
     <th><%= t("label.task.priority") %></th>
-    <th><%= t("label.task.duedate") %></th>
-    <th><%= t('label.task.created_at') %>
+    <th>
+      <%= t("label.task.duedate") %>
+      <% if @duedate_sort == 'desc' %>
+        <a id="duedate_sort_asc" href="<%= tasks_path(duedate_sort: 'asc') %>">▼</a>
+      <% else %>
+        <a id="duedate_sort_desc" href="<%= tasks_path(duedate_sort: 'desc') %>">▲</a>
+      <% end %>
+    </th>
+    <th>
+      <%= t('label.task.created_at') %>
     <% if @created_at_sort == 'desc' %>
       <a id="created_at_sort_asc" href="<%= tasks_path(created_at_sort: 'asc') %>">▼</a>
     <% else %>

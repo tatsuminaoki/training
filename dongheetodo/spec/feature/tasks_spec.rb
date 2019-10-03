@@ -57,4 +57,19 @@ RSpec.feature "Tasks", type: :feature, js: true do
     save_and_open_page
     expect(page).to have_link "created_at_sort_desc"
   end
+
+  scenario "タスク一覧の並び順を完了期限の降順にする" do
+    visit tasks_path
+    all("thead th")[4].click_link "duedate_sort_desc"
+    save_and_open_page
+    expect(page).to have_link "duedate_sort_asc"
+  end
+
+  scenario "タスク一覧の並び順を完了期限の昇順にする（元に戻す）" do
+    visit tasks_path
+    all("thead th")[4].click_link "duedate_sort_desc"
+    all("thead th")[4].click_link "duedate_sort_asc"
+    save_and_open_page
+    expect(page).to have_link "duedate_sort_desc"
+  end
 end
