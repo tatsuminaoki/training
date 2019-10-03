@@ -34,6 +34,7 @@ gem 'simplecov'
 gem "enum_help"
 gem 'kaminari'
 gem 'kaminari-bootstrap'
+gem 'seed-fu', '~> 2.3'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

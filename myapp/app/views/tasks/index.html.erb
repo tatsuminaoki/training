@@ -5,7 +5,7 @@
   <div class="container container-head">
     <div class="row">
       <div class="col">
-        <%= link_to '全件', tasks_path(user_id: @user_id), class: "btn btn-large btn-primary btn-status" %>
+        <%= link_to '全件', root_path, class: "btn btn-large btn-primary btn-status" %>
       </div>
       <% Task.statuses.each do |k, v| %>
         <div class="col">
