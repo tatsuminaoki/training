@@ -6,6 +6,12 @@ ja:
       title: タスク登録
     edit:
       title: タスク編集
+  users:
+    new:
+      title: ユーザー登録
+  sessions:
+    new:
+      title: ログイン
   activerecord:
     models:
       task: タスク
@@ -23,6 +29,8 @@ ja:
         id: ID
         login_id: ログインID
         password_digest: パスワード
+        password: パスワード
+        password_confirmation: パスワード確認
         created_at: 作成日
         updated_at: 更新日
   enums:
