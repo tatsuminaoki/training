@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_043554) do
     t.datetime "duedate", comment: "終了期限"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_tasks_on_name"
+    t.index ["name"], name: "index_tasks_on_name", length: 10
     t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 
