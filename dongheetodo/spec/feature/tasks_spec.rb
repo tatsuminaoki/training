@@ -1,8 +1,16 @@
 require 'rails_helper'
+require 'i18n'
 
 RSpec.feature "Tasks", type: :feature, js: true do
 
-  given!(:user) { create(:user, :with_tasks) }
+  given!(:user) { create(:user) }
+  given!(:task1) { create(:task, user_id: user.id) }
+  given!(:task2) { create(:task, user_id: user.id) }
+  given!(:task3) { create(:task, user_id: user.id) }
+  given!(:task4) { create(:task, user_id: user.id) }
+  given!(:task5) { create(:task, user_id: user.id) }
+
+  ### CRUDテスト
 
   scenario "タスク一覧を表示する", open_on_error: true do
     visit tasks_path
@@ -43,18 +51,102 @@ RSpec.feature "Tasks", type: :feature, js: true do
     expect(page).to have_content "正常に削除しました"
   end
 
-  scenario "タスク一覧の並び順を作成日の降順にする" do
+  ### 検索テスト
+
+  scenario 'タスク名で絞り込んで検索する', open_on_error: true do
     visit tasks_path
-    all("thead th")[5].click_link "created_at_sort_desc"
-    save_and_open_page
-    expect(page).to have_link "created_at_sort_asc"
+    within('#search_form') do
+      fill_in 'name', with: task1.name
+      click_button I18n.t('button.search')
+    end
+    expect(find('tbody')).to have_text task1.id
   end
 
-  scenario "タスク一覧の並び順を作成日の昇順にする（元に戻す）" do
+  scenario 'ステータスで絞り込んで検索する', open_on_error: true do
     visit tasks_path
-    all("thead th")[5].click_link "created_at_sort_desc"
-    all("thead th")[5].click_link "created_at_sort_asc"
-    save_and_open_page
-    expect(page).to have_link "created_at_sort_desc"
+    within('#search_form') do
+      select I18n.t("activerecord.enum.task.status.#{task1.status}"), from: 'status'
+      click_button I18n.t('button.search')
+    end
+    expect(find('tbody')).to have_text task1.id
+  end
+
+  scenario 'タスク名とステータスで絞り込んで検索する', open_on_error: true do
+    visit tasks_path
+    within('#search_form') do
+      fill_in 'name', with: task1.name
+      select I18n.t("activerecord.enum.task.status.#{task1.status}"), from: 'status'
+      click_button I18n.t('button.search')
+    end
+    expect(find('tbody')).to have_text task1.id
+  end
+
+  ### 並び替えテスト
+
+  scenario "IDで並び順を変える", open_on_error: true do
+    visit tasks_path
+    # 降順にする
+    within('#search_form') do
+      select I18n.t('label.task.id'), from: 'target'
+      select I18n.t('label.sort.desc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_id = all('tbody tr').first.all('td')[0].text
+    last_id = all('tbody tr').last.all('td')[0].text
+    expect(first_id).to be > last_id
+    # 昇順にする
+    within('#search_form') do
+      select I18n.t('label.task.id'), from: 'target'
+      select I18n.t('label.sort.asc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_id = all('tbody tr').first.all('td')[0].text
+    last_id = all('tbody tr').last.all('td')[0].text
+    expect(first_id).to be < last_id
+  end
+
+  scenario "完了期限で並び順を変える", open_on_error: true do
+    visit tasks_path
+    # 降順にする
+    within('#search_form') do
+      select I18n.t('label.task.duedate'), from: 'target'
+      select I18n.t('label.sort.desc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_duedate = all('tbody tr').first.all('td')[4].text
+    last_duedate = all('tbody tr').last.all('td')[4].text
+    expect(first_duedate).to be > last_duedate
+    # 昇順にする
+    within('#search_form') do
+      select I18n.t('label.task.duedate'), from: 'target'
+      select I18n.t('label.sort.asc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_duedate = all('tbody tr').first.all('td')[4].text
+    last_duedate = all('tbody tr').last.all('td')[4].text
+    expect(first_duedate).to be < last_duedate
+  end
+
+  scenario "作成日で並び順を変える", open_on_error: true do
+    visit tasks_path
+    # 降順にする
+    within('#search_form') do
+      select I18n.t('label.task.created_at'), from: 'target'
+      select I18n.t('label.sort.desc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_created_at = all('tbody tr').first.all('td')[5].text
+    last_created_at = all('tbody tr').last.all('td')[5].text
+    expect(first_created_at).to be > last_created_at
+
+    # 昇順にする
+    within('#search_form') do
+      select I18n.t('label.task.created_at'), from: 'target'
+      select I18n.t('label.sort.asc'), from: 'order'
+      click_button I18n.t('button.search')
+    end
+    first_created_at = all('tbody tr').first.all('td')[5].text
+    last_created_at = all('tbody tr').last.all('td')[5].text
+    expect(first_created_at).to be < last_created_at
   end
 end
