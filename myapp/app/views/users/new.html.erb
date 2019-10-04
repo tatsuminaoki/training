@@ -1,0 +1,14 @@
+<h1><%= t '.title' %></h1>
+<%= form_for(@user) do |f| %>
+  <div class="form-group">
+    <%= render 'layouts/error_messages', model: f.object %>
+    <%= f.label :login_id, User.human_attribute_name(:login_id) %>
+    <%= f.text_field :login_id, :class => "form-control" %>
+    <%= f.label :password, User.human_attribute_name(:password) %>
+    <%= f.password_field :password, :class => "form-control" %>
+    <%= f.label :password_confirmation, User.human_attribute_name(:password_confirmation) %>
+    <%= f.password_field :password_confirmation, :class => "form-control" %>
+    <%= f.submit '登録', class: "btn btn-primary" %>
+  </div>
+<% end %>
+

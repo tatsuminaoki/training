@@ -1,0 +1,11 @@
+<h1><%= t '.title' %></h1>
+<%= form_with url: login_path do |f| %>
+  <div class="form-group">
+    <%= f.label :login_id, User.human_attribute_name(:login_id) %>
+    <%= f.text_field :login_id, :class => "form-control" %>
+    <%= f.label :password, User.human_attribute_name(:password) %>
+    <%= f.password_field :password, :class => "form-control" %>
+    <%= f.submit 'ログイン', class: "btn btn-primary" %>
+  </div>
+<% end %>
+<%= link_to '新規登録', new_user_path %>
