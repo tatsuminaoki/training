@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     @param_session = params.permit(:login_id, :password)
     if @param_session[:login_id].blank? || @param_session[:password].blank?
       flash[:danger] = 'ログインIDとパスワードは必須入力です'
-      redirect_to login_path
+      render :new
     end
   end
 end
