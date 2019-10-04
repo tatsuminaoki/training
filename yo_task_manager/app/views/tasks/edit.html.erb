@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h1>タスク編集</h1>
+      <h1><%= t('.updating_task') %></h1>
     </div>
   </div>
   <div class="row">
@@ -13,7 +13,7 @@
   </div>
   <div class="row">
     <div class="col-sm">
-      <%= render partial: "form", locals: { task: @task, button_name: '更新' } %>
+      <%= render partial: "form", locals: { task: @task, button_name: t('.update') } %>
     </div>
   </div>
 </div>

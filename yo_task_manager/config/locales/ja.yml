@@ -1,18 +1,28 @@
 ja:
   tasks:
+    task_name: タスク名
+    task_detail: 詳細
+    edit_text: 編集
+    delete: 削除
+    cancel: 取り消し
     index:
       task_list: タスク一覧
       task_count: タスク数
       no_task: タスクはありません。
       add_task: タスク追加
-      task_name: タスク名
-      task_detail: 詳細
       action: 操作
       detail: 詳細
-      edit: 編集
-      delete: 削除
+    show:
+      task_detail: タスク詳細
+      back_to_tasks: ←タスク一覧へ
+    new:
+      adding_task: タスク追加
+      add: 追加
     create:
       task_saved: タスクが保存されました。
+    edit:
+      updating_task: タスク編集
+      update: 更新
     update:
       task_updated: タスクが更新されました。
     destroy:

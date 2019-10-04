@@ -1,18 +1,28 @@
 en:
   tasks:
+    task_name: Task Name
+    task_detail: Task Detail
+    edit_text: Edit
+    delete: Delete
+    cancel: Cancel
     index:
       task_list: Task list
       task_count: Task count
       no_task: There is no task.
       add_task: Add Task
-      task_name: Task Name
-      task_detail: Task Detail
       action: Action
       detail: Detail
-      edit: Edit
-      delete: Delete
+    show:
+      task_detail: Task Detail
+      back_to_tasks: ←Back to Task list
+    new:
+      adding_task: Adding Task
+      add: Add
     create:
       task_saved: Task is saved.
+    edit:
+      updating_task: Updating Task
+      update: Update
     update:
       task_updated: Task is updated.
     destroy:

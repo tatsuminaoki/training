@@ -3,7 +3,7 @@
     <tbody>
       <tr>
         <th scope="col">
-          <%= f.label 'タスク名' %>
+          <%= f.label t('tasks.task_name') %>
         </th>
         <td>
           <%= f.text_field :title %>
@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <th scope="col">
-          <%= f.label '詳細' %>
+          <%= f.label t('tasks.task_detail') %>
         </th>
         <td>
           <%= f.text_area :body %>
@@ -21,7 +21,7 @@
         <td colspan="2">
           <div class="d-flex justify-content-around">
             <%= f.submit button_name, class: 'btn btn-primary' %>
-            <%= link_to '取り消し', tasks_path, class: 'btn btn-light' %>
+            <%= link_to t('tasks.cancel'), tasks_path, class: 'btn btn-light' %>
           </div>
         </td>
       </tr>
