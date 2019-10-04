@@ -59,29 +59,49 @@ RSpec.describe User, type: :model do
 
     context '101文字な場合' do
       it 'エラーになる' do
-        user.password_digest = 'a' * 101
+        user.password = 'a' * 101
         expect(user).not_to be_valid
       end
     end
 
     context '半角英小文字大文字数字をそれぞれ1種類以上含む場合' do
       it '登録できる' do
-        user.password_digest = 'abcABC0123'
+        user.password = 'abcABC0123'
         expect(user).to be_valid
       end
     end
 
-    context '半角英小文字大文字数字をそれぞれ1種類以上含んでいない場合' do
+    context '記号を含んでいる場合' do
       it 'エラーになる' do
-        user.password_digest = 'Kigou-Ga-Fukumareteiru123'
+        user.password = 'Kigou-Ga-Fukumareteiru123'
         expect(user).not_to be_valid
-        user.password_digest = '日本語もだめなパターン'
+      end
+    end
+
+    context '日本語を含んでいる場合' do
+      it 'エラーになる' do
+        user.password = '日本語もだめなパターン'
         expect(user).not_to be_valid
-        user.password_digest = 'SuujiGaFukumareteinai'
+      end
+    end
+
+    context '数字が含まれていない場合' do
+      it 'エラーになる' do
+        user.password = 'SuujiGaFukumareteinai'
         expect(user).not_to be_valid
-        user.password_digest = 'oomojigafukumareteinai123'
+      end
+    end
+
+    context '大文字が含まれていない場合' do
+      it 'エラーになる' do
+        user.password = 'oomojigafukumareteinai123'
         expect(user).not_to be_valid
-        user.password_digest = 'KOMOJIGAFUKUMARETEINAI123'
+      end
+    end
+
+    context '小文字が含まれていない場合' do
+      it 'エラーになる' do
+        user.password = 'KOMOJIGAFUKUMARETEINAI123'
         expect(user).not_to be_valid
       end
     end
