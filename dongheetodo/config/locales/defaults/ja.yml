@@ -1,6 +1,7 @@
 ja:
   label:
     colon: "："
+    items: "件"
     sort:
       by: '並び替え'
       order: '並び順'

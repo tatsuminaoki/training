@@ -149,4 +149,25 @@ RSpec.feature "Tasks", type: :feature, js: true do
     last_created_at = all('tbody tr').last.all('td')[5].text
     expect(first_created_at).to be < last_created_at
   end
+
+  scenario "タスク一覧にページナビゲーターを表示する" do
+    # 最初はページナビゲーターが表示されない
+    visit tasks_path
+    expect(page).not_to have_selector 'nav.pagination'
+    # Taskを20件生成してページナビゲーターを出す
+    20.times do
+      create(:task, user_id: user.id)
+    end
+    visit tasks_path
+    expect(page).to have_selector 'nav.pagination'
+  end
+
+  scenario "他のページに遷移する" do
+    20.times do
+      create(:task, user_id: user.id)
+    end
+    visit tasks_path
+    click_link '最後 »'
+    expect(page).to have_link '« 最初'
+  end
 end

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params)
+    @tasks = Task.search(params).page(params[:page])
   end
 
   def show
