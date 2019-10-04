@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = 'タスクが保存されました。'
+      flash[:success] = t(:task_saved)
       redirect_to tasks_path
     else
       flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
