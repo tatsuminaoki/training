@@ -6,7 +6,7 @@ describe TasksController, type: :request do
       let(:user) { FactoryBot.create :user }
       before do
         create_list(:task, 2, user: user)
-        post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+        post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
       end
 
       context '全件表示の場合' do
@@ -68,7 +68,7 @@ describe TasksController, type: :request do
   describe 'GET #new' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
     end
 
     it 'リクエストが成功すること' do
@@ -80,7 +80,7 @@ describe TasksController, type: :request do
   describe 'POST #create' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
     end
 
     context '正常なパラメータの場合' do
@@ -137,7 +137,7 @@ describe TasksController, type: :request do
     let(:user) { FactoryBot.create :user }
     let(:task) { FactoryBot.create(:task, user: user) }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
     end
 
     context '正常なパラメータの場合' do
@@ -169,7 +169,7 @@ describe TasksController, type: :request do
     let(:user) { FactoryBot.create :user }
     let(:task) { FactoryBot.create(:task, user: user) }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
     end
 
     context '正常なパラメータの場合' do
@@ -213,7 +213,7 @@ describe TasksController, type: :request do
   describe 'DELETE #destroy' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword' }
+      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
     end
 
     context '正常なパラメータの場合' do

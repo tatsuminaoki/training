@@ -10,13 +10,13 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by!(login_id: @param_session[:login_id])
 
-    @user.authenticate(@param_session[:password])
+    raise unless @user.authenticate(@param_session[:password])
     sign_in(@user)
     redirect_to root_path
   rescue StandardError => e
     logger.error e
     flash[:danger] = 'ログインに失敗しました'
-    render :new
+    render :new, status: :unauthorized
   end
 
   def destroy
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     @param_session = params.permit(:login_id, :password)
     if @param_session[:login_id].blank? || @param_session[:password].blank?
       flash[:danger] = 'ログインIDとパスワードは必須入力です'
-      render :new
+      render :new, status: :unauthorized
     end
   end
 end
