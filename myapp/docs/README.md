@@ -389,3 +389,52 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - タスク登録時のラベル初期表示時は、非表示(ラベルデータ未取得)にしてみましょう
 - 変わりにラベル追加などのボタンを用意し、そのボタン押下にてラベルデータを取得し表示するようにしてみましょう
 - テストも書きましょう
+
+
+## DBテーブル設計
+### tasks - タスクを管理するテーブル
+
+| physical_name | logical_name | data_type | primary | null | default | remarks | 
+| --- | --- | --- | --- | --- | --- | --- |
+| id | タスクid | int | ◯ | not null | --- | --- |
+| title | タイトル | varchar (124) | --- | not null | --- | --- |
+| description | 説明 | varchar (512) | --- | --- |  | --- |
+| user_id | 作成者 | int | --- | not null | --- | users.id |
+| priority | 優先順位 | tinyint | --- | not null | 0 | 0:低, 1:中, 2:高 |
+| status | ステータス | tinyint | --- | not null | 0 | 0:未着手, 1:着手, 2:完了 |
+| due_date | 終了期限 | date | --- | --- | --- | --- |
+| created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+| updated_at | 更新日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+
+- index: created_at, due_date, user_id
+
+### users - ユーザを管理するテーブル
+
+| physical_name | logical_name | data_type | primary | null | default | remarks | 
+| --- | --- | --- | --- | --- | --- | --- |
+| id | ユーザーid | int | ◯ | not null | --- | --- |
+| name | ユーザー名 | varchar (32) | --- | not null | --- | --- |
+| email | メールアドレス | varchar (128) | --- | not null | --- | --- |
+| encrypted_password | パスワード | varchar (256) | --- | not null | --- | --- |
+| role | 権限 | tinyint | --- | not null | 0 | 0:一般ユーザ, 1:管理者 |
+| created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+| updated_at | 更新日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+
+
+### labels - ラベルを管理するテーブル
+
+| physical_name | logical_name | data_type | primary | null | default | remarks | 
+| --- | --- | --- | --- | --- | --- | --- |
+| id | ラベルid | int | ◯ | not null | --- | --- |
+| name | ラベル名 | varchar (16) | --- | not null | --- | --- |
+| created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+| updated_at | 更新日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+
+
+### task_labels - タスクとラベルを紐付けるリレーションテーブル
+
+| physical_name | logical_name | data_type | primary | null | default | remarks | 
+| --- | --- | --- | --- | --- | --- | --- |
+| task_id | タスクid | int | --- | not null | --- | tasks.id (task_id, label_idでuniq)|
+| label_id | ラベルid | int | --- | not null | --- | labels.id |
+| created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
