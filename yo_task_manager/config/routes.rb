@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/:locale', constraints: { locale: I18n.available_locales.map(&:to_s) }, to: 'tasks#index'
   root to: 'tasks#index'
 
   scope "/:locale", locale: /ja|en/ do

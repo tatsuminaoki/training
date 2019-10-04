@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Tasks', type: :feature do
   scenario 'user visit tasks index/root' do
-    visit '/tasks'
+    visit '/ja/tasks'
     expect(page).to have_text('タスク一覧')
     visit '/'
     expect(page).to have_text('タスク一覧')
