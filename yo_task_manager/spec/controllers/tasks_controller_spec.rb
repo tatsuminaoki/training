@@ -27,7 +27,7 @@ RSpec.describe TasksController, type: :controller do
       expect(Task.last.title).to eq 'タイトル'
       expect(Task.last.body).to eq '長い説明文ですよ！'
       expect(response).to redirect_to(tasks_path)
-      expect(flash[:success]).to match I18n.t(:task_saved)
+      expect(flash[:success]).to match I18n.t('tasks.create.task_saved')
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe TasksController, type: :controller do
       expect(updated_task.title).to eq '新しい'
       expect(updated_task.body).to eq '新しい説明'
       expect(response).to redirect_to(tasks_path)
-      expect(flash[:success]).to match 'タスクが更新されました。'
+      expect(flash[:success]).to match I18n.t('tasks.update.task_updated')
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe TasksController, type: :controller do
       delete :destroy, params: { id: exist_task.id, locale: 'ja' }
       expect{Task.find(exist_task.id)}.to raise_exception(ActiveRecord::RecordNotFound)
       expect(response).to redirect_to(tasks_path)
-      expect(flash[:success]).to match 'タスクが削除されました。'
+      expect(flash[:success]).to match I18n.t('tasks.destroy.task_deleted')
     end
   end
 end

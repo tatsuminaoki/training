@@ -1,3 +1,19 @@
 en:
-  task_list: Task list
-  task_saved: Task is saved.
+  tasks:
+    index:
+      task_list: Task list
+      task_count: Task count
+      no_task: There is no task.
+      add_task: Add Task
+      task_name: Task Name
+      task_detail: Task Detail
+      action: Action
+      detail: Detail
+      edit: Edit
+      delete: Delete
+    create:
+      task_saved: Task is saved.
+    update:
+      task_updated: Task is updated.
+    destroy:
+      task_deleted: Task was deleted.

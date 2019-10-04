@@ -1,3 +1,19 @@
 ja:
-  task_list: タスク一覧
-  task_saved: タスクが保存されました。
+  tasks:
+    index:
+      task_list: タスク一覧
+      task_count: タスク数
+      no_task: タスクはありません。
+      add_task: タスク追加
+      task_name: タスク名
+      task_detail: 詳細
+      action: 操作
+      detail: 詳細
+      edit: 編集
+      delete: 削除
+    create:
+      task_saved: タスクが保存されました。
+    update:
+      task_updated: タスクが更新されました。
+    destroy:
+      task_deleted: タスクが削除されました。
