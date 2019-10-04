@@ -61,3 +61,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "rails-i18n"
 gem 'faker'
+
+# Live Reload when resources(js, css, views..etc) changed
+# see: https://github.com/guard/guard-livereload/
+group :development do
+  gem 'guard-livereload', '~> 2.5', require: false
+end
