@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     render file: "#{Rails.root}/public/500.html", content_type: 'text/html', status: :internal_server_error
   end
 
-  protected
+  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:login_id])
