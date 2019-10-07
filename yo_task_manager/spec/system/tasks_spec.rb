@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Tasks', type: :feature do
+RSpec.describe 'Tasks', type: :system do
   scenario 'user visit tasks index/root' do
     visit '/ja/tasks'
     expect(page).to have_text('タスク一覧')

@@ -10,7 +10,6 @@
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.0.2, rbenv: 2.5.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="did_you_mean (v1.2.0, rbenv: 2.5.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="power_assert (v1.1.1, rbenv: 2.5.5) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="psych (v3.0.2, rbenv: 2.5.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v12.3.0, rbenv: 2.5.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.0.1, rbenv: 2.5.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="test-unit (v3.2.7, rbenv: 2.5.5) [gem]" level="application" />
