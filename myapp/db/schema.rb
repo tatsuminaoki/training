@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_190_930_074_350) do
+ActiveRecord::Schema.define(version: 2019_10_07_004135) do
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4', force: :cascade do |t|
     t.string 'title', null: false
     t.text 'description'
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20_190_930_074_350) do
 
   create_table 'users', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4', force: :cascade do |t|
     t.string 'login_id', null: false
-    t.string 'password_digest', null: false
-    t.string 'remember_token'
+    t.string 'encrypted_password', null: false
+    t.datetime 'remember_created_at'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['login_id'], name: 'index_users_on_login_id', unique: true
