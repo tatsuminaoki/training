@@ -2,27 +2,28 @@
   <%= render "layouts/errors", model: f.object %>
   <% # TODO: ログイン機能追加後、user_idを動的に当てるように修正 %>
   <%= f.hidden_field :user_id, :value => 1 %>
-  <div>
-    <%= f.label t("label.task.name") %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label t("label.task.name"), class: 'label' %><br>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("label.task.description") %><br>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label t("label.task.description"), class: 'label' %><br>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("label.task.status") %><br>
-    <%= f.select :status, Task.statuses.map{|k,v| [t("activerecord.enum.task.status.#{k}"), k]}, {prompt: t("alert.task.select")}%>
+  <div class="form-group">
+    <%= f.label t("label.task.status"), class: 'label' %><br>
+    <%= f.select :status, Task.statuses.map{|k,v| [t("activerecord.enum.task.status.#{k}"), k]}, {prompt: t("alert.task.select")}, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("label.task.priority") %><br>
-    <%= f.select :priority, Task.priorities.map{|k, v| [t("activerecord.enum.task.priority.#{k}"),k]}, {prompt: t("alert.task.select")}%>
+  <div class="form-group">
+    <%= f.label t("label.task.priority"), class: 'label' %><br>
+    <%= f.select :priority, Task.priorities.map{|k, v| [t("activerecord.enum.task.priority.#{k}"),k]}, {prompt: t("alert.task.select")}, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("label.task.duedate") %><br>
+  <div class="form-group" id="datetime-form-group">
+    <%= f.label t("label.task.duedate"), class: 'label' %><br>
     <%= f.datetime_select :duedate %>
   </div>
-  <div>
-    <%= f.submit %>
+  <br>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

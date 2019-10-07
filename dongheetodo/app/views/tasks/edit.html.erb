@@ -1,4 +1,9 @@
-<h1><%= t("activerecord.tasks.edit.title") %></h1>
-<%= render 'layouts/form' %>
-<br>
-<%= link_to t("button.back"), root_path %>
+<div class="container">
+  <h4><%= t("activerecord.tasks.edit.title") %></h4>
+  <br>
+  <%= render 'layouts/form' %>
+  <div class="d-flex justify-content-end">
+    <%= link_to t("button.back"), root_path %>
+  </div>
+</div>
+
