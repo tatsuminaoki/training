@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ErrorsController < ApplicationController
   # skip_before_action :require_login
 
@@ -5,7 +7,7 @@ class ErrorsController < ApplicationController
     respond_to do |format|
       format.html { render status: 404 }
     end
-    end
+  end
 
   def unacceptable
     respond_to do |format|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
@@ -62,7 +64,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   scenario 'tasks is ordered by created_at with descending order' do
-    expected_order = ['task3', 'task2', 'task1']
+    expected_order = %w[task3 task2 task1]
     visit '/ja/tasks'
     click_button 'タスク追加'
     fill_in 'task[title]', with: 'task1'
