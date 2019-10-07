@@ -60,4 +60,23 @@ RSpec.feature 'Tasks', type: :feature do
       expect(page).to_not have_text('古い説明')
     end
   end
+
+  scenario 'tasks is ordered by created_at with descending order' do
+    expected_order = ['task3', 'task2', 'task1']
+    visit '/ja/tasks'
+    click_button 'タスク追加'
+    fill_in 'task[title]', with: 'task1'
+    click_button '追加'
+    expect(page).to have_text('タスクが保存されました。')
+    expect(page).to have_button('タスク追加')
+    click_button 'タスク追加'
+    fill_in 'task[title]', with: 'task2'
+    click_button '追加'
+    expect(page).to have_text('タスクが保存されました。')
+    expect(page).to have_button('タスク追加')
+    click_button 'タスク追加'
+    fill_in 'task[title]', with: 'task3'
+    click_button '追加'
+    expect(page.all('.task-name').map(&:text)).to eq expected_order
+  end
 end

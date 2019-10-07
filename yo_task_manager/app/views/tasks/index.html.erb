@@ -34,7 +34,7 @@
           <% @tasks.each do |t| %>
             <tr id="task-<%= t.id %>">
               <td><%= t.id %></td>
-              <td><%= t.title %></td>
+              <td class="task-name"><%= t.title %></td>
               <td><%= t.body %></td>
               <td>
                 <%= button_to t('.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>

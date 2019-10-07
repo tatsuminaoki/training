@@ -32,8 +32,8 @@ RSpec.describe TasksController, type: :controller do
   end
 
   context '#show' do
-    task = Task.create
     it 'renders show template' do
+      task = Task.create
       get :show, params: { id: task, locale: 'ja' }
       expect(response).to render_template('show')
       expect(response).to have_http_status(:ok)
