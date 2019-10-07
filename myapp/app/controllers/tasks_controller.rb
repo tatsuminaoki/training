@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @user_id = current_user[:id].to_i unless current_user[:id].nil?
+    @user_id = current_user.id.to_i unless current_user.id.nil?
     @status = params[:status].blank? ? nil : params[:status].to_i
 
     @tasks = Task.search_task(page, PER, @user_id, @status)
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(@param_id)
-    redirect_to tasks_url unless @task[:user_id] == current_user[:id]
+    redirect_to tasks_url unless @task[:user_id] == current_user.id
   end
 
   def update
@@ -77,6 +77,6 @@ class TasksController < ApplicationController
       flash[:danger] = 'タイトルは必須入力です'
       redirect_back(fallback_location: root_path)
     end
-    @param_task[:user_id] = @current_user[:id]
+    @param_task[:user_id] = current_user.id
   end
 end
