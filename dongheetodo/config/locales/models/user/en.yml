@@ -1,0 +1,19 @@
+en:
+  activerecord:
+    models:
+      user: "user"
+
+    attributes:
+      user:
+        email: "email"
+        password_digest: "password"
+
+    users:
+      edit:
+        title: "Edit"
+      index:
+        title: "User List"
+      new:
+        title: "Create"
+      show:
+        title: "Details"
