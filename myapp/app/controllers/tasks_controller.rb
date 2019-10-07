@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(@param_id)
-    redirect_to tasks_url unless @task[:user_id] == current_user.id
+    redirect_to tasks_url unless @task.user_id == current_user.id
   end
 
   def update
