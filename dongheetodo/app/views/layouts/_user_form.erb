@@ -1,18 +1,19 @@
 <%= form_with model: @user, local: true do |f| %>
   <%= render "layouts/errors", model: f.object %>
-  <div>
-    <%= f.label t("activerecord.attributes.user.email") %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label t("activerecord.attributes.user.email"), class: 'label' %><br>
+    <%= f.text_field :email, type: 'email', required: true, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("activerecord.attributes.user.password_digest") %><br>
-    <%= f.password_field :password_digest %>
+  <div class="form-group">
+    <%= f.label t("activerecord.attributes.user.password_digest"), class: 'label' %><br>
+    <%= f.password_field :password_digest, minlength: 8, required: true, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.label t("activerecord.label.password_confirm") %><br>
-    <%= f.password_field :password_digest_confirm %>
+  <div class="form-group">
+    <%= f.label t("activerecord.label.password_confirm"), class: 'label' %><br>
+    <%= f.password_field :password_digest_confirm, minlength: 8, required: true, class: 'form-control' %>
   </div>
-  <div>
-    <%= f.submit %>
+  <br>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -1,4 +1,6 @@
-<h1><%= t("activerecord.users.new.title") %></h1>
-<%= render 'layouts/user_form' %>
+<h4><%= t("activerecord.users.new.title") %></h4>
 <br>
-<%= link_to t("button.back"), root_path %>
+<%= render 'layouts/user_form' %>
+<div class="d-flex justify-content-end">
+  <%= link_to t("button.back"), root_path %>
+</div>
