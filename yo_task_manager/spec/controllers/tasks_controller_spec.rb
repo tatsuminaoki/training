@@ -33,7 +33,7 @@ RSpec.describe TasksController, type: :controller do
 
   context '#show' do
     it 'renders show template' do
-      task = Task.create
+      task = Task.create(title: 'dummy1')
       get :show, params: { id: task, locale: 'ja' }
       expect(response).to render_template('show')
       expect(response).to have_http_status(:ok)
@@ -42,7 +42,7 @@ RSpec.describe TasksController, type: :controller do
 
   context '#edit' do
     it 'renders edit template' do
-      task = Task.create
+      task = Task.create(title: 'dummy2')
       get :edit, params: { id: task, locale: 'ja' }
       expect(response).to render_template('edit')
       expect(response).to have_http_status(:ok)
