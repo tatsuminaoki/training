@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature 'Tasks', type: :feature do
+RSpec.describe 'Tasks', type: :system do
   scenario 'user visit tasks index/root' do
     visit '/ja/tasks'
     expect(page).to have_text('タスク一覧')
@@ -62,7 +64,7 @@ RSpec.feature 'Tasks', type: :feature do
   end
 
   scenario 'tasks is ordered by created_at with descending order' do
-    expected_order = ['task3', 'task2', 'task1']
+    expected_order = %w[task3 task2 task1]
     visit '/ja/tasks'
     click_button 'タスク追加'
     fill_in 'task[title]', with: 'task1'

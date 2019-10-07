@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
@@ -21,7 +23,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   context '#create' do
-    let(:task_params) { {title: 'タイトル', body: '長い説明文ですよ！'} }
+    let(:task_params) { { title: 'タイトル', body: '長い説明文ですよ！' } }
     it 'save as new task and redirect_to tasks_path with flash msg' do
       post :create, params: { task: task_params, locale: 'ja' }
       expect(Task.last.title).to eq 'タイトル'
@@ -66,7 +68,7 @@ RSpec.describe TasksController, type: :controller do
     let!(:exist_task) { Task.create(title: '削除されるべきタスク', body: 'このタスクは削除されるべきです。') }
     it 'should delete the task and redirect_to tasks_path with flash msg' do
       delete :destroy, params: { id: exist_task.id, locale: 'ja' }
-      expect{Task.find(exist_task.id)}.to raise_exception(ActiveRecord::RecordNotFound)
+      expect { Task.find(exist_task.id) }.to raise_exception(ActiveRecord::RecordNotFound)
       expect(response).to redirect_to(tasks_path)
       expect(flash[:success]).to match I18n.t('tasks.destroy.task_deleted')
     end
