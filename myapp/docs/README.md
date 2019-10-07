@@ -415,7 +415,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 | id | ユーザーid | int | ◯ | not null | --- | --- |
 | name | ユーザー名 | varchar (32) | --- | not null | --- | --- |
 | email | メールアドレス | varchar (128) | --- | not null | --- | --- |
-| encrypted_password | パスワード | varchar (256) | --- | not null | --- | --- |
+| encrypted_password | パスワード | varchar (255) | --- | not null | --- | --- |
 | role | 権限 | tinyint | --- | not null | 0 | 0:一般ユーザ, 1:管理者 |
 | created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
 | updated_at | 更新日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
@@ -438,3 +438,4 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 | task_id | タスクid | int | --- | not null | --- | tasks.id (task_id, label_idでuniq)|
 | label_id | ラベルid | int | --- | not null | --- | labels.id |
 | created_at | 登録日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
+| updated_at | 更新日 | datetime | --- | not null | CURRENT_TIMESTAMP | --- |
