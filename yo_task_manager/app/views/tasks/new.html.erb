@@ -9,6 +9,9 @@
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, class: 'alert-' + name %>
       <% end %>
+      <% @task.errors.full_messages.each do |err_msg| %>
+        <%= content_tag :div, err_msg, class: 'alert-danger' %>
+      <% end %>
     </div>
   </div>
   <div class="row">
