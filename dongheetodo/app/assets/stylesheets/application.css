@@ -13,3 +13,40 @@
  *= require_tree .
  *= require_self
  */
+
+header, footer {
+    background-color: #343a40;
+    min-height: 42px;
+    text-align: center;
+    text-justify: auto;
+}
+header, footer > span {
+    display:inline-block;
+    padding:10px;
+    color: #fdfdfd;
+    font-size: 16px;
+}
+
+section {
+    margin: 32px 0;
+}
+
+#create-btn-div {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 999;
+    box-shadow: 0px 0px 26px -8px rgba(0,0,0,0.7)
+}
+
+#description-div p {
+    overflow-wrap: break-word;
+}
+
+#pagination-wrap {
+    text-align: center;
+}
+
+#pagination-wrap nav {
+    display: inline-block;
+}
