@@ -1,0 +1,18 @@
+<%= form_with model: @user, local: true do |f| %>
+  <%= render "layouts/errors", model: f.object %>
+  <div>
+    <%= f.label t("activerecord.attributes.user.email") %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label t("activerecord.attributes.user.password_digest") %><br>
+    <%= f.password_field :password_digest %>
+  </div>
+  <div>
+    <%= f.label t("activerecord.label.password_confirm") %><br>
+    <%= f.password_field :password_digest_confirm %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

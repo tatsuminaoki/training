@@ -1,12 +1,12 @@
 en:
   activerecord:
     models:
-      user: "user"
+      user: "User"
 
     attributes:
       user:
-        email: "email"
-        password_digest: "password"
+        email: "Email"
+        password_digest: "Password"
 
     users:
       edit:
@@ -17,3 +17,6 @@ en:
         title: "Create"
       show:
         title: "Details"
+
+    label:
+      password_confirm: "Confirm Password"
