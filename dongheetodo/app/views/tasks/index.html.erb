@@ -1,49 +1,58 @@
 <%= render "layouts/notice" %>
-<h1><%= t("activerecord.tasks.index.title") %></h1>
-<fieldset>
-  <legend><%= t('button.search') %></legend>
-  <%= form_tag(tasks_path, method: :get, id: 'search_form') do %>
-    <%= label_tag(:name, t('label.task.name')) %>:
-    <%= text_field_tag(:name, params[:name]) %>
-    <%= label_tag(:status, t('label.task.status')) %>:
-    <%= select_tag(:status, options_for_select(Task.statuses.map{ |k,v| [t("activerecord.attributes.task.status.#{k}"), k] }, params[:status]), include_blank: t('activerecord.enum.task.status.all')) %>
-    <%= label_tag(:sort_by, t('label.sort.by')) %>:
-    <%= select_tag(:target, options_for_select(Task.sort_bies.map{ |k,v| [t("label.task.#{k}"), k] }, params[:target])) %>
-    <%= label_tag(:order, t('label.sort.order')) %>:
-    <%= select_tag(:order, options_for_select(Task.orders.map{ |k,v| [t("label.sort.#{k}"), k] }, params[:order])) %>
-    <%= submit_tag(t('button.search'), name: nil) %>
+<div class="container-fluid">
+  <h4><%= t("activerecord.tasks.index.title") %></h4>
+  <br>
+  <%= form_tag(tasks_path, method: :get, id: 'search_form', class: 'form-inline') do %>
+    <div class="form-row">
+      <div class="form-group col-mb-4 mb-3">
+        <%= text_field_tag(:name, params[:name], placeholder: "#{t('label.task.name')}...", class: 'form-control' ) %>
+      </div>
+      <div class="form-group col-mb-4 mb-3">
+        <%= select_tag(:status, options_for_select(Task.statuses.map{ |k,v| [t("activerecord.attributes.task.status.#{k}"), k] }, params[:status]), include_blank: "#{t('label.task.status')}...", class: "form-control") %>
+      </div>
+      <div class="form-group col-mb-4 mb-3">
+        <%= label_tag(:sort_by, t('label.sort.by')) %>&nbsp:&nbsp
+        <%= select_tag(:target, options_for_select(Task.sort_bies.map{ |k,v| [t("label.task.#{k}"), k] }, params[:target]), class: 'form-control') %>
+        <%= select_tag(:order, options_for_select(Task.orders.map{ |k,v| [t("label.sort.#{k}"), k] }, params[:order]), class: 'form-control') %>
+      </div>
+      <div class="form-group col-mb-4 mb-3">
+        <%= submit_tag(t('button.search'), name: nil, class: 'btn btn-outline-primary') %>
+      </div>
+    </div>
   <% end %>
-</fieldset>
-<%= link_to t("button.create"), new_task_path %><br>
-<%= @tasks.total_count %>&nbsp;<%= t('label.items') %>
-<table>
-  <thead>
-    <th><%= t("label.task.id") %></th>
-    <th><%= t("label.task.name") %></th>
-    <th><%= t("label.task.status") %></th>
-    <th><%= t("label.task.priority") %></th>
-    <th><%= t("label.task.duedate") %></th>
-    <th><%= t('label.task.created_at') %></th>
-    <th><%= t('label.task.updated_at') %></th>
-    <th colspan="3"><%= t("label.task.config") %></th>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.id %></td>
-      <td><%= task.name %></td>
-      <td><%= t("activerecord.enum.task.status.#{task.status}") %></td>
-      <td><%= t("activerecord.enum.task.priority.#{task.priority}") %></td>
-      <td><%= l(task.duedate, format: :short, default: "") %></td>
-      <td><%= l(task.created_at, format: :short, default: "") %></td>
-      <td><%= l(task.updated_at, format: :short, default: "") %></td>
-      <td><%= link_to t("button.show"), task_path(task) %></td>
-      <td><%= link_to t("button.edit"), edit_task_path(task) %></td>
-      <td><%= link_to t("button.delete"), task_path(task), method: :delete, data: { confirm: t("alert.task.delete") } %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= paginate @tasks %>
-
+  <div class="">
+    <table class="table table-border table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col"><%= t("label.task.id") %></th>
+        <th scope="col"><%= t("label.task.name") %></th>
+        <th scope="col"><%= t("label.task.status") %></th>
+        <th scope="col"><%= t("label.task.priority") %></th>
+        <th scope="col"><%= t("label.task.duedate") %></th>
+        <th scope="col"><%= t('label.task.created_at') %></th>
+        <th scope="col" colspan="2"><%= t("label.task.config") %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <th scope="row"><%= task.id %></th>
+          <td><%= link_to task.name, task_path(task) %></td>
+          <td><%= t("activerecord.enum.task.status.#{task.status}") %></td>
+          <td><%= t("activerecord.enum.task.priority.#{task.priority}") %></td>
+          <td><%= l(task.duedate, format: :short, default: "") %></td>
+          <td><%= l(task.created_at, format: :short, default: "") %></td>
+          <td><%= link_to t("button.edit"), edit_task_path(task) %></td>
+          <td><%= link_to t("button.delete"), task_path(task), method: :delete, data: { confirm: t("alert.task.delete") } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="pagination-wrap">
+    <%= paginate @tasks %>
+  </div>
+  <div class="float-right" id="create-btn-div">
+    <%= link_to t("button.create"), new_task_path, class: 'btn btn-success' %>
+  </div>
+</div>
