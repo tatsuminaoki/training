@@ -2,6 +2,7 @@ ja:
   tasks:
     task_name: タスク名
     task_detail: 詳細
+    task_limit: 終了期限
     edit_text: 編集
     delete: 削除
     cancel: 取り消し
