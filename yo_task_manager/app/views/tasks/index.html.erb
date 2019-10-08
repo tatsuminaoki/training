@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h1>タスク一覧</h1>
+      <h1><%= t('.task_list') %></h1>
     </div>
   </div>
   <div class="row">
     <div class="col-sm">
       <% if @tasks.present? %>
-        <p>タスク数:<%= @tasks.count %>件</p>
+        <p><%= t('.task_count') %>: <%= @tasks.count %></p>
       <% else %>
-        <p>タスクはありません。</p>
+        <p><%= t('.no_task') %></p>
       <% end %>
     </div>
     <div class="col-sm">
-      <%= button_to 'タスク追加', new_task_path, method: :get, class: 'btn btn-primary' %>
+      <%= button_to t('.add_task'), new_task_path, method: :get, class: 'btn btn-primary' %>
     </div>
   </div>
   <% flash.each do |name, msg| %>
@@ -25,21 +25,21 @@
         <thead class="thead-dark">
           <tr>
             <th>ID</th>
-            <th>タスク名</th>
-            <th>詳細</th>
-            <th>操作</th>
+            <th><%= t('tasks.task_name') %></th>
+            <th><%= t('tasks.task_detail') %></th>
+            <th><%= t('.action') %></th>
           </tr>
         </thead>
         <tbody>
           <% @tasks.each do |t| %>
             <tr id="task-<%= t.id %>">
               <td><%= t.id %></td>
-              <td><%= t.title %></td>
+              <td class="task-name"><%= t.title %></td>
               <td><%= t.body %></td>
               <td>
-                <%= button_to '詳細', task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
-                <%= button_to '編集', edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>
-                <%= button_to '削除', task_path(t), method: :delete, class: 'btn btn-danger', form: { style: 'display: inline-block;' } %>
+                <%= button_to t('.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
+                <%= button_to t('tasks.edit_text'), edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>
+                <%= button_to t('tasks.delete'), task_path(t), method: :delete, class: 'btn btn-danger', form: { style: 'display: inline-block;' } %>
               </td>
             </tr>
           <% end %>

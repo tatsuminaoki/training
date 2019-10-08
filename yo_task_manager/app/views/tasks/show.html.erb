@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h1>タスク詳細</h1>
+      <h1><%= t('.task_detail') %></h1>
     </div>
   </div>
   <% flash.each do |name, msg| %>
@@ -14,18 +14,18 @@
         <td><%= @task.id %></td>
       </tr>
       <tr>
-        <th>タスク名</th>
+        <th><%= t('tasks.task_name') %></th>
         <td><%= @task.title %></td>
       </tr>
       <tr>
-        <th>詳細</th>
+        <th><%= t('tasks.task_detail') %></th>
         <td><%= @task.body %></td>
       </tr>
     </tbody>
   </table>
   <div class="d-flex justify-content-around">
-    <%= button_to '←タスク一覧へ', tasks_path, method: :get, class: 'btn btn-primary' %>
-    <%= button_to '編集', edit_task_path(@task), method: :get, class: 'btn btn-warning' %>
-    <%= button_to '削除', task_path(@task), method: :delete, class: 'btn btn-danger' %>
+    <%= button_to t('.back_to_tasks'), tasks_path, method: :get, class: 'btn btn-primary' %>
+    <%= button_to t('tasks.edit_text'), edit_task_path(@task), method: :get, class: 'btn btn-warning' %>
+    <%= button_to t('tasks.delete'), task_path(@task), method: :delete, class: 'btn btn-danger' %>
   </div>
 </div>

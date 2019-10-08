@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: %i[show edit update destroy]
   def index
-    @tasks = Task.all.reverse
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   def new
@@ -11,7 +13,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = 'タスクが保存されました。'
+      flash[:success] = t('.task_saved')
       redirect_to tasks_path
     else
       flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
@@ -25,7 +27,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:success] = 'タスクが更新されました。'
+      flash[:success] = t('.task_updated')
       redirect_to tasks_path
     else
       flash.now[:danger] = '問題が発生しました。タスクが更新されていません。'
@@ -35,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      flash[:success] = 'タスクが削除されました。'
+      flash[:success] = t('.task_deleted')
     else
       flash[:danger] = '問題が発生しました。タスクが削除されていません。'
     end
@@ -43,11 +45,12 @@ class TasksController < ApplicationController
   end
 
   private
-    def task_params
-      params.require(:task).permit(:title, :body)
-    end
 
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  def task_params
+    params.require(:task).permit(:title, :body)
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
 end
