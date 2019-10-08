@@ -27,7 +27,7 @@
             <th>ID</th>
             <th><%= t('tasks.task_name') %></th>
             <th><%= t('tasks.task_detail') %></th>
-            <th><%= t('tasks.task_limit') %></th>
+            <th><%= t('tasks.task_limit') %> <%= sort_asc('task_limit') %><%= sort_desc('task_limit') %></th>
             <th><%= t('.action') %></th>
           </tr>
         </thead>

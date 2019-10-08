@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  include TaskHelper
   before_action :set_task, only: %i[show edit update destroy]
+
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(sort_column + ' ' + sort_direction)
   end
 
   def new
