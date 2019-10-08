@@ -15,7 +15,7 @@ module TaskHelper
   end
 
   def sort_column
-    # If params[:column] is nill, set sort_coumn to 'created_date' by default
+    # If params[:column] is nil, set sort_column to 'created_date' by default
     Task.column_names.include?(params[:column]) ? params[:column] : 'created_at'
   end
 end
