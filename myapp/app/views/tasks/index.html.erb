@@ -1,6 +1,9 @@
 <div class="fixed-top">
   <h1><%= t '.title' %></h1>
-  <%= link_to 'ログアウト', logout_path, method: :delete, data:{}, class: "btn float-right btn-logout" %>
+  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, data:{}, class: "btn float-right btn-logout" %>
+  <% if current_user.admin? %>
+    <%= link_to '管理画面', '/admin', class: "btn float-right btn-admin" %>
+  <% end %>
   <%= link_to '＋', new_task_path, class: "btn btn-primary rounded-circle p-0 btn-add" %>
   <div class="container container-head">
     <div class="row">
