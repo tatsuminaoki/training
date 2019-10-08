@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
  rescue_from ActionController::InvalidAuthenticityToken, ActionController::InvalidCrossOriginRequest, ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, with: :render_422
 #  rescue_from Exception, with: :render_500
 
+
+  def render_401
+    render template: "errors/error_401", layout: "error_page", status: :unauthorized, content_type: "text/html"
+  end
+
   def render_404
     render template: "errors/error_404", layout: "error_page", status: :not_found, content_type: "text/html"
   end
