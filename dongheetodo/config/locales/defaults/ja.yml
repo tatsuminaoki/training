@@ -24,6 +24,9 @@ ja:
     create: "作成"
     back: "戻る"
     search: "検索"
+    signup: "会員登録"
+    login: "ログイン"
+    logout: "ログアウト"
   alert:
     task:
       delete: "本当に削除しますか？"
@@ -33,6 +36,9 @@ ja:
       complete_create: "正常に作成しました。"
       complete_update: "正常に更新しました。"
       complete_delete: "正常に削除しました。"
+      complete_login: "正常にログインしました。"
+      complete_logout: "正常にログアウトしました。"
     error:
       occurred: "件のエラーが発生しました。"
       check: "以下のメッセージを確認してください。"
+      login: "メールまたはパスワードが誤っています"

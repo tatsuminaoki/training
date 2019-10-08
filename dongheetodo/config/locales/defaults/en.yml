@@ -24,6 +24,9 @@ en:
     create: "create"
     back: "back"
     search: "search"
+    signup: "sign up"
+    login: "login"
+    logout: "logout"
   alert:
     task:
       delete: "Are you sure you want to delete this task？"
@@ -33,6 +36,9 @@ en:
       complete_create: "Your task has been created successfully."
       complete_update: "Your task has been updated successfully."
       complete_delete: "Your task has been deleted successfully."
+      complete_login: "You have logged in successfully"
+      complete_logout: "You have logged out successfully"
     error:
       occurred: " error(s) has been occurred."
       check: "Please check the message(s) as below."
+      login: "your email or password was entered incorrectly"

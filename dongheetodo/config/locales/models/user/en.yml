@@ -17,6 +17,10 @@ en:
         title: "Create"
       show:
         title: "Details"
+      login:
+        title: "Login"
+      signup:
+        title: "Sign Up"
 
     label:
       password_confirm: "Confirm Password"
