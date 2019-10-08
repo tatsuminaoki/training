@@ -1,8 +1,17 @@
 class ApplicationController < ActionController::Base
- rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, AbstractController::ActionNotFound, with: :render_404
+  helper_method :current_user, :logged_in?
+
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, AbstractController::ActionNotFound, with: :render_404
  rescue_from ActionController::InvalidAuthenticityToken, ActionController::InvalidCrossOriginRequest, ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, with: :render_422
 #  rescue_from Exception, with: :render_500
 
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def logged_in?
+    current_user
+  end
 
   def render_401
     render template: "errors/error_401", layout: "error_page", status: :unauthorized, content_type: "text/html"

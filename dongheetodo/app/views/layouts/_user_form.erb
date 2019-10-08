@@ -1,4 +1,4 @@
-<%= form_with model: @user, local: true do |f| %>
+<%= form_with model: @user, url: signup_path, local: true do |f| %>
   <%= render "layouts/errors", model: f.object %>
   <div class="form-group">
     <%= f.label t("activerecord.attributes.user.email"), class: 'label' %><br>
