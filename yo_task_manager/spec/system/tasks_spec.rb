@@ -81,4 +81,11 @@ RSpec.describe 'Tasks', type: :system do
     click_button '追加'
     expect(page.all('.task-name').map(&:text)).to eq expected_order
   end
+
+  scenario 'task with empty title should not be saved' do
+    visit '/ja/tasks'
+    click_button 'タスク追加'
+    click_button '追加'
+    expect(page).to have_text('Titleを入力してください')
+  end
 end

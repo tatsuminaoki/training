@@ -13,10 +13,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = t('.task_saved')
+      flash[:success] = [t('.task_saved')]
       redirect_to tasks_path
     else
-      flash.now[:danger] = '問題が発生しました。タスクが保存されていません。'
+      flash[:danger] = ['問題が発生しました。タスクが保存されていません。', @task.errors.full_messages].flatten
       render :new
     end
   end
@@ -27,19 +27,19 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:success] = t('.task_updated')
+      flash[:success] = [t('.task_updated')]
       redirect_to tasks_path
     else
-      flash.now[:danger] = '問題が発生しました。タスクが更新されていません。'
+      flash.now[:danger] = ['問題が発生しました。タスクが更新されていません。', @task.errors.full_messages].flatten
       render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      flash[:success] = t('.task_deleted')
+      flash[:success] = [t('.task_deleted')]
     else
-      flash[:danger] = '問題が発生しました。タスクが削除されていません。'
+      flash[:danger] = ['問題が発生しました。タスクが削除されていません。', @task.errors.full_messages].flatten
     end
     redirect_to tasks_path
   end
