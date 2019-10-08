@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
-    password_digest { 'hoge' }
+    password_digest { 'hogehoge' }
 
     trait 'with_tasks' do
       after(:create) do |user|
