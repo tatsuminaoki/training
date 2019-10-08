@@ -10,16 +10,12 @@
   </head>
 
   <body>
-    <header>
-      <span>dongheetodo</span>
-    </header>
+    <%= render 'layouts/header' %>
     <section>
       <div class="container">
         <%= yield %>
       </div>
     </section>
-    <footer>
-      <span>&copy; Rakuten, Inc. All right reserved.</span>
-    </footer>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
