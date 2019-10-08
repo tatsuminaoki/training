@@ -52,21 +52,27 @@ RSpec.describe User, type: :model do
 
     context '100文字な場合' do
       it '登録できる' do
-        user.password_digest = 'abcA1' * 20
+        password = 'abcA1' * 20
+        user.password = password
+        user.password_confirmation = password
         expect(user).to be_valid
       end
     end
 
     context '101文字な場合' do
       it 'エラーになる' do
-        user.password = 'a' * 101
+        password = 'a' * 101
+        user.password = password
+        user.password_confirmation = password
         expect(user).not_to be_valid
       end
     end
 
     context '半角英小文字大文字数字をそれぞれ1種類以上含む場合' do
       it '登録できる' do
-        user.password = 'abcABC0123'
+        password = 'abcABC0123'
+        user.password = password
+        user.password_confirmation = password
         expect(user).to be_valid
       end
     end

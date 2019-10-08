@@ -2,65 +2,64 @@
 
 describe TasksController, type: :request do
   describe 'GET #index' do
-    context 'ログインしている' do
-      let(:user) { FactoryBot.create :user }
-      before do
-        create_list(:task, 2, user: user)
-        post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
-      end
+    let(:user) { FactoryBot.create :user }
+    before do
+      create_list(:task, 2, user: user)
+      sign_in user
+    end
 
-      context '全件表示の場合' do
-        it 'リクエストが成功すること、タイトルが表示されていること' do
-          get tasks_url
-          expect(response).to have_http_status :ok
-          expect(response.body).to include 'Task1'
-          expect(response.body).to include 'Task2'
-        end
-      end
-
-      context 'ステータスで絞り込む場合' do
-        it 'リクエストが成功すること' do
-          get tasks_url, params: { status: 2 }
-          expect(response).to have_http_status :ok
-        end
-      end
-
-      context '不正なステータスの場合' do
-        it '件数が0件になる' do
-          expect do
-            get tasks_url, params: { status: 999_999_999_999 }
-          end.to change(Task, :count).by(0)
-        end
-      end
-
-      context 'ページを指定した場合' do
-        it 'リクエストが成功すること' do
-          get tasks_url, params: { page: 1 }
-          expect(response).to have_http_status :ok
-        end
-      end
-
-      context '存在しないページを指定した場合' do
-        it '件数が0件になる' do
-          expect do
-            get tasks_url, params: { page: 999_999_999_999 }
-          end.to change(Task, :count).by(0)
-        end
-      end
-
-      context 'ステータスとページを同時に指定した場合' do
-        it 'リクエストが成功すること' do
-          get tasks_url, params: { status: 2, page: 1 }
-          expect(response).to have_http_status :ok
-        end
+    context '全件表示の場合' do
+      it 'リクエストが成功すること、タイトルが表示されていること' do
+        get tasks_url
+        expect(response).to have_http_status :ok
+        expect(response.body).to include 'Task1'
+        expect(response.body).to include 'Task2'
       end
     end
 
-    context 'ログインしていない' do
+    context 'ステータスで絞り込む場合' do
+      it 'リクエストが成功すること' do
+        get tasks_url, params: { status: 2 }
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context '不正なステータスの場合' do
+      it '件数が0件になる' do
+        expect do
+          get tasks_url, params: { status: 999_999_999_999 }
+        end.to change(Task, :count).by(0)
+      end
+    end
+
+    context 'ページを指定した場合' do
+      it 'リクエストが成功すること' do
+        get tasks_url, params: { page: 1 }
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context '存在しないページを指定した場合' do
+      it '件数が0件になる' do
+        expect do
+          get tasks_url, params: { page: 999_999_999_999 }
+        end.to change(Task, :count).by(0)
+      end
+    end
+
+    context 'ステータスとページを同時に指定した場合' do
+      it 'リクエストが成功すること' do
+        get tasks_url, params: { status: 2, page: 1 }
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    context 'ログアウトした場合' do
       it 'ログインページにリダイレクトされること' do
+        sign_out user
         get tasks_url
         expect(response).to have_http_status :found
-        expect(response).to redirect_to login_url
+        expect(response).to redirect_to user_session_url
       end
     end
   end
@@ -68,7 +67,7 @@ describe TasksController, type: :request do
   describe 'GET #new' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
+      sign_in user
     end
 
     it 'リクエストが成功すること' do
@@ -80,7 +79,7 @@ describe TasksController, type: :request do
   describe 'POST #create' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
+      sign_in user
     end
 
     context '正常なパラメータの場合' do
@@ -137,7 +136,7 @@ describe TasksController, type: :request do
     let(:user) { FactoryBot.create :user }
     let(:task) { FactoryBot.create(:task, user: user) }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
+      sign_in user
     end
 
     context '正常なパラメータの場合' do
@@ -169,7 +168,7 @@ describe TasksController, type: :request do
     let(:user) { FactoryBot.create :user }
     let(:task) { FactoryBot.create(:task, user: user) }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
+      sign_in user
     end
 
     context '正常なパラメータの場合' do
@@ -213,7 +212,7 @@ describe TasksController, type: :request do
   describe 'DELETE #destroy' do
     let(:user) { FactoryBot.create :user }
     before do
-      post login_path, params: { login_id: user.login_id, password: 'TestPassword123' }
+      sign_in user
     end
 
     context '正常なパラメータの場合' do
