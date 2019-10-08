@@ -1,0 +1,27 @@
+<div class="center jumbotron">
+  <h1>All tasks</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Due Date</th>
+      <th>Created Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <th><%= task.id %></th>
+      <th><%= task.title %></th>
+      <th><span class="label label-primary"><%= @priority[task.priority] %></span></th>
+      <th><span class="label label-success"><%= @status[task.status] %></span></th>
+      <th><%= task.due_date %></th>
+      <th><%= task.created_at %></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
