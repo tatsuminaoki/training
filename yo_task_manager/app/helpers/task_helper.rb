@@ -2,11 +2,11 @@
 
 module TaskHelper
   def sort_asc(column_name)
-    link_to '▲', { column: column_name, direction: 'asc' }
+    link_to '▲', { column: column_name, direction: 'asc' }, id: column_name.dasherize + '-asc'
   end
 
   def sort_desc(column_name)
-    link_to '▼', { column: column_name, direction: 'desc' }
+    link_to '▼', { column: column_name, direction: 'desc' }, id: column_name.dasherize + '-desc'
   end
 
   def sort_direction

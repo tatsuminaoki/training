@@ -37,7 +37,7 @@
               <td><%= t.id %></td>
               <td class="task-name"><%= t.title %></td>
               <td><%= t.body %></td>
-              <td><%= t.task_limit %></td>
+              <td class="task-limit"><%= t.task_limit %></td>
               <td>
                 <%= button_to t('.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
                 <%= button_to t('tasks.edit_text'), edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>
