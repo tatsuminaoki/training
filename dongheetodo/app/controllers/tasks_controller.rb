@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     if @task.save
-      redirect_to @task, notice: t("message.task.complete_create")
+      redirect_to @task, notice: t("message.success.complete_create")
     else
       render "new"
     end
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     checkOwner(@task)
 
     if @task.update(task_params)
-      redirect_to @task, notice: t("message.task.complete_update")
+      redirect_to @task, notice: t("message.success.complete_update")
     else
       render "edit"
     end
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     checkOwner(@task)
     @task.destroy
 
-    redirect_to root_path, notice: t("message.task.complete_delete")
+    redirect_to root_path, notice: t("message.success.complete_delete")
   end
 
   private
