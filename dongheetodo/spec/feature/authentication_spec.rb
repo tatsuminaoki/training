@@ -122,17 +122,6 @@ RSpec.feature "Authentication", type: :feature, js: true do
     expect(page).to have_text I18n.t('message.error.login')
   end
 
-  scenario '間違ったパスワードでログインする' do
-    visit root_path
-    click_link I18n.t('button.login')
-
-    fill_in 'email', with: email
-    fill_in 'password', with: Faker::Internet.password(min_length: 8)
-    find('input[type=submit]').click
-
-    expect(page).to have_text I18n.t('message.error.login')
-  end
-
   ### ログアウト
 
   scenario 'ログアウトする' do

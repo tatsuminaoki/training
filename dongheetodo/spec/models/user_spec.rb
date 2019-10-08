@@ -27,7 +27,7 @@ describe 'User' do
 
     context '無効なメールアドレスを与えた場合' do
       it 'エラーが発生すること' do
-        email = Faker::Internet.email
+        email = Faker::Name.name
         password = Faker::Internet.password(min_length: 8, max_length: 20)
         user = User.new(email: email, password: password)
         user.valid?
@@ -54,7 +54,7 @@ describe 'User' do
         password = ''
         user = User.new(email: email, password: password)
         user.valid?
-        expect(user.errors.messages[:password_digest]).to include 'を入力してください'
+        expect(user.errors.messages[:password]).to include 'を入力してください'
       end
     end
 
@@ -64,7 +64,7 @@ describe 'User' do
         password = Faker::Internet.password(min_length: 4, max_length: 7)
         user = User.new(email: email, password: password)
         user.valid?
-        expect(user.errors.messages[:password_digest]).to include 'は8文字以上で入力してください'
+        expect(user.errors.messages[:password]).to include 'は8文字以上で入力してください'
       end
     end
   end
