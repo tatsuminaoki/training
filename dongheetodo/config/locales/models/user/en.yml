@@ -16,7 +16,7 @@ en:
       new:
         title: "Create"
       show:
-        title: "Details"
+        title: "Detail"
       login:
         title: "Login"
       signup:
