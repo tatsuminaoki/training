@@ -19,6 +19,11 @@ RSpec.feature "Tasks", type: :feature, js: true do
     expect(page).to have_content I18n.t("activerecord.tasks.index.title")
   end
 
+  scenario "ログインしないとタスク一覧が表示されない", open_on_error: true do
+    visit tasks_path
+    expect(page).not_to have_content I18n.t("activerecord.tasks.index.title")
+  end
+
   scenario "タスクを作成する", open_on_error: true do
     login_as(user)
     click_link I18n.t("button.create")
