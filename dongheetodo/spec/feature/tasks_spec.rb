@@ -12,22 +12,15 @@ RSpec.feature "Tasks", type: :feature, js: true do
   given!(:task4) { create(:task, user_id: user.id) }
   given!(:task5) { create(:task, user_id: user.id) }
 
-  def login
-    visit root_path
-    fill_in "email", with: email
-    fill_in "password", with: password
-    find("input[type=submit]").click
-  end
-
   ### CRUDテスト
 
   scenario "タスク一覧を表示する", open_on_error: true do
-    self.login
+    login_as(user)
     expect(page).to have_content I18n.t("activerecord.tasks.index.title")
   end
 
   scenario "タスクを作成する", open_on_error: true do
-    self.login
+    login_as(user)
     click_link I18n.t("button.create")
     fill_in "task_name", with: "ダミーデータ"
     fill_in "task_description", with: "ダミー内容"
@@ -38,13 +31,13 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "タスク詳細を表示する", open_on_error: true do
-    self.login
+    login_as(user)
     all("tbody tr")[0].all("td")[0].find("a").click
     expect(page).to have_text I18n.t("activerecord.tasks.show.title")
   end
 
   scenario "タスクを更新する", open_on_error: true do
-    self.login
+    login_as(user)
     all("tbody tr")[0].find("a", text: I18n.t("button.edit")).click
     fill_in "task_description", with: Faker::Lorem.characters(255)
     select I18n.t("activerecord.enum.task.status.doing"), from: "task_status"
@@ -54,7 +47,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "タスクを削除する", open_on_error: true do
-    self.login
+    login_as(user)
     all("tbody tr")[0].find("a", text: I18n.t("button.delete")).click
     accept_alert I18n.t('alert.task.delete')
     expect(page).to have_content I18n.t('message.success.complete_delete')
@@ -63,7 +56,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   ### 検索テスト
 
   scenario "タスク名で絞り込んで検索する", open_on_error: true do
-    self.login
+    login_as(user)
     within("#search_form") do
       fill_in "name", with: task1.name
       click_button I18n.t("button.search")
@@ -72,7 +65,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "ステータスで絞り込んで検索する", open_on_error: true do
-    self.login
+    login_as(user)
     within("#search_form") do
       select I18n.t("activerecord.enum.task.status.#{task1.status}"), from: "status"
       click_button I18n.t("button.search")
@@ -81,7 +74,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "タスク名とステータスで絞り込んで検索する", open_on_error: true do
-    self.login
+    login_as(user)
     within("#search_form") do
       fill_in "name", with: task1.name
       select I18n.t("activerecord.enum.task.status.#{task1.status}"), from: "status"
@@ -93,7 +86,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   ### 並び替えテスト
 
   scenario "IDで並び順を変える", open_on_error: true do
-    self.login
+    login_as(user)
     # 降順にする
     within("#search_form") do
       select I18n.t("label.task.id"), from: "target"
@@ -115,7 +108,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "完了期限で並び順を変える", open_on_error: true do
-    self.login
+    login_as(user)
     # 降順にする
     within("#search_form") do
       select I18n.t("label.task.duedate"), from: "target"
@@ -137,7 +130,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "作成日で並び順を変える", open_on_error: true do
-    self.login
+    login_as(user)
     # 降順にする
     within("#search_form") do
       select I18n.t("label.task.created_at"), from: "target"
@@ -161,7 +154,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
 
   scenario "タスク一覧にページナビゲーターを表示する", open_on_error: true do
     # 最初はページナビゲーターが表示されない
-    self.login
+    login_as(user)
     expect(page).not_to have_selector "ul.pagination"
     # Taskを20件生成してページナビゲーターを出す
     20.times do
@@ -172,7 +165,7 @@ RSpec.feature "Tasks", type: :feature, js: true do
   end
 
   scenario "他のページに遷移する" do
-    self.login
+    login_as(user)
     20.times do
       create(:task, user_id: user.id)
     end
