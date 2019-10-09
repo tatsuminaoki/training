@@ -1,26 +1,18 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h1><%= t('.task_list') %></h1>
+      <h1><%= link_to t('.task_list'), tasks_path %></h1>
     </div>
   </div>
   <div class="search-form" style="background-color: lightgray">
-    <%= form_tag(tasks_path, method: :get) do %>
-      <div class="row">
-        <div class="col-sm">
-          <%= t('tasks.task_name') %>:
-          <%= text_field_tag :title, params[:title] %>
-        </div>
-        <div class="col-sm">
-          <%= t('tasks.task_state') %>:
-          <%= text_field_tag :aasm_state, params[:aasm_state] %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm">
-          <%= submit_tag t('.search'), name: nil, class: 'btn btn-primary' %>
-        </div>
-      </div>
+    <%= search_form_for @q do |f| %>
+      <%= f.label t('tasks.task_name') %>:
+      <%= f.search_field :title_cont %>
+
+      <%= f.label t('tasks.task_state') %>:
+      <%= f.select :aasm_state_eq, Task.aasm.states.map(&:name).collect {|t| p [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]} %>
+
+      <%= f.submit t('.search'), name: nil, class: 'btn btn-primary' %>
     <% end %>
   </div>
 

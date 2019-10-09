@@ -5,12 +5,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    if params[:title] || params[:aasm_state]
-      # add search logic here.
-      @tasks = Task.all.order(sort_column + ' ' + sort_direction)
-    else
-      @tasks = Task.all.order(sort_column + ' ' + sort_direction)
-    end
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true).order(sort_column + ' ' + sort_direction)
   end
 
   def new
