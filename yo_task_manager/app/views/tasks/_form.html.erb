@@ -30,7 +30,7 @@
           <%= f.label t('tasks.task_state') %>
         </th>
         <td>
-          <%= f.select :aasm_state, Task.aasm.states.map(&:name).collect {|t| p [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]} %>
+          <%= f.select :aasm_state, Task.aasm.states.map(&:name).collect {|t| [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]} %>
         </td>
       </tr>
       <tr>

@@ -95,10 +95,10 @@ RSpec.describe 'Tasks', type: :system do
     Task.create!(title: 'task3', task_limit: '2020-03-03 03:03:03')
     visit '/ja/tasks'
     expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900']
-    find('#task-limit-asc').click
+    click_link('終了期限')
     sleep 0.5
     expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900'].reverse
-    find('#task-limit-desc').click
+    click_link('終了期限')
     sleep 0.5
     expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900']
   end

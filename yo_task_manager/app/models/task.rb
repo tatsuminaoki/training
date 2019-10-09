@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  include AASM
-
   validates :title, presence: true
+  default_scope { order(created_at: :desc) }
   include AASM
 
   aasm do
