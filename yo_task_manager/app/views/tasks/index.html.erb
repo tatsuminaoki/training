@@ -36,11 +36,11 @@
       <table class="table table-striped table-bordered">
         <thead class="thead-dark">
           <tr>
-            <th>ID</th>
-            <th><%= t('tasks.task_name') %></th>
-            <th><%= t('tasks.task_detail') %></th>
-            <th><%= t('tasks.task_limit') %> <%= sort_asc('task_limit') %><%= sort_desc('task_limit') %></th>
-            <th><%= t('tasks.task_state') %></th>
+            <th><%= sort_link(@q, :id, 'ID') %></th>
+            <th><%= sort_link(@q, :title, t('tasks.task_name')) %></th>
+            <th><%= sort_link(@q, :body, t('tasks.task_detail')) %></th>
+            <th><%= sort_link(@q, :task_limit, t('tasks.task_limit')) %></th>
+            <th><%= sort_link(@q, :aasm_state, t('tasks.task_state')) %></th>
             <th><%= t('.action') %></th>
           </tr>
         </thead>

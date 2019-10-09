@@ -3,8 +3,6 @@
 class Task < ApplicationRecord
   include AASM
 
-  aasm do
-  end
   validates :title, presence: true
   include AASM
 

@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  include TaskHelper
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true).order(sort_column + ' ' + sort_direction)
+    @tasks = @q.result(distinct: true)
   end
 
   def new
