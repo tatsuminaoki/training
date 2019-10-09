@@ -3,6 +3,7 @@ ja:
     task_name: タスク名
     task_detail: 詳細
     task_limit: 終了期限
+    task_state: ステータス
     edit_text: 編集
     delete: 削除
     cancel: 取り消し
@@ -28,3 +29,10 @@ ja:
       task_updated: タスクが更新されました。
     destroy:
       task_deleted: タスクが削除されました。
+
+  activerecord:
+    attributes:
+      task/aasm_state:
+        not_yet: 未着手
+        on_going: 着手中
+        done: 完了

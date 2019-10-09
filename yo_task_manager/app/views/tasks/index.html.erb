@@ -28,6 +28,7 @@
             <th><%= t('tasks.task_name') %></th>
             <th><%= t('tasks.task_detail') %></th>
             <th><%= t('tasks.task_limit') %> <%= sort_asc('task_limit') %><%= sort_desc('task_limit') %></th>
+            <th><%= t('tasks.task_state') %></th>
             <th><%= t('.action') %></th>
           </tr>
         </thead>
@@ -38,6 +39,7 @@
               <td class="task-name"><%= t.title %></td>
               <td><%= t.body %></td>
               <td class="task-limit"><%= t.task_limit %></td>
+              <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
               <td>
                 <%= button_to t('.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
                 <%= button_to t('tasks.edit_text'), edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>

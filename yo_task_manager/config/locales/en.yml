@@ -3,6 +3,7 @@ en:
     task_name: Task Name
     task_detail: Task Detail
     task_limit: Task Limit
+    task_state: Task Status
     edit_text: Edit
     delete: Delete
     cancel: Cancel
@@ -28,3 +29,10 @@ en:
       task_updated: Task is updated.
     destroy:
       task_deleted: Task was deleted.
+
+  activerecord:
+    attributes:
+      task:
+        aasm_state/not_yet: not yet started
+        aasm_state/on_going: on going
+        aasm_state/done: done

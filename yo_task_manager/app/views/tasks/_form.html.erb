@@ -26,6 +26,14 @@
         </td>
       </tr>
       <tr>
+        <th scope="col">
+          <%= f.label t('tasks.task_state') %>
+        </th>
+        <td>
+          <%= f.select :aasm_state, Task.aasm.states.map(&:name).collect {|t| p [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]} %>
+        </td>
+      </tr>
+      <tr>
         <td colspan="2">
           <div class="d-flex justify-content-around">
             <%= f.submit button_name, class: 'btn btn-primary' %>
