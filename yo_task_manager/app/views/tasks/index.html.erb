@@ -4,6 +4,26 @@
       <h1><%= t('.task_list') %></h1>
     </div>
   </div>
+  <div class="search-form" style="background-color: lightgray">
+    <%= form_tag(tasks_path, method: :get) do %>
+      <div class="row">
+        <div class="col-sm">
+          <%= t('tasks.task_name') %>:
+          <%= text_field_tag :title, params[:title] %>
+        </div>
+        <div class="col-sm">
+          <%= t('tasks.task_state') %>:
+          <%= text_field_tag :aasm_state, params[:aasm_state] %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <%= submit_tag t('.search'), name: nil, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="col-sm">
       <% if @tasks.present? %>

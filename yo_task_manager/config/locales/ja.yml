@@ -14,6 +14,7 @@ ja:
       add_task: タスク追加
       action: 操作
       detail: 詳細
+      search: 検索
     show:
       task_detail: タスク詳細
       back_to_tasks: ←タスク一覧へ
