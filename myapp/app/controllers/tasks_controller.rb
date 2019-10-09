@@ -15,20 +15,30 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    # @TODO step16でユーザ登録機能を実装したら任意のユーザで登録するよう修正
     @task[:user_id] = 1
-    @task[:status] = 0
     if @task.save
-      flash[:success] = 'Task created!'
-      redirect_to tasks_new_url
+      flash[:success] = 'Task is successfully created!'
+      redirect_to task_path(@task.id)
     else
+      flash[:fail] = 'Failed to create the task...'
       render 'new'
     end
   end
 
   def edit
+    @task = Task.find(params[:id])
   end
 
   def update
+    @task = Task.find(params[:id])
+    if @task.update_attributes(task_params)
+      flash[:success] = 'Task is successfully updated!'
+      redirect_to task_path(@task.id)
+    else
+      flash[:fail] = 'Failed to update the task...'
+      render edit_task_url(@task.id)
+    end
   end
 
   def destroy
@@ -37,6 +47,6 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:title, :description, :priority, :due_date)
+      params.require(:task).permit(:title, :description, :priority, :status, :due_date)
     end
 end
