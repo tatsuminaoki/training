@@ -26,19 +26,19 @@ RSpec.describe Task, type: :model do
     let!(:task4) { Task.create(title: 'task4', aasm_state: 'on_going') }
     subject { Task.ransack(params).result(distinct: true) }
     context 'search with non exist title' do
-      let(:params) {{ title_cont: 'not exist', aasm_state_eq: '' }}
+      let(:params) { { title_cont: 'not exist', aasm_state_eq: '' } }
       it 'should return 0 result' do
         expect(subject.count).to eq 0
       end
     end
     context 'search with existed title' do
-      let(:params) {{ title_cont: 'task', aasm_state_eq: '' }}
+      let(:params) { { title_cont: 'task', aasm_state_eq: '' } }
       it 'should return 4 result' do
         expect(subject.count).to eq 4
       end
     end
     context 'search with aasm_state' do
-      let(:params) {{ title_cont: '', aasm_state_eq: 'on_going' }}
+      let(:params) { { title_cont: '', aasm_state_eq: 'on_going' } }
       it 'should return 2 result' do
         expect(subject.count).to eq 2
       end

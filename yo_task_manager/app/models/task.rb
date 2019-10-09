@@ -22,7 +22,7 @@ class Task < ApplicationRecord
     end
 
     event :restart do
-      transitions from: [:on_going, :done], to: :not_yet
+      transitions from: %i[on_going done], to: :not_yet
     end
   end
 end
