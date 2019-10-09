@@ -6,16 +6,18 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to tasks_url, notice: t('message.success.complete_login')
+      flash[:info] = t('message.success.complete_login')
+      redirect_to tasks_url
     else
-      flash.now.alert = t('message.error.login')
+      flash[:warning] = t('message.error.login')
       render :new
     end
   end
 
   def destroy
     session.delete(:user_id)
-    redirect_to login_url, notice: t('message.success.complete_logout')
+    flash[:info] = t('message.success.complete_logout')
+    redirect_to login_url
   end
 
   private

@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to tasks_path, notice: t('message.success.complete_create')
+      flash[:success] = t('message.success.complete_create')
+      redirect_to tasks_path
     else
       render :new
     end

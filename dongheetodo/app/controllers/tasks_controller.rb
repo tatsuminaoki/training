@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new()
+    @task = Task.new
   end
 
   def edit
@@ -19,7 +19,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     if @task.save
-      redirect_to @task, notice: t("message.success.complete_create")
+      flash[:success] = t("message.success.complete_create")
+      redirect_to @task
     else
       render "new"
     end
@@ -27,7 +28,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: t("message.success.complete_update")
+      flash[:success] = t("message.success.complete_update")
+      redirect_to @task
     else
       render "edit"
     end
@@ -35,8 +37,8 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-
-    redirect_to root_path, notice: t("message.success.complete_delete")
+    flash[:success] = t("message.success.complete_delete")
+    redirect_to root_path
   end
 
   private
