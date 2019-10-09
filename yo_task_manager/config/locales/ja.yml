@@ -37,3 +37,10 @@ ja:
         not_yet: 未着手
         on_going: 着手中
         done: 完了
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "&hellip;"

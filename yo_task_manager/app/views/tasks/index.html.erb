@@ -17,17 +17,19 @@
   </div>
 
   <div class="row justify-content-around pt-3">
-    <div class="col-4">
+    <div class="col-6">
       <% if @tasks.present? %>
         <p><%= t('.task_count') %>: <%= @tasks.count %></p>
       <% else %>
         <p><%= t('.no_task') %></p>
       <% end %>
     </div>
-    <div class="col-4">
+    <div class="col-6">
       <%= button_to t('.add_task'), new_task_path, method: :get, class: 'btn btn-primary' %>
     </div>
-    <div class="col-4">
+  </div>
+  <div class="row justify-content-end"
+    <div class="col-12">
       <%= paginate @tasks %>
     </div>
   </div>
