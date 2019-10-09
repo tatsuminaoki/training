@@ -1,2 +1,29 @@
-<h1>Task#show</h1>
-<p>Find me in app/views/task/show.html.erb</p>
+<% provide(:title, 'Task Registration') %>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+	  <%= @task.title %>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+	  <thead>
+	  	<tr>
+	  	  <th>Status</th>
+	  	  <th>Priority</th>
+	  	  <th>Due Date</th>
+	  	  <th>Created Date</th>
+          <th>Updated Date</th>
+	  	</tr>
+	  </thead>
+	  <tbody>
+	  	<tr>
+	  	  <td><%= @task.status %></td>
+	  	  <td><%= @task.priority %></td>
+	  	  <td><%= @task.due_date %></td>
+	  	  <td><%= @task.created_at %></td>
+          <td><%= @task.updated_at %></td>
+	  	</tr>
+	  </tbody>
+	</table>
+    <%= @task.description %>
+  </div>
+</div>
