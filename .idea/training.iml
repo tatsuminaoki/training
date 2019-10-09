@@ -5,6 +5,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
