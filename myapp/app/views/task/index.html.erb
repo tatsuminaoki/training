@@ -17,10 +17,16 @@
     <tr>
       <th><%= task.id %></th>
       <th><%= task.title %></th>
-      <th><span class="label label-primary"><%= @priority[task.priority] %></span></th>
-      <th><span class="label label-success"><%= @status[task.status] %></span></th>
-      <th><%= task.due_date %></th>
-      <th><%= task.created_at %></th>
+      <td>
+        <span class="label label-primary">
+          <%= task.priority %>
+        </span>
+      </td>
+      <td><span class="label label-success"><%= task.status %></span></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.created_at %></td>
+      <td><%= link_to 'Detail', task_path(task.id) %></td>
+      <td><%= link_to 'Edit', task_edit_path(task.id) %></td>
     </tr>
     <% end %>
   </tbody>
