@@ -21,7 +21,7 @@
         <%= f.label :priority, class: 'col-sm-2 col-form-label' %>
         <span class="label label-danger">Required</span>
         <div class="col-sm-5">
-          <%= f.select :priority, [['Low', 0], ['Middle', 1], ['High', 2]], class: 'form-control' %>
+          <%= f.select :priority, Task.priorities.keys, class: 'form-control' %>
         </div>
       </div>
 
