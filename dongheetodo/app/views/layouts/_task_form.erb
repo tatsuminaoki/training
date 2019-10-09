@@ -1,7 +1,5 @@
 <%= form_with model: @task, local: true do |f| %>
   <%= render "layouts/errors", model: f.object %>
-  <% # TODO: ログイン機能追加後、user_idを動的に当てるように修正 %>
-  <%= f.hidden_field :user_id, :value => 1 %>
   <div class="form-group">
     <%= f.label t("label.task.name"), class: 'label' %><br>
     <%= f.text_field :name, class: 'form-control' %>

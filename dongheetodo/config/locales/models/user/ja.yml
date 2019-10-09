@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザ"
+
+    attributes:
+      user:
+        email: "メール"
+        password_digest: "パスワード"
+
+    users:
+      edit:
+        title: "ユーザ更新"
+      index:
+        title: "ユーザ一覧"
+      new:
+        title: "新規ユーザ作成"
+      show:
+        title: "ユーザ詳細"
+      login:
+        title: "ログイン"
+      signup:
+        title: "会員登録"
+
+    label:
+      password_confirm: "パスワード確認"

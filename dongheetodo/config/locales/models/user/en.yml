@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      user: "User"
+
+    attributes:
+      user:
+        email: "Email"
+        password_digest: "Password"
+
+    users:
+      edit:
+        title: "Edit"
+      index:
+        title: "User List"
+      new:
+        title: "Create"
+      show:
+        title: "Detail"
+      login:
+        title: "Login"
+      signup:
+        title: "Sign Up"
+
+    label:
+      password_confirm: "Confirm Password"

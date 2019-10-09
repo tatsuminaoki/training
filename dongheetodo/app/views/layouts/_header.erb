@@ -1,0 +1,16 @@
+<header>
+  <div class="d-flex justify-content-between align-items-center">
+    <div id="header-logo-div">
+      <%= link_to 'dongheetodo', root_path %>
+    </div>
+    <div id="header-control-div">
+      <% if logged_in? %>
+        <%= current_user.email %>
+        <%= link_to t('button.logout'), logout_path(current_user.id), method: :delete %>
+      <% else %>
+        <%= link_to t('button.signup'), signup_path %>
+        <%= link_to t('button.login'), login_path %>
+      <% end %>
+    </div>
+  </div>
+</header>

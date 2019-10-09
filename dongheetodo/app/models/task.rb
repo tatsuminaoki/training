@@ -38,4 +38,7 @@ class Task < ApplicationRecord
       .search_with_status(params[:status])
       .order_by(params[:target], params[:order])
   }
+  scope :own, ->(current_user) {
+    where(user_id: current_user.id)
+  }
 end
