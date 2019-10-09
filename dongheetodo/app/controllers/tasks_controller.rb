@@ -1,12 +1,11 @@
 class TasksController < ApplicationController
   before_action :authenticate
+  before_action :has_own_task, only: %i(show edit update destroy)
   def index
     @tasks = Task.includes(:user).own(current_user).search(params).page(params[:page])
   end
 
   def show
-    @task = Task.find(params[:id])
-    checkOwner(@task)
   end
 
   def new
@@ -14,8 +13,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
-    checkOwner(@task)
   end
 
   def create
@@ -26,13 +23,9 @@ class TasksController < ApplicationController
     else
       render "new"
     end
-
   end
 
   def update
-    @task = Task.find(params[:id])
-    checkOwner(@task)
-
     if @task.update(task_params)
       redirect_to @task, notice: t("message.success.complete_update")
     else
@@ -41,8 +34,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-    checkOwner(@task)
     @task.destroy
 
     redirect_to root_path, notice: t("message.success.complete_delete")
@@ -60,9 +51,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def checkOwner(task)
-    p task.user_id
-    unless task.user_id == current_user.id
+  def has_own_task
+    @task = Task.find(params[:id])
+    unless @task.user_id == current_user.id
       render_401
     end
   end
