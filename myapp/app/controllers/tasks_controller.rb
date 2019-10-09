@@ -1,8 +1,6 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
-    @status = ['Open', 'In Progress', 'Closed']
-    @priority = ['Low', 'Middle', 'High']
   end
 
   def show
@@ -22,7 +20,7 @@ class TasksController < ApplicationController
       redirect_to task_path(@task.id)
     else
       flash[:fail] = 'Failed to create the task...'
-      render 'new'
+      render :new
     end
   end
 
@@ -37,11 +35,18 @@ class TasksController < ApplicationController
       redirect_to task_path(@task.id)
     else
       flash[:fail] = 'Failed to update the task...'
-      render edit_task_url(@task.id)
+      redirect_to edit_task_path(@task.id)
     end
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      flash[:success] = 'Task is successfully deleted!'
+    else
+      flash[:success] = 'Failed to delete the task...'
+    end
+    redirect_to tasks_path
   end
 
   private
