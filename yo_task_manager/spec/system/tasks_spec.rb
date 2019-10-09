@@ -102,4 +102,26 @@ RSpec.describe 'Tasks', type: :system do
     sleep 0.5
     expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900']
   end
+
+  scenario 'task searching with title and aasm_state' do
+    Task.create!(title: 'task1', aasm_state: 'not_yet')
+    Task.create!(title: '2nd t(ask)', aasm_state: 'on_going')
+    Task.create!(title: 'no. 3rd', aasm_state: 'done')
+    visit '/ja/tasks'
+    expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd', '2nd t(ask)', 'task1']
+    fill_in 'q[title_cont]', with: '2nd'
+    click_button('検索')
+    expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)']
+    fill_in 'q[title_cont]', with: 'ask'
+    click_button('検索')
+    expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)', 'task1']
+    fill_in 'q[title_cont]', with: ''
+    select '完了', from: 'q[aasm_state_eq]'
+    click_button('検索')
+    expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd']
+    fill_in 'q[title_cont]', with: '4th'
+    select '', from: 'q[aasm_state_eq]'
+    click_button('検索')
+    expect(page).to have_text('タスクはありません。')
+  end
 end
