@@ -1,9 +1,21 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h1><%= t('.task_list') %></h1>
+      <h1><%= link_to t('.task_list'), tasks_path %></h1>
     </div>
   </div>
+  <div class="search-form" style="background-color: lightgray">
+    <%= search_form_for @q do |f| %>
+      <%= f.label t('tasks.task_name') %>:
+      <%= f.search_field :title_cont %>
+
+      <%= f.label t('tasks.task_state') %>:
+      <%= f.select :aasm_state_eq, aasm_states_option %>
+
+      <%= f.submit t('.search'), name: nil, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="col-sm">
       <% if @tasks.present? %>
@@ -24,10 +36,11 @@
       <table class="table table-striped table-bordered">
         <thead class="thead-dark">
           <tr>
-            <th>ID</th>
-            <th><%= t('tasks.task_name') %></th>
-            <th><%= t('tasks.task_detail') %></th>
-            <th><%= t('tasks.task_limit') %> <%= sort_asc('task_limit') %><%= sort_desc('task_limit') %></th>
+            <th><%= sort_link(@q, :id, 'ID') %></th>
+            <th><%= sort_link(@q, :title, t('tasks.task_name')) %></th>
+            <th><%= sort_link(@q, :body, t('tasks.task_detail')) %></th>
+            <th><%= sort_link(@q, :task_limit, t('tasks.task_limit')) %></th>
+            <th><%= sort_link(@q, :aasm_state, t('tasks.task_state')) %></th>
             <th><%= t('.action') %></th>
           </tr>
         </thead>
@@ -38,6 +51,7 @@
               <td class="task-name"><%= t.title %></td>
               <td><%= t.body %></td>
               <td class="task-limit"><%= t.task_limit %></td>
+              <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
               <td>
                 <%= button_to t('.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
                 <%= button_to t('tasks.edit_text'), edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>

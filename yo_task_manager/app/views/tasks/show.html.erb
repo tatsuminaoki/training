@@ -25,6 +25,10 @@
         <th><%= t('tasks.task_limit') %></th>
         <td><%= @task.task_limit %></td>
       </tr>
+      <tr>
+        <th><%= t('tasks.task_state') %></th>
+        <td><%= Task.human_attribute_name("aasm_state.#{@task.aasm_state}") %></td>
+      </tr>
     </tbody>
   </table>
   <div class="d-flex justify-content-around">
