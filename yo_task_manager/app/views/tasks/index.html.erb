@@ -4,7 +4,7 @@
       <h1><%= link_to t('.task_list'), tasks_path %></h1>
     </div>
   </div>
-  <div class="search-form" style="background-color: lightgray">
+  <div class="row search-form" style="background-color: lightgray">
     <%= search_form_for @q do |f| %>
       <%= f.label t('tasks.task_name') %>:
       <%= f.search_field :title_cont %>
@@ -16,16 +16,19 @@
     <% end %>
   </div>
 
-  <div class="row">
-    <div class="col-sm">
+  <div class="row justify-content-around pt-3">
+    <div class="col-4">
       <% if @tasks.present? %>
         <p><%= t('.task_count') %>: <%= @tasks.count %></p>
       <% else %>
         <p><%= t('.no_task') %></p>
       <% end %>
     </div>
-    <div class="col-sm">
+    <div class="col-4">
       <%= button_to t('.add_task'), new_task_path, method: :get, class: 'btn btn-primary' %>
+    </div>
+    <div class="col-4">
+      <%= paginate @tasks %>
     </div>
   </div>
   <% flash.each do |name, msg| %>
