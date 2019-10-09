@@ -10,7 +10,7 @@
       <%= f.search_field :title_cont %>
 
       <%= f.label t('tasks.task_state') %>:
-      <%= f.select :aasm_state_eq, Task.aasm.states.map(&:name).collect {|t| [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]} %>
+      <%= f.select :aasm_state_eq, [['', '']].concat(Task.aasm.states.map(&:name).collect {|t| [Task.human_attribute_name("aasm_state.#{t.to_s}"), t]}) %>
 
       <%= f.submit t('.search'), name: nil, class: 'btn btn-primary' %>
     <% end %>
