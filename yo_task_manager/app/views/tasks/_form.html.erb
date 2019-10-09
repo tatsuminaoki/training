@@ -18,6 +18,14 @@
         </td>
       </tr>
       <tr>
+        <th scope="col">
+          <%= f.label t('tasks.task_limit') %>
+        </th>
+        <td>
+          <%= f.datetime_select :task_limit, minute_step: 5, use_two_digit_numbers: true, date_separator: '- ', include_blank: true %>
+        </td>
+      </tr>
+      <tr>
         <td colspan="2">
           <div class="d-flex justify-content-around">
             <%= f.submit button_name, class: 'btn btn-primary' %>

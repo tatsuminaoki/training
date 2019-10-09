@@ -2,6 +2,7 @@ en:
   tasks:
     task_name: Task Name
     task_detail: Task Detail
+    task_limit: Task Limit
     edit_text: Edit
     delete: Delete
     cancel: Cancel

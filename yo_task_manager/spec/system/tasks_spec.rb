@@ -88,4 +88,18 @@ RSpec.describe 'Tasks', type: :system do
     click_button '追加'
     expect(page).to have_text('Titleを入力してください')
   end
+
+  scenario 'task can be order by task_limit' do
+    Task.create!(title: 'task1', task_limit: '2020-01-01 01:01:01')
+    Task.create!(title: 'task2', task_limit: '2020-02-02 02:02:02')
+    Task.create!(title: 'task3', task_limit: '2020-03-03 03:03:03')
+    visit '/ja/tasks'
+    expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900']
+    find('#task-limit-asc').click
+    sleep 0.5
+    expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900'].reverse
+    find('#task-limit-desc').click
+    sleep 0.5
+    expect(page.all('.task-limit').map(&:text)).to eq ['2020-03-03 03:03:03 +0900', '2020-02-02 02:02:02 +0900', '2020-01-01 01:01:01 +0900']
+  end
 end
