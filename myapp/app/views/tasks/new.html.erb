@@ -1,7 +1,7 @@
 <% provide(:title, 'Task Registration') %>
   <h1>Task Registration Form</h1>
   <div class="row">
-    <%= form_for @task, url: task_create_path do |f| %>
+    <%= form_for @task, url: tasks_create_path do |f| %>
       <div class="form-group row">
         <%= f.label :title, class: 'col-sm-2 col-form-label' %>
         <span class="label label-danger">Required</span>

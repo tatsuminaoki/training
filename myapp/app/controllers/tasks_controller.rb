@@ -1,4 +1,4 @@
-class TaskController < ApplicationController
+class TasksController < ApplicationController
   def index
     @tasks = Task.all
     @status = ['Open', 'In Progress', 'Closed']
@@ -19,7 +19,7 @@ class TaskController < ApplicationController
     @task[:status] = 0
     if @task.save
       flash[:success] = 'Task created!'
-      redirect_to task_new_url
+      redirect_to tasks_new_url
     else
       render 'new'
     end

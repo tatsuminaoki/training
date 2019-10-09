@@ -1,0 +1,40 @@
+<% provide(:title, 'Task Edit') %>
+  <h1>Task Registration Form</h1>
+  <div class="row">
+    <%= form_for @task, url: task_create_path do |f| %>
+      <div class="form-group row">
+        <%= f.label :title, class: 'col-sm-2 col-form-label' %>
+        <span class="label label-danger">Required</span>
+        <div class="col-sm-5">
+          <%= f.text_field :title, size: 124, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :description, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-5">
+          <%= f.text_area :description, class: 'form-control', rows: 3 %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :priority, class: 'col-sm-2 col-form-label' %>
+        <span class="label label-danger">Required</span>
+        <div class="col-sm-5">
+          <%= f.select :priority, Task.priorities.keys, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :due_date, class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-5">
+          <%= f.date_field :due_date, class: 'form-control' %>
+        </div>
+      </div>
+      
+      <%= f.submit :class => 'btn btn-success' %>
+      
+    <% end %>
+  </div>
+
+
