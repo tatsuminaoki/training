@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2019_10_09_014150) do
     t.string "title", null: false
     t.text "body"
     t.datetime "task_limit"
+    t.string "aasm_state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "aasm_state"
   end
 
 end
