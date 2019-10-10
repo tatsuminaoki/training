@@ -8,11 +8,12 @@ FactoryBot.reload
 
 table_names = %w[
   tasks
+  users
 ]
 table_names.each do |table_name|
-  path = Rails.root.join('db/seeds', Rails.env, table_name + '.rb')
+  path = Rails.root.join('db', 'seeds', Rails.env, table_name + '_seed.rb')
   next unless File.exist?(path)
-  puts "Creating #{table_name}..."
+  Rails.logger.info "Creating #{table_name}..."
   require path
-  puts "#{table_name} creation finished!"
+  Rails.logger.info "#{table_name} creation finished!"
 end
