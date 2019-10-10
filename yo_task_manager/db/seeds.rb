@@ -7,8 +7,8 @@ FactoryBot.definition_file_paths = [Rails.root.join('spec', 'factories')]
 FactoryBot.reload
 
 table_names = %w[
-  tasks
   users
+  tasks
 ]
 table_names.each do |table_name|
   path = Rails.root.join('db', 'seeds', Rails.env, table_name + '_seed.rb')

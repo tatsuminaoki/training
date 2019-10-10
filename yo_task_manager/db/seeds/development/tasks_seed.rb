@@ -1,3 +1,6 @@
 # frozen_string_literal: true
 
-30.times { create(:task) }
+users = User.all
+users.each do |user|
+  6.times { create(:task, user: user) }
+end
