@@ -8,8 +8,22 @@ require 'factory_bot'
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # ユーザを生成
-user = FactoryBot.create(:user)
-# 100個のタスクを生成
+user = FactoryBot.create(:user, email: 'init@example.com', password: 'hogehoge')
+tasks = []
+labels = []
+# タスクを100件生成
 100.times do
-  FactoryBot.create(:task, user_id: user.id)
+  tasks.push(FactoryBot.create(:task, user_id: user.id))
+end
+# ラベルを5個生成
+5.times do
+  labels.push(FactoryBot.create(:label))
+end
+# TaskとLabelを紐づく（ランダムに付与）
+300.times do
+  begin
+    FactoryBot.create(:task_label, task: tasks.sample, label: labels.sample)
+  rescue
+    next
+  end
 end
