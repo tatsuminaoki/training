@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  paginates_per 10
   validates :title, presence: true
   default_scope { order(created_at: :desc) }
   belongs_to :user

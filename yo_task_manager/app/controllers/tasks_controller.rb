@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.all.includes(:user).ransack(params[:q])
-    @tasks = @q.result(distinct: true).page(params[:page]).per(10)
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def new
