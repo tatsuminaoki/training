@@ -1,7 +1,7 @@
 <%= render "layouts/flash_messages" %>
 <div class="container-fluid">
   <h4><%= t("activerecord.tasks.index.title") %></h4>
-  <br>
+  <hr>
   <%= form_tag(tasks_path, method: :get, id: 'search_form', class: 'form-inline') do %>
     <div class="form-row">
       <div class="form-group col-mb-4 mb-3">

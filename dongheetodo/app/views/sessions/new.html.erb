@@ -1,5 +1,6 @@
 <%= render 'layouts/flash_messages' %>
 <h4><%= t("activerecord.users.login.title") %></h4>
+<hr>
 <%= form_with url: login_path, local: true do |f| %>
   <div class="form-group">
     <%= f.label t('activerecord.attributes.user.email'), class: 'label' %>

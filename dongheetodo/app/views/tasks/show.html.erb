@@ -1,7 +1,7 @@
 <%= render "layouts/flash_messages" %>
 <div class="container">
   <h4><%= t("activerecord.tasks.show.title") %></h4>
-  <br>
+  <hr>
   <div class="form-group">
     <label class="label"><%= t("label.task.name") %><%= t("label.colon") %></label><br>
     <input type="text" class="form-control-plaintext" readonly="readonly" value="<%= @task.name %>"></input>
