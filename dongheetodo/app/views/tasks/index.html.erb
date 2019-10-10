@@ -20,7 +20,7 @@
       </div>
     </div>
   <% end %>
-  <div class="">
+  <div id="tasks-index-table-div">
     <table class="table table-border table-hover">
       <thead class="thead-dark">
       <tr>
@@ -31,6 +31,7 @@
         <th scope="col"><%= t("label.task.duedate") %></th>
         <th scope="col"><%= t('label.task.created_at') %></th>
         <th scope="col" colspan="2"><%= t("label.task.config") %></th>
+        <th scope="col"><%= t('activerecord.models.label') %></th>
       </tr>
       </thead>
       <tbody>
@@ -44,6 +45,11 @@
           <td><%= l(task.created_at, format: :short, default: "") %></td>
           <td><%= link_to t("button.edit"), edit_task_path(task) %></td>
           <td><%= link_to t("button.delete"), task_path(task), method: :delete, data: { confirm: t("alert.task.delete") } %></td>
+          <td scope="row">
+            <% task.labels.each do |label| %>
+              <span class="badge badge-pill badge-<%= label.color %>"><%= label.name %></span>
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>
