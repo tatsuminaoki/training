@@ -10,15 +10,31 @@
   </div>
   <div class="form-group">
     <%= f.label t("label.task.status"), class: 'label' %><br>
-    <%= f.select :status, Task.statuses.map{|k,v| [t("activerecord.enum.task.status.#{k}"), k]}, {prompt: t("alert.task.select")}, class: 'form-control' %>
+    <%= f.select :status, Task.statuses.map{|k,v| [t("activerecord.enum.task.status.#{k}"), k]},
+                 {prompt: t("alert.task.select")},
+                 class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label t("label.task.priority"), class: 'label' %><br>
-    <%= f.select :priority, Task.priorities.map{|k, v| [t("activerecord.enum.task.priority.#{k}"),k]}, {prompt: t("alert.task.select")}, class: 'form-control' %>
+    <%= f.select :priority, Task.priorities.map{|k, v| [t("activerecord.enum.task.priority.#{k}"),k]},
+                 {prompt: t("alert.task.select")},
+                 class: 'form-control' %>
   </div>
   <div class="form-group" id="datetime-form-group">
     <%= f.label t("label.task.duedate"), class: 'label' %><br>
     <%= f.datetime_select :duedate %>
+  </div>
+  <div class="form-group">
+    <%= f.label t("activerecord.models.label"), class: 'label' %><br>
+    <div>
+      <% Label.all.each do |l| %>
+        <input type="checkbox"
+               name="task[label_ids][]"
+               <% if @task.labels.include?(Label.find(l.id)) %>checked="checked"<% end %>
+               value="<%= l.id %>">
+        <span class="badge badge-pill badge-<%= l.color %>"><%= l.name %></span>
+      <% end %>
+    </div>
   </div>
   <br>
   <div class="form-group">

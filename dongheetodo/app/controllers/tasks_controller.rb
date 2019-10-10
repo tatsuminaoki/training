@@ -3,8 +3,9 @@ class TasksController < ApplicationController
   before_action :has_own_task, only: %i(show edit update destroy)
 
   def index
-    @labels = Label.all
-    @tasks = Task.left_joins(:labels).own(current_user).search(params).page(params[:page])
+    @tasks = params[:label].present? ?
+             Task.preload(:labels).left_joins(:labels).own(current_user).search(params).page(params[:page]) :
+             Task.includes(:labels).own(current_user).search(params).page(params[:page])
   end
 
   def show
@@ -40,13 +41,13 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:success] = t("message.success.complete_delete")
-    redirect_to root_path
+    redirect_to tasks_path
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:user_id, :name, :description, :status, :priority, :duedate)
+    params.require(:task).permit(:user_id, :name, :description, :status, :priority, :duedate, label_ids: [])
   end
 
   def authenticate
