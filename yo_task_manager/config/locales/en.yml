@@ -1,5 +1,6 @@
 en:
   tasks:
+    task_user: Task's User
     task_name: Task Name
     task_detail: Task Detail
     task_limit: Task Limit

@@ -48,6 +48,7 @@
           <thead class="thead-dark">
             <tr>
               <th><%= sort_link(@q, :id, 'ID') %></th>
+              <th><%= sort_link(@q, :user_id, t('tasks.task_user')) %></th>
               <th><%= sort_link(@q, :title, t('tasks.task_name')) %></th>
               <th><%= sort_link(@q, :body, t('tasks.task_detail')) %></th>
               <th><%= sort_link(@q, :task_limit, t('tasks.task_limit')) %></th>
@@ -59,6 +60,7 @@
             <% @tasks.each do |t| %>
               <tr id="task-<%= t.id %>">
                 <td><%= t.id %></td>
+                <td><%= t.user.display_name %></td>
                 <td class="task-name"><%= t.title %></td>
                 <td><%= t.body %></td>
                 <td class="task-limit"><%= l(t.task_limit, format: :long) %></td>

@@ -1,5 +1,6 @@
 ja:
   tasks:
+    task_user: 所有ユーザー名
     task_name: タスク名
     task_detail: 詳細
     task_limit: 終了期限
