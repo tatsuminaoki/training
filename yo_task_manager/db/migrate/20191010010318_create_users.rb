@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+class CreateUsers < ActiveRecord::Migration[6.0]
+  def change
+    create_table :users do |t|
+      t.string :login_id
+      t.string :password
+      t.string :display_name
+
+      t.timestamps
+    end
+  end
+end
