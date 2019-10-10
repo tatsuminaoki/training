@@ -13,3 +13,6 @@
 # seedを入れましょう
 - `bundle exec rake db:migrate` 後に
 - `bundle exec rake db:seed` をすると、development環境内でテスト出来るデータがシードされます
+
+### seedsを入れ直したい時
+- `bundle exec rake db:seed:replant` を実行すれば、DBをtruncateして、再度seedしてくれます。
