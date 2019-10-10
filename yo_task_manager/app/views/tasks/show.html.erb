@@ -23,7 +23,7 @@
       </tr>
       <tr>
         <th><%= t('tasks.task_limit') %></th>
-        <td><%= @task.task_limit %></td>
+        <td><%= l(@task.task_limit, format: :long) %></td>
       </tr>
       <tr>
         <th><%= t('tasks.task_state') %></th>
