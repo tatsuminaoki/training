@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user
-  has_many :task_labels
+  has_many :task_labels, dependent: :delete_all
   has_many :labels, through: :task_labels
 
   enum status: {todo: 1, doing: 2, done: 3}
@@ -23,6 +23,11 @@ class Task < ApplicationRecord
       where(status: status)
     end
   }
+  scope :search_with_label, ->(label) {
+    if label.present?
+      where(task_labels: {label_id: label})
+    end
+  }
   scope :order_by, ->(target, order) {
     if target.present?
       if target === 'id'
@@ -37,6 +42,7 @@ class Task < ApplicationRecord
   scope :search, ->(params) {
     search_with_name(params[:name])
       .search_with_status(params[:status])
+      .search_with_label(params[:label])
       .order_by(params[:target], params[:order])
   }
   scope :own, ->(current_user) {

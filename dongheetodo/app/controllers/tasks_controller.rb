@@ -3,7 +3,8 @@ class TasksController < ApplicationController
   before_action :has_own_task, only: %i(show edit update destroy)
 
   def index
-    @tasks = Task.includes(:task_labels).includes(:labels).own(current_user).search(params).page(params[:page])
+    @labels = Label.all
+    @tasks = Task.left_joins(:labels).own(current_user).search(params).page(params[:page])
   end
 
   def show
