@@ -25,7 +25,7 @@ class Task < ApplicationRecord
   }
   scope :search_with_label, ->(label) {
     if label.present?
-      where(task_labels: {label_id: label})
+      where(labels: {id: label})
     end
   }
   scope :order_by, ->(target, order) {
