@@ -10,3 +10,6 @@
 ### browserで
 - localhost:3000/ にアクセス
 
+# seedを入れましょう
+- `bundle exec rake db:migrate` 後に
+- `bundle exec rake db:seed` をすると、development環境内でテスト出来るデータがシードされます
