@@ -15,7 +15,7 @@ class Task < ApplicationRecord
 
   scope :search_with_name, ->(name) {
     if name.present?
-      where('name LIKE ?', "%#{sanitize_sql_like(name)}%")
+      where('tasks.name LIKE ?', "%#{sanitize_sql_like(name)}%")
     end
   }
   scope :search_with_status, ->(status) {
