@@ -1,19 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm">
-      <h1><%= link_to t('.task_list'), tasks_path %></h1>
-      <%= button_to t('sessions.log_out'), logout_path, method: :get, class: 'btn btn-secondary mb-3' %>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-12">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg.join('<br>').html_safe, class: "alert-#{name}" %>
       <% end %>
     </div>
   </div>
-  <div class="row search-form">
-    <div class="col-12" style="background-color: lightgray">
+  <div class="row search-form mt-1">
+    <div class="col-12">
       <%= search_form_for @q do |f| %>
         <%= f.label t('tasks.task_name') %>:
         <%= f.search_field :title_cont %>
