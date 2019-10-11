@@ -1,0 +1,17 @@
+ja:
+  dictionary:
+    operation:
+      create: '新規作成'
+      update: '更新'
+      remove: '削除'
+      detail: '詳細'
+    flash:
+      create:
+        success: "No.%{id}を作成しました。" 
+        fail: 'タスクの新規登録に失敗しました。もう一度お試しください。'
+      update:
+        success: "No.%{id}を更新しました。" 
+        fail: "No.%{id}の更新に失敗しました。もう一度お試しください。" 
+      remove:
+        success: "No.%{id}を削除しました。"
+        fail: "No.%{id}の削除に失敗しました。もう一度お試しください。"
