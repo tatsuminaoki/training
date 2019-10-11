@@ -31,6 +31,14 @@ ja:
       task_updated: タスクが更新されました。
     destroy:
       task_deleted: タスクが削除されました。
+  sessions:
+    new:
+      login: ログイン
+      login_id: ログインID
+      password: パスワード
+    create:
+      logged_in: ログインしました！
+      log_in_failed: ログインIDまたはパスワードが間違っています。
 
   activerecord:
     attributes:
