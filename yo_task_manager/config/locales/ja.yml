@@ -1,4 +1,6 @@
 ja:
+  please_login: 先にログインしてください。
+  something_is_wrong: 問題が発生しました。
   tasks:
     task_user: 所有ユーザー名
     task_name: タスク名
@@ -8,6 +10,10 @@ ja:
     edit_text: 編集
     delete: 削除
     cancel: 取り消し
+    task_not_found: アクセスしようとしているタスクはこのユーザーのタスクではありません!
+    task_is_not_saved: タスクが保存されていません。
+    task_is_not_updated: タスクが更新されていません。
+    task_is_not_destroyed: タスクが削除されていません。
     index:
       task_list: タスク一覧
       task_count: タスク数
