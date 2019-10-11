@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
+  let!(:user) { create(:user) }
+  before do
+    login(user)
+  end
   context '#index' do
     it 'assigns @task' do
       tasks = Task.all.reverse
@@ -35,7 +39,7 @@ RSpec.describe TasksController, type: :controller do
 
   context '#show' do
     it 'renders show template' do
-      task = Task.create(title: 'dummy1')
+      task = user.tasks.create!(title: 'dummy1')
       get :show, params: { id: task, locale: 'ja' }
       expect(response).to render_template('show')
       expect(response).to have_http_status(:ok)
@@ -44,7 +48,7 @@ RSpec.describe TasksController, type: :controller do
 
   context '#edit' do
     it 'renders edit template' do
-      task = Task.create(title: 'dummy2')
+      task = user.tasks.create!(title: 'dummy2')
       get :edit, params: { id: task, locale: 'ja' }
       expect(response).to render_template('edit')
       expect(response).to have_http_status(:ok)
@@ -52,7 +56,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   context '#update' do
-    let(:original_task) { Task.create(title: '古い', body: '古い説明') }
+    let(:original_task) { user.tasks.create!(title: '古い', body: '古い説明') }
     let(:new_params) { { title: '新しい', body: '新しい説明' } }
     it 'update the original_task title and body and redirect_to tasks_path with flash msg' do
       patch :update, params: { id: original_task.id, task: new_params, locale: 'ja' }
@@ -65,7 +69,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   context '#destroy' do
-    let!(:exist_task) { Task.create(title: '削除されるべきタスク', body: 'このタスクは削除されるべきです。') }
+    let!(:exist_task) { user.tasks.create!(title: '削除されるべきタスク', body: 'このタスクは削除されるべきです。') }
     it 'should delete the task and redirect_to tasks_path with flash msg' do
       delete :destroy, params: { id: exist_task.id, locale: 'ja' }
       expect { Task.find(exist_task.id) }.to raise_exception(ActiveRecord::RecordNotFound)
