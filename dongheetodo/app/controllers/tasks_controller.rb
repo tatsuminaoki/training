@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate
   before_action :has_own_task, only: %i(show edit update destroy)
+  before_action :labels, only: %i[new edit]
 
   def index
     @tasks = params[:label].present? ?
@@ -13,11 +14,9 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @labels = Label.all
   end
 
   def edit
-    @labels = Label.all
   end
 
   def create
@@ -58,5 +57,9 @@ class TasksController < ApplicationController
     unless @task.user_id == current_user.id
       render_401
     end
+  end
+
+  def labels
+     @labels = Label.all
   end
 end
