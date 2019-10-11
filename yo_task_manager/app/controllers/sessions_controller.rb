@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def new
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     user = User.find_by(login_id: params[:login_id])
-    if user && user.authenticate(params[:password])
+    if user&.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = [t('.logged_in')]
       redirect_to root_url
@@ -13,9 +16,10 @@ class SessionsController < ApplicationController
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
-    session[:user_id]  = nil
+    session[:user_id] = nil
     flash[:success] = [t('.logged_out')]
     redirect_to root_url
   end
