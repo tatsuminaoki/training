@@ -13,9 +13,11 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @labels = Label.all
   end
 
   def edit
+    @labels = Label.all
   end
 
   def create
@@ -25,6 +27,7 @@ class TasksController < ApplicationController
       flash[:success] = t("message.success.complete_create")
       redirect_to @task
     else
+      @labels = Label.all
       render "new"
     end
   end

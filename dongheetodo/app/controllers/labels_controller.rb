@@ -26,6 +26,6 @@ class LabelsController < ApplicationController
   end
 
   def select_labels
-    @labels = Label.all.includes(:task_labels).includes(:tasks).page(params[:page]).per(20)
+    @labels = Label.all.includes(:tasks).page(params[:page]).per(20)
   end
 end

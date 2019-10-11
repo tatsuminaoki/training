@@ -27,11 +27,11 @@
   <div class="form-group">
     <%= f.label t("activerecord.models.label"), class: 'label' %><br>
     <div>
-      <% Label.all.each do |l| %>
+      <% @labels.each do |l| %>
         <input type="checkbox"
                id="label_<%= l.id %>"
                name="task[label_ids][]"
-               <% if @task.labels.include?(Label.find(l.id)) %>checked="checked"<% end %>
+               <% if @task.labels.include?(@labels.find(l.id)) %>checked="checked"<% end %>
                value="<%= l.id %>">
         <span class="badge badge-pill badge-<%= l.color %>"><%= l.name %></span>
       <% end %>
