@@ -29,6 +29,7 @@
     <div>
       <% Label.all.each do |l| %>
         <input type="checkbox"
+               id="label_<%= l.id %>"
                name="task[label_ids][]"
                <% if @task.labels.include?(Label.find(l.id)) %>checked="checked"<% end %>
                value="<%= l.id %>">
