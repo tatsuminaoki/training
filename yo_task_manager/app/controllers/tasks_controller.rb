@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :user_is_logged_in
 
   def index
     @q = Task.all.includes(:user).ransack(params[:q])

@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { locale: I18n.locale }
   end
+
+  def user_is_logged_in
+    if !session[:user_id]
+      redirect_to login_path
+    end
+  end
 end
