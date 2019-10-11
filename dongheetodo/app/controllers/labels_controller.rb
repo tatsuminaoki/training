@@ -10,9 +10,11 @@ class LabelsController < ApplicationController
     @label = Label.new(label_params)
     if @label.save
       flash[:success] = t("message.success.complete_create")
+      redirect_to labels_path
+    else
+      select_labels
+      render "index"
     end
-    select_labels
-    render "index"
   end
 
   def destroy
