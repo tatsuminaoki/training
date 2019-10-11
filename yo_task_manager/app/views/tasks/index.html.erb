@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-sm">
       <h1><%= link_to t('.task_list'), tasks_path %></h1>
+      <%= button_to t('sessions.log_out'), logout_path, method: :get, class: 'btn btn-secondary mb-3' %>
     </div>
   </div>
   <div class="row">

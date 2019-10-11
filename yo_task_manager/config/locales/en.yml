@@ -32,6 +32,7 @@ en:
     destroy:
       task_deleted: Task was deleted.
   sessions:
+    log_out: Log Out
     new:
       login: Login
       login_id: Login ID
@@ -39,6 +40,8 @@ en:
     create:
       logged_in: Logged in successfully！
       log_in_failed: Login ID and or password is wrong.
+    destroy:
+      logged_out: Logged out successfully!
 
   activerecord:
     attributes:

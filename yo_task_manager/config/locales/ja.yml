@@ -32,6 +32,7 @@ ja:
     destroy:
       task_deleted: タスクが削除されました。
   sessions:
+    log_out: ログアウト
     new:
       login: ログイン
       login_id: ログインID
@@ -39,6 +40,8 @@ ja:
     create:
       logged_in: ログインしました！
       log_in_failed: ログインIDまたはパスワードが間違っています。
+    destroy:
+      logged_out: ログアウトしました！
 
   activerecord:
     attributes:
