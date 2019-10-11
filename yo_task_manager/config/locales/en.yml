@@ -1,26 +1,32 @@
 en:
+  # common
+  action: Action
+  button:
+    detail: Detail
+    edit: Edit
+    delete: Delete
+  # error messages
   please_login: Please Login first before proceed.
   something_is_wrong: Something wrong is happened.
+
+  #models
   tasks:
     task_user: Task's User
     task_name: Task Name
     task_detail: Task Detail
     task_limit: Task Limit
     task_state: Task Status
-    edit_text: Edit
-    delete: Delete
     cancel: Cancel
     task_not_found: The task is not owned by this user!
     task_is_not_saved: The task is not saved.
     task_is_not_updated: The task is not updated.
     task_is_not_destroyed: The task is not destroyed.
+    # controllers
     index:
       task_list: Task list
       task_count: Task count
       no_task: There is no task.
       add_task: Add Task
-      action: Action
-      detail: Detail
       search: Search
     show:
       task_detail: Task Detail
@@ -49,9 +55,22 @@ en:
     destroy:
       logged_out: Logged out successfully!
 
+  # admin/
+  admin:
+    # models
+    users:
+      login_id: Login ID
+      display_name: Display Name
+      task_count: Task count
+      # controllers
+      index:
+        user_count: User count
+
+  # activerecord aasm related
   activerecord:
     attributes:
       task:
         aasm_state/not_yet: not yet started
         aasm_state/on_going: on going
         aasm_state/done: done
+  # pagination related(not needed)

@@ -1,5 +1,7 @@
 class Admin::UsersController < ApplicationController
   def index
+    @q = User.includes(:tasks).all.ransack(params[:q])
+    @users = @q.result(distinct: true).page(params[:page])
   end
 
   def new
