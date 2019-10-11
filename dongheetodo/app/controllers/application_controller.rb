@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :authenticate
   rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, AbstractController::ActionNotFound, with: :render_404
   rescue_from ActionController::InvalidAuthenticityToken, ActionController::InvalidCrossOriginRequest, ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, with: :render_422
 #  rescue_from Exception, with: :render_500
@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     current_user
+  end
+
+  def authenticate
+    unless logged_in?
+      redirect_to login_url
+    end
   end
 
   def render_401

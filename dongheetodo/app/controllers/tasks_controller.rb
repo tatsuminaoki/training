@@ -50,12 +50,6 @@ class TasksController < ApplicationController
     params.require(:task).permit(:user_id, :name, :description, :status, :priority, :duedate, label_ids: [])
   end
 
-  def authenticate
-    unless current_user
-      redirect_to login_url
-    end
-  end
-
   def has_own_task
     @task = Task.find(params[:id])
     unless @task.user_id == current_user.id

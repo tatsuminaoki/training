@@ -1,4 +1,6 @@
 class LabelsController < ApplicationController
+  before_action :authenticate
+
   def index
     @label = Label.new
     select_labels
