@@ -22,7 +22,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'GET #destroy' do
-    it 'returns http success' do
+    it 'returns http redirect' do
       get :destroy, params: { locale: 'ja' }
       expect(response).to have_http_status(:redirect)
     end
