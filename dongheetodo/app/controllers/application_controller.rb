@@ -41,6 +41,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_503
-    render template: "errors/error_503", layout: "error_page", status: :service_unavailable, content_type: "text/html"
+    render template: "errors/error_503", layout: nil, status: :service_unavailable, content_type: "text/html"
   end
 end
