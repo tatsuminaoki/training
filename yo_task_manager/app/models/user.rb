@@ -5,4 +5,6 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   validates :login_id, presence: true
   validates :password, presence: true, on: :create
+
+  enum role: { admin: 'admin', common: 'common' }
 end
