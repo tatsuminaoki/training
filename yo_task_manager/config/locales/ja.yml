@@ -5,6 +5,8 @@ ja:
     detail: 詳細
     edit: 編集
     delete: 削除
+    add: 追加
+    cancel: 取り消し
   # error messages
   please_login: 先にログインしてください。
   something_is_wrong: 問題が発生しました。
@@ -16,7 +18,6 @@ ja:
     task_detail: 詳細
     task_limit: 終了期限
     task_state: ステータス
-    cancel: 取り消し
     task_not_found: アクセスしようとしているタスクはこのユーザーのタスクではありません!
     task_is_not_saved: タスクが保存されていません。
     task_is_not_updated: タスクが更新されていません。
@@ -33,7 +34,6 @@ ja:
       back_to_tasks: ←タスク一覧へ
     new:
       adding_task: タスク追加
-      add: 追加
     create:
       task_saved: タスクが保存されました。
     edit:
@@ -60,15 +60,25 @@ ja:
     # models
     users:
       login_id: ログインID
+      password: パスワード
       display_name: 表示名
       task_count: タスク数
       # controllers
       index:
         user_count: ユーザー数
+        add_user: ユーザー追加
+      new:
+        adding_user: ユーザー追加
+      create:
+        user_saved: ユーザーが保存されました。
+        user_is_not_saved: ユーザーが保存されていません。
 
   # activerecord aasm related
   activerecord:
     attributes:
+      user:
+        login_id: ログインID
+        password: パスワード
       task/aasm_state:
         not_yet: 未着手
         on_going: 着手中

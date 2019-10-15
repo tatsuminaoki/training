@@ -5,6 +5,8 @@ en:
     detail: Detail
     edit: Edit
     delete: Delete
+    add: Add
+    cancel: Cancel
   # error messages
   please_login: Please Login first before proceed.
   something_is_wrong: Something wrong is happened.
@@ -16,7 +18,6 @@ en:
     task_detail: Task Detail
     task_limit: Task Limit
     task_state: Task Status
-    cancel: Cancel
     task_not_found: The task is not owned by this user!
     task_is_not_saved: The task is not saved.
     task_is_not_updated: The task is not updated.
@@ -33,7 +34,6 @@ en:
       back_to_tasks: ←Back to Task list
     new:
       adding_task: Adding Task
-      add: Add
     create:
       task_saved: Task is saved.
     edit:
@@ -60,15 +60,25 @@ en:
     # models
     users:
       login_id: Login ID
+      password: Password
       display_name: Display Name
       task_count: Task count
       # controllers
       index:
         user_count: User count
+        add_user: Add User
+      new:
+        adding_user: Adding User
+      create:
+        user_saved: User is saved.
+        user_is_not_saved: User is not saved.
 
   # activerecord aasm related
   activerecord:
     attributes:
+      user:
+        login_id: Login ID
+        password: Password
       task:
         aasm_state/not_yet: not yet started
         aasm_state/on_going: on going

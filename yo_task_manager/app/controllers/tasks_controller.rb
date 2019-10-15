@@ -21,7 +21,7 @@ class TasksController < ApplicationController
       flash[:success] = [t('.task_saved')]
       redirect_to tasks_path
     else
-      flash[:danger] = [(t('something_is_wrong') + t('tasks.task_is_not_saved')).to_s, @task.errors.full_messages].flatten
+      flash.now[:danger] = [(t('something_is_wrong') + t('tasks.task_is_not_saved')).to_s, @task.errors.full_messages].flatten
       render :new
     end
   end

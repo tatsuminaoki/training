@@ -1,4 +1,9 @@
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-end mt-3">
+      <%= button_to t('.add_user'), new_admin_user_path, method: :get, class: 'btn btn-primary' %>
+    </div>
+  </div>
   <div class="row justify-content-end mt-3">
     <div class="col-3 d-flex justify-content-end">
       <% if @users.present? %>
