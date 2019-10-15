@@ -60,6 +60,6 @@ class TasksController < ApplicationController
   end
 
   def set_labels
-     @labels = Label.all
+    @labels = Label.all
   end
 end

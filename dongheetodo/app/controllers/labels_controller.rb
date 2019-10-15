@@ -7,18 +7,11 @@ class LabelsController < ApplicationController
   end
 
   def create
-    begin
-      @label = Label.new(label_params)
-      if @label.save
-        flash[:success] = t("message.success.complete_create")
-        redirect_to labels_path
-      else
-        select_labels
-        render "index"
-      end
-    rescue ArgumentError => e
-      @label = Label.new
-      @label.errors.messages[:"color"] = [t('message.error.invaild_param')]
+    @label = Label.new(label_params)
+    if @label.save
+      flash[:success] = t("message.success.complete_create")
+      redirect_to labels_path
+    else
       select_labels
       render "index"
     end
