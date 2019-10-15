@@ -27,6 +27,13 @@ class Admin::UsersController < ApplicationController
   def edit; end
 
   def update
+    if @user.update(user_params)
+      flash[:success] = [t('.user_updated')]
+      redirect_to admin_users_path
+    else
+      flash.now[:danger] = [(t('something_is_wrong') + t('.user_is_not_updated')).to_s, @user.errors.full_messages].flatten
+      render :edit
+    end
   end
 
   def destroy

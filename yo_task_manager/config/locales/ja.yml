@@ -75,6 +75,9 @@ ja:
         user_is_not_saved: ユーザーが保存されていません。
       edit:
         updating_user: ユーザー編集
+      update:
+        user_updated: ユーザーが更新されました。
+        user_is_not_updated: ユーザーが更新されていません。
 
   # activerecord aasm related
   activerecord:
