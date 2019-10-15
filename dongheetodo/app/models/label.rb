@@ -8,7 +8,7 @@ class Label < ApplicationRecord
   validates :color, presence: true, inclusion: { in: Label.colors.keys }
 
   def checked?(label_id)
-    id == label_id ? true : false
+    id == label_id
   end
 
 end
