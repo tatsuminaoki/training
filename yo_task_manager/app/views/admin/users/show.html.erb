@@ -1,2 +1,70 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h1><%= t('.user_detail') %></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert-#{name}" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <table class="table table-dark">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <th><%= t('admin.users.login_id') %></th>
+            <td><%= @user.login_id %></td>
+          </tr>
+          <tr>
+            <th><%= t('admin.users.display_name') %></th>
+            <td><%= @user.display_name %></td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <div class="d-flex justify-content-around">
+                <%= button_to t('.back_to_users'), admin_users_path, method: :get, class: 'btn btn-primary' %>
+                <%= button_to t('button.edit'), edit_admin_user_path(@user), method: :get, class: 'btn btn-warning' %>
+                <%= button_to t('button.delete'), admin_users_path(id: @user.id), method: :delete, class: 'btn btn-danger' %>
+              </div>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-9">
+      <h3>このユーザーのタスク数: <%= @tasks.size %></h3>
+      <% if @tasks.any? %>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th><%= t('tasks.task_name') %></th>
+              <th><%= t('tasks.task_detail') %></th>
+              <th><%= t('tasks.task_limit') %></th>
+              <th><%= t('tasks.task_state') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tasks.each do |t| %>
+              <tr id="tasks-<%= t.id %>">
+                <td><%= t.id %></td>
+                <td><%= t.title %></td>
+                <td><%= t.body %></td>
+                <td><%= l(t.task_limit, format: :long, default: '-') %></td>
+                <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -73,6 +73,9 @@ ja:
       create:
         user_saved: ユーザーが保存されました。
         user_is_not_saved: ユーザーが保存されていません。
+      show:
+        user_detail: ユーザー詳細
+        back_to_users: ←ユーザー一覧へ
       edit:
         updating_user: ユーザー編集
       update:

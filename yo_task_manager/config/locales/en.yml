@@ -73,6 +73,9 @@ en:
       create:
         user_saved: User is saved.
         user_is_not_saved: User is not saved.
+      show:
+        user_detail: User Detail
+        back_to_users: ←Back to User list
       edit:
         updating_user: Updating User
       update:
