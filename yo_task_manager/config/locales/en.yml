@@ -66,6 +66,7 @@ en:
       user_not_found: The user is not exist!
       # controllers
       index:
+        user_list: User List
         user_count: User count
         add_user: Add User
       new:

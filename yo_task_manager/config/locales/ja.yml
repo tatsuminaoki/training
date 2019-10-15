@@ -66,6 +66,7 @@ ja:
       user_not_found: アクセスしようとしているユーザーはありません!
       # controllers
       index:
+        user_list: ユーザー一覧
         user_count: ユーザー数
         add_user: ユーザー追加
       new:
