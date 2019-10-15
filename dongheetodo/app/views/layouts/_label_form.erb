@@ -1,0 +1,15 @@
+<%= form_with model: @label, url: labels_path, local: true do |f| %>
+  <%= render "layouts/errors", model: @label %>
+  <div class="form-group">
+    <%= f.label t("activerecord.attributes.label.name"), class: 'label' %><br>
+    <%= f.text_field :name, type: 'text', required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label t("activerecord.attributes.label.colors"), class: 'label' %><br>
+    <%= f.select :color, Label.colors.map{|k, v| [t("activerecord.attributes.label.color.#{k}"), k]}, {prompt: t("alert.task.select")}, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_tag(tasks_path, method: :get, id: 'search_form', class: 'form-inline') do %>
+  <div class="form-row">
+    <div class="form-group col-mb-4 mb-3">
+      <%= text_field_tag(:name, params[:name], placeholder: "#{t('label.task.name')}...", class: 'form-control' ) %>
+    </div>
+    <div class="form-group col-mb-4 mb-3">
+      <%= select_tag(:status, options_for_select(Task.statuses.map{ |k,v| [t("activerecord.attributes.task.status.#{k}"), k] }, params[:status]), include_blank: "#{t('label.task.status')}...", class: "form-control") %>
+    </div>
+    <div class="form-group col-mb-4 mb-3">
+      <%= select_tag(:label, options_from_collection_for_select(Label.all, 'id', 'name', params[:label]), include_blank: "#{t('activerecord.models.label')}...",  class: "form-control") %>
+    </div>
+    <div class="form-group col-mb-4 mb-3">
+      <%= label_tag(:sort_by, t('label.sort.by')) %>&nbsp:&nbsp
+      <%= select_tag(:target, options_for_select(Task.sort_bies.map{ |k,v| [t("label.task.#{k}"), k] }, params[:target]), class: 'form-control') %>
+      <%= select_tag(:order, options_for_select(Task.orders.map{ |k,v| [t("label.sort.#{k}"), k] }, params[:order]), class: 'form-control') %>
+    </div>
+    <div class="form-group col-mb-4 mb-3">
+      <%= submit_tag(t('button.search'), name: nil, class: 'btn btn-outline-primary') %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+en:
+  activerecord:
+    enum:
+      label:
+        color:
+          red: "red"
+          orange: "orange"
+          yellow: "yellow"
+          green: "green"
+          blue: "blue"
+          indigo: "indigo"
+          violet: "violet"
+          black: "black"
+    models:
+      label: "label"
+
+    attributes:
+      label:
+        id: "ID"
+        name: "label name"
+        colors: "colors"
+        color:
+          one: "color"
+          other: "colors"
+          red: "red"
+          orange: "orange"
+          yellow: "yellow"
+          green: "green"
+          blue: "blue"
+          indigo: "indigo"
+          violet: "violet"
+          black: "black"
+        created_at: "created date"
+        updated_at: "updated date"
+
+    labels:
+      index:
+        title: "Label List"

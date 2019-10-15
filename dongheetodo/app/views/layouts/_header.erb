@@ -5,6 +5,9 @@
     </div>
     <div id="header-control-div">
       <% if logged_in? %>
+        <%= link_to t('activerecord.tasks.index.title'), tasks_path %>
+        <%= link_to t('activerecord.labels.index.title'), labels_path %>
+        &nbsp;|&nbsp;
         <%= current_user.email %>
         <%= link_to t('button.logout'), logout_path(current_user.id), method: :delete %>
       <% else %>

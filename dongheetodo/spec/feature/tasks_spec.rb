@@ -11,6 +11,16 @@ RSpec.feature "Tasks", type: :feature, js: true do
   given!(:task3) { create(:task, user_id: user.id) }
   given!(:task4) { create(:task, user_id: user.id) }
   given!(:task5) { create(:task, user_id: user.id) }
+  given!(:label1) { create(:label, name: 'label1') }
+  given!(:label2) { create(:label, name: 'label2') }
+  given!(:label3) { create(:label, name: 'label3') }
+  given!(:label4) { create(:label, name: 'label4') }
+  given!(:label5) { create(:label, name: 'label5') }
+  given!(:task_label1) { create(:task_label, task: task1, label: label1) }
+  given!(:task_label2) { create(:task_label, task: task1, label: label3) }
+  given!(:task_label3) { create(:task_label, task: task1, label: label4) }
+  given!(:task_label4) { create(:task_label, task: task3, label: label1) }
+  given!(:task_label5) { create(:task_label, task: task1, label: label5) }
 
   ### CRUDテスト
 
@@ -31,24 +41,39 @@ RSpec.feature "Tasks", type: :feature, js: true do
     fill_in "task_description", with: "ダミー内容"
     select I18n.t("activerecord.enum.task.status.doing"), from: "task_status"
     select I18n.t("activerecord.enum.task.priority.mid"), from: "task_priority"
+    check "label_#{label1.id}"
+    check "label_#{label5.id}"
     find("input[type=submit]").click
     expect(page).to have_content I18n.t("message.success.complete_create")
+    expect(page).to have_content label1.name
+    expect(page).to have_content label5.name
   end
 
   scenario "タスク詳細を表示する", open_on_error: true do
     login_as(user)
-    all("tbody tr")[0].all("td")[0].find("a").click
+    all("tbody tr")[0].all("td")[1].find("a").click
     expect(page).to have_text I18n.t("activerecord.tasks.show.title")
   end
 
   scenario "タスクを更新する", open_on_error: true do
     login_as(user)
+    create(:task_label, task: task5, label: label2)
+    create(:task_label, task: task5, label: label4)
+
     all("tbody tr")[0].find("a", text: I18n.t("button.edit")).click
     fill_in "task_description", with: Faker::Lorem.characters(255)
     select I18n.t("activerecord.enum.task.status.doing"), from: "task_status"
     select I18n.t("activerecord.enum.task.priority.mid"), from: "task_priority"
+    uncheck "label_#{label2.id}"
+    uncheck "label_#{label4.id}"
+    check "label_#{label1.id}"
+    check "label_#{label5.id}"
+    check "label_#{label3.id}"
     find("input[type=submit]").click
     expect(page).to have_content I18n.t("message.success.complete_update")
+    expect(page).to have_text label1.name
+    expect(page).to have_text label3.name
+    expect(page).to have_text label5.name
   end
 
   scenario "タスクを削除する", open_on_error: true do
@@ -98,8 +123,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.desc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_id = all("tbody tr").first.all("td")[0].text
-    last_id = all("tbody tr").last.all("td")[0].text
+    first_id = all("tbody tr")[0].all("td")[0].text
+    last_id = all("tbody tr")[8].all("td")[0].text
     expect(first_id).to be > last_id
     # 昇順にする
     within("#search_form") do
@@ -107,8 +132,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.asc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_id = all("tbody tr").first.all("td")[0].text
-    last_id = all("tbody tr").last.all("td")[0].text
+    first_id = all("tbody tr")[0].all("td")[0].text
+    last_id = all("tbody tr")[8].all("td")[0].text
     expect(first_id).to be < last_id
   end
 
@@ -120,8 +145,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.desc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_duedate = all("tbody tr").first.all("td")[3].text
-    last_duedate = all("tbody tr").last.all("td")[3].text
+    first_duedate = all("tbody tr")[0].all("td")[4].text
+    last_duedate = all("tbody tr")[8].all("td")[4].text
     expect(first_duedate).to be > last_duedate
     # 昇順にする
     within("#search_form") do
@@ -129,8 +154,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.asc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_duedate = all("tbody tr").first.all("td")[3].text
-    last_duedate = all("tbody tr").last.all("td")[3].text
+    first_duedate = all("tbody tr")[0].all("td")[4].text
+    last_duedate = all("tbody tr")[8].all("td")[4].text
     expect(first_duedate).to be < last_duedate
   end
 
@@ -142,8 +167,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.desc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_created_at = all("tbody tr").first.all("td")[4].text
-    last_created_at = all("tbody tr").last.all("td")[4].text
+    first_created_at = all("tbody tr")[0].all("td")[5].text
+    last_created_at = all("tbody tr")[8].all("td")[5].text
     expect(first_created_at).to be > last_created_at
 
     # 昇順にする
@@ -152,8 +177,8 @@ RSpec.feature "Tasks", type: :feature, js: true do
       select I18n.t("label.sort.asc"), from: "order"
       click_button I18n.t("button.search")
     end
-    first_created_at = all("tbody tr").first.all("td")[4].text
-    last_created_at = all("tbody tr").last.all("td")[4].text
+    first_created_at = all("tbody tr")[0].all("td")[5].text
+    last_created_at = all("tbody tr")[8].all("td")[5].text
     expect(first_created_at).to be < last_created_at
   end
 

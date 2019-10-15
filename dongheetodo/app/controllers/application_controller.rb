@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :authenticate
   rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, AbstractController::ActionNotFound, with: :render_404
-  rescue_from ActionController::InvalidAuthenticityToken, ActionController::InvalidCrossOriginRequest, ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, with: :render_422
+  rescue_from ActionController::InvalidAuthenticityToken, ActionController::InvalidCrossOriginRequest, ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, ArgumentError, with: :render_422
 #  rescue_from Exception, with: :render_500
   before_action :maintenance?
 
@@ -18,9 +18,15 @@ class ApplicationController < ActionController::Base
     if File.exists?(env_file)
       YAML.load(File.open(env_file)).each do |k, v|
         if k.to_s == 'MAINTENANCE' && v == 'UP'
-          render_503
+          break render_503
         end
       end
+    end
+  end
+
+  def authenticate
+    unless logged_in?
+      redirect_to login_url
     end
   end
 
