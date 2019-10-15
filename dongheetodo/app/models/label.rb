@@ -6,4 +6,9 @@ class Label < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :color, presence: true, inclusion: { in: Label.colors.keys }
+
+  def checked?(label_id)
+    id == label_id ? true : false
+  end
+
 end

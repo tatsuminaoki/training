@@ -32,7 +32,7 @@
                id="label_<%= l.id %>"
                name="task[label_ids][]"
                <% @task.labels.each do |tl| %>
-                  <% if l.id == tl.id %>
+                  <% if tl.checked?(l.id) %>
                      checked="checked"
                   <% end %>
                <% end %>
