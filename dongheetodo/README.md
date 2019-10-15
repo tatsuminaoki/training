@@ -4,6 +4,8 @@
 
 A To-Do Application for studying Ruby On Rails
 
+![demo.png](app/assets/images/demo.png)
+
 ### Requirement
 
 - bundle 1.17.3
