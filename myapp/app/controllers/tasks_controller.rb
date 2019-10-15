@@ -14,12 +14,12 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     # @TODO step16でユーザ登録機能を実装したら任意のユーザで登録するよう修正
-    @task[:user_id] = 1
+    @task[:user_id] = 2
     if @task.save
-      flash[:success] = t 'dictionary.flash.create.success', id: @task.id
+      flash[:success] = t 'flash.create.success', id: @task.id
       redirect_to task_path(@task.id)
     else
-      flash[:fail] = t 'dictionary.flash.create.fail'
+      flash[:fail] = t 'flash.create.fail'
       render :new
     end
   end
@@ -31,10 +31,10 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:success] = t 'dictionary.flash.update.success', id: @task.id
+      flash[:success] = t 'flash.update.success', id: @task.id
       redirect_to task_path(@task.id)
     else
-      flash[:fail] = t 'dictionary.flash.update.fail', id: @task.id
+      flash[:fail] = t 'flash.update.fail', id: @task.id
       redirect_to edit_task_path(@task.id)
     end
   end
@@ -42,9 +42,9 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      flash[:success] = t 'dictionary.flash.remove.success', id: @task.id
+      flash[:success] = t 'flash.remove.success', id: @task.id
     else
-      flash[:success] = t 'dictionary.flash.remove.fail', id: @task.id
+      flash[:success] = t 'flash.remove.fail', id: @task.id
     end
     redirect_to tasks_path
   end
