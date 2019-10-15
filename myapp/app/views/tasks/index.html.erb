@@ -1,0 +1,34 @@
+<div class="center jumbotron">
+  <h1>All tasks</h1>
+  <p class="lead">This is all tasks you created.</p>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Due Date</th>
+      <th>Created Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <th><%= task.id %></th>
+      <th><%= task.title %></th>
+      <td><span class="label label-default"><%= task.priority %></span></td>
+      <td><span class="label label-success"><%= task.status %></span></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.created_at %></td>
+      <td><%= link_to 'Detail', task_path(task.id) %></td>
+      <td><%= link_to 'Update', edit_task_path(task.id) %></td>
+      <td><%= link_to 'Remove', task_path(task.id), method: 'delete' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
