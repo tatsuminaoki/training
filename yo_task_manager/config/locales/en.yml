@@ -78,6 +78,9 @@ en:
       update:
         user_updated: User is updated.
         user_is_not_updated: User is not updated.
+      destroy:
+        user_deleted: User is deleted.
+        user_is_not_deleted: User is not deleted.
 
   # activerecord aasm related
   activerecord:

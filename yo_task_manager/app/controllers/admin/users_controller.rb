@@ -37,6 +37,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    if @user.destroy
+      flash[:success] = [t('.user_deleted')]
+    else
+      flash[:danger] = [(t('something_is_wrong') + t('user_is_not_deleted')).to_s, @user.errors.full_messages].flatten
+    end
+    redirect_to admin_users_path
   end
 
   private

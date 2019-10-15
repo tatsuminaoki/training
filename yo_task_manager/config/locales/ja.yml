@@ -78,6 +78,9 @@ ja:
       update:
         user_updated: ユーザーが更新されました。
         user_is_not_updated: ユーザーが更新されていません。
+      destroy:
+        user_deleted: ユーザーが削除されました。
+        user_is_not_deleted: ユーザーが削除されていません。
 
   # activerecord aasm related
   activerecord:
