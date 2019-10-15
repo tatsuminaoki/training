@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  before_action :set_user, only: %i[show edit update destroy]
+
   def index
     @q = User.includes(:tasks).all.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
@@ -22,8 +24,7 @@ class Admin::UsersController < ApplicationController
   def show
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
   end
@@ -35,5 +36,12 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:login_id, :password, :display_name)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = [t('admin.users.user_not_found')]
+    redirect_to admin_users_path
   end
 end

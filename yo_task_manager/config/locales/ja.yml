@@ -4,6 +4,7 @@ ja:
   button:
     detail: 詳細
     edit: 編集
+    update: 更新
     delete: 削除
     add: 追加
     cancel: 取り消し
@@ -38,7 +39,6 @@ ja:
       task_saved: タスクが保存されました。
     edit:
       updating_task: タスク編集
-      update: 更新
     update:
       task_updated: タスクが更新されました。
     destroy:
@@ -63,6 +63,7 @@ ja:
       password: パスワード
       display_name: 表示名
       task_count: タスク数
+      user_not_found: アクセスしようとしているユーザーはありません!
       # controllers
       index:
         user_count: ユーザー数
@@ -72,6 +73,8 @@ ja:
       create:
         user_saved: ユーザーが保存されました。
         user_is_not_saved: ユーザーが保存されていません。
+      edit:
+        updating_user: ユーザー編集
 
   # activerecord aasm related
   activerecord:

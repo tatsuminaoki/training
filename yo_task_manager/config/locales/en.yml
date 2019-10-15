@@ -4,6 +4,7 @@ en:
   button:
     detail: Detail
     edit: Edit
+    update: Update
     delete: Delete
     add: Add
     cancel: Cancel
@@ -38,7 +39,6 @@ en:
       task_saved: Task is saved.
     edit:
       updating_task: Updating Task
-      update: Update
     update:
       task_updated: Task is updated.
     destroy:
@@ -63,6 +63,7 @@ en:
       password: Password
       display_name: Display Name
       task_count: Task count
+      user_not_found: The user is not exist!
       # controllers
       index:
         user_count: User count
@@ -72,6 +73,8 @@ en:
       create:
         user_saved: User is saved.
         user_is_not_saved: User is not saved.
+      edit:
+        updating_user: Updating User
 
   # activerecord aasm related
   activerecord:
