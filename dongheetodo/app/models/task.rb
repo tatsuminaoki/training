@@ -29,16 +29,16 @@ class Task < ApplicationRecord
     end
   }
   scope :order_by, ->(target, order) {
-    if target.present?
-      if target === 'id'
-        order(id: order)
-      elsif target === 'duedate'
-        order(duedate: order)
-      elsif target === 'created_at'
-        order(created_at: order)
-      end
-    else
+    if target.blank?
       order(id: :desc)
+    end
+    
+    if target === 'id'
+      order(id: order)
+    elsif target === 'duedate'
+      order(duedate: order)
+    elsif target === 'created_at'
+      order(created_at: order)
     end
   }
   scope :search, ->(params) {
