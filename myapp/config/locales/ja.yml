@@ -4,6 +4,16 @@ ja:
     update: '更新'
     remove: '削除'
     detail: '詳細'
+  header:
+    title: 'タスク名'
+    priority: '優先度'
+    status: 'ステータス'
+    due_date: '期限'
+    created_at: '作成日'
+    updated_at: '更新日'
+    description: '内容'
+    list: 'タスク一覧'
+    back: '戻る'
   flash:
     create:
       success: "No.%{id}を作成しました。"
@@ -14,3 +24,9 @@ ja:
     remove:
       success: "No.%{id}を削除しました。"
       fail: "No.%{id}の削除に失敗しました。もう一度お試しください。"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"

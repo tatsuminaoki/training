@@ -7,11 +7,11 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Status</th>
-          <th>Priority</th>
-          <th>Due Date</th>
-          <th>Created Date</th>
-          <th>Updated Date</th>
+          <th><%= t('header.status') %></th>
+          <th><%= t('header.priority') %></th>
+          <th><%= t('header.due_date') %></th>
+          <th><%= t('header.created_at') %></th>
+          <th><%= t('header.updated_at') %></th>
         </tr>
       </thead>
       <tbody>
@@ -19,17 +19,17 @@
           <td><span class="label label-success"><%= @task.status %></span></td>
           <td><%= @task.priority %></td>
           <td><%= @task.due_date %></td>
-          <td><%= @task.created_at %></td>
-          <td><%= @task.updated_at %></td>
+          <td><%= I18n.l(@task.created_at, format: :default) %></td>
+          <td><%= I18n.l(@task.updated_at, format: :default) %></td>
         </tr>
       </tbody>
     </table>
     <table class="table">
-      <thead><tr><th>Description</th></tr></thead>
+      <thead><tr><th><%= t('header.description') %></th></tr></thead>
       <tbody><tr><td><%= @task.description %></td><tr></tbody>
     </table>
-    <%= link_to 'Update Task', edit_task_path(@task.id), class: 'btn btn-primary' %>
-    <%= link_to 'Remove', task_path(@task.id), method: 'delete', class: 'btn btn-danger' %>
+    <%= link_to t('operation.update'), edit_task_path(@task.id), class: 'btn btn-primary' %>
+    <%= link_to t('operation.remove'), task_path(@task.id), method: 'delete', class: 'btn btn-danger' %>
   </div>
 </div>
-<%= link_to '<< Task List', root_path %>
+<%= link_to sprintf("<< %s", t('header.list')), root_path %>

@@ -5,4 +5,4 @@
     <%= render "form", { f: f } %>
   <% end %>
 </div>
-<%= link_to '<< Back', tasks_path %>
+<%= link_to sprintf("<< %s", t('header.back')), tasks_path %>
