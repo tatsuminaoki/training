@@ -31,11 +31,11 @@
         <input type="checkbox"
                id="label_<%= l.id %>"
                name="task[label_ids][]"
-         <% @task.labels.each do |tl| %>
-            <% if l.id == tl.id %>
-               checked="checked"
-            <% end %>
-          <% end %>
+               <% @task.labels.each do |tl| %>
+                  <% if l.id == tl.id %>
+                     checked="checked"
+                  <% end %>
+               <% end %>
                value="<%= l.id %>">
         <span class="badge badge-pill badge-<%= l.color %>"><%= l.name %></span>
       <% end %>
