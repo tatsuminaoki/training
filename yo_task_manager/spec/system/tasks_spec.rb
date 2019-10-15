@@ -32,7 +32,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'task show, editing and destroying' do
-    let!(:original_task) { user.tasks.create(title: '古い', body: '古い説明') }
+    let!(:original_task) { create(:task, user: user, title: '古い', body: '古い説明') }
     scenario 'show existing task' do
       visit '/'
       expect(page).to have_text('古い')
@@ -97,39 +97,47 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_text('Titleを入力してください')
   end
 
-  scenario 'task can be order by task_limit' do
-    user.tasks.create!(title: 'task1', task_limit: '2020-01-01 01:01:01')
-    user.tasks.create!(title: 'task2', task_limit: '2020-02-02 02:02:02')
-    user.tasks.create!(title: 'task3', task_limit: '2020-03-03 03:03:03')
-    visit '/ja/tasks'
-    expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01']
-    click_link('終了期限')
-    sleep 0.5
-    expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01'].reverse
-    click_link('終了期限')
-    sleep 0.5
-    expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01']
+  describe 'task sorting' do
+    before do
+      create(:task, user: user, title: 'task1', task_limit: '2020-01-01 01:01:01')
+      create(:task, user: user, title: 'task2', task_limit: '2020-02-02 02:02:02')
+      create(:task, user: user, title: 'task3', task_limit: '2020-03-03 03:03:03')
+    end
+    scenario 'task can be order by task_limit' do
+      visit '/ja/tasks'
+      expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01']
+      click_link('終了期限')
+      sleep 0.5
+      expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01'].reverse
+      click_link('終了期限')
+      sleep 0.5
+      expect(page.all('.task-limit').map(&:text)).to eq ['2020/03/03 03:03', '2020/02/02 02:02', '2020/01/01 01:01']
+    end
   end
 
-  scenario 'task searching with title and aasm_state' do
-    user.tasks.create!(title: 'task1', aasm_state: 'not_yet')
-    user.tasks.create!(title: '2nd t(ask)', aasm_state: 'on_going')
-    user.tasks.create!(title: 'no. 3rd', aasm_state: 'done')
-    visit '/ja/tasks'
-    expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd', '2nd t(ask)', 'task1']
-    fill_in 'q[title_cont]', with: '2nd'
-    click_button('検索')
-    expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)']
-    fill_in 'q[title_cont]', with: 'ask'
-    click_button('検索')
-    expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)', 'task1']
-    fill_in 'q[title_cont]', with: ''
-    select '完了', from: 'q[aasm_state_eq]'
-    click_button('検索')
-    expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd']
-    fill_in 'q[title_cont]', with: '4th'
-    select '', from: 'q[aasm_state_eq]'
-    click_button('検索')
-    expect(page).to have_text('タスクはありません。')
+  describe 'task searching' do
+    before do
+      create(:task, user: user, title: 'task1', aasm_state: 'not_yet')
+      create(:task, user: user, title: '2nd t(ask)', aasm_state: 'on_going')
+      create(:task, user: user, title: 'no. 3rd', aasm_state: 'done')
+    end
+    scenario 'search with title and aasm_state' do
+      visit '/ja/tasks'
+      expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd', '2nd t(ask)', 'task1']
+      fill_in 'q[title_cont]', with: '2nd'
+      click_button('検索')
+      expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)']
+      fill_in 'q[title_cont]', with: 'ask'
+      click_button('検索')
+      expect(page.all('.task-name').map(&:text)).to eq ['2nd t(ask)', 'task1']
+      fill_in 'q[title_cont]', with: ''
+      select '完了', from: 'q[aasm_state_eq]'
+      click_button('検索')
+      expect(page.all('.task-name').map(&:text)).to eq ['no. 3rd']
+      fill_in 'q[title_cont]', with: '4th'
+      select '', from: 'q[aasm_state_eq]'
+      click_button('検索')
+      expect(page).to have_text('タスクはありません。')
+    end
   end
 end
