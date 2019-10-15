@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate
   before_action :has_own_task, only: %i(show edit update destroy)
-  before_action :labels, only: %i[new edit]
+  before_action :set_labels, only: %i[new edit]
 
   def index
     @tasks = params[:label].present? ?
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def labels
+  def set_labels
      @labels = Label.all
   end
 end
