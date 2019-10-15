@@ -1,0 +1,40 @@
+ja:
+  activerecord:
+    enum:
+      label:
+        color:
+          red: "赤色"
+          orange: "オレンジ色"
+          yellow: "黄色"
+          green: "緑色"
+          blue: "青色"
+          indigo: "藍色"
+          violet: "紫色"
+          black: "黒色"
+    models:
+      label: "ラベル"
+
+    attributes:
+      label:
+        id: "ID"
+        name: "ラベル名"
+        colors: "カラー"
+        color:
+          one: "カラー"
+          other: "カラー"
+          red: "赤色"
+          orange: "オレンジ色"
+          yellow: "黄色"
+          green: "緑色"
+          blue: "青色"
+          indigo: "藍色"
+          violet: "紫色"
+          black: "黒色"
+        created_at: "作成日"
+        updated_at: "修正日"
+
+    labels:
+      index:
+        title: "ラベル一覧"
+      new:
+        title: "ラベル作成"

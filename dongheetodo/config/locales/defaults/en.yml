@@ -42,3 +42,4 @@ en:
       occurred: " error(s) has been occurred."
       check: "Please check the message(s) as below."
       login: "your email or password was entered incorrectly"
+      invaild_param: "is invalid"

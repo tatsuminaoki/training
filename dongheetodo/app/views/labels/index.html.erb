@@ -1,0 +1,17 @@
+<%= render "layouts/flash_messages" %>
+<div class="container-fluid">
+  <h4><%= t("activerecord.labels.index.title") %></h4><hr>
+  <div id="labels-div">
+    <% @labels.each do |label| %>
+      <span class="badge badge-pill badge-<%= label.color %>"><%= label.name %></span>
+    <% end %>
+    <br>
+    <%= paginate @labels %>
+  </div>
+  <br>
+  <div id="new-label-div">
+    <h4><%= t("activerecord.labels.new.title") %></h4><hr>
+    <%= render "layouts/label_form" %>
+  </div>
+  <hr>
+</div>
