@@ -14,16 +14,13 @@ class User < ApplicationRecord
 
   def update_the_last_admin_validator
     # updateの場合、 'admin' -> 'common'の場合のみvalidatorが必要
-    if self.role == 'common'
-      destroy_the_last_admin_validator
-    end
+    destroy_the_last_admin_validator if self.role == 'common'
   end
 
   def destroy_the_last_admin_validator
     # destroyの場合、'admin' のままで削除されるので、 `if self.role == 'common'`のチェックは必要ない
-    if User.admin.count == 1 && User.admin.first.id == self.id
-      errors.add(:role, :cannot_update_or_destroy_final_admin)
-      throw :abort
-    end
+    return unless User.admin.count == 1 && User.admin.first.id == self.id
+    errors.add(:role, :cannot_update_or_destroy_final_admin)
+    throw :abort
   end
 end

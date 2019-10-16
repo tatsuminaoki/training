@@ -28,8 +28,8 @@ RSpec.describe User, type: :model do
     context 'change role from admin to common' do
       let(:role) { 'admin' }
       it 'role cannot be changed and have errors msg' do
-        expect {user.common!}.to raise_error(ActiveRecord::RecordInvalid)
-        expect(user.errors[:role]).to eq [" 最後のアドミンなので、変更・削除はできません！"]
+        expect { user.common! }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(user.errors[:role]).to eq [' 最後のアドミンなので、変更・削除はできません！']
         expect(user.reload.role).to eq 'admin'
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
       let(:role) { 'admin' }
       it 'cannot destroy record and have errors msg' do
         expect(user.destroy).to be_falsey
-        expect(user.errors[:role]).to eq [" 最後のアドミンなので、変更・削除はできません！"]
+        expect(user.errors[:role]).to eq [' 最後のアドミンなので、変更・削除はできません！']
       end
     end
   end

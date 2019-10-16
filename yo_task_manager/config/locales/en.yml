@@ -92,6 +92,7 @@ en:
   activerecord:
     attributes:
       user:
+        role: Role
         login_id: Login ID
         password: Password
       user/role:
