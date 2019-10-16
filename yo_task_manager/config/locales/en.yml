@@ -38,6 +38,7 @@ en:
     task_detail: Task Detail
     task_limit: Task Limit
     task_state: Task Status
+    task_label: Task Label
     task_not_found: The task is not owned by this user!
     task_is_not_saved: The task is not saved.
     task_is_not_updated: The task is not updated.
