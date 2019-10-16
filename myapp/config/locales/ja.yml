@@ -16,14 +16,14 @@ ja:
     back: '戻る'
   flash:
     create:
-      success: "No.%{id}を作成しました。"
+      success: "タスクを作成しました。"
       fail: 'タスクの新規登録に失敗しました。もう一度お試しください。'
     update:
-      success: "No.%{id}を更新しました。"
-      fail: "No.%{id}の更新に失敗しました。もう一度お試しください。"
+      success: "タスクを更新しました。"
+      fail: "タスクの更新に失敗しました。もう一度お試しください。"
     remove:
-      success: "No.%{id}を削除しました。"
-      fail: "No.%{id}の削除に失敗しました。もう一度お試しください。"
+      success: "タスクを削除しました。"
+      fail: "タスクの削除に失敗しました。もう一度お試しください。"
   date:
     formats:
       default: "%Y-%m-%d"

@@ -16,14 +16,14 @@ en:
     back: 'Back'
   flash:
     create:
-      success: "Task No.%{id} is created successfully."
+      success: "Task is created successfully."
       fail: 'Failed to create a new task. Please try again.'
     update:
-      success: "Task No.%{id} is updated successfully."
-      fail: "Failed to update No.%{id} task. Please try again."
+      success: "Task is updated successfully."
+      fail: "Failed to update task. Please try again."
     remove:
-      success: "Task No.%{id} is deleted successfully."
-      fail: "Failed to delete No.%{id} task. Please try again."
+      success: "Task is deleted successfully."
+      fail: "Failed to delete task. Please try again."
   date:
     formats:
       default: "%Y-%m-%d"
