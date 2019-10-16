@@ -13,9 +13,3 @@ ja:
         due_date: '期限'
         created_at: '作成日'
         updated_at: '更新日'
-  enums:
-    task:
-      status:
-        open: 'オープン'
-        inprogress: '進行中'
-        closed: '完了'
