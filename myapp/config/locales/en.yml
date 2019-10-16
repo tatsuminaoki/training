@@ -1,33 +1,32 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  operation:
+    create: 'Create'
+    update: 'Update'
+    remove: 'Remove'
+    detail: 'Detail'
+  header:
+    title: 'Title'
+    priority: 'Priority'
+    status: 'Status'
+    due_date: 'Due Date'
+    created_at: 'Created Date'
+    updated_at: 'Updated Date'
+    description: 'Description'
+    list: 'Task List'
+    back: 'Back'
+  flash:
+    create:
+      success: "Task No.%{id} is created successfully."
+      fail: 'Failed to create a new task. Please try again.'
+    update:
+      success: "Task No.%{id} is updated successfully."
+      fail: "Failed to update No.%{id} task. Please try again."
+    remove:
+      success: "Task No.%{id} is deleted successfully."
+      fail: "Failed to delete No.%{id} task. Please try again."
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
