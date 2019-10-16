@@ -1,5 +1,8 @@
 en:
+  please_login: Please Login first before proceed.
+  something_is_wrong: Something wrong is happened.
   tasks:
+    task_user: Task's User
     task_name: Task Name
     task_detail: Task Detail
     task_limit: Task Limit
@@ -7,6 +10,10 @@ en:
     edit_text: Edit
     delete: Delete
     cancel: Cancel
+    task_not_found: The task is not owned by this user!
+    task_is_not_saved: The task is not saved.
+    task_is_not_updated: The task is not updated.
+    task_is_not_destroyed: The task is not destroyed.
     index:
       task_list: Task list
       task_count: Task count
@@ -30,6 +37,17 @@ en:
       task_updated: Task is updated.
     destroy:
       task_deleted: Task was deleted.
+  sessions:
+    log_out: Log Out
+    new:
+      login: Login
+      login_id: Login ID
+      password: Password
+    create:
+      logged_in: Logged in successfully！
+      log_in_failed: Login ID and or password is wrong.
+    destroy:
+      logged_out: Logged out successfully!
 
   activerecord:
     attributes:

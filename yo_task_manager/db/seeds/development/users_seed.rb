@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-30.times { create(:task) }
+5.times { create(:user) }

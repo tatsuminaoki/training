@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 
   scope '/:locale', locale: /ja|en/ do
     resources :tasks
+    resources :sessions, only: %i[new create destroy]
+
+    get 'login', to: 'sessions#new', as: 'login'
+    get 'sessions', to: 'sessions#new'
+    get 'logout', to: 'sessions#destroy', as: 'logout'
   end
 
   get '/404', to: 'errors#not_found'
