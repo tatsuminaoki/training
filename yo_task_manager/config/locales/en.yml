@@ -14,6 +14,24 @@ en:
   not_admin: Access denied. Not Admin.
 
   #models
+  labels:
+    label_name: Label Name
+    label_is_not_saved: The label is not saved.
+    label_is_not_updated: The label is not updated.
+    label_is_not_destroyed: The label is not destroyed.
+    index:
+      label_list: Label List
+      add_label: Add Label
+    new:
+      adding_label: Adding Label
+    create:
+      label_saved: Label is saved.
+    edit:
+      updating_label: Updating Label
+    update:
+      label_updated: Label is updated.
+    destroy:
+      label_deleted: Label is deleted.
   tasks:
     task_user: Task's User
     task_name: Task Name

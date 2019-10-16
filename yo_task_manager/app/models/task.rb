@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :title, presence: true
   default_scope { order(created_at: :desc) }
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
 
   include AASM
 
