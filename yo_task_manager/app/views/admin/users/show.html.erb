@@ -24,8 +24,12 @@
             <td><%= @user.login_id %></td>
           </tr>
           <tr>
+            <th><%= t('admin.users.role') %></th>
+            <td><%= @user.human_attribute_enum(:role) %></td>
+          </tr>
+          <tr>
             <th><%= t('admin.users.display_name') %></th>
-            <td><%= @user.display_name %></td>
+            <td><%= @user.display_name || '-' %></td>
           </tr>
           <tr>
             <th colspan="2">

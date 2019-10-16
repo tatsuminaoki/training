@@ -19,6 +19,14 @@
       </tr>
       <tr>
         <th scope="col">
+          <%= f.label t('admin.users.role') %>
+        </th>
+        <td>
+          <%= f.select :role, User.enum_options_for_select(:role) %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">
           <%= f.label t('admin.users.display_name') %>
         </th>
         <td>

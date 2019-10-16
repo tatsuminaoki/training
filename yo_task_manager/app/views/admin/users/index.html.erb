@@ -32,6 +32,7 @@
               <th><%= sort_link(@q, :id, 'ID') %></th>
               <th><%= sort_link(@q, :login_id, t('admin.users.login_id')) %></th>
               <th><%= sort_link(@q, :display_name, t('admin.users.display_name')) %></th>
+              <th><%= sort_link(@q, :role, t('admin.users.role')) %></th>
               <th><%= sort_link(@q, :task_count, t('admin.users.task_count')) %></th>
               <th><%= t('action') %></th>
             </tr>
@@ -41,7 +42,8 @@
               <tr id="user-<%= u.id %>">
                 <td><%= u.id %></td>
                 <td><%= u.login_id %></td>
-                <td><%= u.display_name %></td>
+                <td><%= u.display_name || '-' %></td>
+                <td><%= u.human_attribute_enum(:role) %></td>
                 <td><%= u.tasks.size %></td>
                 <td>
                   <%= button_to t('button.detail'), admin_user_path(u), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>

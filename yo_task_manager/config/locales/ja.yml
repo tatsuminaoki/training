@@ -62,6 +62,7 @@ ja:
       login_id: ログインID
       password: パスワード
       display_name: 表示名
+      role: ロール
       task_count: タスク数
       user_not_found: アクセスしようとしているユーザーはありません!
       # controllers
@@ -92,6 +93,9 @@ ja:
       user:
         login_id: ログインID
         password: パスワード
+      user/role:
+        admin: アドミン
+        common: 一般
       task/aasm_state:
         not_yet: 未着手
         on_going: 着手中
