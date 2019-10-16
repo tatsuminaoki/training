@@ -35,6 +35,14 @@
             <th><%= t('tasks.task_state') %></th>
             <td><%= Task.human_attribute_name("aasm_state.#{@task.aasm_state}") %></td>
           </tr>
+          <tr>
+            <th><%= t('tasks.task_label') %></th>
+            <td>
+              <% @task.labels&.each do |l| %>
+                <%= label_tag l.name, nil, class: 'badge badge-pill badge-primary' %>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

@@ -54,6 +54,7 @@
               <th><%= t('tasks.task_detail') %></th>
               <th><%= t('tasks.task_limit') %></th>
               <th><%= t('tasks.task_state') %></th>
+              <th><%= t('tasks.task_label') %></th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +65,11 @@
                 <td><%= t.body %></td>
                 <td><%= l(t.task_limit, format: :long, default: '-') %></td>
                 <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
+                <td>
+                  <% t.labels&.each do |l| %>
+                    <%= label_tag l.name, nil, class: 'badge badge-pill badge-primary' %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
