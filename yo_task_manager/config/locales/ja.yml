@@ -92,6 +92,7 @@ ja:
   activerecord:
     attributes:
       user:
+        role: ロール
         login_id: ログインID
         password: パスワード
       user/role:
@@ -101,6 +102,14 @@ ja:
         not_yet: 未着手
         on_going: 着手中
         done: 完了
+    errors:
+      models:
+        user:
+          attributes:
+            role:
+              cannot_update_or_destroy_final_admin: ' 最後のアドミンなので、変更・削除はできません！'
+
+
   # pagination related
   views:
     pagination:

@@ -101,4 +101,10 @@ en:
         aasm_state/not_yet: not yet started
         aasm_state/on_going: on going
         aasm_state/done: done
+    errors:
+      models:
+        user:
+          attributes:
+            role:
+              cannot_update_or_destroy_final_admin: cannot update/remove final admin!
   # pagination related(not needed)
