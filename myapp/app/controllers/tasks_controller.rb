@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     # @TODO step16でユーザ登録機能を実装したら任意のユーザで登録するよう修正
-    @task[:user_id] = 2
+    @task[:user_id] = 1
     if @task.save
       flash[:success] = t 'flash.create.success', id: @task.id
       redirect_to task_path(@task.id)
