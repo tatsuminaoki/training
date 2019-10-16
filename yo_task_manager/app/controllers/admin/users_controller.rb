@@ -4,6 +4,7 @@ module Admin
   class UsersController < ApplicationController
     before_action :user_is_logged_in
     before_action :set_user, only: %i[show edit update destroy]
+    before_action :user_is_admin
 
     def index
       @q = User.includes(:tasks).all.ransack(params[:q])

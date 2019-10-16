@@ -11,6 +11,7 @@ ja:
   # error messages
   please_login: 先にログインしてください。
   something_is_wrong: 問題が発生しました。
+  not_admin: アドミンではないので、アクセスできません。
 
   # models
   tasks:

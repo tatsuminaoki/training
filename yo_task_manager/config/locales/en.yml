@@ -11,6 +11,7 @@ en:
   # error messages
   please_login: Please Login first before proceed.
   something_is_wrong: Something wrong is happened.
+  not_admin: Access denied. Not Admin.
 
   #models
   tasks:

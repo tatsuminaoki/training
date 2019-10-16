@@ -25,4 +25,9 @@ class ApplicationController < ActionController::Base
     flash[:danger] = [t('please_login')] unless session[:user_id]
     redirect_to login_path unless session[:user_id]
   end
+
+  def user_is_admin
+    flash[:danger] = [t('not_admin')] unless current_user.admin?
+    redirect_to root_path unless current_user.admin?
+  end
 end
