@@ -1,7 +1,7 @@
 ja:
   activerecord:
     models:
-      task: Task
+      task: 'Task'
     attributes:
       task:
         id: 'ID'
