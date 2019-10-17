@@ -45,4 +45,16 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'dependent destroy on labeling' do
+    let(:user) { create(:user) }
+    let(:label) { create(:label) }
+    let!(:task) { create(:task, user: user, labels: [label]) }
+    let!(:labeling) { Labeling.find_by(label_id: label) }
+    it 'when task get destroyed' do
+      task.destroy
+      expect { task.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { labeling.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+  end
 end
