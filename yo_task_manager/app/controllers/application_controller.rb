@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_maintenance_page
-    maintenance = YAML.load(File.read('tmp/maintenance.yml'))
+    maintenance = YAML.safe_load(File.read('tmp/maintenance.yml'))
     @reason = maintenance['reason']
     render 'errors/unavailable', layout: false, status: :service_unavailable
   end
