@@ -43,7 +43,6 @@ class LabelsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def destroy
-    byebug
     if @label.destroy
       flash[:success] = [t('.label_deleted')]
     else
