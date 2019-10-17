@@ -24,6 +24,8 @@ en:
     remove:
       success: "Task is deleted successfully."
       fail: "Failed to delete task. Please try again."
+  error:
+    count: 'The form contains %{count}.'
   date:
     formats:
       default: "%Y-%m-%d"

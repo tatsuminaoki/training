@@ -5,7 +5,7 @@ ja:
     attributes:
       task:
         id: 'ID'
-        title: '名前'
+        title: 'タスク名'
         description: '内容'
         user_id: 'ユーザID'
         priority: '優先度'
