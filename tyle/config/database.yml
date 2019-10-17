@@ -15,7 +15,8 @@ development:
   database: tyle_development
   pool: 5
   username: root
-  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  password: my_root_password 
+  # password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
   host: 127.0.0.1
 
 # Warning: The database defined as "test" will be erased and
