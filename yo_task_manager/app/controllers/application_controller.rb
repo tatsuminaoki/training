@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def render_maintenance_page
     maintenance = YAML.load(File.read('tmp/maintenance.yml'))
     @reason = maintenance['reason']
-    render 'errors/unavailable', layout: false
+    render 'errors/unavailable', layout: false, status: :service_unavailable
   end
 
   def switch_locale(&action)
