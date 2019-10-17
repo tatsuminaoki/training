@@ -6,11 +6,11 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Title</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>Due Date</th>
-      <th>Created Date</th>
+      <th><%= t('header.title') %></th>
+      <th><%= t('header.priority') %></th>
+      <th><%= t('header.status') %></th>
+      <th><%= t('header.due_date') %></th>
+      <th><%= t('header.created_at') %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -24,10 +24,10 @@
       <td><span class="label label-default"><%= task.priority %></span></td>
       <td><span class="label label-success"><%= task.status %></span></td>
       <td><%= task.due_date %></td>
-      <td><%= task.created_at %></td>
-      <td><%= link_to 'Detail', task_path(task.id) %></td>
-      <td><%= link_to 'Update', edit_task_path(task.id) %></td>
-      <td><%= link_to 'Remove', task_path(task.id), method: 'delete' %></td>
+      <td><%= I18n.l(task.created_at, format: :default) %></td>
+      <td><%= link_to t('operation.detail'), task_path(task.id) %></td>
+      <td><%= link_to t('operation.update'), edit_task_path(task.id) %></td>
+      <td><%= link_to t('operation.remove'), task_path(task.id), method: 'delete' %></td>
     </tr>
     <% end %>
   </tbody>

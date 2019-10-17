@@ -16,10 +16,10 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content @task.priority
       expect(page).to have_content @task.status
       expect(page).to have_content @task.due_date
-      expect(page).to have_content @task.created_at
-      expect(page).to have_link 'Detail', href: task_path(@task.id)
-      expect(page).to have_link 'Update', href: edit_task_path(@task.id)
-      expect(page).to have_link 'Remove', href: task_path(@task.id)
+      expect(page).to have_content I18n.l(@task.created_at, format: :default)
+      expect(page).to have_link I18n.t('operation.detail'), href: task_path(@task.id)
+      expect(page).to have_link I18n.t('operation.update'), href: edit_task_path(@task.id)
+      expect(page).to have_link I18n.t('operation.remove'), href: task_path(@task.id)
     end
   end
 
@@ -31,9 +31,9 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content @task.description
       expect(page).to have_content @task.priority
       expect(page).to have_content @task.due_date
-      expect(page).to have_link 'Update Task', href: edit_task_path(@task.id)
-      expect(page).to have_link 'Remove', href: task_path(@task.id)
-      expect(page).to have_link '<< Task List', href: root_path
+      expect(page).to have_link I18n.t('operation.update'), href: edit_task_path(@task.id)
+      expect(page).to have_link I18n.t('operation.remove'), href: task_path(@task.id)
+      expect(page).to have_link sprintf("<< %s", I18n.t('header.list')), href: root_path
     end
   end
 
@@ -43,11 +43,11 @@ RSpec.describe "Tasks", type: :system do
   
       fill_in 'task[title]', with: 'Automation Test Task'
       fill_in 'task[description]', with: 'Please create the automation test for this task.'
-      select 'Middle', from: 'Priority'
-      select 'Open', from: 'Status'
+      select 'Middle', from: I18n.t('header.priority')
+      select 'Open', from: I18n.t('header.status')
       click_on 'commit'
   
-      expect(page).to have_content 'Task is successfully created!'
+      expect(page).to have_content I18n.t('flash.create.success')
     end
 
     xit 'Fail to create a task because of validatio error' do
@@ -60,11 +60,11 @@ RSpec.describe "Tasks", type: :system do
   
       fill_in 'task[title]', with: 'Change the title'
       fill_in 'task[description]', with: 'I changed the title.'
-      select 'High', from: 'Priority'
-      select 'InProgress', from: 'Status'
+      select 'High', from: I18n.t('header.priority')
+      select 'InProgress', from: I18n.t('header.status')
       click_on 'commit'
       
-      expect(page).to have_content 'Task is successfully updated!'
+      expect(page).to have_content I18n.t('flash.update.success')
     end
 
     xit 'Fail to create a task because of validatio error' do
@@ -75,15 +75,15 @@ RSpec.describe "Tasks", type: :system do
     it 'Success to delete a task from list page' do
       visit tasks_path
 
-      click_on 'Remove'
-      expect(page).to have_content 'Task is successfully deleted!'
+      click_on I18n.t('operation.remove')
+      expect(page).to have_content I18n.t('flash.remove.success')
     end
 
     it 'Success to delete a task from detail page' do
       visit task_path(@task.id)
 
-      click_on 'Remove'
-      expect(page).to have_content 'Task is successfully deleted!'
+      click_on I18n.t('operation.remove')
+      expect(page).to have_content I18n.t('flash.remove.success')
     end
   end
 end

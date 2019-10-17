@@ -1,0 +1,32 @@
+ja:
+  operation:
+    create: '新規作成'
+    update: '更新'
+    remove: '削除'
+    detail: '詳細'
+  header:
+    title: 'タスク名'
+    priority: '優先度'
+    status: 'ステータス'
+    due_date: '期限'
+    created_at: '作成日'
+    updated_at: '更新日'
+    description: '内容'
+    list: 'タスク一覧'
+    back: '戻る'
+  flash:
+    create:
+      success: 'タスクを作成しました。'
+      fail: 'タスクの新規登録に失敗しました。もう一度お試しください。'
+    update:
+      success: 'タスクを更新しました。'
+      fail: 'タスクの更新に失敗しました。もう一度お試しください。'
+    remove:
+      success: 'タスクを削除しました。'
+      fail: 'タスクの削除に失敗しました。もう一度お試しください。'
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
