@@ -1,5 +1,5 @@
 namespace :maintenance do
-  desc "start maintenance mode. usage: rake maintenance:start[{reason}]"
+  desc "start maintenance mode, usage: rake maintenance:start[{reason}]"
   task :start, [:reason] do |t, args|
     reason = args[:reason]
     reason = 'no reason provided.' if reason.blank?
