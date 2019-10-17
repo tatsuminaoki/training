@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LabelsController < ApplicationController
-  before_action :set_label, only: %i[show edit update destroy]
+  before_action :set_label, only: %i[edit update destroy]
   before_action :user_is_logged_in
 
   def index
@@ -25,8 +25,6 @@ class LabelsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  def show; end
 
   def edit; end
 
