@@ -24,12 +24,12 @@
    
     <p>
       <%= form.label :priority %><br>
-      <%= form.text_field :priority %>
+      <%= form.select :priority, Task.priorities.keys.to_a, {} %>
     </p>
    
     <p>
       <%= form.label :status %><br>
-      <%= form.text_field :status %>
+      <%= form.select :status, Task.statuses.keys.to_a, {} %>
     </p>
    
     <p>
