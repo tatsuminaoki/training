@@ -1,20 +1,28 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
-<table>
-  <tr>
-    <th>name</th>
-    <th>description</th>
-    <th>priority</th>
-    <th>status</th>
-    <th>due</th>
-  </tr>
-  <% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.name %></td>
-    <td><%= task.description %></td>
-    <td><%= task.priority %></td>
-    <td><%= task.status %></td>
-    <td><%= task.due %></td>
-  </tr>
-  <% end %>
-</table>
+<div>
+  <h1>TYLE</h1>
+  <%= link_to "HOME", tasks_path, method: :get %>
+  <%= link_to "NEW", new_task_path, method: :get %>
+</div>
+
+<hr>
+
+<div>
+  <table>
+    <tr>
+      <th>name</th>
+      <th>priority</th>
+      <th>status</th>
+      <th>due</th>
+      <th>detail</th>
+    </tr>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.name %></td>
+      <td><%= task.priority %></td>
+      <td><%= task.status %></td>
+      <td><%= task.due %></td>
+      <td><%= link_to "DETAIL", task_path(task.id), method: :get %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

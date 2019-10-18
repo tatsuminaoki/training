@@ -1,2 +1,42 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div>
+  <h1>TYLE</h1>
+  <%= link_to "HOME", tasks_path, method: :get %>
+  <%= link_to "NEW", new_task_path, method: :get %>
+</div>
+
+<hr>
+
+<div>
+  <table>
+    <tr>
+      <td>name</td>
+      <td>:</td>
+      <td><%= @task.name %></td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>:</td>
+      <td><%= @task.description %></td>
+    </tr>
+    <tr>
+      <td>priority</td>
+      <td>:</td>
+      <td><%= @task.priority %></td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>:</td>
+      <td><%= @task.status %></td>
+    </tr>
+    <tr>
+      <td>due</td>
+      <td>:</td>
+      <td><%= @task.due %></td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <%= link_to "EDIT", task_path(@task.id) + '/edit', method: :get %>
+  <%= link_to "DELETE", task_path(@task.id), method: :delete %>
+</div>
