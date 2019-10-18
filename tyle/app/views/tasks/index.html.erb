@@ -1,4 +1,12 @@
 <div>
+  <% if flash[:notice] %>
+    <div>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+</div>
+
+<div>
   <h1>TYLE</h1>
   <%= link_to "HOME", tasks_path, method: :get %>
   <%= link_to "NEW", new_task_path, method: :get %>
