@@ -5,9 +5,14 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/log" />
+      <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/public/packs" />
+      <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/public/packs-test" />
       <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/yo_task_manager/vendor" />
     </content>
+    <content url="file://$MODULE_DIR$/yo_task_manager/node_modules" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.0.2, rbenv: 2.5.5) [gem]" level="application" />

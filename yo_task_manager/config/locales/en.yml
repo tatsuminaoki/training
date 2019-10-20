@@ -11,6 +11,7 @@ en:
   # error messages
   please_login: Please Login first before proceed.
   something_is_wrong: Something wrong is happened.
+  not_admin: Access denied. Not Admin.
 
   #models
   tasks:
@@ -62,6 +63,7 @@ en:
       login_id: Login ID
       password: Password
       display_name: Display Name
+      role: Role
       task_count: Task count
       user_not_found: The user is not exist!
       # controllers
@@ -90,10 +92,20 @@ en:
   activerecord:
     attributes:
       user:
+        role: Role
         login_id: Login ID
         password: Password
+      user/role:
+        admin: Admin
+        common: Common
       task:
         aasm_state/not_yet: not yet started
         aasm_state/on_going: on going
         aasm_state/done: done
+    errors:
+      models:
+        user:
+          attributes:
+            role:
+              cannot_update_or_destroy_final_admin: cannot update/remove final admin!
   # pagination related(not needed)

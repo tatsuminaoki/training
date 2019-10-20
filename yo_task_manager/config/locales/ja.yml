@@ -11,6 +11,7 @@ ja:
   # error messages
   please_login: 先にログインしてください。
   something_is_wrong: 問題が発生しました。
+  not_admin: アドミンではないので、アクセスできません。
 
   # models
   tasks:
@@ -62,6 +63,7 @@ ja:
       login_id: ログインID
       password: パスワード
       display_name: 表示名
+      role: ロール
       task_count: タスク数
       user_not_found: アクセスしようとしているユーザーはありません!
       # controllers
@@ -90,12 +92,24 @@ ja:
   activerecord:
     attributes:
       user:
+        role: ロール
         login_id: ログインID
         password: パスワード
+      user/role:
+        admin: アドミン
+        common: 一般
       task/aasm_state:
         not_yet: 未着手
         on_going: 着手中
         done: 完了
+    errors:
+      models:
+        user:
+          attributes:
+            role:
+              cannot_update_or_destroy_final_admin: ' 最後のアドミンなので、変更・削除はできません！'
+
+
   # pagination related
   views:
     pagination:

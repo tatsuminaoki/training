@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-lg-4">
       <table class="table table-dark">
         <tbody>
           <tr>
@@ -24,22 +24,26 @@
             <td><%= @user.login_id %></td>
           </tr>
           <tr>
+            <th><%= t('admin.users.role') %></th>
+            <td><%= @user.human_attribute_enum(:role) %></td>
+          </tr>
+          <tr>
             <th><%= t('admin.users.display_name') %></th>
-            <td><%= @user.display_name %></td>
+            <td><%= @user.display_name || '-' %></td>
           </tr>
           <tr>
             <th colspan="2">
               <div class="d-flex justify-content-around">
                 <%= button_to t('.back_to_users'), admin_users_path, method: :get, class: 'btn btn-primary' %>
                 <%= button_to t('button.edit'), edit_admin_user_path(@user), method: :get, class: 'btn btn-warning' %>
-                <%= button_to t('button.delete'), admin_users_path(id: @user.id), method: :delete, class: 'btn btn-danger' %>
+                <%= button_to t('button.delete'), admin_user_path(@user.id), method: :delete, class: 'btn btn-danger' %>
               </div>
             </th>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-9">
+    <div class="col-12 col-lg-8">
       <h3>このユーザーのタスク数: <%= @tasks.size %></h3>
       <% if @tasks.any? %>
         <table class="table table-dark">
