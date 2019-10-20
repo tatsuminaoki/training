@@ -6,11 +6,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <%= link_to t('tasks.index.task_list'), tasks_path, class: "nav-link #{active_path?(tasks_path)}" %>
+        <%= link_to t('tasks.index.task_list'), tasks_path, class: "nav-link #{is_current_path(tasks_path)}" %>
       </li>
       <% if current_user&.admin? %>
         <li clas="nav-item">
-          <%= link_to t('admin.users.index.user_list'), admin_users_path, class: "nav-link #{active_path?(admin_users_path)}" %>
+          <%= link_to t('admin.users.index.user_list'), admin_users_path, class: "nav-link #{is_current_path(admin_users_path)}" %>
         </li>
       <% end %>
     </ul>

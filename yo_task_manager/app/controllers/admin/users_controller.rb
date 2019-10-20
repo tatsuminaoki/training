@@ -15,18 +15,16 @@ module Admin
       @user = User.new
     end
 
-    # rubocop:disable Metrics/AbcSize
     def create
       @user = User.new(user_params)
       if @user.save
         flash[:success] = [t('.user_saved')]
         redirect_to admin_users_path
       else
-        flash.now[:danger] = [(t('something_is_wrong') + t('.user_is_not_saved')).to_s, @user.errors.full_messages].flatten
+        flash.now[:danger] = warning_msg(t('.user_is_not_saved'))
         render :new
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def show
       @tasks = @user.tasks
@@ -34,28 +32,30 @@ module Admin
 
     def edit; end
 
-    # rubocop:disable Metrics/AbcSize
     def update
       if @user.update(user_params)
         flash[:success] = [t('.user_updated')]
         redirect_to admin_users_path
       else
-        flash.now[:danger] = [(t('something_is_wrong') + t('.user_is_not_updated')).to_s, @user.errors.full_messages].flatten
+        flash.now[:danger] = warning_msg(t('.user_is_not_updated'))
         render :edit
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def destroy
       if @user.destroy
         flash[:success] = [t('.user_deleted')]
       else
-        flash[:danger] = [(t('something_is_wrong') + t('.user_is_not_deleted')).to_s, @user.errors.full_messages].flatten
+        flash[:danger] = warning_msg(t('.user_is_not_deleted'))
       end
       redirect_to admin_users_path
     end
 
     private
+
+    def warning_msg(status_msg)
+      [(t('something_is_wrong') + status_msg).to_s, @user.errors.full_messages].flatten
+    end
 
     def user_params
       params.require(:user).permit(:login_id, :password, :role, :display_name)
