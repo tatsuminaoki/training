@@ -1,39 +1,47 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-12">
       <h1><%= t('.task_detail') %></h1>
     </div>
   </div>
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, class: "alert-#{name}" %>
-  <% end %>
-  <table class="table table-dark">
-    <tbody>
-      <tr>
-        <th>ID</th>
-        <td><%= @task.id %></td>
-      </tr>
-      <tr>
-        <th><%= t('tasks.task_name') %></th>
-        <td><%= @task.title %></td>
-      </tr>
-      <tr>
-        <th><%= t('tasks.task_detail') %></th>
-        <td><%= @task.body %></td>
-      </tr>
-      <tr>
-        <th><%= t('tasks.task_limit') %></th>
-        <td><%= l(@task.task_limit, format: :long, default: '-') %></td>
-      </tr>
-      <tr>
-        <th><%= t('tasks.task_state') %></th>
-        <td><%= Task.human_attribute_name("aasm_state.#{@task.aasm_state}") %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-12">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert-#{name}" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-dark">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <td><%= @task.id %></td>
+          </tr>
+          <tr>
+            <th><%= t('tasks.task_name') %></th>
+            <td><%= @task.title %></td>
+          </tr>
+          <tr>
+            <th><%= t('tasks.task_detail') %></th>
+            <td><%= @task.body %></td>
+          </tr>
+          <tr>
+            <th><%= t('tasks.task_limit') %></th>
+            <td><%= l(@task.task_limit, format: :long, default: '-') %></td>
+          </tr>
+          <tr>
+            <th><%= t('tasks.task_state') %></th>
+            <td><%= Task.human_attribute_name("aasm_state.#{@task.aasm_state}") %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <div class="d-flex justify-content-around">
     <%= button_to t('.back_to_tasks'), tasks_path, method: :get, class: 'btn btn-primary' %>
-    <%= button_to t('tasks.edit_text'), edit_task_path(@task), method: :get, class: 'btn btn-warning' %>
-    <%= button_to t('tasks.delete'), task_path(@task), method: :delete, class: 'btn btn-danger' %>
+    <%= button_to t('button.edit'), edit_task_path(@task), method: :get, class: 'btn btn-warning' %>
+    <%= button_to t('button.delete'), task_path(@task), method: :delete, class: 'btn btn-danger' %>
   </div>
 </div>

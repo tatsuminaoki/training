@@ -1,38 +1,44 @@
 ja:
+  # common
+  action: 操作
+  button:
+    detail: 詳細
+    edit: 編集
+    update: 更新
+    delete: 削除
+    add: 追加
+    cancel: 取り消し
+  # error messages
   please_login: 先にログインしてください。
   something_is_wrong: 問題が発生しました。
+
+  # models
   tasks:
     task_user: 所有ユーザー名
     task_name: タスク名
     task_detail: 詳細
     task_limit: 終了期限
     task_state: ステータス
-    edit_text: 編集
-    delete: 削除
-    cancel: 取り消し
     task_not_found: アクセスしようとしているタスクはこのユーザーのタスクではありません!
     task_is_not_saved: タスクが保存されていません。
     task_is_not_updated: タスクが更新されていません。
     task_is_not_destroyed: タスクが削除されていません。
+    # controllers
     index:
       task_list: タスク一覧
       task_count: タスク数
       no_task: タスクはありません。
       add_task: タスク追加
-      action: 操作
-      detail: 詳細
       search: 検索
     show:
       task_detail: タスク詳細
       back_to_tasks: ←タスク一覧へ
     new:
       adding_task: タスク追加
-      add: 追加
     create:
       task_saved: タスクが保存されました。
     edit:
       updating_task: タスク編集
-      update: 更新
     update:
       task_updated: タスクが更新されました。
     destroy:
@@ -49,12 +55,48 @@ ja:
     destroy:
       logged_out: ログアウトしました！
 
+  # admin/
+  admin:
+    # models
+    users:
+      login_id: ログインID
+      password: パスワード
+      display_name: 表示名
+      task_count: タスク数
+      user_not_found: アクセスしようとしているユーザーはありません!
+      # controllers
+      index:
+        user_list: ユーザー一覧
+        user_count: ユーザー数
+        add_user: ユーザー追加
+      new:
+        adding_user: ユーザー追加
+      create:
+        user_saved: ユーザーが保存されました。
+        user_is_not_saved: ユーザーが保存されていません。
+      show:
+        user_detail: ユーザー詳細
+        back_to_users: ←ユーザー一覧へ
+      edit:
+        updating_user: ユーザー編集
+      update:
+        user_updated: ユーザーが更新されました。
+        user_is_not_updated: ユーザーが更新されていません。
+      destroy:
+        user_deleted: ユーザーが削除されました。
+        user_is_not_deleted: ユーザーが削除されていません。
+
+  # activerecord aasm related
   activerecord:
     attributes:
+      user:
+        login_id: ログインID
+        password: パスワード
       task/aasm_state:
         not_yet: 未着手
         on_going: 着手中
         done: 完了
+  # pagination related
   views:
     pagination:
       first: "&laquo; 最初"

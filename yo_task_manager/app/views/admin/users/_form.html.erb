@@ -1,0 +1,38 @@
+<table class="table table-dark">
+  <%= form_with model: [:admin, @user], local: true do |f| %>
+    <tbody>
+      <tr>
+        <th scope="col">
+          <%= f.label t('admin.users.login_id') %>
+        </th>
+        <td>
+          <%= f.text_field :login_id %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">
+          <%= f.label t('admin.users.password') %>
+        </th>
+        <td>
+          <%= f.text_field :password %>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col">
+          <%= f.label t('admin.users.display_name') %>
+        </th>
+        <td>
+          <%= f.text_field :display_name %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div class="d-flex justify-content-around">
+            <%= f.submit button_name, class: 'btn btn-primary' %>
+            <%= link_to t('button.cancel'), admin_users_path, class: 'btn btn-light' %>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

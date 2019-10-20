@@ -1,38 +1,44 @@
 en:
+  # common
+  action: Action
+  button:
+    detail: Detail
+    edit: Edit
+    update: Update
+    delete: Delete
+    add: Add
+    cancel: Cancel
+  # error messages
   please_login: Please Login first before proceed.
   something_is_wrong: Something wrong is happened.
+
+  #models
   tasks:
     task_user: Task's User
     task_name: Task Name
     task_detail: Task Detail
     task_limit: Task Limit
     task_state: Task Status
-    edit_text: Edit
-    delete: Delete
-    cancel: Cancel
     task_not_found: The task is not owned by this user!
     task_is_not_saved: The task is not saved.
     task_is_not_updated: The task is not updated.
     task_is_not_destroyed: The task is not destroyed.
+    # controllers
     index:
       task_list: Task list
       task_count: Task count
       no_task: There is no task.
       add_task: Add Task
-      action: Action
-      detail: Detail
       search: Search
     show:
       task_detail: Task Detail
       back_to_tasks: ←Back to Task list
     new:
       adding_task: Adding Task
-      add: Add
     create:
       task_saved: Task is saved.
     edit:
       updating_task: Updating Task
-      update: Update
     update:
       task_updated: Task is updated.
     destroy:
@@ -49,9 +55,45 @@ en:
     destroy:
       logged_out: Logged out successfully!
 
+  # admin/
+  admin:
+    # models
+    users:
+      login_id: Login ID
+      password: Password
+      display_name: Display Name
+      task_count: Task count
+      user_not_found: The user is not exist!
+      # controllers
+      index:
+        user_list: User List
+        user_count: User count
+        add_user: Add User
+      new:
+        adding_user: Adding User
+      create:
+        user_saved: User is saved.
+        user_is_not_saved: User is not saved.
+      show:
+        user_detail: User Detail
+        back_to_users: ←Back to User list
+      edit:
+        updating_user: Updating User
+      update:
+        user_updated: User is updated.
+        user_is_not_updated: User is not updated.
+      destroy:
+        user_deleted: User is deleted.
+        user_is_not_deleted: User is not deleted.
+
+  # activerecord aasm related
   activerecord:
     attributes:
+      user:
+        login_id: Login ID
+        password: Password
       task:
         aasm_state/not_yet: not yet started
         aasm_state/on_going: on going
         aasm_state/done: done
+  # pagination related(not needed)

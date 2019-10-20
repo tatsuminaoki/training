@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-12">
       <h1><%= t('.updating_task') %></h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm">
+    <div class="col-12">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg.join('<br>').html_safe, class: "alert-#{name}" %>
       <% end %>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm">
-      <%= render partial: "form", locals: { task: @task, button_name: t('.update') } %>
+    <div class="col-12">
+      <%= render partial: 'form', locals: { task: @task, button_name: t('button.update') } %>
     </div>
   </div>
 </div>

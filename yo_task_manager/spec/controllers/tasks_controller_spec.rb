@@ -13,7 +13,7 @@ RSpec.describe TasksController, type: :controller do
     it 'has 200 status code' do
       expect(response).to have_http_status(:ok)
     end
-    it 'assigns @task' do
+    it 'assigns @tasks' do
       expect(assigns(:tasks)).to match_array [task]
     end
     it 'renders index template' do

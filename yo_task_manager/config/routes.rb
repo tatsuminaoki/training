@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     get 'login', to: 'sessions#new', as: 'login'
     get 'sessions', to: 'sessions#new'
     get 'logout', to: 'sessions#destroy', as: 'logout'
+
+    namespace :admin do
+      root to: 'users#index'
+      resources :users
+    end
   end
 
   get '/404', to: 'errors#not_found'
