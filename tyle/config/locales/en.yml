@@ -30,4 +30,21 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  button:
+    index: Home
+    detail: Detail
+    edit: Edit
+    update: Update
+    delete: Delete
+    add: Add
+  activerecord:
+    models:
+      task: Task
+    attributes:
+      task:
+        name: Name
+        description: Description
+        user_id: UserID
+        priority: Priority
+        status: Status
+        due: Due

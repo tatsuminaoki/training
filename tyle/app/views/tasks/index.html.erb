@@ -8,8 +8,8 @@
 
 <div>
   <h1>TYLE</h1>
-  <%= link_to "HOME", tasks_path, method: :get %>
-  <%= link_to "NEW", new_task_path, method: :get %>
+  <%= link_to t('button.index'), tasks_path, method: :get %>
+  <%= link_to t('button.add'), new_task_path, method: :get %>
 </div>
 
 <hr>
@@ -17,11 +17,11 @@
 <div>
   <table>
     <tr>
-      <th>name</th>
-      <th>priority</th>
-      <th>status</th>
-      <th>due</th>
-      <th>detail</th>
+      <th><%= t('activerecord.attributes.task.name') %></th>
+      <th><%= t('activerecord.attributes.task.priority') %></th>
+      <th><%= t('activerecord.attributes.task.status') %></th>
+      <th><%= t('activerecord.attributes.task.due') %></th>
+      <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>
     <tr>
@@ -29,7 +29,7 @@
       <td><%= task.priority %></td>
       <td><%= task.status %></td>
       <td><%= task.due %></td>
-      <td><%= link_to "DETAIL", task_path(task.id), method: :get %></td>
+      <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id), method: :get %></td>
     </tr>
     <% end %>
   </table>
