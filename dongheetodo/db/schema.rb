@@ -12,15 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2019_10_10_014616) do
 
-  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "color"
-    t.index ["name"], name: "index_labels_on_name", unique: true
+    t.index ["name"], name: "index_labels_on_name", unique: true, length: 3
   end
 
-  create_table "task_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "task_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "task_id", null: false
     t.bigint "label_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_014616) do
     t.index ["task_id"], name: "index_task_labels_on_task_id"
   end
 
-  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "description", comment: "タスク内容"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_014616) do
     t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "password_digest", null: false
     t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
