@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let(:user) { User.create!(id: 1, name: 'test_user', email: 'test@rakuten.com', encrypted_password: '', role: 0) }
+  let(:user) { create(:user) }
 
   context 'When there is no validation error.' do
     it 'can create a task' do
@@ -16,7 +16,7 @@ RSpec.describe Task, type: :model do
 
     it 'title should be less than 255.' do
       task = Task.new(
-        title: 'T' * 255,
+        title: 'T' * Task::TITLE_MAX_LENGTH,
         user_id: user.id,
         status: 0,
         priority: 0
@@ -27,7 +27,7 @@ RSpec.describe Task, type: :model do
     it 'description should be less than 512.' do
       task = Task.new(
         title: 'TEST',
-        description: 'T' * 512,
+        description: 'T' * Task::DESCRIPTION_MAX_LENGTH,
         user_id: user.id,
         status: 0,
         priority: 0
@@ -69,7 +69,7 @@ RSpec.describe Task, type: :model do
 
     it 'title should be less than 255.' do
       task = Task.new(
-        title: 'T' * 256,
+        title: 'T' * (Task::TITLE_MAX_LENGTH + 1),
         user_id: user.id,
         status: 0,
         priority: 0
@@ -81,7 +81,7 @@ RSpec.describe Task, type: :model do
     it 'description should be less than 512.' do
       task = Task.new(
         title: 'TEST',
-        description: 'T' * 513,
+        description: 'T' * (Task::DESCRIPTION_MAX_LENGTH + 1),
         user_id: user.id,
         status: 0,
         priority: 0

@@ -4,10 +4,10 @@ class Task < ApplicationRecord
 
   validates :title,
     presence: true,
-    length: { maximum: 255 }
+    length: { maximum: TITLE_MAX_LENGTH = 255 }
 
   validates :description,
-    length: { maximum: 512 }
+    length: { maximum: DESCRIPTION_MAX_LENGTH = 512 }
 
   validates :priority,
     presence: true
