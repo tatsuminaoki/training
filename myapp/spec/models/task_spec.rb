@@ -14,7 +14,7 @@ RSpec.describe Task, type: :model do
       expect(task).to be_valid
     end
 
-    it 'title should be less than 255.' do
+    it 'title should be less than max length.' do
       task = Task.new(
         title: 'T' * Task::TITLE_MAX_LENGTH,
         user_id: user.id,
@@ -24,7 +24,7 @@ RSpec.describe Task, type: :model do
       expect(task).to be_valid
     end
 
-    it 'description should be less than 512.' do
+    it 'description should be less than max length.' do
       task = Task.new(
         title: 'TEST',
         description: 'T' * Task::DESCRIPTION_MAX_LENGTH,
@@ -67,7 +67,7 @@ RSpec.describe Task, type: :model do
       expect(task.errors[:status]).to be_present
     end
 
-    it 'title should be less than 255.' do
+    it 'title should cannot be more than max length.' do
       task = Task.new(
         title: 'T' * (Task::TITLE_MAX_LENGTH + 1),
         user_id: user.id,
@@ -78,7 +78,7 @@ RSpec.describe Task, type: :model do
       expect(task.errors[:title]).to be_present
     end
 
-    it 'description should be less than 512.' do
+    it 'description cannot be more than max length.' do
       task = Task.new(
         title: 'TEST',
         description: 'T' * (Task::DESCRIPTION_MAX_LENGTH + 1),
