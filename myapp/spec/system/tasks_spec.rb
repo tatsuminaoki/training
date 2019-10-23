@@ -4,9 +4,9 @@ RSpec.describe "Tasks", type: :system do
   before do
     driven_by(:rack_test)
     @user = create(:user)
-    @task1 = create(:task1)
-    @task2 = create(:task2)
-    @task3 = create(:task3)
+    @task1 = create(:task, created_at: DateTime.now)
+    @task2 = create(:task, created_at: DateTime.now - 1)
+    @task3 = create(:task, created_at: DateTime.now - 2)
   end
 
   context 'When a user opens task list' do
@@ -27,9 +27,9 @@ RSpec.describe "Tasks", type: :system do
       visit tasks_path
 
       title = page.all('.title')
-      expect(title[0].text).to eq @task3.title
+      expect(title[0].text).to eq @task1.title
       expect(title[1].text).to eq @task2.title
-      expect(title[2].text).to eq @task1.title
+      expect(title[2].text).to eq @task3.title
     end
   end
 
