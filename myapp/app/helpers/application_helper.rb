@@ -8,4 +8,13 @@ module ApplicationHelper
       page_title + '|' + base_title
     end
   end
+
+  # Return if the direction of the column is selected or not.
+  def is_sorted(column, direction)
+    if column == sort_column && direction == sort_direction
+      'on'
+    else
+      'off'
+    end
+  end
 end

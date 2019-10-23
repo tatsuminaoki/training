@@ -6,11 +6,32 @@
   <thead>
     <tr>
       <th>#</th>
-      <th><%= t('header.title') %></th>
-      <th><%= t('header.priority') %></th>
+      <th class="sorting_asc:after"><%= t('header.title') %></th>
+      <th><%= t('header.priority') %>
+        <%= link_to ({sort: 'priority', direction: 'desc'}), class: is_sorted('priority', 'desc') do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'priority', direction: 'asc'}), class: is_sorted('priority', 'asc') do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
       <th><%= t('header.status') %></th>
-      <th><%= t('header.due_date') %></th>
-      <th><%= t('header.created_at') %></th>
+      <th><%= t('header.due_date') %>
+        <%= link_to ({sort: 'due_date', direction: 'desc'}), class: is_sorted('due_date', 'desc') do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'due_date', direction: 'asc'}), class: is_sorted('due_date', 'asc') do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
+      <th><%= t('header.created_at') %>
+        <%= link_to ({sort: 'created_at', direction: 'desc'}), class: is_sorted('created_at', 'desc') do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'created_at', direction: 'asc'}), class: is_sorted('created_at', 'asc') do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
       <th></th>
       <th></th>
       <th></th>
