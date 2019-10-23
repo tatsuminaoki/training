@@ -10,5 +10,5 @@ services:
     environment:
       MYSQL_USER: my_user
     ports:
-      - 3306:3306
+      - 3307:3306
     tty: true
