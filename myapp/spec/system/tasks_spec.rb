@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.describe "Tasks", type: :system do
   before do
     driven_by(:rack_test)
-    # @TODO step16でユーザ導入したらidは指定しないようにする
-    @user = User.create!(id: 1, name: 'test_user', email: 'test@rakuten.com', encrypted_password: '', role: 0)
-    @task1 = Task.create!(title: 'Test Task 1', description: 'This is a test task.', user_id: @user.id, priority: 0, status: 0, due_date: '2019-10-20')
-    @task2 = Task.create!(title: 'Test Task 2', description: '', user_id: @user.id, priority: 0, status: 0)
-    @task3 = Task.create!(title: 'Test Task 3', description: '', user_id: @user.id, priority: 0, status: 0)
+    @user = create(:user)
+    @task1 = create(:task1)
+    @task2 = create(:task2)
+    @task3 = create(:task3)
   end
 
   context 'When a user opens task list' do
