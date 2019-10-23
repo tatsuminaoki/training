@@ -75,27 +75,27 @@ RSpec.describe "Tasks", type: :system do
     it 'Fail to create a task because of validation error because of length of title' do
       visit new_task_path
 
-      fill_in 'task[title]', with: 'T' * 256
+      fill_in 'task[title]', with: 'T' * (Task::TITLE_MAX_LENGTH + 1)
       fill_in 'task[description]', with: 'Please create the automation test for this task.'
       select 'Middle', from: I18n.t('header.priority')
       select 'Open', from: I18n.t('header.status')
       click_on 'commit'
 
       expect(page).to have_content I18n.t('flash.create.fail')
-      expect(page).to have_content I18n.t('errors.messages.too_long', count: 255)
+      expect(page).to have_content I18n.t('errors.messages.too_long', count: Task::TITLE_MAX_LENGTH)
     end
 
     it 'Fail to create a task because of validation error because of length of description' do
       visit new_task_path
 
       fill_in 'task[title]', with: 'Automation Test Task'
-      fill_in 'task[description]', with: 'T' * 513
+      fill_in 'task[description]', with: 'T' * (Task::DESCRIPTION_MAX_LENGTH + 1)
       select 'Middle', from: I18n.t('header.priority')
       select 'Open', from: I18n.t('header.status')
       click_on 'commit'
 
       expect(page).to have_content I18n.t('flash.create.fail')
-      expect(page).to have_content I18n.t('errors.messages.too_long', count: 512)
+      expect(page).to have_content I18n.t('errors.messages.too_long', count: Task::DESCRIPTION_MAX_LENGTH)
     end
   end
 
