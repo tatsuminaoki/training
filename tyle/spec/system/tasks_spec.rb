@@ -13,7 +13,7 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'waiting'
     expect(page).to have_content 'task2'
     expect(page).to have_content 'medium'
-    expect(page).to have_content 'in progress'
+    expect(page).to have_content 'in_progress'
     expect(page).to have_content 'task3'
     expect(page).to have_content 'high'
     expect(page).to have_content 'done'
@@ -28,14 +28,14 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'task_description', with: 'this is a task1'
     fill_in 'task_user_id', with: @user.id
     select 'medium', from: 'task_priority'
-    select 'in progress', from: 'task_status'
+    select 'in_progress', from: 'task_status'
     click_button 'Create Task'
 
     expect(page).to have_content 'Task was successfully created!'
     expect(page).to have_content 'task1'
     expect(page).to have_content 'this is a task1'
     expect(page).to have_content 'medium'
-    expect(page).to have_content 'in progress'
+    expect(page).to have_content 'in_progress'
   end
 
   it 'testing of tasks/show' do
@@ -46,7 +46,7 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'task1'
     expect(page).to have_content 'this is a task1'
     expect(page).to have_content 'medium'
-    expect(page).to have_content 'in progress'
+    expect(page).to have_content 'in_progress'
   end
 
   it 'testing of tasks/edit' do
@@ -57,7 +57,7 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_field 'task_name', with: 'task1'
     expect(page).to have_field 'task_description', with: 'this is a task1'
     expect(page).to have_field 'task_priority', with: 'medium'
-    expect(page).to have_field 'task_status', with: 'in progress'
+    expect(page).to have_field 'task_status', with: 'in_progress'
     fill_in 'task_name', with: 'task2'
     fill_in 'task_description', with: 'this is a task2'
     fill_in 'task_user_id', with: @user.id
