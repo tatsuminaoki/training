@@ -1,0 +1,37 @@
+<div>
+  <%= form_for(@task) do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+   
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+   
+    <p>
+      <%= form.label :user_id %><br>
+      <%= form.text_field :user_id %>
+    </p>
+   
+    <p>
+      <%= form.label :priority %><br>
+      <%= form.select :priority, Task.priorities.keys.to_a, {} %>
+    </p>
+   
+    <p>
+      <%= form.label :status %><br>
+      <%= form.select :status, Task.statuses.keys.to_a, {} %>
+    </p>
+   
+    <p>
+      <%= form.label :due %><br>
+      <%= form.text_field :due %>
+    </p>
+   
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+</div>
