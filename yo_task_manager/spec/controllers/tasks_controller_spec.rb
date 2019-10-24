@@ -9,15 +9,14 @@ RSpec.describe TasksController, type: :controller do
     login(user)
   end
   context '#index' do
-    before { get :index, params: { locale: 'ja' } }
-    it 'has 200 status code' do
-      expect(response).to have_http_status(:ok)
+    subject { get :index, params: { locale: 'ja' } }
+    it 'has 200 status code and renders index template' do
+      expect(subject).to have_http_status(:ok)
+      expect(subject).to render_template('index')
     end
     it 'assigns @tasks' do
-      expect(assigns(:tasks)).to match_array [task]
-    end
-    it 'renders index template' do
-      expect(response).to render_template('index')
+      get :index, params: { locale: 'ja' }
+      expect(assigns(:tasks)).to contain_exactly(task)
     end
   end
 
