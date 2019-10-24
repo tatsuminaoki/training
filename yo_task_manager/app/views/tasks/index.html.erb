@@ -83,9 +83,7 @@
                 <td class="task-limit"><%= l(t.task_limit, format: :long, default: '-') %></td>
                 <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
                 <td>
-                  <% t.labels&.each do |l| %>
-                    <%= label_tag l.name, nil, class: 'badge badge-pill badge-primary' %>
-                  <% end %>
+                  <%= render partial: 'labels/label', collection: t.labels %>
                 </td>
                 <td>
                   <%= button_to t('button.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>

@@ -32,11 +32,10 @@ class LabelsController < ApplicationController
   def update
     if @label.update(label_params)
       flash[:success] = [t('.label_updated')]
-      redirect_to labels_path
-    else
-      flash.now[:danger] = [(t('something_is_wrong') + t('labels.label_is_not_updated')).to_s, @label.errors.full_messages].flatten
-      render :edit
+      return redirect_to labels_path
     end
+    flash.now[:danger] = [(t('something_is_wrong') + t('labels.label_is_not_updated')).to_s, @label.errors.full_messages].flatten
+    render :edit
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -53,9 +52,10 @@ class LabelsController < ApplicationController
 
   def set_label
     @label = Label.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = [t('labels.label_not_found')]
-    redirect_to labels_path
+    unless @label
+      flash[:danger] = [t('labels.label_not_found')]
+      redirect_to labels_path
+    end
   end
 
   def label_params

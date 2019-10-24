@@ -38,9 +38,7 @@
           <tr>
             <th><%= t('tasks.task_label') %></th>
             <td>
-              <% @task.labels&.each do |l| %>
-                <%= label_tag l.name, nil, class: 'badge badge-pill badge-primary' %>
-              <% end %>
+              <%= render partial: 'labels/label', collection: @task.labels %>
             </td>
           </tr>
         </tbody>
