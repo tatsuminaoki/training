@@ -5,8 +5,8 @@ RSpec.describe "Tasks", type: :system do
     driven_by(:rack_test)
     @user = create(:user)
     @task1 = create(:task, created_at: DateTime.now)
-    @task2 = create(:task, created_at: DateTime.now - 1)
-    @task3 = create(:task, created_at: DateTime.now - 2)
+    @task2 = create(:task, priority: 1, due_date: DateTime.now + 1, created_at: DateTime.now - 1)
+    @task3 = create(:task, priority: 2, due_date: DateTime.now + 2, created_at: DateTime.now - 2)
   end
 
   context 'When a user opens task list' do
@@ -30,6 +30,66 @@ RSpec.describe "Tasks", type: :system do
       expect(title[0].text).to eq @task1.title
       expect(title[1].text).to eq @task2.title
       expect(title[2].text).to eq @task3.title
+    end
+
+    it 'Success to sort by due date with descending order' do
+      visit tasks_path
+      click_link 'due_date_desc'
+
+      due_date = page.all('.due_date')
+      expect(due_date[0].text).to eq @task3.due_date.strftime("%Y-%m-%d")
+      expect(due_date[1].text).to eq @task2.due_date.strftime("%Y-%m-%d")
+      expect(due_date[2].text).to eq @task1.due_date.strftime("%Y-%m-%d")
+    end
+
+    it 'Success to sort by due date with ascending order' do
+      visit tasks_path
+      click_link 'due_date_asc'
+
+      due_date = page.all('.due_date')
+      expect(due_date[0].text).to eq @task1.due_date.strftime("%Y-%m-%d")
+      expect(due_date[1].text).to eq @task2.due_date.strftime("%Y-%m-%d")
+      expect(due_date[2].text).to eq @task3.due_date.strftime("%Y-%m-%d")
+    end
+
+    it 'Success to sort by created_at with descending order' do
+      visit tasks_path
+      click_link 'created_at_desc'
+
+      created_at = page.all('.created_at')
+      expect(created_at[0].text).to eq @task1.created_at.strftime("%Y-%m-%d %H:%M")
+      expect(created_at[1].text).to eq @task2.created_at.strftime("%Y-%m-%d %H:%M")
+      expect(created_at[2].text).to eq @task3.created_at.strftime("%Y-%m-%d %H:%M")
+    end
+
+    it 'Success to sort by created_at with ascending order' do
+      visit tasks_path
+      click_link 'created_at_asc'
+
+      created_at = page.all('.created_at')
+      expect(created_at[0].text).to eq @task3.created_at.strftime("%Y-%m-%d %H:%M")
+      expect(created_at[1].text).to eq @task2.created_at.strftime("%Y-%m-%d %H:%M")
+      expect(created_at[2].text).to eq @task1.created_at.strftime("%Y-%m-%d %H:%M")
+    end
+
+    it 'Success to sort by priority with descending order' do
+      visit tasks_path
+      click_link 'priority_desc'
+
+      priority = page.all('.priority')
+      expect(priority[0].text).to eq @task3.priority
+      expect(priority[1].text).to eq @task2.priority
+      expect(priority[2].text).to eq @task1.priority
+    end
+
+    it 'Success to sort by priority with ascending order' do
+      visit tasks_path
+      click_link 'priority_asc'
+
+      priority = page.all('.priority')
+      expect(priority[0].text).to eq @task1.priority
+      expect(priority[1].text).to eq @task2.priority
+      expect(priority[2].text).to eq @task3.priority
     end
   end
 

@@ -9,6 +9,6 @@ FactoryBot.define do
     user_id { 1 }
     priority { 0 }
     status { 0 }
-    due_date { '2019-10-20' }
+    due_date { DateTime.now }
   end
 end
