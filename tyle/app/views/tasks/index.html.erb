@@ -18,13 +18,13 @@
       <th>detail</th>
     </tr>
     <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.name %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.status %></td>
-      <td><%= task.due %></td>
-      <td><%= link_to "DETAIL", task_path(task) %></td>
-    </tr>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due %></td>
+        <td><%= link_to "DETAIL", task_path(task) %></td>
+      </tr>
     <% end %>
   </table>
 </div>
