@@ -26,9 +26,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    # temporary
-    @task.user = User.find_by(id: 1)
-
     if @task.update(task_params)
       redirect_to @task, notice: 'Task was successfully updated!'
     else
