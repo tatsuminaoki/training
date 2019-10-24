@@ -10,10 +10,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-
-    # temporary
-    @task.user = User.find_by(id: 1)
+    @task = User.find_by(id: 1).tasks.new(task_params)
 
     if @task.save
       redirect_to @task, notice: 'Task was successfully created!'
