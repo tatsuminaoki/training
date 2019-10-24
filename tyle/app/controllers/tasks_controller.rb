@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = User.find_by(id: 1).tasks.new(task_params)
 
     if @task.save
       redirect_to @task, notice: 'Task was successfully created!'
@@ -28,6 +28,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    # temporary
+    @task.user = User.find_by(id: 1)
+
     if @task.update(task_params)
       redirect_to @task, notice: 'Task was successfully updated!'
     else
@@ -36,8 +39,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to tasks_url, notice: 'Task was successfully destroyed!'
+    if @task.destroy
+      redirect_to tasks_url, notice: 'Task was successfully destroyed!'
+    else
+      render :index
+    end
   end
 
   private
@@ -47,6 +53,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :user_id, :priority, :status, :due)
+    params.require(:task).permit(:name, :description, :priority, :status, :due)
   end
 end
