@@ -1,7 +1,5 @@
 class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
-  
-  # skip_before_action :verify_authenticity_token
 
   def index
     @tasks = Task.all
@@ -36,8 +34,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
+    if @task.destroy
       redirect_to tasks_url, notice: 'Task was successfully destroyed!'
+    else
+      render :index
+    end
   end
 
   private
