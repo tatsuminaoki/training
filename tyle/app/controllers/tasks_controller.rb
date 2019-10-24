@@ -2,8 +2,6 @@
 
 class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
-  
-  # skip_before_action :verify_authenticity_token
 
   def index
     @tasks = Task.all
@@ -39,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-      redirect_to tasks_url, notice: 'Task was successfully destroyed!'
+    redirect_to tasks_url, notice: 'Task was successfully destroyed!'
   end
 
   private
@@ -51,5 +49,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:name, :description, :user_id, :priority, :status, :due)
   end
-
 end
