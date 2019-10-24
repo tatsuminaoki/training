@@ -12,6 +12,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
+    # temporary
+    @task.user = User.find_by(id: 1)
+
     if @task.save
       redirect_to @task, notice: 'Task was successfully created!'
     else
@@ -26,6 +29,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    # temporary
+    @task.user = User.find_by(id: 1)
+
     if @task.update(task_params)
       redirect_to @task, notice: 'Task was successfully updated!'
     else
@@ -48,6 +54,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :user_id, :priority, :status, :due)
+    params.require(:task).permit(:name, :description, :priority, :status, :due)
   end
 end

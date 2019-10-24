@@ -9,12 +9,7 @@
       <%= form.label :description %><br>
       <%= form.text_area :description %>
     </p>
-   
-    <p>
-      <%= form.label :user_id %><br>
-      <%= form.text_field :user_id %>
-    </p>
-   
+
     <p>
       <%= form.label :priority %><br>
       <%= form.select :priority, Task.priorities.keys.to_a, {} %>
