@@ -1,0 +1,30 @@
+<%= render 'flash' %>
+
+<div>
+  <h1>TYLE</h1>
+  <%= link_to "HOME", tasks_path %>
+  <%= link_to "NEW", new_task_path %>
+</div>
+
+<hr>
+
+<div>
+  <table>
+    <tr>
+      <th>name</th>
+      <th>priority</th>
+      <th>status</th>
+      <th>due</th>
+      <th>detail</th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due %></td>
+        <td><%= link_to "DETAIL", task_path(task) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

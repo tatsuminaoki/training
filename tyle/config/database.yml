@@ -15,8 +15,10 @@ development:
   database: tyle_development
   pool: 5
   username: root
-  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  password: my_root_password 
+  # password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
   host: 127.0.0.1
+  port: 3307
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -30,6 +32,7 @@ test:
   username: root
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
   host: 127.0.0.1
+  port: 3307
 
 production:
   adapter: mysql2
@@ -40,3 +43,4 @@ production:
   username: root
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
   host: 127.0.0.1
+  port: 3307
