@@ -60,10 +60,10 @@ class TasksController < ApplicationController
 
   def set_task
     @task = @user.tasks.find_by(id: params[:id])
-    unless @task
-      flash[:danger] = [t('tasks.task_not_found')]
-      redirect_to tasks_path
-    end
+    return if @task
+
+    flash[:danger] = [t('tasks.task_not_found')]
+    redirect_to tasks_path
   end
 
   def set_user

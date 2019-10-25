@@ -52,10 +52,10 @@ class LabelsController < ApplicationController
 
   def set_label
     @label = Label.find_by(id: params[:id])
-    unless @label
-      flash[:danger] = [t('labels.label_not_found')]
-      redirect_to labels_path
-    end
+    return if @label
+
+    flash[:danger] = [t('labels.label_not_found')]
+    redirect_to labels_path
   end
 
   def label_params
