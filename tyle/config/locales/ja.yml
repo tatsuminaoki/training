@@ -34,6 +34,7 @@ ja:
     created: タスクが追加されました！
     updated: タスクが更新されました！
     destroyed: タスクが削除されました！
+    destroying: 本当にタスクを削除してもいいですか？
   button:
     index: ホーム
     detail: 詳細
