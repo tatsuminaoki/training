@@ -59,10 +59,11 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = @user.tasks.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = [t('tasks.task_not_found')]
-    redirect_to tasks_path
+    @task = @user.tasks.find_by(id: params[:id])
+    unless @task
+      flash[:danger] = [t('tasks.task_not_found')]
+      redirect_to tasks_path
+    end
   end
 
   def set_user

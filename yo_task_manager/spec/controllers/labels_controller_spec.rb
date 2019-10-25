@@ -38,11 +38,22 @@ RSpec.describe LabelsController, type: :controller do
   end
 
   context '#edit' do
-    it 'renders edit template' do
-      get :edit, params: { id: label, locale: 'ja' }
-      expect(response).to render_template('edit')
-      expect(response).to have_http_status(:ok)
-      expect(assigns(:label)).to eq label
+    context 'with existing label' do
+      it 'should have status 200 and renders edit template' do
+        get :edit, params: { id: label, locale: 'ja' }
+        expect(response).to render_template('edit')
+        expect(response).to have_http_status(:ok)
+        expect(assigns(:label)).to eq label
+      end
+    end
+
+    context 'without existing label' do
+      it 'should redirect to labels_path and display warning msg' do
+        get :edit, params: { id: '99999999999', locale: 'ja' }
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(labels_path)
+        expect(flash[:danger]).to match [I18n.t('labels.label_not_found')]
+      end
     end
   end
 
