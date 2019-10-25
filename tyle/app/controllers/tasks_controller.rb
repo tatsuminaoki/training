@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.find_by_sql('select * from tasks order by created_at desc')
   end
 
   def new

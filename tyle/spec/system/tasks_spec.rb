@@ -68,4 +68,13 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'high'
     expect(page).to have_content 'done'
   end
+
+  it 'testing of tasks ordered by created_at with descending order at tasks/' do
+    Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, created_at: 2.day.ago)
+    Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, created_at: 1.day.ago)
+    Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, created_at: Time.zone.now)
+
+    visit tasks_path
+    expect(page.all('.task-name').map(&:text)).to eq ['task3', 'task2', 'task1']
+  end
 end
