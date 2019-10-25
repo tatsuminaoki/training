@@ -34,6 +34,17 @@
         </td>
       </tr>
       <tr>
+        <th scope="col">
+          <%= f.label t('tasks.task_label') %>
+        </th>
+        <td>
+          <%= f.collection_check_boxes(:label_ids, Label.all, :id, :name) do |l| %>
+            <%= l.label { l.check_box(class: 'check_box') } %>
+            <%= l.label(class: 'badge badge-pill badge-primary mr-3') { l.object.name } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
         <td colspan="2">
           <div class="d-flex justify-content-around">
             <%= f.submit button_name, class: 'btn btn-primary' %>

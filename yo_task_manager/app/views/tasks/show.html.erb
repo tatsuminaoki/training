@@ -35,6 +35,12 @@
             <th><%= t('tasks.task_state') %></th>
             <td><%= Task.human_attribute_name("aasm_state.#{@task.aasm_state}") %></td>
           </tr>
+          <tr>
+            <th><%= t('tasks.task_label') %></th>
+            <td>
+              <%= render partial: 'labels/label', collection: @task.labels %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

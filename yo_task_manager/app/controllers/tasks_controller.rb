@@ -7,7 +7,7 @@ class TasksController < ApplicationController
 
   def index
     @q = @user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true).page(params[:page])
+    @tasks = @q.result(distinct: true).includes(:labels).page(params[:page])
   end
 
   def new
@@ -55,12 +55,13 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :body, :task_limit, :aasm_state)
+    params.require(:task).permit(:title, :body, :task_limit, :aasm_state, { label_ids: [] })
   end
 
   def set_task
-    @task = @user.tasks.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
+    @task = @user.tasks.find_by(id: params[:id])
+    return if @task
+
     flash[:danger] = [t('tasks.task_not_found')]
     redirect_to tasks_path
   end

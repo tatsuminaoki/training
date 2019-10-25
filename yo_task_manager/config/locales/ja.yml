@@ -14,12 +14,32 @@ ja:
   not_admin: アドミンではないので、アクセスできません。
 
   # models
+  labels:
+    label_name: ラベル名
+    label_not_found: アクセスしようとしているラベルは存在してません！
+    label_is_not_saved: ラベルが保存されていません。
+    label_is_not_updated: ラベルが更新されていません。
+    label_is_not_destroyed: ラベルが削除されていません。
+    index:
+      label_list: ラベル一覧
+      add_label: ラベル追加
+    new:
+      adding_label: ラベル追加
+    create:
+      label_saved: ラベルが保存されました。
+    edit:
+      updating_label: ラベル編集
+    update:
+      label_updated: ラベルが更新されました。
+    destroy:
+      label_deleted: ラベルが削除されました。
   tasks:
     task_user: 所有ユーザー名
     task_name: タスク名
     task_detail: 詳細
     task_limit: 終了期限
     task_state: ステータス
+    task_label: タスクラベル
     task_not_found: アクセスしようとしているタスクはこのユーザーのタスクではありません!
     task_is_not_saved: タスクが保存されていません。
     task_is_not_updated: タスクが更新されていません。

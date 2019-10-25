@@ -8,6 +8,9 @@
       <li class="nav-item">
         <%= link_to t('tasks.index.task_list'), tasks_path, class: "nav-link #{is_current_path(tasks_path)}" %>
       </li>
+      <li class="nav-item">
+        <%= link_to t('labels.index.label_list'), labels_path, class: "nav-link #{active_path?(labels_path)}" %>
+      </li>
       <% if current_user&.admin? %>
         <li clas="nav-item">
           <%= link_to t('admin.users.index.user_list'), admin_users_path, class: "nav-link #{is_current_path(admin_users_path)}" %>

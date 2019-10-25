@@ -1,15 +1,26 @@
 <div class="container-fluid">
   <div class="row search-form mt-1">
-    <div class="col-9">
+    <div class="col-12">
       <%= search_form_for @q do |f| %>
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 col-lg-4">
             <%= f.label t('tasks.task_name') %>:
             <%= f.search_field :title_cont, class: 'form-control' %>
           </div>
-          <div class="col-6">
+          <div class="col-6 col-lg-4">
             <%= f.label t('tasks.task_state') %>:
             <%= f.select :aasm_state_eq, aasm_states_option, {}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= f.label t('tasks.task_label') %>:
+            <div>
+              <%= f.collection_check_boxes(:labels_id_in, Label.all, :id, :name) do |l| %>
+                <%= l.label { l.check_box(class: 'check_box') } %>
+                <%= l.label(class: 'badge badge-pill badge-primary mr-3') { l.object.name } %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="row justify-content-between mt-3">
@@ -19,7 +30,9 @@
         </div>
       <% end %>
     </div>
-    <div class="col-3 align-self-end d-flex justify-content-end">
+  </div>
+  <div class="row">
+    <div class="col-12 align-self-end d-flex justify-content-end">
       <%= button_to t('.add_task'), new_task_path, method: :get, class: 'btn btn-primary' %>
     </div>
   </div>
@@ -56,6 +69,7 @@
               <th><%= sort_link(@q, :body, t('tasks.task_detail')) %></th>
               <th><%= sort_link(@q, :task_limit, t('tasks.task_limit')) %></th>
               <th><%= sort_link(@q, :aasm_state, t('tasks.task_state')) %></th>
+              <th><%= sort_link(@q, :label, t('tasks.task_label')) %></th>
               <th><%= t('action') %></th>
             </tr>
           </thead>
@@ -68,6 +82,9 @@
                 <td><%= t.body %></td>
                 <td class="task-limit"><%= l(t.task_limit, format: :long, default: '-') %></td>
                 <td><%= Task.human_attribute_name("aasm_state.#{t.aasm_state}") %></td>
+                <td>
+                  <%= render partial: 'labels/label', collection: t.labels %>
+                </td>
                 <td>
                   <%= button_to t('button.detail'), task_path(t), method: :get, class: 'btn btn-info', form: { style: 'display: inline-block;' } %>
                   <%= button_to t('button.edit'), edit_task_path(t), method: :get, class: 'btn btn-warning', form: { style: 'display: inline-block;' } %>

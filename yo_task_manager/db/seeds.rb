@@ -8,6 +8,7 @@ FactoryBot.reload
 
 table_names = %w[
   users
+  labels
   tasks
 ]
 table_names.each do |table_name|

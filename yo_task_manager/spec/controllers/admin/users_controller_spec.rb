@@ -13,7 +13,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
     it 'assigns @users' do
-      expect(assigns(:users)).to match_array [user]
+      expect(assigns(:users)).to contain_exactly(user)
     end
     it 'renders index template' do
       expect(response).to render_template('index')

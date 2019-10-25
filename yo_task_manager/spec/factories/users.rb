@@ -5,5 +5,6 @@ FactoryBot.define do
     sequence(:login_id) { |n| "user_#{n}" }
     password { 'dummy1234' }
     display_name { "#{login_id}の名前" }
+    role { User.roles.keys.sample }
   end
 end
