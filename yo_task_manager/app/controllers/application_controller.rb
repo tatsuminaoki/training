@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :render_maintenance_page, if: :maintenance_mode?
   around_action :switch_locale
   helper_method :current_user
+
+  def maintenance_mode?
+    File.exist?('tmp/maintenance.yml')
+  end
+
+  def render_maintenance_page
+    maintenance = YAML.safe_load(File.read('tmp/maintenance.yml'))
+    @reason = maintenance['reason']
+    render 'errors/unavailable', layout: false, status: :service_unavailable
+  end
 
   def switch_locale(&action)
     locale = (params[:locale] if I18n.available_locales.include? params[:locale]&.to_sym) || I18n.default_locale
