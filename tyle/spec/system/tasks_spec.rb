@@ -29,9 +29,9 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'task_description', with: 'this is a task1'
     select 'medium', from: 'task_priority'
     select 'in_progress', from: 'task_status'
-    click_button 'Create Task'
+    click_button '登録する'
 
-    expect(page).to have_content 'Task was successfully created!'
+    expect(page).to have_content 'タスクが追加されました！'
     expect(page).to have_content 'task1'
     expect(page).to have_content 'this is a task1'
     expect(page).to have_content 'medium'
@@ -60,9 +60,9 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'task_description', with: 'this is a task2'
     select 'high', from: 'task_priority'
     select 'done', from: 'task_status'
-    click_button 'Update Task'
+    click_button '更新する'
 
-    expect(page).to have_content 'Task was successfully updated!'
+    expect(page).to have_content 'タスクが更新されました！'
     expect(page).to have_content 'task2'
     expect(page).to have_content 'this is a task2'
     expect(page).to have_content 'high'
