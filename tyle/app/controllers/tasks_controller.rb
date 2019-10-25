@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: t('message.updated') 
+      redirect_to @task, notice: t('message.updated')
     else
       render :edit
     end
