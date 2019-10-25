@@ -24,7 +24,6 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'testing of tasks/new' do
-
     visit new_task_path
     fill_in 'task_name', with: 'task1'
     fill_in 'task_description', with: 'this is a task1'
