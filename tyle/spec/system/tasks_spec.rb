@@ -3,15 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  before do
-    @user = User.create!(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1')
-  end
-  # let(:user) { User.new(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
+  # all tests need a user; therefore let! is used. let is not used.
+  let!(:user) { User.create(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
 
   it 'testing of tasks/' do
-    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: @user.id, priority: 0, status: 0)
-    @task = Task.create!(name: 'task2', description: 'this is a task2', user_id: @user.id, priority: 1, status: 1)
-    @task = Task.create!(name: 'task3', description: 'this is a task3', user_id: @user.id, priority: 2, status: 2)
+    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0)
+    @task = Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1)
+    @task = Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2)
 
     visit tasks_path
     expect(page).to have_content 'task1'
@@ -42,7 +40,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'testing of tasks/show' do
-    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: @user.id, priority: 1, status: 1)
+    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 1, status: 1)
 
     visit task_path(@task)
     expect(page).to have_content 'task1'
@@ -52,7 +50,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'testing of tasks/edit' do
-    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: @user.id, priority: 1, status: 1)
+    @task = Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 1, status: 1)
 
     visit edit_task_path(@task)
     expect(page).to have_field 'task_name', with: 'task1'
