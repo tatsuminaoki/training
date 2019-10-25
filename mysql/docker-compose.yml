@@ -11,5 +11,5 @@ services:
       MYSQL_USER: my_user
       TZ: Japan
     ports:
-      - 3306:3306
+      - 3307:3306
     tty: true

@@ -1,8 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  
-  # skip verifying CSRF token authenticity
-  skip_before_action :verify_authenticity_token
+  before_action :task, only: %i[show edit update destroy]
 
   def index
     @tasks = Task.all
@@ -13,16 +12,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = User.find_by(id: 1).tasks.new(task_params)
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: t('message.created') }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.save
+      redirect_to @task, notice: t('message.created')
+    else
+      render :new
     end
   end
 
@@ -33,33 +28,28 @@ class TasksController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: t('message.updated') }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to @task, notice: t('message.updated') 
+    else
+      render :edit
     end
   end
 
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: t('message.destroyed') }
-      format.json { head :no_content }
+    if @task.destroy
+      redirect_to tasks_url, notice: t('message.destroyed')
+    else
+      render :index
     end
   end
 
   private
 
-  def set_task
+  def task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :user_id, :priority, :status, :due)
+    params.require(:task).permit(:name, :description, :priority, :status, :due)
   end
-
 end

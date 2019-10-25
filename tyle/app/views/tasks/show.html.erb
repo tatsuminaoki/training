@@ -1,15 +1,9 @@
-<div>
-  <% if flash[:notice] %>
-    <div>
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-</div>
+<%= render 'flash' %>
 
 <div>
   <h1>TYLE</h1>
-  <%= link_to t('button.index'), tasks_path, method: :get %>
-  <%= link_to t('button.add'), new_task_path, method: :get %>
+  <%= link_to t('button.index'), tasks_path %>
+  <%= link_to t('button.add'), new_task_path %>
 </div>
 
 <hr>
@@ -45,6 +39,6 @@
 </div>
 
 <div>
-  <%= link_to t('button.edit'), task_path(@task.id) + '/edit', method: :get %>
-  <%= link_to t('button.delete'), task_path(@task.id), method: :delete %>
+  <%= link_to t('button.edit'), edit_task_path(@task) %>
+  <%= link_to t('button.delete'), task_path(@task), method: :delete, data: { confirm: 'Are you sure you want to delete this task?' } %> 
 </div>
