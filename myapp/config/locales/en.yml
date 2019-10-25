@@ -4,6 +4,7 @@ en:
     update: 'Update'
     remove: 'Remove'
     detail: 'Detail'
+    search: 'Search'
   header:
     title: 'Title'
     priority: 'Priority'
@@ -24,6 +25,10 @@ en:
     remove:
       success: 'Task is deleted successfully.'
       fail: 'Failed to delete task. Please try again.'
+  placeholder:
+    search: 'Search with title.'
+  message:
+    lead: "Let's search task."
   error:
     count: 'The form contains %{count}.'
   date:
