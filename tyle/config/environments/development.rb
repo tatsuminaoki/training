@@ -12,7 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
-  # config.consider_all_requests_local = true
+  # Show 404 or 500 error message in development mode
   config.consider_all_requests_local = false
 
   # Enable/disable caching. By default caching is disabled.
