@@ -30,7 +30,7 @@ en:
   message:
     lead: "Let's search task."
   error:
-    count: 'The form contains %{count}.'
+    count: 'The form contains %{count} error(s).'
   date:
     formats:
       default: "%Y-%m-%d"
