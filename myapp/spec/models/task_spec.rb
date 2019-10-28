@@ -63,4 +63,18 @@ RSpec.describe Task, type: :model do
       expect(task.errors[:description]).to be_present
     end
   end
+
+  context 'When searching with title' do
+    let!(:task) { create(:task, user_id: user.id, title: 'hoge') }
+    it 'the record which has that title is found' do
+      expect(Task.find_by(title: 'hoge')).to have_attributes(title: 'hoge')
+    end
+  end
+
+  context 'When searching with status' do
+    let!(:task) { create(:task, user_id: user.id, status: 1) }
+    it 'the record which has that status is found' do
+      expect(Task.find_by(status: 'InProgress')).to have_attributes(status: 'InProgress')
+    end
+  end
 end
