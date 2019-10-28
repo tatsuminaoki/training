@@ -5,8 +5,10 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   let(:user) { User.create(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
   let!(:task) { Task.create(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0) }
-  let!(:task2) { Task.create(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1) }
-  let!(:task3) { Task.create(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2) }
+  before do
+    Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1)
+    Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2)
+  end
 
   it 'tests /tasks/' do
     visit tasks_path
