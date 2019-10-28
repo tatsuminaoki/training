@@ -15,11 +15,12 @@ class Task < ApplicationRecord
   validates :status,
     presence: true
 
-  def self.search(title)
-    if title
-      where(['title LIKE ?', "%#{title}%"])
-    else
-      all
-    end
+  scope :search, -> (search_params) do
+    return if search_params.blank?
+
+    title_like(search_params[:title])
+      .status_is(search_params[:status])
   end
+  scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
+  scope :status_is, -> (status) { where(status: status) if status.present? }
 end

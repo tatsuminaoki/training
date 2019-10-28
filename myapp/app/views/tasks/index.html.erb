@@ -1,49 +1,36 @@
 <div class="center jumbotron">
   <h1>All tasks</h1>
   <p class="lead"><%= t('message.lead') %></p>
-  <%= form_tag(tasks_path, :method => 'get') do %>
-  <div class="input-group" style="margin: 10px;">
-    <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: t('placeholder.search') %>
-    <span class="input-group-btn">
-        <%= submit_tag t('operation.search'), name: nil, class: 'btn btn-default' %>
-    </span>
-  </div>
-  <h4>ステータス</h4>
-  <div class="input-group" style="margin: 10px;">
-  <% Task.statuses.each do |k, v| %>
-    <%= radio_button_tag('status', k, false) %>
-    <%= label_tag(k, k, class: 'label-status') %>
-  <% end %>
-  </div>
-<% end %>
+  <%= render 'search' %>
 </div>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>#</th>
       <th class="sorting_asc:after"><%= t('header.title') %></th>
       <th><%= t('header.priority') %>
-        <%= link_to ({sort: 'priority', direction: 'desc', search: params[:search]}), class: is_sorted('priority', 'desc'), id: 'priority_desc' do %>
+        <%= link_to ({sort: 'priority', direction: 'desc', search: @search_params}), class: is_sorted('priority', 'desc'), id: 'priority_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'priority', direction: 'asc', search: params[:search]}), class: is_sorted('priority', 'asc'), id: 'priority_asc' do %>
+        <%= link_to ({sort: 'priority', direction: 'asc', search: @search_params}), class: is_sorted('priority', 'asc'), id: 'priority_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
       <th><%= t('header.status') %></th>
       <th><%= t('header.due_date') %>
-        <%= link_to ({sort: 'due_date', direction: 'desc', search: params[:search]}), class: is_sorted('due_date', 'desc'), id: 'due_date_desc' do %>
+        <%= link_to ({sort: 'due_date', direction: 'desc', search: @search_params}), class: is_sorted('due_date', 'desc'), id: 'due_date_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'due_date', direction: 'asc', search: params[:search]}), class: is_sorted('due_date', 'asc'), id: 'due_date_asc' do %>
+        <%= link_to ({sort: 'due_date', direction: 'asc', search: @search_params}), class: is_sorted('due_date', 'asc'), id: 'due_date_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
       <th><%= t('header.created_at') %>
-        <%= link_to ({sort: 'created_at', direction: 'desc', search: params[:search]}), class: is_sorted('created_at', 'desc'), id: 'created_at_desc' do %>
+        <%= link_to ({sort: 'created_at', direction: 'desc', search: @search_params}), class: is_sorted('created_at', 'desc'), id: 'created_at_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'created_at', direction: 'asc', search: params[:search]}), class: is_sorted('created_at', 'asc'), id: 'created_at_asc' do %>
+        <%= link_to ({sort: 'created_at', direction: 'asc', search: @search_params}), class: is_sorted('created_at', 'asc'), id: 'created_at_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
