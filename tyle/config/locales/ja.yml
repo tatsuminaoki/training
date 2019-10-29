@@ -29,27 +29,28 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+ja:
   message:
-    created: Task was successfully created!
-    updated: Task was successfully updated!
-    destroyed: Task was successfully destroyed!
-    destroying: Are you sure you want to destroy this task?
+    created: タスクが追加されました！
+    updated: タスクが更新されました！
+    destroyed: タスクが削除されました！
+    destroying: 本当にタスクを削除してもいいですか？
   button:
-    index: Home
-    detail: Detail
-    edit: Edit
-    update: Update
-    delete: Delete
-    add: Add
+    index: ホーム
+    detail: 詳細
+    edit: 編集
+    update: 更新
+    delete: 削除
+    add: 追加
   activerecord:
     models:
-      task: Task
+      task: タスク
     attributes:
       task:
-        name: Name
-        description: Description
-        user_id: UserID
-        priority: Priority
-        status: Status
-        due: Due
+        name: 名前
+        description: 内容
+        user_id: ユーザID
+        priority: 優先度
+        status: 状態
+        due: 期限
+        detail: 詳細

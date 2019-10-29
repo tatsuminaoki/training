@@ -9,6 +9,7 @@ services:
       - .env
     environment:
       MYSQL_USER: my_user
+      TZ: Japan
     ports:
       - 3307:3306
     tty: true
