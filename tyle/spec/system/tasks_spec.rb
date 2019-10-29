@@ -65,22 +65,6 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'done'
   end
 
-  it 'tests a delete button with OK at /tasks/show' do
-    visit tasks_path
-    expect(page).to have_content 'task1'
-    expect(page).to have_content 'low'
-    expect(page).to have_content 'waiting'
-    visit task_path(task)
-    click_on 'DELETE'
-    expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
-    page.driver.browser.switch_to.alert.accept
-
-    expect(page).to have_no_content 'task1'
-    expect(page).to have_no_content 'this is a task1'
-    expect(page).to have_no_content 'low'
-    expect(page).to have_no_content 'waiting'
-  end
-
   it 'tests a delete button at /tasks/show' do
     visit tasks_path
     expect(page).to have_content 'task1'
