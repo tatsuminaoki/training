@@ -21,7 +21,7 @@ class TasksController < ApplicationController
       flash[:success] = t('flash.create.success')
       redirect_to task_path(@task.id)
     else
-      flash[:fail] = t('flash.create.fail')
+      flash.now[:fail] = t('flash.create.fail')
       render :new
     end
   end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
       flash[:success] = t('flash.update.success')
       redirect_to task_path(@task.id)
     else
-      flash[:fail] = t('flash.update.fail')
+      flash.now[:fail] = t('flash.update.fail')
       render :edit
     end
   end
