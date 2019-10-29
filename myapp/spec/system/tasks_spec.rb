@@ -188,4 +188,43 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content I18n.t('flash.remove.success')
     end
   end
+
+  context 'When a user searches by title' do
+    let!(:task) { create(:task, title: 'hoge') }
+
+    it 'Find one record' do
+      visit tasks_path
+      fill_in 'search[title]', with: 'hoge'
+      click_on I18n.t('operation.search')
+
+      title = page.all('.title')
+      expect(title[0].text).to eq 'hoge'
+    end
+  end
+
+  context 'When a user searches by status' do
+    let!(:task) { create(:task, status: 2) }
+
+    it 'Find one record' do
+      visit tasks_path
+      choose 'search_status_Closed'
+      click_on I18n.t('operation.search')
+
+      status = page.all('.status')
+      expect(status[0].text).to eq 'Closed'
+    end
+  end
+
+  context 'When a usr searches by title and status' do
+    let!(:task) { create(:task, title: 'fuga', status: 1) }
+    it 'Find one record' do
+      visit tasks_path
+      fill_in 'search[title]', with: 'fuga'
+      choose 'search_status_InProgress'
+      click_on I18n.t('operation.search')
+
+      title = page.all('.title')
+      expect(title[0].text).to eq 'fuga'
+    end
+  end
 end
