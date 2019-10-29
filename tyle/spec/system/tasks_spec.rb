@@ -73,8 +73,8 @@ RSpec.describe 'Tasks', type: :system do
     visit task_path(task)
 
     # click DELETE and Cancel
-    click_on 'DELETE'
-    expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
+    click_on '削除'
+    expect(page.driver.browser.switch_to.alert.text).to eq '本当にタスクを削除してもいいですか？'
     page.driver.browser.switch_to.alert.dismiss
 
     expect(page).to have_content 'task1'
@@ -83,8 +83,8 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'waiting'
 
     # click DELETE and OK
-    click_on 'DELETE'
-    expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
+    click_on '削除'
+    expect(page.driver.browser.switch_to.alert.text).to eq '本当にタスクを削除してもいいですか？'
     page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_no_content 'task1'
