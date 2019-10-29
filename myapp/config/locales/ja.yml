@@ -24,6 +24,8 @@ ja:
     remove:
       success: 'タスクを削除しました。'
       fail: 'タスクの削除に失敗しました。もう一度お試しください。'
+  error:
+    count: '%{count}件のエラーがあります。'
   date:
     formats:
       default: "%Y-%m-%d"

@@ -50,34 +50,66 @@ RSpec.describe "Tasks", type: :system do
   context 'When a user creates a task' do
     it 'Success to create a task' do
       visit new_task_path
-  
+
       fill_in 'task[title]', with: 'Automation Test Task'
       fill_in 'task[description]', with: 'Please create the automation test for this task.'
       select 'Middle', from: I18n.t('header.priority')
       select 'Open', from: I18n.t('header.status')
       click_on 'commit'
-  
+
       expect(page).to have_content I18n.t('flash.create.success')
     end
 
-    xit 'Fail to create a task because of validatio error' do
+    it 'Fail to create a task because of validation error because title is required' do
+      visit new_task_path
+
+      fill_in 'task[description]', with: 'Please create the automation test for this task.'
+      select 'Middle', from: I18n.t('header.priority')
+      select 'Open', from: I18n.t('header.status')
+      click_on 'commit'
+
+      expect(page).to have_content I18n.t('flash.create.fail')
+      expect(page).to have_content I18n.t('errors.messages.blank')
+    end
+
+    it 'Fail to create a task because of validation error because of length of title' do
+      visit new_task_path
+
+      fill_in 'task[title]', with: 'T' * (Task::TITLE_MAX_LENGTH + 1)
+      fill_in 'task[description]', with: 'Please create the automation test for this task.'
+      select 'Middle', from: I18n.t('header.priority')
+      select 'Open', from: I18n.t('header.status')
+      click_on 'commit'
+
+      expect(page).to have_content I18n.t('flash.create.fail')
+      expect(page).to have_content I18n.t('errors.messages.too_long', count: Task::TITLE_MAX_LENGTH)
+    end
+
+    it 'Fail to create a task because of validation error because of length of description' do
+      visit new_task_path
+
+      fill_in 'task[title]', with: 'Automation Test Task'
+      fill_in 'task[description]', with: 'T' * (Task::DESCRIPTION_MAX_LENGTH + 1)
+      select 'Middle', from: I18n.t('header.priority')
+      select 'Open', from: I18n.t('header.status')
+      click_on 'commit'
+
+      expect(page).to have_content I18n.t('flash.create.fail')
+      expect(page).to have_content I18n.t('errors.messages.too_long', count: Task::DESCRIPTION_MAX_LENGTH)
     end
   end
 
   context 'When a user edits a task' do
     it 'Success to edit a task' do
       visit edit_task_path(@task1.id)
-  
+
       fill_in 'task[title]', with: 'Change the title'
       fill_in 'task[description]', with: 'I changed the title.'
       select 'High', from: I18n.t('header.priority')
       select 'InProgress', from: I18n.t('header.status')
       click_on 'commit'
-      
-      expect(page).to have_content I18n.t('flash.update.success')
-    end
 
-    xit 'Fail to create a task because of validatio error' do
+      expect(page).to have_content I18n.t('flash.update.success')
     end
   end
 
