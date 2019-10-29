@@ -66,3 +66,7 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+# Ignore solargraph
+.solargraph*
+config/definitions.rb
