@@ -1,4 +1,6 @@
 <div>
+  <%= render 'error_messages', model: task %>
+
   <%= form_for(task) do |form| %>
     <p>
       <%= form.label :name %><br>
