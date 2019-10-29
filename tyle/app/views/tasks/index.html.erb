@@ -12,9 +12,9 @@
   <table>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      <th><%= t('activerecord.attributes.task.priority') %></th>
-      <th><%= t('activerecord.attributes.task.status') %></th>
-      <th><%= t('activerecord.attributes.task.due') %></th>
+      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority' %></th>
+      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status' %></th>
+      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due' %></th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>
