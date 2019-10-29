@@ -6,11 +6,32 @@
   <thead>
     <tr>
       <th>#</th>
-      <th><%= t('header.title') %></th>
-      <th><%= t('header.priority') %></th>
+      <th class="sorting_asc:after"><%= t('header.title') %></th>
+      <th><%= t('header.priority') %>
+        <%= link_to ({sort: 'priority', direction: 'desc'}), class: is_sorted('priority', 'desc'), id: 'priority_desc' do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'priority', direction: 'asc'}), class: is_sorted('priority', 'asc'), id: 'priority_asc' do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
       <th><%= t('header.status') %></th>
-      <th><%= t('header.due_date') %></th>
-      <th><%= t('header.created_at') %></th>
+      <th><%= t('header.due_date') %>
+        <%= link_to ({sort: 'due_date', direction: 'desc'}), class: is_sorted('due_date', 'desc'), id: 'due_date_desc' do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'due_date', direction: 'asc'}), class: is_sorted('due_date', 'asc'), id: 'due_date_asc' do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
+      <th><%= t('header.created_at') %>
+        <%= link_to ({sort: 'created_at', direction: 'desc'}), class: is_sorted('created_at', 'desc'), id: 'created_at_desc' do %>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to ({sort: 'created_at', direction: 'asc'}), class: is_sorted('created_at', 'asc'), id: 'created_at_asc' do %>
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        <% end %>
+      </th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,11 +41,11 @@
     <% @tasks.each do |task| %>
     <tr>
       <th><%= task.id %></th>
-      <th class='title'><%= task.title %></th>
-      <td><span class="label label-default"><%= task.priority %></span></td>
+      <th class="title"><%= task.title %></th>
+      <td class="priority"><span class="label label-default"><%= task.priority %></span></td>
       <td><span class="label label-success"><%= task.status %></span></td>
-      <td><%= task.due_date %></td>
-      <td><%= I18n.l(task.created_at, format: :default) %></td>
+      <td class="due_date"><%= task.due_date %></td>
+      <td class="created_at"><%= I18n.l(task.created_at, format: :default) %></td>
       <td><%= link_to t('operation.detail'), task_path(task.id) %></td>
       <td><%= link_to t('operation.update'), edit_task_path(task.id) %></td>
       <td><%= link_to t('operation.remove'), task_path(task.id), method: 'delete' %></td>
