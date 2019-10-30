@@ -20,9 +20,9 @@
     <% @tasks.each do |task| %>
       <tr>
         <td class="task-name"><%= task.name %></td>
-        <td><%= task.priority %></td>
-        <td><%= task.status %></td>
-        <td><%= task.due %></td>
+        <td class="task-priority"><%= task.priority %></td>
+        <td class="task-status"><%= task.status %></td>
+        <td class="task-due"><%= task.due %></td>
         <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id) %></td>
       </tr>
     <% end %>

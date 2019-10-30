@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc).order(params[:sort])
+    @task = if params[:sort].blank?
+              Task.order(created_at: :desc)
+            else
+              Task.order(params[:sort])
+            end
   end
 
   def new
