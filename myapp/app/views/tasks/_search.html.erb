@@ -8,7 +8,7 @@
 
   <h4>ステータス</h4>
   <% Task.statuses.each do |k, v| %>
-    <%= radio_button_tag('search[status]', k, false) %>
+    <%= radio_button_tag('search[status]', k, @search_params[:status] == k) %>
     <%= label_tag(k, k, class: 'label-status') %>
   <% end %>
 <% end %>
