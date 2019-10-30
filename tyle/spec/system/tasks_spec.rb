@@ -124,14 +124,45 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  describe 'ordering' do
-    it 'testing of tasks ordered by created_at with descending order at tasks/' do
+  describe 'ordering by created_at' do
+    before do
       Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, created_at: 2.days)
       Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, created_at: 1.day)
       Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, created_at: Time.zone.now)
+    end
 
+    it 'tests tasks ordered by created_at with descending order at tasks/' do
       visit tasks_path
       expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]
+    end
+  end
+
+  describe 'ordering by priority, status, due' do
+    before do
+      Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20200101', created_at: 2.days)
+      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20200202', created_at: 1.day)
+      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, due: '20200303', created_at: Time.zone.now)
+    end
+
+    it 'tests ordering by priority' do
+      visit tasks_path
+      click_on '優先度'
+      sleep 1
+      expect(page.all('.task-priority').map(&:text)).to eq %w[low medium high]
+    end
+
+    it 'tests ordering by status' do
+      visit tasks_path
+      click_on '状態'
+      sleep 1
+      expect(page.all('.task-status').map(&:text)).to eq %w[waiting in_progress done]
+    end
+
+    it 'tests ordering by due' do
+      visit tasks_path
+      click_on '期限'
+      sleep 1
+      expect(page.all('.task-due').map(&:text)).to eq %W[2020-01-01\ 00:00:00\ +0900 2020-02-02\ 00:00:00\ +0900 2020-03-03\ 00:00:00\ +0900]
     end
   end
 end
