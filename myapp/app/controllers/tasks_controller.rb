@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    @tasks = Task.all.search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.all.preload(:user).search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
   end
 
   def show
