@@ -70,3 +70,6 @@ yarn-debug.log*
 # Ignore solargraph
 .solargraph*
 config/definitions.rb
+
+# Ignore tmp
+tmp/*
