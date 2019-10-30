@@ -9,4 +9,12 @@ class Task < ApplicationRecord
   validates :user_id, presence: true
   validates :priority, presence: true
   validates :status, presence: true
+
+  def self.search(name)
+    if name
+      Task.where(['name LIKE ?', "%#{name}%"])
+    else
+      Task.all
+    end
+  end
 end

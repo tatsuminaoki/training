@@ -9,12 +9,22 @@
 <hr>
 
 <div>
+  <p>検索</p>
+  <%= form_tag(tasks_path,:method => 'get') do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag 'Search', :name => nil %>
+  <% end %>
+</div>
+
+<hr>
+
+<div>
   <table>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority' %></th>
-      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status' %></th>
-      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due' %></th>
+      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', search: params[:search] %></th>
+      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', search: params[:search] %></th>
+      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', search: params[:search] %></th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>

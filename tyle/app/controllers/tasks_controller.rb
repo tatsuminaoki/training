@@ -5,9 +5,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = if params[:sort].blank?
-              Task.order(created_at: :desc)
+              Task.search(params[:search]).order(created_at: :desc)
             else
-              Task.order(params[:sort])
+              Task.search(params[:search]).order(params[:sort])
             end
   end
 
