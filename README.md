@@ -8,7 +8,7 @@
 # MySQL
 $ cd tyle/development/mysql
 $ export RAILS_DATABASE_PASSWORD=my_root_password
-$ echo $RAILS_DATABASE_PASSWORD > .env
+$ echo MYSQL_ROOT_PASSWORD=$RAILS_DATABASE_PASSWORD > .env
 $ docker-compose up -d
 
 # Rails
