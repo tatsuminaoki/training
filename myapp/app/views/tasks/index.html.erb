@@ -1,6 +1,6 @@
 <h1>Listing Tasks</h1>
 
-<% if !flash[:message].blank? %>
+<% if flash[:message].present? %>
 <h1><%= flash[:message] %></h1>
 <% end %>
 
@@ -23,3 +23,5 @@
     </tr>
   <% end %>
 </table>
+
+<%= link_to 'Create new task', new_task_path %>

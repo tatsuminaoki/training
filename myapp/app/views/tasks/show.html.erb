@@ -1,4 +1,4 @@
-<% if !flash[:message].blank? %>
+<% if flash[:message].present? %>
 <h1><%= flash[:message] %></h1>
 <% end %>
 <p>

@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  before_action :find_task, only: [:show, :edit, :update, :destroy]
+
   def index
     @tasks = Task.all
   end
 
   def new
-
+    @task = Task.new
   end
 
   def create
@@ -38,15 +40,22 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    @task.destroy
 
-    flash[:message] = 'Task deleted!'
-    redirect_to tasks_path
+    if @task.destroy
+      flash[:message] = 'Task deleted!'
+      redirect_to tasks_path
+    else
+      redirect_to @task
+    end
   end
 
-  private
+private
 
-    def task_params
-      params.require(:task).permit(:name, :description)
-    end
+  def task_params
+    params.require(:task).permit(:name, :description)
+  end
+
+  def find_task
+    @task = Task.find(params[:id])
+  end
 end
