@@ -16,7 +16,6 @@ pickle-email-*.html
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-log/*
 
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
@@ -66,3 +65,7 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+
+# Ignore solargraph
+.solargraph*
+config/definitions.rb
