@@ -1,6 +1,6 @@
 <div class="center jumbotron">
   <h1>All tasks</h1>
-  <p class="lead"><%= t('message.lead') %></p>
+  <p class="lead"><%= t('message.lead', name: @user.name) %></p>
   <%= render 'search' %>
 </div>
 

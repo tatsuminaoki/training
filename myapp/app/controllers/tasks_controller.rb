@@ -4,6 +4,7 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
+    @user = User.find(@current_user.user_id)
     @tasks = Task.all.preload(:user).search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
   end
 

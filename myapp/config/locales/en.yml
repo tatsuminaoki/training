@@ -29,7 +29,7 @@ en:
   placeholder:
     search: 'Search with title.'
   message:
-    lead: "Let's search task."
+    lead: 'Hello, %{name}.'
   error:
     count: 'The form contains %{count} error(s).'
   date:

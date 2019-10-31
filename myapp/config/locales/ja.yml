@@ -29,7 +29,7 @@ ja:
   placeholder:
     search: 'タスク名で検索'
   message:
-    lead: 'タスク検索はこちらから'
+    lead: '%{name}さん、こんにちは！'
   error:
     count: '%{count}件のエラーがあります。'
   date:
