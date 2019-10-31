@@ -25,6 +25,7 @@ RSpec.feature "Task management", type: :feature do
 
     # check if updates successfully.
     expect(page).to have_text("Task updated!")
+    expect(page).to have_text(name_edited)
   end
 
   scenario "User delete a task on detail page." do
@@ -35,6 +36,7 @@ RSpec.feature "Task management", type: :feature do
     click_link "Destroy"
 
     expect(page).to have_text("Task deleted!")
+    expect(page).not_to have_text(name)
   end
 
   scenario "User lists tasks" do
@@ -42,6 +44,6 @@ RSpec.feature "Task management", type: :feature do
     task = Task.create(:name => name, :description => 'tmp')
     visit "/"
 
-    expect(page).to have_text("task-to-list")
+    expect(page).to have_text(name)
   end
 end
