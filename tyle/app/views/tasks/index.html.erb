@@ -9,9 +9,10 @@
 <hr>
 
 <div>
-  <p>検索</p>
   <%= form_tag(tasks_path,:method => 'get') do %>
     <%= text_field_tag :search %>
+    <%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]) %>
+    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]) %>
     <%= submit_tag 'Search', :name => nil %>
   <% end %>
 </div>
@@ -22,9 +23,9 @@
   <table>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', search: params[:search] %></th>
-      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', search: params[:search] %></th>
-      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', search: params[:search] %></th>
+      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', search: params[:search], priority: params[:priority], status: params[:status] %></th>
+      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', search: params[:search], priority: params[:priority], status: params[:status]%></th>
+      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', search: params[:search], priority: params[:priority], status: params[:status]%></th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>

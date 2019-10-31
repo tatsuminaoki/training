@@ -10,9 +10,9 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
 
-  def self.search(name)
-    if name
-      Task.where(['name LIKE ?', "%#{name}%"])
+  def self.search(name, priority, status)
+    if name && priority && status
+      Task.where(['name LIKE ? and priority = ? and status = ?', "%#{name}%", "%#{priority}%", "%#{status}%"])
     else
       Task.all
     end
