@@ -20,16 +20,14 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+
   end
 
   def edit
-    @task = Task.find(params[:id])
+
   end
 
   def update
-    @task = Task.find(params[:id])
-
     if @task.update(task_params)
       flash[:message] = 'Task updated!'
       redirect_to @task
@@ -39,8 +37,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-
     if @task.destroy
       flash[:message] = 'Task deleted!'
       redirect_to tasks_path
