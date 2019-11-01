@@ -33,7 +33,7 @@
     <tr>
       <td><%= t('activerecord.attributes.task.due') %></td>
       <td>:</td>
-      <td><%= @task.due %></td>
+      <td><%= I18n.l(@task.due) %></td>
     </tr>
   </table>
 </div>

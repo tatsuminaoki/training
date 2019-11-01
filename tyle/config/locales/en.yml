@@ -30,6 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
+  operation:
+    error: ERROR!
   message:
     created: Task was successfully created!
     updated: Task was successfully updated!

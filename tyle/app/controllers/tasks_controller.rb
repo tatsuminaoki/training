@@ -5,10 +5,10 @@ class TasksController < ApplicationController
 
   def index
     @tasks = if params[:sort].blank?
-              Task.order(created_at: :desc)
-            else
-              Task.order(params[:sort])
-            end
+               Task.order(created_at: :desc)
+             else
+               Task.order(params[:sort])
+             end
   end
 
   def new
