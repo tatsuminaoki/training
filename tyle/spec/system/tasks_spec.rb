@@ -6,10 +6,10 @@ RSpec.describe 'Tasks', type: :system do
   let(:user) { User.create(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
 
   describe 'views' do
-    let!(:task) { Task.create(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0) }
+    let!(:task) { Task.create(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231') }
     before do
-      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1)
-      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2)
+      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20210101')
+      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, due: '20210102')
     end
 
     it 'tests /tasks/' do
@@ -29,6 +29,7 @@ RSpec.describe 'Tasks', type: :system do
       visit new_task_path
       fill_in 'task_name', with: 'task1'
       fill_in 'task_description', with: 'this is a task1'
+      fill_in 'task_due', with: '20201231'
       select 'medium', from: 'task_priority'
       select 'in_progress', from: 'task_status'
       click_button '登録する'
@@ -56,6 +57,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_field 'task_status', with: 'waiting'
       fill_in 'task_name', with: 'task2'
       fill_in 'task_description', with: 'this is a task2'
+      fill_in 'task_due', with: '20210101'
       select 'high', from: 'task_priority'
       select 'done', from: 'task_status'
       click_button '更新する'
@@ -126,9 +128,9 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'ordering' do
     before do
-      Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, created_at: 2.days)
-      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, created_at: 1.day)
-      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, created_at: Time.zone.now)
+      Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231', created_at: 2.days)
+      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20201231', created_at: 1.day)
+      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, due: '20201231', created_at: Time.zone.now)
     end
 
     context 'visit tasks_path' do
