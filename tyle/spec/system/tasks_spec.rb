@@ -143,6 +143,9 @@ RSpec.describe 'Tasks', type: :system do
         subject
         click_on '優先度'
         sleep 1
+        expect(page.all('.task-priority').map(&:text)).to eq %w[high medium low]
+        click_on '優先度'
+        sleep 1
         expect(page.all('.task-priority').map(&:text)).to eq %w[low medium high]
       end
 
@@ -150,11 +153,17 @@ RSpec.describe 'Tasks', type: :system do
         subject
         click_on '状態'
         sleep 1
+        expect(page.all('.task-status').map(&:text)).to eq %w[done in_progress waiting]
+        click_on '状態'
+        sleep 1
         expect(page.all('.task-status').map(&:text)).to eq %w[waiting in_progress done]
       end
 
       it 'tasks ordered by due' do
         subject
+        click_on '期限'
+        sleep 1
+        expect(page.all('.task-due').map(&:text)).to eq %W[2021/01/02\ 00:00 2021/01/01\ 00:00 2020/12/31\ 00:00]
         click_on '期限'
         sleep 1
         expect(page.all('.task-due').map(&:text)).to eq %W[2020/12/31\ 00:00 2021/01/01\ 00:00 2021/01/02\ 00:00]

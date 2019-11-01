@@ -4,11 +4,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = if params[:sort].blank?
-               Task.order(created_at: :desc)
-             else
-               Task.order(params[:sort])
-             end
+    @tasks = Task.order(sort_column + ' ' + sort_direction)
   end
 
   def new
@@ -55,5 +51,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :priority, :status, :due)
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 end
