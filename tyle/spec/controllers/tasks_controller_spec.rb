@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
-  let(:user) { User.create(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
-  let(:task) { Task.create(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231') }
+  let(:user) { create(:user) }
+  let(:task) { create(:task, { user_id: user.id })}
 
   describe 'GET #index' do
     it 'returns http success' do

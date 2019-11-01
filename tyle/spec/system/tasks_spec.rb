@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:user) { User.create(id: 1, name: 'user1', login_id: 'id1', password_digest: 'password1') }
+  let(:user) { create(:user) }
 
   describe 'views' do
-    let!(:task) { Task.create(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231') }
+    let!(:task) { create(:task, { user_id: user.id }) }
     before do
-      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20210101')
-      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, due: '20210102')
+      create(:task2, { user_id: user.id })
+      create(:task3, { user_id: user.id })
     end
 
     it 'tests /tasks/' do
@@ -110,9 +110,9 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'ordering' do
     before do
-      Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231', created_at: 2.days)
-      Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20201231', created_at: 1.day)
-      Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, due: '20201231', created_at: Time.zone.now)
+      create(:task, { user_id: user.id, created_at: 2.days})
+      create(:task2, { user_id: user.id, created_at: 1.day })
+      create(:task3, { user_id: user.id, created_at: Time.zone.now })
     end
 
     context 'visit tasks_path' do
