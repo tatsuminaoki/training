@@ -117,7 +117,7 @@ RSpec.describe 'Tasks', type: :system do
 
     context 'visit tasks_path' do
       subject { visit tasks_path }
-      
+
       it 'tasks ordered by created_at with descending' do
         subject
         expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]

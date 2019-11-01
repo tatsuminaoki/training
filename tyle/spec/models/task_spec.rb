@@ -51,7 +51,6 @@ RSpec.describe Task, type: :model do
       end
     end
 
-
     it 'a task with priority number over' do
       expect { Task.create(name: 'task1', priority: 4, status: 0, user_id: user.id, due: '20201231') }.to raise_error(ArgumentError)
     end
