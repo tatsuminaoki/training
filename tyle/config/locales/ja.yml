@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ja:
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！

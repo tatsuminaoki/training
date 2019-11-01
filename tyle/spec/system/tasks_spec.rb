@@ -17,12 +17,15 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'task1'
       expect(page).to have_content 'low'
       expect(page).to have_content 'waiting'
+      expect(page).to have_content '2020/12/31'
       expect(page).to have_content 'task2'
       expect(page).to have_content 'medium'
       expect(page).to have_content 'in_progress'
+      expect(page).to have_content '2021/01/01'
       expect(page).to have_content 'task3'
       expect(page).to have_content 'high'
       expect(page).to have_content 'done'
+      expect(page).to have_content '2021/01/02'
     end
 
     it 'tests /tasks/new' do
@@ -39,6 +42,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'this is a task1'
       expect(page).to have_content 'medium'
       expect(page).to have_content 'in_progress'
+      expect(page).to have_content '2020/12/31'
     end
 
     it 'tests /tasks/show' do
@@ -47,6 +51,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'this is a task1'
       expect(page).to have_content 'low'
       expect(page).to have_content 'waiting'
+      expect(page).to have_content '2020/12/31'
     end
 
     it 'tests /tasks/edit' do
@@ -55,6 +60,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_field 'task_description', with: 'this is a task1'
       expect(page).to have_field 'task_priority', with: 'low'
       expect(page).to have_field 'task_status', with: 'waiting'
+      expect(page).to have_field 'task_due', with: '2020-12-31 00:00:00 +0900'
       fill_in 'task_name', with: 'task2'
       fill_in 'task_description', with: 'this is a task2'
       fill_in 'task_due', with: '20210101'
@@ -67,6 +73,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'this is a task2'
       expect(page).to have_content 'high'
       expect(page).to have_content 'done'
+      expect(page).to have_content '2021/01/01'
     end
 
     it 'tests a delete button at /tasks/show' do
@@ -74,6 +81,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'task1'
       expect(page).to have_content 'low'
       expect(page).to have_content 'waiting'
+      expect(page).to have_content '2020/12/31'
       visit task_path(task)
 
       # click DELETE and Cancel
@@ -85,6 +93,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'this is a task1'
       expect(page).to have_content 'low'
       expect(page).to have_content 'waiting'
+      expect(page).to have_content '2020/12/31'
 
       # click DELETE and OK
       click_on '削除'
@@ -95,34 +104,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_no_content 'this is a task1'
       expect(page).to have_no_content 'low'
       expect(page).to have_no_content 'waiting'
-    end
-
-    it 'tests a delete button at /tasks/show' do
-      visit tasks_path
-      expect(page).to have_content 'task1'
-      expect(page).to have_content 'low'
-      expect(page).to have_content 'waiting'
-      visit task_path(task)
-
-      # click DELETE and Cancel
-      click_on '削除'
-      expect(page.driver.browser.switch_to.alert.text).to eq '本当にタスクを削除してもいいですか？'
-      page.driver.browser.switch_to.alert.dismiss
-
-      expect(page).to have_content 'task1'
-      expect(page).to have_content 'this is a task1'
-      expect(page).to have_content 'low'
-      expect(page).to have_content 'waiting'
-
-      # click DELETE and OK
-      click_on '削除'
-      expect(page.driver.browser.switch_to.alert.text).to eq '本当にタスクを削除してもいいですか？'
-      page.driver.browser.switch_to.alert.accept
-
-      expect(page).to have_no_content 'task1'
-      expect(page).to have_no_content 'this is a task1'
-      expect(page).to have_no_content 'low'
-      expect(page).to have_no_content 'waiting'
+      expect(page).to have_no_content '2020/12/31'
     end
   end
 
