@@ -26,6 +26,10 @@ en:
     remove:
       success: 'Task is deleted successfully.'
       fail: 'Failed to delete task. Please try again.'
+    login:
+      fail: 'Invalid email/password.'
+    user:
+      success: 'Your account is created successfully.'
   placeholder:
     search: 'Search with title.'
   message:

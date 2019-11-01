@@ -8,11 +8,10 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: session_params[:email])
     if user && user.authenticate(session_params[:password])
-      # log_in user
       sign_in(user)
       redirect_to tasks_path
     else
-      flash.now[:danger] = 'Invalid email/password.'
+      flash.now[:danger] = t('flash.login.fail')
       render 'new'
     end
   end
@@ -27,7 +26,7 @@ class SessionsController < ApplicationController
     def set_user
       @user = User.find_by!(email: session_params[:email])
     rescue
-      flash.now[:danger] = 'error'
+      flash.now[:danger] = t('flash.login.fail')
       render action: 'new'
     end
 
