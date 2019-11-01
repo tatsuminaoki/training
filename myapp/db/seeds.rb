@@ -15,7 +15,7 @@ User.create!(
     },
     {
       name: '管理者太郎',
-      email: 'taro.rakuten@rakuten.com',
+      email: 'taro.admin@rakuten.com',
       encrypted_password: '',
       role: 1
     }
