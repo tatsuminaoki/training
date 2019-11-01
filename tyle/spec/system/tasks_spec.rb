@@ -139,25 +139,25 @@ RSpec.describe 'Tasks', type: :system do
         expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]
       end
 
-      it 'tests ordering by priority' do
-        visit tasks_path
+      it 'tasks ordered by priority' do
+        subject
         click_on '優先度'
         sleep 1
         expect(page.all('.task-priority').map(&:text)).to eq %w[low medium high]
       end
 
-      it 'tests ordering by status' do
-        visit tasks_path
+      it 'tasks ordered by status' do
+        subject
         click_on '状態'
         sleep 1
         expect(page.all('.task-status').map(&:text)).to eq %w[waiting in_progress done]
       end
 
-      it 'tests ordering by due' do
-        visit tasks_path
+      it 'tasks ordered by due' do
+        subject
         click_on '期限'
         sleep 1
-        expect(page.all('.task-due').map(&:text)).to eq %W[2020-01-01\ 00:00:00\ +0900 2020-02-02\ 00:00:00\ +0900 2020-03-03\ 00:00:00\ +0900]
+        expect(page.all('.task-due').map(&:text)).to eq %W[2020/12/31\ 00:00 2021/01/01\ 00:00 2021/01/02\ 00:00]
       end
     end
   end
