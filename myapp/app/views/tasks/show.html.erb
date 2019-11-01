@@ -1,0 +1,14 @@
+<% if flash[:message].present? %>
+<h1><%= flash[:message] %></h1>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> | 
+<%= link_to 'Back', tasks_path %>
