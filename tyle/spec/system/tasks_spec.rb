@@ -125,13 +125,19 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'ordering' do
-    it 'testing of tasks ordered by created_at with descending order at tasks/' do
+    before do
       Task.create!(name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, created_at: 2.days)
       Task.create!(name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, created_at: 1.day)
       Task.create!(name: 'task3', description: 'this is a task3', user_id: user.id, priority: 2, status: 2, created_at: Time.zone.now)
+    end
 
-      visit tasks_path
-      expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]
+    context 'visit tasks_path' do
+      subject { visit tasks_path }
+      
+      it 'tasks ordered by created_at with descending' do
+        subject
+        expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]
+      end
     end
   end
 end
