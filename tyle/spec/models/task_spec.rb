@@ -6,7 +6,7 @@ RSpec.describe Task, type: :model do
   let(:user) { create(:user) }
 
   describe '#create' do
-      let(:task) { create(:task, { user_id: user.id }) }
+    let(:task) { create(:task, { user_id: user.id }) }
 
     it 'creates a task' do
       expect(task).to be_valid
@@ -14,7 +14,7 @@ RSpec.describe Task, type: :model do
     end
 
     it 'creates a task without a name' do
-      expect{ create(:task, { name: nil, user_id: user.id }) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { create(:task, { name: nil, user_id: user.id }) }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'creates a task without a priority' do

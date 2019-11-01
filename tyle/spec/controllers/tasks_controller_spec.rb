@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   let(:user) { create(:user) }
-  let(:task) { create(:task, { user_id: user.id })}
+  let(:task) { create(:task, { user_id: user.id }) }
 
   describe 'GET #index' do
     it 'returns http success' do

@@ -110,7 +110,7 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'ordering' do
     before do
-      create(:task, { user_id: user.id, created_at: 2.days})
+      create(:task, { user_id: user.id, created_at: 2.days })
       create(:task2, { user_id: user.id, created_at: 1.day })
       create(:task3, { user_id: user.id, created_at: Time.zone.now })
     end
