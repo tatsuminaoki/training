@@ -11,8 +11,8 @@
 <div>
   <%= form_tag(tasks_path,:method => 'get') do %>
     <%= text_field_tag :search %>
-    <%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]) %>
-    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]) %>
+    <%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]), prompt: t('operation.select.prompt') %>
+    <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]), prompt: t('operation.select.prompt') %>
     <%= submit_tag 'Search', :name => nil %>
   <% end %>
 </div>

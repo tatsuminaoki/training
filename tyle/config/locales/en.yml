@@ -35,6 +35,8 @@ en:
       default: "%Y/%m/%d %H:%M"
   operation:
     error: ERROR!
+    select:
+      prompt: Select 
   message:
     created: Task was successfully created!
     updated: Task was successfully updated!

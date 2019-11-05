@@ -35,6 +35,8 @@ ja:
       default: "%Y/%m/%d %H:%M"
   operation:
     error: エラー!
+    select:
+      prompt: 選択してください
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！

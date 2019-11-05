@@ -11,11 +11,7 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :due, presence: true
 
-  def self.search(name, priority, status)
-    if name && priority && status
-      Task.where(['name LIKE ? and priority = ? and status = ?', "%#{name}%", "%#{priority}%", "%#{status}%"])
-    else
-      Task.all
-    end
-  end
+  scope :name_like, -> (name) { where('name like ?', "%#{name}%") if name.present? }
+  scope :priority, -> (priority) { where(priority: priority) if priority.present? }
+  scope :status, -> (status) { where(status: status) if status.present? }
 end
