@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.all.order(sort_column + ' ' + sort_direction)
+    @search_params = task_search_params
+    @tasks = Task.all.search(@search_params).order(sort_column + ' ' + sort_direction)
   end
 
   def show
@@ -55,6 +56,10 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+    end
+
+    def task_search_params
+      params.fetch(:search, {}).permit(:title, :status)
     end
 
     def sort_direction

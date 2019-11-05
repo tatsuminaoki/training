@@ -4,6 +4,7 @@ ja:
     update: '更新'
     remove: '削除'
     detail: '詳細'
+    search: '検索'
   header:
     title: 'タスク名'
     priority: '優先度'
@@ -24,6 +25,10 @@ ja:
     remove:
       success: 'タスクを削除しました。'
       fail: 'タスクの削除に失敗しました。もう一度お試しください。'
+  placeholder:
+    search: 'タスク名で検索'
+  message:
+    lead: 'タスク検索はこちらから'
   error:
     count: '%{count}件のエラーがあります。'
   date:

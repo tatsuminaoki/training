@@ -1,0 +1,14 @@
+<%= form_tag(tasks_path, method: :get) do %>
+  <div class="input-group" style="margin: 10px;">
+    <%= text_field_tag 'search[title]', @search_params[:title], class: 'form-control', placeholder: t('placeholder.search') %>
+    <span class="input-group-btn">
+      <%= submit_tag t('operation.search'), name: nil, class: 'btn btn-default' %>
+    </span>
+  </div>
+
+  <h4>ステータス</h4>
+  <% Task.statuses.each do |k, v| %>
+    <%= radio_button_tag('search[status]', k, @search_params[:status] == k) %>
+    <%= label_tag(k, k, class: 'label-status') %>
+  <% end %>
+<% end %>
