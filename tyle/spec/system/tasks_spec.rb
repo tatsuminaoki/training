@@ -170,4 +170,90 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
   end
+
+  describe 'search' do
+    before do
+      create(:task, { user_id: user.id, created_at: 2.days })
+      create(:task2, { user_id: user.id, created_at: 1.day })
+      create(:task3, { user_id: user.id, created_at: Time.zone.now })
+    end
+
+    context 'visit tasks_path' do
+      subject { visit tasks_path }
+
+      it 'tasks searched by name `task2`' do
+        subject
+        fill_in 'search_by_name', with: 'task2'
+        click_on '検索'
+        expect(page).to have_no_content 'task1'
+        expect(page).to have_no_content 'low'
+        expect(page).to have_no_content 'waiting'
+        expect(page).to have_no_content '2020/12/31'
+        expect(page).to have_content 'task2'
+        expect(page).to have_content 'medium'
+        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '2021/01/01'
+        expect(page).to have_no_content 'task3'
+        expect(page).to have_no_content 'high'
+        expect(page).to have_no_content 'done'
+        expect(page).to have_no_content '2021/01/02'
+      end
+
+      it 'tasks searched by priority `Low`' do
+        subject
+        select 'Low', from: 'search_by_priority'
+        click_on '検索'
+        expect(page).to have_content 'task1'
+        expect(page).to have_content 'low'
+        expect(page).to have_content 'waiting'
+        expect(page).to have_content '2020/12/31'
+        expect(page).to have_no_content 'task2'
+        expect(page).to have_no_content 'medium'
+        expect(page).to have_no_content 'in_progress'
+        expect(page).to have_no_content '2021/01/01'
+        expect(page).to have_no_content 'task3'
+        expect(page).to have_no_content 'high'
+        expect(page).to have_no_content 'done'
+        expect(page).to have_no_content '2021/01/02'
+      end
+
+      it 'tasks searched by status `Done`' do
+        subject
+        select 'Done', from: 'search_by_status'
+        click_on '検索'
+        expect(page).to have_no_content 'task1'
+        expect(page).to have_no_content 'low'
+        expect(page).to have_no_content 'waiting'
+        expect(page).to have_no_content '2020/12/31'
+        expect(page).to have_no_content 'task2'
+        expect(page).to have_no_content 'medium'
+        expect(page).to have_no_content 'in_progress'
+        expect(page).to have_no_content '2021/01/01'
+        expect(page).to have_content 'task3'
+        expect(page).to have_content 'high'
+        expect(page).to have_content 'done'
+        expect(page).to have_content '2021/01/02'
+      end
+
+      it 'tasks searched by name `task`, priority `Medium`, and status `In_progress`' do
+        subject
+        fill_in 'search_by_name', with: 'task'
+        select 'Medium', from: 'search_by_priority'
+        select 'In_progress', from: 'search_by_status'
+        click_on '検索'
+        expect(page).to have_no_content 'task1'
+        expect(page).to have_no_content 'low'
+        expect(page).to have_no_content 'waiting'
+        expect(page).to have_no_content '2020/12/31'
+        expect(page).to have_content 'task2'
+        expect(page).to have_content 'medium'
+        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '2021/01/01'
+        expect(page).to have_no_content 'task3'
+        expect(page).to have_no_content 'high'
+        expect(page).to have_no_content 'done'
+        expect(page).to have_no_content '2021/01/02'
+      end
+    end
+  end
 end

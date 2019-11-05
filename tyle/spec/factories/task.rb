@@ -21,5 +21,5 @@ FactoryBot.define do
     priority { 2 }
     status { 2 }
     due { '20210102' }
-  end 
+  end
 end 

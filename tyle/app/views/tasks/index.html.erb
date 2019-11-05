@@ -14,17 +14,17 @@
       <tr>
         <td><%= f.label t('activerecord.attributes.task.name') %></td>
         <td>:</td>
-        <td><%= f.text_field :name, value: params[:name] %></td>
+        <td><%= f.text_field :name, value: params[:name], id: 'search_by_name' %></td>
       </tr>
       <tr>
         <td><%= f.label t('activerecord.attributes.task.priority') %></td>
         <td>:</td>
-        <td><%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]), prompt: t('operation.select.prompt') %></td>
+        <td><%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]), prompt: t('operation.select.prompt'), id: 'search_by_priority' %></td>
       </tr>
       <tr>
         <td><%= f.label t('activerecord.attributes.task.status') %></td>
         <td>:</td>
-        <td><%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]), prompt: t('operation.select.prompt') %></td>
+        <td><%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]), prompt: t('operation.select.prompt'), id: 'search_by_status' %></td>
       </tr>
     </table>
     <div>
