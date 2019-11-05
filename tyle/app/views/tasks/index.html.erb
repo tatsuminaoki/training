@@ -12,28 +12,9 @@
   <table>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      
-      <% # You can switch 'asc' and 'desc'%>
-      <% if params[:sort] == 'priority' && params[:direction] == 'desc' %>
-        <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', direction: 'asc' %></th>
-      <% else %>
-        <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', direction: 'desc' %></th>
-      <% end %>
-      
-      <% # You can switch 'asc' and 'desc'%>
-      <% if params[:sort] == 'status' && params[:direction] == 'desc' %>
-        <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', direction: 'asc' %></th>
-      <% else %>
-        <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', direction: 'desc' %></th>
-      <% end %>
-      
-      <% # You can switch 'asc' and 'desc'%>
-      <% if params[:sort] == 'due' && params[:direction] == 'desc' %>
-        <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', direction: 'asc' %></th>
-      <% else %>
-        <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', direction: 'desc' %></th>
-      <% end %>
-      
+      <th><%= switch_asc_and_desc('priority') %></th>
+      <th><%= switch_asc_and_desc('status') %></th>
+      <th><%= switch_asc_and_desc('due') %></th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>
