@@ -9,29 +9,28 @@
     <tr>
       <th>#</th>
       <th class="sorting_asc:after"><%= t('header.title') %></th>
-      <th class="sorting_asc:after"><%= t('header.user_name') %></th>
       <th><%= t('header.priority') %>
-        <%= link_to ({sort: 'priority', direction: 'desc', search: @search_params}), class: is_sorted('priority', 'desc'), id: 'priority_desc' do %>
+        <%= link_to ({sort: 'priority', direction: 'desc', search: @search_params}), class: is_sorted('tasks.priority', 'desc'), id: 'priority_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'priority', direction: 'asc', search: @search_params}), class: is_sorted('priority', 'asc'), id: 'priority_asc' do %>
+        <%= link_to ({sort: 'priority', direction: 'asc', search: @search_params}), class: is_sorted('tasks.priority', 'asc'), id: 'priority_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
       <th><%= t('header.status') %></th>
       <th><%= t('header.due_date') %>
-        <%= link_to ({sort: 'due_date', direction: 'desc', search: @search_params}), class: is_sorted('due_date', 'desc'), id: 'due_date_desc' do %>
+        <%= link_to ({sort: 'due_date', direction: 'desc', search: @search_params}), class: is_sorted('tasks.due_date', 'desc'), id: 'due_date_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'due_date', direction: 'asc', search: @search_params}), class: is_sorted('due_date', 'asc'), id: 'due_date_asc' do %>
+        <%= link_to ({sort: 'due_date', direction: 'asc', search: @search_params}), class: is_sorted('tasks.due_date', 'asc'), id: 'due_date_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
       <th><%= t('header.created_at') %>
-        <%= link_to ({sort: 'created_at', direction: 'desc', search: @search_params}), class: is_sorted('created_at', 'desc'), id: 'created_at_desc' do %>
+        <%= link_to ({sort: 'created_at', direction: 'desc', search: @search_params}), class: is_sorted('tasks.created_at', 'desc'), id: 'created_at_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
-        <%= link_to ({sort: 'created_at', direction: 'asc', search: @search_params}), class: is_sorted('created_at', 'asc'), id: 'created_at_asc' do %>
+        <%= link_to ({sort: 'created_at', direction: 'asc', search: @search_params}), class: is_sorted('tasks.created_at', 'asc'), id: 'created_at_asc' do %>
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
@@ -45,7 +44,6 @@
     <tr>
       <th><%= task.id %></th>
       <th class="title"><%= task.title %></th>
-      <td><%= task.user.name %></td>
       <td class="priority"><span class="label label-default"><%= task.priority %></span></td>
       <td class="status"><span class="label label-success"><%= task.status %></span></td>
       <td class="due_date"><%= task.due_date %></td>
