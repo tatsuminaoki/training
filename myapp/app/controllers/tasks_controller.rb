@@ -5,11 +5,15 @@ class TasksController < ApplicationController
   def index
     @search_params = task_search_params
     @user = User.find(@current_user.user_id)
-    @tasks = Task.all.preload(:user).search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.eager_load(:user)
+      .where('users.id = ?', @current_user.user_id)
+      .search(@search_params).order(sort_column + ' ' + sort_direction)
+      .page(params[:page]).per(PER)
   end
 
   def show
     @task = Task.find(params[:id])
+    redirect_to tasks_path unless @task[:user_id] == @current_user.user_id
   end
 
   def new
@@ -18,6 +22,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task[:user_id] = @current_user.user_id
     if @task.save
       flash[:success] = t('flash.create.success')
       redirect_to task_path(@task.id)
@@ -29,6 +34,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    redirect_to tasks_path unless @task[:user_id] == @current_user.user_id
   end
 
   def update
@@ -55,7 +61,7 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:title, :description, :priority, :status, :due_date, :user_id)
+      params.require(:task).permit(:title, :description, :priority, :status, :due_date)
     end
 
     def task_search_params
@@ -67,6 +73,6 @@ class TasksController < ApplicationController
     end
 
     def sort_column
-      Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+      Task.column_names.include?(params[:sort]) ? 'tasks.' + params[:sort] : 'tasks.created_at'
     end
 end
