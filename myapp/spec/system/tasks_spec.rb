@@ -227,4 +227,18 @@ RSpec.describe "Tasks", type: :system do
       expect(title[0].text).to eq 'fuga'
     end
   end
+
+  context 'When there are several pages' do
+    let!(:task) { create_list(:task, 30) }
+    it 'There is pagination for next page' do
+      visit tasks_path
+      expect(page).to have_link 2, href: tasks_path(page: 2)
+      expect(page).to have_link 3, href: tasks_path(page: 3)
+    end
+
+    it 'There is pagination for previous page' do
+      visit tasks_path(page: 2)
+      expect(page).to have_link 1, href: tasks_path
+    end
+  end
 end
