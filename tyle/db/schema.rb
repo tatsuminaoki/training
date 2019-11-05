@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_074449) do
     t.bigint "user_id", null: false
     t.integer "priority", null: false
     t.integer "status", null: false
-    t.datetime "due"
+    t.datetime "due", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -23,9 +23,9 @@
   <table>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      <th><%= link_to t('activerecord.attributes.task.priority'), sort: 'priority', search: params[:search], priority: params[:priority], status: params[:status] %></th>
-      <th><%= link_to t('activerecord.attributes.task.status'), sort: 'status', search: params[:search], priority: params[:priority], status: params[:status]%></th>
-      <th><%= link_to t('activerecord.attributes.task.due'), sort: 'due', search: params[:search], priority: params[:priority], status: params[:status]%></th>
+      <th><%= switch_asc_and_desc('priority') %></th>
+      <th><%= switch_asc_and_desc('status') %></th>
+      <th><%= switch_asc_and_desc('due') %></th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>
@@ -33,7 +33,7 @@
         <td class="task-name"><%= task.name %></td>
         <td class="task-priority"><%= task.priority %></td>
         <td class="task-status"><%= task.status %></td>
-        <td class="task-due"><%= task.due %></td>
+        <td class="task-due"><%= I18n.l(task.due) %></td>
         <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id) %></td>
       </tr>
     <% end %>

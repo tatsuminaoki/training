@@ -9,6 +9,7 @@ class Task < ApplicationRecord
   validates :user_id, presence: true
   validates :priority, presence: true
   validates :status, presence: true
+  validates :due, presence: true
 
   def self.search(name, priority, status)
     if name && priority && status
