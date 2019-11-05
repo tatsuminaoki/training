@@ -49,6 +49,7 @@ en:
     update: Update
     delete: Delete
     add: Add
+    search: Search
   activerecord:
     models:
       task: Task

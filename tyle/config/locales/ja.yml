@@ -49,6 +49,7 @@ ja:
     update: 更新
     delete: 削除
     add: 追加
+    search: 検索
   activerecord:
     models:
       task: タスク
