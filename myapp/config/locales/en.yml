@@ -7,6 +7,7 @@ en:
     search: 'Search'
   header:
     title: 'Title'
+    user_name: 'User'
     priority: 'Priority'
     status: 'Status'
     due_date: 'Due Date'

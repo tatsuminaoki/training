@@ -12,6 +12,7 @@
           <th><%= t('header.due_date') %></th>
           <th><%= t('header.created_at') %></th>
           <th><%= t('header.updated_at') %></th>
+          <th><%= t('header.user') %></th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,7 @@
           <td><%= @task.due_date %></td>
           <td><%= I18n.l(@task.created_at, format: :default) %></td>
           <td><%= I18n.l(@task.updated_at, format: :default) %></td>
+          <td><%= @task.user.name %></td>
         </tr>
       </tbody>
     </table>

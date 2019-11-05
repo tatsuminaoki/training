@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    @tasks = Task.all.search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.all.preload(:user).search(@search_params).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
   end
 
   def show
@@ -17,8 +17,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    # @TODO step16でユーザ登録機能を実装したら任意のユーザで登録するよう修正
-    @task[:user_id] = 1
     if @task.save
       flash[:success] = t('flash.create.success')
       redirect_to task_path(@task.id)
@@ -56,7 +54,7 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+      params.require(:task).permit(:title, :description, :priority, :status, :due_date, :user_id)
     end
 
     def task_search_params
