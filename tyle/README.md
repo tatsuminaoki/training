@@ -49,7 +49,7 @@ rails db:migrate
 rails db:migrate:redo
 
 # task
-# rails generate model task name:string description:text user:references priority:integer status:integer due:datetime deleted_at:datetime
+# rails generate model task name:string description:text user:references priority:integer status:integer due_at:datetime deleted_at:datetime
 rails db:migrate
 rails db:migrate:redo
 

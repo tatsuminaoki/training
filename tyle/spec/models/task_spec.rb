@@ -26,7 +26,7 @@ RSpec.describe Task, type: :model do
     end
 
     it 'fails to create a task without a status' do
-      expect { create(:task, { due: nil, user_id: user.id }) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { create(:task, { due_at: nil, user_id: user.id }) }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'fails to create a task with priority number over' do

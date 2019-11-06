@@ -3,6 +3,6 @@ class ChangeColumnToTask < ActiveRecord::Migration[6.0]
     change_column :tasks, :name, :string, null: false
     change_column :tasks, :priority, :integer, null: false
     change_column :tasks, :status, :integer, null: false
-    change_column :tasks, :due, :datetime, null: false
+    change_column :tasks, :due_at, :datetime, null: false
   end
 end

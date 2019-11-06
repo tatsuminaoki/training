@@ -57,4 +57,4 @@ en:
         user_id: UserID
         priority: Priority
         status: Status
-        due: Due
+        due_at: Due

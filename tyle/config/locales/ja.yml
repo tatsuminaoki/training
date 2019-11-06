@@ -57,5 +57,5 @@ ja:
         user_id: ユーザID
         priority: 優先度
         status: 状態
-        due: 期限
+        due_at: 期限
         detail: 詳細
