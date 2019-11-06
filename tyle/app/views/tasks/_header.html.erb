@@ -1,0 +1,10 @@
+<%= render 'flash' %>
+<div class="card col-md-6">
+  <div class="card-body">
+    <h1>TYLE</h1>
+    <%= link_to t('button.index'), tasks_path %>
+    <% if request.path_info != new_task_path %>
+      <%= link_to t('button.add'), new_task_path %>
+    <% end %>
+  </div>
+</div>

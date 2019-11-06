@@ -1,36 +1,33 @@
-<div>
-  <%= render 'error_messages', model: task %>
+<%= render 'error_messages', model: task %>
 
-  <%= form_with model: task do |f| %>
-    <table>
-      <tr>
-        <td><%= f.label :name %></td>
-        <td>:</td>
-        <td><%= f.text_field :name %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :description %></td>
-        <td>:</td>
-        <td><%= f.text_area :description %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :priority %></td>
-        <td>:</td>
-        <td><%= f.select :priority, Task.priorities.keys.to_a, {} %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :status %></td>
-        <td>:</td>
-        <td><%= f.select :status, Task.statuses.keys.to_a, {} %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :due %></td>
-        <td>:</td>
-        <td><%= f.text_field :due %></td>
-      </tr>
-    </table>
-    <div>
-      <%= f.submit %>
-    </div>
-  <% end %>
+<div class="card col-md-6">
+  <div class="card-body">
+    <%= form_with model: task do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 10, class: 'form-control' %>
+      </div>
+      <div class="form-row">
+      <div class="form-group col-md-6">
+        <%= f.label :priority %>
+        <%= f.select :priority, Task.priorities.keys.to_a, {}, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6">
+        <%= f.label :status %>
+        <%= f.select :status, Task.statuses.keys.to_a, {}, class: 'form-control' %>
+      </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :due %>
+        <%= f.text_field :due, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 </div>
