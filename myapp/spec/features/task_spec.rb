@@ -1,0 +1,49 @@
+require 'rails_helper'
+
+RSpec.feature "Task management", type: :feature do
+  scenario "User creates a new task" do
+    visit new_task_path
+
+    fill_in "Name", with: "My Task"
+    fill_in "Description", with: "Description"
+    click_button "Create Task"
+
+    expect(page).to have_text("A new task created!")
+  end
+
+  scenario "User edits a task." do
+    name = 'mytask-spec'
+    task = Task.create(name: name, description: 'tmp')
+    visit edit_task_path(task)
+
+    # check if in the right place.
+    expect(page).to have_selector("input[value=#{name}]")
+
+    name_edited = 'mytask-spec-edited'
+    fill_in "Name", with: name_edited
+    click_button "Update Task"
+
+    # check if updates successfully.
+    expect(page).to have_text("Task updated!")
+    expect(page).to have_text(name_edited)
+  end
+
+  scenario "User delete a task on detail page." do
+    name = 'task-to-delete'
+    task = Task.create(name: name, description: 'tmp')
+    visit task_path(task)
+
+    click_link "Destroy"
+
+    expect(page).to have_text("Task deleted!")
+    expect(page).not_to have_text(name)
+  end
+
+  scenario "User lists tasks" do
+    name = 'task-to-list'
+    task = Task.create(name: name, description: 'tmp')
+    visit root_path
+
+    expect(page).to have_text(name)
+  end
+end
