@@ -1,5 +1,5 @@
-<h1>Edit task</h1>
+<h1><%= t :h1_edit_task %></h1>
 
 <%= render partial: "form", locals: {task: @task} %>
 
-<%= link_to 'Back', tasks_path %>
+<%= link_to "#{t('link_back')}", tasks_path %>
