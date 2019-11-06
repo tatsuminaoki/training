@@ -41,11 +41,11 @@ RSpec.describe Task, type: :model do
       end
     end
 
-    context 'without a due_at' do
-      let(:task) { build(:task, { due_at: nil, user_id: user.id }) }
+    context 'without a due' do
+      let(:task) { build(:task, { due: nil, user_id: user.id }) }
 
       it 'shows the error message' do
-        expect(task.errors[:due_at]).to include('を入力してください')
+        expect(task.errors[:due]).to include('を入力してください')
       end
     end
 
