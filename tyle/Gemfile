@@ -52,6 +52,8 @@ group :development do
   gem 'fablicop', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Prevent N+1
+  gem 'bullet'
 end
 
 group :test do
