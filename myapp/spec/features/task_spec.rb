@@ -4,11 +4,11 @@ RSpec.feature "Task management", type: :feature do
   scenario "User creates a new task" do
     visit new_task_path
 
-    fill_in "Name", with: "My Task"
-    fill_in "Description", with: "Description"
-    click_button "Create Task"
+    fill_in I18n.t('name'), with: "My Task"
+    fill_in I18n.t('description'), with: "説明"
+    click_button I18n.t('form_submit')
 
-    expect(page).to have_text("A new task created!")
+    expect(page).to have_text("#{I18n.t('new_task_created')}")
   end
 
   scenario "User edits a task." do
@@ -20,11 +20,11 @@ RSpec.feature "Task management", type: :feature do
     expect(page).to have_selector("input[value=#{name}]")
 
     name_edited = 'mytask-spec-edited'
-    fill_in "Name", with: name_edited
-    click_button "Update Task"
+    fill_in I18n.t('name'), with: name_edited
+    click_button I18n.t('form_submit')
 
     # check if updates successfully.
-    expect(page).to have_text("Task updated!")
+    expect(page).to have_text("#{I18n.t('task_updated')}")
     expect(page).to have_text(name_edited)
   end
 
@@ -33,9 +33,9 @@ RSpec.feature "Task management", type: :feature do
     task = Task.create(name: name, description: 'tmp')
     visit task_path(task)
 
-    click_link "Destroy"
+    click_link I18n.t('link_delete')
 
-    expect(page).to have_text("Task deleted!")
+    expect(page).to have_text("#{I18n.t('task_deleted')}")
     expect(page).not_to have_text(name)
   end
 
