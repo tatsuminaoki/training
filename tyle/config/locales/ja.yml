@@ -33,8 +33,6 @@ ja:
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
-  operation:
-    error: エラー!
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！
