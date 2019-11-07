@@ -67,4 +67,7 @@ RSpec.configure do |config|
   config.before(:each) do |example|
     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400] if example.metadata[:type] == :system
   end
+
+  # factory-bot
+  config.include FactoryBot::Syntax::Methods
 end
