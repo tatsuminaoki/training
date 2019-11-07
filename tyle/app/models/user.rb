@@ -9,4 +9,12 @@ class User < ApplicationRecord
   validates :login_id, presence: true, uniqueness: true
   validates :password, length: { minimum: 8 }, presence: true, on: :create
   validates :password, length: { minimum: 8 }, presence: true, on: :update
+
+  def self.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def self.encrypt(token)
+    Digest::SHA256.hexdigest(token.to_s)
+  end
 end
