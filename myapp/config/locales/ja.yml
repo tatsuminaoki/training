@@ -1,0 +1,28 @@
+ja:
+  error_title: "エラー"
+  error_explanation: "保存ができません！"
+  new_task_created: "新しいタスクが作成されました！"
+  task_updated: "タスクが更新されました！"
+  task_deleted: "タスクを削除しました！"
+  h1_edit_task: "タスク更新"
+  h1_index: "タスク一覧"
+  h1_new: "新しいタスク"
+  link_back: "戻る"
+  link_detail: "詳細"
+  link_delete: "削除"
+  link_edit: "更新"
+  link_new: "登録"
+  name: "名前"
+  description: "説明"
+  delete_confirm: "本当に削除しますか？"
+  form_submit: "送信"
+  helpers:
+    label:
+      task:
+        name: "名前"
+        description: "説明"
+  activerecord:
+    attributes:
+      task:
+        name: "名前"
+        description: "説明"

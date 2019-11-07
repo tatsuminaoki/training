@@ -2,9 +2,8 @@
   <% if task.errors.any? %>
     <div id="error_explanation">
       <h2>
-        <%= pluralize(task.errors.count, "error") %>
-  prohibited
-         this task from being saved:
+        <%= pluralize(task.errors.count, "#{t :error_title}") %>
+        <%= t :error_explanation %>
       </h2>
       <ul>
         <% task.errors.full_messages.each do |msg| %>
@@ -24,6 +23,6 @@
   </p>
 
   <p>
-    <%= form.submit %>
+    <%= form.submit t :form_submit %>
   </p>
 <% end %>

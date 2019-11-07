@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:message] = 'A new task created!'
+      flash[:message] = t :new_task_created
       redirect_to @task
     else
       render 'new'
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:message] = 'Task updated!'
+      flash[:message] = t :task_updated
       redirect_to @task
     else
       render 'edit'
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      flash[:message] = 'Task deleted!'
+      flash[:message] = t :task_deleted
       redirect_to tasks_path
     else
       redirect_to @task
