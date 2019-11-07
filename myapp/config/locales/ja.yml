@@ -26,9 +26,3 @@ ja:
       task:
         name: "名前"
         description: "説明"
-    errors:
-      models:
-        task:
-          attributes:
-            name:
-              blank: "入力がありません！"
