@@ -7,5 +7,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :login_id, presence: true
-  validates :password_digest, presence: true
+  validates :password, length: { minimum: 8 }, presence: true, on: :create
+  validates :password, length: { minimum: 8 }, presence: true, on: :update
 end
