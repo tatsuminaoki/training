@@ -4,11 +4,11 @@ RSpec.feature "Task management", type: :feature do
   scenario "User creates a new task" do
     visit new_task_path
 
-    fill_in I18n.t('name'), with: "My Task"
-    fill_in I18n.t('description'), with: "説明"
-    click_button I18n.t('form_submit')
+    fill_in "名前", with: "My Task"
+    fill_in "説明", with: "説明"
+    click_button "送信"
 
-    expect(page).to have_text("#{I18n.t('new_task_created')}")
+    expect(page).to have_text("新しいタスクが作成されました！")
   end
 
   scenario "User edits a task." do
@@ -20,11 +20,11 @@ RSpec.feature "Task management", type: :feature do
     expect(page).to have_selector("input[value=#{name}]")
 
     name_edited = 'mytask-spec-edited'
-    fill_in I18n.t('name'), with: name_edited
-    click_button I18n.t('form_submit')
+    fill_in "名前", with: name_edited
+    click_button "送信"
 
     # check if updates successfully.
-    expect(page).to have_text("#{I18n.t('task_updated')}")
+    expect(page).to have_text("タスクが更新されました！")
     expect(page).to have_text(name_edited)
   end
 
@@ -33,9 +33,9 @@ RSpec.feature "Task management", type: :feature do
     task = Task.create(name: name, description: 'tmp')
     visit task_path(task)
 
-    click_link I18n.t('link_delete')
+    click_link "削除"
 
-    expect(page).to have_text("#{I18n.t('task_deleted')}")
+    expect(page).to have_text("タスクを削除しました！")
     expect(page).not_to have_text(name)
   end
 
