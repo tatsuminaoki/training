@@ -15,6 +15,8 @@ en:
     updated_at: 'Updated Date'
     description: 'Description'
     list: 'Task List'
+    email: 'Email'
+    task_count: 'Tasks'
     back: 'Back'
   flash:
     create:

@@ -1,0 +1,33 @@
+<div class="center jumbotron">
+  <h1>User List</h1>
+  <%# <p class="lead"><%= t('message.lead', name: @user.name) %></p> %>
+  <%# <%= render 'search' %> %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th class="sorting_asc:after"><%= t('header.user_name') %></th>
+      <th><%= t('header.email') %></th>
+      <th><%= t('header.task_count') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <th><%= user.id %></th>
+      <th class="name"><%= user.name %></th>
+      <td class="email"><%= user.email %></td>
+      <td><%= user.tasks.to_a.count %></td>
+      <td><%= link_to t('operation.detail'), user_path(user.id) %></td>
+      <td><%= link_to t('operation.update'), edit_user_path(user.id) %></td>
+      <td><%= link_to t('operation.remove'), user_path(user.id), method: 'delete' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>
