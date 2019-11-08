@@ -16,4 +16,10 @@ class TaskTest < ActiveSupport::TestCase
                  0123456789"
     assert_not task.save
   end
+
+  test "should save with valid data" do
+    task = Task.new
+    task.name = "valid name."
+    assert task.save
+  end
 end
