@@ -48,6 +48,7 @@ ja:
     delete: 削除
     add: 追加
     search: 検索
+    logout: ログアウト
   activerecord:
     models:
       task: タスク

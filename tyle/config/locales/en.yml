@@ -48,6 +48,7 @@ en:
     delete: Delete
     add: Add
     search: Search
+    logout: Logout
   activerecord:
     models:
       task: Task

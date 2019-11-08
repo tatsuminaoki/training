@@ -6,5 +6,6 @@
     <% if request.path_info != new_task_path %>
       <%= link_to t('button.add'), new_task_path %>
     <% end %>
+    <%= link_to t('button.logout'), logout_path, method: :delete %>
   </div>
 </div>
