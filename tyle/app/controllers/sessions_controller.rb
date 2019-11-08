@@ -6,9 +6,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # @user.password = session_params[:password]
-    @user.password = params[:password]
-    # TODO: user.authenticate needs user.password!!!
     # if @user.authenticate(session_params[:password])
     if @user.authenticate(params[:password])
       sign_in(@user)
@@ -32,6 +29,7 @@ class SessionsController < ApplicationController
     render action: 'new'
   end
 
+  # session_params does not work!
   def session_params
     params.require(:session).permit(:login_id, :password)
   end
