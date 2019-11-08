@@ -6,33 +6,38 @@ class Admin::UsersController < ApplicationController
     @users = User.preload(:tasks).page(params[:page]).per(PER)
   end
 
-  def create
+  def show
+    @user = User.preload(:tasks).find(params[:id])
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = t('flash.update.success')
+      redirect_to admin_user_path(@user.id)
+    else
+      flash.now[:danger] = t('flash.update.fail')
+      render :edit
+    end
   end
 
   def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:success] = t('flash.remove.success')
+    else
+      flash[:success] = t('flash.remove.fail')
+    end
+    redirect_to admin_users_path
   end
 
   private
 
-  def task_params
-    params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
-
-  def task_search_params
-    params.fetch(:search, {}).permit(:title, :status)
-  end
-
-  # def sort_direction
-  #   %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  # end
-
-  # def sort_column
-  #   Task.column_names.include?(params[:sort]) ? 'tasks.' + params[:sort] : 'tasks.created_at'
-  # end
 end

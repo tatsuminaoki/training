@@ -1,6 +1,6 @@
 ja:
   operation:
-    create: '新規作成'
+    create: '作成'
     update: '更新'
     remove: '削除'
     detail: '詳細'
@@ -17,17 +17,17 @@ ja:
     list: 'タスク一覧'
     email: 'メールアドレス'
     task_count: 'タスク数'
-    back: '戻る'
+    back: '一覧に戻る'
   flash:
     create:
       success: 'タスクを作成しました。'
       fail: 'タスクの新規登録に失敗しました。もう一度お試しください。'
     update:
-      success: 'タスクを更新しました。'
-      fail: 'タスクの更新に失敗しました。もう一度お試しください。'
+      success: '更新しました。'
+      fail: '更新に失敗しました。もう一度お試しください。'
     remove:
-      success: 'タスクを削除しました。'
-      fail: 'タスクの削除に失敗しました。もう一度お試しください。'
+      success: '削除しました。'
+      fail: '削除に失敗しました。もう一度お試しください。'
     login:
       fail: 'メールアドレス、またはパスワードが無効です。'
     user:
@@ -36,6 +36,7 @@ ja:
     search: 'タスク名で検索'
   message:
     lead: '%{name}さん、こんにちは！'
+    confirm: '削除してよろしいですか？'
   error:
     count: '%{count}件のエラーがあります。'
   date:

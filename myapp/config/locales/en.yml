@@ -36,6 +36,7 @@ en:
     search: 'Search with title.'
   message:
     lead: 'Hello, %{name}.'
+    confirm: 'Are you sure to delete?'
   error:
     count: 'The form contains %{count} error(s).'
   date:
