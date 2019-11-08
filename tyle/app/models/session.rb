@@ -1,2 +1,3 @@
-class Session < ApplicationRecord
+class Session
+  include ActiveModel::Model
 end
