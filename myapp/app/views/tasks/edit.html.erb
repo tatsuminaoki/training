@@ -4,5 +4,7 @@
   <%= form_for @task, url: task_path(@task.id) do |f| %>
     <%= render "form", { f: f } %>
   <% end %>
+  <%= link_to tasks_path do %>
+  <span class="glyphicon glyphicon-menu-left"></span><%= t('header.back') %>
+<% end %>
 </div>
-<%= link_to sprintf("<< %s", t('header.back')), tasks_path %>

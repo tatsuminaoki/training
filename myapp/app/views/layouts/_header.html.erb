@@ -4,7 +4,7 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
-          <li><%= link_to t('operation.create'), new_task_path %></li>
+          <li><%= link_to new_task_path do %><%= t('operation.create') %> <span class="glyphicon glyphicon-plus"></span><% end %></li>
           <li><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'Logout', login_path, method: :delete %></li>
         <% else %>
