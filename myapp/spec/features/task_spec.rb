@@ -1,14 +1,34 @@
 require 'rails_helper'
 
 RSpec.feature "Task management", type: :feature do
-  scenario "User creates a new task" do
+  scenario "User creates a new task with name that length is 50" do
     visit new_task_path
 
-    fill_in "名前", with: "My Task"
+    fill_in "名前", with: 'a' * 50
     fill_in "説明", with: "説明"
     click_button "送信"
 
     expect(page).to have_text("新しいタスクが作成されました！")
+  end
+
+  scenario "User can't create a new task with name that length is invalid" do
+    visit new_task_path
+
+    fill_in "名前", with: 'a' * 51
+    fill_in "説明", with: "説明"
+    click_button "送信"
+
+    expect(page).to have_text("名前は50文字以内")
+  end
+
+  scenario "User can't create a new task with empty name" do
+    visit new_task_path
+
+    fill_in "名前", with: ""
+    fill_in "説明", with: "説明"
+    click_button "送信"
+
+    expect(page).to have_text("名前を入力してください")
   end
 
   scenario "User edits a task." do

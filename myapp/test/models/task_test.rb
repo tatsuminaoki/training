@@ -8,18 +8,13 @@ class TaskTest < ActiveSupport::TestCase
 
   test "should not save task with name length exceed 50" do
     task = Task.new
-    task.name = "0123456789
-                 0123456789
-                 0123456789
-                 0123456789
-                 0123456789
-                 0123456789"
+    task.name = 'a' * 51
     assert_not task.save
   end
 
-  test "should save with valid data" do
+  test "should save with valid length for name" do
     task = Task.new
-    task.name = "valid name."
+    task.name = 'a' * 50
     assert task.save
   end
 end
