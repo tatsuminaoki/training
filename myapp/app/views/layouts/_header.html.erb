@@ -7,7 +7,7 @@
           <li><%= link_to new_task_path do %><%= t('operation.create') %> <span class="glyphicon glyphicon-plus"></span><% end %></li>
           <li><%= link_to 'Admin', admin_users_path %>
           <li><%= link_to 'Home', root_path %></li>
-          <li><%= link_to 'Logout', login_path, method: :delete %></li>
+          <li><%= link_to 'Logout', login_path, method: :delete, id: 'logout' %></li>
         <% else %>
           <li><%= link_to 'Sign Up', new_user_path  %></li>
           <li><%= link_to 'Login', login_path %></li>

@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
     remember_token = UserSession.new_remember_token
     cookies.permanent[:user_remember_token] = remember_token
     user_session = UserSession.find_by(user_id: user.id)
-    user_session.update(session: UserSession.encrypt(remember_token))
+    if user_session
+      user_session.update(session: UserSession.encrypt(remember_token))
+    else
+      UserSession.create(user_id: user.id, session: UserSession.encrypt(remember_token))
+    end
     @current_user = user
   end
 

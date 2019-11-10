@@ -9,7 +9,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user[:role] = 0
     if @user.save
-      UserSession.create(user_id: @user.id)
       flash[:success] = t('flash.user.success')
       redirect_to login_path
     else
