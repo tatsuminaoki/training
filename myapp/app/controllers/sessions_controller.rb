@@ -23,14 +23,14 @@ class SessionsController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find_by!(email: session_params[:email])
-    rescue
-      flash.now[:danger] = t('flash.login.fail')
-      render action: 'new'
-    end
+  def set_user
+    @user = User.find_by!(email: session_params[:email])
+  rescue
+    flash.now[:danger] = t('flash.login.fail')
+    render action: 'new'
+  end
 
-    def session_params
-      params.require(:session).permit(:email, :password)
-    end
+  def session_params
+    params.require(:session).permit(:email, :password)
+  end
 end

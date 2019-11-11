@@ -60,19 +60,19 @@ class TasksController < ApplicationController
 
   private
 
-    def task_params
-      params.require(:task).permit(:title, :description, :priority, :status, :due_date)
-    end
+  def task_params
+    params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+  end
 
-    def task_search_params
-      params.fetch(:search, {}).permit(:title, :status)
-    end
+  def task_search_params
+    params.fetch(:search, {}).permit(:title, :status)
+  end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-    end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
 
-    def sort_column
-      Task.column_names.include?(params[:sort]) ? 'tasks.' + params[:sort] : 'tasks.created_at'
-    end
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? 'tasks.' + params[:sort] : 'tasks.created_at'
+  end
 end
