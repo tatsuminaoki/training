@@ -24,7 +24,7 @@
    
     <p>
       <%= form.label :due %><br>
-      <%= form.text_field :due %>
+      <%= form.datetime_field :due, value: Date.today.strftime("%Y-%m-%dT%T") %>
     </p>
    
     <p>

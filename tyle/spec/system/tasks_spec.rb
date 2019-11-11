@@ -40,7 +40,7 @@ RSpec.describe 'Tasks', type: :system do
         visit new_task_path
         fill_in 'task_name', with: 'task1'
         fill_in 'task_description', with: 'this is a task1'
-        fill_in 'task_due', with: '20201231'
+        fill_in 'task_due', with: Date.today
         select 'medium', from: 'task_priority'
         select 'in_progress', from: 'task_status'
         click_button '登録する'
@@ -50,7 +50,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'this is a task1'
         expect(page).to have_content 'medium'
         expect(page).to have_content 'in_progress'
-        expect(page).to have_content '2020/12/31'
+        expect(page).to have_content Date.today.strftime('%Y/%m/%d')
       end
     end
 
@@ -106,10 +106,9 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_field 'task_description', with: 'this is a task1'
         expect(page).to have_field 'task_priority', with: 'low'
         expect(page).to have_field 'task_status', with: 'waiting'
-        expect(page).to have_field 'task_due', with: '2020-12-31 00:00:00 +0900'
         fill_in 'task_name', with: 'task2'
         fill_in 'task_description', with: 'this is a task2'
-        fill_in 'task_due', with: '20210101'
+        fill_in 'task_due', with: Date.today
         select 'high', from: 'task_priority'
         select 'done', from: 'task_status'
         click_button '更新する'
@@ -119,7 +118,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'this is a task2'
         expect(page).to have_content 'high'
         expect(page).to have_content 'done'
-        expect(page).to have_content '2021/01/01'
+        expect(page).to have_content Date.today.strftime('%Y/%m/%d')
       end
     end
   end

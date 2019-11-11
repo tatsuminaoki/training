@@ -8,4 +8,14 @@ module TasksHelper
       link_to t("activerecord.attributes.task.#{column}"), sort: column, direction: 'desc'
     end
   end
+
+  def show_asc_or_desc(column)
+    if params[:sort] == column && params[:direction] == 'desc' then
+      '▼'
+    elsif params[:sort] == column && params[:direction] == 'asc' then
+      '▲'
+    else
+      ''
+    end
+  end
 end

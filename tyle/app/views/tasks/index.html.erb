@@ -10,11 +10,25 @@
 
 <div>
   <table>
+    <caption><%= t('operation.task-list') %></caption>
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
-      <th><%= switch_asc_and_desc('priority') %></th>
-      <th><%= switch_asc_and_desc('status') %></th>
-      <th><%= switch_asc_and_desc('due') %></th>
+      <th>
+        <%= switch_asc_and_desc('priority') %>
+        <%= show_asc_or_desc('priority') %>
+      </th>
+      <th>
+        <%= switch_asc_and_desc('status') %>
+        <%= show_asc_or_desc('status') %>
+      </th>
+      <th>
+        <%= switch_asc_and_desc('due') %>
+        <%= show_asc_or_desc('due') %>
+      </th>
+      <th>
+        <%= switch_asc_and_desc('created_at') %>
+        <%= show_asc_or_desc('created_at') %>
+      </th>
       <th><%= t('button.detail') %></th>
     </tr>
     <% @tasks.each do |task| %>
@@ -23,6 +37,7 @@
         <td class="task-priority"><%= task.priority %></td>
         <td class="task-status"><%= task.status %></td>
         <td class="task-due"><%= I18n.l(task.due) %></td>
+        <td class="task-created-at"><%= I18n.l(task.created_at) %></td>
         <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id) %></td>
       </tr>
     <% end %>
