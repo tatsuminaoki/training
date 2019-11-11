@@ -52,6 +52,18 @@ RSpec.feature "Task management", type: :feature do
     expect(page).to have_text(name_edited)
   end
 
+  scenario "User visit task detail page." do
+    name = 'mytask'
+    description = 'mydescription'
+    status = 'todo'
+    task = Task.create(name: name, description:description, status:status)
+    visit task_path(task)
+
+    expect(page).to have_text(name)
+    expect(page).to have_text(description)
+    expect(page).to have_text("未着手")
+  end
+
   scenario "User delete a task on detail page." do
     name = 'task-to-delete'
     task = Task.create(name: name, description: 'tmp')
