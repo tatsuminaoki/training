@@ -6,6 +6,7 @@ RSpec.feature "Task management", type: :feature do
 
     fill_in "名前", with: 'a' * 50
     fill_in "説明", with: "説明"
+    select "未着手", from: "task_status"
     click_button "送信"
 
     expect(page).to have_text("新しいタスクが作成されました！")
@@ -16,6 +17,7 @@ RSpec.feature "Task management", type: :feature do
 
     fill_in "名前", with: 'a' * 51
     fill_in "説明", with: "説明"
+    select "未着手", from: "task_status"
     click_button "送信"
 
     expect(page).to have_text("名前は50文字以内")
@@ -26,6 +28,7 @@ RSpec.feature "Task management", type: :feature do
 
     fill_in "名前", with: ""
     fill_in "説明", with: "説明"
+    select "未着手", from: "task_status"
     click_button "送信"
 
     expect(page).to have_text("名前を入力してください")
@@ -41,6 +44,7 @@ RSpec.feature "Task management", type: :feature do
 
     name_edited = 'mytask-spec-edited'
     fill_in "名前", with: name_edited
+    select "進行中", from: "task_status"
     click_button "送信"
 
     # check if updates successfully.
@@ -65,5 +69,23 @@ RSpec.feature "Task management", type: :feature do
     visit root_path
 
     expect(page).to have_text(name)
+  end
+
+  scenario "User list tasks with status todo and a task name" do
+    todo_name1 = 'task1-todo'
+    todo_name2 = 'task2-todo'
+    done_name1 = 'task1-done'
+    todo_task1 = Task.create(name: todo_name1, description: 'tmp', status: 'todo')
+    todo_task2 = Task.create(name: todo_name2, description: 'tmp', status: 'todo')
+    done_task1 = Task.create(name: done_name1, description: 'tmp', status: 'done')
+
+    visit root_path
+    fill_in "name", with: todo_name1
+    select "未着手", from: "status"
+    click_button "検索"
+
+    expect(page).not_to have_text("task1-done")
+    expect(page).not_to have_text("task2-todo")
+    expect(page).to have_text("task1-todo")
   end
 end

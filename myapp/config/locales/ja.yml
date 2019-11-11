@@ -14,15 +14,23 @@ ja:
   link_new: "登録"
   name: "名前"
   description: "説明"
+  status: "ステータス"
   delete_confirm: "本当に削除しますか？"
   form_submit: "送信"
+  form_btn_search: "検索"
   helpers:
     label:
       task:
         name: "名前"
         description: "説明"
+        status: "ステータス"
   activerecord:
     attributes:
       task:
         name: "名前"
         description: "説明"
+        status: "ステータス"
+      task/status:
+        todo: "未着手"
+        processing: "進行中"
+        done: "完了"

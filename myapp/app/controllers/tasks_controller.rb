@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+  before_action :sanitize_task_params, only: [:create, :update]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.find_with_conditions(params)
   end
 
   def new
@@ -48,10 +49,14 @@ class TasksController < ApplicationController
 private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :status)
   end
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def sanitize_task_params
+    params[:task][:status] = params[:task][:status].to_i
   end
 end
