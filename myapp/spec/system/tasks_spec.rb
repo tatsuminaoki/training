@@ -6,7 +6,7 @@ RSpec.describe "Tasks", type: :system do
     @user = create(:user)
     @user_session = UserSession.create(user_id: @user.id)
     visit login_path
-    fill_in 'session[email]', with: 'hoge@fuga.com'
+    fill_in 'session[email]', with: 'hoge@example.com'
     fill_in 'session[password]', with: 'hoge123'
     click_on 'commit'
 
@@ -249,7 +249,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a user tried to see the other task created by other users' do
-    let!(:user2) { create(:user, email: 'fuga@fuga.com') }
+    let!(:user2) { create(:user, email: 'fuga@example.com') }
     let!(:task) { create(:task, user_id: user2.id) }
     it 'Cannot see task detail page and redirec to task list page' do
       visit task_path(id: task.id)
