@@ -35,4 +35,19 @@ RSpec.describe Task, type: :model do
       expect(task.save).to eq(true)
     end
   end
+
+  context "find with conditions" do
+    it "name and status" do
+      todo_name1 = 'task1-todo'
+      todo_name2 = 'task2-todo'
+      done_name1 = 'task1-done'
+      todo_task1 = Task.create(name: todo_name1, description: 'tmp', status: 'todo')
+      todo_task2 = Task.create(name: todo_name2, description: 'tmp', status: 'todo')
+      done_task1 = Task.create(name: done_name1, description: 'tmp', status: 'done')
+
+      tasks = Task.find_with_conditions({"name" => "2-todo", "status" => "0"})
+      expect(tasks.length).to eq(1)
+      expect(tasks.first.name).to eq(todo_name2)
+    end
+  end
 end
