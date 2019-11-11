@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
+    @tasks = Task.user_id(@current_user.id).name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
   end
 
   def new
@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = User.find_by(id: 1).tasks.new(task_params)
+    @task = @current_user.tasks.new(task_params)
 
     if @task.save
       redirect_to @task, notice: t('message.created')
