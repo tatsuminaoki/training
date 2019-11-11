@@ -10,12 +10,12 @@ module TasksHelper
   end
 
   def show_asc_or_desc(column)
-    default = (column == 'created_at' && params[:sort] == nil && params[:direction] == nil)
-    if default then
+    default_of_created_at = (column == 'created_at' && params[:sort].nil? && params[:direction].nil?)
+    if default_of_created_at
       '▼'
-    elsif params[:sort] == column && params[:direction] == 'desc' then
+    elsif params[:sort] == column && params[:direction] == 'desc'
       '▼'
-    elsif params[:sort] == column && params[:direction] == 'asc' then
+    elsif params[:sort] == column && params[:direction] == 'asc'
       '▲'
     else
       ''
