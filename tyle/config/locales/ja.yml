@@ -49,6 +49,7 @@ ja:
     add: 追加
     search: 検索
     logout: ログアウト
+    login: ログイン
   activerecord:
     models:
       task: タスク

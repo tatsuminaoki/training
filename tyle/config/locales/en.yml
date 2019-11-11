@@ -49,6 +49,7 @@ en:
     add: Add
     search: Search
     logout: Logout
+    login: Login
   activerecord:
     models:
       task: Task
