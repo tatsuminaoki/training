@@ -5,10 +5,7 @@ RSpec.describe "Tasks", type: :system do
     driven_by(:rack_test)
     @user = create(:user)
     @user_session = UserSession.create(user_id: @user.id)
-    visit login_path
-    fill_in 'session[email]', with: 'hoge@example.com'
-    fill_in 'session[password]', with: 'hoge123'
-    click_on 'commit'
+    login(@user)
 
     @task1 = create(:task, user_id: @user.id, created_at: DateTime.now)
     @task2 = create(:task, user_id: @user.id, priority: 1, due_date: DateTime.now + 1, created_at: DateTime.now - 1)
