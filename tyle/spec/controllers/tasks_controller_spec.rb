@@ -6,6 +6,13 @@ RSpec.describe TasksController, type: :controller do
   let(:user) { create(:user) }
   let(:task) { create(:task, { user_id: user.id }) }
 
+  # login
+  before do
+    remember_token = User.encrypt(cookies[:user_remember_token])
+    cookies.permanent[:user_remember_token] = remember_token
+    user.update!(remember_token: User.encrypt(remember_token))
+  end
+
   describe 'GET #index' do
     it 'returns http success' do
       get :index

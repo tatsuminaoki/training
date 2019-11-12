@@ -5,6 +5,15 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   let(:user) { create(:user) }
 
+  # login
+  before do
+    visit login_path
+    fill_in 'session_login_id', with: user.login_id
+    fill_in 'session_password', with: 'password1'
+    click_on 'ログイン'
+    sleep 1
+  end
+
   describe 'views' do
     let!(:task) { create(:task, { user_id: user.id }) }
     before do
