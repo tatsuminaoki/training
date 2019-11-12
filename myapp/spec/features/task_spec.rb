@@ -125,6 +125,15 @@ RSpec.feature 'Task management', type: :feature do
         expect(page).to have_text(@todo_task1.name)
         expect(page).not_to have_text(@todo_task2.name)
       end
+
+      scenario 'search params will remains on form' do
+        visit root_path
+        fill_in 'name', with: 'no-task-found-name'
+        select '進行中', from: 'status'
+        click_button '検索'
+        expect(page).to have_selector("input[value=no-task-found-name]")
+        expect(page).to have_selector("option[selected=selected][value=1]")
+      end
     end
   end
 end
