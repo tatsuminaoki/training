@@ -1,0 +1,36 @@
+<% provide(:title, 'User Registration') %>
+<h1>User Registration Form</h1>
+<div class="row">
+  <%= form_for @user, url: users_path do |f| %>
+    <%= render 'shared/error_messages', model: f.object %>
+    <div class="form-group row">
+      <%= f.label :name, class: 'col-sm-2 col-form-label' %>
+      <span class="label label-danger">Required</span>
+      <div class="col-sm-5">
+        <%= f.text_field :name, size: 32, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :email, class: 'col-sm-2 col-form-label' %>
+      <span class="label label-danger">Required</span>
+      <div class="col-sm-5">
+        <%= f.text_field :email, size: 128, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label :password, class: 'col-sm-2 col-form-label' %>
+      <span class="label label-danger">Required</span>
+      <div class="col-sm-5">
+        <%= f.password_field :password, size: 128, class: 'form-control' %>
+      </div>
+    </div>
+      <div class="form-group row">
+      <%= f.label :password_confirmation, class: 'col-sm-2 col-form-label' %>
+      <span class="label label-danger">Required</span>
+      <div class="col-sm-5">
+        <%= f.password_field :password_confirmation, size: 128, class: 'form-control' %>
+      </div>
+    </div>
+    <%= f.submit :class => 'btn btn-primary' %>
+  <% end %>
+</div>

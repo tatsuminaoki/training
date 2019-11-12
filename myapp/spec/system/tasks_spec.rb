@@ -4,9 +4,12 @@ RSpec.describe "Tasks", type: :system do
   before do
     driven_by(:rack_test)
     @user = create(:user)
-    @task1 = create(:task, created_at: DateTime.now)
-    @task2 = create(:task, priority: 1, due_date: DateTime.now + 1, created_at: DateTime.now - 1)
-    @task3 = create(:task, priority: 2, due_date: DateTime.now + 2, created_at: DateTime.now - 2)
+    @user_session = UserSession.create(user_id: @user.id)
+    login(@user)
+
+    @task1 = create(:task, user_id: @user.id, created_at: DateTime.now)
+    @task2 = create(:task, user_id: @user.id, priority: 1, due_date: DateTime.now + 1, created_at: DateTime.now - 1)
+    @task3 = create(:task, user_id: @user.id, priority: 2, due_date: DateTime.now + 2, created_at: DateTime.now - 2)
   end
 
   context 'When a user opens task list' do
@@ -190,7 +193,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a user searches by title' do
-    let!(:task) { create(:task, title: 'hoge') }
+    let!(:task) { create(:task, title: 'hoge', user_id: @user.id) }
 
     it 'Find one record' do
       visit tasks_path
@@ -203,7 +206,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a user searches by status' do
-    let!(:task) { create(:task, status: 2) }
+    let!(:task) { create(:task, status: 2, user_id: @user.id) }
 
     it 'Find one record' do
       visit tasks_path
@@ -216,7 +219,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a usr searches by title and status' do
-    let!(:task) { create(:task, title: 'fuga', status: 1) }
+    let!(:task) { create(:task, title: 'fuga', status: 1, user_id: @user.id) }
     it 'Find one record' do
       visit tasks_path
       fill_in 'search[title]', with: 'fuga'
@@ -229,16 +232,35 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When there are several pages' do
-    let!(:task) { create_list(:task, 30) }
+    let!(:task) { create_list(:task, 30, user_id: @user.id) }
     it 'There is pagination for next page' do
       visit tasks_path
-      expect(page).to have_link 2, href: tasks_path(page: 2)
-      expect(page).to have_link 3, href: tasks_path(page: 3)
+      expect(page).to have_link '2', href: tasks_path(page: 2)
+      expect(page).to have_link '3', href: tasks_path(page: 3)
     end
 
     it 'There is pagination for previous page' do
       visit tasks_path(page: 2)
-      expect(page).to have_link 1, href: tasks_path
+      expect(page).to have_link '1', href: tasks_path
+    end
+  end
+
+  context 'When a user tried to see the other task created by other users' do
+    let!(:user2) { create(:user, email: 'fuga@example.com') }
+    let!(:task) { create(:task, user_id: user2.id) }
+    it 'Cannot see task detail page and redirec to task list page' do
+      visit task_path(id: task.id)
+      assert_equal tasks_path, current_path
+    end
+  end
+
+  context 'When user is logged out' do
+    it 'Cannot see task list and redirec to login page' do
+      visit tasks_path
+      click_link 'logout'
+      visit tasks_path
+
+      assert_equal login_path, current_path
     end
   end
 end

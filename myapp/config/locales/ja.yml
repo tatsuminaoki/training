@@ -26,10 +26,14 @@ ja:
     remove:
       success: 'タスクを削除しました。'
       fail: 'タスクの削除に失敗しました。もう一度お試しください。'
+    login:
+      fail: 'メールアドレス、またはパスワードが無効です。'
+    user:
+      success: '登録完了しました。'
   placeholder:
     search: 'タスク名で検索'
   message:
-    lead: 'タスク検索はこちらから'
+    lead: '%{name}さん、こんにちは！'
   error:
     count: '%{count}件のエラーがあります。'
   date:
