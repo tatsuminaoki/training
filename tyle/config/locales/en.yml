@@ -53,6 +53,7 @@ en:
   activerecord:
     models:
       task: Task
+      user: User
     attributes:
       task:
         name: Name
@@ -61,3 +62,8 @@ en:
         priority: Priority
         status: Status
         due: Due
+      user:
+        name: Name
+        login_id: LoginID
+        password: Password
+        password_confirmation: Password Confirmation

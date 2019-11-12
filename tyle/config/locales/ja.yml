@@ -53,6 +53,8 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザー
+      session: セッション
     attributes:
       task:
         name: 名前
@@ -61,4 +63,11 @@ ja:
         priority: 優先度
         status: 状態
         due: 期限
-        detail: 詳細
+      user:
+        name: 名前
+        login_id: ログインID
+        password: パスワード
+        password_confirmation: パスワード確認
+      session:
+        login_id: ログインID
+        password: パスワード

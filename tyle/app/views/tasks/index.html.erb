@@ -42,7 +42,7 @@
             <td class="task-priority"><%= task.priority %></td>
             <td class="task-status"><%= task.status %></td>
             <td class="task-due"><%= I18n.l(task.due) %></td>
-            <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id) %></td>
+            <td><%= link_to t('button.detail'), task_path(task.id) %></td>
           </tr>
         <% end %>
       </tbody>
