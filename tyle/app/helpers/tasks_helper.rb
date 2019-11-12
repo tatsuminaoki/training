@@ -1,21 +1,18 @@
 # frozen_string_literal: true
 
 module TasksHelper
-  def switch_asc_and_desc(column)
-    if params[:sort] == column && params[:direction] == 'asc'
+  def switch_asc_and_desc(column, sort_column, sort_direction)
+    if sort_column == column && sort_direction == 'asc'
       link_to t("activerecord.attributes.task.#{column}"), sort: column, direction: 'desc'
     else
       link_to t("activerecord.attributes.task.#{column}"), sort: column, direction: 'asc'
     end
   end
 
-  def show_asc_or_desc(column)
-    default_of_created_at = (column == 'created_at' && params[:sort].nil? && params[:direction].nil?)
-    if default_of_created_at
+  def show_asc_or_desc(column, sort_column, sort_direction)
+    if sort_column == column && sort_direction == 'desc'
       '▼'
-    elsif params[:sort] == column && params[:direction] == 'desc'
-      '▼'
-    elsif params[:sort] == column && params[:direction] == 'asc'
+    elsif sort_column == column && sort_direction == 'asc'
       '▲'
     else
       ''

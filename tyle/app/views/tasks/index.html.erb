@@ -14,20 +14,20 @@
     <tr>
       <th><%= t('activerecord.attributes.task.name') %></th>
       <th>
-        <%= switch_asc_and_desc('priority') %>
-        <%= show_asc_or_desc('priority') %>
+        <%= switch_asc_and_desc('priority', @sort_column, @sort_direction) %>
+        <%= show_asc_or_desc('priority', @sort_column, @sort_direction) %>
       </th>
       <th>
-        <%= switch_asc_and_desc('status') %>
-        <%= show_asc_or_desc('status') %>
+        <%= switch_asc_and_desc('status', @sort_column, @sort_direction) %>
+        <%= show_asc_or_desc('status', @sort_column, @sort_direction) %>
       </th>
       <th>
-        <%= switch_asc_and_desc('due') %>
-        <%= show_asc_or_desc('due') %>
+        <%= switch_asc_and_desc('due', @sort_column, @sort_direction) %>
+        <%= show_asc_or_desc('due', @sort_column, @sort_direction) %>
       </th>
       <th>
-        <%= switch_asc_and_desc('created_at') %>
-        <%= show_asc_or_desc('created_at') %>
+        <%= switch_asc_and_desc('created_at', @sort_column, @sort_direction) %>
+        <%= show_asc_or_desc('created_at', @sort_column, @sort_direction) %>
       </th>
       <th><%= t('button.detail') %></th>
     </tr>
