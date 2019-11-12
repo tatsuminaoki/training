@@ -22,7 +22,9 @@ RSpec.describe SessionsController, type: :controller do
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(root_path)
-      # TODO: check who log-ins
+
+      # Does the appropriate user log-in?
+      expect(User.find_by(remember_token: User.encrypt(cookies.permanent[:user_remember_token])).id).to eq(user.id)
     end
 
     context 'with a wrong password' do
@@ -53,7 +55,13 @@ RSpec.describe SessionsController, type: :controller do
       delete :destroy, params: { id: user.id }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(login_path)
-      # TODO: check who log-ins
+
+      # Does the user successfully log-out?
+      # Not completed:
+      # cookies.permanent does NOT work in the test environment correctly, it is known that.
+      # Therefore, we cannot test the log-out.
+      cookies.delete(:user_remember_token)
+      expect(cookies.permanent[:user_remember_token]).to be_nil
     end
   end
 end
