@@ -9,7 +9,7 @@ RSpec.describe 'Users', type: :system do
     it 'Success to create an account' do
       visit new_user_path
       fill_in 'user[name]', with: 'テストユーザー'
-      fill_in 'user[email]', with: 'test@rakuten.com'
+      fill_in 'user[email]', with: 'test@example.com'
       fill_in 'user[password]', with: 'test123'
       fill_in 'user[password_confirmation]', with: 'test123'
       click_on 'commit'
@@ -21,7 +21,7 @@ RSpec.describe 'Users', type: :system do
   context 'When a user does not input name' do
     it 'Validation error shows up' do
       visit new_user_path
-      fill_in 'user[email]', with: 'test@rakuten.com'
+      fill_in 'user[email]', with: 'test@example.com'
       fill_in 'user[password]', with: 'test123'
       fill_in 'user[password_confirmation]', with: 'test123'
       click_on 'commit'
@@ -46,7 +46,7 @@ RSpec.describe 'Users', type: :system do
     it 'Validation error shows up' do
       visit new_user_path
       fill_in 'user[name]', with: 'テストユーザー'
-      fill_in 'user[email]', with: 'hoge@rakuten.com'
+      fill_in 'user[email]', with: 'hoge@example.com'
       fill_in 'user[password_confirmation]', with: 'test123'
       click_on 'commit'
 
@@ -58,7 +58,7 @@ RSpec.describe 'Users', type: :system do
     it 'Validation error shows up' do
       visit new_user_path
       fill_in 'user[name]', with: 'テストユーザー'
-      fill_in 'user[email]', with: 'hoge@rakuten.com'
+      fill_in 'user[email]', with: 'hoge@example.com'
       fill_in 'user[password]', with: 'test123'
       click_on 'commit'
   
@@ -70,7 +70,7 @@ RSpec.describe 'Users', type: :system do
     it 'Validation error shows up' do
       visit new_user_path
       fill_in 'user[name]', with: 'テストユーザー'
-      fill_in 'user[email]', with: 'hoge@rakuten.com'
+      fill_in 'user[email]', with: 'hoge@example.com'
       fill_in 'user[password]', with: 'test123'
       fill_in 'user[password_confirmation]', with: 'test1234'
       click_on 'commit'

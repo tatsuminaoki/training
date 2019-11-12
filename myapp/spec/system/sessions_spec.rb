@@ -11,7 +11,7 @@ RSpec.describe 'Sessions', type: :system do
     it 'Success to login' do
       visit login_path
 
-      fill_in 'session[email]', with: 'hoge@fuga.com'
+      fill_in 'session[email]', with: 'hoge@example.com'
       fill_in 'session[password]', with: 'hoge123'
       click_on 'commit'
 
@@ -23,7 +23,7 @@ RSpec.describe 'Sessions', type: :system do
     it 'Validation error shows up' do
       visit login_path
 
-      fill_in 'session[email]', with: 'fuga@fuga.com'
+      fill_in 'session[email]', with: 'fuga@example.com'
       fill_in 'session[password]', with: 'hoge123'
       click_on 'commit'
 
@@ -35,7 +35,7 @@ RSpec.describe 'Sessions', type: :system do
     it 'Validation error shows up' do
       visit login_path
 
-      fill_in 'session[email]', with: 'hoge@fuga.com'
+      fill_in 'session[email]', with: 'hoge@example.com'
       fill_in 'session[password]', with: 'hoge1234'
       click_on 'commit'
 
@@ -59,7 +59,7 @@ RSpec.describe 'Sessions', type: :system do
     it 'Validation error shows up' do
       visit login_path
 
-      fill_in 'session[email]', with: 'hoge@fuga.com'
+      fill_in 'session[email]', with: 'hoge@example.com'
       fill_in 'session[password]', with: ''
       click_on 'commit'
 
