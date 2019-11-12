@@ -4,7 +4,7 @@
   <%= label_tag t :name %> </br>
   <%= text_field_tag :name %> </br>
   <%= label_tag t :status %> </br>
-  <%= select_tag :status, options_for_select(Task.statuses_ja), { include_blank: true } %>
+  <%= select_tag :status, options_for_select(Task.readable_statuses), { include_blank: true } %>
   <%= submit_tag t :form_btn_search %>
 <% end %>
 </br>
@@ -25,7 +25,7 @@
     <tr>
       <td><%= task.name %></td>
       <td><%= task.description %></td>
-      <td><%= task.status_ja %></td>
+      <td><%= task.readable_status %></td>
       <td><%= link_to "#{t :link_detail}", task_path(task) %></td>
       <td><%= link_to "#{t :link_edit}", edit_task_path(task) %></td>
       <td><%= link_to "#{t :link_delete}", task_path(task),

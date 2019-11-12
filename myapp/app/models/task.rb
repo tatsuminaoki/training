@@ -3,11 +3,11 @@ class Task < ApplicationRecord
 
   enum status: [ :todo, :processing, :done ]
 
-  def status_ja
+  def readable_status
     Task.human_attribute_name("status.#{self.status}")
   end
 
-  def self.statuses_ja
+  def self.readable_statuses
     Task.statuses.map {|k,v| [Task.human_attribute_name("status.#{k}"),v]}.to_h
   end
 
