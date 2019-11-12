@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-
   describe 'GET #new' do
     it 'returns http success' do
       get :new
@@ -21,8 +22,7 @@ RSpec.describe SessionsController, type: :controller do
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(root_path)
-      expect(:current_user_id).to eq(1)
-      # TODO check who log-ins
+      # TODO: check who log-ins
     end
 
     context 'with a wrong password' do
@@ -42,7 +42,7 @@ RSpec.describe SessionsController, type: :controller do
   describe 'DELETE #destroy' do
     let(:user) { create(:user) }
     let(:params) do
-      { session: { login_id: user.login_id, password: 'password1' }}
+      { session: { login_id: user.login_id, password: 'password1' } }
     end
 
     before do
@@ -53,8 +53,7 @@ RSpec.describe SessionsController, type: :controller do
       delete :destroy, params: { id: user.id }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(login_path)
-      # TODO check who log-ins
+      # TODO: check who log-ins
     end
   end
-
 end

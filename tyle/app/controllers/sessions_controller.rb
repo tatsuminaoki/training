@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-  skip_before_action :require_sign_in!, only: [:new, :create]
+  skip_before_action :require_sign_in!, only: %i[new create]
   before_action :set_user, only: [:create]
 
   def new
@@ -24,7 +26,7 @@ class SessionsController < ApplicationController
 
   def set_user
     @user = User.find_by!(login_id: session_params[:login_id])
-  rescue
+  rescue StandartError
     render action: 'new'
   end
 
