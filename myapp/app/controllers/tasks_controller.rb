@@ -3,7 +3,9 @@ class TasksController < ApplicationController
   before_action :sanitize_task_params, only: [:create, :update]
 
   def index
-    @tasks = Task.find_with_conditions(params)
+    @tasks = Task.all
+    @tasks = @tasks.where("name like ?", "%#{params[:name]}%") if params[:name].present?
+    @tasks = @tasks.where("status = ?", params[:status].to_i) if params[:status].present?
   end
 
   def new
@@ -20,13 +22,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
+  def show; end
 
-  end
-
-  def edit
-
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)

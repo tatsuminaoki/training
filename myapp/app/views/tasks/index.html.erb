@@ -2,9 +2,9 @@
 
 <%= form_tag('/', method: :get) do -%>
   <%= label_tag t :name %> </br>
-  <%= text_field_tag :name %> </br>
+  <%= text_field_tag :name, params[:name] %> </br>
   <%= label_tag t :status %> </br>
-  <%= select_tag :status, options_for_select(Task.readable_statuses), { include_blank: true } %>
+  <%= select_tag :status, options_for_select(Task.readable_statuses, params[:status]), { include_blank: true } %>
   <%= submit_tag t :form_btn_search %>
 <% end %>
 </br>

@@ -1,103 +1,130 @@
 require 'rails_helper'
 
 RSpec.feature 'Task management', type: :feature do
-  scenario 'User creates a new task with name that length is 50' do
-    visit new_task_path
+  feature 'creation' do
+    context 'with valid name (length le 50)' do
+      scenario 'user can creates a new task' do
+        visit new_task_path
+        fill_in '名前', with: 'a' * 50
+        click_button '送信'
+        expect(page).to have_text('新しいタスクが作成されました！')
+      end
+    end
 
-    fill_in '名前', with: 'a' * 50
-    fill_in '説明', with: '説明'
-    select '未着手', from: 'task_status'
-    click_button '送信'
+    context 'with invalid name (length over 50)' do
+      scenario 'user can not create a new task' do
+        visit new_task_path
+        fill_in '名前', with: 'a' * 51
+        click_button '送信'
+        expect(page).to have_text('名前は50文字以内')
+      end
+    end
 
-    expect(page).to have_text('新しいタスクが作成されました！')
+    context 'with invalid name (empty string)' do
+      scenario 'user can not create a new task' do
+        visit new_task_path
+        fill_in '名前', with: ''
+        click_button '送信'
+        expect(page).to have_text('名前を入力してください')
+      end
+    end
   end
 
-  scenario 'User can not create a new task with name that length is invalid' do
-    visit new_task_path
+  feature 'modification' do
+    before do
+      @task = Task.create(name: 'mytask-to-edit', description: 'description', status: 'todo')
+    end
 
-    fill_in '名前', with: 'a' * 51
-    fill_in '説明', with: '説明'
-    select '未着手', from: 'task_status'
-    click_button '送信'
-
-    expect(page).to have_text('名前は50文字以内')
+    scenario 'user can edit a task' do
+      visit edit_task_path(@task)
+      name_edited = 'mytask-spec-edited'
+      fill_in '名前', with: name_edited
+      fill_in '説明', with: 'edited-description'
+      select '進行中', from: 'task_status'
+      click_button '送信'
+      expect(page).to have_text('タスクが更新されました！')
+      expect(page).to have_text(name_edited)
+    end
   end
 
-  scenario 'User can not create a new task with empty name' do
-    visit new_task_path
+  feature 'show' do
+    before do
+      @task = Task.create(name: 'mytask', description: 'mydescription', status: 'todo')
+    end
 
-    fill_in '名前', with: ''
-    fill_in '説明', with: '説明'
-    select '未着手', from: 'task_status'
-    click_button '送信'
-
-    expect(page).to have_text('名前を入力してください')
+    scenario 'user can see detail of a task' do
+      visit task_path(@task)
+      expect(page).to have_text(@task.name)
+      expect(page).to have_text(@task.description)
+      expect(page).to have_text(@task.readable_status)
+    end
   end
 
-  scenario 'User edits a task.' do
-    name = 'mytask-spec'
-    task = Task.create(name: name, description: 'tmp')
-    visit edit_task_path(task)
+  feature 'deletion' do
+    before do
+      @task = Task.create(name: 'task-to-delete', description: 'description')
+    end
 
-    # check if in the right place.
-    expect(page).to have_selector("input[value=#{name}]")
-
-    name_edited = 'mytask-spec-edited'
-    fill_in '名前', with: name_edited
-    select '進行中', from: 'task_status'
-    click_button '送信'
-
-    # check if updates successfully.
-    expect(page).to have_text('タスクが更新されました！')
-    expect(page).to have_text(name_edited)
+    scenario 'user can delete a task' do
+      visit task_path(@task)
+      click_link '削除'
+      expect(page).to have_text('タスクを削除しました！')
+      expect(page).not_to have_text(@task.name)
+    end
   end
 
-  scenario 'User visit task detail page.' do
-    name = 'mytask'
-    description = 'mydescription'
-    status = 'todo'
-    task = Task.create(name: name, description:description, status:status)
-    visit task_path(task)
+  feature 'list' do
+    before do
+      @task = Task.create(name: 'task-to-list', description: 'description')
+      @task2 = Task.create(name: 'task2-to-list', description: 'description')
+    end
 
-    expect(page).to have_text(name)
-    expect(page).to have_text(description)
-    expect(page).to have_text('未着手')
+    scenario 'user can lists tasks' do
+      visit root_path
+      expect(page).to have_text(@task.name)
+      expect(page).to have_text(@task2.name)
+    end
   end
 
-  scenario 'User delete a task on detail page.' do
-    name = 'task-to-delete'
-    task = Task.create(name: name, description: 'tmp')
-    visit task_path(task)
+  feature 'search' do
+    before do
+      @todo_task1 = Task.create(name: 'task1-todo', description: 'tmp', status: 'todo')
+      @todo_task2 = Task.create(name: 'task2-todo', description: 'tmp', status: 'todo')
+      @done_task1 = Task.create(name: 'task1-done', description: 'tmp', status: 'done')
+    end
 
-    click_link '削除'
+    context 'with status' do
+      scenario 'user can search tasks' do
+        visit root_path
+        fill_in 'name', with: 'todo'
+        click_button '検索'
+        expect(page).not_to have_text(@done_task1.name)
+        expect(page).to have_text(@todo_task1.name)
+        expect(page).to have_text(@todo_task2.name)
+      end
+    end
 
-    expect(page).to have_text('タスクを削除しました！')
-    expect(page).not_to have_text(name)
-  end
+    context 'with name' do
+      scenario 'user can search tasks' do
+        visit root_path
+        select '完了', from: 'status'
+        click_button '検索'
+        expect(page).to have_text(@done_task1.name)
+        expect(page).not_to have_text(@todo_task1.name)
+        expect(page).not_to have_text(@todo_task2.name)
+      end
+    end
 
-  scenario 'User lists tasks' do
-    name = 'task-to-list'
-    task = Task.create(name: name, description: 'tmp')
-    visit root_path
-
-    expect(page).to have_text(name)
-  end
-
-  scenario 'User list tasks with status todo and a task name' do
-    todo_name1 = 'task1-todo'
-    todo_name2 = 'task2-todo'
-    done_name1 = 'task1-done'
-    todo_task1 = Task.create(name: todo_name1, description: 'tmp', status: 'todo')
-    todo_task2 = Task.create(name: todo_name2, description: 'tmp', status: 'todo')
-    done_task1 = Task.create(name: done_name1, description: 'tmp', status: 'done')
-
-    visit root_path
-    fill_in 'name', with: todo_name1
-    select '未着手', from: 'status'
-    click_button '検索'
-
-    expect(page).not_to have_text('task1-done')
-    expect(page).not_to have_text('task2-todo')
-    expect(page).to have_text('task1-todo')
+    context 'with name and status' do
+      scenario 'user can search tasks' do
+        visit root_path
+        fill_in 'name', with: '1-todo'
+        select '未着手', from: 'status'
+        click_button '検索'
+        expect(page).not_to have_text(@done_task1.name)
+        expect(page).to have_text(@todo_task1.name)
+        expect(page).not_to have_text(@todo_task2.name)
+      end
+    end
   end
 end
