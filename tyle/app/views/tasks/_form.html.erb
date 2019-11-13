@@ -26,7 +26,7 @@
       <tr>
         <td><%= f.label :due %></td>
         <td>:</td>
-        <td><%= f.text_field :due %></td>
+        <td><%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T") %></td>
       </tr>
     </table>
     <div>

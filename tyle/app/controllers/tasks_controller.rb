@@ -4,7 +4,9 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(sort_column + ' ' + sort_direction)
+    @sort_column = sort_column
+    @sort_direction = sort_direction
+    @tasks = Task.name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(@sort_column + ' ' + @sort_direction)
   end
 
   def new
