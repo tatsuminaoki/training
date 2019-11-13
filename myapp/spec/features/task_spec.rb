@@ -138,4 +138,46 @@ RSpec.feature 'Task management', type: :feature do
       end
     end
   end
+
+  feature 'pagination' do
+    before do
+      5.times do
+        Task.create(name: 'todo-task', status: 'todo')
+        Task.create(name: 'good-done-task', status: 'done')
+        Task.create(name: 'well-done-task', status: 'done')
+      end
+      visit root_path
+      fill_in 'name', with: 'well-done'
+      select '完了', from: 'status'
+      click_button '検索'
+    end
+
+    feature 'search' do
+      context 'when first page' do
+        scenario 'there is only 2 well done tasks' do
+          expect(page).to have_content('well-done-task', count: 2)
+          expect(page).not_to have_content('todo-task')
+          expect(page).not_to have_content('good-done-task')
+        end
+      end
+
+      context 'when middle page' do
+        scenario 'there is only 2 well done tasks' do
+          click_link '次'
+          expect(page).to have_content('well-done-task', count: 2)
+          expect(page).not_to have_content('todo-task')
+          expect(page).not_to have_content('good-done-task')
+        end
+      end
+
+      context 'when last page' do
+        scenario 'there is only 1 well done task' do
+          click_link '最後'
+          expect(page).to have_content('well-done-task', count: 1)
+          expect(page).not_to have_content('todo-task')
+          expect(page).not_to have_content('good-done-task')
+        end
+      end
+    end
+  end
 end

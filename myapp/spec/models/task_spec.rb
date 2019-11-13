@@ -49,4 +49,42 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '#page' do
+    before do
+      5.times do
+        Task.create(name: 'taskname')
+      end
+    end
+
+    context 'when first page' do
+      before do
+        @tasks = Task.order(:id).page 1
+      end
+
+      specify 'it return only 2 tasks' do
+        expect(@tasks.length).to eq(2)
+      end
+    end
+
+    context 'when middle page' do
+      before do
+        @tasks = Task.order(:id).page 2
+      end
+
+      specify 'it return only 2 tasks' do
+        expect(@tasks.length).to eq(2)
+      end
+    end
+
+    context 'when last page' do
+      before do
+        @tasks = Task.order(:id).page 3
+      end
+
+      specify 'it return only 1 tasks' do
+        expect(@tasks.length).to eq(1)
+      end
+    end
+  end
 end
