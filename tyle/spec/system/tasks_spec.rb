@@ -40,7 +40,7 @@ RSpec.describe 'Tasks', type: :system do
         visit new_task_path
         fill_in 'task_name', with: 'task1'
         fill_in 'task_description', with: 'this is a task1'
-        fill_in 'task_due', with: '20201231'
+        fill_in 'task_due', with: Date.current
         select 'medium', from: 'task_priority'
         select 'in_progress', from: 'task_status'
         click_button '登録する'
@@ -50,7 +50,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'this is a task1'
         expect(page).to have_content 'medium'
         expect(page).to have_content 'in_progress'
-        expect(page).to have_content '2020/12/31'
+        expect(page).to have_content Date.current.strftime('%Y/%m/%d')
       end
     end
 
@@ -106,10 +106,9 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_field 'task_description', with: 'this is a task1'
         expect(page).to have_field 'task_priority', with: 'low'
         expect(page).to have_field 'task_status', with: 'waiting'
-        expect(page).to have_field 'task_due', with: '2020-12-31 00:00:00 +0900'
         fill_in 'task_name', with: 'task2'
         fill_in 'task_description', with: 'this is a task2'
-        fill_in 'task_due', with: '20210101'
+        fill_in 'task_due', with: Date.current
         select 'high', from: 'task_priority'
         select 'done', from: 'task_status'
         click_button '更新する'
@@ -119,7 +118,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'this is a task2'
         expect(page).to have_content 'high'
         expect(page).to have_content 'done'
-        expect(page).to have_content '2021/01/01'
+        expect(page).to have_content Date.current.strftime('%Y/%m/%d')
       end
     end
   end
@@ -137,6 +136,36 @@ RSpec.describe 'Tasks', type: :system do
       it 'tasks ordered by created_at with descending' do
         subject
         expect(page.all('.task-name').map(&:text)).to eq %w[task3 task2 task1]
+      end
+
+      it 'tasks ordered by priority' do
+        subject
+        click_on '優先度'
+        sleep 1
+        expect(page.all('.task-priority').map(&:text)).to eq %w[low medium high]
+        click_on '優先度'
+        sleep 1
+        expect(page.all('.task-priority').map(&:text)).to eq %w[high medium low]
+      end
+
+      it 'tasks ordered by status' do
+        subject
+        click_on '状態'
+        sleep 1
+        expect(page.all('.task-status').map(&:text)).to eq %w[waiting in_progress done]
+        click_on '状態'
+        sleep 1
+        expect(page.all('.task-status').map(&:text)).to eq %w[done in_progress waiting]
+      end
+
+      it 'tasks ordered by due' do
+        subject
+        click_on '期限'
+        sleep 1
+        expect(page.all('.task-due').map(&:text)).to eq %W[2020/12/31\ 00:00 2021/01/01\ 00:00 2021/01/02\ 00:00]
+        click_on '期限'
+        sleep 1
+        expect(page.all('.task-due').map(&:text)).to eq %W[2021/01/02\ 00:00 2021/01/01\ 00:00 2020/12/31\ 00:00]
       end
     end
   end
