@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     @tasks = @tasks.where("name like ?", "%#{params[:name]}%") if params[:name].present?
-    @tasks = @tasks.where("status = ?", params[:status].to_i) if params[:status].present?
+    @tasks = @tasks.where(status: params[:status].to_i) if params[:status].present?
   end
 
   def new
