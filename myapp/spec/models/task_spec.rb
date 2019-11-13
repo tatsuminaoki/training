@@ -59,7 +59,7 @@ RSpec.describe Task, type: :model do
 
     context 'when first page' do
       before do
-        @tasks = Task.order(:id).page 1
+        @tasks = Task.find_with_conditions({ page: 1 })
       end
 
       specify 'it return only 2 tasks' do
@@ -69,7 +69,7 @@ RSpec.describe Task, type: :model do
 
     context 'when middle page' do
       before do
-        @tasks = Task.order(:id).page 2
+        @tasks = Task.find_with_conditions({ page: 2 })
       end
 
       specify 'it return only 2 tasks' do
@@ -79,7 +79,7 @@ RSpec.describe Task, type: :model do
 
     context 'when last page' do
       before do
-        @tasks = Task.order(:id).page 3
+        @tasks = Task.find_with_conditions({ page: 3 })
       end
 
       specify 'it return only 1 tasks' do
