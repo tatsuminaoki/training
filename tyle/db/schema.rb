@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_040709) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "remember_token"
+    t.integer "role"
   end
 
   add_foreign_key "task_labels", "labels"
