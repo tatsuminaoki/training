@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Task management', type: :feature do
   feature 'creation' do
     context 'with valid name (length le 50)' do
-      scenario 'user can creates a new task' do
+      scenario 'user can create a new task' do
         visit new_task_path
         fill_in '名前', with: 'a' * 50
         click_button '送信'
