@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'Task management', type: :feature do
@@ -131,8 +133,8 @@ RSpec.feature 'Task management', type: :feature do
         fill_in 'name', with: 'no-task-found-name'
         select '進行中', from: 'status'
         click_button '検索'
-        expect(page).to have_selector("input[value=no-task-found-name]")
-        expect(page).to have_selector("option[selected=selected][value=1]")
+        expect(page).to have_selector('input[value=no-task-found-name]')
+        expect(page).to have_selector('option[selected=selected][value=1]')
       end
     end
   end
