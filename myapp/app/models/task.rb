@@ -14,7 +14,7 @@ class Task < ApplicationRecord
   end
 
   def self.find_with_conditions(params)
-    tasks = Task.order(:id).page params[:page]
+    tasks = Task.order(created_at: :desc).page params[:page]
     tasks = tasks.where('name like ?', "%#{params[:name]}%") if params[:name].present?
     tasks = tasks.where(status: params[:status].to_i) if params[:status].present?
     tasks
