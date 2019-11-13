@@ -35,11 +35,21 @@ ja:
       default: "%Y/%m/%d %H:%M"
   operation:
     error: エラー!
+    change_password: （パスワードを変更する場合のみ、変更後のパスワードを入力してください）
+    number_of_tasks: タスク数
+    title_general: TYLE
+    title_admin: TYLE(管理画面)
   message:
-    created: タスクが追加されました！
-    updated: タスクが更新されました！
-    destroyed: タスクが削除されました！
-    destroying: 本当にタスクを削除してもいいですか？
+    task:
+      created: タスクが追加されました！
+      updated: タスクが更新されました！
+      destroyed: タスクが削除されました！
+      destroying: 本当にタスクを削除してもいいですか？
+    user:
+      created: ユーザーが追加されました！
+      updated: ユーザーが更新されました！
+      destroyed: ユーザーが削除されました！
+      destroying: 本当にユーザーを削除してもいいですか？
   button:
     index: ホーム
     detail: 詳細
@@ -50,6 +60,8 @@ ja:
     search: 検索
     logout: ログアウト
     login: ログイン
+    general: 一般画面
+    admin: 管理画面
   activerecord:
     models:
       task: タスク
@@ -68,6 +80,8 @@ ja:
         login_id: ログインID
         password: パスワード
         password_confirmation: パスワード確認
+        role: 役割
+        created_at: 作成日
       session:
         login_id: ログインID
         password: パスワード

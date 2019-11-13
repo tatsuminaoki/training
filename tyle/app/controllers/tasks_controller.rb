@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @task = @current_user.tasks.new(task_params)
 
     if @task.save
-      redirect_to @task, notice: t('message.created')
+      redirect_to @task, notice: t('message.task.created')
     else
       render :new
     end
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: t('message.updated')
+      redirect_to @task, notice: t('message.task.updated')
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to tasks_url, notice: t('message.destroyed')
+      redirect_to tasks_url, notice: t('message.task.destroyed')
     else
       render :index
     end

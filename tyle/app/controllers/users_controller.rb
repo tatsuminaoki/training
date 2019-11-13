@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to login_path
+      redirect_to login_path, notice: t('message.user.created')
     else
       render 'new'
     end

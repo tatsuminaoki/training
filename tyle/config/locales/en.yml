@@ -35,6 +35,10 @@ en:
       default: "%Y/%m/%d %H:%M"
   operation:
     error: ERROR!
+    change_password: (Input a new password only if you would like to change your password.)
+    number_of_tasks: タスク数
+    title_general: TYLE
+    title_admin: TYLE(Admin)
   message:
     created: Task was successfully created!
     updated: Task was successfully updated!
@@ -50,6 +54,8 @@ en:
     search: Search
     logout: Logout
     login: Login
+    general: General
+    admin: Admin
   activerecord:
     models:
       task: Task
@@ -62,6 +68,7 @@ en:
         priority: Priority
         status: Status
         due: Due
+        role: Role
       user:
         name: Name
         login_id: LoginID
