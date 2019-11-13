@@ -1,0 +1,61 @@
+<%= render 'header' %>
+
+<!-- user -->
+<div class="card col-md-6">
+  <div class="card-body">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><%= t('activerecord.attributes.user.name') %></td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.login_id') %></td>
+          <td><%= @user.login_id %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.role') %></td>
+          <td><%= @user.role %></td>
+        </tr>
+        <tr>
+          <td><%= t('operation.number_of_tasks') %></td>
+          <td><%= @tasks.size.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.created_at') %></td>
+          <td><%= I18n.l(@user.created_at) %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to t('button.edit'), edit_admin_user_path(@user), class: 'btn btn-primary' %>
+    <%= link_to t('button.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('message.user.destroying') }, class: 'btn btn-danger' %> 
+  </div>
+</div>
+
+<!-- tasks -->
+<div class="card col-md-6">
+  <div class="card-body">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th><%= t('activerecord.attributes.task.name') %></th>
+          <th><%= t('activerecord.attributes.task.priority') %></th>
+          <th><%= t('activerecord.attributes.task.status') %></th>
+          <th><%= t('activerecord.attributes.task.due') %></th>
+          <th><%= t('button.detail') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td class="task-name"><%= task.name %></td>
+            <td class="task-priority"><%= task.priority %></td>
+            <td class="task-status"><%= task.status %></td>
+            <td class="task-due"><%= I18n.l(task.due) %></td>
+            <td><%= link_to t('button.detail'), task_path(task.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<%= render 'flash' %>
+
+<div class="card col-md-6">
+  <div class="card-body">
+    <h1><%= t('operation.title_admin') %></h1>
+    <div>
+      <%= link_to t('button.index'), admin_users_path %>
+      <% if request.path_info != new_admin_user_path %>
+        <%= link_to t('button.add'), new_admin_user_path %>
+      <% end %>
+      <%= link_to t('button.general'), tasks_path %>
+    </div>
+    <div>
+      <%= link_to t('button.logout'), logout_path, method: :delete %>
+    </div>
+  </div>
+</div>
