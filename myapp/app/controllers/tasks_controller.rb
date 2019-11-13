@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+  before_action :sanitize_task_params, only: [:create, :update]
 
   def index
     @tasks = Task.all
+    @tasks = @tasks.where("name like ?", "%#{params[:name]}%") if params[:name].present?
+    @tasks = @tasks.where(status: params[:status].to_i) if params[:status].present?
   end
 
   def new
@@ -19,13 +22,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
+  def show; end
 
-  end
-
-  def edit
-
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)
@@ -45,13 +44,17 @@ class TasksController < ApplicationController
     end
   end
 
-private
+  private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :status)
   end
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def sanitize_task_params
+    params[:task][:status] = params[:task][:status].to_i
   end
 end

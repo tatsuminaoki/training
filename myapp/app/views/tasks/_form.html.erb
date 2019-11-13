@@ -1,6 +1,6 @@
 <%= form_for(task) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
+    <div id='error_explanation'>
       <h2>
         <%= pluralize(task.errors.count, "#{t :error_title}") %>
         <%= t :error_explanation %>
@@ -20,6 +20,11 @@
   <p>
     <%= form.label :description %><br>
     <%= form.text_field :description %>
+  </p>
+
+  <p>
+    <%= form.label :status %><br>
+    <%= select :task, :status, options_for_select(Task.readable_statuses) %>
   </p>
 
   <p>
