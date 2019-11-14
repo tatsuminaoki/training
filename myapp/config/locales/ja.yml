@@ -15,6 +15,10 @@ ja:
   name: '名前'
   description: '説明'
   status: 'ステータス'
+  deadline: '終了期限'
+  no_deadline: '期限無し'
+  asc: '↑'
+  desc: '↓'
   delete_confirm: '本当に削除しますか？'
   form_submit: '送信'
   form_btn_search: '検索'
@@ -24,6 +28,7 @@ ja:
         name: '名前'
         description: '説明'
         status: 'ステータス'
+        deadline: '終了期限'
   activerecord:
     attributes:
       task:
