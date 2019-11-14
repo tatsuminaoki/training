@@ -53,6 +53,7 @@ RSpec.describe Task, type: :model do
   describe '#page' do
     let(:tasks) { Task.find_with_conditions(params) }
     let(:params) { { page: page } }
+    subject { tasks.length }
 
     before do
       5.times do
@@ -64,7 +65,7 @@ RSpec.describe Task, type: :model do
       let(:page) { 1 }
 
       it 'return only 2 tasks' do
-        expect(tasks.length).to eq(2)
+        is_expected.to eq(2)
       end
     end
 
@@ -72,7 +73,7 @@ RSpec.describe Task, type: :model do
       let(:page) { 2 }
 
       it 'return only 2 tasks' do
-        expect(tasks.length).to eq(2)
+        is_expected.to eq(2)
       end
     end
 
@@ -80,7 +81,7 @@ RSpec.describe Task, type: :model do
       let(:page) { 3 }
 
       it 'return only 1 tasks' do
-        expect(tasks.length).to eq(1)
+        is_expected.to eq(1)
       end
     end
 
@@ -88,7 +89,7 @@ RSpec.describe Task, type: :model do
       let(:page) { 4 }
 
       it 'raise error' do
-        expect(tasks.length).to eq(0)
+        is_expected.to eq(0)
       end
     end
   end
