@@ -88,7 +88,7 @@ RSpec.describe Task, type: :model do
     context 'when page not exists' do
       let(:page) { 4 }
 
-      it 'raise error' do
+      it 'return no results' do
         is_expected.to eq(0)
       end
     end
