@@ -5,7 +5,10 @@ class TasksController < ApplicationController
   before_action :sanitize_task_params, only: %i[create update]
 
   def index
-    @tasks = Task.name_like(params[:name]).status_is(params[:status]).sort_by_column(params[:sort_column], params[:order]).page params[:page]
+    @tasks = Task.name_like(params[:name])
+      .status_is(params[:status])
+      .sort_by_column(params[:sort_column], params[:order])
+      .page params[:page]
   end
 
   def new
