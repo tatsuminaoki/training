@@ -77,14 +77,25 @@ RSpec.feature 'Task', type: :feature do
 
   feature 'listing' do
     before do
-      @above_task = Task.create(name: 'above-task', description: 'description')
-      @below_task = Task.create(name: 'below-task', description: 'description')
+      @above_task = Task.create(name: 'above-task', description: 'description', deadline: Time.current.advance(days: +2))
+      @below_task = Task.create(name: 'below-task', description: 'description', deadline: Time.current.advance(days: +1))
       @below_task.update(created_at: Time.current.advance(days: -1))
+      visit root_path
     end
 
     scenario 'user can lists tasks order by created_at desc' do
-      visit root_path
       expect(page.body.index(@below_task.name)).to be > page.body.index(@above_task.name)
+    end
+
+    scenario 'user can sort tasks by deadline desc' do
+      click_link '終了期限:↓'
+      expect(page.body.index(@above_task.name)).to be < page.body.index(@below_task.name)
+    end
+
+    scenario 'user can sort tasks by deadline asc' do
+      click_link '終了期限:↓'
+      click_link '終了期限:↑'
+      expect(page.body.index(@above_task.name)).to be > page.body.index(@below_task.name)
     end
   end
 

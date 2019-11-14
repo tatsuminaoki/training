@@ -5,6 +5,9 @@ class Task < ApplicationRecord
 
   enum status: %i[todo processing done]
 
+  scope :name_like, ->(name) { where('name like ?', "%#{name}%") if name.present? }
+  scope :status_is, ->(status) { where(status: status.to_i) if status.present? }
+
   def readable_status
     Task.human_attribute_name("status.#{self.status}")
   end
@@ -14,16 +17,12 @@ class Task < ApplicationRecord
   end
 
   def readble_deadline
-    self.deadline.present? ? self.deadline : I18n.t(:no_deadline)
+    self.deadline.presence || I18n.t(:no_deadline)
   end
 
   def self.find_with_conditions(params)
-    sort_column = params[:sort_column].present? ? params[:sort_column] : 'created_at'
-    order = params[:order].present? ? params[:order] : 'desc'
-    tasks = Task.order(sort_column.to_sym => order.to_sym)
-    tasks = tasks.page params[:page]
-    tasks = tasks.where('name like ?', "%#{params[:name]}%") if params[:name].present?
-    tasks = tasks.where(status: params[:status].to_i) if params[:status].present?
+    sort_column, order = params[:sort_column].presence || 'created_at', params[:order].presence || 'desc'
+    tasks = Task.name_like(params[:name]).status_is(params[:status]).order(sort_column.to_sym => order.to_sym).page params[:page]
     tasks
   end
 end
