@@ -1,0 +1,10 @@
+<div>
+  <% if model.errors.any? %>
+    <p><%= t('operation.error') %></p>
+    <ul>
+      <% model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
