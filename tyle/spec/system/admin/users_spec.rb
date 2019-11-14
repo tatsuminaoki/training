@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Tasks', type: :system do
+RSpec.describe 'AdminUsers', type: :system do
   let(:user) { create(:user) }
   let!(:user2) { create(:user2) }
 
@@ -97,7 +97,7 @@ RSpec.describe 'Tasks', type: :system do
         click_on '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
         page.driver.browser.switch_to.alert.accept
-        
+
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
         expect(page).to have_content 'administrator'
@@ -129,7 +129,7 @@ RSpec.describe 'Tasks', type: :system do
         click_on '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
         page.driver.browser.switch_to.alert.dismiss
-        
+
         expect(page).to have_content 'user2'
         expect(page).to have_content 'id2'
         expect(page).to have_content 'general'
@@ -139,7 +139,7 @@ RSpec.describe 'Tasks', type: :system do
         click_on '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
         page.driver.browser.switch_to.alert.accept
-        
+
         expect(page).to have_no_content 'user2'
         expect(page).to have_no_content 'id2'
         expect(page).to have_no_content 'general'
