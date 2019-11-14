@@ -6,7 +6,10 @@ class TasksController < ApplicationController
   def index
     @sort_column = sort_column
     @sort_direction = sort_direction
-    @tasks = Task.name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(@sort_column + ' ' + @sort_direction).page(params[:page]).per(10)
+    @tasks = Task.name_like(params[:name])
+                 .priority(params[:priority])
+                 .status(params[:status])
+                 .order(@sort_column + ' ' + @sort_direction).page(params[:page])
   end
 
   def new
