@@ -1,3 +1,5 @@
+# frozen_literal_string: true
+
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
@@ -11,55 +13,54 @@ RSpec.describe Admin::UsersController, type: :controller do
     user.update!(remember_token: User.encrypt(remember_token))
   end
 
-  describe "GET #index" do
-    it "returns http success" do
+  describe 'GET #index' do
+    it 'returns http success' do
       get :index
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #new" do
-    it "returns http success" do
+  describe 'GET #new' do
+    it 'returns http success' do
       get :new
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "POST #create" do
-    it "returns the redirect to the user page" do
+  describe 'POST #create' do
+    it 'returns the redirect to the user page' do
       post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_user_path(User.last))
     end
   end
 
-  describe "GET #show" do
-    it "returns http success" do
+  describe 'GET #show' do
+    it 'returns http success' do
       get :show, params: { id: user.id }
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #edit" do
-    it "returns http success" do
+  describe 'GET #edit' do
+    it 'returns http success' do
       get :edit, params: { id: user.id }
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "POST #update" do
-    it "returns http success" do
+  describe 'POST #update' do
+    it 'returns http success' do
       post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_user_path(user))
     end
   end
 
-  describe "DELETE #destroy" do
-
+  describe 'DELETE #destroy' do
     context 'destroy another user' do
       let(:user2) { create(:user2) }
-      it "returns the redirect to the index page" do
+      it 'returns the redirect to the index page' do
         delete :destroy, params: { id: user2.id }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_users_path)
@@ -67,7 +68,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     context 'destroy oneself' do
-      it "returns the redirect to the user page" do
+      it 'returns the redirect to the user page' do
         delete :destroy, params: { id: user.id }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(user))
