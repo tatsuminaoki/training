@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to admin_users_path(@user), notice: t('message.user.created')
+      redirect_to admin_user_path(@user), notice: t('message.user.created')
     else
       render :new
     end
@@ -37,7 +37,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if current_user == @user
-      redirect_to admin_users_path, notice: t('message.user.destroyed')
+      redirect_to admin_user_path(@user)
     else
       if @user.destroy
         redirect_to admin_users_path, notice: t('message.user.destroyed')
