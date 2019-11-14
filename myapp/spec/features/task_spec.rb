@@ -11,6 +11,14 @@ RSpec.feature 'Task', type: :feature do
         click_button '送信'
         expect(page).to have_text('新しいタスクが作成されました！')
       end
+
+      scenario 'user can create a new task with deadline' do
+        visit new_task_path
+        fill_in '名前', with: 'a' * 50
+        select "#{1.year.from_now.year}", from: 'task_deadline_1i'
+        click_button '送信'
+        expect(page).to have_text('新しいタスクが作成されました！')
+      end
     end
 
     context 'with invalid name (length over 50)' do
@@ -47,6 +55,14 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text('タスクが更新されました！')
       expect(page).to have_text(name_edited)
     end
+
+    scenario 'user can edit a task deadline' do
+      visit edit_task_path(@task)
+      name_edited = 'mytask-spec-edited'
+      select "#{1.year.from_now.year}", from: 'task_deadline_1i'
+      click_button '送信'
+      expect(page).to have_text('タスクが更新されました！')
+    end
   end
 
   feature 'show' do
@@ -59,6 +75,7 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text(@task.name)
       expect(page).to have_text(@task.description)
       expect(page).to have_text(@task.readable_status)
+      expect(page).to have_text(@task.readable_deadline)
     end
   end
 

@@ -7,6 +7,7 @@ class Task < ApplicationRecord
 
   scope :name_like, ->(name) { where('name like ?', "%#{name}%") if name.present? }
   scope :status_is, ->(status) { where(status: status.to_i) if status.present? }
+  scope :sort_by_column, ->(column, sort) { order((column.presence || 'created_at').to_sym => (sort.presence || 'desc').to_sym) }
 
   def readable_status
     Task.human_attribute_name("status.#{self.status}")
@@ -16,13 +17,7 @@ class Task < ApplicationRecord
     Task.statuses.map { |k, v| [Task.human_attribute_name("status.#{k}"), v] }.to_h
   end
 
-  def readble_deadline
+  def readable_deadline
     self.deadline.presence || I18n.t(:no_deadline)
-  end
-
-  def self.find_with_conditions(params)
-    sort_column, order = params[:sort_column].presence || 'created_at', params[:order].presence || 'desc'
-    tasks = Task.name_like(params[:name]).status_is(params[:status]).order(sort_column.to_sym => order.to_sym).page params[:page]
-    tasks
   end
 end
