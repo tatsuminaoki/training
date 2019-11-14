@@ -51,6 +51,9 @@ RSpec.describe Task, type: :model do
   end
 
   describe '#page' do
+    let(:tasks) { Task.find_with_conditions(params) }
+    let(:params) { { page: page } }
+
     before do
       5.times do
         Task.create(name: 'taskname')
@@ -58,32 +61,34 @@ RSpec.describe Task, type: :model do
     end
 
     context 'when first page' do
-      before do
-        @tasks = Task.find_with_conditions({ page: 1 })
-      end
+      let(:page) { 1 }
 
-      specify 'it return only 2 tasks' do
-        expect(@tasks.length).to eq(2)
+      it 'return only 2 tasks' do
+        expect(tasks.length).to eq(2)
       end
     end
 
     context 'when middle page' do
-      before do
-        @tasks = Task.find_with_conditions({ page: 2 })
-      end
+      let(:page) { 2 }
 
-      specify 'it return only 2 tasks' do
-        expect(@tasks.length).to eq(2)
+      it 'return only 2 tasks' do
+        expect(tasks.length).to eq(2)
       end
     end
 
     context 'when last page' do
-      before do
-        @tasks = Task.find_with_conditions({ page: 3 })
-      end
+      let(:page) { 3 }
 
-      specify 'it return only 1 tasks' do
-        expect(@tasks.length).to eq(1)
+      it 'return only 1 tasks' do
+        expect(tasks.length).to eq(1)
+      end
+    end
+
+    context 'when page not exists' do
+      let(:page) { 4 }
+
+      it 'raise error' do
+        expect(tasks.length).to eq(0)
       end
     end
   end
