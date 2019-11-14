@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
@@ -36,7 +38,7 @@ RSpec.describe Task, type: :model do
 
     context 'invalid value' do
       it 'should raise argument error' do
-        expect {@task.status = 4}.to raise_error(ArgumentError)
+        expect { @task.status = 4 }.to raise_error(ArgumentError)
       end
     end
 

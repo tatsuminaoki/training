@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :find_task, only: [:show, :edit, :update, :destroy]
-  before_action :sanitize_task_params, only: [:create, :update]
+  before_action :find_task, only: %i[show edit update destroy]
+  before_action :sanitize_task_params, only: %i[create update]
 
   def index
     @tasks = Task.all
-    @tasks = @tasks.where("name like ?", "%#{params[:name]}%") if params[:name].present?
+    @tasks = @tasks.where('name like ?', "%#{params[:name]}%") if params[:name].present?
     @tasks = @tasks.where(status: params[:status].to_i) if params[:status].present?
   end
 
