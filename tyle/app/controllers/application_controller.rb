@@ -32,4 +32,10 @@ class ApplicationController < ActionController::Base
   def require_sign_in!
     redirect_to login_path unless signed_in?
   end
+
+  def redirect_if_unauthorized
+    return if current_user.role == 'administrator'
+
+    redirect_to root_path
+  end
 end
