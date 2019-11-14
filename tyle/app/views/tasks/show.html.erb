@@ -10,6 +10,7 @@
 
 <div>
   <table>
+    <caption><%= t('operation.task-detail') %></caption>
     <tr>
       <td><%= t('activerecord.attributes.task.name') %></td>
       <td>:</td>
@@ -34,6 +35,11 @@
       <td><%= t('activerecord.attributes.task.due') %></td>
       <td>:</td>
       <td><%= I18n.l(@task.due) %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.task.created_at') %></td>
+      <td>:</td>
+      <td><%= I18n.l(@task.created_at) %></td>
     </tr>
   </table>
 </div>
