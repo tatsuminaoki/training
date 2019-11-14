@@ -1,9 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+![20191114db](https://user-images.githubusercontent.com/33181485/68830341-bb257a00-06ee-11ea-8d31-f0f441f854aa.jpg)
+![20191114prototype](https://user-images.githubusercontent.com/33181485/68830342-bb257a00-06ee-11ea-9f07-e769c6462c21.jpg)
 
 * Ruby version
 
