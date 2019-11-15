@@ -77,14 +77,14 @@ RSpec.feature 'Task', type: :feature do
 
   feature 'listing' do
     before do
-      @old_task = Task.create(name: 'old-task', description: 'description')
-      @new_task = Task.create(name: 'new-task', description: 'description')
-      @old_task.update(created_at: Time.current.advance(days: -1))
+      @above_task = Task.create(name: 'above-task', description: 'description')
+      @below_task = Task.create(name: 'below-task', description: 'description')
+      @below_task.update(created_at: Time.current.advance(days: -1))
     end
 
     scenario 'user can lists tasks order by created_at desc' do
       visit root_path
-      expect(page.body.index(@old_task.name)).to be > page.body.index(@new_task.name)
+      expect(page.body.index(@below_task.name)).to be > page.body.index(@above_task.name)
     end
   end
 
