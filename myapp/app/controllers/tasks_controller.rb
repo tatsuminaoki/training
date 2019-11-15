@@ -2,7 +2,6 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
-  before_action :sanitize_task_params, only: %i[create update]
 
   def index
     @tasks = Task.name_like(params[:name])
@@ -55,9 +54,5 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
-  end
-
-  def sanitize_task_params
-    params[:task][:status] = params[:task][:status].to_i
   end
 end

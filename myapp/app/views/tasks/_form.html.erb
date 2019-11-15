@@ -24,7 +24,7 @@
 
   <p>
     <%= form.label :status %><br>
-    <%= select :task, :status, options_for_select(Task.readable_statuses) %>
+    <%= select :task, :status, options_for_select(Task.readable_statuses, task.status) %>
   </p>
 
   <p>
