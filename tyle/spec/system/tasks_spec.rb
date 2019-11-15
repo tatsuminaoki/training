@@ -18,16 +18,16 @@ RSpec.describe 'Tasks', type: :system do
       it 'lists the appropriate tasks' do
         subject
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
         expect(page).to have_content 'task3'
-        expect(page).to have_content 'high'
-        expect(page).to have_content 'done'
+        expect(page).to have_content '高'
+        expect(page).to have_content '完了'
         expect(page).to have_content '2021/01/02'
       end
     end
@@ -41,15 +41,15 @@ RSpec.describe 'Tasks', type: :system do
         fill_in 'task_name', with: 'task1'
         fill_in 'task_description', with: 'this is a task1'
         fill_in 'task_due', with: Date.current
-        select 'medium', from: 'task_priority'
-        select 'in_progress', from: 'task_status'
+        select '中', from: 'task_priority'
+        select '実施中', from: 'task_status'
         click_button '登録する'
 
         expect(page).to have_content 'タスクが追加されました！'
         expect(page).to have_content 'task1'
         expect(page).to have_content 'this is a task1'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content Date.current.strftime('%Y/%m/%d')
       end
     end
@@ -61,16 +61,16 @@ RSpec.describe 'Tasks', type: :system do
         subject
         expect(page).to have_content 'task1'
         expect(page).to have_content 'this is a task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
       end
 
       it 'enables you to delete the task with the delete button' do
         subject
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         # click DELETE and Cancel
@@ -80,8 +80,8 @@ RSpec.describe 'Tasks', type: :system do
 
         expect(page).to have_content 'task1'
         expect(page).to have_content 'this is a task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         # click DELETE and OK
@@ -91,8 +91,6 @@ RSpec.describe 'Tasks', type: :system do
 
         expect(page).to have_no_content 'task1'
         expect(page).to have_no_content 'this is a task1'
-        expect(page).to have_no_content 'low'
-        expect(page).to have_no_content 'waiting'
         expect(page).to have_no_content '2020/12/31'
       end
     end
@@ -104,20 +102,20 @@ RSpec.describe 'Tasks', type: :system do
         subject
         expect(page).to have_field 'task_name', with: 'task1'
         expect(page).to have_field 'task_description', with: 'this is a task1'
-        expect(page).to have_field 'task_priority', with: 'low'
-        expect(page).to have_field 'task_status', with: 'waiting'
+        expect(page).to have_field 'task_priority', with: 0
+        expect(page).to have_field 'task_status', with: 0
         fill_in 'task_name', with: 'task2'
         fill_in 'task_description', with: 'this is a task2'
         fill_in 'task_due', with: Date.current
-        select 'high', from: 'task_priority'
-        select 'done', from: 'task_status'
+        select '高', from: 'task_priority'
+        select '完了', from: 'task_status'
         click_button '更新する'
 
         expect(page).to have_content 'タスクが更新されました！'
         expect(page).to have_content 'task2'
         expect(page).to have_content 'this is a task2'
-        expect(page).to have_content 'high'
-        expect(page).to have_content 'done'
+        expect(page).to have_content '高'
+        expect(page).to have_content '完了'
         expect(page).to have_content Date.current.strftime('%Y/%m/%d')
       end
     end
@@ -142,20 +140,20 @@ RSpec.describe 'Tasks', type: :system do
         subject
         click_on '優先度'
         sleep 1
-        expect(page.all('.task-priority').map(&:text)).to eq %w[low medium high]
+        expect(page.all('.task-priority').map(&:text)).to eq %w[低 中 高]
         click_on '優先度'
         sleep 1
-        expect(page.all('.task-priority').map(&:text)).to eq %w[high medium low]
+        expect(page.all('.task-priority').map(&:text)).to eq %w[高 中 低]
       end
 
       it 'tasks ordered by status' do
         subject
         click_on '状態'
         sleep 1
-        expect(page.all('.task-status').map(&:text)).to eq %w[waiting in_progress done]
+        expect(page.all('.task-status').map(&:text)).to eq %w[待機中 実施中 完了]
         click_on '状態'
         sleep 1
-        expect(page.all('.task-status').map(&:text)).to eq %w[done in_progress waiting]
+        expect(page.all('.task-status').map(&:text)).to eq %w[完了 実施中 待機中]
       end
 
       it 'tasks ordered by due' do
@@ -185,72 +183,56 @@ RSpec.describe 'Tasks', type: :system do
         fill_in 'search_by_name', with: 'task2'
         click_on '検索'
         expect(page).to have_no_content 'task1'
-        expect(page).to have_no_content 'low'
-        expect(page).to have_no_content 'waiting'
         expect(page).to have_no_content '2020/12/31'
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
         expect(page).to have_no_content 'task3'
-        expect(page).to have_no_content 'high'
-        expect(page).to have_no_content 'done'
         expect(page).to have_no_content '2021/01/02'
       end
 
-      it 'tasks searched by priority `Low`' do
+      it 'tasks searched by priority `低`' do
         subject
-        select 'Low', from: 'search_by_priority'
+        select '低', from: 'search_by_priority'
         click_on '検索'
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
         expect(page).to have_no_content 'task2'
-        expect(page).to have_no_content 'medium'
-        expect(page).to have_no_content 'in_progress'
         expect(page).to have_no_content '2021/01/01'
         expect(page).to have_no_content 'task3'
-        expect(page).to have_no_content 'high'
-        expect(page).to have_no_content 'done'
         expect(page).to have_no_content '2021/01/02'
       end
 
-      it 'tasks searched by status `Done`' do
+      it 'tasks searched by status `完了`' do
         subject
-        select 'Done', from: 'search_by_status'
+        select '完了', from: 'search_by_status'
         click_on '検索'
         expect(page).to have_no_content 'task1'
-        expect(page).to have_no_content 'low'
-        expect(page).to have_no_content 'waiting'
         expect(page).to have_no_content '2020/12/31'
         expect(page).to have_no_content 'task2'
-        expect(page).to have_no_content 'medium'
-        expect(page).to have_no_content 'in_progress'
         expect(page).to have_no_content '2021/01/01'
         expect(page).to have_content 'task3'
-        expect(page).to have_content 'high'
-        expect(page).to have_content 'done'
+        expect(page).to have_content '高'
+        expect(page).to have_content '完了'
         expect(page).to have_content '2021/01/02'
       end
 
-      it 'tasks searched by name `task`, priority `Medium`, and status `In_progress`' do
+      it 'tasks searched by name `task`, priority `中`, and status `実施中`' do
         subject
         fill_in 'search_by_name', with: 'task'
-        select 'Medium', from: 'search_by_priority'
-        select 'In_progress', from: 'search_by_status'
+        select '中', from: 'search_by_priority'
+        select '実施中', from: 'search_by_status'
         click_on '検索'
         expect(page).to have_no_content 'task1'
-        expect(page).to have_no_content 'low'
-        expect(page).to have_no_content 'waiting'
         expect(page).to have_no_content '2020/12/31'
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
         expect(page).to have_no_content 'task3'
-        expect(page).to have_no_content 'high'
-        expect(page).to have_no_content 'done'
         expect(page).to have_no_content '2021/01/02'
       end
     end
