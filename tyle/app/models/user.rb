@@ -24,12 +24,12 @@ class User < ApplicationRecord
   end
 
   def update_the_last_admin_validator
-    return if self.role == 'general' && User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
+    return unless self.role == 'general' && User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
     throw :abort
   end
 
   def destroy_the_last_admin_validator
-    return if User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
+    return unless User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
     throw :abort
   end
 end

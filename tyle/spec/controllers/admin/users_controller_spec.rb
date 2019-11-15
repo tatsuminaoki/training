@@ -51,7 +51,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'POST #update' do
     it 'returns http success' do
-      post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+      post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'administrator' } }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_user_path(user))
     end
