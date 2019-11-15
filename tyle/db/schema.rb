@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_074449) do
+ActiveRecord::Schema.define(version: 2019_11_14_235309) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_074449) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_tasks_on_name"
+    t.index ["due"], name: "index_tasks_on_due"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
