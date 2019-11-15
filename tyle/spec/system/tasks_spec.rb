@@ -125,9 +125,9 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'ordering' do
     before do
-      create(:task, { user_id: user.id, created_at: 2.days })
-      create(:task2, { user_id: user.id, created_at: 1.day })
-      create(:task3, { user_id: user.id, created_at: Time.zone.now })
+      create(:task, { user_id: user.id, created_at: 2.days.ago })
+      create(:task2, { user_id: user.id, created_at: 1.day.ago })
+      create(:task3, { user_id: user.id })
     end
 
     context 'visit tasks_path' do
@@ -172,9 +172,9 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'search' do
     before do
-      create(:task, { user_id: user.id, created_at: 2.days })
-      create(:task2, { user_id: user.id, created_at: 1.day })
-      create(:task3, { user_id: user.id, created_at: Time.zone.now })
+      create(:task, { user_id: user.id, created_at: 2.days.ago })
+      create(:task2, { user_id: user.id, created_at: 1.day.ago })
+      create(:task3, { user_id: user.id })
     end
 
     context 'visit tasks_path' do
