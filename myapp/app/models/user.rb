@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum role: { General: 0, Admin: 1 }
+  enum role: { general: 0, admin: 1 }
   has_many :tasks, dependent: :delete_all
   has_one :user_session, dependent: :destroy
 

@@ -7,7 +7,6 @@ ja:
     search: '検索'
   header:
     title: 'タスク名'
-    user_name: 'ユーザ'
     priority: '優先度'
     status: 'ステータス'
     due_date: '期限'
@@ -15,7 +14,6 @@ ja:
     updated_at: '更新日'
     description: '内容'
     list: 'タスク一覧'
-    email: 'メールアドレス'
     task_count: 'タスク数'
     back: '一覧に戻る'
   flash:

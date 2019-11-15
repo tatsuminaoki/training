@@ -6,13 +6,13 @@
   <table class="table table-striped table-bordered">
     <tbody>
       <tr>
-        <th><%= t('header.user_name') %></th><td><%= @user.name %></td>
+        <th><%= t('activerecord.attributes.user.name') %></th><td><%= @user.name %></td>
       </tr>
       <tr>
-        <th><%= t('header.email') %></th><td><%= @user.email %></td>
+        <th><%= t('activerecord.attributes.user.email') %></th><td><%= @user.email %></td>
       </tr>
       <tr>
-        <th><%= t('header.created_at') %></th><td><%= I18n.l(@user.created_at, format: :default) %></td>
+        <th><%= t('activerecord.attributes.user.created_at') %></th><td><%= I18n.l(@user.created_at, format: :default) %></td>
       </tr>
     </tbody>
   </table>
@@ -22,11 +22,11 @@
 <% end %>
 
 <div class="pull-right">
-  <%= link_to edit_admin_user_path(@user.id), class: 'btn btn-primary' do %>
-    <%= t('operation.update') %> <span class="glyphicon glyphicon-pencil"></span>
+  <%= link_to edit_admin_user_path(@user.id), class: 'btn btn-primary', id: 'user_edit' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
   <% end %>
-  <%= link_to admin_user_path(@user.id), method: 'delete', class: 'btn btn-danger', data: { confirm: t('message.confirm') } do %>
-    <%= t('operation.remove') %> <span class="glyphicon glyphicon-remove"></span>
+  <%= link_to admin_user_path(@user.id), id: 'user_delete', method: 'delete', class: 'btn btn-danger', data: { confirm: t('message.confirm') } do %>
+    <span class="glyphicon glyphicon-remove"></span>
   <% end %>
 </div>
 
@@ -38,11 +38,11 @@
   <thead>
     <tr>
       <th>#</th>
-      <th class="sorting_asc:after"><%= t('header.title') %></th>
-      <th><%= t('header.priority') %></th>
-      <th><%= t('header.status') %></th>
-      <th><%= t('header.due_date') %></th>
-      <th><%= t('header.created_at') %></th>
+      <th class="sorting_asc:after"><%= t('activerecord.attributes.task.title') %></th>
+      <th><%= t('activerecord.attributes.task.priority') %></th>
+      <th><%= t('activerecord.attributes.task.status') %></th>
+      <th><%= t('activerecord.attributes.task.due_date') %></th>
+      <th><%= t('activerecord.attributes.task.created_at') %></th>
     </tr>
   </thead>
   <tbody>
