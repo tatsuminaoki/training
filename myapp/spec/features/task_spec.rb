@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Task management', type: :feature do
+RSpec.feature 'Task', type: :feature do
   feature 'creation' do
     context 'with valid name (length le 50)' do
       scenario 'user can create a new task' do
@@ -75,16 +75,16 @@ RSpec.feature 'Task management', type: :feature do
     end
   end
 
-  feature 'list' do
+  feature 'listing' do
     before do
-      @task = Task.create(name: 'task-to-list', description: 'description')
-      @task2 = Task.create(name: 'task2-to-list', description: 'description')
+      @above_task = Task.create(name: 'above-task', description: 'description')
+      @below_task = Task.create(name: 'below-task', description: 'description')
+      @below_task.update(created_at: Time.current.advance(days: -1))
     end
 
-    scenario 'user can lists tasks' do
+    scenario 'user can lists tasks order by created_at desc' do
       visit root_path
-      expect(page).to have_text(@task.name)
-      expect(page).to have_text(@task2.name)
+      expect(page.body.index(@below_task.name)).to be > page.body.index(@above_task.name)
     end
   end
 
