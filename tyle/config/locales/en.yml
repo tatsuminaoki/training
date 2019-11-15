@@ -65,3 +65,13 @@ en:
         status: Status
         due: Due
         created_at: CreatedAt
+  enums:
+    task:
+      priority:
+        low: Low
+        medium: Medium
+        high: High
+      status:
+        waiting: Waiting
+        in_progress: In_progress
+        done: Done

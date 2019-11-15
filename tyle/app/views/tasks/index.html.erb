@@ -19,12 +19,12 @@
       <tr>
         <td><%= f.label t('activerecord.attributes.task.priority') %></td>
         <td>:</td>
-        <td><%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [k.capitalize, v] }, selected: params[:priority]), prompt: t('operation.select.prompt'), id: 'search_by_priority' %></td>
+        <td><%= select_tag :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }, selected: params[:priority]), prompt: t('operation.select.prompt'), id: 'search_by_priority' %></td>
       </tr>
       <tr>
         <td><%= f.label t('activerecord.attributes.task.status') %></td>
         <td>:</td>
-        <td><%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]), prompt: t('operation.select.prompt'), id: 'search_by_status' %></td>
+        <td><%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }, selected: params[:status]), prompt: t('operation.select.prompt'), id: 'search_by_status' %></td>
       </tr>
     </table>
     <div>

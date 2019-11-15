@@ -66,3 +66,13 @@ ja:
         due: 期限
         detail: 詳細
         created_at: 作成日
+  enums:
+    task:
+      priority:
+        low: Low
+        medium: Medium
+        high: High
+      status:
+        waiting: Waiting
+        in_progress: In_progress
+        done: Done
