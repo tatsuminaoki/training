@@ -16,12 +16,12 @@
       <tr>
         <td><%= f.label :priority %></td>
         <td>:</td>
-        <td><%= f.select :priority, Task.priorities.keys.to_a, {} %></td>
+        <td><%= f.select :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }) %></td>
       </tr>
       <tr>
         <td><%= f.label :status %></td>
         <td>:</td>
-        <td><%= f.select :status, Task.statuses.keys.to_a, {} %></td>
+        <td><%= f.select :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }) %></td>
       </tr>
       <tr>
         <td><%= f.label :due %></td>

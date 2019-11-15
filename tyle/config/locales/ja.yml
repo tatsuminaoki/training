@@ -69,10 +69,10 @@ ja:
   enums:
     task:
       priority:
-        low: Low
-        medium: Medium
-        high: High
+        low: 低
+        medium: 中
+        high: 高
       status:
-        waiting: Waiting
-        in_progress: In_progress
-        done: Done
+        waiting: 待機中
+        in_progress: 実施中
+        done: 完了

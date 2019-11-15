@@ -24,12 +24,12 @@
     <tr>
       <td><%= t('activerecord.attributes.task.priority') %></td>
       <td>:</td>
-      <td><%= @task.priority %></td>
+      <td><%= t("enums.task.priority.#{@task.priority}") %></td>
     </tr>
     <tr>
       <td><%= t('activerecord.attributes.task.status') %></td>
       <td>:</td>
-      <td><%= @task.status %></td>
+      <td><%= t("enums.task.status.#{@task.status}") %></td>
     </tr>
     <tr>
       <td><%= t('activerecord.attributes.task.due') %></td>
