@@ -4,33 +4,33 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'name validations' do
-    let(:task) { build(:task, name: name) }
+    let(:task) { create(:user_with_tasks, name: 'name').tasks.first }
     subject { task.save }
 
     context 'blank' do
-      let(:name) { '' }
       it 'can not be saved' do
+        task.name = ''
         is_expected.to eq(false)
       end
     end
 
     context 'length over 50' do
-      let(:name) { 'a' * 51 }
       it 'can not be saved' do
+        task.name = 'a' * 51
         is_expected.to eq(false)
       end
     end
 
     context 'length equals to 50' do
-      let(:name) { 'a' * 50 }
       it 'can be saved' do
+        task.name = 'a' * 50
         is_expected.to eq(true)
       end
     end
   end
 
   describe 'status validations' do
-    let(:task) { build(:task, name: 'a' * 50) }
+    let(:task) { create(:user_with_tasks, name: 'name').tasks.first }
 
     context 'invalid value' do
       it 'should raise argument error' do
@@ -57,9 +57,7 @@ RSpec.describe Task, type: :model do
     subject { tasks.length }
 
     before do
-      5.times do
-        create(:task)
-      end
+      create(:user_with_tasks, tasks_count: 5)
     end
 
     context 'when first page' do
