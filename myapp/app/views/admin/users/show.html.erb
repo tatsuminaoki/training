@@ -11,6 +11,9 @@
       <tr>
         <th><%= t('activerecord.attributes.user.email') %></th><td><%= @user.email %></td>
       </tr>
+        <th><%= t('activerecord.attributes.user.role') %></th><td><%= t("enums.user.role.#{@user.role}") %></td>
+      <tr>
+      </tr>
       <tr>
         <th><%= t('activerecord.attributes.user.created_at') %></th><td><%= I18n.l(@user.created_at, format: :default) %></td>
       </tr>

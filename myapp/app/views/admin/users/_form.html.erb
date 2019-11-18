@@ -14,7 +14,7 @@
 <div class="form-group row">
   <%= f.label :role, class: 'col-sm-2 col-form-label' %>
   <div class="col-sm-10">
-    <%= f.select :role, User.roles.map { |k, v| [t("enums.user.role.#{k}"), v] }, class: 'form-control' %>
+    <%= f.select :role, User.roles.map { |k, v| [t("enums.user.role.#{k}"), k] }, class: 'form-control' %>
   </div>
 </div>
 
