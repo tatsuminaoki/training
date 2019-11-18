@@ -1,9 +1,8 @@
 <div>
   <% if model.errors.any? %>
-    <p><%= t('operation.error') %></p>
-    <ul>
+    <ul class="list-group">
       <% model.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="list-group-item"><%= message %></li>
       <% end %>
     </ul>
   <% end %>
