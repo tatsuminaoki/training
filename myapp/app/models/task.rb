@@ -18,6 +18,6 @@ class Task < ApplicationRecord
   end
 
   def readable_deadline
-    self.deadline.present? ? self.deadline.strftime('%Y-%d-%m %H:%M:%S') : I18n.t(:no_deadline)
+    self.deadline.present? ? self.deadline.strftime('%Y-%m-%d %H:%M:%S') : I18n.t(:no_deadline)
   end
 end
