@@ -1,10 +1,2 @@
-<div>
-  <h1>TYLE</h1>
-  <%= link_to t('button.index'), tasks_path %>
-</div>
-
-<hr>
-
-<caption><%= t('operation.task-new')%></caption>
-
-<%= render 'form', { task: @task }%>
+<%= render 'header' %>
+<%= render 'form', { task: @task } %>

@@ -1,36 +1,42 @@
-<div>
-  <%= render 'error_messages', model: task %>
+<%= render 'error_messages', model: task %>
 
-  <%= form_with model: task do |f| %>
-    <table>
-      <tr>
-        <td><%= f.label :name %></td>
-        <td>:</td>
-        <td><%= f.text_field :name %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :description %></td>
-        <td>:</td>
-        <td><%= f.text_area :description %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :priority %></td>
-        <td>:</td>
-        <td><%= f.select :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }) %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :status %></td>
-        <td>:</td>
-        <td><%= f.select :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }) %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :due %></td>
-        <td>:</td>
-        <td><%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T") %></td>
-      </tr>
-    </table>
-    <div>
-      <%= f.submit %>
+<div class="card col-md-6">
+  <div class="card-body">
+    <!-- Expecting new_task_path and edit_task_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_task_path %>
+        <%= t('operation.task-new') %>
+      <% elsif %>
+        <%= t('operation.task-edit') %>
+      <% end %>
     </div>
-  <% end %>
+
+    <%= form_with model: task, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, rows: 10, class: 'form-control' %>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= f.label :priority %>
+          <%= f.select :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }), class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :status %>
+          <%= f.select :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }), class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :due %>
+        <%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T"), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 </div>

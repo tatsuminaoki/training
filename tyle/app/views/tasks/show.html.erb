@@ -1,50 +1,39 @@
-<%= render 'flash' %>
+<%= render 'header' %>
 
-<div>
-  <h1>TYLE</h1>
-  <%= link_to t('button.index'), tasks_path %>
-  <%= link_to t('button.add'), new_task_path %>
-</div>
-
-<hr>
-
-<div>
-  <table>
-    <caption><%= t('operation.task-detail') %></caption>
-    <tr>
-      <td><%= t('activerecord.attributes.task.name') %></td>
-      <td>:</td>
-      <td><%= @task.name %></td>
-    </tr>
-    <tr>
-      <td><%= t('activerecord.attributes.task.description') %></td>
-      <td>:</td>
-      <td><%= @task.description %></td>
-    </tr>
-    <tr>
-      <td><%= t('activerecord.attributes.task.priority') %></td>
-      <td>:</td>
-      <td><%= t("enums.task.priority.#{@task.priority}") %></td>
-    </tr>
-    <tr>
-      <td><%= t('activerecord.attributes.task.status') %></td>
-      <td>:</td>
-      <td><%= t("enums.task.status.#{@task.status}") %></td>
-    </tr>
-    <tr>
-      <td><%= t('activerecord.attributes.task.due') %></td>
-      <td>:</td>
-      <td><%= I18n.l(@task.due) %></td>
-    </tr>
-    <tr>
-      <td><%= t('activerecord.attributes.task.created_at') %></td>
-      <td>:</td>
-      <td><%= I18n.l(@task.created_at) %></td>
-    </tr>
-  </table>
-</div>
-
-<div>
-  <%= link_to t('button.edit'), edit_task_path(@task) %>
-  <%= link_to t('button.delete'), task_path(@task), method: :delete, data: { confirm: t('message.destroying') } %> 
+<div class="card col-md-6">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.task-detail') %>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><%= t('activerecord.attributes.task.name') %></td>
+          <td><%= @task.name %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.description') %></td>
+          <td><%= @task.description %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.priority') %></td>
+          <td><%= t("enums.task.priority.#{@task.priority}") %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.status') %></td>
+          <td><%= t("enums.task.status.#{@task.status}") %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.due') %></td>
+          <td><%= I18n.l(@task.due) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.created_at') %></td>
+          <td><%= I18n.l(@task.created_at) %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to t('button.edit'), edit_task_path(@task), class: 'btn btn-primary' %>
+    <%= link_to t('button.delete'), task_path(@task), method: :delete, data: { confirm: t('message.destroying') }, class: 'btn btn-danger' %> 
+  </div>
 </div>
