@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe '#create' do
     let(:user) { create(:user) }
 
@@ -20,7 +19,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { name: nil }) }
 
       it 'shows the error message' do
-        expect(user.errors[:name]).to include ('を入力してください')
+        expect(user.errors[:name]).to include 'を入力してください'
       end
     end
 
@@ -28,7 +27,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { login_id: nil }) }
 
       it 'shows the error message' do
-        expect(user.errors[:login_id]).to include ('を入力してください')
+        expect(user.errors[:login_id]).to include 'を入力してください'
       end
     end
 
@@ -36,7 +35,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { password: nil }) }
 
       it 'shows the error message' do
-        expect(user.errors[:password]).to include ('を入力してください')
+        expect(user.errors[:password]).to include 'を入力してください'
       end
     end
 
@@ -53,7 +52,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { password: 'a' * 7 }) }
 
       it 'shows the argument error message' do
-        expect(user.errors[:password]).to include ('は8文字以上で入力してください')
+        expect(user.errors[:password]).to include 'は8文字以上で入力してください'
       end
     end
   end
