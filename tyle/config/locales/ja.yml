@@ -34,7 +34,12 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M"
   operation:
-    error: エラー!
+    select:
+      prompt: 選択してください
+    task-list: タスクリスト
+    task-new: 追加するタスクの詳細を入力してください
+    task-detail: タスクの詳細
+    task-edit: 編集するタスクの詳細を入力してください
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！
@@ -60,3 +65,14 @@ ja:
         status: 状態
         due: 期限
         detail: 詳細
+        created_at: 作成日
+  enums:
+    task:
+      priority:
+        low: 低
+        medium: 中
+        high: 高
+      status:
+        waiting: 待機中
+        in_progress: 実施中
+        done: 完了
