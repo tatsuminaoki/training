@@ -34,6 +34,8 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M"
   operation:
+    select:
+      prompt: 選択してください
     task-list: タスクリスト
     task-new: 追加するタスクの詳細を入力してください
     task-detail: タスクの詳細
@@ -50,6 +52,7 @@ ja:
     update: 更新
     delete: 削除
     add: 追加
+    search: 検索
   activerecord:
     models:
       task: タスク
@@ -63,3 +66,13 @@ ja:
         due: 期限
         detail: 詳細
         created_at: 作成日
+  enums:
+    task:
+      priority:
+        low: 低
+        medium: 中
+        high: 高
+      status:
+        waiting: 待機中
+        in_progress: 実施中
+        done: 完了

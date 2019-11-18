@@ -1,34 +1,36 @@
 <div>
   <%= render 'error_messages', model: task %>
 
-  <%= form_for(task) do |form| %>
-    <p>
-      <%= form.label :name %><br>
-      <%= form.text_field :name %>
-    </p>
-   
-    <p>
-      <%= form.label :description %><br>
-      <%= form.text_area :description %>
-    </p>
-
-    <p>
-      <%= form.label :priority %><br>
-      <%= form.select :priority, Task.priorities.keys.to_a, {} %>
-    </p>
-   
-    <p>
-      <%= form.label :status %><br>
-      <%= form.select :status, Task.statuses.keys.to_a, {} %>
-    </p>
-   
-    <p>
-      <%= form.label :due %><br>
-      <%= form.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T") %>
-    </p>
-   
-    <p>
-      <%= form.submit %>
-    </p>
+  <%= form_with model: task do |f| %>
+    <table>
+      <tr>
+        <td><%= f.label :name %></td>
+        <td>:</td>
+        <td><%= f.text_field :name %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :description %></td>
+        <td>:</td>
+        <td><%= f.text_area :description %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :priority %></td>
+        <td>:</td>
+        <td><%= f.select :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }) %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :status %></td>
+        <td>:</td>
+        <td><%= f.select :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }) %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :due %></td>
+        <td>:</td>
+        <td><%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T") %></td>
+      </tr>
+    </table>
+    <div>
+      <%= f.submit %>
+    </div>
   <% end %>
 </div>
