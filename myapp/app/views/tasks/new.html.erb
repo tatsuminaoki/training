@@ -1,2 +1,13 @@
-<h1><%= t :h1_new %></h1>
-<%= render partial: 'form', locals: {task: @task} %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h1><%= t :h1_new %></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+    <%= render partial: 'form', locals: {task: @task} %>
+    </div>
+  </div>
+</div>
