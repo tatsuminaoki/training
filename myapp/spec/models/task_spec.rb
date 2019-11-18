@@ -51,7 +51,12 @@ RSpec.describe Task, type: :model do
   end
 
   describe '#page' do
-    let(:tasks) { Task.find_with_conditions(params) }
+    let(:tasks) {
+      Task.name_like(params[:name])
+      .status_is(params[:status])
+      .sort_by_column(params[:sort_column], params[:order])
+      .page params[:page]
+    }
     let(:params) { { page: page } }
     subject { tasks.length }
 

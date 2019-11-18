@@ -11,6 +11,16 @@ RSpec.feature 'Task', type: :feature do
         click_button '送信'
         expect(page).to have_text('新しいタスクが作成されました！')
       end
+
+      scenario 'user can create a new task with deadline' do
+        visit new_task_path
+        fill_in '名前', with: 'a' * 50
+        select 1.year.from_now.year.to_s, from: 'task_deadline_1i'
+        select Time.zone.now.month, from: 'task_deadline_2i'
+        select Time.zone.now.day, from: 'task_deadline_3i'
+        click_button '送信'
+        expect(page).to have_text('新しいタスクが作成されました！')
+      end
     end
 
     context 'with invalid name (length over 50)' do
@@ -47,6 +57,15 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text('タスクが更新されました！')
       expect(page).to have_text(name_edited)
     end
+
+    scenario 'user can edit a task deadline' do
+      visit edit_task_path(@task)
+      select 1.year.from_now.year.to_s, from: 'task_deadline_1i'
+      select Time.zone.now.month, from: 'task_deadline_2i'
+      select Time.zone.now.day, from: 'task_deadline_3i'
+      click_button '送信'
+      expect(page).to have_text('タスクが更新されました！')
+    end
   end
 
   feature 'show' do
@@ -59,6 +78,7 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text(@task.name)
       expect(page).to have_text(@task.description)
       expect(page).to have_text(@task.readable_status)
+      expect(page).to have_text(@task.readable_deadline)
     end
   end
 
@@ -77,14 +97,25 @@ RSpec.feature 'Task', type: :feature do
 
   feature 'listing' do
     before do
-      @above_task = Task.create(name: 'above-task', description: 'description')
-      @below_task = Task.create(name: 'below-task', description: 'description')
+      @above_task = Task.create(name: 'above-task', description: 'description', deadline: Time.current.advance(days: +2))
+      @below_task = Task.create(name: 'below-task', description: 'description', deadline: Time.current.advance(days: +1))
       @below_task.update(created_at: Time.current.advance(days: -1))
+      visit root_path
     end
 
     scenario 'user can lists tasks order by created_at desc' do
-      visit root_path
       expect(page.body.index(@below_task.name)).to be > page.body.index(@above_task.name)
+    end
+
+    scenario 'user can sort tasks by deadline desc' do
+      click_link '終了期限:↓'
+      expect(page.body.index(@above_task.name)).to be < page.body.index(@below_task.name)
+    end
+
+    scenario 'user can sort tasks by deadline asc' do
+      click_link '終了期限:↓'
+      click_link '終了期限:↑'
+      expect(page.body.index(@above_task.name)).to be > page.body.index(@below_task.name)
     end
   end
 

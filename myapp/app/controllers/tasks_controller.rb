@@ -5,7 +5,10 @@ class TasksController < ApplicationController
   before_action :sanitize_task_params, only: %i[create update]
 
   def index
-    @tasks = Task.find_with_conditions(params)
+    @tasks = Task.name_like(params[:name])
+      .status_is(params[:status])
+      .sort_by_column(params[:sort_column], params[:order])
+      .page params[:page]
   end
 
   def new
@@ -47,7 +50,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :status)
+    params.require(:task).permit(:name, :description, :status, :deadline)
   end
 
   def find_task
