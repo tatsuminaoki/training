@@ -40,6 +40,8 @@ ja:
     task-new: 追加するタスクの詳細を入力してください
     task-detail: タスクの詳細
     task-edit: 編集するタスクの詳細を入力してください
+    user-new: 名前、ログインID、パスワードを入力してください
+    session-new: ログインIDとパスワードを入力してください
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！
@@ -55,6 +57,7 @@ ja:
     search: 検索
     logout: ログアウト
     login: ログイン
+    user-new: ユーザー作成
   activerecord:
     models:
       task: タスク

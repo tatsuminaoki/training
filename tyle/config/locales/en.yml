@@ -40,6 +40,8 @@ en:
     task-new: Input necessary information for creating a new task.
     task-detail: Task Details
     task-edit: Input necessary information for updating the task.
+    user-new: Input your Name, Login ID, and password for login.
+    session-new: Input your Login ID and Password for login.
   message:
     created: Task was successfully created!
     updated: Task was successfully updated!
@@ -55,6 +57,7 @@ en:
     search: Search
     logout: Logout
     login: Login
+    user-new: ユーザー作成
   activerecord:
     models:
       task: Task
