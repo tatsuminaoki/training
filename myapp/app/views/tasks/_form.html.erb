@@ -1,6 +1,6 @@
 <%= form_for(task) do |form| %>
   <% if task.errors.any? %>
-    <div id='error_explanation'>
+    <div class='alert alert-warning' role='alert'>
       <h2>
         <%= pluralize(task.errors.count, "#{t :error_title}") %>
         <%= t :error_explanation %>
@@ -12,27 +12,26 @@
       </ul>
     </div>
   <% end %>
-  <p>
+  
+  <div class="form-group">
     <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :description %><br>
-    <%= form.text_field :description %>
-  </p>
+    <%= form.text_field :description, class: 'form-control' %>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :status %><br>
-    <%= select :task, :status, options_for_select(Task.readable_statuses, task.status) %>
-  </p>
+    <%= select :task, :status, options_for_select(Task.readable_statuses, task.status), {}, { class: 'form-control' } %>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :deadline %>
-    <%= form.datetime_select :deadline %>
-  </p>
+    <%= form.text_field :deadline, class: 'datepicker' %>
+  </div>
 
-  <p>
-    <%= form.submit t :form_submit %>
-  </p>
+  <%= form.submit t(:form_submit), class: 'btn btn-primary' %>
 <% end %>
