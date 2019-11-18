@@ -34,7 +34,12 @@ en:
     formats:
       default: "%Y/%m/%d %H:%M"
   operation:
-    error: ERROR!
+    select:
+      prompt: Select 
+    task-list: Task List
+    task-new: Input necessary information for creating a new task.
+    task-detail: Task Details
+    task-edit: Input necessary information for updating the task.
   message:
     created: Task was successfully created!
     updated: Task was successfully updated!
@@ -62,8 +67,20 @@ en:
         priority: Priority
         status: Status
         due: Due
+        detail: Detail
+        created_at: CreatedAt
       user:
         name: Name
         login_id: LoginID
         password: Password
         password_confirmation: Password Confirmation
+  enums:
+    task:
+      priority:
+        low: Low
+        medium: Medium
+        high: High
+      status:
+        waiting: Waiting
+        in_progress: In_progress
+        done: Done
