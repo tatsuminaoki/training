@@ -2,15 +2,15 @@
 
 <div class="card col-md-6">
   <div class="card-body">
-    <div class="card-title">
-      <figcaption class="figure-caption text-center">
-        <% if request.path_info == new_task_path %>
-          <%= t('operation.task-new') %>
-        <% elsif request.path_info == edit_task_path %>
-         <%= t('operation.task-edit') %>
-        <% end %>
-      </figcaption>
+    <!-- Expecting new_task_path and edit_task_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_task_path %>
+        <%= t('operation.task-new') %>
+      <% elsif %>
+        <%= t('operation.task-edit') %>
+      <% end %>
     </div>
+
     <%= form_with model: task, local: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>
