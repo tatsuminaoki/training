@@ -51,10 +51,10 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = User.find(1).tasks.find(params[:id])
+    @task = User.find(session[:user_id]).tasks.find(params[:id])
   end
 
   def find_user
-    @user = User.find(1)
+    @user = User.find(session[:user_id])
   end
 end

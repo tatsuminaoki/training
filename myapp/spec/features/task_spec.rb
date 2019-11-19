@@ -3,8 +3,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
+  let!(:user) { create(:user) }
+
+  before do
+    visit login_path
+    fill_in 'メールアドレス', with: 'tadashi.toyokura@rakuten.com'
+    fill_in 'パスワード', with: 'password'
+    click_button 'ログイン'
+  end
+
   feature 'creation' do
-    let!(:user) { create(:user) }
     context 'with valid name (length le 50)' do
       scenario 'user can create a new task' do
         visit new_task_path
@@ -42,7 +50,7 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'modification' do
-    let(:task) { create(:user_with_tasks, name: 'mytask-to-edit', description: 'description', status: 'todo').tasks.first }
+    let(:task) { create(:task, name: 'mytask-to-edit', description: 'description', status: 'todo', user: user) }
 
     scenario 'user can edit a task' do
       visit edit_task_path(task)
@@ -64,7 +72,7 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'show' do
-    let(:task) { create(:user_with_tasks, name: 'mytask', description: 'mydescription', status: 'todo').tasks.first }
+    let(:task) { create(:task, name: 'mytask', description: 'mydescription', status: 'todo', user: user) }
 
     scenario 'user can see detail of a task' do
       visit task_path(task)
@@ -76,7 +84,7 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'deletion' do
-    let(:task) { create(:user_with_tasks, name: 'task-to-delete', description: 'description').tasks.first }
+    let(:task) { create(:task, name: 'task-to-delete', description: 'description', user: user) }
 
     scenario 'user can delete a task' do
       visit task_path(task)
@@ -87,8 +95,8 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'listing' do
-    let!(:above_task) { create(:user_with_tasks, name: 'above-task', description: 'description', deadline: (Time.zone.today + 2).to_s).tasks.first }
-    let(:below_task) { create(:task, name: 'below-task', description: 'description', deadline: (Time.zone.today + 1).to_s, user_id: above_task.user.id) }
+    let!(:above_task) { create(:task, name: 'above-task', description: 'description', deadline: (Time.zone.today + 2).to_s, user: user) }
+    let(:below_task) { create(:task, name: 'below-task', description: 'description', deadline: (Time.zone.today + 1).to_s, user: user) }
 
     before do
       below_task.update(created_at: Time.current.advance(days: -1))
@@ -112,9 +120,9 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'search' do
-    let!(:todo_task1) { create(:user_with_tasks, name: 'task1-todo', description: 'tmp', status: 'todo').tasks.first }
-    let!(:todo_task2) { create(:task, name: 'task2-todo', description: 'tmp', status: 'todo', user_id: todo_task1.user.id) }
-    let!(:done_task1) { create(:task, name: 'task1-done', description: 'tmp', status: 'done', user_id: todo_task1.user.id) }
+    let!(:todo_task1) { create(:task, name: 'task1-todo', description: 'tmp', status: 'todo', user: user) }
+    let!(:todo_task2) { create(:task, name: 'task2-todo', description: 'tmp', status: 'todo', user: user) }
+    let!(:done_task1) { create(:task, name: 'task1-done', description: 'tmp', status: 'done', user: user) }
 
     context 'with status' do
       scenario 'user can search tasks' do
@@ -166,10 +174,10 @@ RSpec.feature 'Task', type: :feature do
     let(:well_done_name) { 'well-done-task' }
 
     before do
-      tasks = create(:user_with_tasks, name: todo_name, status: 'todo').tasks
+      create(:task, name: todo_name, status: 'todo', user: user)
       5.times do
-        create(:task, name: good_done_name, status: 'done', user_id: tasks.first.user.id)
-        create(:task, name: well_done_name, status: 'done', user_id: tasks.first.user.id)
+        create(:task, name: good_done_name, status: 'done', user: user)
+        create(:task, name: well_done_name, status: 'done', user: user)
       end
       visit root_path
       fill_in 'name', with: 'well-done'

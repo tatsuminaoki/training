@@ -1,4 +1,15 @@
 ja:
+  h1_new_user: '新しいユーザ'
+  new_user_created: 'ユーザを作成しました'
+  signup: 'ユーザ登録'
+  logout: 'ログアウト'
+  logged_out: 'ログアウトしました'
+  login_as: 'ログイン中'
+  logged_in: 'ログイン成功！'
+  login_failed_msg: 'メールアドレスかパスワードが間違っています'
+  email: 'メールアドレス'
+  password: 'パスワード'
+  login: 'ログイン'
   error_title: 'エラー'
   error_explanation: '保存ができません！'
   new_task_created: '新しいタスクが作成されました！'
@@ -42,6 +53,10 @@ ja:
         todo: '未着手'
         processing: '進行中'
         done: '完了'
+      user:
+        email: 'メールアドレス'
+        name: 'ユーザ名'
+        password: 'パスワード'
   views:
     pagination:
       first: "&laquo; 最初"
