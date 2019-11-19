@@ -47,6 +47,8 @@ ja:
     updated: タスクが更新されました！
     destroyed: タスクが削除されました！
     destroying: 本当にタスクを削除してもいいですか？
+    user_created: ユーザーが追加されました！
+    invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
   button:
     index: ホーム
     detail: 詳細

@@ -1,12 +1,8 @@
-<% if model.errors.any? %>
+<% if flash[:notice] %>
   <div class="card col-md-6">
     <div class="card-body">
       <div class="alert alert-danger">
-        <ul>
-          <% model.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
+        <%= flash[:notice] %>
       </div>
     </div>
   </div>

@@ -47,6 +47,8 @@ en:
     updated: Task was successfully updated!
     destroyed: Task was successfully destroyed!
     destroying: Are you sure you want to destroy this task?
+    user_created: User was successfully created!
+    invalid_login_id_or_password: Invalid Login ID or Password.
   button:
     index: Home
     detail: Detail
@@ -62,6 +64,7 @@ en:
     models:
       task: Task
       user: User
+      session: Session
     attributes:
       task:
         name: Name
@@ -77,6 +80,9 @@ en:
         login_id: LoginID
         password: Password
         password_confirmation: Password Confirmation
+      session:
+        login_id: Login ID
+        password: Password
   enums:
     task:
       priority:
