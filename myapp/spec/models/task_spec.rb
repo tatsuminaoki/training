@@ -65,37 +65,33 @@ RSpec.describe Task, type: :model do
 
     context 'when first page' do
       let(:page) { 1 }
-      let(:per_page) { 2 }
 
       it 'return only 2 tasks' do
-        is_expected.to eq(per_page)
+        is_expected.to eq(2)
       end
     end
 
     context 'when middle page' do
       let(:page) { 2 }
-      let(:per_page) { 2 }
 
       it 'return only 2 tasks' do
-        is_expected.to eq(per_page)
+        is_expected.to eq(2)
       end
     end
 
     context 'when last page' do
       let(:page) { 3 }
-      let(:per_page) { 1 }
 
       it 'return only 1 tasks' do
-        is_expected.to eq(per_page)
+        is_expected.to eq(1)
       end
     end
 
     context 'when page not exists' do
       let(:page) { 4 }
-      let(:per_page) { 0 }
 
       it 'return no results' do
-        is_expected.to eq(per_page)
+        is_expected.to eq(0)
       end
     end
   end
