@@ -2,6 +2,14 @@
 
 <div class="card col-md-6">
   <div class="card-body">
+    <!-- Expecting new_admin_user_path and edit_admin_user_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_admin_user_path %>
+        <%= t('operation.user-new-in-admin') %>
+      <% elsif %>
+        <%= t('operation.user-edit') %>
+      <% end %>
+    </div>
     <%= form_with model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path, local: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>

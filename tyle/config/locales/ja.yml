@@ -42,7 +42,11 @@ ja:
     task-new: 追加するタスクの詳細を入力してください
     task-detail: タスクの詳細
     task-edit: 編集するタスクの詳細を入力してください
+    user-list: ユーザーリスト
     user-new: 名前、ログインID、パスワードを入力してください
+    user-new-in-admin: 追加するユーザーの詳細を入力してください
+    user-detail: ユーザーの詳細
+    user-edit: 編集するユーザーの詳細を入力してください
     session-new: ログインIDとパスワードを入力してください
   message:
     task:
