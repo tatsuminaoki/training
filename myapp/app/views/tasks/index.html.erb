@@ -24,7 +24,7 @@
       <%= label_tag t :status %>
       <%= select_tag :status, options_for_select(Task.readable_statuses, params[:status]), { include_blank: true, class: 'form-control' } %>
       </div>
-      <%= submit_tag t(:form_btn_search), class: 'btn btn-primary' %>
+      <%= submit_tag t(:form_btn_search), class: 'btn btn-primary', name: '' %>
     <% end %>
     </div>
   </div>
