@@ -13,7 +13,7 @@ module Admin
     end
 
     def create
-      @user = User.new(user_params)
+      @user = User.new(user_params_with_enums_converted)
       if @user.save
         redirect_to admin_user_path(@user), notice: t('message.user.created')
       else
@@ -29,7 +29,7 @@ module Admin
     end
 
     def update
-      if @user.update(user_params)
+      if @user.update(user_params_with_enums_converted)
         redirect_to admin_user_path(@user), notice: t('message.user.updated')
       else
         render :edit
@@ -54,6 +54,13 @@ module Admin
 
     def user_params
       params.require(:user).permit(:name, :login_id, :password, :password_confirmation, :role)
+    end
+
+    # Convert the number of enums; '0' -> 0
+    def user_params_with_enums_converted
+      user_params_copy = user_params
+      user_params_copy[:role] = user_params[:role].to_i
+      user_params_copy
     end
   end
 end

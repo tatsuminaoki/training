@@ -1,8 +1,8 @@
-<%= render 'error_messages', model: task %>
+<%= render 'error_messages', model: user %>
 
 <div class="card col-md-6">
   <div class="card-body">
-    <%= form_with model: user, url: admin_users_path do |f| %>
+    <%= form_with model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path, ilocal: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -21,7 +21,7 @@
       </div>
       <div class="form-group">
         <%= f.label :role %>
-        <%= f.select :role, User.roles.keys.to_a, {}, class: 'form-control' %>
+        <%= f.select :role, options_for_select(User.roles.map { |k, v| [t("enums.user.role.#{k}"), v] }), class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.submit class: 'btn btn-primary' %>
