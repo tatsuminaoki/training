@@ -15,9 +15,7 @@ RSpec.feature 'Task', type: :feature do
       scenario 'user can create a new task with deadline' do
         visit new_task_path
         fill_in '名前', with: 'a' * 50
-        select 1.year.from_now.year.to_s, from: 'task_deadline_1i'
-        select Time.zone.now.month, from: 'task_deadline_2i'
-        select Time.zone.now.day, from: 'task_deadline_3i'
+        fill_in '終了期限', with: Date.tomorrow.to_s
         click_button '送信'
         expect(page).to have_text('新しいタスクが作成されました！')
       end
@@ -58,9 +56,7 @@ RSpec.feature 'Task', type: :feature do
 
     scenario 'user can edit a task deadline' do
       visit edit_task_path(task)
-      select 1.year.from_now.year.to_s, from: 'task_deadline_1i'
-      select Time.zone.now.month, from: 'task_deadline_2i'
-      select Time.zone.now.day, from: 'task_deadline_3i'
+      fill_in '終了期限', with: (Date.tomorrow + 1).to_s
       click_button '送信'
       expect(page).to have_text('タスクが更新されました！')
     end

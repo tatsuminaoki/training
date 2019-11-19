@@ -1,26 +1,49 @@
-<% if flash[:message].present? %>
-<h1><%= flash[:message] %></h1>
-<% end %>
-<p>
-  <strong><%= t :name %>:</strong>
-  <%= @task.name %>
-</p>
-<p>
-  <strong><%= t :description %>:</strong>
-  <%= @task.description %>
-</p>
-<p>
-  <strong><%= t :status %>:</strong>
-  <%= @task.readable_status %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% if flash[:message].present? %>
+      <div class="alert alert-success"><%= flash[:message] %></div>
+      <% end %>
+    </div>
+  </div>
 
-<p>
-  <strong><%= t :deadline %>:</strong>
-  <%= @task.readable_deadline %>
-</p>
+  <div class="row">
+    <div class="col">
+      <h1><%= t :detail_header, name: @task.name %></h1>
+    </div>
+  </div>
 
-<%= link_to "#{t :link_edit}", edit_task_path(@task) %> | 
-<%= link_to "#{t :link_back}", tasks_path %> |
-<%= link_to "#{t :link_delete}", task_path(@task),
-    method: :delete,
-    data: { confirm: "#{t :delete_confirm}" } %>
+  <div class="row mt-5">
+    <div class="col">
+      <dl class="row">
+        <dt class="col-sm-2"><%= t :name %></dt>
+        <dd class="col-sm-10"><%= @task.name %></dd>
+
+        <dt class="col-sm-2"><%= t :description %></dt>
+        <dd class="col-sm-10"><%= @task.description %></dd>
+
+        <dt class="col-sm-2"><%= t :status %></dt>
+        <dd class="col-sm-10"><%= @task.readable_status %></dd>
+
+        <dt class="col-sm-2"><%= t :deadline %></dt>
+        <dd class="col-sm-10"><%= @task.readable_deadline %></dd>
+
+        <dt class="col-sm-2"><%= t :functions %></dt>
+        <dd class="col-sm-10">
+          <%= link_to "#{t :link_edit}", edit_task_path(@task), class: 'btn btn-primary' %>
+          <%= link_to "#{t :link_delete}", task_path(@task),
+                      class: 'btn btn-primary',
+                      method: :delete,
+                      data: { confirm: "#{t :delete_confirm}" } %>
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+    <%= link_to "#{t :link_back}", tasks_path, class: 'btn btn-primary' %>
+
+    </div>
+  </div>
+</div>

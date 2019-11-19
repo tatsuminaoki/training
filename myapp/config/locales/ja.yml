@@ -7,11 +7,13 @@ ja:
   h1_edit_task: 'タスク更新'
   h1_index: 'タスク一覧'
   h1_new: '新しいタスク'
-  link_back: '戻る'
+  link_back: '一覧に戻る'
   link_detail: '詳細'
   link_delete: '削除'
   link_edit: '更新'
   link_new: '登録'
+  detail_header: "%{name}タスクの詳細"
+  functions: '操作'
   name: '名前'
   description: '説明'
   status: 'ステータス'
@@ -22,6 +24,7 @@ ja:
   delete_confirm: '本当に削除しますか？'
   form_submit: '送信'
   form_btn_search: '検索'
+  task_table_caption: 'タスク一覧'
   helpers:
     label:
       task:
