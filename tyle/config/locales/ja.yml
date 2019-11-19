@@ -104,3 +104,7 @@ ja:
         waiting: 待機中
         in_progress: 実施中
         done: 完了
+    user:
+      role:
+        general: 一般
+        administrator: 管理者

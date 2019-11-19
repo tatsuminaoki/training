@@ -104,3 +104,7 @@ en:
         waiting: Waiting
         in_progress: In_progress
         done: Done
+    user:
+      role:
+        general: General
+        administrator: Admin

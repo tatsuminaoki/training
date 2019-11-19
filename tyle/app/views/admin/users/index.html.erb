@@ -19,7 +19,7 @@
           <tr>
             <td class="user-name"><%= user.name %></td>
             <td class="user-login_id"><%= user.login_id %></td>
-            <td class="user-role"><%= user.role %></td>
+            <td class="user-role"><%= t("enums.user.role.#{user.role}") %></td>
             <td class="task-size"><%= user.tasks.size.to_s(:delimited) %></td>
             <td class="user-created_at"><%= I18n.l(user.created_at) %></td>
             <td><%= link_to t('button.detail'), admin_user_path(user.id) %></td>
