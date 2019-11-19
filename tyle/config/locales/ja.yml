@@ -75,6 +75,7 @@ ja:
         priority: 優先度
         status: 状態
         due: 期限
+        label: ラベル
       user:
         name: 名前
         login_id: ログインID

@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.user_id(@current_user.id).name_like(params[:name]).priority(params[:priority]).status(params[:status]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
+    @tasks = Task.user_id(@current_user.id).name_like(params[:name]).priority(params[:priority]).status(params[:status]).label_ids(params[:label_ids]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
   end
 
   def new
@@ -46,11 +46,11 @@ class TasksController < ApplicationController
   private
 
   def task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.includes(task_labels: :label).find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :priority, :status, :due)
+    params.require(:task).permit(:name, :description, :priority, :status, :due, label_ids: [])
   end
 
   def sort_direction

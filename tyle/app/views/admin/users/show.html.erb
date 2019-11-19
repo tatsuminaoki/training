@@ -42,6 +42,7 @@
           <th><%= t('activerecord.attributes.task.priority') %></th>
           <th><%= t('activerecord.attributes.task.status') %></th>
           <th><%= t('activerecord.attributes.task.due') %></th>
+          <th><%= t('activerecord.attributes.task.label') %></th>
           <th><%= t('button.detail') %></th>
         </tr>
         </thead>
@@ -52,6 +53,11 @@
             <td class="task-priority"><%= task.priority %></td>
             <td class="task-status"><%= task.status %></td>
             <td class="task-due"><%= I18n.l(task.due) %></td>
+            <td class="task-labels">
+              <% task.task_labels.each do |tl| %>
+                <span><%= tl.label.name %></span>
+              <% end %>
+            </td>
             <td><%= link_to t('button.detail'), task_path(task.id) %></td>
           </tr>
         <% end %>

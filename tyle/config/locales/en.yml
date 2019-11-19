@@ -69,6 +69,7 @@ en:
         status: Status
         due: Due
         role: Role
+        label: Labels
       user:
         name: Name
         login_id: LoginID

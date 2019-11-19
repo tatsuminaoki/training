@@ -19,4 +19,5 @@ class Task < ApplicationRecord
   scope :name_like, -> (name) { where('name like ?', "%#{name}%") if name.present? }
   scope :priority, -> (priority) { where(priority: priority) if priority.present? }
   scope :status, -> (status) { where(status: status) if status.present? }
+  scope :label_ids, -> (label_ids) { where(id: TaskLabel.label_id(label_ids).pluck(:task_id)) if label_ids.present? }
 end

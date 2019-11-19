@@ -13,3 +13,7 @@
     Task.create(name: "task#{i}", description: "this is a task#{i}", user_id: j, priority: i % 3, status: i % 3, due: "2021010#{i % 10}")
   end
 end
+
+(1..7).each do |i|
+  Label.create(name: "label#{i}")
+end

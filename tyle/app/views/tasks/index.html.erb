@@ -15,6 +15,9 @@
           <%= select_tag :status, options_for_select(Task.statuses.map { |k, v| [k.capitalize, v] }, selected: params[:status]), prompt: t('activerecord.attributes.task.status'), class: 'form-control-sm', id: 'search_by_status' %>
         </div>
         <div class="col-auto">
+          <%= f.collection_select(:label_ids, Label.all, :id, :name, { include_hidden: false, selected: params[:label_ids] }, { multiple: true, class: 'form-control' }) %>
+        </div>
+        <div class="col-auto">
           <%= f.submit t('button.search'), class: 'btn btn-sm btn-primary'%>
         </div>
       </div>
@@ -32,6 +35,7 @@
           <th><%= switch_asc_and_desc('priority') %></th>
           <th><%= switch_asc_and_desc('status') %></th>
           <th><%= switch_asc_and_desc('due') %></th>
+          <th><%= t('activerecord.attributes.task.label') %></th>
           <th><%= t('button.detail') %></th>
         </tr>
         </thead>
@@ -42,6 +46,11 @@
             <td class="task-priority"><%= task.priority %></td>
             <td class="task-status"><%= task.status %></td>
             <td class="task-due"><%= I18n.l(task.due) %></td>
+            <td class="task-labels">
+              <% task.task_labels.each do |tl| %>
+                <span><%= tl.label.name %></span>
+              <% end %>
+            </td>
             <td><%= link_to t('button.detail'), task_path(task.id) %></td>
           </tr>
         <% end %>
