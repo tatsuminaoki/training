@@ -3,6 +3,6 @@ FactoryBot.define do
     id { 1 }
     name { 'user1' }
     login_id { 'id1' }
-    password_digest { 'password1' }
+    password { 'password1' }
   end 
 end 
