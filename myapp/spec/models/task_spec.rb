@@ -10,38 +10,39 @@ RSpec.describe Task, type: :model do
     context 'blank' do
       let(:name) { '' }
       it 'can not be saved' do
-        is_expected.to eq(false)
+        is_expected.to be_falsy
       end
     end
 
     context 'length over 50' do
       let(:name) { 'a' * 51 }
       it 'can not be saved' do
-        is_expected.to eq(false)
+        is_expected.to be_falsy
       end
     end
 
     context 'length equals to 50' do
       let(:name) { 'a' * 50 }
       it 'can be saved' do
-        is_expected.to eq(true)
+        is_expected.to be_truthy
       end
     end
   end
 
   describe 'status validations' do
-    let(:task) { build(:task, name: 'a' * 50) }
+    let(:task) { build(:task, name: 'a' * 50, status: status) }
 
     context 'invalid value' do
+      let(:status) { 4 }
       it 'should raise argument error' do
-        expect { task.status = 4 }.to raise_error(ArgumentError)
+        expect { task }.to raise_error(ArgumentError)
       end
     end
 
     context 'valid value' do
+      let(:status) { 1 }
       it 'can be saved' do
-        task.status = 1
-        expect(task.save).to eq(true)
+        expect(task.save).to be_truthy
       end
     end
   end
@@ -64,33 +65,37 @@ RSpec.describe Task, type: :model do
 
     context 'when first page' do
       let(:page) { 1 }
+      let(:per_page) { 2 }
 
       it 'return only 2 tasks' do
-        is_expected.to eq(2)
+        is_expected.to eq(per_page)
       end
     end
 
     context 'when middle page' do
       let(:page) { 2 }
+      let(:per_page) { 2 }
 
       it 'return only 2 tasks' do
-        is_expected.to eq(2)
+        is_expected.to eq(per_page)
       end
     end
 
     context 'when last page' do
       let(:page) { 3 }
+      let(:per_page) { 1 }
 
       it 'return only 1 tasks' do
-        is_expected.to eq(1)
+        is_expected.to eq(per_page)
       end
     end
 
     context 'when page not exists' do
       let(:page) { 4 }
+      let(:per_page) { 0 }
 
       it 'return no results' do
-        is_expected.to eq(0)
+        is_expected.to eq(per_page)
       end
     end
   end
