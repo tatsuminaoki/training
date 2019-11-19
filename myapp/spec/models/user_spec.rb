@@ -64,4 +64,20 @@ RSpec.describe User, type: :model do
       expect(user.errors[:role]).to be_present
     end
   end
+
+  context 'When trying to delete an user which is only one admin user' do
+    let(:user) { create(:admin_user) }
+    it 'cannot be destroyed' do
+      expect(user.destroy).to be_falsey
+    end
+  end
+
+  context 'When trying to change role of an user which is only one admin user' do
+    let(:user) { create(:admin_user) }
+    it 'role cannot be changed' do
+      expect { user.general! }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(user.errors[:role]).to be_present
+      expect(user.reload.role).to eq 'admin'
+    end
+  end
 end
