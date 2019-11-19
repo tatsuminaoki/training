@@ -7,7 +7,7 @@ RSpec.feature 'Task', type: :feature do
 
   before do
     visit login_path
-    fill_in 'メールアドレス', with: 'tadashi.toyokura@rakuten.com'
+    fill_in 'アカウント', with: 'tadashi.toyokura'
     fill_in 'パスワード', with: 'password'
     click_button 'ログイン'
   end

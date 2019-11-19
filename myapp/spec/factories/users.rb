@@ -5,7 +5,7 @@ FactoryBot.define do
     id { 1 }
     name { 'MyString' }
     password { 'password' }
-    email { 'tadashi.toyokura@rakuten.com' }
+    account { 'tadashi.toyokura' }
 
     factory :user_with_tasks do
       transient do
