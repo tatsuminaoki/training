@@ -2,6 +2,9 @@
 
 <div class="card col-md-6">
   <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.task-detail') %>
+    </div>
     <table class="table">
       <tbody>
         <tr>
@@ -14,15 +17,19 @@
         </tr>
         <tr>
           <td><%= t('activerecord.attributes.task.priority') %></td>
-          <td><%= @task.priority %></td>
+          <td><%= t("enums.task.priority.#{@task.priority}") %></td>
         </tr>
         <tr>
           <td><%= t('activerecord.attributes.task.status') %></td>
-          <td><%= @task.status %></td>
+          <td><%= t("enums.task.status.#{@task.status}") %></td>
         </tr>
         <tr>
           <td><%= t('activerecord.attributes.task.due') %></td>
           <td><%= I18n.l(@task.due) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.created_at') %></td>
+          <td><%= I18n.l(@task.created_at) %></td>
         </tr>
       </tbody>
     </table>

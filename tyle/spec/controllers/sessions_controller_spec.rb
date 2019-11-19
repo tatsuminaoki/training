@@ -35,8 +35,8 @@ RSpec.describe SessionsController, type: :controller do
       it 'fails to login' do
         post :create, params: params
 
-        expect(response).to have_http_status(:success)
-        expect(response).to render_template('sessions/new')
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(login_path)
       end
     end
   end
