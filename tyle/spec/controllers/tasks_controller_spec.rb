@@ -29,7 +29,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'POST #create' do
     it 'returns redirect to the created task page' do
-      post :create, params: { task: { name: 'task1', description: 'this is a task1', user_id: user.id, priority: 'low', status: 'waiting', due: '20201231' } }
+      post :create, params: { task: { name: 'task1', description: 'this is a task1', user_id: user.id, priority: 0, status: 0, due: '20201231' } }
       expect(response).to redirect_to(task_path(Task.last))
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe 'PATCH #update' do
     it 'returns redirect to the updated task page' do
-      patch :update, params: { id: task.id, task: { name: 'task2', description: 'this is a task2', user_id: user.id, priority: 'medium', status: 'in_progress', due: '20201231' } }
+      patch :update, params: { id: task.id, task: { name: 'task2', description: 'this is a task2', user_id: user.id, priority: 1, status: 1, due: '20201231' } }
       expect(response).to redirect_to(task_path(task))
     end
   end
