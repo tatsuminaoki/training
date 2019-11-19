@@ -1,0 +1,14 @@
+<h1>New Task</h1>
+<%= form_for(@task, url: tasks_create_path) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "60x12" %>
+
+  <%= f.label :status %>
+  <%= f.select(:status, options_for_select([['未着手', 0], ['着手', 1], ['完了', 2]])) %>
+
+  <%= f.submit "Create" %>
+<% end %>

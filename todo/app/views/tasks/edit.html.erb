@@ -1,0 +1,15 @@
+<h1>Edit Task</h1>
+
+<%= form_for(@task, url: tasks_update_path(@task)) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "60x12" %>
+
+  <%= f.label :status %>
+  <%= f.select :status, {'未着手' => 0, '着手' => 1, '完了' => 2}, {} %>
+
+  <%= f.submit "Update" %>
+<% end %>
