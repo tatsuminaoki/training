@@ -2,7 +2,7 @@
 
 <div class="card col-md-6">
   <div class="card-body">
-    <%= form_with model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path, ilocal: true do |f| %>
+    <%= form_with model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path, local: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -12,11 +12,11 @@
         <%= f.text_field :login_id, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :password, value: t('activerecord.attributes.user.password') + ' ' + t('operation.change_password') %>
+        <%= f.label :password, t('activerecord.attributes.user.password') + (request.path_info == new_admin_user_path ? '' : ' ' + t('operation.change_password')) %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :password_confirmation, value: t('activerecord.attributes.user.password_confirmation') + ' ' + t('operation.change_password') %>
+        <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') + (request.path_info == new_admin_user_path ? '' : ' ' + t('operation.change_password')) %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
       <div class="form-group">

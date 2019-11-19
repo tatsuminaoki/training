@@ -1,3 +1,4 @@
+<!-- header -->
 <div class="card col-md-6">
   <div class="card-body">
     <h1><%= t('operation.title_general') %></h1>
@@ -13,11 +14,15 @@
     </div>
   </div>
 </div>
+
+<!-- flash message -->
 <% if flash[:notice] %>
   <div class="card col-md-6">
     <div class="card-body">
       <div class="alert alert-success">
-        <%= render 'flash' %>
+        <% if flash[:notice] %>
+          <%= flash[:notice] %>
+        <% end %>
       </div>
     </div>
   </div>
