@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.user_id(@current_user.id).name_like(params[:name]).priority(params[:priority]).status(params[:status]).label_ids(params[:label_ids]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
+    @tasks = current_user.tasks.includes(task_labels: :label).name_like(params[:name]).priority(params[:priority]).status(params[:status]).label_ids(params[:label_ids]).order(sort_column + ' ' + sort_direction).page(params[:page]).per(10)
   end
 
   def new
