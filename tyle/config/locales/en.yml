@@ -81,7 +81,7 @@ en:
         password: Password
         password_confirmation: Password Confirmation
       session:
-        login_id: Login ID
+        login_id: LoginID
         password: Password
   enums:
     task:
