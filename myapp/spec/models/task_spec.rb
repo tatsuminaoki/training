@@ -4,48 +4,45 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'name validations' do
-    before do
-      @task = Task.new
-    end
+    let(:task) { build(:task, name: name) }
+    subject { task.save }
 
     context 'blank' do
+      let(:name) { '' }
       it 'can not be saved' do
-        @task.name = ''
-        expect(@task.save).to eq(false)
+        is_expected.to be_falsy
       end
     end
 
     context 'length over 50' do
+      let(:name) { 'a' * 51 }
       it 'can not be saved' do
-        @task.name = 'a' * 51
-        expect(@task.save).to eq(false)
+        is_expected.to be_falsy
       end
     end
 
     context 'length equals to 50' do
+      let(:name) { 'a' * 50 }
       it 'can be saved' do
-        @task.name = 'a' * 50
-        expect(@task.save).to eq(true)
+        is_expected.to be_truthy
       end
     end
   end
 
   describe 'status validations' do
-    before do
-      @task = Task.new
-      @task.name = 'a' * 50
-    end
+    let(:task) { build(:task, name: 'a' * 50, status: status) }
 
     context 'invalid value' do
+      let(:status) { 4 }
       it 'should raise argument error' do
-        expect { @task.status = 4 }.to raise_error(ArgumentError)
+        expect { task }.to raise_error(ArgumentError)
       end
     end
 
     context 'valid value' do
+      let(:status) { 1 }
       it 'can be saved' do
-        @task.status = 1
-        expect(@task.save).to eq(true)
+        expect(task.save).to be_truthy
       end
     end
   end
@@ -62,7 +59,7 @@ RSpec.describe Task, type: :model do
 
     before do
       5.times do
-        Task.create(name: 'taskname')
+        create(:task)
       end
     end
 
