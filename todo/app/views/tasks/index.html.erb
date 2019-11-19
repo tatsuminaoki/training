@@ -1,8 +1,6 @@
 <h1>All Tasks</h1>
 
-<% if flash[:success] %>
-  <p><%= flash[:success] %></p>
-<% end %>
+<%= tag.p { flash[:success] if flash[:success]} %>
 
 <%= link_to 'Create New Task', tasks_new_path %>
 

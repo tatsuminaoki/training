@@ -1,0 +1,14 @@
+<%= form_for(@task, url: form_path) do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "60x12" %>
+
+  <%= f.label :status %>
+  <%= f.select :status, status_text.invert, {} %>
+
+  <%= f.submit button_name %>
+
+<% end %>
