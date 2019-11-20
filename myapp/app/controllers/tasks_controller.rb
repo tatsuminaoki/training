@@ -2,20 +2,18 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
+  before_action :find_user, only: %i[index new create]
 
   def index
-    @tasks = Task.name_like(params[:name])
-      .status_is(params[:status])
-      .sort_by_column(params[:sort_column], params[:order])
-      .page params[:page]
+    @tasks = @user.tasks.find_with_params(params)
   end
 
   def new
-    @task = Task.new
+    @task = @user.tasks.new
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = @user.tasks.new(task_params)
     if @task.save
       flash[:message] = t :new_task_created
       redirect_to @task
@@ -53,6 +51,10 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find(params[:id])
+    @task = User.find(1).tasks.find(params[:id])
+  end
+
+  def find_user
+    @user = User.find(1)
   end
 end

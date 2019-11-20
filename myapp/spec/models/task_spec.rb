@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'name validations' do
-    let(:task) { build(:task, name: name) }
+    let(:user) { create(:user) }
+    let(:task) { build(:task, name: name, user: user) }
     subject { task.save }
 
     context 'blank' do
@@ -30,7 +31,7 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'status validations' do
-    let(:task) { build(:task, name: 'a' * 50, status: status) }
+    let(:task) { create(:user_with_tasks, name: 'a' * 50, status: status).tasks.first }
 
     context 'invalid value' do
       let(:status) { 4 }
@@ -58,9 +59,7 @@ RSpec.describe Task, type: :model do
     subject { tasks.length }
 
     before do
-      5.times do
-        create(:task)
-      end
+      create(:user_with_tasks, tasks_count: 5)
     end
 
     context 'when first page' do
