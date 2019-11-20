@@ -32,7 +32,7 @@ class Task < ApplicationRecord
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
   scope :from_label, -> (label_name) {
-    return if label_name.nil?
+    return if label_name.empty?
     label_id = Label.where('name LIKE ?', "%#{label_name}%").select(:id)
     where(id: task_ids = TaskLabel.where(label_id: label_id).select(:task_id))
   }
