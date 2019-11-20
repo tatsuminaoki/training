@@ -8,4 +8,4 @@
 user = User.new(name: 'first user', password: '', password_confirmation: 'nomatch')
 user.password = 'password'
 user.password_confirmation = 'password'
-user.save
+user.save!
