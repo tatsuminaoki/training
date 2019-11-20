@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :current_user
   before_action :require_sign_in!
   helper_method :signed_in?
 
@@ -16,7 +15,7 @@ class ApplicationController < ActionController::Base
     remember_token = User.new_remember_token
     cookies.permanent[:user_remember_token] = remember_token
     user.update!(remember_token: User.encrypt(remember_token))
-    @current_user = user
+    current_user = user
   end
 
   def sign_out
@@ -24,12 +23,13 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    @current_user.present?
+    current_user.present?
   end
 
   private
 
   def require_sign_in!
+    puts 'require_sign_in!'
     redirect_to login_path unless signed_in?
   end
 end
