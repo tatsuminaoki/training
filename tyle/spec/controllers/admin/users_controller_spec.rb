@@ -17,6 +17,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'returns http success' do
       get :index
       expect(response).to have_http_status(:success)
+      expect(response).to render_template('admin/users/index')
     end
   end
 
@@ -24,14 +25,19 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'returns http success' do
       get :new
       expect(response).to have_http_status(:success)
+      expect(response).to render_template('admin/users/new')
     end
   end
 
   describe 'POST #create' do
     it 'returns the redirect to the user page' do
-      post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+      post :create, params: { user: { id: 2, name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_user_path(User.last))
+
+      get :show, params: { id: 2 }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template("admin/users/show")
     end
   end
 
@@ -39,6 +45,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'returns http success' do
       get :show, params: { id: user.id }
       expect(response).to have_http_status(:success)
+      expect(response).to render_template("admin/users/show")
     end
   end
 
@@ -46,6 +53,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'returns http success' do
       get :edit, params: { id: user.id }
       expect(response).to have_http_status(:success)
+      expect(response).to render_template("admin/users/edit")
     end
   end
 
@@ -54,12 +62,17 @@ RSpec.describe Admin::UsersController, type: :controller do
       post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(admin_user_path(user))
+
+      get :show, params: { id: user.id }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template("admin/users/show")
     end
   end
 
   describe 'DELETE #destroy' do
-    context 'destroy another user' do
+    context 'when you destroy another user' do
       let(:user2) { create(:user2) }
+
       it 'returns the redirect to the index page' do
         delete :destroy, params: { id: user2.id }
         expect(response).to have_http_status(:redirect)
@@ -67,11 +80,15 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
 
-    context 'destroy oneself' do
+    context 'when you destroy yourself' do
       it 'returns the redirect to the user page' do
         delete :destroy, params: { id: user.id }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(user))
+
+        get :show, params: { id: user.id }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template("admin/users/show")
       end
     end
   end
