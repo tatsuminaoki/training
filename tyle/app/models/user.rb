@@ -25,11 +25,13 @@ class User < ApplicationRecord
 
   def update_the_last_admin_validator
     return unless self.role == 'general' && User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
+    errors.add(:role, I18n.t('message.cannot_update_the_last_admin'))
     throw :abort
   end
 
   def destroy_the_last_admin_validator
     return unless User.where(role: 1).count == 1 && User.find_by(role: 1).id == self.id
+    errors.add(:role, I18n.t('message.cannot_delete_the_last_admin'))
     throw :abort
   end
 end

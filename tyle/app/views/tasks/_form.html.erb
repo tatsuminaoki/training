@@ -2,7 +2,16 @@
 
 <div class="card col-md-9">
   <div class="card-body">
-    <%= form_with model: task do |f| %>
+    <!-- Expecting new_task_path and edit_task_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_task_path %>
+        <%= t('operation.task-new') %>
+      <% elsif %>
+        <%= t('operation.task-edit') %>
+      <% end %>
+    </div>
+
+    <%= form_with model: task, local: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -14,16 +23,16 @@
       <div class="form-row">
         <div class="form-group col-md-9">
           <%= f.label :priority %>
-          <%= f.select :priority, Task.priorities.keys.to_a, {}, class: 'form-control' %>
+          <%= f.select :priority, options_for_select(Task.priorities.map { |k, v| [t("enums.task.priority.#{k}"), v] }), class: 'form-control' %>
         </div>
         <div class="form-group col-md-9">
           <%= f.label :status %>
-          <%= f.select :status, Task.statuses.keys.to_a, {}, class: 'form-control' %>
+          <%= f.select :status, options_for_select(Task.statuses.map { |k, v| [t("enums.task.status.#{k}"), v] }), class: 'form-control' %>
         </div>
       </div>
       <div class="form-group">
         <%= f.label :due %>
-        <%= f.text_field :due, class: 'form-control' %>
+        <%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T"), class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.label :label %>

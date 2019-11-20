@@ -34,16 +34,35 @@ en:
     formats:
       default: "%Y/%m/%d %H:%M"
   operation:
-    error: ERROR!
     change_password: (Input a new password only if you would like to change your password.)
-    number_of_tasks: タスク数
+    number_of_tasks: #
     title_general: TYLE
     title_admin: TYLE(Admin)
+    task-list: Task List
+    task-new: Input necessary information for creating a new task.
+    task-detail: Task Details
+    task-edit: Input necessary information for updating the task.
+    user-list: User List
+    user-new: Input your Name, Login ID, and password for login.
+    user-new-in-admin: Input necessary information for updating the user.
+    user-detail: User Details
+    user-edit: Input necessary information for updating the task.
+    session-new: Input your Login ID and Password for login.
   message:
-    created: Task was successfully created!
-    updated: Task was successfully updated!
-    destroyed: Task was successfully destroyed!
-    destroying: Are you sure you want to destroy this task?
+    task:
+      created: Task was successfully created!
+      updated: Task was successfully updated!
+      destroyed: Task was successfully destroyed!
+      destroying: Are you sure you want to destroy this task?
+    user:
+      created: User was successfully created!
+      updates: User was successfully updated!
+      destroyed: User was successfully destroyed!
+      destroying: Are you sure you want to destroy this user?
+    invalid_login_id_or_password: Invalid Login ID or Password.
+    delete_itself: Cannot delete yourself.
+    cannot_update_the_last_admin: of the last administrator, you cannot update.
+    cannot_delete_the_last_admin: of the last administrator, you cannot delete.
   button:
     index: Home
     detail: Detail
@@ -56,10 +75,12 @@ en:
     login: Login
     general: General
     admin: Admin
+    user-new: New User
   activerecord:
     models:
       task: Task
       user: User
+      session: Session
     attributes:
       task:
         name: Name
@@ -68,10 +89,30 @@ en:
         priority: Priority
         status: Status
         due: Due
-        role: Role
+        detail: Detail
+        created_at: CreatedAt
         label: Labels
       user:
         name: Name
         login_id: LoginID
         password: Password
         password_confirmation: Password Confirmation
+        role: Role
+        created_at: CreatedAt
+      session:
+        login_id: LoginID
+        password: Password
+  enums:
+    task:
+      priority:
+        low: Low
+        medium: Medium
+        high: High
+      status:
+        waiting: Waiting
+        in_progress: In_progress
+        done: Done
+    user:
+      role:
+        general: General
+        administrator: Admin

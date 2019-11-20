@@ -26,11 +26,10 @@ RSpec.describe 'AdminUsers', type: :system do
         subject
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
-        expect(page).to have_content 'administrator'
+        expect(page).to have_content '管理者'
         expect(page).to have_content '2'
         expect(page).to have_content 'user2'
         expect(page).to have_content 'id2'
-        expect(page).to have_content 'general'
         expect(page).to have_content '0'
       end
     end
@@ -40,18 +39,16 @@ RSpec.describe 'AdminUsers', type: :system do
 
       it 'enables you to create a new user' do
         subject
-        visit new_admin_user_path
         fill_in 'user_name', with: 'user3'
         fill_in 'user_login_id', with: 'id3'
         fill_in 'user_password', with: 'password3'
         fill_in 'user_password_confirmation', with: 'password3'
-        select 'general', from: 'user_role'
+        select '一般', from: 'user_role'
         click_button '登録する'
 
         expect(page).to have_content 'ユーザーが追加されました！'
         expect(page).to have_content 'user3'
         expect(page).to have_content 'id3'
-        expect(page).to have_content 'general'
         expect(page).to have_content '0'
       end
     end
@@ -63,17 +60,17 @@ RSpec.describe 'AdminUsers', type: :system do
         subject
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
-        expect(page).to have_content 'administrator'
+        expect(page).to have_content '管理者'
         expect(page).to have_content '2'
 
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
       end
 
@@ -81,17 +78,17 @@ RSpec.describe 'AdminUsers', type: :system do
         subject
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
-        expect(page).to have_content 'administrator'
+        expect(page).to have_content '管理者'
         expect(page).to have_content '2'
 
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
 
         click_on '削除'
@@ -100,17 +97,17 @@ RSpec.describe 'AdminUsers', type: :system do
 
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
-        expect(page).to have_content 'administrator'
+        expect(page).to have_content '管理者'
         expect(page).to have_content '2'
 
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
       end
     end
@@ -122,7 +119,6 @@ RSpec.describe 'AdminUsers', type: :system do
         subject
         expect(page).to have_content 'user2'
         expect(page).to have_content 'id2'
-        expect(page).to have_content 'general'
         expect(page).to have_content '0'
 
         # click DELETE and Cancel
@@ -132,7 +128,6 @@ RSpec.describe 'AdminUsers', type: :system do
 
         expect(page).to have_content 'user2'
         expect(page).to have_content 'id2'
-        expect(page).to have_content 'general'
         expect(page).to have_content '0'
 
         # click DELETE and OK
@@ -142,7 +137,6 @@ RSpec.describe 'AdminUsers', type: :system do
 
         expect(page).to have_no_content 'user2'
         expect(page).to have_no_content 'id2'
-        expect(page).to have_no_content 'general'
       end
     end
 
@@ -151,20 +145,17 @@ RSpec.describe 'AdminUsers', type: :system do
 
       it 'tests /tasks/edit' do
         subject
-        # expect(page).to have_content 'user1'
-        # expect(page).to have_content 'id1'
-        # expect(page).to have_content 'administrator'
         fill_in 'user_name', with: 'user3'
         fill_in 'user_login_id', with: 'id3'
         fill_in 'user_password', with: 'password3'
         fill_in 'user_password_confirmation', with: 'password3'
-        select 'administrator', from: 'user_role'
+        select '管理者', from: 'user_role'
         click_button '更新する'
 
         expect(page).to have_content 'ユーザーが更新されました！'
         expect(page).to have_content 'user3'
         expect(page).to have_content 'id3'
-        expect(page).to have_content 'administrator'
+        expect(page).to have_content '管理者'
 
         # login again
         click_on 'ログアウト'
@@ -174,15 +165,59 @@ RSpec.describe 'AdminUsers', type: :system do
         click_button 'ログイン'
 
         expect(page).to have_content 'task1'
-        expect(page).to have_content 'low'
-        expect(page).to have_content 'waiting'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
         expect(page).to have_content '2020/12/31'
 
         expect(page).to have_content 'task2'
-        expect(page).to have_content 'medium'
-        expect(page).to have_content 'in_progress'
+        expect(page).to have_content '中'
+        expect(page).to have_content '実施中'
         expect(page).to have_content '2021/01/01'
       end
+    end
+  end
+
+  describe 'authentication' do
+    it 'only administrators are able to visit the admin page' do
+      visit admin_users_path
+      expect(page).to have_content 'TYLE(管理画面)'
+      click_on 'ログアウト'
+
+      fill_in 'session_login_id', with: user2.login_id
+      fill_in 'session_password', with: 'password2'
+      click_on 'ログイン'
+      sleep 1
+
+      expect(page).to have_no_content '管理画面'
+      visit admin_users_path
+      expect(page).to have_no_content '管理画面'
+    end
+
+    it 'the last administrator cannot change its role' do
+      visit edit_admin_user_path(user)
+      fill_in 'user_name', with: 'user3'
+      fill_in 'user_login_id', with: 'id3'
+      fill_in 'user_password', with: 'password3'
+      fill_in 'user_password_confirmation', with: 'password3'
+      select '一般', from: 'user_role'
+      click_button '更新する'
+
+      expect(page).to have_no_content 'ユーザーが更新されました！'
+      expect(page).to have_no_content 'user3'
+      expect(page).to have_no_content 'id3'
+      expect(page).to have_content '編集するユーザーの詳細を入力してください'
+    end
+
+    it 'an administrator cannot delete itself' do
+      visit admin_user_path(user)
+      click_on '削除'
+      expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
+      page.driver.browser.switch_to.alert.accept
+
+      expect(page).to have_content 'ユーザーの詳細'
+      expect(page).to have_content 'user1'
+      expect(page).to have_content 'id1'
+      expect(page).to have_content '管理者'
     end
   end
 end

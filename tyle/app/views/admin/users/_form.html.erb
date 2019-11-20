@@ -1,8 +1,16 @@
-<%= render 'error_messages', model: task %>
+<%= render 'error_messages', model: user %>
 
 <div class="card col-md-9">
   <div class="card-body">
-    <%= form_with model: user, url: admin_users_path do |f| %>
+    <!-- Expecting new_admin_user_path and edit_admin_user_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_admin_user_path %>
+        <%= t('operation.user-new-in-admin') %>
+      <% elsif %>
+        <%= t('operation.user-edit') %>
+      <% end %>
+    </div>
+    <%= form_with model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path, local: true do |f| %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -12,16 +20,16 @@
         <%= f.text_field :login_id, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :password, value: t('activerecord.attributes.user.password') + ' ' + t('operation.change_password') %>
+        <%= f.label :password, t('activerecord.attributes.user.password') + (request.path_info == new_admin_user_path ? '' : ' ' + t('operation.change_password')) %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :password_confirmation, value: t('activerecord.attributes.user.password_confirmation') + ' ' + t('operation.change_password') %>
+        <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') + (request.path_info == new_admin_user_path ? '' : ' ' + t('operation.change_password')) %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.label :role %>
-        <%= f.select :role, User.roles.keys.to_a, {}, class: 'form-control' %>
+        <%= f.select :role, options_for_select(User.roles.map { |k, v| [t("enums.user.role.#{k}"), v] }), class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.submit class: 'btn btn-primary' %>
