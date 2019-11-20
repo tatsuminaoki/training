@@ -34,7 +34,7 @@
       <thead><tr><th><%= 'ラベル' %></th></tr></thead>
       <tbody><tr><td>
         <% @labels.each do |label| %>
-          <%= label.name %>
+          <span class="label label-default"><%= label.name %></span>
         <% end %>
       </td><tr></tbody>
     </table>
