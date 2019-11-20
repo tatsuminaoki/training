@@ -27,11 +27,15 @@ class Task < ApplicationRecord
 
     title_like(search_params[:title])
       .status_is(search_params[:status])
-      #.from_label(search_params[:label])
+      .from_label(search_params[:label])
   end
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
-  scope :from_label, -> (label_id) { where(id: label_ids = TaskLabel.where(label_id: label_id).select(:task_id))}
+  scope :from_label, -> (label_name) {
+    return if label_name.nil?
+    label_id = Label.where('name LIKE ?', "%#{label_name}%").select(:id)
+    where(id: task_ids = TaskLabel.where(label_id: label_id).select(:task_id))
+  }
 
   def save_labels(labels)
     current_labels = self.labels.pluck(:name) unless self.labels.nil?

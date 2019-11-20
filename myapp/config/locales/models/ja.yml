@@ -20,6 +20,8 @@ ja:
         email: メールアドレス
         role: 権限
         created_at: 登録日
+      label:
+        name: ラベル
   enums:
     user:
       role:

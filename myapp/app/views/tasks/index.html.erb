@@ -8,8 +8,8 @@
   <thead>
     <tr>
       <th>#</th>
-      <th class="sorting_asc:after"><%= t('header.title') %></th>
-      <th><%= t('header.priority') %>
+      <th class="sorting_asc:after"><%= t('activerecord.attributes.task.title') %></th>
+      <th><%= t('activerecord.attributes.task.priority') %>
         <%= link_to ({sort: 'priority', direction: 'desc', search: @search_params}), class: is_sorted('tasks.priority', 'desc'), id: 'priority_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
@@ -17,8 +17,8 @@
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
-      <th><%= t('header.status') %></th>
-      <th><%= t('header.due_date') %>
+      <th><%= t('activerecord.attributes.task.status') %></th>
+      <th><%= t('activerecord.attributes.task.due_date') %>
         <%= link_to ({sort: 'due_date', direction: 'desc', search: @search_params}), class: is_sorted('tasks.due_date', 'desc'), id: 'due_date_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
@@ -26,7 +26,7 @@
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
-      <th><%= t('header.created_at') %>
+      <th><%= t('activerecord.attributes.task.created_at') %>
         <%= link_to ({sort: 'created_at', direction: 'desc', search: @search_params}), class: is_sorted('tasks.created_at', 'desc'), id: 'created_at_desc' do %>
           <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
         <% end %>
@@ -34,7 +34,6 @@
           <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
         <% end %>
       </th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -48,9 +47,8 @@
       <td class="status"><span class="label label-success"><%= task.status %></span></td>
       <td class="due_date"><%= task.due_date %></td>
       <td class="created_at"><%= I18n.l(task.created_at, format: :default) %></td>
-      <td><%= link_to t('operation.detail'), task_path(task.id) %></td>
-      <td><%= link_to t('operation.update'), edit_task_path(task.id) %></td>
-      <td><%= link_to t('operation.remove'), task_path(task.id), method: 'delete', data: { confirm: t('message.confirm') } %></td>
+      <td><%= link_to task_path(task.id) do %><span class="glyphicon glyphicon-user"></span><% end %></td>
+      <td><%= link_to edit_task_path(task.id) do %><span class="glyphicon glyphicon-pencil"></span><% end %></td>
     </tr>
     <% end %>
   </tbody>
