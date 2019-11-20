@@ -21,9 +21,8 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content @task1.status
       expect(page).to have_content @task1.due_date
       expect(page).to have_content I18n.l(@task1.created_at, format: :default)
-      expect(page).to have_link I18n.t('operation.detail'), href: task_path(@task1.id)
-      expect(page).to have_link I18n.t('operation.update'), href: edit_task_path(@task1.id)
-      expect(page).to have_link I18n.t('operation.remove'), href: task_path(@task1.id)
+      expect(page).to have_link 'task_show', href: task_path(@task1.id)
+      expect(page).to have_link 'task_edit', href: edit_task_path(@task1.id)
     end
 
     it 'Task is sorted by created_at with descending order' do
@@ -106,7 +105,7 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content @task1.due_date
       expect(page).to have_link I18n.t('operation.update'), href: edit_task_path(@task1.id)
       expect(page).to have_link I18n.t('operation.remove'), href: task_path(@task1.id)
-      expect(page).to have_link sprintf("<< %s", I18n.t('header.list')), href: root_path
+      expect(page).to have_link I18n.t('header.back'), href: root_path
     end
   end
 
@@ -177,13 +176,6 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a user deletes a task' do
-    it 'Success to delete a task from list page' do
-      visit tasks_path
-
-      click_on I18n.t('operation.remove'), match: :first
-      expect(page).to have_content I18n.t('flash.remove.success')
-    end
-
     it 'Success to delete a task from detail page' do
       visit task_path(@task1.id)
 
@@ -198,10 +190,16 @@ RSpec.describe "Tasks", type: :system do
     it 'Find one record' do
       visit tasks_path
       fill_in 'search[title]', with: 'hoge'
-      click_on I18n.t('operation.search')
+      fill_in 'search[label]', with: ''
+      click_on I18n.t('operation.search.task')
 
       title = page.all('.title')
       expect(title[0].text).to eq 'hoge'
+    end
+  end
+
+  context 'When a user searches by label' do
+    it 'Find one record' do
     end
   end
 
@@ -211,7 +209,7 @@ RSpec.describe "Tasks", type: :system do
     it 'Find one record' do
       visit tasks_path
       choose 'search_status_Closed'
-      click_on I18n.t('operation.search')
+      click_on I18n.t('operation.search.task')
 
       status = page.all('.status')
       expect(status[0].text).to eq 'Closed'
@@ -224,7 +222,7 @@ RSpec.describe "Tasks", type: :system do
       visit tasks_path
       fill_in 'search[title]', with: 'fuga'
       choose 'search_status_InProgress'
-      click_on I18n.t('operation.search')
+      click_on I18n.t('operation.search.task')
 
       title = page.all('.title')
       expect(title[0].text).to eq 'fuga'
