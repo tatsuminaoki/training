@@ -60,6 +60,9 @@ en:
       destroyed: User was successfully destroyed!
       destroying: Are you sure you want to destroy this user?
     invalid_login_id_or_password: Invalid Login ID or Password.
+    delete_itself: Cannot delete yourself.
+    cannot_update_the_last_admin: of the last administrator, you cannot update.
+    cannot_delete_the_last_admin: of the last administrator, you cannot delete.
   button:
     index: Home
     detail: Detail
