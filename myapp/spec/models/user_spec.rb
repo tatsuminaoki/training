@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#tasks" do
+  describe '#tasks' do
     let(:user) { create(:user_with_tasks, tasks_count: 5) }
     let(:count) { Task.where(user_id: user.id).count }
     subject { count }
