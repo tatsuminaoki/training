@@ -13,6 +13,8 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
+    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: @task.id).select(:label_id))
   end
 
   def new
@@ -23,6 +25,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task[:user_id] = @current_user.user_id
     if @task.save
+      @task.save_labels(params[:label].split(','))
       flash[:success] = t('flash.create.success')
       redirect_to task_path(@task.id)
     else
@@ -32,10 +35,12 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: params[:id]).select(:label_id))
   end
 
   def update
     if @task.update(task_params)
+      @task.save_labels(params[:label].split(','))
       flash[:success] = t('flash.update.success')
       redirect_to task_path(@task.id)
     else
@@ -60,7 +65,7 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:title, :status)
+    params.fetch(:search, {}).permit(:title, :status, :label)
   end
 
   def sort_direction
