@@ -8,9 +8,9 @@ default: &default
   adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  encoding: utf8mb4
   username: root
   password:
-  
 
 development:
   <<: *default
