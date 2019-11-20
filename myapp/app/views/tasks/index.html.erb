@@ -50,7 +50,7 @@
       <td class="created_at"><%= I18n.l(task.created_at, format: :default) %></td>
       <td><%= link_to t('operation.detail'), task_path(task.id) %></td>
       <td><%= link_to t('operation.update'), edit_task_path(task.id) %></td>
-      <td><%= link_to t('operation.remove'), task_path(task.id), method: 'delete' %></td>
+      <td><%= link_to t('operation.remove'), task_path(task.id), method: 'delete', data: { confirm: t('message.confirm') } %></td>
     </tr>
     <% end %>
   </tbody>

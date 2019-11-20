@@ -1,4 +1,6 @@
 class UserSession < ApplicationRecord
+  belongs_to :user
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end
