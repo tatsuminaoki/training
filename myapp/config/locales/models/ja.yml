@@ -1,15 +1,27 @@
 ja:
   activerecord:
     models:
-      task: 'Task'
+      task: Task
+      user: User
     attributes:
       task:
-        id: 'ID'
-        title: 'タスク名'
-        description: '内容'
-        user_id: 'ユーザID'
-        priority: '優先度'
-        status: 'ステータス'
-        due_date: '期限'
-        created_at: '作成日'
-        updated_at: '更新日'
+        id: ID
+        title: タスク名
+        description: 内容
+        user_id: ユーザID
+        priority: 優先度
+        status: ステータス
+        due_date: 期限
+        created_at: 登録日
+        updated_at: 更新日
+      user:
+        id: ID
+        name: ユーザ名
+        email: メールアドレス
+        role: 権限
+        created_at: 登録日
+  enums:
+    user:
+      role:
+        general: 一般
+        admin: 管理者
