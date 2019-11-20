@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
   private
 
   def require_sign_in!
-    puts 'require_sign_in!'
     redirect_to login_path unless signed_in?
   end
 end

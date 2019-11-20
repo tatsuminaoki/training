@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @sort_column = sort_column
     @sort_direction = sort_direction
-    @tasks = Task.user_id(current_user.id)
+    @tasks = Task.where(user_id: current_user.id)
                  .name_like(params[:name])
                  .priority(params[:priority])
                  .status(params[:status])
