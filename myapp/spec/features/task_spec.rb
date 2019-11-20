@@ -95,27 +95,39 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'listing' do
-    let!(:above_task) { create(:task, name: 'above-task', description: 'description', deadline: (Time.zone.today + 2).to_s, user: user) }
-    let(:below_task) { create(:task, name: 'below-task', description: 'description', deadline: (Time.zone.today + 1).to_s, user: user) }
+    feature 'sorting' do
+      let!(:above_task) { create(:task, name: 'above-task', description: 'description', deadline: (Time.zone.today + 2).to_s, user: user) }
+      let(:below_task) { create(:task, name: 'below-task', description: 'description', deadline: (Time.zone.today + 1).to_s, user: user) }
 
-    before do
-      below_task.update(created_at: Time.current.advance(days: -1))
-      visit root_path
+      before do
+        below_task.update(created_at: Time.current.advance(days: -1))
+        visit root_path
+      end
+
+      scenario 'user can lists tasks order by created_at desc' do
+        expect(page.body.index(below_task.name)).to be > page.body.index(above_task.name)
+      end
+
+      scenario 'user can sort tasks by deadline desc' do
+        click_link '終了期限:↓'
+        expect(page.body.index(above_task.name)).to be < page.body.index(below_task.name)
+      end
+
+      scenario 'user can sort tasks by deadline asc' do
+        click_link '終了期限:↓'
+        click_link '終了期限:↑'
+        expect(page.body.index(above_task.name)).to be > page.body.index(below_task.name)
+      end
     end
 
-    scenario 'user can lists tasks order by created_at desc' do
-      expect(page.body.index(below_task.name)).to be > page.body.index(above_task.name)
-    end
+    feature 'own tasks' do
+      let(:other_user) { create(:user, account: 'other') }
+      let(:others_task) { create(:task, name: 'others-task', user: other_user) }
 
-    scenario 'user can sort tasks by deadline desc' do
-      click_link '終了期限:↓'
-      expect(page.body.index(above_task.name)).to be < page.body.index(below_task.name)
-    end
-
-    scenario 'user can sort tasks by deadline asc' do
-      click_link '終了期限:↓'
-      click_link '終了期限:↑'
-      expect(page.body.index(above_task.name)).to be > page.body.index(below_task.name)
+      scenario 'user can list only own tasks.' do
+        visit root_path
+        expect(page).to_not have_text(others_task.name)
+      end
     end
   end
 
