@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_061703) do
+ActiveRecord::Schema.define(version: 2019_11_20_100755) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_061703) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "remember_token"
+    t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "task_labels", "labels"
