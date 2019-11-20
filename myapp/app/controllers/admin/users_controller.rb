@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
     if @user.destroy
       flash[:success] = t('flash.remove.success')
     else
-      flash[:success] = t('flash.remove.fail')
+      flash[:danger] = t('flash.remove.fail')
     end
     redirect_to admin_users_path
   end
