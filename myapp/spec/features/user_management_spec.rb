@@ -17,7 +17,7 @@ RSpec.feature 'User management', type: :feature do
       create(:task, name: "#{user.name}-task", user: user)
     end
 
-    scenario 'user detail page with own tasks.' do
+    scenario 'tasks in user detail page' do
       visit admin_user_path(user)
 
       expect(page).to have_text("#{user.name}-task")
