@@ -85,6 +85,11 @@ en:
     general: General
     admin: Admin
     user-new: New User
+    user_page: Manage User
+    label_page: Manage Label
+    task_add: Add Task
+    user_add: Add User
+    label_add: Add Laebl
   activerecord:
     models:
       task: Task

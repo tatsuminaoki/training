@@ -85,6 +85,11 @@ ja:
     general: 一般画面
     admin: 管理画面
     user-new: ユーザー作成
+    user_page: ユーザー管理
+    label_page: ラベル管理
+    task_add: タスク追加
+    user_add: ユーザー追加
+    label_add: ラベル追加
   activerecord:
     models:
       task: タスク
