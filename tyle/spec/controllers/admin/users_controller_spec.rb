@@ -35,16 +35,26 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    it 'returns the redirect to the user page' do
-      post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(admin_user_path(User.last))
+    context 'when you send the correct parameters' do
+      it 'returns the redirect to the user page' do
+        post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(admin_user_path(User.last))
 
-      get :show, params: { id: User.last.id }
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template('admin/users/show')
-      expect(response.body).to have_content('ユーザーの詳細')
-      expect(response.body).to have_content('user2')
+        get :show, params: { id: User.last.id }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template('admin/users/show')
+        expect(response.body).to have_content('ユーザーの詳細')
+        expect(response.body).to have_content('user2')
+      end
+    end
+
+    context 'when you send the wrong parameters' do
+      it 'returns http success' do
+        post :create, params: { user: { name: '', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template('admin/users/new')
+      end
     end
   end
 
@@ -68,16 +78,26 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'POST #update' do
-    it 'returns http success' do
-      post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(admin_user_path(user))
+    context 'when you send the correct parameters' do
+      it 'returns the redirect to the show page' do
+        post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(admin_user_path(user))
 
-      get :show, params: { id: user.id }
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template('admin/users/show')
-      expect(response.body).to have_content('ユーザーの詳細')
-      expect(response.body).to have_content('user2')
+        get :show, params: { id: user.id }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template('admin/users/show')
+        expect(response.body).to have_content('ユーザーの詳細')
+        expect(response.body).to have_content('user2')
+      end
+    end
+
+    context 'when you send the wrong password' do
+      it 'returns http success' do
+        post :update, params: { id: user.id, user: { name: 'user2', login_id: '', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        expect(response).to have_http_status(:success)
+        expect(response).to render_template('admin/users/edit')
+      end
     end
   end
 
