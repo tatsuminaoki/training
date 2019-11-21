@@ -62,6 +62,7 @@ en:
       destroy_failure: Failed to destroy the user!
     invalid_login_id_or_password: Invalid Login ID or Password.
     delete_itself: Cannot delete yourself.
+    login_failed: ログインに失敗しました
   button:
     index: Home
     detail: Detail

@@ -62,6 +62,7 @@ ja:
       destroy_failture: ユーザーの削除に失敗しました
     invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
     delete_itself: 自分自身は削除できません
+    login_failed: ログインに失敗しました
   button:
     index: ホーム
     detail: 詳細

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :login_id, presence: true, uniqueness: { case_sensitive: true }
   validates :password, length: { minimum: 8 }, presence: true, on: :create
+  validates :password, length: { minimum: 8 }, presence: true, on: :update
   validates :role, presence: true
 
   enum role: %i[general administrator]
