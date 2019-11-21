@@ -41,6 +41,7 @@ RSpec.feature 'User management', type: :feature do
       visit edit_admin_user_path(user)
 
       fill_in 'アカウント', with: 'renamed_account'
+      fill_in 'パスワード', with: 'pass'
       click_button '送信'
 
       expect(page).to have_text('ユーザ情報を更新')

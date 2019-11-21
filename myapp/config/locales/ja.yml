@@ -54,7 +54,7 @@ ja:
         deadline: '終了期限'
       user:
         account: 'アカウント'
-        name: 'ユーザ名'
+        name: 'ユーザ名（表示用）'
         password: 'パスワード'
         tasks:
           count: 'タスク数'
