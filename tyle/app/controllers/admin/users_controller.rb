@@ -29,38 +29,10 @@ module Admin
     end
 
     def update
-      # There are four patterns; so two independent booleans.
-      # 1. The user tries to change its password or not.
-      # 2. The params(name and login_id) are valid or not.
-      change_password = (user_params_with_enums_converted[:password] != '' || user_params_with_enums_converted[:password_confirmation] != '')
-      params_are_valid = (user_params_with_enums_converted[:name] != '' && user_params_with_enums_converted[:login_id] != '')
-
-      # those four patterns
-      if change_password
-        if @user.update(user_params_with_enums_converted)
-          redirect_to admin_user_path(@user), notice: t('message.user.updated')
-        else
-          render :edit
-        end
+      if @user.update(user_params_with_enums_converted)
+        redirect_to admin_user_path(@user), notice: t('message.user.updated')
       else
-        if params_are_valid
-          @user.name = user_params_with_enums_converted[:name]
-          @user.login_id == user_params_with_enums_converted[:login_id]
-
-          # Skip validation since the name and login_id should be valid.
-          if @user.save(validate: false)
-            redirect_to admin_user_path(@user), notice: t('message.user.updated')
-          else
-            render :edit
-          end
-        else
-          @user.update(user_params_with_enums_converted)
-
-          # The user does not try to change its password. So the password error messages should disappear.
-          @user.errors.messages.delete(:password)
-
-          render :edit
-        end
+        render :edit
       end
     end
 
