@@ -137,6 +137,7 @@ RSpec.describe 'AdminUsers', type: :system do
       before do
         visit admin_user_path(user2)
       end
+
       context 'when user tries to delete another user with the delete button' do
         it 'successfully deletes the user' do
           expect(page).to have_content 'user2'
@@ -192,13 +193,13 @@ RSpec.describe 'AdminUsers', type: :system do
           expect(page).to have_content '2021/01/01'
         end
       end
+    end
 
-      context 'when user visit edit_admin_user_path(another_user)' do
-        before do
-          visit edit_admin_user_path(user2)
-        end
-        # TODO: I will implement a Rspec here after the user.role.admin will have been implemented.
+    context 'when user visit edit_admin_user_path(another_user)' do
+      before do
+        visit edit_admin_user_path(user2)
       end
+      # TODO: I will implement a Rspec here after the user.role.admin will have been implemented.
     end
   end
 end
