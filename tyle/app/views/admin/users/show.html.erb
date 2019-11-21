@@ -1,0 +1,69 @@
+<%= render 'header' %>
+
+<!-- user -->
+<div class="card col-md-6">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.user-detail') %>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><%= t('activerecord.attributes.user.name') %></td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.login_id') %></td>
+          <td><%= @user.login_id %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.role') %></td>
+          <td><%= t("enums.user.role.#{@user.role}") %></td>
+        </tr>
+        <tr>
+          <td><%= t('operation.number_of_tasks') %></td>
+          <td><%= @tasks.size.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.user.created_at') %></td>
+          <td><%= I18n.l(@user.created_at) %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to t('button.edit'), edit_admin_user_path(@user), class: 'btn btn-primary' %>
+    <%= link_to t('button.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('message.user.destroying') }, class: 'btn btn-danger' %> 
+  </div>
+</div>
+
+<!-- tasks -->
+<div class="card col-md-6">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.task-list') %>
+    </div>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th><%= t('activerecord.attributes.task.name') %></th>
+          <th><%= t('activerecord.attributes.task.priority') %></th>
+          <th><%= t('activerecord.attributes.task.status') %></th>
+          <th><%= t('activerecord.attributes.task.due') %></th>
+          <th><%= t('activerecord.attributes.task.created_at') %></th>
+          <th><%= t('button.detail') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td class="task-name"><%= task.name %></td>
+            <td class="task-priority"><%= t("enums.task.priority.#{task.priority}") %></td>
+            <td class="task-status"><%= t("enums.task.status.#{task.status}") %></td>
+            <td class="task-due"><%= I18n.l(task.due) %></td>
+            <td class="task-created-at"><%= I18n.l(task.created_at) %></td>
+            <td><%= link_to t('button.detail'), task_path(task.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -9,8 +9,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    # When you input user info at users/new, the user is ALWAYS a 'general' user, NOT an 'administrator' user.
+    @user.role = :general
+
     if @user.save
-      redirect_to login_path, notice: t('message.user_created')
+      redirect_to login_path, notice: t('message.user.created')
     else
       render 'new'
     end

@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_11_20_100755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "remember_token"
+    t.integer "role"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
