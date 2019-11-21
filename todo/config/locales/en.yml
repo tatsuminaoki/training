@@ -34,3 +34,7 @@ en:
   button:
     add: 'Add'
     edit: 'Update'
+  link:
+    back: 'Back'
+    edit: 'Edit'
+    delete: 'Delete'
