@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  before do
-    @task = Task.create!(title: 'タスク１', description: 'タスク１詳細', status: 0)
-  end
+
+  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
 
   it 'show task detail' do
-    visit tasks_show_path(@task)
+    visit tasks_show_path(task)
 
     expect(page).to have_content 'タスク１'
     expect(page).to have_content 'タスク１詳細'
@@ -27,7 +26,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'update task' do
-    visit tasks_edit_path(@task)
+    visit tasks_edit_path(task)
 
     expect(page).to have_field 'task_title', with: 'タスク１'
     expect(page).to have_field 'task_description', with: 'タスク１詳細'
@@ -46,7 +45,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'delete task' do
-    visit tasks_show_path(@task)
+    visit tasks_show_path(task)
 
     click_link 'Delete'
 
