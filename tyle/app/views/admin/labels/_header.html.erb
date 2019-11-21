@@ -1,0 +1,42 @@
+<!-- header -->
+<div class="card col-md-9">
+  <div class="card-body">
+    <h1><%= t('operation.title_admin') %></h1>
+    <div>
+      <%= link_to t('button.index'), admin_labels_path %>
+      <% if request.path_info != new_admin_label_path %>
+        <%= link_to t('button.add'), new_admin_label_path %>
+      <% end %>
+      <%= link_to t('button.general'), tasks_path %>
+    </div>
+    <div>
+      <%= link_to t('button.logout'), logout_path, method: :delete %>
+    </div>
+  </div>
+</div>
+
+<!-- flash message(notice) -->
+<% if flash[:notice] %>
+  <div class="card col-md-9">
+    <div class="card-body">
+      <div class="alert alert-success">
+        <% if flash[:notice] %>
+          <%= flash[:notice] %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- flash message(danger) -->
+<% if flash[:warning] %>
+  <div class="card col-md-9">
+    <div class="card-body">
+      <div class="alert alert-danger">
+        <% if flash[:warning] %>
+          <%= flash[:warning] %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

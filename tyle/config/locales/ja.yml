@@ -48,6 +48,10 @@ ja:
     user-detail: ユーザーの詳細
     user-edit: 編集するユーザーの詳細を入力してください
     session-new: ログインIDとパスワードを入力してください
+    label-list: ラベルリスト
+    label-new: 追加するラベルの詳細を入力してください
+    label-detail: ラベルの詳細
+    label-edit: 編集するラベルの詳細を入力してください
   message:
     task:
       created: タスクが追加されました！
@@ -59,6 +63,11 @@ ja:
       updated: ユーザーが更新されました！
       destroyed: ユーザーが削除されました！
       destroying: 本当にユーザーを削除してもいいですか？
+    label:
+      created: ラベルが追加されました！
+      updated: ラベルが更新されました！
+      destroyed: ラベルが削除されました！
+      destroying: 本当にラベルを削除してもいいですか？
     invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
     delete_itself: 自分自身は削除できません
     cannot_update_the_last_admin: が管理者のユーザーの最後の一人は、一般ユーザーに変更できません
@@ -102,6 +111,9 @@ ja:
       session:
         login_id: ログインID
         password: パスワード
+      label:
+        name: 名前
+        created_at: 作成日
   enums:
     task:
       priority:
