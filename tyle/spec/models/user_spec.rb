@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
 
     context 'with 8 digits password' do
       let(:user) { create(:user, { password: 'a' * 8 }) }
-      
+
       it 'does not show the argument error message' do
         expect(user).to be_valid
         expect(user.errors.count).to eq(0)

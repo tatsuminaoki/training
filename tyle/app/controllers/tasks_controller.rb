@@ -6,7 +6,8 @@ class TasksController < ApplicationController
   def index
     @sort_column = sort_column
     @sort_direction = sort_direction
-    @tasks = Task.name_like(params[:name])
+    @tasks = Task.where(user_id: current_user.id)
+                 .name_like(params[:name])
                  .priority(params[:priority])
                  .status(params[:status])
                  .order(@sort_column + ' ' + @sort_direction).page(params[:page])
@@ -17,7 +18,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = User.find_by(id: 1).tasks.new(task_params_with_enums_converted)
+    @task = current_user.tasks.new(task_params_with_enums_converted)
 
     if @task.save
       redirect_to @task, notice: t('message.created')

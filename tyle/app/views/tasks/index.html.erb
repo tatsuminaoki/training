@@ -59,7 +59,7 @@
             <td class="task-status"><%= t("enums.task.status.#{task.status}") %></td>
             <td class="task-due"><%= I18n.l(task.due) %></td>
             <td class="task-created-at"><%= I18n.l(task.created_at) %></td>
-            <td><%= link_to t('activerecord.attributes.task.detail'), task_path(task.id) %></td>
+            <td><%= link_to t('button.detail'), task_path(task.id) %></td>
           </tr>
         <% end %>
       </tbody>

@@ -5,6 +5,15 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   let(:user) { create(:user) }
 
+  # login
+  before do
+    visit login_path
+    fill_in 'session_login_id', with: user.login_id
+    fill_in 'session_password', with: 'password1'
+    click_on 'ログイン'
+    expect(page).to have_content 'ログアウト'
+  end
+
   describe 'views' do
     let!(:task) { create(:task, { user_id: user.id }) }
     before do
@@ -139,30 +148,30 @@ RSpec.describe 'Tasks', type: :system do
       it 'tasks ordered by priority' do
         subject
         click_on '優先度'
-        sleep 1
+        expect(page).to have_content('▲')
         expect(page.all('.task-priority').map(&:text)).to eq %w[低 中 高]
         click_on '優先度'
-        sleep 1
+        expect(page).to have_content('▼')
         expect(page.all('.task-priority').map(&:text)).to eq %w[高 中 低]
       end
 
       it 'tasks ordered by status' do
         subject
         click_on '状態'
-        sleep 1
+        expect(page).to have_content('▲')
         expect(page.all('.task-status').map(&:text)).to eq %w[待機中 実施中 完了]
         click_on '状態'
-        sleep 1
+        expect(page).to have_content('▼')
         expect(page.all('.task-status').map(&:text)).to eq %w[完了 実施中 待機中]
       end
 
       it 'tasks ordered by due' do
         subject
         click_on '期限'
-        sleep 1
+        expect(page).to have_content('▲')
         expect(page.all('.task-due').map(&:text)).to eq %W[2020/12/31\ 00:00 2021/01/01\ 00:00 2021/01/02\ 00:00]
         click_on '期限'
-        sleep 1
+        expect(page).to have_content('▼')
         expect(page.all('.task-due').map(&:text)).to eq %W[2021/01/02\ 00:00 2021/01/01\ 00:00 2020/12/31\ 00:00]
       end
     end

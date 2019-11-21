@@ -40,11 +40,15 @@ ja:
     task-new: 追加するタスクの詳細を入力してください
     task-detail: タスクの詳細
     task-edit: 編集するタスクの詳細を入力してください
+    user-new: 名前、ログインID、パスワードを入力してください
+    session-new: ログインIDとパスワードを入力してください
   message:
     created: タスクが追加されました！
     updated: タスクが更新されました！
     destroyed: タスクが削除されました！
     destroying: 本当にタスクを削除してもいいですか？
+    user_created: ユーザーが追加されました！
+    invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
   button:
     index: ホーム
     detail: 詳細
@@ -53,9 +57,14 @@ ja:
     delete: 削除
     add: 追加
     search: 検索
+    logout: ログアウト
+    login: ログイン
+    user-new: ユーザー作成
   activerecord:
     models:
       task: タスク
+      user: ユーザー
+      session: セッション
     attributes:
       task:
         name: 名前
@@ -66,6 +75,14 @@ ja:
         due: 期限
         detail: 詳細
         created_at: 作成日
+      user:
+        name: 名前
+        login_id: ログインID
+        password: パスワード
+        password_confirmation: パスワード確認
+      session:
+        login_id: ログインID
+        password: パスワード
   enums:
     task:
       priority:
