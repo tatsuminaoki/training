@@ -11,6 +11,7 @@ RSpec.feature 'Authentication', type: :feature do
     end
 
     scenario 'user can signup' do
+      fill_in 'ユーザ名（表示用）', with: 'new_name'
       fill_in 'アカウント', with: 'new_account'
       fill_in 'パスワード', with: 'password'
       click_button '送信'
@@ -19,6 +20,7 @@ RSpec.feature 'Authentication', type: :feature do
     end
 
     scenario 'user cannot signup with existing account' do
+      fill_in 'ユーザ名（表示用）', with: 'new_name'
       fill_in 'アカウント', with: user.account
       fill_in 'パスワード', with: 'password'
       click_button '送信'
@@ -26,12 +28,31 @@ RSpec.feature 'Authentication', type: :feature do
       expect(page).to have_text('アカウントはすでに存在します')
     end
 
+    scenario 'user cannot signup with account length lt 4' do
+      fill_in 'ユーザ名（表示用）', with: 'new_name'
+      fill_in 'アカウント', with: 'a' * 3
+      fill_in 'パスワード', with: 'password'
+      click_button '送信'
+
+      expect(page).to have_text('アカウントは4文字以上で入力してください')
+    end
+
     scenario 'user cannot signup without password' do
+      fill_in 'ユーザ名（表示用）', with: 'new_name'
       fill_in 'アカウント', with: 'new_account'
       fill_in 'パスワード', with: ''
       click_button '送信'
 
       expect(page).to have_text('パスワードを入力してください')
+    end
+
+    scenario 'user cannot signup with password length lt 4' do
+      fill_in 'ユーザ名（表示用）', with: 'a' * 3
+      fill_in 'アカウント', with: 'new_account'
+      fill_in 'パスワード', with: ''
+      click_button '送信'
+
+      expect(page).to have_text('パスワードは4文字以上で入力してください')
     end
   end
 

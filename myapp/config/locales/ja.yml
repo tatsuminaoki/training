@@ -55,7 +55,7 @@ ja:
         done: '完了'
       user:
         account: 'アカウント'
-        name: 'ユーザ名'
+        name: 'ユーザ名（表示用）'
         password: 'パスワード'
   views:
     pagination:
