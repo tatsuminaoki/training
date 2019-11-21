@@ -7,8 +7,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
-    remember_token = User.encrypt(cookies[:user_remember_token])
-    @current_user ||= User.find_by(remember_token: remember_token)
+    if cookies[:user_remember_token]
+      remember_token = User.encrypt(cookies[:user_remember_token])
+      if defined? @current_user
+        @current_user
+      else
+        @current_user = User.find_by(remember_token: remember_token)
+      end
+    end
   end
 
   def sign_in(user)
