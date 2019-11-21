@@ -4,11 +4,12 @@
     <h1><%= t('operation.title_general') %></h1>
     <div>
       <%= link_to t('button.index'), tasks_path %>
+      <% if @current_user.role == 'administrator' %>
+        <%= link_to t('button.user_page'), admin_users_path %>
+        <%= link_to t('button.label_page'), admin_labels_path %>
+      <% end %>
       <% if request.path_info != new_task_path %>
         <%= link_to t('button.add'), new_task_path %>
-      <% end %>
-      <% if @current_user.role == 'administrator' %>
-        <%= link_to t('button.admin'), admin_users_path %>
       <% end %>
     </div>
     <div>
@@ -19,7 +20,7 @@
 
 <!-- flash message -->
 <% if flash[:notice] %>
-  <div class="card col-md-6">
+  <div class="card col-md-9">
     <div class="card-body">
       <div class="alert alert-success">
         <% if flash[:notice] %>
