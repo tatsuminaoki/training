@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-
   let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
 
   it 'show task detail' do
@@ -32,7 +33,7 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_field 'task_description', with: 'タスク１詳細'
     expect(page).to have_select 'task_status',
                                 selected: '未着手',
-                                options: ['未着手', '着手', '完了']
+                                options: %w[未着手 着手 完了]
 
     fill_in 'task_title', with: 'タスク１修正'
     fill_in 'task_description', with: 'タスク１詳細修正'
