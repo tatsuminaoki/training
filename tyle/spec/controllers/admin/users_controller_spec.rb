@@ -92,7 +92,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
         # Waiting for the delete
         sleep 1
-        
+
         get :show, params: { id: user2.id }
         expect(response).to have_http_status(:success)
       end
