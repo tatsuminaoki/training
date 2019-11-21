@@ -8,8 +8,8 @@ RSpec.describe 'Users', type: :system do
       visit new_user_path
     end
 
-    context 'when you correctly fill out the form' do
-      it 'enables you to successfully create a new user' do
+    context 'when user correctly fills out the form' do
+      it 'returns the login page' do
         fill_in 'user_name', with: 'user1'
         fill_in 'user_login_id', with: 'id1'
         fill_in 'user_password', with: 'password1'
@@ -19,7 +19,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content 'ユーザーが追加されました！'
         expect(page).to have_content 'ログインIDとパスワードを入力してください'
 
-        # You will log in to verify that you have successfully create the user.
+        # User will log in to verify that it has successfully created the user.
         fill_in 'session_login_id', with: 'id1'
         fill_in 'session_password', with: 'password1'
         click_button 'ログイン'

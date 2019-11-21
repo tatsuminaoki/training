@@ -13,8 +13,8 @@ RSpec.describe 'Users', type: :system do
       visit login_path
     end
 
-    context 'when you correctly fill out the form' do
-      it 'enables you to successfully log in' do
+    context 'when user correctly fills out the form' do
+      it 'returns the user\'s task list' do
         fill_in 'session_login_id', with: user.login_id
         fill_in 'session_password', with: 'password1'
         click_button 'ログイン'

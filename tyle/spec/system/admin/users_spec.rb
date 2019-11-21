@@ -23,8 +23,8 @@ RSpec.describe 'AdminUsers', type: :system do
       visit admin_users_path
     end
 
-    context 'when users are successfully created' do
-      it 'shows the users' do
+    context 'when users exist' do
+      it 'returns the user list' do
         expect(page).to have_content 'user1'
         expect(page).to have_content 'id1'
         expect(page).to have_content '管理者'
@@ -42,8 +42,8 @@ RSpec.describe 'AdminUsers', type: :system do
       visit new_admin_user_path
     end
 
-    context 'when you correctly fill out the form' do
-      it 'shows the created user' do
+    context 'when user correctly fill out the form' do
+      it 'returns the created user' do
         fill_in 'user_name', with: 'user3'
         fill_in 'user_login_id', with: 'id3'
         fill_in 'user_password', with: 'password3'
@@ -60,7 +60,7 @@ RSpec.describe 'AdminUsers', type: :system do
   end
 
   describe 'GET #show' do
-    context 'when you visit admin_user_path(yourself)' do
+    context 'when user visits admin_user_path(itself)' do
       before do
         visit admin_user_path(user)
       end
@@ -84,7 +84,7 @@ RSpec.describe 'AdminUsers', type: :system do
         end
       end
 
-      context 'when you try to delete yourself with the delete button' do
+      context 'when user tries to delete itself with the delete button' do
         it 'prevents the delete with a warning message' do
           click_on '削除'
           expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
@@ -109,7 +109,7 @@ RSpec.describe 'AdminUsers', type: :system do
         end
       end
 
-      context 'when you push the delete button and select No in the dialog message' do
+      context 'when user pushes the delete button and selects No in the dialog message' do
         it 'cancels the delete' do
           click_on '削除'
           expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
@@ -133,11 +133,11 @@ RSpec.describe 'AdminUsers', type: :system do
       end
     end
 
-    context 'when you visit admin_user_path(another user)' do
+    context 'when user visits admin_user_path(another user)' do
       before do
         visit admin_user_path(user2)
       end
-      context 'when you try to delete another user with the delete button' do
+      context 'when user tries to delete another user with the delete button' do
         it 'successfully deletes the user' do
           expect(page).to have_content 'user2'
           expect(page).to have_content 'id2'
@@ -155,13 +155,13 @@ RSpec.describe 'AdminUsers', type: :system do
   end
 
   describe 'GET #edit' do
-    context 'when you visit edit_admin_user_path(yourself)' do
+    context 'when user visits edit_admin_user_path(itrself)' do
       before do
         visit edit_admin_user_path(user)
       end
 
-      context 'when you correctly fill out the form' do
-        it 'enables you to log in with the new login_id and the new password' do
+      context 'when user correctly fills out the form' do
+        it 'updates the user info' do
           fill_in 'user_name', with: 'user3'
           fill_in 'user_login_id', with: 'id3'
           fill_in 'user_password', with: 'password3'
@@ -174,7 +174,8 @@ RSpec.describe 'AdminUsers', type: :system do
           expect(page).to have_content 'id3'
           expect(page).to have_content '管理者'
 
-          # You will log out, and you will log in again with the new login_id and password.
+          # It will log out, and it will log in again with the new login_id and password
+          # to verify that the update has been successfully implemented.
           click_on 'ログアウト'
           fill_in 'session_login_id', with: 'id3'
           fill_in 'session_password', with: 'password3'
@@ -192,7 +193,7 @@ RSpec.describe 'AdminUsers', type: :system do
         end
       end
 
-      context 'when you visit edit_admin_user_path(another_user)' do
+      context 'when user visit edit_admin_user_path(another_user)' do
         before do
           visit edit_admin_user_path(user2)
         end

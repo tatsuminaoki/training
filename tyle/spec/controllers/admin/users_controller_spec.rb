@@ -35,7 +35,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    context 'when you send the correct parameters' do
+    context 'when user sends the correct parameters' do
       it 'returns the redirect to the user page' do
         post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
         expect(response).to have_http_status(:redirect)
@@ -49,7 +49,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
 
-    context 'when you send the wrong parameters' do
+    context 'when user sends parameters with empty name' do
       it 'returns http success' do
         post :create, params: { user: { name: '', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
         expect(response).to have_http_status(:success)
@@ -78,7 +78,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'POST #update' do
-    context 'when you send the correct parameters' do
+    context 'when user sends the correct parameters' do
       it 'returns the redirect to the show page' do
         post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
         expect(response).to have_http_status(:redirect)
@@ -92,7 +92,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
 
-    context 'when you send the wrong password' do
+    context 'when user sends parameters with empty login_id' do
       it 'returns http success' do
         post :update, params: { id: user.id, user: { name: 'user2', login_id: '', password: 'password2', password_confirmation: 'password2', role: 'general' } }
         expect(response).to have_http_status(:success)
@@ -102,7 +102,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    context 'when you destroy another user' do
+    context 'when user destroys another user' do
       let(:user2) { create(:user2) }
 
       it 'returns the redirect to the index page' do
@@ -118,7 +118,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
 
-    context 'when you destroy yourself' do
+    context 'when user destroys itself' do
       it 'returns the redirect to the user page' do
         delete :destroy, params: { id: user.id }
         expect(response).to have_http_status(:redirect)
