@@ -30,11 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
   button:
-    add: 'Add'
-    edit: 'Update'
+    add: Add
+    edit: Update
   link:
-    back: 'Back'
-    edit: 'Edit'
-    delete: 'Delete'
+    back: Back
+    edit: Edit
+    delete: Delete

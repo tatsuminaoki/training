@@ -1,9 +1,8 @@
 ja:
-  hello: "こんにちは"
   button:
-    add: '追加'
-    edit: '更新'
+    add: 追加
+    edit: 更新
   link:
-    back: '戻る'
-    edit: '編集'
-    delete: '削除'
+    back: 戻る
+    edit: 編集
+    delete: 削除
