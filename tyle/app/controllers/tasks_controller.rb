@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def task
-    @task = current_user.tasks.includes(task_labels: :label).find(params[:id])
+    @task = current_user.tasks.eager_load(task_labels: :label).find(params[:id])
   end
 
   def task_params
