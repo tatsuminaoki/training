@@ -28,6 +28,13 @@
         <dt class="col-sm-2"><%= t :deadline %></dt>
         <dd class="col-sm-10"><%= @task.readable_deadline %></dd>
 
+        <dt class="col-sm-2"><%= t :label %></dt>
+        <dd class="col-sm-10">
+        <% @task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+        </dd>
+
         <dt class="col-sm-2"><%= t :functions %></dt>
         <dd class="col-sm-10">
           <%= link_to "#{t :link_edit}", edit_task_path(@task), class: 'btn btn-primary' %>
