@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User management', type: :feature do
-  let!(:user) { create(:user, role: 'admin') }
+  let!(:user) { create(:user, account: 'tadashi.toyokura', password: 'password', role: 'admin') }
 
   before do
     visit login_path
@@ -12,18 +12,36 @@ RSpec.feature 'User management', type: :feature do
     click_button 'ログイン'
   end
 
-  feature 'role' do
+  feature 'role is user' do
     before do
       user.update(role: 'user')
+      visit root_path
     end
 
     scenario 'normal user can not access management pages.' do
+      expect(page).to_not have_text('管理画面')
       visit admin_users_path
       expect(page).to have_current_path(root_path)
       visit new_admin_user_path
       expect(page).to have_current_path(root_path)
       visit edit_admin_user_path(user)
       expect(page).to have_current_path(root_path)
+    end
+  end
+
+  feature 'delete' do
+    let(:normal_user) { create(:user, account: 'normal-account') }
+
+    scenario 'admin can delete a user' do
+      visit admin_user_path(normal_user)
+      click_link '削除'
+      expect(page).to have_text('ユーザを削除しました')
+    end
+
+    scenario 'admin can not delete a last admin user' do
+      visit admin_user_path(user)
+      click_link '削除'
+      expect(page).to have_text('これ以上管理ユーザを削除することができません')
     end
   end
 
@@ -40,31 +58,46 @@ RSpec.feature 'User management', type: :feature do
   end
 
   feature 'creation' do
-    scenario 'user can create a new user' do
+    before do
       visit admin_users_path
       click_link '登録'
       fill_in 'アカウント', with: 'new_account'
       fill_in 'パスワード', with: 'password'
-      click_button '送信'
+    end
 
+    scenario 'admin can create a user' do
+      click_button '送信'
+      expect(page).to have_text('ユーザを作成しました')
+    end
+
+    scenario 'admin can create an admin user' do
+      select '管理', from: 'user_role'
+      click_button '送信'
       expect(page).to have_text('ユーザを作成しました')
     end
   end
 
   feature 'modification' do
-    scenario 'user can edit a user' do
+    before do
       visit edit_admin_user_path(user)
-
       fill_in 'アカウント', with: 'renamed_account'
       fill_in 'パスワード', with: 'pass'
-      click_button '送信'
+    end
 
+    scenario 'admin can edit a user' do
+      click_button '送信'
+      expect(page).to have_text('ユーザ情報を更新')
+    end
+
+    scenario 'admin can change a user to an admin user' do
+      select '管理', from: 'user_role'
+      click_button '送信'
       expect(page).to have_text('ユーザ情報を更新')
     end
   end
 
   feature 'link to management pages' do
-    scenario 'user can visit user management pages' do
+    scenario 'admin can visit user management pages' do
       click_link '管理画面'
       expect(page).to have_content('管理機能を実行しています')
     end
