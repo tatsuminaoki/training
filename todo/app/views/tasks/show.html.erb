@@ -7,6 +7,6 @@
   <dd><%= status_text[@task.status] %></dd>
 </dl>
 
-<%= link_to 'Back', tasks_path %>
-<%= link_to 'Edit', tasks_edit_path(@task) %>
-<%= link_to 'Delete', tasks_destroy_path(@task), method: :delete %>
+<%= link_to t('link.back'), tasks_path %>
+<%= link_to t('link.edit'), tasks_edit_path(@task) %>
+<%= link_to t('link.delete'), tasks_destroy_path(@task), method: :delete %>

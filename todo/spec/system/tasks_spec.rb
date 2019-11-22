@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-
   let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
 
   it 'show task detail' do
@@ -19,7 +20,7 @@ RSpec.describe 'Tasks', type: :system do
     fill_in 'task_description', with: '新規タスク詳細'
     select '着手', from: 'task_status'
 
-    click_button 'Add'
+    click_button '追加'
 
     expect(page).to have_content 'Success!'
     expect(page).to have_content '新規タスク'
@@ -32,13 +33,13 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_field 'task_description', with: 'タスク１詳細'
     expect(page).to have_select 'task_status',
                                 selected: '未着手',
-                                options: ['未着手', '着手', '完了']
+                                options: %w[未着手 着手 完了]
 
     fill_in 'task_title', with: 'タスク１修正'
     fill_in 'task_description', with: 'タスク１詳細修正'
     select '完了', from: 'task_status'
 
-    click_button 'Update'
+    click_button '更新'
 
     expect(page).to have_content 'Success!'
     expect(page).to have_content 'タスク１修正'
@@ -47,7 +48,7 @@ RSpec.describe 'Tasks', type: :system do
   it 'delete task' do
     visit tasks_show_path(task)
 
-    click_link 'Delete'
+    click_link '削除'
 
     expect(page).to have_content 'Deleted'
     expect(page).to have_no_content 'タスク１'
