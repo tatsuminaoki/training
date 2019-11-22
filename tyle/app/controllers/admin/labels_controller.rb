@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class LabelsController < ApplicationController
     before_action :label, only: %i[show edit update destroy]
