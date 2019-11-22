@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :render_maintenance_page, if: :maintenance_mode?
   before_action :current_user
   before_action :require_sign_in!
   helper_method :signed_in?
@@ -37,5 +38,15 @@ class ApplicationController < ActionController::Base
     return if current_user.role == 'administrator'
 
     redirect_to root_path
+  end
+
+  def maintenance_mode?
+    File.exist?('tmp/maintenance.yml')
+  end
+
+  def render_maintenance_page
+    maintenance = YAML.safe_load(File.read('tmp/maintenance.yml'))
+    @period = maintenance['period']
+    render 'maintenance', status: :service_unavailable
   end
 end

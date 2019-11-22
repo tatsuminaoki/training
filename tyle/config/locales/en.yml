@@ -72,6 +72,9 @@ en:
     delete_itself: Cannot delete yourself.
     cannot_update_the_last_admin: of the last administrator, you cannot update.
     cannot_delete_the_last_admin: of the last administrator, you cannot delete.
+    maintenance_title: TYLE is under maintenance.
+    maintenance_period: Maintenance Period
+    maintenance_comment: We apologize for the inconvenience and thank you for your patience.
   button:
     index: Home
     detail: Detail

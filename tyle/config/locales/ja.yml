@@ -72,6 +72,9 @@ ja:
     delete_itself: 自分自身は削除できません
     cannot_update_the_last_admin: が管理者のユーザーの最後の一人は、一般ユーザーに変更できません
     cannot_delete_the_last_admin: が管理者のユーザーの最後の一人は、削除できません
+    maintenance_title: ただいまメンテナンス中です
+    maintenance_period: メンテナンス日時
+    maintenance_comment: ご利用の皆様にご迷惑をおかけし、大変申し訳ございません。メンテナンス終了までお待ちください。
   button:
     index: ホーム
     detail: 詳細
