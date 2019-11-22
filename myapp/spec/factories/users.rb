@@ -2,14 +2,14 @@
 
 FactoryBot.define do
   factory :user do
-    id { 1 }
     name { 'MyString' }
     password { 'password' }
+    account { 'tadashi.toyokura' }
 
     factory :user_with_tasks do
       transient do
         tasks_count { 1 }
-        name { 'a' }
+        name { 'aaaa' }
         description { '' }
         status { 'todo' }
         deadline { Time.zone.today.to_s }
