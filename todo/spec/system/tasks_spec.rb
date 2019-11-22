@@ -5,6 +5,20 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
 
+  it 'show tasks ordered by latest dates' do
+    visit tasks_new_path
+    fill_in 'task_title', with: 'first'
+    click_button '追加'
+
+    visit tasks_new_path
+    fill_in 'task_title', with: 'second'
+    click_button '追加'
+
+    within('ul') do
+      expect(page.text).to match(/second\nfirst/)
+    end
+  end
+
   it 'show task detail' do
     visit tasks_show_path(task)
 
