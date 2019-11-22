@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
   before_action :find_user, only: %i[index new create]
-  before_action :get_labels, only: %i[new edit index]
+  before_action :find_labels, only: %i[new edit index]
 
   def index
     @tasks = @user.tasks.includes(:labels).find_with_params(params)
@@ -60,7 +60,7 @@ class TasksController < ApplicationController
     @user = current_user
   end
 
-  def get_labels
+  def find_labels
     @labels = Label.all
   end
 end
