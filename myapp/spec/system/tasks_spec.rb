@@ -7,9 +7,11 @@ RSpec.describe "Tasks", type: :system do
     @user_session = UserSession.create(user_id: @user.id)
     login(@user)
 
+    @label = create(:label)
     @task1 = create(:task, user_id: @user.id, created_at: DateTime.now)
     @task2 = create(:task, user_id: @user.id, priority: 1, due_date: DateTime.now + 1, created_at: DateTime.now - 1)
     @task3 = create(:task, user_id: @user.id, priority: 2, due_date: DateTime.now + 2, created_at: DateTime.now - 2)
+    TaskLabel.create(task_id: @task1.id, label_id: @label.id)
   end
 
   context 'When a user opens task list' do
@@ -103,6 +105,7 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content @task1.description
       expect(page).to have_content @task1.priority
       expect(page).to have_content @task1.due_date
+      expect(page).to have_content @label.name
       expect(page).to have_link I18n.t('operation.update'), href: edit_task_path(@task1.id)
       expect(page).to have_link I18n.t('operation.remove'), href: task_path(@task1.id)
       expect(page).to have_link I18n.t('header.back'), href: root_path
@@ -117,6 +120,7 @@ RSpec.describe "Tasks", type: :system do
       fill_in 'task[description]', with: 'Please create the automation test for this task.'
       select 'Middle', from: I18n.t('header.priority')
       select 'Open', from: I18n.t('header.status')
+      fill_in 'label', with: 'ラベル1,ラベル2'
       click_on 'commit'
 
       expect(page).to have_content I18n.t('flash.create.success')
@@ -190,7 +194,6 @@ RSpec.describe "Tasks", type: :system do
     it 'Find one record' do
       visit tasks_path
       fill_in 'search[title]', with: 'hoge'
-      fill_in 'search[label]', with: ''
       click_on I18n.t('operation.search.task')
 
       title = page.all('.title')
@@ -199,7 +202,13 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context 'When a user searches by label' do
-    it 'Find one record' do
+    it 'Find one record with ラベル1' do
+      visit tasks_path
+      fill_in 'search[label]', with: 'ラベル1'
+      click_on I18n.t('operation.search.label')
+
+      title = page.all('.title')
+      expect(title[0].text).to eq @task1.title
     end
   end
 
