@@ -53,11 +53,11 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = @current_user.tasks.includes(:labels).find(params[:id])
+    @task = current_user.tasks.includes(:labels).find(params[:id])
   end
 
   def find_user
-    @user = @current_user
+    @user = current_user
   end
 
   def get_labels
