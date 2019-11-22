@@ -36,3 +36,4 @@ yarn-debug.log*
 
 # yu-hasebe added
 vendor/bundle
+spec/example.txt
