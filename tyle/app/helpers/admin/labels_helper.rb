@@ -1,2 +1,6 @@
-module Admin::LabelsHelper
+# frozen_string_literal: true
+
+module Admin
+  module LabelsHelper
+  end
 end
