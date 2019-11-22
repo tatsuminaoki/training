@@ -3,13 +3,28 @@
 require 'rails_helper'
 
 RSpec.feature 'User management', type: :feature do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role: 'admin') }
 
   before do
     visit login_path
     fill_in 'アカウント', with: 'tadashi.toyokura'
     fill_in 'パスワード', with: 'password'
     click_button 'ログイン'
+  end
+
+  feature 'role' do
+    before do
+      user.update(role: 'user')
+    end
+
+    scenario 'normal user can not access management pages.' do
+      visit admin_users_path
+      expect(page).to have_current_path(root_path)
+      visit new_admin_user_path
+      expect(page).to have_current_path(root_path)
+      visit edit_admin_user_path(user)
+      expect(page).to have_current_path(root_path)
+    end
   end
 
   feature 'detail' do

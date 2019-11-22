@@ -5,6 +5,7 @@ FactoryBot.define do
     name { 'MyString' }
     password { 'password' }
     account { 'tadashi.toyokura' }
+    role { 0 }
 
     factory :user_with_tasks do
       transient do

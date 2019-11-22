@@ -22,9 +22,8 @@ class User < ApplicationRecord
   private
 
   def ensure_atleast_one_admin
-    if role == 'admin' && User.where(role: 'admin').count == 1
-      errors[:base] << I18n.t(:need_atleast_one_admin)
-      throw :abort
-    end
+    return unless admin? && User.where(role: 'admin').count == 1
+    errors[:base] << I18n.t(:need_atleast_one_admin)
+    throw :abort
   end
 end

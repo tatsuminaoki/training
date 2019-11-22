@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_015620) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "account", null: false
-    t.integer "role", null: false
+    t.integer "role", default: 0
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
