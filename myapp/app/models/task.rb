@@ -50,7 +50,11 @@ class Task < ApplicationRecord
     # create new labels
     new_labels.each do |new_name|
       task_label = Label.find_or_create_by(name: new_name)
-      self.labels << task_label
+      if task_label.invalid?
+        return false
+      else
+        self.labels << task_label
+      end
     end
   end
 end

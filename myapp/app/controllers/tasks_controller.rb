@@ -39,8 +39,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
-      @task.save_labels(params[:label].split(','))
+    if @task.update(task_params) && @task.save_labels(params[:label].split(','))
       flash[:success] = t('flash.update.success')
       redirect_to task_path(@task.id)
     else
