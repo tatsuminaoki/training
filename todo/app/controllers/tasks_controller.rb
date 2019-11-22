@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/
   def index
-    @tasks = Task.all.order('created_at DESC')
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   # DELETE /task/:id
