@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AdminUsers', type: :system do
+RSpec.describe 'AdminLabels', type: :system do
   let(:user) { create(:user) }
   let!(:label) { create(:label) }
 
