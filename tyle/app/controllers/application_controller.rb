@@ -2,21 +2,27 @@
 
 class ApplicationController < ActionController::Base
   before_action :render_maintenance_page, if: :maintenance_mode?
-  before_action :current_user
   before_action :require_sign_in!
   helper_method :signed_in?
 
   protect_from_forgery with: :exception
 
   def current_user
-    remember_token = User.encrypt(cookies[:user_remember_token])
-    @current_user ||= User.find_by(remember_token: remember_token)
+    if cookies[:user_remember_token]
+      if defined? @current_user
+        @current_user
+      else
+        remember_token = User.encrypt(cookies[:user_remember_token])
+        @current_user = User.find_by(remember_token: remember_token)
+      end
+    end
   end
 
   def sign_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:user_remember_token] = remember_token
-    user.update!(remember_token: User.encrypt(remember_token))
+    user.remember_token = User.encrypt(remember_token)
+    user.save!(validate: false)
     @current_user = user
   end
 
@@ -25,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    @current_user.present?
+    current_user.present?
   end
 
   private
