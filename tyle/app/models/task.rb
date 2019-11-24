@@ -15,7 +15,6 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validates :due, presence: true
 
-  scope :user_id, -> (user_id) { where(user_id: user_id) }
   scope :name_like, -> (name) { where('name like ?', "%#{name}%") if name.present? }
   scope :priority, -> (priority) { where(priority: priority) if priority.present? }
   scope :status, -> (status) { where(status: status) if status.present? }

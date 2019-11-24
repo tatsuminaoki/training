@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @current_user.tasks.new(task_params_with_enums_converted)
+    @task = current_user.tasks.new(task_params_with_enums_converted)
 
     if @task.save
       redirect_to @task, notice: t('message.task.created')

@@ -3,6 +3,7 @@
 class SessionsController < ApplicationController
   skip_before_action :require_sign_in!, only: %i[new create]
   before_action :set_user, only: [:create]
+  before_action :redirect_to_tasks_path, only: [:new]
 
   def new
     @session = Session.new
@@ -32,5 +33,9 @@ class SessionsController < ApplicationController
 
   def session_params
     params.require(:session).permit(:login_id, :password)
+  end
+
+  def redirect_to_tasks_path
+    redirect_to tasks_path if signed_in?
   end
 end
