@@ -37,7 +37,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   describe 'POST #create' do
     context 'when user sends the correct parameters' do
       it 'returns the redirect to the user page' do
-        post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: '0' } }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(User.last))
 
@@ -51,7 +51,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'when user sends parameters with empty name' do
       it 'returns http success' do
-        post :create, params: { user: { name: '', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :create, params: { user: { name: '', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: '0' } }
         expect(response).to have_http_status(:success)
         expect(response).to render_template('admin/users/new')
       end
@@ -80,7 +80,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   describe 'POST #update' do
     context 'when user sends the correct parameters' do
       it 'returns the redirect to the show page' do
-        post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: '1' } }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(user))
 
@@ -94,7 +94,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'when user sends parameters with empty login_id' do
       it 'returns http success' do
-        post :update, params: { id: user.id, user: { name: 'user2', login_id: '', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :update, params: { id: user.id, user: { name: 'user2', login_id: '', password: 'password2', password_confirmation: 'password2', role: '1' } }
         expect(response).to have_http_status(:success)
         expect(response).to render_template('admin/users/edit')
       end
