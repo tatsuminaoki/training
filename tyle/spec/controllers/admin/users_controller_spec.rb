@@ -7,6 +7,52 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   let(:user) { create(:user) }
   let(:task) { create(:task, { user_id: user.id }) }
+  let(:params) do
+    {
+      user: {
+        name: 'user2',
+        login_id: 'id2',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'general',
+      },
+    }
+  end
+  let(:params2) do
+    {
+      id: user.id,
+      user: {
+        name: 'user2',
+        login_id: 'id2',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'administrator',
+      },
+    }
+  end
+  let(:params_without_name) do
+    {
+      user: {
+        name: '',
+        login_id: 'id2',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'general',
+      },
+    }
+  end
+  let(:params2_without_login_id) do
+    {
+      id: user.id,
+      user: {
+        name: 'user2',
+        login_id: '',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'administrator',
+      },
+    }
+  end
 
   # login
   before do
@@ -37,7 +83,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   describe 'POST #create' do
     context 'when user sends the correct parameters' do
       it 'returns the redirect to the user page' do
-        post :create, params: { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :create, params: params
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(User.last))
 
@@ -51,7 +97,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'when user sends parameters with empty name' do
       it 'returns http success' do
-        post :create, params: { user: { name: '', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :create, params: params_without_name
         expect(response).to have_http_status(:success)
         expect(response).to render_template('admin/users/new')
       end
@@ -80,7 +126,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   describe 'POST #update' do
     context 'when user sends the correct parameters' do
       it 'returns the redirect to the show page' do
-        post :update, params: { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :update, params: params2
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(admin_user_path(user))
 
@@ -94,7 +140,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'when user sends parameters with empty login_id' do
       it 'returns http success' do
-        post :update, params: { id: user.id, user: { name: 'user2', login_id: '', password: 'password2', password_confirmation: 'password2', role: 'general' } }
+        post :update, params: params2_without_login_id
         expect(response).to have_http_status(:success)
         expect(response).to render_template('admin/users/edit')
       end

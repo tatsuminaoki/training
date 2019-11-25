@@ -62,7 +62,9 @@ en:
       destroy_failure: Failed to destroy the user!
     invalid_login_id_or_password: Invalid Login ID or Password.
     delete_itself: Cannot delete yourself.
-    login_failed: ログインに失敗しました
+    cannot_update_the_last_admin: of the last administrator, you cannot update.
+    cannot_delete_the_last_admin: of the last administrator, you cannot delete.
+    login_failed: Failed to log in.
   button:
     index: Home
     detail: Detail

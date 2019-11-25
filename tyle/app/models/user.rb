@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  before_update :update_the_last_admin_validator
+  before_destroy :destroy_the_last_admin_validator
+
   has_secure_password validations: true
 
   has_many :tasks, dependent: :destroy
@@ -19,5 +22,17 @@ class User < ApplicationRecord
 
   def self.encrypt(token)
     Digest::SHA256.hexdigest(token.to_s)
+  end
+
+  def update_the_last_admin_validator
+    return unless self.role == 'general' && User.where(role: :administrator).count == 1 && User.find_by(role: :administrator).id == self.id
+    errors.add(:role, I18n.t('message.cannot_update_the_last_admin'))
+    throw :abort
+  end
+
+  def destroy_the_last_admin_validator
+    return unless User.where(role: :administrator).count == 1 && User.find_by(role: :administrator).id == self.id
+    errors.add(:role, I18n.t('message.cannot_delete_the_last_admin'))
+    throw :abort
   end
 end
