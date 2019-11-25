@@ -13,7 +13,7 @@ RSpec.feature 'User management', type: :feature do
   end
 
   feature 'deletion' do
-    let!(:user_to_delete) { create(:user, account:'delete-account') }
+    let!(:user_to_delete) { create(:user, account: 'delete-account') }
 
     scenario 'user can delete an user.' do
       visit admin_user_path(user_to_delete)
