@@ -228,9 +228,7 @@ RSpec.describe 'AdminUsers', type: :system do
       select '一般', from: 'user_role'
       click_button '更新する'
 
-      expect(page).to have_no_content 'ユーザーが更新されました！'
-      expect(page).to have_no_content 'user3'
-      expect(page).to have_no_content 'id3'
+      expect(page).to have_content '役割が管理者のユーザーの最後の一人は、一般ユーザーに変更できません'
       expect(page).to have_content '編集するユーザーの詳細を入力してください'
     end
 

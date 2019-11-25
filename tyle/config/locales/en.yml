@@ -78,7 +78,7 @@ en:
     maintenance_comment: We apologize for the inconvenience and thank you for your patience.
     invalid_login_id_or_password: Invalid Login ID or Password.
     delete_itself: Cannot delete yourself.
-    login_failed: ログインに失敗しました
+    login_failed: Failed to log in.
   button:
     index: Home
     detail: Detail
