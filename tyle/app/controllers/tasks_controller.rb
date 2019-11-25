@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.new(task_params_with_enums_converted)
+    @task = @current_user.tasks.new(task_params)
 
     if @task.save
       redirect_to @task, notice: t('message.task.created')
@@ -35,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params_with_enums_converted)
+    if @task.update(task_params)
       redirect_to @task, notice: t('message.task.updated')
     else
       render :edit
@@ -66,13 +66,5 @@ class TasksController < ApplicationController
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
-  end
-
-  # Convert the number of enums; '0' -> 0
-  def task_params_with_enums_converted
-    task_params_copy = task_params
-    task_params_copy[:priority] = task_params[:priority].to_i
-    task_params_copy[:status] = task_params[:status].to_i
-    task_params_copy
   end
 end

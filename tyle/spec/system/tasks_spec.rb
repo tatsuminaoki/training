@@ -111,8 +111,8 @@ RSpec.describe 'Tasks', type: :system do
         subject
         expect(page).to have_field 'task_name', with: 'task1'
         expect(page).to have_field 'task_description', with: 'this is a task1'
-        expect(page).to have_field 'task_priority', with: 0
-        expect(page).to have_field 'task_status', with: 0
+        expect(page).to have_field 'task_priority', with: 'low'
+        expect(page).to have_field 'task_status', with: 'waiting'
         fill_in 'task_name', with: 'task2'
         fill_in 'task_description', with: 'this is a task2'
         fill_in 'task_due', with: Date.current

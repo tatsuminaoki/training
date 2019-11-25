@@ -76,6 +76,7 @@ en:
     invalid_login_id_or_password: Invalid Login ID or Password.
     delete_itself: Cannot delete yourself.
     login_failed: ログインに失敗しました
+    login_failed: Failed to log in.
   button:
     index: Home
     detail: Detail

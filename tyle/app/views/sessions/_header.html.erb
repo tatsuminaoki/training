@@ -4,3 +4,25 @@
     <%= link_to t('button.user-new'), new_user_path  %>
   </div>
 </div>
+
+<!-- flash message(alert) -->
+<% if flash[:alert] %>
+  <div class="card col-md-6">
+    <div class="card-body">
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- flash message(notice) -->
+<% if flash[:notice] %>
+  <div class="card col-md-6">
+    <div class="card-body">
+      <div class="alert alert-success">
+        <%= flash[:notice] %>
+      </div>
+    </div>
+  </div>
+<% end %>
