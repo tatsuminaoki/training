@@ -63,6 +63,7 @@ RSpec.feature 'User management', type: :feature do
 
     scenario 'user can not create a new user with invalid account (length lt 4)' do
       fill_in 'ユーザ名（表示用）', with: 'name'
+      fill_in 'アカウント', with: 'a' * 3
       fill_in 'パスワード', with: 'password'
       click_button '送信'
 
