@@ -3,7 +3,7 @@
     <div class='alert alert-warning' role='alert'>
       <h2>
         <%= pluralize(user.errors.count, "#{t :error_title}") %>
-        <%= t :error_explanation %>
+        <%= t :can_not_save %>
       </h2>
       <ul>
         <% user.errors.full_messages.each do |msg| %>
