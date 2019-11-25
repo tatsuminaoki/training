@@ -5,8 +5,29 @@ require 'rails_helper'
 RSpec.describe Admin::UsersController, type: :controller do
   let(:user) { create(:user) }
   let(:task) { create(:task, { user_id: user.id }) }
-  let(:params) { { user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'general' } } }
-  let(:params2) { { id: user.id, user: { name: 'user2', login_id: 'id2', password: 'password2', password_confirmation: 'password2', role: 'administrator' } } }
+  let(:params) do
+    {
+      user: {
+        name: 'user2',
+        login_id: 'id2',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'general',
+      },
+    }
+  end
+  let(:params2) do
+    {
+      id: user.id,
+      user: {
+        name: 'user2',
+        login_id: 'id2',
+        password: 'password2',
+        password_confirmation: 'password2',
+        role: 'administrator',
+      },
+    }
+  end
 
   # login
   before do
