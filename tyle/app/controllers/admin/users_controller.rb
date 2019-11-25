@@ -44,6 +44,7 @@ module Admin
       elsif @user.destroy
         redirect_to admin_users_path, notice: t('message.user.destroyed')
       else
+        flash[:warning] = t('message.user.destroy_failure')
         redirect_to admin_users_path
       end
     end
@@ -51,7 +52,7 @@ module Admin
     private
 
     def user
-      @user = User.find(params[:id])
+      @user ||= User.find(params[:id])
     end
 
     def user_params

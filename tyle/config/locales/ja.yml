@@ -59,10 +59,12 @@ ja:
       updated: ユーザーが更新されました！
       destroyed: ユーザーが削除されました！
       destroying: 本当にユーザーを削除してもいいですか？
+      destroy_failture: ユーザーの削除に失敗しました
     invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
     delete_itself: 自分自身は削除できません
     cannot_update_the_last_admin: が管理者のユーザーの最後の一人は、一般ユーザーに変更できません
     cannot_delete_the_last_admin: が管理者のユーザーの最後の一人は、削除できません
+    login_failed: ログインに失敗しました
   button:
     index: ホーム
     detail: 詳細
