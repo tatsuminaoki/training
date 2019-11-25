@@ -9,9 +9,12 @@ class TasksController < ApplicationController
   # POST /tasks/create
   def create
     @task = Task.new(task_params)
-    return unless @task.save
-    flash[:success] = 'Success!'
-    redirect_to tasks_path
+    if @task.save
+      flash[:success] = 'Success!'
+      redirect_to tasks_path
+    else
+      render 'tasks/new'
+    end
   end
 
   # GET /tasks/:id/edit/
@@ -22,9 +25,12 @@ class TasksController < ApplicationController
   # PATCH /tasks/:id
   def update
     @task = Task.find(params[:id])
-    return unless @task.update(task_params)
-    flash[:success] = 'Success!'
-    redirect_to tasks_path
+    if @task.update(task_params)
+      flash[:success] = 'Success!'
+      redirect_to tasks_path
+    else
+      render 'tasks/edit'
+    end
   end
 
   # GET /tasks/:id

@@ -6,3 +6,16 @@ ja:
     back: 戻る
     edit: 編集
     delete: 削除
+  activerecord:
+    errors:
+      messages:
+        blank: を入力してください
+        too_long: が長すぎます
+        inclusion: は対象外の値です
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: タスク名
+        description: 詳細
+        status: ステータス
