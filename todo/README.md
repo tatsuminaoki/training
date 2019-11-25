@@ -5,15 +5,30 @@
 
 * Ruby version
 
+2.6.5
+
 * System dependencies
 
 * Configuration
+
+* Setup
+
+```cassandraql
+docker-compose up -d
+rails db:create 
+rails db:migrate
+rails s
+```
 
 * Database creation
 
 * Database initialization
 
 * How to run the test suite
+
+```cassandraql
+rails spec
+```
 
 * Services (job queues, cache servers, search engines, etc.)
 
