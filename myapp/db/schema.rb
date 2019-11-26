@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_081427) do
+ActiveRecord::Schema.define(version: 2019_11_22_015620) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "priority"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_081427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "account", null: false
+    t.integer "role", default: 0
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 

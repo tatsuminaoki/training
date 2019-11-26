@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :admin_user, class: User do
+    name { 'admin' }
+    password { 'password' }
+    account { 'admin.tadashi.toyokura' }
+    role { 'admin' }
+  end
+
   factory :user do
     name { 'MyString' }
     password { 'password' }
     account { 'tadashi.toyokura' }
+    role { 'user' }
 
     factory :user_with_tasks do
       transient do

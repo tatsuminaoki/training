@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user1 = User.create(name: 'name1', account: 'account1', password: 'pass')
-user2 = User.create(name: 'name2', account: 'account2', password: 'pass')
-user3 = User.create(name: 'name3', account: 'account3', password: 'pass')
+user1 = User.create(name: 'name1', account: 'account1', password: 'pass', role: 'admin')
+user2 = User.create(name: 'name2', account: 'account2', password: 'pass', role: 'admin')
+user3 = User.create(name: 'name3', account: 'account3', password: 'pass', role: 'admin')
 
 5.times do |index|
   user1.tasks.create(name: "#{user1.name}-todo#{index}")
