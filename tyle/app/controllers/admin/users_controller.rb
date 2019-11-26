@@ -39,7 +39,7 @@ module Admin
 
     def destroy
       if current_user == @user
-        flash[:warning] = t('message.delete_itself')
+        flash[:warning] = t('message.user.validate.cannot_delete_itself')
         redirect_to admin_user_path(@user)
       elsif @user.destroy
         redirect_to admin_users_path, notice: t('message.user.destroyed')

@@ -64,21 +64,21 @@ ja:
       destroyed: ユーザーが削除されました！
       destroying: 本当にユーザーを削除してもいいですか？
       destroy_failture: ユーザーの削除に失敗しました
+      validate:
+        cannot_delete_itself: 自分自身は削除できません
+        cannot_update_the_last_admin: が管理者のユーザーの最後の一人は、一般ユーザーに変更できません
+        cannot_delete_the_last_admin: が管理者のユーザーの最後の一人は、削除できません
     label:
       created: ラベルが追加されました！
       updated: ラベルが更新されました！
       destroyed: ラベルが削除されました！
       destroying: 本当にラベルを削除してもいいですか？
-    invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
-    delete_itself: 自分自身は削除できません
-    cannot_update_the_last_admin: が管理者のユーザーの最後の一人は、一般ユーザーに変更できません
-    cannot_delete_the_last_admin: が管理者のユーザーの最後の一人は、削除できません
-    maintenance_title: ただいまメンテナンス中です
-    maintenance_period: メンテナンス日時
-    maintenance_comment: ご利用の皆様にご迷惑をおかけし、大変申し訳ございません。メンテナンス終了までお待ちください。
-    invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
-    delete_itself: 自分自身は削除できません
-    login_failed: ログインに失敗しました
+    login:
+      invalid_login_id_or_password: ログインIDまたはパスワードが誤っています
+    maintenance:
+      title: ただいまメンテナンス中です
+      period: メンテナンス日時
+      comment: ご利用の皆様にご迷惑をおかけし、大変申し訳ございません。メンテナンス終了までお待ちください。
   button:
     index: ホーム
     detail: 詳細

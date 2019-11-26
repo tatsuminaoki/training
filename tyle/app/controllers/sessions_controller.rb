@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       sign_in(@user)
       redirect_to root_path
     else
-      redirect_to login_path, alert: t('message.invalid_login_id_or_password')
+      redirect_to login_path, alert: t('message.login.invalid_login_id_or_password')
     end
   end
 
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   def set_user
     @user = User.find_by!(login_id: session_params[:login_id])
   rescue StandardError
-    redirect_to login_path, alert: t('message.invalid_login_id_or_password')
+    redirect_to login_path, alert: t('message.login.invalid_login_id_or_password')
   end
 
   def session_params
