@@ -23,13 +23,13 @@ class User < ApplicationRecord
   private
 
   def ensure_atleast_one_admin_on_delete
-    return unless admin? && User.where(role: 'admin').count == 1
+    return unless admin? && User.where(role: :admin).count == 1
     errors[:base] << I18n.t(:need_atleast_one_admin)
     throw :abort
   end
 
   def ensure_atleast_one_admin_on_update
-    return unless user? && role_was == 'admin' && User.where(role: 'admin').count == 1
+    return unless user? && role_was == 'admin' && User.where(role: :admin).count == 1
     errors[:base] << I18n.t(:need_atleast_one_admin)
     throw :abort
   end
