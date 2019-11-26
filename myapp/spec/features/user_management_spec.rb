@@ -82,7 +82,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('ユーザを作成しました')
     end
 
-    scenario 'user can not create a new user with empty account' do
+    scenario 'admin can not create a new user with empty account' do
       fill_in 'ユーザ名（表示用）', with: 'name'
       fill_in 'パスワード', with: 'password'
       click_button '送信'
@@ -90,7 +90,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('アカウントを入力してください')
     end
 
-    scenario 'user can not create a new user with invalid account (length lt 4)' do
+    scenario 'admin can not create a new user with invalid account (length lt 4)' do
       fill_in 'ユーザ名（表示用）', with: 'name'
       fill_in 'アカウント', with: 'a' * 3
       fill_in 'パスワード', with: 'password'
@@ -99,7 +99,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('アカウントは4文字以上で入力してください')
     end
 
-    scenario 'user can not create a new user with empty password' do
+    scenario 'admin can not create a new user with empty password' do
       fill_in 'アカウント', with: 'account'
       fill_in 'パスワード', with: ''
       click_button '送信'
@@ -107,7 +107,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('パスワードを入力してください')
     end
 
-    scenario 'user can not create a new user with invalid password (length lt 4)' do
+    scenario 'admin can not create a new user with invalid password (length lt 4)' do
       fill_in 'アカウント', with: 'account'
       fill_in 'パスワード', with: 'ppp'
       click_button '送信'
@@ -134,7 +134,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('ユーザ情報を更新しました')
     end
 
-    scenario 'user can modify a user with empty password' do
+    scenario 'admin can modify a user with empty password' do
       fill_in 'パスワード', with: ''
       click_button '送信'
 
@@ -142,21 +142,21 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('tadashi.toyokura')
     end
 
-    scenario 'user can not modify a user with empty account' do
+    scenario 'admin can not modify a user with empty account' do
       fill_in 'アカウント', with: ''
       click_button '送信'
 
       expect(page).to have_text('アカウントを入力してください')
     end
 
-    scenario 'user can not modify a user with invalid account (length lt 4)' do
+    scenario 'admin can not modify a user with invalid account (length lt 4)' do
       fill_in 'アカウント', with: 'aaa'
       click_button '送信'
 
       expect(page).to have_text('アカウントは4文字以上で入力してください')
     end
 
-    scenario 'user can not modify a user with invalid password (length lt 4)' do
+    scenario 'admin can not modify a user with invalid password (length lt 4)' do
       fill_in 'パスワード', with: 'ppp'
       click_button '送信'
 
