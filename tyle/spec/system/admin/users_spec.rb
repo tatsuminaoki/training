@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'AdminUsers', type: :system do
-  let(:user) { create(:admin_user) }
-  let!(:user2) { create(:user) }
+  let(:admin_user) { create(:admin_user) }
+  let!(:user) { create(:user) }
 
   before do
-    create(:task, user_id: user.id)
-    create(:task2, user_id: user.id)
+    create(:task, user_id: admin_user.id)
+    create(:task2, user_id: admin_user.id)
 
     # Log in as the user in the following rspec.
     visit login_path
-    fill_in 'session_login_id', with: user.login_id
+    fill_in 'session_login_id', with: admin_user.login_id
     fill_in 'session_password', with: 'password1'
     click_button 'ログイン'
     sleep 1
@@ -62,7 +62,7 @@ RSpec.describe 'AdminUsers', type: :system do
   describe 'GET #show' do
     context 'when user visits admin_user_path(itself)' do
       before do
-        visit admin_user_path(user)
+        visit admin_user_path(admin_user)
       end
 
       context 'when a user and its tasks are correctly created' do
@@ -135,7 +135,7 @@ RSpec.describe 'AdminUsers', type: :system do
 
     context 'when user visits admin_user_path(another user)' do
       before do
-        visit admin_user_path(user2)
+        visit admin_user_path(user)
       end
 
       context 'when user tries to delete another user with the delete button' do
@@ -158,7 +158,7 @@ RSpec.describe 'AdminUsers', type: :system do
   describe 'GET #edit' do
     context 'when user visits edit_admin_user_path(itrself)' do
       before do
-        visit edit_admin_user_path(user)
+        visit edit_admin_user_path(admin_user)
       end
 
       context 'when user correctly fills out the form' do
@@ -197,7 +197,7 @@ RSpec.describe 'AdminUsers', type: :system do
 
     context 'when user visit edit_admin_user_path(another_user)' do
       before do
-        visit edit_admin_user_path(user2)
+        visit edit_admin_user_path(user)
       end
       # TODO: I will implement a Rspec here after the user.role.admin will have been implemented.
     end
@@ -209,7 +209,7 @@ RSpec.describe 'AdminUsers', type: :system do
       expect(page).to have_content 'TYLE(管理画面)'
       click_on 'ログアウト'
 
-      fill_in 'session_login_id', with: user2.login_id
+      fill_in 'session_login_id', with: user.login_id
       fill_in 'session_password', with: 'password2'
       click_on 'ログイン'
       sleep 1
@@ -220,7 +220,7 @@ RSpec.describe 'AdminUsers', type: :system do
     end
 
     it 'the last administrator cannot change its role' do
-      visit edit_admin_user_path(user)
+      visit edit_admin_user_path(admin_user)
       fill_in 'user_name', with: 'user3'
       fill_in 'user_login_id', with: 'id3'
       fill_in 'user_password', with: 'password3'
@@ -233,7 +233,7 @@ RSpec.describe 'AdminUsers', type: :system do
     end
 
     it 'an administrator cannot delete itself' do
-      visit admin_user_path(user)
+      visit admin_user_path(admin_user)
       click_on '削除'
       expect(page.driver.browser.switch_to.alert.text).to eq '本当にユーザーを削除してもいいですか？'
       page.driver.browser.switch_to.alert.accept

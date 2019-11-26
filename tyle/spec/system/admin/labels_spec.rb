@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'AdminLabels', type: :system do
-  let(:user) { create(:admin_user) }
+  let(:admin_user) { create(:admin_user) }
   let!(:label) { create(:label) }
 
   before do
     # Log in as the user in the following rspec.
     visit login_path
-    fill_in 'session_login_id', with: user.login_id
+    fill_in 'session_login_id', with: admin_user.login_id
     fill_in 'session_password', with: 'password1'
     click_button 'ログイン'
     expect(page).to have_content 'ログアウト'

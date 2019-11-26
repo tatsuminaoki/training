@@ -5,14 +5,14 @@ require 'rails_helper'
 RSpec.describe Admin::LabelsController, type: :controller do
   render_views
 
-  let(:user) { create(:admin_user) }
+  let(:admin_user) { create(:admin_user) }
   let!(:label) { create(:label) }
 
   # login
   before do
     remember_token = User.encrypt(cookies[:user_remember_token])
     cookies.permanent[:user_remember_token] = remember_token
-    user.update!(remember_token: User.encrypt(remember_token))
+    admin_user.update!(remember_token: User.encrypt(remember_token))
   end
 
   describe 'GET #index' do

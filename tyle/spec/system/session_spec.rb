@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :system do
-  let(:user) { create(:admin_user) }
+  let(:admin_user) { create(:admin_user) }
   before do
-    create(:task, { user_id: user.id })
+    create(:task, { user_id: admin_user.id })
   end
 
   describe 'GET #new' do
@@ -15,7 +15,7 @@ RSpec.describe 'Users', type: :system do
 
     context 'when user correctly fills out the form' do
       it 'returns the user\'s task list' do
-        fill_in 'session_login_id', with: user.login_id
+        fill_in 'session_login_id', with: admin_user.login_id
         fill_in 'session_password', with: 'password1'
         click_button 'ログイン'
 
