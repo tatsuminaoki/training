@@ -49,7 +49,7 @@ RSpec.feature 'Authentication', type: :feature do
     scenario 'user cannot signup with password length lt 4' do
       fill_in 'ユーザ名（表示用）', with: 'a' * 3
       fill_in 'アカウント', with: 'new_account'
-      fill_in 'パスワード', with: ''
+      fill_in 'パスワード', with: 'a' * 3
       click_button '送信'
 
       expect(page).to have_text('パスワードは4文字以上で入力してください')

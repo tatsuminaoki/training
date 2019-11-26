@@ -25,7 +25,7 @@ RSpec.feature 'Task', type: :feature do
         visit new_task_path
         fill_in '名前', with: 'a' * 50
         click_button '送信'
-        expect(page).to have_text('新しいタスクが作成されました！')
+        expect(page).to have_text('新しいタスクを作成しました')
       end
 
       scenario 'user can create a new task with deadline' do
@@ -33,7 +33,7 @@ RSpec.feature 'Task', type: :feature do
         fill_in '名前', with: 'a' * 50
         fill_in '終了期限', with: Date.tomorrow.to_s
         click_button '送信'
-        expect(page).to have_text('新しいタスクが作成されました！')
+        expect(page).to have_text('新しいタスクを作成しました')
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.feature 'Task', type: :feature do
       fill_in '説明', with: 'edited-description'
       select '進行中', from: 'task_status'
       click_button '送信'
-      expect(page).to have_text('タスクが更新されました！')
+      expect(page).to have_text('タスクを更新しました')
       expect(page).to have_text(name_edited)
     end
 
@@ -101,7 +101,7 @@ RSpec.feature 'Task', type: :feature do
       visit edit_task_path(task)
       fill_in '終了期限', with: (Date.tomorrow + 1).to_s
       click_button '送信'
-      expect(page).to have_text('タスクが更新されました！')
+      expect(page).to have_text('タスクを更新しました')
     end
 
     scenario 'user can not edit a task with invalid name (empty string)' do
@@ -137,7 +137,7 @@ RSpec.feature 'Task', type: :feature do
     scenario 'user can delete a task' do
       visit task_path(task)
       click_link '削除'
-      expect(page).to have_text('タスクを削除しました！')
+      expect(page).to have_text('タスクを削除しました')
       expect(page).not_to have_text(task.name)
     end
   end

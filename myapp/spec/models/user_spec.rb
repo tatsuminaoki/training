@@ -3,6 +3,33 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '#update' do
+    let(:user) { create(:user, password: 'password') }
+
+    context 'when empty password' do
+      let(:params) { { password: '', account: 'account' } }
+      it 'password will be same.' do
+        user.update(params)
+        expect(user.authenticate('password')).to be_truthy
+      end
+    end
+
+    context 'when pasword length lt 4' do
+      let(:params) { { password: 'a', account: 'account' } }
+      it 'can not be updated.' do
+        expect(user.update(params)).to be_falsy
+      end
+    end
+
+    context 'when valid password' do
+      let(:params) { { password: 'password2', account: 'account' } }
+      it 'can be updated and authenticated with new password' do
+        expect(user.update(params)).to be_truthy
+        expect(user.authenticate('password2')).to be_truthy
+      end
+    end
+  end
+
   describe '#save' do
     subject { user.save }
 

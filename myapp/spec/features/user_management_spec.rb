@@ -48,12 +48,16 @@ RSpec.feature 'User management', type: :feature do
   feature 'detail' do
     before do
       create(:task, name: "#{user.name}-task", user: user)
+      visit admin_user_path(user)
     end
 
     scenario 'tasks in user detail page' do
-      visit admin_user_path(user)
-
       expect(page).to have_text("#{user.name}-task")
+    end
+
+    scenario 'can find user details in the detail page.' do
+      expect(page).to have_text(user.name)
+      expect(page).to have_text(user.account)
     end
   end
 
@@ -61,38 +65,102 @@ RSpec.feature 'User management', type: :feature do
     before do
       visit admin_users_path
       click_link '登録'
-      fill_in 'アカウント', with: 'new_account'
-      fill_in 'パスワード', with: 'password'
     end
 
     scenario 'admin can create a user' do
+      fill_in 'アカウント', with: 'new_account'
+      fill_in 'パスワード', with: 'password'
       click_button '送信'
       expect(page).to have_text('ユーザを作成しました')
     end
 
     scenario 'admin can create an admin user' do
+      fill_in 'アカウント', with: 'new_account'
+      fill_in 'パスワード', with: 'password'
       select '管理', from: 'user_role'
       click_button '送信'
       expect(page).to have_text('ユーザを作成しました')
+    end
+
+    scenario 'admin can not create a new user with empty account' do
+      fill_in 'ユーザ名（表示用）', with: 'name'
+      fill_in 'パスワード', with: 'password'
+      click_button '送信'
+
+      expect(page).to have_text('アカウントを入力してください')
+    end
+
+    scenario 'admin can not create a new user with invalid account (length lt 4)' do
+      fill_in 'ユーザ名（表示用）', with: 'name'
+      fill_in 'アカウント', with: 'a' * 3
+      fill_in 'パスワード', with: 'password'
+      click_button '送信'
+
+      expect(page).to have_text('アカウントは4文字以上で入力してください')
+    end
+
+    scenario 'admin can not create a new user with empty password' do
+      fill_in 'アカウント', with: 'account'
+      fill_in 'パスワード', with: ''
+      click_button '送信'
+
+      expect(page).to have_text('パスワードを入力してください')
+    end
+
+    scenario 'admin can not create a new user with invalid password (length lt 4)' do
+      fill_in 'アカウント', with: 'account'
+      fill_in 'パスワード', with: 'ppp'
+      click_button '送信'
+
+      expect(page).to have_text('パスワードは4文字以上で入力してください')
     end
   end
 
   feature 'modification' do
     before do
       visit edit_admin_user_path(user)
-      fill_in 'アカウント', with: 'renamed_account'
-      fill_in 'パスワード', with: 'pass'
     end
 
     scenario 'admin can edit a user' do
+      fill_in 'アカウント', with: 'renamed_account'
+      fill_in 'パスワード', with: 'pass'
       click_button '送信'
-      expect(page).to have_text('ユーザ情報を更新')
+      expect(page).to have_text('ユーザ情報を更新しました')
     end
 
     scenario 'admin can change a user to an admin user' do
       select '管理', from: 'user_role'
       click_button '送信'
-      expect(page).to have_text('ユーザ情報を更新')
+      expect(page).to have_text('ユーザ情報を更新しました')
+    end
+
+    scenario 'admin can modify a user with empty password' do
+      fill_in 'パスワード', with: ''
+      click_button '送信'
+
+      expect(page).to have_text('ユーザ情報を更新しました')
+      expect(page).to have_text('tadashi.toyokura')
+    end
+
+    scenario 'admin can not modify a user with empty account' do
+      fill_in 'アカウント', with: ''
+      click_button '送信'
+
+      expect(page).to have_text('アカウントを入力してください')
+    end
+
+    scenario 'admin can not modify a user with invalid account (length lt 4)' do
+      fill_in 'アカウント', with: 'aaa'
+      click_button '送信'
+
+      expect(page).to have_text('アカウントは4文字以上で入力してください')
+    end
+
+    scenario 'admin can not modify a user with invalid password (length lt 4)' do
+      fill_in 'パスワード', with: 'ppp'
+      click_button '送信'
+
+      expect(page).to have_text('パスワードは4文字以上で入力してください')
     end
   end
 
