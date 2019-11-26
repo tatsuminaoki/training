@@ -9,6 +9,9 @@
   <%= f.label :status %>
   <%= f.select :status, status_text.invert, {} %>
 
+  <%= f.label :due_date %>
+  <%= f.datetime_field :due_date %>
+
   <%= f.submit button_name %>
 
 <% end %>

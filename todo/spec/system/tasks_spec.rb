@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
+  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0, due_date: Time.zone.local(2020, 1, 1, 0, 0)) }
 
   it 'show tasks ordered by latest dates' do
     visit tasks_new_path
@@ -30,8 +30,10 @@ RSpec.describe 'Tasks', type: :system do
   it 'create new task' do
     visit tasks_new_path
 
+    time = Time.zone.local(2020, 10, 10, 10, 10)
     fill_in 'task_title', with: '新規タスク'
     fill_in 'task_description', with: '新規タスク詳細'
+    fill_in 'task_due_date', with: time
     select '着手', from: 'task_status'
 
     click_button '追加'
@@ -49,8 +51,10 @@ RSpec.describe 'Tasks', type: :system do
                                 selected: '未着手',
                                 options: %w[未着手 着手 完了]
 
+    time = Time.zone.local(2020, 10, 10, 10, 10)
     fill_in 'task_title', with: 'タスク１修正'
     fill_in 'task_description', with: 'タスク１詳細修正'
+    fill_in 'task_due_date', with: time
     select '完了', from: 'task_status'
 
     click_button '更新'
