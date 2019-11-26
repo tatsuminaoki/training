@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User management', type: :feature do
-  let!(:user) { create(:admin_user, account: 'tadashi.toyokura', password: 'password') }
+  let!(:admin_user) { create(:admin_user, account: 'tadashi.toyokura', password: 'password') }
 
   before do
     visit login_path
@@ -16,7 +16,7 @@ RSpec.feature 'User management', type: :feature do
     let!(:another_admin) { create(:admin_user) }
 
     before do
-      user.update(role: 'user')
+      admin_user.update(role: 'user')
       visit root_path
     end
 
@@ -26,7 +26,7 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_current_path(root_path)
       visit new_admin_user_path
       expect(page).to have_current_path(root_path)
-      visit edit_admin_user_path(user)
+      visit edit_admin_user_path(admin_user)
       expect(page).to have_current_path(root_path)
     end
   end
@@ -41,7 +41,7 @@ RSpec.feature 'User management', type: :feature do
     end
 
     scenario 'admin can not delete a last admin user' do
-      visit admin_user_path(user)
+      visit admin_user_path(admin_user)
       click_link '削除'
       expect(page).to have_text('管理ユーザは最低限一人必要です')
     end
@@ -49,17 +49,17 @@ RSpec.feature 'User management', type: :feature do
 
   feature 'detail' do
     before do
-      create(:task, name: "#{user.name}-task", user: user)
-      visit admin_user_path(user)
+      create(:task, name: "#{admin_user.name}-task", user: admin_user)
+      visit admin_user_path(admin_user)
     end
 
     scenario 'tasks in user detail page' do
-      expect(page).to have_text("#{user.name}-task")
+      expect(page).to have_text("#{admin_user.name}-task")
     end
 
     scenario 'can find user details in the detail page.' do
-      expect(page).to have_text(user.name)
-      expect(page).to have_text(user.account)
+      expect(page).to have_text(admin_user.name)
+      expect(page).to have_text(admin_user.account)
     end
   end
 
@@ -167,8 +167,8 @@ RSpec.feature 'User management', type: :feature do
       expect(page).to have_text('パスワードは4文字以上で入力してください')
     end
 
-    scenario 'only admin can not be a user' do
-      visit edit_admin_user_path(user)
+    scenario 'last admin can not be a normal user' do
+      visit edit_admin_user_path(admin_user)
       select '一般', from: 'user_role'
       click_button '送信'
 
