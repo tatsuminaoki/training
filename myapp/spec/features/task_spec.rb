@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
   let!(:user) { create(:user) }
+  let(:labels) { [] }
 
   before do
     visit login_path
@@ -13,6 +14,12 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'creation' do
+    before do
+      2.times do |index|
+        labels << create(:label, name: "label-#{index}")
+      end
+    end
+
     context 'with valid name (length le 50)' do
       scenario 'user can create a new task' do
         visit new_task_path
@@ -47,10 +54,37 @@ RSpec.feature 'Task', type: :feature do
         expect(page).to have_text('名前を入力してください')
       end
     end
+
+    context 'with labels' do
+      scenario 'user can create a new task with labels.' do
+        visit new_task_path
+        fill_in '名前', with: 'a'
+        check labels[0].name
+        check labels[1].name
+        click_button '送信'
+        expect(page).to have_text(labels[0].name)
+        expect(page).to have_text(labels[1].name)
+      end
+    end
   end
 
   feature 'modification' do
     let(:task) { create(:task, name: 'mytask-to-edit', description: 'description', status: 'todo', user: user) }
+
+    before do
+      2.times do |index|
+        labels << create(:label, name: "label-#{index}")
+      end
+    end
+
+    scenario 'user can add labels to a task.' do
+      visit edit_task_path(task)
+      check labels[0].name
+      check labels[1].name
+      click_button '送信'
+      expect(page).to have_text(labels[0].name)
+      expect(page).to have_text(labels[1].name)
+    end
 
     scenario 'user can edit a task' do
       visit edit_task_path(task)
@@ -68,6 +102,20 @@ RSpec.feature 'Task', type: :feature do
       fill_in '終了期限', with: (Date.tomorrow + 1).to_s
       click_button '送信'
       expect(page).to have_text('タスクが更新されました！')
+    end
+
+    scenario 'user can not edit a task with invalid name (empty string)' do
+      visit edit_task_path(task)
+      fill_in '名前', with: ''
+      click_button '送信'
+      expect(page).to have_text('名前を入力してください')
+    end
+
+    scenario 'user can not edit a task with invalid name (length over 50)' do
+      visit edit_task_path(task)
+      fill_in '名前', with: 'a' * 51
+      click_button '送信'
+      expect(page).to have_text('名前は50文字以内')
     end
   end
 

@@ -94,4 +94,41 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '#labels' do
+    let(:user) { create(:user) }
+    let(:task) { create(:task, name: 'task-name', user: user) }
+    let(:labels) { [] }
+
+    before do
+      2.times do |index|
+        labels << create(:label, name: "label-#{index}")
+      end
+    end
+
+    describe 'assign' do
+      let(:relations) { TaskLabel.where(task_id: task.id) }
+
+      before do
+        task.labels = labels
+      end
+
+      context 'when a task has labels.' do
+        it 'task and label relations should be existed.' do
+          expect(relations[0].task.id).to eq(task.id)
+          expect(relations[1].task.id).to eq(task.id)
+        end
+      end
+
+      context 'when a task deleted' do
+        before do
+          task.destroy
+        end
+
+        it 'task and label relations should not be existed.' do
+          expect(relations.length).to eq(0)
+        end
+      end
+    end
+  end
 end
