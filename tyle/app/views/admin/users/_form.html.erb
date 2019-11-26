@@ -6,7 +6,7 @@
     <div class="card-title text-center">
       <% if request.path_info == new_admin_user_path %>
         <%= t('operation.user-new-in-admin') %>
-      <% elsif %>
+      <% else %>
         <%= t('operation.user-edit') %>
       <% end %>
     </div>

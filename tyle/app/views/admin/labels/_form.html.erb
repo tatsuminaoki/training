@@ -6,7 +6,7 @@
     <div class="card-title text-center">
       <% if request.path_info == new_admin_label_path %>
         <%= t('operation.label-new') %>
-      <% elsif %>
+      <% else %>
         <%= t('operation.label-edit') %>
       <% end %>
     </div>

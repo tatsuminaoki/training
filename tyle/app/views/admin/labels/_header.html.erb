@@ -4,10 +4,8 @@
     <h1><%= t('operation.title_admin') %></h1>
     <div>
       <%= link_to t('button.index'), tasks_path %>
-      <% if @current_user.role == 'administrator' %>
-        <%= link_to t('button.user_page'), admin_users_path %>
-        <%= link_to t('button.label_page'), admin_labels_path %>
-      <% end %>
+      <%= link_to t('button.user_page'), admin_users_path %>
+      <%= link_to t('button.label_page'), admin_labels_path %>
       <% if request.path_info != new_admin_label_path %>
         <%= link_to t('button.label_add'), new_admin_label_path %>
       <% end %>

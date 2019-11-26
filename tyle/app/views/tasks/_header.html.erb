@@ -4,7 +4,7 @@
     <h1><%= t('operation.title_general') %></h1>
     <div>
       <%= link_to t('button.index'), tasks_path %>
-      <% if @current_user.role == 'administrator' %>
+      <% if @current_user.administrator? %>
         <%= link_to t('button.user_page'), admin_users_path %>
         <%= link_to t('button.label_page'), admin_labels_path %>
       <% end %>
