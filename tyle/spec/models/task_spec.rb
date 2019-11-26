@@ -6,21 +6,20 @@ RSpec.describe Task, type: :model do
   let(:admin_user) { create(:admin_user) }
 
   describe '#create' do
-    let(:task) { build(:task, { user_id: admin_user.id }) }
+    context 'with the correct parameters' do
+      let(:task) { build(:task, { user_id: admin_user.id }) }
 
-    before do
-      task.save
-    end
-
-    it 'successfully creates a task' do
-      expect(task).to be_valid
-      expect(task.errors.count).to eq(0)
+      it 'successfully creates a task' do
+        expect(task).to be_valid
+        expect(task.errors.count).to eq(0)
+      end
     end
 
     context 'without a name' do
       let(:task) { build(:task, { name: nil, user_id: admin_user.id }) }
 
       it 'shows the error message' do
+        expect(task).not_to be_valid
         expect(task.errors[:name]).to include('を入力してください')
       end
     end
@@ -29,6 +28,7 @@ RSpec.describe Task, type: :model do
       let(:task) { build(:task, { priority: nil, user_id: admin_user.id }) }
 
       it 'shows the error message' do
+        expect(task).not_to be_valid
         expect(task.errors[:priority]).to include('を入力してください')
       end
     end
@@ -37,6 +37,7 @@ RSpec.describe Task, type: :model do
       let(:task) { build(:task, { status: nil, user_id: admin_user.id }) }
 
       it 'shows the error message' do
+        expect(task).not_to be_valid
         expect(task.errors[:status]).to include('を入力してください')
       end
     end
@@ -45,6 +46,7 @@ RSpec.describe Task, type: :model do
       let(:task) { build(:task, { due: nil, user_id: admin_user.id }) }
 
       it 'shows the error message' do
+        expect(task).not_to be_valid
         expect(task.errors[:due]).to include('を入力してください')
       end
     end
