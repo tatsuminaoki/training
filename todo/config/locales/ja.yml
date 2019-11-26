@@ -20,3 +20,6 @@ ja:
         title: タスク名
         description: 詳細
         status: ステータス
+        due_date: 終了期限
+        created_at: 作成日
+        modified_at: 更新日

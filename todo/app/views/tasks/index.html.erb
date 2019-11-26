@@ -4,10 +4,18 @@
 
 <%= link_to 'Create New Task', tasks_new_path %>
 
+<div>
+  Sort by
+  <%= link_to t('activerecord.attributes.task.due_date'), sort: 'due_date' %> /
+  <%= link_to t('activerecord.attributes.task.created_at'), sort: 'created_at' %>
+</div>
+
 <% if @tasks.any? %>
 <ul>
   <% @tasks.each do |task| %>
-  <li><%= link_to task.title, tasks_show_path(task) %></li>
+  <li>
+    <%= link_to task.title, tasks_show_path(task) %>
+  </li>
   <% end %>
 </ul>
 <% end %>
