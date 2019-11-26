@@ -1,0 +1,8 @@
+ja:
+  signup: 'ユーザ登録'
+  logout: 'ログアウト'
+  logged_out: 'ログアウトしました'
+  login_as: 'ログイン中'
+  logged_in: 'ログイン成功しました'
+  login_failed_msg: 'アカウントかパスワードが間違っています'
+  login: 'ログイン'
