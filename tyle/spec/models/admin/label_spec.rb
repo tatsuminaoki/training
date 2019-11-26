@@ -11,7 +11,7 @@ RSpec.describe Label, type: :model do
     end
 
     context 'with the correct parameters' do
-      it 'successfully creates a task' do
+      it 'successfully creates a label' do
         expect(label).to be_valid
         expect(label.errors.count).to eq(0)
       end
@@ -22,6 +22,23 @@ RSpec.describe Label, type: :model do
 
       it 'shows the error message' do
         expect(label.errors[:name]).to include 'を入力してください'
+      end
+    end
+
+    context 'with name 8 length' do
+      let(:label) { build(:label, { name: 'a' * 8 }) }
+
+      it 'successfully create a label' do
+        expect(label).to be_valid
+        expect(label.errors.count).to eq(0)
+      end
+    end
+
+    context 'with name 9 length' do
+      let(:label) { build(:label, { name: 'a' * 9 }) }
+
+      it 'shows the error message' do
+        expect(label.errors[:name]).to include 'は8文字以内で入力してください'
       end
     end
   end
