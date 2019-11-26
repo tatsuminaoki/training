@@ -1,15 +1,15 @@
 ja:
   need_atleast_one_admin: 'これ以上管理ユーザを削除することができません'
-  user_tasks: "%{name}のタスク一覧"
+  user_task_list: "%{name}のタスク一覧"
   alert_admin: 'ただいま管理機能を実行しています'
   user_list: 'ユーザ一覧'
-  user_detail_header: "%{name}ユーザの詳細"
+  user_detail: "%{name}ユーザの詳細"
   user_deleted: 'ユーザを削除しました'
   user_updated: 'ユーザ情報を更新しました'
-  admin_user_new: '新規ユーザ作成'
-  admin_user_edit: 'ユーザ編集'
+  new_admin_user: '新規ユーザ作成'
+  edit_admin_user: 'ユーザ編集'
   admin_menu: '管理画面'
-  h1_new_user: '新しいユーザ'
+  new_user: '新しいユーザ'
   new_user_created: 'ユーザを作成しました'
   signup: 'ユーザ登録'
   logout: 'ログアウト'
@@ -20,20 +20,20 @@ ja:
   account: 'アカウント'
   password: 'パスワード'
   login: 'ログイン'
-  error_title: 'エラー'
+  error: 'エラー'
   can_not_save: '保存ができません'
   new_task_created: '新しいタスクを作成しました'
   task_updated: 'タスクを更新しました'
   task_deleted: 'タスクを削除しました'
-  h1_edit_task: 'タスク更新'
-  h1_index: 'タスク一覧'
-  h1_new: '新しいタスク'
-  link_back: 'タスク一覧に戻る'
-  link_detail: '詳細'
-  link_delete: '削除'
-  link_edit: '更新'
-  link_new: '登録'
-  detail_header: "%{name}タスクの詳細"
+  edit_task: 'タスク更新'
+  task_list: 'タスク一覧'
+  new_task: '新しいタスク'
+  back_to_task_list: 'タスク一覧に戻る'
+  detail: '詳細'
+  delete: '削除'
+  edit: '更新'
+  register: '登録'
+  task_detail: "%{name}タスクの詳細"
   functions: '操作'
   name: '名前'
   description: '説明'
@@ -44,8 +44,8 @@ ja:
   asc: '↑'
   desc: '↓'
   delete_confirm: '本当に削除しますか？'
-  form_submit: '送信'
-  form_btn_search: '検索'
+  submit: '送信'
+  search: '検索'
   task_table_caption: 'タスク一覧'
   helpers:
     label:

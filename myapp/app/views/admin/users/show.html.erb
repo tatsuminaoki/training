@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col">
-      <h1><%= t :user_detail_header, name: @user.name %></h1>
+      <h1><%= t :user_detail, name: @user.name %></h1>
     </div>
   </div>
 
@@ -27,8 +27,8 @@
 
         <dt class="col-sm-2"><%= t :functions %></dt>
         <dd class="col-sm-10">
-          <%= link_to "#{t :link_edit}", edit_admin_user_path(@user), class: 'btn btn-primary' %>
-          <%= link_to "#{t :link_delete}", admin_user_path(@user),
+          <%= link_to "#{t :edit}", edit_admin_user_path(@user), class: 'btn btn-primary' %>
+          <%= link_to "#{t :delete}", admin_user_path(@user),
                       class: 'btn btn-primary',
                       method: :delete,
                       data: { confirm: "#{t :delete_confirm}" } %>
@@ -46,7 +46,7 @@
 
   <div class="row mt-5">
     <div class="col">
-      <h2><%= t :user_tasks, name:@user.name %></h2>
+      <h2><%= t :user_task_list, name:@user.name %></h2>
     </div>
   </div>
 

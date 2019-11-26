@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <%= link_to t(:h1_index), tasks_path, class: 'btn btn-primary' %>
+      <%= link_to t(:task_list), tasks_path, class: 'btn btn-primary' %>
     </div>
   </div>
   
@@ -44,9 +44,9 @@
             <td><%= user.account %></td>
             <td><%= user.tasks.count %></td>
             <td><%= user.readable_role %></td>
-            <td><%= link_to "#{t :link_detail}", admin_user_path(user), class: 'btn btn-primary' %></td>
-            <td><%= link_to "#{t :link_edit}", edit_admin_user_path(user), class: 'btn btn-primary' %></td>
-            <td><%= link_to "#{t :link_delete}", admin_user_path(user),
+            <td><%= link_to "#{t :detail}", admin_user_path(user), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :edit}", edit_admin_user_path(user), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :delete}", admin_user_path(user),
                     class: 'btn btn-primary',
                     method: :delete,
                     data: { confirm: "#{t :delete_confirm}" } %></td>
@@ -59,7 +59,7 @@
 
   <div class="row">
     <div class="col">
-      <%= link_to "#{t :link_new}", new_admin_user_path, class: 'btn btn-primary' %>
+      <%= link_to "#{t :register}", new_admin_user_path, class: 'btn btn-primary' %>
     </div>
   </div>
 
