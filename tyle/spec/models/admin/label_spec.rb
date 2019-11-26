@@ -4,13 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Label, type: :model do
   describe '#create' do
-    let(:label) { create(:label) }
-
-    before do
-      label.save
-    end
-
     context 'with the correct parameters' do
+      let(:label) { build(:label) }
+
       it 'successfully creates a label' do
         expect(label).to be_valid
         expect(label.errors.count).to eq(0)
@@ -21,6 +17,7 @@ RSpec.describe Label, type: :model do
       let(:label) { build(:label, { name: nil }) }
 
       it 'shows the error message' do
+        expect(label).not_to be_valid
         expect(label.errors[:name]).to include 'を入力してください'
       end
     end
@@ -38,6 +35,7 @@ RSpec.describe Label, type: :model do
       let(:label) { build(:label, { name: 'a' * 9 }) }
 
       it 'shows the error message' do
+        expect(label).not_to be_valid
         expect(label.errors[:name]).to include 'は8文字以内で入力してください'
       end
     end
