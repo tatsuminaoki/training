@@ -1,24 +1,33 @@
 ja:
+  user_tasks: "%{name}のタスク一覧"
+  alert_admin: 'ただいま管理機能を実行しています'
+  user_list: 'ユーザ一覧'
+  user_detail_header: "%{name}ユーザの詳細"
+  user_deleted: 'ユーザを削除しました'
+  user_updated: 'ユーザ情報を更新しました'
+  admin_user_new: '新規ユーザ作成'
+  admin_user_edit: 'ユーザ編集'
+  admin_menu: '管理画面'
   h1_new_user: '新しいユーザ'
   new_user_created: 'ユーザを作成しました'
   signup: 'ユーザ登録'
   logout: 'ログアウト'
   logged_out: 'ログアウトしました'
   login_as: 'ログイン中'
-  logged_in: 'ログイン成功！'
+  logged_in: 'ログイン成功しました'
   login_failed_msg: 'アカウントかパスワードが間違っています'
   account: 'アカウント'
   password: 'パスワード'
   login: 'ログイン'
   error_title: 'エラー'
-  error_explanation: '保存ができません！'
-  new_task_created: '新しいタスクが作成されました！'
-  task_updated: 'タスクが更新されました！'
-  task_deleted: 'タスクを削除しました！'
+  can_not_save: '保存ができません'
+  new_task_created: '新しいタスクを作成しました'
+  task_updated: 'タスクを更新しました'
+  task_deleted: 'タスクを削除しました'
   h1_edit_task: 'タスク更新'
   h1_index: 'タスク一覧'
   h1_new: '新しいタスク'
-  link_back: '一覧に戻る'
+  link_back: 'タスク一覧に戻る'
   link_detail: '詳細'
   link_delete: '削除'
   link_edit: '更新'
@@ -43,6 +52,12 @@ ja:
         description: '説明'
         status: 'ステータス'
         deadline: '終了期限'
+      user:
+        account: 'アカウント'
+        name: 'ユーザ名（表示用）'
+        password: 'パスワード'
+        tasks:
+          count: 'タスク数'
   activerecord:
     attributes:
       task:

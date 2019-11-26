@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1><%= t :admin_user_new %></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+    <%= render partial: 'form', locals: {user: @user, url: admin_users_path} %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+    <%= link_to "#{t :user_list}", admin_users_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

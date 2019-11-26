@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= link_to t(:h1_index), tasks_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+  
+  <div class="row mt-5">
+    <div class="col">
+      <h1><%= t :user_list %></h1>
+    </div>
+    <div class="col">
+    <% if current_user %>
+      <%= t :login_as %>:<%= current_user.name %>
+    <% end %>
+    </div>
+    <div class="col">
+      <%= link_to t(:logout), logout_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <% if flash[:message].present? %>
+      <div class="alert alert-success" role="alert"><%= flash[:message] %></div>
+      <% end %>
+      <table class="table table-striped table-bordered table-hover table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col"><%= t('helpers.label.user.name') %></th>
+            <th scope="col"><%= t('helpers.label.user.account') %></th>
+            <th scope="col"><%= t('helpers.label.user.tasks.count') %></th>
+            <th scope="col" colspan="3"></th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= user.name %></td>
+            <td><%= user.account %></td>
+            <td><%= user.tasks.count %></td>
+            <td><%= link_to "#{t :link_detail}", admin_user_path(user), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :link_edit}", edit_admin_user_path(user), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :link_delete}", admin_user_path(user),
+                    class: 'btn btn-primary',
+                    method: :delete,
+                    data: { confirm: "#{t :delete_confirm}" } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to "#{t :link_new}", new_admin_user_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <%= paginate @users %>
+    </div>
+  </div>
+</div>

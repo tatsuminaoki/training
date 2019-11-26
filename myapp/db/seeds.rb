@@ -5,7 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.new(name: 'first user', password: '', password_confirmation: 'nomatch')
-user.password = 'password'
-user.password_confirmation = 'password'
-user.save!
+
+user1 = User.create(name: 'name1', account: 'account1', password: 'pass')
+user2 = User.create(name: 'name2', account: 'account2', password: 'pass')
+user3 = User.create(name: 'name3', account: 'account3', password: 'pass')
+
+5.times do |index|
+  user1.tasks.create(name: "#{user1.name}-todo#{index}")
+  user2.tasks.create(name: "#{user2.name}-todo#{index}")
+  user3.tasks.create(name: "#{user3.name}-todo#{index}")
+end
+
+5.times do |index|
+  user1.tasks.create(name: "#{user1.name}-done#{index}", status: 'done')
+  user2.tasks.create(name: "#{user2.name}-done#{index}", status: 'done')
+  user3.tasks.create(name: "#{user3.name}-done#{index}", status: 'done')
+end

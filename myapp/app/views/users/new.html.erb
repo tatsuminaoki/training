@@ -12,7 +12,7 @@
         <div class='alert alert-warning' role='alert'>
           <h2>
             <%= pluralize(@user.errors.count, "#{t :error_title}") %>
-            <%= t :error_explanation %>
+            <%= t :can_not_save %>
           </h2>
           <ul>
             <% @user.errors.full_messages.each do |msg| %>
@@ -34,7 +34,7 @@
     
       <div class="form-group">
         <%= form.label :password %>
-        <%= form.text_field :password %>
+        <%= form.password_field :password %>
       </div>
     
       <%= form.submit t(:form_submit), class: 'btn btn-primary' %>

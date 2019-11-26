@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% if flash[:message].present? %>
+      <div class="alert alert-success"><%= flash[:message] %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h1><%= t :user_detail_header, name: @user.name %></h1>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <dl class="row">
+        <dt class="col-sm-2"><%= t :name %></dt>
+        <dd class="col-sm-10"><%= @user.name %></dd>
+
+        <dt class="col-sm-2"><%= t('helpers.label.user.account') %></dt>
+        <dd class="col-sm-10"><%= @user.account %></dd>
+
+        <dt class="col-sm-2"><%= t :functions %></dt>
+        <dd class="col-sm-10">
+          <%= link_to "#{t :link_edit}", edit_admin_user_path(@user), class: 'btn btn-primary' %>
+          <%= link_to "#{t :link_delete}", admin_user_path(@user),
+                      class: 'btn btn-primary',
+                      method: :delete,
+                      data: { confirm: "#{t :delete_confirm}" } %>
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+    <%= link_to "#{t :user_list}", admin_users_path, class: 'btn btn-primary' %>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <h2><%= t :user_tasks, name:@user.name %></h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped table-bordered table-hover table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col"><%= t :name %></th>
+            <th scope="col"><%= t :description %></th>
+            <th scope="col"><%= t :status %></th>
+            <th scope="col"><%= t :deadline %></th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <% @tasks.each_with_index do |task, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.readable_status %></td>
+            <td><%= task.readable_deadline %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @tasks %>
+    </div>
+  </div>
+</div>
