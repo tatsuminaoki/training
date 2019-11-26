@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Admin::UsersController, type: :controller do
   render_views
 
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
   let(:task) { create(:task, { user_id: user.id }) }
   let(:params) do
     {
@@ -149,7 +149,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'when user destroys another user' do
-      let(:user2) { create(:user2) }
+      let(:user2) { create(:user) }
 
       it 'returns the redirect to the index page' do
         delete :destroy, params: { id: user2.id }

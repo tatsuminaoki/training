@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
 
   # login
   before do

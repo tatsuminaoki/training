@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
 
   describe '#create' do
     let(:task) { build(:task, { user_id: user.id }) }

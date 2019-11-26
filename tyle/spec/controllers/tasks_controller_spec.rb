@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
   let(:task) { create(:task, { user_id: user.id }) }
 
   context 'user_log_in' do

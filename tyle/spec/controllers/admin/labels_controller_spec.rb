@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Admin::LabelsController, type: :controller do
   render_views
 
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
   let!(:label) { create(:label) }
 
   # login

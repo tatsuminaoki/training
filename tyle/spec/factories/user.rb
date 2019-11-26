@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user do
+  factory :admin_user, class: User do
     id { 1 }
     name { 'user1' }
     login_id { 'id1' }
@@ -7,7 +7,7 @@ FactoryBot.define do
     role { 1 }
   end 
 
-  factory :user2, class: User do
+  factory :user do
     id { 2 }
     name { 'user2' }
     login_id { 'id2' }

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :system do
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
   before do
     create(:task, { user_id: user.id })
   end

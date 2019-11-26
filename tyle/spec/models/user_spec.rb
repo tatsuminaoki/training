@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#create' do
-    let(:user) { create(:user) }
+    let(:user) { create(:admin_user) }
 
     before do
       user.save

@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'AdminUsers', type: :system do
-  let(:user) { create(:user) }
-  let!(:user2) { create(:user2) }
+  let(:user) { create(:admin_user) }
+  let!(:user2) { create(:user) }
 
   before do
     create(:task, user_id: user.id)

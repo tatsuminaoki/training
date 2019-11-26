@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'AdminLabels', type: :system do
-  let(:user) { create(:user) }
+  let(:user) { create(:admin_user) }
   let!(:label) { create(:label) }
 
   before do

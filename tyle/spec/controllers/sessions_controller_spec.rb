@@ -12,7 +12,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:user) { create(:user) }
+    let(:user) { create(:admin_user) }
     let(:params) do
       { session: { login_id: user.login_id, password: 'password1' } }
     end
@@ -42,7 +42,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:user) { create(:user) }
+    let(:user) { create(:admin_user) }
     let(:params) do
       { session: { login_id: user.login_id, password: 'password1' } }
     end
