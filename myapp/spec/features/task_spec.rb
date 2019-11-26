@@ -86,6 +86,23 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text(labels[1].name)
     end
 
+    feature 'edit labels' do
+      let!(:new_label) { create(:label, name: 'label-new') }
+
+      before do
+        task.labels = labels
+      end
+
+      scenario 'user can change labels of a task' do
+        visit edit_task_path(task)
+        check new_label.name
+        uncheck labels[0].name
+        click_button '送信'
+        expect(page).to_not have_text(labels[0].name)
+        expect(page).to have_text(new_label.name)
+      end
+    end
+
     scenario 'user can edit a task' do
       visit edit_task_path(task)
       name_edited = 'mytask-spec-edited'
@@ -184,6 +201,14 @@ RSpec.feature 'Task', type: :feature do
     let!(:todo_task2) { create(:task, name: 'task2-todo', description: 'tmp', status: 'todo', user: user) }
     let!(:done_task1) { create(:task, name: 'task1-done', description: 'tmp', status: 'done', user: user) }
 
+    before do
+      2.times do |index|
+        labels << create(:label, name: "label-#{index}")
+      end
+      todo_task1.labels = [labels[0]]
+      todo_task2.labels = [labels[1]]
+    end
+
     context 'with status' do
       scenario 'user can search tasks' do
         visit root_path
@@ -206,11 +231,24 @@ RSpec.feature 'Task', type: :feature do
       end
     end
 
-    context 'with name and status' do
+    context 'with labels' do
+      scenario 'user can search tasks' do
+        visit root_path
+        check labels[0].name
+        check labels[1].name
+        click_button '検索'
+        expect(page).to have_text(todo_task1.name)
+        expect(page).to have_text(todo_task2.name)
+        expect(page).not_to have_text(done_task1.name)
+      end
+    end
+
+    context 'with name ,status and a label' do
       scenario 'user can search tasks' do
         visit root_path
         fill_in 'name', with: '1-todo'
         select '未着手', from: 'status'
+        check todo_task1.labels.first.name
         click_button '検索'
         expect(page).not_to have_text(done_task1.name)
         expect(page).to have_text(todo_task1.name)
@@ -221,9 +259,11 @@ RSpec.feature 'Task', type: :feature do
         visit root_path
         fill_in 'name', with: 'no-task-found-name'
         select '進行中', from: 'status'
+        check labels[0].name
         click_button '検索'
         expect(page).to have_selector('input[value=no-task-found-name]')
         expect(page).to have_selector('option[selected=selected][value=processing]')
+        expect(page).to have_selector("input[type=checkbox][id=#{labels[0].name}]")
       end
     end
   end
