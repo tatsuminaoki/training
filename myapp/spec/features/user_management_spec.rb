@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User management', type: :feature do
-  let!(:user) { create(:user, account: 'tadashi.toyokura', password: 'password', role: 'admin') }
+  let!(:user) { create(:admin_user, account: 'tadashi.toyokura', password: 'password') }
 
   before do
     visit login_path
@@ -12,7 +12,9 @@ RSpec.feature 'User management', type: :feature do
     click_button 'ログイン'
   end
 
-  feature 'role is user' do
+  feature 'normal user' do
+    let!(:another_admin) { create(:admin_user) }
+
     before do
       user.update(role: 'user')
       visit root_path
@@ -41,7 +43,7 @@ RSpec.feature 'User management', type: :feature do
     scenario 'admin can not delete a last admin user' do
       visit admin_user_path(user)
       click_link '削除'
-      expect(page).to have_text('これ以上管理ユーザを削除することができません')
+      expect(page).to have_text('管理ユーザは最低限一人必要です')
     end
   end
 
@@ -117,8 +119,10 @@ RSpec.feature 'User management', type: :feature do
   end
 
   feature 'modification' do
+    let!(:another_user) { create(:user, name: 'another_user', account: 'another-account') }
+
     before do
-      visit edit_admin_user_path(user)
+      visit edit_admin_user_path(another_user)
     end
 
     scenario 'admin can edit a user' do
@@ -139,7 +143,7 @@ RSpec.feature 'User management', type: :feature do
       click_button '送信'
 
       expect(page).to have_text('ユーザ情報を更新しました')
-      expect(page).to have_text('tadashi.toyokura')
+      expect(page).to have_text(another_user.name)
     end
 
     scenario 'admin can not modify a user with empty account' do
@@ -161,6 +165,14 @@ RSpec.feature 'User management', type: :feature do
       click_button '送信'
 
       expect(page).to have_text('パスワードは4文字以上で入力してください')
+    end
+
+    scenario 'only admin can not be a user' do
+      visit edit_admin_user_path(user)
+      select '一般', from: 'user_role'
+      click_button '送信'
+
+      expect(page).to have_text('管理ユーザは最低限一人必要です')
     end
   end
 
