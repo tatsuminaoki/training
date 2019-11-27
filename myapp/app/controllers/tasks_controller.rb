@@ -16,7 +16,6 @@ class TasksController < ApplicationController
   def create
     @task = @user.tasks.new(task_params)
     if @task.save
-      @task.labels = Label.where(id: task_params[:label_ids]) if task_params[:label_ids].any?(&:present?)
       flash[:message] = t :new_task_created
       redirect_to @task
     else
