@@ -3,22 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:admin_user) { create(:admin_user) }
+  let(:user) { create(:user) }
 
   # login
   before do
     visit login_path
-    fill_in 'session_login_id', with: admin_user.login_id
-    fill_in 'session_password', with: 'password1'
+    fill_in 'session_login_id', with: user.login_id
+    fill_in 'session_password', with: 'password2'
     click_on 'ログイン'
     expect(page).to have_content 'ログアウト'
   end
 
   describe 'views' do
-    let!(:task) { create(:task, { user_id: admin_user.id }) }
+    let!(:task) { create(:task, { user_id: user.id }) }
     before do
-      create(:task2, { user_id: admin_user.id })
-      create(:task3, { user_id: admin_user.id })
+      create(:task2, { user_id: user.id })
+      create(:task3, { user_id: user.id })
     end
 
     context 'visit tasks_path' do
@@ -132,9 +132,9 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'ordering' do
     before do
-      create(:task, { user_id: admin_user.id, created_at: 2.days.ago })
-      create(:task2, { user_id: admin_user.id, created_at: 1.day.ago })
-      create(:task3, { user_id: admin_user.id })
+      create(:task, { user_id: user.id, created_at: 2.days.ago })
+      create(:task2, { user_id: user.id, created_at: 1.day.ago })
+      create(:task3, { user_id: user.id })
     end
 
     context 'visit tasks_path' do
@@ -178,13 +178,13 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'search' do
-    let(:task) { create(:task, { user_id: admin_user.id, created_at: 2.days }) }
-    let(:task2) { create(:task2, { user_id: admin_user.id, created_at: 1.day }) }
+    let(:task) { create(:task, { user_id: user.id, created_at: 2.days }) }
+    let(:task2) { create(:task2, { user_id: user.id, created_at: 1.day }) }
     let(:label) { create(:label) }
     let(:label2) { create(:label2) }
 
     before do
-      create(:task3, { user_id: admin_user.id })
+      create(:task3, { user_id: user.id })
 
       task.task_labels.create!(label_id: label.id)
       task2.task_labels.create!(label_id: label2.id)

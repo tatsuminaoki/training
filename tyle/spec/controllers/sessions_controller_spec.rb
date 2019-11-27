@@ -12,9 +12,9 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:admin_user) { create(:admin_user) }
+    let(:user) { create(:user) }
     let(:params) do
-      { session: { login_id: admin_user.login_id, password: 'password1' } }
+      { session: { login_id: user.login_id, password: 'password2' } }
     end
 
     it 'successfully login' do
@@ -24,7 +24,7 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to redirect_to(root_path)
 
       # Does the appropriate user log-in?
-      expect(User.find_by(remember_token: User.encrypt(cookies.permanent[:user_remember_token])).id).to eq(admin_user.id)
+      expect(User.find_by(remember_token: User.encrypt(cookies.permanent[:user_remember_token])).id).to eq(user.id)
     end
 
     context 'with a wrong password' do
@@ -42,9 +42,9 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:admin_user) { create(:admin_user) }
+    let(:user) { create(:user) }
     let(:params) do
-      { session: { login_id: admin_user.login_id, password: 'password1' } }
+      { session: { login_id: user.login_id, password: 'password2' } }
     end
 
     before do
@@ -52,7 +52,7 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     it 'successfully deletes the session' do
-      delete :destroy, params: { id: admin_user.id }
+      delete :destroy, params: { id: user.id }
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(login_path)
 
