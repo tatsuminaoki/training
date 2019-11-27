@@ -3,17 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0) }
+  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0, due_date: Time.zone.local(2020, 1, 1, 0, 0)) }
 
-  it 'show tasks ordered by latest dates' do
+  it 'show tasks ordered by sort link' do
     visit tasks_new_path
     fill_in 'task_title', with: 'first'
+    fill_in 'task_due_date', with: Time.zone.local(2021, 1, 1, 0, 0)
     click_button '追加'
 
     visit tasks_new_path
     fill_in 'task_title', with: 'second'
+    fill_in 'task_due_date', with: Time.zone.local(2020, 1, 1, 0, 0)
     click_button '追加'
 
+    within('ul') do
+      expect(page.text).to match(/second\nfirst/)
+    end
+
+    click_link '終了期限'
+    sleep(0.5)
+    within('ul') do
+      expect(page.text).to match(/first\nsecond/)
+    end
+
+    click_link '作成日'
+    sleep(0.5)
     within('ul') do
       expect(page.text).to match(/second\nfirst/)
     end

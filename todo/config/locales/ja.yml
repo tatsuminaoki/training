@@ -12,6 +12,7 @@ ja:
         blank: を入力してください
         too_long: が長すぎます
         inclusion: は対象外の値です
+        past_time: 過去の日付は使えません
     models:
       task: タスク
     attributes:
@@ -19,3 +20,6 @@ ja:
         title: タスク名
         description: 詳細
         status: ステータス
+        due_date: 終了期限
+        created_at: 作成日
+        modified_at: 更新日

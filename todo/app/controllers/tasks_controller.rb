@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/
   def index
-    @tasks = Task.all.order('created_at DESC')
+    @tasks = Task.all.order(sort_column => :desc)
   end
 
   # DELETE /task/:id
@@ -48,6 +48,10 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :status)
+    params.require(:task).permit(:title, :description, :status, :due_date)
+  end
+
+  def sort_column
+    params.key?(:sort) ? params[:sort] : :created_at
   end
 end

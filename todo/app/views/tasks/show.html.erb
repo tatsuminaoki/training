@@ -1,10 +1,12 @@
 <h1><%= @task.title %></h1>
 
 <dl>
-  <dt>説明</dt>
+  <dt><%= t('activerecord.attributes.task.description') %></dt>
   <dd><%= @task.description %></dd>
-  <dt>ステータス</dt>
+  <dt><%= t('activerecord.attributes.task.status') %></dt>
   <dd><%= status_text[@task.status] %></dd>
+  <dt><%= t('activerecord.attributes.task.due_date') %></dt>
+  <dd><%= @task.due_date %></dd>
 </dl>
 
 <%= link_to t('link.back'), tasks_path %>
