@@ -33,5 +33,14 @@
     <%= form.text_field :deadline, class: 'datepicker' %>
   </div>
 
+  <div class="form-group">
+    <%= collection_check_boxes(:task, :label_ids, labels, :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+      <%= b.check_box(class: 'form-check-input') %>
+      <%= b.label(class: 'form-check-label') %>
+      </div>
+    <% end %>
+  </div>
+
   <%= form.submit t(:form_submit), class: 'btn btn-primary' %>
 <% end %>

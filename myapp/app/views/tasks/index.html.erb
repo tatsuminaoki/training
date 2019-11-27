@@ -31,6 +31,16 @@
       <%= label_tag t :status %>
       <%= select_tag :status, options_for_select(Task.readable_statuses, params[:status]), { include_blank: true, class: 'form-control' } %>
       </div>
+
+      <div class="form-group">
+      <% @labels.each do |label| %>
+        <div class="form-check form-check-inline">
+          <%= check_box_tag 'label_ids[]', label.id, (params[:label_ids]&.include? label.id.to_s), class: 'form-check-input', id: label.name %>
+          <%= label_tag label.name, nil, class: 'form-check-label' %>
+        </div>
+      <% end %>
+      </div>
+
       <%= submit_tag t(:form_btn_search), class: 'btn btn-primary', name: '' %>
     <% end %>
     </div>
@@ -51,6 +61,7 @@
             <th scope="col"><%= t :description %></th>
             <th scope="col"><%= t :status %></th>
             <th scope="col"><%= link_sort_by params, :deadline %></th>
+            <th scope="col"><%= t :labels %></th>
             <th scope="col" colspan="3"></th>
           </tr>
         </thead>
@@ -63,6 +74,11 @@
             <td><%= task.description %></td>
             <td><%= task.readable_status %></td>
             <td><%= task.readable_deadline %></td>
+            <td>
+              <% task.labels.each do |label| %>
+                <%= label.name %>
+              <% end %>
+            </td>
             <td><%= link_to "#{t :link_detail}", task_path(task), class: 'btn btn-primary' %></td>
             <td><%= link_to "#{t :link_edit}", edit_task_path(task), class: 'btn btn-primary' %></td>
             <td><%= link_to "#{t :link_delete}", task_path(task),
