@@ -21,6 +21,7 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     click_link '終了期限'
+    sleep(0.5)
     within('ul') do
       expect(page.text).to match(/first\nsecond/)
     end
