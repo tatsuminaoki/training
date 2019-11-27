@@ -54,4 +54,42 @@ RSpec.describe Task, type: :model do
       it { expect(subject).to_not be_valid }
     end
   end
+
+  describe 'when search' do
+    let!(:task1) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0, due_date: Time.zone.local(2020, 1, 1, 0, 0)) }
+    let!(:task2) { Task.create(title: 'タスク２', description: 'タスク２詳細', status: 1, due_date: Time.zone.local(2021, 1, 1, 0, 0)) }
+    let(:sort_column) { :due_date }
+
+    context 'find' do
+      it 'with a title' do
+        tasks = Task.search({ title: 'タスク２', status: nil }, sort_column)
+        expect(tasks.size).to eq(1)
+        expect(tasks).to include(task2)
+      end
+
+      it 'with a status' do
+        tasks = Task.search({ title: nil, status: 1 }, sort_column)
+        expect(tasks.size).to eq(1)
+        expect(tasks).to include(task2)
+      end
+
+      it 'with no conditions' do
+        tasks = Task.search({ title: nil, status: nil }, sort_column)
+        expect(tasks.size).to eq(2)
+        expect(tasks).to include(task1, task2)
+      end
+    end
+
+    context 'not find' do
+      it 'with a title' do
+        tasks = Task.search({ title: 'タスク３', status: nil }, sort_column)
+        expect(tasks.size).to eq(0)
+      end
+
+      it 'with a status' do
+        tasks = Task.search({ title: nil, status: 2 }, sort_column)
+        expect(tasks.size).to eq(0)
+      end
+    end
+  end
 end
