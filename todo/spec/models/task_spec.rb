@@ -33,20 +33,20 @@ RSpec.describe Task, type: :model do
   describe 'when not valid' do
     context 'without a title' do
       let(:title) { nil }
-      it { expect(subject).to_not be_valid }
+      it { expect(subject).not_to be_valid }
     end
 
     context 'without a status' do
       let(:status) { nil }
-      it { expect(subject).to_not be_valid }
+      it { expect(subject).not_to be_valid }
 
       let(:status) { 4 }
-      it { expect(subject).to_not be_valid }
+      it { expect(subject).not_to be_valid }
     end
 
     context 'with a title over max length' do
       let(:title) { 'a' * 251 }
-      it { expect(subject).to_not be_valid }
+      it { expect(subject).not_to be_valid }
     end
 
     context 'with a past due_date' do
