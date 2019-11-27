@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   before do
     driven_by(:rack_test)
-    @user = create(:user)
+    create_list(:user, 10)
+    @user = create(:admin_user)
+    @general_user = create(:user)
     @task = create_list(:task, 10, user_id: @user.id)
     login(@user)
   end
@@ -44,18 +46,9 @@ RSpec.describe "Users", type: :system do
     end
   end
 
-  context 'When a user deletes the other user on user list page' do
-    it 'Success to delete user' do
-      visit admin_users_path
-      click_on 'user_delete'
-
-      expect(page).to have_content '削除しました。'
-    end
-  end
-
   context 'When a user deletes the other user on user detail page' do
     it 'Success to delete user' do
-      visit admin_user_path(@user.id)
+      visit admin_user_path(@general_user.id)
       click_on 'user_delete'
 
       expect(page).to have_content '削除しました。'
@@ -105,6 +98,21 @@ RSpec.describe "Users", type: :system do
       expect(page).to have_content '更新に失敗しました。もう一度お試しください。'
       expect(page).to have_content '2件のエラーがあります。'
       expect(page).to have_content 'メールアドレスを入力してください'
+    end
+
+    it 'Fail to delete a user because he is the only one admin user' do
+      visit admin_user_path(@user.id)
+      click_on 'user_delete'
+      expect(page).to have_content '削除に失敗しました。もう一度お試しください。'
+    end
+
+    it 'Fail to update the role of user because he is the only one admin user' do
+      visit edit_admin_user_path(@user.id)
+      select '一般', from: '権限'
+      click_on '更新する'
+      expect(page).to have_content '更新に失敗しました。もう一度お試しください。'
+      expect(page).to have_content '1件のエラーがあります。'
+      expect(page).to have_content '権限は変更できません'
     end
   end
 end

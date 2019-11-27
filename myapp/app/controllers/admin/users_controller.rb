@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :is_admin_user
   helper_method :sort_column, :sort_direction
   PER = 20
 
@@ -38,6 +39,11 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :role)
+  end
+
+  def is_admin_user
+    user = User.find(@current_user.user_id)
+    redirect_to tasks_path unless user.admin?
   end
 end

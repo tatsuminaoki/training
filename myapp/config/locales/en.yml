@@ -25,6 +25,7 @@ en:
     update:
       success: 'Task is updated successfully.'
       fail: 'Failed to update task. Please try again.'
+      change: 'cannot be changed.'
     remove:
       success: 'Task is deleted successfully.'
       fail: 'Failed to delete task. Please try again.'
