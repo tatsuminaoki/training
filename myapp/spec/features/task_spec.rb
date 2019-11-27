@@ -4,7 +4,12 @@ require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
   let!(:user) { create(:user) }
-  let(:labels) { [] }
+  let!(:labels) do
+    2.times do |index|
+      create(:label, name: "label-#{index}")
+    end
+    Label.all
+  end
 
   before do
     visit login_path
@@ -14,12 +19,6 @@ RSpec.feature 'Task', type: :feature do
   end
 
   feature 'creation' do
-    before do
-      2.times do |index|
-        labels << create(:label, name: "label-#{index}")
-      end
-    end
-
     context 'with valid name (length le 50)' do
       scenario 'user can create a new task' do
         visit new_task_path
@@ -70,12 +69,6 @@ RSpec.feature 'Task', type: :feature do
 
   feature 'modification' do
     let(:task) { create(:task, name: 'mytask-to-edit', description: 'description', status: 'todo', user: user) }
-
-    before do
-      2.times do |index|
-        labels << create(:label, name: "label-#{index}")
-      end
-    end
 
     scenario 'user can add labels to a task.' do
       visit edit_task_path(task)
@@ -202,9 +195,6 @@ RSpec.feature 'Task', type: :feature do
     let!(:done_task1) { create(:task, name: 'task1-done', description: 'tmp', status: 'done', user: user) }
 
     before do
-      2.times do |index|
-        labels << create(:label, name: "label-#{index}")
-      end
       todo_task1.labels = [labels[0]]
       todo_task2.labels = [labels[1]]
     end

@@ -34,12 +34,12 @@
   </div>
 
   <div class="form-group">
-  <% labels.each do |label| %>
-    <div class="form-check form-check-inline">
-      <%= check_box_tag 'task[label_ids][]', label.id, (task.labels.ids.include? label.id), class: 'form-check-input', id: label.name %>
-      <%= label_tag label.name, nil, class: 'form-check-label' %>
-    </div>
-  <% end %>
+    <%= collection_check_boxes(:task, :label_ids, labels, :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+      <%= b.check_box(class: 'form-check-input') %>
+      <%= b.label(class: 'form-check-label') %>
+      </div>
+    <% end %>
   </div>
 
   <%= form.submit t(:submit), class: 'btn btn-primary' %>
