@@ -1,5 +1,5 @@
 ja:
-  need_atleast_one_admin: 'これ以上管理ユーザを削除することができません'
+  need_atleast_one_admin: '管理ユーザは最低限一人必要です'
   user_task_list: "%{name}のタスク一覧"
   user_list: 'ユーザ一覧'
   user_detail: "%{name}ユーザの詳細"
