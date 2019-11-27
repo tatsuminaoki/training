@@ -14,7 +14,7 @@ RSpec.describe SessionsController, type: :controller do
   describe 'POST #create' do
     let(:user) { create(:user) }
     let(:params) do
-      { session: { login_id: user.login_id, password: 'password1' } }
+      { session: { login_id: user.login_id, password: 'password2' } }
     end
 
     it 'successfully login' do
@@ -44,7 +44,7 @@ RSpec.describe SessionsController, type: :controller do
   describe 'DELETE #destroy' do
     let(:user) { create(:user) }
     let(:params) do
-      { session: { login_id: user.login_id, password: 'password1' } }
+      { session: { login_id: user.login_id, password: 'password2' } }
     end
 
     before do

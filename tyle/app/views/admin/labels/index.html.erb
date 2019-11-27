@@ -1,0 +1,28 @@
+<%= render 'header' %>
+
+<!-- labels -->
+<div class="card col-md-9">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.label-list') %>
+    </div>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th><%= t('activerecord.attributes.label.name') %></th>
+          <th><%= t('activerecord.attributes.label.created_at') %></th>
+          <th><%= t('button.detail') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @labels.each do |label| %>
+          <tr>
+            <td class="label-name"><%= label.name %></td>
+            <td class="label-created_at"><%= I18n.l(label.created_at) %></td>
+            <td><%= link_to t('button.detail'), admin_label_path(label.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

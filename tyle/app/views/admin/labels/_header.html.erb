@@ -6,8 +6,8 @@
       <%= link_to t('button.index'), tasks_path %>
       <%= link_to t('button.user_page'), admin_users_path %>
       <%= link_to t('button.label_page'), admin_labels_path %>
-      <% if request.path_info != new_admin_user_path %>
-        <%= link_to t('button.user_add'), new_admin_user_path %>
+      <% if request.path_info != new_admin_label_path %>
+        <%= link_to t('button.label_add'), new_admin_label_path %>
       <% end %>
     </div>
     <div>
@@ -29,11 +29,11 @@
   </div>
 <% end %>
 
-<!-- flash message(warning) -->
+<!-- flash message(danger) -->
 <% if flash[:warning] %>
   <div class="card col-md-9">
     <div class="card-body">
-      <div class="alert alert-warning">
+      <div class="alert alert-danger">
         <% if flash[:warning] %>
           <%= flash[:warning] %>
         <% end %>

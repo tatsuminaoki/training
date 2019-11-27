@@ -4,21 +4,21 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#create' do
-    let(:user) { create(:user) }
 
-    before do
-      user.save
-    end
+    context 'with the correct parameters' do
+      let(:user) { build(:user) }
 
-    it 'successfully creates a task' do
-      expect(user).to be_valid
-      expect(user.errors.count).to eq(0)
+      it 'successfully creates a task' do
+        expect(user).to be_valid
+        expect(user.errors.count).to eq(0)
+      end
     end
 
     context 'without a name' do
       let(:user) { build(:user, { name: nil }) }
 
       it 'shows the error message' do
+        expect(user).not_to be_valid
         expect(user.errors[:name]).to include 'を入力してください'
       end
     end
@@ -27,6 +27,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { login_id: nil }) }
 
       it 'shows the error message' do
+        expect(user).not_to be_valid
         expect(user.errors[:login_id]).to include 'を入力してください'
       end
     end
@@ -35,6 +36,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { password: nil }) }
 
       it 'shows the error message' do
+        expect(user).not_to be_valid
         expect(user.errors[:password]).to include 'を入力してください'
       end
     end
@@ -52,6 +54,7 @@ RSpec.describe User, type: :model do
       let(:user) { build(:user, { password: 'a' * 7 }) }
 
       it 'shows the argument error message' do
+        expect(user).not_to be_valid
         expect(user.errors[:password]).to include 'は8文字以上で入力してください'
       end
     end

@@ -1,0 +1,23 @@
+<%= render 'error_messages', model: label %>
+
+<div class="card col-md-9">
+  <div class="card-body">
+    <!-- Expecting new_admin_label_path and edit_admin_label_path -->
+    <div class="card-title text-center">
+      <% if request.path_info == new_admin_label_path %>
+        <%= t('operation.label-new') %>
+      <% else %>
+        <%= t('operation.label-edit') %>
+      <% end %>
+    </div>
+    <%= form_with model: label, url: label.persisted? ? admin_label_path(label) : admin_labels_path, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

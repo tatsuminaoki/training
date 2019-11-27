@@ -40,8 +40,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_if_unauthorized
-    return if current_user.role == 'administrator'
-
-    redirect_to root_path
+    redirect_to root_path unless current_user.administrator?
   end
 end

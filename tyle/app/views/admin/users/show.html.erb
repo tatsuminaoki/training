@@ -1,7 +1,7 @@
 <%= render 'header' %>
 
 <!-- user -->
-<div class="card col-md-6">
+<div class="card col-md-9">
   <div class="card-body">
     <div class="card-title text-center">
       <%= t('operation.user-detail') %>
@@ -36,7 +36,7 @@
 </div>
 
 <!-- tasks -->
-<div class="card col-md-6">
+<div class="card col-md-9">
   <div class="card-body">
     <div class="card-title text-center">
       <%= t('operation.task-list') %>
@@ -49,6 +49,7 @@
           <th><%= t('activerecord.attributes.task.status') %></th>
           <th><%= t('activerecord.attributes.task.due') %></th>
           <th><%= t('activerecord.attributes.task.created_at') %></th>
+          <th><%= t('activerecord.attributes.task.label') %></th>
           <th><%= t('button.detail') %></th>
         </tr>
         </thead>
@@ -60,6 +61,11 @@
             <td class="task-status"><%= t("enums.task.status.#{task.status}") %></td>
             <td class="task-due"><%= I18n.l(task.due) %></td>
             <td class="task-created-at"><%= I18n.l(task.created_at) %></td>
+            <td class="task-labels">
+              <% task.task_labels.each do |tl| %>
+                <span><%= tl.label.name %></span>
+              <% end %>
+            </td>
             <td><%= link_to t('button.detail'), task_path(task.id) %></td>
           </tr>
         <% end %>

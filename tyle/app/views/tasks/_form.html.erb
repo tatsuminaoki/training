@@ -1,12 +1,12 @@
 <%= render 'error_messages', model: task %>
 
-<div class="card col-md-6">
+<div class="card col-md-9">
   <div class="card-body">
     <!-- Expecting new_task_path and edit_task_path -->
     <div class="card-title text-center">
       <% if request.path_info == new_task_path %>
         <%= t('operation.task-new') %>
-      <% elsif %>
+      <% else %>
         <%= t('operation.task-edit') %>
       <% end %>
     </div>
@@ -21,11 +21,11 @@
         <%= f.text_area :description, rows: 10, class: 'form-control' %>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-9">
           <%= f.label :priority %>
           <%= f.select :priority, options_for_select(Task.priorities_i18n.invert, task.priority), class: 'form-control' %>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-9">
           <%= f.label :status %>
           <%= f.select :status, options_for_select(Task.statuses_i18n.invert, task.status), class: 'form-control' %>
         </div>
@@ -33,6 +33,10 @@
       <div class="form-group">
         <%= f.label :due %>
         <%= f.datetime_field :due, value: Date.current.strftime("%Y-%m-%dT%T"), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :label %>
+        <%= f.collection_select(:label_ids, Label.all, :id, :name, { include_hidden: false }, { multiple: true, class: 'form-control' }) %>
       </div>
       <div class="form-group">
         <%= f.submit class: 'btn btn-primary' %>

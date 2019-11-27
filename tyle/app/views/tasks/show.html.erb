@@ -1,6 +1,6 @@
 <%= render 'header' %>
 
-<div class="card col-md-6">
+<div class="card col-md-9">
   <div class="card-body">
     <div class="card-title text-center">
       <%= t('operation.task-detail') %>
@@ -30,6 +30,14 @@
         <tr>
           <td><%= t('activerecord.attributes.task.created_at') %></td>
           <td><%= I18n.l(@task.created_at) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.task.label') %></td>
+          <td>
+            <% @task.task_labels.each do |tl| %>
+              <span><%= tl.label.name %></span>
+            <% end %>
+          </td>
         </tr>
       </tbody>
     </table>

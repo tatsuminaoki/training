@@ -16,7 +16,7 @@ RSpec.describe 'Users', type: :system do
     context 'when user correctly fills out the form' do
       it 'returns the user\'s task list' do
         fill_in 'session_login_id', with: user.login_id
-        fill_in 'session_password', with: 'password1'
+        fill_in 'session_password', with: 'password2'
         click_button 'ログイン'
 
         expect(page).to have_content 'ログアウト'

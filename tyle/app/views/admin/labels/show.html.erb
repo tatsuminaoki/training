@@ -1,0 +1,24 @@
+<%= render 'header' %>
+
+<!-- label -->
+<div class="card col-md-9">
+  <div class="card-body">
+    <div class="card-title text-center">
+      <%= t('operation.label-detail') %>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><%= t('activerecord.attributes.label.name') %></td>
+          <td><%= @label.name %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.label.created_at') %></td>
+          <td><%= I18n.l(@label.created_at) %></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= link_to t('button.edit'), edit_admin_label_path(@label), class: 'btn btn-primary' %>
+    <%= link_to t('button.delete'), admin_label_path(@label), method: :delete, data: { confirm: t('message.label.destroying') }, class: 'btn btn-danger' %> 
+  </div>
+</div>

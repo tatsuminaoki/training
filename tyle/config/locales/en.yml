@@ -48,6 +48,10 @@ en:
     user-detail: User Details
     user-edit: Input necessary information for updating the task.
     session-new: Input your Login ID and Password for login.
+    label-list: Label List
+    label-new: Input necessary information for creating a new label.
+    label-detail: Label Details
+    label-edit: Input necessary information for updating the label.
   message:
     task:
       created: Task was successfully created!
@@ -56,14 +60,21 @@ en:
       destroying: Are you sure you want to destroy this task?
     user:
       created: User was successfully created!
-      updates: User was successfully updated!
+      updated: User was successfully updated!
       destroyed: User was successfully destroyed!
       destroying: Are you sure you want to destroy this user?
       destroy_failure: Failed to destroy the user!
+    label:
+      created: Label was successfully created!
+      updated: Label was successfully updated!
+      destroyed: Label was successfully destroyed!
+      destroying: Are you sure you want to destroy this label?
     invalid_login_id_or_password: Invalid Login ID or Password.
     delete_itself: Cannot delete yourself.
     cannot_update_the_last_admin: of the last administrator, you cannot update.
     cannot_delete_the_last_admin: of the last administrator, you cannot delete.
+    invalid_login_id_or_password: Invalid Login ID or Password.
+    delete_itself: Cannot delete yourself.
     login_failed: Failed to log in.
   button:
     index: Home
@@ -78,6 +89,11 @@ en:
     general: General
     admin: Admin
     user-new: New User
+    user_page: Manage User
+    label_page: Manage Label
+    task_add: Add Task
+    user_add: Add User
+    label_add: Add Laebl
   activerecord:
     models:
       task: Task
@@ -93,6 +109,7 @@ en:
         due: Due
         detail: Detail
         created_at: CreatedAt
+        label: Labels
       user:
         name: Name
         login_id: LoginID
@@ -103,6 +120,9 @@ en:
       session:
         login_id: LoginID
         password: Password
+      label:
+        name: Name
+        created_at: CreatedAt
   enums:
     task:
       priority:

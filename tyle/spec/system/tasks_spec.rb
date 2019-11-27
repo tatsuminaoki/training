@@ -9,7 +9,7 @@ RSpec.describe 'Tasks', type: :system do
   before do
     visit login_path
     fill_in 'session_login_id', with: user.login_id
-    fill_in 'session_password', with: 'password1'
+    fill_in 'session_password', with: 'password2'
     click_on 'ログイン'
     expect(page).to have_content 'ログアウト'
   end
@@ -178,10 +178,16 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'search' do
+    let(:task) { create(:task, { user_id: user.id, created_at: 2.days }) }
+    let(:task2) { create(:task2, { user_id: user.id, created_at: 1.day }) }
+    let(:label) { create(:label) }
+    let(:label2) { create(:label2) }
+
     before do
-      create(:task, { user_id: user.id, created_at: 2.days.ago })
-      create(:task2, { user_id: user.id, created_at: 1.day.ago })
       create(:task3, { user_id: user.id })
+
+      task.task_labels.create!(label_id: label.id)
+      task2.task_labels.create!(label_id: label2.id)
     end
 
     context 'visit tasks_path' do
@@ -229,11 +235,26 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content '2021/01/02'
       end
 
+      it 'tasks searched by label `label1`' do
+        subject
+        select 'label1', from: 'label_ids'
+        click_on '検索'
+        expect(page).to have_content 'task1'
+        expect(page).to have_content '低'
+        expect(page).to have_content '待機中'
+        expect(page).to have_content '2020/12/31'
+        expect(page).to have_no_content 'task2'
+        expect(page).to have_no_content '2021/01/01'
+        expect(page).to have_no_content 'task3'
+        expect(page).to have_no_content '2021/01/02'
+      end
+
       it 'tasks searched by name `task`, priority `中`, and status `実施中`' do
         subject
         fill_in 'search_by_name', with: 'task'
         select '中', from: 'search_by_priority'
         select '実施中', from: 'search_by_status'
+        select 'label2', from: 'label_ids'
         click_on '検索'
         expect(page).to have_no_content 'task1'
         expect(page).to have_no_content '2020/12/31'
