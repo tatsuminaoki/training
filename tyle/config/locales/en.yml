@@ -64,18 +64,21 @@ en:
       destroyed: User was successfully destroyed!
       destroying: Are you sure you want to destroy this user?
       destroy_failure: Failed to destroy the user!
+      validate:
+        cannot_delete_itself: Cannot delete yourself.
+        cannot_update_the_last_admin: of the last administrator, you cannot update.
+        cannot_delete_the_last_admin: of the last administrator, you cannot delete.
     label:
       created: Label was successfully created!
       updated: Label was successfully updated!
       destroyed: Label was successfully destroyed!
       destroying: Are you sure you want to destroy this label?
-    invalid_login_id_or_password: Invalid Login ID or Password.
-    delete_itself: Cannot delete yourself.
-    cannot_update_the_last_admin: of the last administrator, you cannot update.
-    cannot_delete_the_last_admin: of the last administrator, you cannot delete.
-    invalid_login_id_or_password: Invalid Login ID or Password.
-    delete_itself: Cannot delete yourself.
-    login_failed: Failed to log in.
+    login:
+      invalid_login_id_or_password: Invalid Login ID or Password.
+    maintenance:
+      title: TYLE is under maintenance.
+      period: Maintenance Period
+      comment: We apologize for the inconvenience and thank you for your patience.
   button:
     index: Home
     detail: Detail

@@ -22,4 +22,9 @@ $ RAILS_ENV=development bundle exec rails s
 $ cd tyle
 $ rails db:migrate RAILS_ENV=test
 $ bundle exec rspec
+
+# Maintenance
+$ rake maintenance:start[2019/12/01-2019/12/31]
+$ rake maintenance:update[2020/01/01-2020/01/31]
+$ rake maintenance:stop
 ```
