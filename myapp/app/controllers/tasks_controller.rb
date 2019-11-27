@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
   before_action :find_user, only: %i[index new create]
-  before_action :find_labels, only: %i[new create edit update index]
+  before_action :find_labels, except: :show
 
   def index
     @tasks = @user.tasks.includes(:labels).find_with_params(params)
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
   def create
     @task = @user.tasks.new(task_params)
     if @task.save
-      @task.labels = Label.find(task_params[:label_ids]) if task_params[:label_ids].present?
+      @task.labels = Label.where(id: task_params[:label_ids]) if task_params[:label_ids].any?(&:present?)
       flash[:message] = t :new_task_created
       redirect_to @task
     else
