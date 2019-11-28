@@ -2,11 +2,11 @@ ja:
   new_task_created: '新しいタスクを作成しました'
   task_updated: 'タスクを更新しました'
   task_deleted: 'タスクを削除しました'
-  edit_task: 'タスク更新'
+  task_detail: "%{name}タスクの詳細"
   task_list: 'タスク一覧'
+  edit_task: 'タスク更新'
   new_task: '新しいタスク'
   back_to_task_list: 'タスク一覧に戻る'
-  task_detail: "%{name}タスクの詳細"
   description: '説明'
   status: 'ステータス'
   deadline: '終了期限'

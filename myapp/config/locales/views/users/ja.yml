@@ -1,12 +1,12 @@
 ja:
-  need_atleast_one_admin: '管理ユーザは最低限一人必要です'
-  user_task_list: "%{name}のタスク一覧"
-  user_list: 'ユーザ一覧'
-  user_detail: "%{name}ユーザの詳細"
-  user_deleted: 'ユーザを削除しました'
-  user_updated: 'ユーザ情報を更新しました'
-  new_admin_user: '新規ユーザ作成'
-  edit_admin_user: 'ユーザ編集'
-  new_user: '新しいユーザ'
   new_user_created: 'ユーザを作成しました'
+  user_updated: 'ユーザ情報を更新しました'
+  user_deleted: 'ユーザを削除しました'
+  user_detail: "%{name}ユーザの詳細"
+  user_list: 'ユーザ一覧'
+  new_user: '新しいユーザ'
+  edit_admin_user: 'ユーザ編集'
+  new_admin_user: '新規ユーザ作成'
+  user_task_list: "%{name}のタスク一覧"
   signup: 'ユーザ登録'
+  need_atleast_one_admin: '管理ユーザは最低限一人必要です'
