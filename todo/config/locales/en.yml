@@ -37,6 +37,7 @@ en:
   button:
     add: Add
     edit: Update
+    search: Search
   link:
     back: Back
     edit: Edit

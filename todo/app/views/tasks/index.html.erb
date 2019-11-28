@@ -2,6 +2,16 @@
 
 <%= tag.p { flash[:success] if flash[:success]} %>
 
+<div>
+  <%= form_tag(tasks_path, method: 'get') do %>
+    <%= label_tag(:title, "Search for") %>
+    <%= text_field_tag(:title, params[:title]) %>
+    <%= label_tag(:status, "Status:") %>
+    <%= select_tag(:status, options_for_select(status_text.invert, selected: params[:status]), include_blank: true) %>
+    <%= submit_tag(t("button.search"), name: nil) %>
+  <% end %>
+</div>
+
 <%= link_to 'Create New Task', tasks_new_path %>
 
 <div>
