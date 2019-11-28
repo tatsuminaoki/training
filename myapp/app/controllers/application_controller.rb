@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def check_maintenance
-    redirect_to maintenance_url unless Config.find_by(name: 'maintenance').off?
+    redirect_to maintenance_url if Config.find_by(name: 'maintenance').on?
   end
 end
