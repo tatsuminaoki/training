@@ -2,7 +2,7 @@
   <% if task.errors.any? %>
     <div class='alert alert-warning' role='alert'>
       <h2>
-        <%= pluralize(task.errors.count, "#{t :error_title}") %>
+        <%= pluralize(task.errors.count, "#{t :error}") %>
         <%= t :can_not_save %>
       </h2>
       <ul>
@@ -42,5 +42,5 @@
     <% end %>
   </div>
 
-  <%= form.submit t(:form_submit), class: 'btn btn-primary' %>
+  <%= form.submit t(:submit), class: 'btn btn-primary' %>
 <% end %>

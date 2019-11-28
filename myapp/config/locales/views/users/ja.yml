@@ -1,0 +1,10 @@
+ja:
+  new_user_created: 'ユーザを作成しました'
+  user_updated: 'ユーザ情報を更新しました'
+  user_deleted: 'ユーザを削除しました'
+  user_detail: "%{name}ユーザの詳細"
+  user_list: 'ユーザ一覧'
+  edit_user: 'ユーザ編集'
+  new_user: '新規ユーザ作成'
+  user_task_list: "%{name}のタスク一覧"
+  need_atleast_one_admin: '管理ユーザは最低限一人必要です'

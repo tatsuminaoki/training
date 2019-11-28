@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-    <h1><%= t :h1_new_user %></h1>
+    <h1><%= t :signup %></h1>
     </div>
   </div>
 
@@ -11,7 +11,7 @@
       <% if @user.errors.any? %>
         <div class='alert alert-warning' role='alert'>
           <h2>
-            <%= pluralize(@user.errors.count, "#{t :error_title}") %>
+            <%= pluralize(@user.errors.count, "#{t :error}") %>
             <%= t :can_not_save %>
           </h2>
           <ul>
@@ -37,7 +37,7 @@
         <%= form.password_field :password %>
       </div>
     
-      <%= form.submit t(:form_submit), class: 'btn btn-primary' %>
+      <%= form.submit t(:submit), class: 'btn btn-primary' %>
     <% end %>
     </div>
   </div>

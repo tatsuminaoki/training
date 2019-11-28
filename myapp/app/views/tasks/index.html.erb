@@ -8,7 +8,7 @@
   <% end %>
   <div class="row mt-5">
     <div class="col">
-      <h1><%= t :h1_index %></h1>
+      <h1><%= t :task_list %></h1>
     </div>
     <div class="col">
     <% if current_user %>
@@ -41,7 +41,7 @@
       <% end %>
       </div>
 
-      <%= submit_tag t(:form_btn_search), class: 'btn btn-primary', name: '' %>
+      <%= submit_tag t(:search), class: 'btn btn-primary', name: '' %>
     <% end %>
     </div>
   </div>
@@ -79,9 +79,9 @@
                 <%= label.name %>
               <% end %>
             </td>
-            <td><%= link_to "#{t :link_detail}", task_path(task), class: 'btn btn-primary' %></td>
-            <td><%= link_to "#{t :link_edit}", edit_task_path(task), class: 'btn btn-primary' %></td>
-            <td><%= link_to "#{t :link_delete}", task_path(task),
+            <td><%= link_to "#{t :detail}", task_path(task), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :edit}", edit_task_path(task), class: 'btn btn-primary' %></td>
+            <td><%= link_to "#{t :delete}", task_path(task),
                     class: 'btn btn-primary',
                     method: :delete,
                     data: { confirm: "#{t :delete_confirm}" } %></td>
@@ -94,7 +94,7 @@
 
   <div class="row">
     <div class="col">
-      <%= link_to "#{t :link_new}", new_task_path, class: 'btn btn-primary' %>
+      <%= link_to "#{t :register}", new_task_path, class: 'btn btn-primary' %>
     </div>
   </div>
 

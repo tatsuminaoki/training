@@ -1,0 +1,20 @@
+ja:
+  helpers:
+    label:
+      user:
+        account: 'アカウント'
+        name: 'ユーザ名（表示用）'
+        password: 'パスワード'
+        tasks:
+          count: 'タスク数'
+        role: 'ロール'
+  activerecord:
+    attributes:
+      user:
+        account: 'アカウント'
+        name: 'ユーザ名（表示用）'
+        password: 'パスワード'
+        role: 'ロール'
+      user/role:
+        user: '一般'
+        admin: '管理'

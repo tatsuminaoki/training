@@ -1,0 +1,20 @@
+ja:
+  helpers:
+    label:
+      task:
+        name: '名前'
+        description: '説明'
+        status: 'ステータス'
+        deadline: '終了期限'
+        labels: 'ラベル'
+  activerecord:
+    attributes:
+      task:
+        name: '名前'
+        description: '説明'
+        status: 'ステータス'
+        labels: 'ラベル'
+      task/status:
+        todo: '未着手'
+        processing: '進行中'
+        done: '完了'
