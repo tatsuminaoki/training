@@ -26,17 +26,26 @@ $ bundle exec rails db:seed
 
 ### Usage
 
-```
-$ bundle exec rails s
-```
-And access to below via web browser:
+#### with docker-compose
 
-http://127.0.0.1:3000
+```
+$ docker-compose build .
+$ docker-compose up -d
+$ docker-compose run web db:create
+$ docker-compose run web db:migrate RAILS_ENV=development
+```
+
+Open with browser:
+
+```
+http://localhost:3000
+```
 
 Initial account is as below:
 
 - ID: init@example.com
 - PW: hogehoge
+
 
 ### Test
 
