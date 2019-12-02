@@ -4,7 +4,9 @@ en:
     update: 'Update'
     remove: 'Remove'
     detail: 'Detail'
-    search: 'Search'
+    search:
+      task: 'Search with task title'
+      label: 'Search with label'
   header:
     title: 'Title'
     user_name: 'User'
@@ -34,7 +36,7 @@ en:
     user:
       success: 'Your account is created successfully.'
   placeholder:
-    search: 'Search with title.'
+    search: 'Search with %{item}.'
   message:
     lead: 'Hello, %{name}.'
     confirm: 'Are you sure to delete?'

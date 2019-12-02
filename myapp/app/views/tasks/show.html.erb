@@ -30,6 +30,14 @@
       <thead><tr><th><%= t('header.description') %></th></tr></thead>
       <tbody><tr><td><%= @task.description %></td><tr></tbody>
     </table>
+    <table class="table">
+      <thead><tr><th><%= 'ラベル' %></th></tr></thead>
+      <tbody><tr><td>
+        <% @labels.each do |label| %>
+          <span class="label label-default"><%= label.name %></span>
+        <% end %>
+      </td><tr></tbody>
+    </table>
     <%= link_to edit_task_path(@task.id), class: 'btn btn-primary' do %>
       <%= t('operation.update') %> <span class="glyphicon glyphicon-pencil"></span>
     <% end %>

@@ -4,7 +4,9 @@ ja:
     update: '更新'
     remove: '削除'
     detail: '詳細'
-    search: '検索'
+    search:
+      task: 'タスクで検索'
+      label: 'ラベルで検索'
   header:
     title: 'タスク名'
     priority: '優先度'
@@ -32,7 +34,7 @@ ja:
     user:
       success: '登録完了しました。'
   placeholder:
-    search: 'タスク名で検索'
+    search: '%{item}で検索'
   message:
     lead: '%{name}さん、こんにちは！'
     confirm: '削除してよろしいですか？'
