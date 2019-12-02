@@ -1,14 +1,11 @@
-<h1><%= @task.title %></h1>
-
-<dl>
-  <dt><%= t('activerecord.attributes.task.description') %></dt>
-  <dd><%= @task.description %></dd>
-  <dt><%= t('activerecord.attributes.task.status') %></dt>
-  <dd><%= status_text[@task.status] %></dd>
-  <dt><%= t('activerecord.attributes.task.due_date') %></dt>
-  <dd><%= @task.due_date %></dd>
-</dl>
-
-<%= link_to t('link.back'), tasks_path %>
-<%= link_to t('link.edit'), tasks_edit_path(@task) %>
-<%= link_to t('link.delete'), tasks_destroy_path(@task), method: :delete %>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title"><%= @task.title %></h1>
+    <p class="card-text"><%= @task.description %></p>
+    <p class="card-text"><%= t('activerecord.attributes.task.status') + " : " %><%= status_text[@task.status] %></p>
+    <p class="card-text"><%= t('activerecord.attributes.task.due_date') + " : " %><%= @task.due_date %></p>
+    <%= link_to t('link.back'), tasks_path , class: 'card-link' %>
+    <%= link_to t('link.edit'), tasks_edit_path(@task), class: 'card-link' %>
+    <%= link_to t('link.delete'), tasks_destroy_path(@task), method: :delete, class: 'card-link' %>
+  </div>
+</div>

@@ -1,9 +1,5 @@
 <% if task.errors.any? %>
-  <div>
-    <ul>
-    <% task.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+  <% task.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger"><%= msg %></div>
+  <% end %>
 <% end %>
