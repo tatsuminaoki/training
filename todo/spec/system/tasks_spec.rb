@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: 0, due_date: Time.zone.local(2020, 1, 1, 0, 0)) }
-  let(:task2) { Task.create(title: 'タスク２', description: 'タスク２詳細', status: 1, due_date: Time.zone.local(2021, 1, 1, 0, 0)) }
+  let(:task) { Task.create(title: 'タスク１', description: 'タスク１詳細', status: :todo, due_date: Time.zone.local(2020, 1, 1, 0, 0)) }
+  let(:task2) { Task.create(title: 'タスク２', description: 'タスク２詳細', status: :doing, due_date: Time.zone.local(2021, 1, 1, 0, 0)) }
 
   describe 'when show tasks' do
     context 'show' do
