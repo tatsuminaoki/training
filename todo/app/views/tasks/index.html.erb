@@ -1,33 +1,48 @@
 <h1>All Tasks</h1>
 
-<%= tag.p { flash[:success] if flash[:success]} %>
+<% if flash[:success] %>
+  <p class="alert alert-success"><%= flash[:success] %></p>
+<% end %>
 
-<div>
-  <%= form_tag(tasks_path, method: 'get') do %>
-    <%= label_tag(:title, "Search for") %>
-    <%= text_field_tag(:title, params[:title]) %>
-    <%= label_tag(:status, "Status:") %>
-    <%= select_tag(:status, options_for_select(status_text.invert, selected: params[:status]), include_blank: true) %>
-    <%= submit_tag(t("button.search"), name: nil) %>
-  <% end %>
-</div>
-
-<%= link_to 'Create New Task', tasks_new_path %>
-
-<div>
-  Sort by
-  <%= link_to t('activerecord.attributes.task.due_date'), sort: 'due_date' %> /
-  <%= link_to t('activerecord.attributes.task.created_at'), sort: 'created_at' %>
-</div>
+<nav class="navbar navbar-light bg-faded rounded">
+    <%= form_tag(tasks_path, method: 'get', class: 'form-inline my-2 my-md-0') do %>
+      <%= text_field_tag(:title, params[:title], class: 'form-control mr-sm-2', placeholder: 'Search') %>
+      <%= select_tag(:status, options_for_select(status_text.invert, selected: params[:status]), include_blank: true, class: 'form-control mr-sm-2') %>
+      <%= submit_tag(t("button.search"), name: nil, class: 'btn btn-secondary') %>
+    <% end %>
+  <%= link_to 'Create New Task', tasks_new_path, class: 'btn btn-primary' %>
+</nav>
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <span class="nav-link">Sort by</span>
+  </li>
+  <li class="nav-item">
+    <%= link_to t('activerecord.attributes.task.due_date'), { sort: 'due_date' }, class: 'nav-link' %>
+  </li>
+  <li class="nav-item">
+    <%= link_to t('activerecord.attributes.task.created_at'), { sort: 'created_at' }, class: 'nav-link' %>
+  </li>
+</ul>
 
 <% if @tasks.any? %>
   <%= paginate @tasks %>
-  <ul>
+  <table class="table task-list">
+    <thead>
+      <tr>
+        <th scope="col">
+          <%= t('activerecord.attributes.task.title') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
     <% @tasks.each do |task| %>
-    <li>
-      <%= link_to task.title, tasks_show_path(task) %>
-    </li>
+    <tr class="row">
+      <td class="col">
+        <%= link_to task.title, tasks_show_path(task) %>
+      </td>
+    </tr>
     <% end %>
-  </ul>
+    </tbody>
+  </table>
   <%= paginate @tasks %>
 <% end %>

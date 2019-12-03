@@ -19,19 +19,19 @@ RSpec.describe 'Tasks', type: :system do
         fill_in 'task_due_date', with: Time.zone.local(2020, 1, 1, 0, 0)
         click_button '追加'
 
-        within('ul') do
+        within('table.task-list') do
           expect(page.text).to match(/second\nfirst/)
         end
 
         click_link '終了期限'
         sleep(0.5)
-        within('ul') do
+        within('table.task-list') do
           expect(page.text).to match(/first\nsecond/)
         end
 
         click_link '作成日'
         sleep(0.5)
-        within('ul') do
+        within('table.task-list') do
           expect(page.text).to match(/second\nfirst/)
         end
       end
@@ -42,26 +42,26 @@ RSpec.describe 'Tasks', type: :system do
       it 'go next' do
         visit tasks_path
 
-        expect(page).to have_content('タスク名', count: 25)
+        expect(page).to have_content('テストタスク', count: 25)
         click_link '次へ', match: :first
 
-        expect(page).to have_content('タスク名', count: 25)
+        expect(page).to have_content('テストタスク', count: 25)
         click_link '最後へ', match: :first
 
-        expect(page).to have_content('タスク名', count: 10)
+        expect(page).to have_content('テストタスク', count: 10)
       end
 
       it 'go back' do
         visit tasks_path
         click_link '最後へ', match: :first
 
-        expect(page).to have_content('タスク名', count: 10)
+        expect(page).to have_content('テストタスク', count: 10)
         click_link '前へ', match: :first
 
-        expect(page).to have_content('タスク名', count: 25)
+        expect(page).to have_content('テストタスク', count: 25)
         click_link '最初へ', match: :first
 
-        expect(page).to have_content('タスク名', count: 25)
+        expect(page).to have_content('テストタスク', count: 25)
       end
     end
 
