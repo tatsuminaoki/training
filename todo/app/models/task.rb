@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  enum status: [:todo, :doing, :done]
+  enum status: %i[todo doing done]
 
   validates :title, :status, presence: true
   validates :title, length: { maximum: 250 }
