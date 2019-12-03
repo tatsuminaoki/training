@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/
   def index
-    @tasks = Task.search(where_column, sort_column)
+    @tasks = Task.search(where_column, sort_column).page(params[:page])
   end
 
   # DELETE /task/:id
