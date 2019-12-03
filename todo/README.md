@@ -14,9 +14,15 @@
 * Setup
 
 ```cassandraql
+# dbのセットアップ
 docker-compose up -d
 rails db:create 
 rails db:migrate
+
+# yarn
+yarn install
+
+# サーバ起動
 rails s
 ```
 
