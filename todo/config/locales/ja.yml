@@ -1,7 +1,14 @@
 ja:
+  views:
+    pagination:
+      first: 最初へ
+      last: 最後へ
+      previous: 前へ
+      next: 次へ
   button:
     add: 追加
     edit: 更新
+    search: 検索
   link:
     back: 戻る
     edit: 編集
