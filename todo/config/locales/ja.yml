@@ -16,9 +16,6 @@ ja:
   activerecord:
     errors:
       messages:
-        blank: を入力してください
-        too_long: が長すぎます
-        inclusion: は対象外の値です
         past_time: 過去の日付は使えません
     models:
       task: タスク

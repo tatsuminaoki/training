@@ -118,14 +118,14 @@ RSpec.describe 'Tasks', type: :system do
       it 'no title' do
         visit tasks_new_path
         click_button '追加'
-        expect(page).to have_content 'タスク名 を入力してください'
+        expect(page).to have_content 'タスク名を入力してください'
       end
 
       it 'too long title' do
         visit tasks_new_path
         fill_in 'task_title', with: 'a' * 251
         click_button '追加'
-        expect(page).to have_content 'タスク名 が長すぎます'
+        expect(page).to have_content 'タスク名は250文字以内で入力してください'
       end
     end
   end
@@ -159,14 +159,14 @@ RSpec.describe 'Tasks', type: :system do
         visit tasks_edit_path(task1)
         fill_in 'task_title', with: ''
         click_button '更新'
-        expect(page).to have_content 'タスク名 を入力してください'
+        expect(page).to have_content 'タスク名を入力してください'
       end
 
       it 'too long title' do
         visit tasks_edit_path(task1)
         fill_in 'task_title', with: 'a' * 251
         click_button '更新'
-        expect(page).to have_content 'タスク名 が長すぎます'
+        expect(page).to have_content 'タスク名は250文字以内で入力してください'
       end
     end
   end
