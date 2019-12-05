@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    name { 'MyString' }
-    password { 'MyString' }
+    name { 'testuser' }
+    password { 'test' }
+    password_confirmation { 'test' }
   end
 end

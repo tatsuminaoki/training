@@ -19,6 +19,7 @@ ja:
         past_time: 過去の日付は使えません
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         title: タスク名
@@ -27,3 +28,4 @@ ja:
         due_date: 終了期限
         created_at: 作成日
         modified_at: 更新日
+        user_id: ユーザID
