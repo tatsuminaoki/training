@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'signup', to: 'users#new', as: 'signup'
+  post 'users/create', to: 'users#create'
   get 'tasks/new'
   post 'tasks/create'
   get 'tasks/:id', to: 'tasks#show', as: 'tasks_show'

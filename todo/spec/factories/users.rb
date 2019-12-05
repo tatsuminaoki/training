@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :user do
     name { 'testuser' }
     password { 'test' }
-    password_confirmation { 'test' }
+    password_confirmationation { 'test' }
   end
 end
