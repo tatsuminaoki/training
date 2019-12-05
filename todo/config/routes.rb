@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'users/new'
   get 'tasks/new'
   post 'tasks/create'
   get 'tasks/:id', to: 'tasks#show', as: 'tasks_show'
