@@ -7,4 +7,4 @@ Simple Todo Application by rails.
 ## ERD
 - id, created_at, updated_at are omiited.
 
-![image](app/assets/images/todoApp_Schema2.png)
+![image](app/assets/images/todoApp_Schema3.png)
