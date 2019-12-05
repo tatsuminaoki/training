@@ -3,9 +3,11 @@
 class Task < ApplicationRecord
   enum status: %i[todo doing done]
 
+  belongs_to :user
+
   validates :title, :status, presence: true
-  validates :title, length: { maximum: 250 }
-  validates :status, inclusion: { in: statuses }
+  validates :title, length: {maximum: 250}
+  validates :status, inclusion: {in: statuses}
   validate :due_date_cannot_be_in_past
 
   scope :title_name_partial_match, -> (title) { where('title like ?', "%#{title}%") if title.present? }
