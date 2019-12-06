@@ -41,7 +41,6 @@ class TasksController < ApplicationController
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -52,6 +51,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.fetch(:task, {})
+    params.require(:task).permit(:title, :description)
   end
 end
