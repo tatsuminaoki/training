@@ -35,6 +35,7 @@ en:
       messages:
         past_time: Cannot be in the past
   button:
+    submit: Submit
     add: Add
     edit: Update
     search: Search

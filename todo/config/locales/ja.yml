@@ -6,6 +6,7 @@ ja:
       previous: 前へ
       next: 次へ
   button:
+    submit: 登録
     add: 追加
     edit: 更新
     search: 検索
@@ -21,6 +22,10 @@ ja:
       task: タスク
       user: ユーザー
     attributes:
+      user:
+        name: 名前
+        password: パスワード
+        password_confirmation: パスワード確認
       task:
         title: タスク名
         description: 詳細
