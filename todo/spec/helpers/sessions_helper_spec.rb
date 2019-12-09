@@ -13,5 +13,58 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe SessionsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { create(:user) }
+
+  describe 'when use log_in' do
+    context 'with user instance' do
+      it 'session contains user id' do
+        log_in(user)
+        expect(session[:user_id]).to eq(user.id)
+      end
+    end
+  end
+
+  describe 'when use log_out' do
+    context 'with having user session' do
+      it 'removed user info from session' do
+        log_in(user)
+        log_out
+        expect(session[:user_id]).not_to eq(user.id)
+      end
+    end
+  end
+
+  describe 'when use current_user' do
+    context 'with logged-in user' do
+      it 'return user' do
+        log_in(user)
+        expect(current_user).to eq(user)
+      end
+    end
+
+    context 'with logged-out user' do
+      it 'return nothing' do
+        log_in(user)
+        log_out
+        expect(current_user).not_to eq(user)
+      end
+    end
+  end
+
+  describe 'when use logged_in?' do
+    context 'with logged-in user' do
+      it 'return true' do
+        log_in(user)
+        expect(logged_in?).to be_truthy
+      end
+    end
+
+    context 'with logged-out user' do
+      it 'return false' do
+        log_in(user)
+        log_out
+        expect(logged_in?).to be_falsey
+      end
+    end
+  end
 end
