@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     return render :new unless @user.save
-    flash[:success] = "Success!"
+    flash[:success] = 'Success!'
     redirect_to tasks_path
   end
 

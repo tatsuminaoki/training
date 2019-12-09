@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   around_action :switch_locale
+  include SessionsHelper
 
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
