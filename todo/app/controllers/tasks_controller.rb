@@ -60,10 +60,4 @@ class TasksController < ApplicationController
   def sort_column
     params.key?(:sort) ? params[:sort] : :created_at
   end
-
-  def require_login
-    return if logged_in?
-    flash[:error] = 'You must be logged in to access this section'
-    redirect_to login_path
-  end
 end

@@ -1,2 +1,24 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<h1>Users</h1>
+
+<% if @users.any? %>
+  <%= paginate @users %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">
+        <%= t('activerecord.attributes.user.name') %>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr class="row">
+        <td class="col">
+          <%= link_to user.name, admin_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @users %>
+<% end %>

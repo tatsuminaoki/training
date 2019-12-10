@@ -94,3 +94,10 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+
+def log_in_as(user)
+  visit login_path
+  fill_in 'session_name', with: user.name
+  fill_in 'session_password', with: user.password
+  click_on 'ログイン'
+end
