@@ -193,11 +193,4 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'Deleted'
     expect(page).to have_no_content 'タスク１'
   end
-
-  def log_in_as(user)
-    visit login_path
-    fill_in 'session_name', with: user.name
-    fill_in 'session_password', with: user.password
-    click_on 'ログイン'
-  end
 end

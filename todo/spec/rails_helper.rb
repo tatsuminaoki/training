@@ -2,6 +2,7 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'support/helpers/system_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
@@ -67,4 +68,7 @@ RSpec.configure do |config|
   config.before(:each) do |example|
     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400] if example.metadata[:type] == :system
   end
+
+  # use helper
+  config.include(SystemHelper, :type => :system)
 end
