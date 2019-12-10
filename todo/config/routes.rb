@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'users/index'
+    get 'users/new'
+    get 'users/edit'
+    get 'users/show'
+  end
   get 'login', to: 'sessions#new', as: 'login'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
   post 'sessions/create'
