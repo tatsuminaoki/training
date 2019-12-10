@@ -1,2 +1,8 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title"><%= @user.name %></h1>
+    <%= link_to t('link.back'), admin_users_path , class: 'card-link' %>
+    <%= link_to t('link.edit'), edit_admin_user_path(@user), class: 'card-link' %>
+    <%= link_to t('link.delete'), admin_user_path(@user), method: :delete, class: 'card-link' %>
+  </div>
+</div>

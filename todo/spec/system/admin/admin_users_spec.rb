@@ -15,9 +15,27 @@ RSpec.describe "Admin::Users", type: :system do
     end
 
     context 'with logged-out user' do
-      it 'failed' do
+      it 'failed to access' do
         visit admin_users_path
         expect(page.current_path).not_to eq('/admin/users')
+      end
+    end
+  end
+
+  describe 'when access show' do
+    context 'with logged-in user' do
+      it 'success to access' do
+        log_in_as administrator
+        visit admin_user_path(administrator)
+        expect(page.current_path).to eq("/admin/users/#{ administrator.id }")
+        expect(page).to have_content('administrator')
+      end
+    end
+
+    context 'with logged-out user' do
+      it 'failed to access' do
+        visit admin_user_path(administrator)
+        expect(page.current_path).not_to eq("/admin/users/#{ administrator.id }")
       end
     end
   end

@@ -8,7 +8,7 @@ FactoryBot.define do
   end
 
   factory :administrator, class: User do
-    name { 'adminstrator' }
+    name { 'administrator' }
     password { 'admin_password' }
     password_confirmation { 'admin_password' }
   end
