@@ -10,7 +10,7 @@ class TasksController < ApplicationController
 
   # POST /tasks/create
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     return render :new unless @task.save
     flash[:success] = 'Success!'
     redirect_to tasks_path
