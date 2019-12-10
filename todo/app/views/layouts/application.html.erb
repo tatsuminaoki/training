@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <header class="navbar fixed-top navbar-dark bg-dark">
+    <header class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">todo</a>
       <%= link_to "Log out", logout_path, method: :delete if logged_in?%>
       <%= link_to "Log in", login_path unless logged_in? %>
