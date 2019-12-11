@@ -32,9 +32,18 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
+  # GET /admin/users/:id
   def show
     @user = User.find(params[:id])
     @tasks = @user.tasks.page(params[:page])
+  end
+
+  # DELETE /admin/users/:id
+  def destroy
+    @user = User.find(params[:id])
+    return :show unless @user.destroy
+    flash[:success] = 'Deleted'
+    redirect_to admin_users_path
   end
 
   private

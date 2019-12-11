@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   # DELETE /task/:id
   def destroy
     @task = Task.find(params[:id])
-    return unless @task.destroy
+    return :show unless @task.destroy
     flash[:success] = 'Deleted'
     redirect_to tasks_path
   end

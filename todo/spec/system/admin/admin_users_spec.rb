@@ -115,4 +115,17 @@ RSpec.describe "Admin::Users", type: :system do
       end
     end
   end
+
+  describe 'when delete user' do
+    context 'with logged-in user' do
+      it 'success' do
+        log_in_as administrator
+        visit admin_user_path user
+        click_on '削除'
+        expect(page.current_path).to eq('/admin/users')
+        expect(page).to have_content 'Deleted'
+        expect(page).not_to have_content 'test_user'
+      end
+    end
+  end
 end
