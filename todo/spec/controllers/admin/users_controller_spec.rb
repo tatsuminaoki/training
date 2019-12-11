@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
 
+  let(:user) { create(:user) }
+
   describe "GET #index" do
     it "returns http success" do
       get :index

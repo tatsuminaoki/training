@@ -19,7 +19,17 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
+  # GET /admin/users/:id/edit
   def edit
+    @user = User.find(params[:id])
+  end
+
+  # PATCH /admin/users/:id
+  def update
+    @user = User.find(params[:id])
+    return render :edit unless @user.update(user_params)
+    flash[:success] = 'Success!'
+    redirect_to admin_users_path
   end
 
   def show
