@@ -7,11 +7,13 @@ RSpec.describe "Admin::Users", type: :system do
 
   describe 'when access index' do
     context 'with logged-in user' do
+      let!(:admin_task) { create(:task, user:administrator) }
       it 'success to show admin users page' do
         log_in_as administrator
         visit admin_users_path
         expect(page.current_path).to eq('/admin/users')
         expect(page).to have_content('administrator')
+        expect(page).to have_content('1')
       end
 
       it 'success to click link' do
