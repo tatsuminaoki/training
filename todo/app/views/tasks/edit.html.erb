@@ -2,4 +2,4 @@
 
 <%= render partial: 'shared/error_message', locals: { model: @task } %>
 
-<%= render partial: 'form', locals: { task: @task, form_path: tasks_update_path(@task), button_name: t('button.edit')} %>
+<%= render partial: 'form', locals: { task: @task, form_path: task_path(@task), button_name: t('button.edit')} %>
