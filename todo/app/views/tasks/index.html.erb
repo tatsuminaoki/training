@@ -1,8 +1,6 @@
 <h1>All Tasks</h1>
 
-<% if flash[:success] %>
-  <p class="alert alert-success"><%= flash[:success] %></p>
-<% end %>
+<%= render partial: 'shared/flash_message' %>
 
 <nav class="navbar navbar-light bg-faded rounded">
     <%= form_tag(tasks_path, method: 'get', class: 'form-inline my-2 my-md-0') do %>

@@ -1,5 +1,11 @@
 <h1>Users</h1>
 
+<%= render partial: 'shared/flash_message' %>
+
+<nav class="navbar navbar-light bg-faded rounded">
+  <%= link_to 'Add New User', new_admin_user_path , class: 'btn btn-primary' %>
+</nav>
+
 <% if @users.any? %>
   <%= paginate @users %>
   <table class="table">
