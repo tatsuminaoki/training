@@ -31,12 +31,16 @@ RSpec.describe "Admin::Users", type: :system do
   end
 
   describe 'when access show' do
+    let!(:task) { create_list(:task, 26, user: administrator) }
+
     context 'with logged-in user' do
       it 'success to access' do
         log_in_as administrator
         visit admin_user_path(administrator)
         expect(page.current_path).to eq("/admin/users/#{ administrator.id }")
         expect(page).to have_content('administrator')
+        expect(page).to have_content('テストタスク', count: 25)
+        expect(page).to have_content('次へ')
       end
 
       it 'success to click link' do

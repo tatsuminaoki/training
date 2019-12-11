@@ -1,6 +1,28 @@
 <div class="card">
   <div class="card-body">
     <h1 class="card-title"><%= @user.name %></h1>
+    <% if @tasks.any? %>
+      <%= paginate @tasks %>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">
+            <%= t('activerecord.attributes.task.title') %>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tasks.each do |task| %>
+          <tr class="row">
+            <td class="col">
+              <%= task.title %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @tasks %>
+    <% end %>
     <%= link_to t('link.back'), admin_users_path , class: 'card-link' %>
     <%= link_to t('link.edit'), edit_admin_user_path(@user), class: 'card-link' %>
     <%= link_to t('link.delete'), admin_user_path(@user), method: :delete, class: 'card-link' %>
