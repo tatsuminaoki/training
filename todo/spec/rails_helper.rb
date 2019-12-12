@@ -3,6 +3,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'support/helpers/system_helper'
+require 'support/helpers/controller_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
@@ -70,5 +71,6 @@ RSpec.configure do |config|
   end
 
   # use helper
-  config.include(SystemHelper, :type => :system)
+  config.include SystemHelper, type: :system
+  config.include ControllerHelper, type: :controller
 end
