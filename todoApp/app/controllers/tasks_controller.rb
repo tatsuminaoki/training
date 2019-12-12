@@ -34,9 +34,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-
-    if @task.destroyed?
+    if @task.destroy
       redirect_to tasks_url, notice: 'Task was successfully destroyed.'
     else
       redirect_to tasks_url, notice: 'Destroy Failed. Please check again.'
