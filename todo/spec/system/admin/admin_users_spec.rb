@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Admin::Users", type: :system do
-
+RSpec.describe 'Admin::Users', type: :system do
   let(:administrator) { create(:administrator) }
   let(:user) { create(:user) }
 
   describe 'when access index' do
     context 'with logged-in user' do
-      let!(:admin_task) { create(:task, user:administrator) }
+      let!(:admin_task) { create(:task, user: administrator) }
       it 'success to show admin users page' do
         log_in_as administrator
         visit admin_users_path
@@ -39,7 +40,7 @@ RSpec.describe "Admin::Users", type: :system do
       it 'success to access' do
         log_in_as administrator
         visit admin_user_path(administrator)
-        expect(page.current_path).to eq("/admin/users/#{ administrator.id }")
+        expect(page.current_path).to eq("/admin/users/#{administrator.id}")
         expect(page).to have_content('administrator')
         expect(page).to have_content('テストタスク', count: 25)
         expect(page).to have_content('次へ')
@@ -49,14 +50,14 @@ RSpec.describe "Admin::Users", type: :system do
         log_in_as administrator
         visit admin_user_path administrator
         click_on '編集'
-        expect(page.current_path).to eq("/admin/users/#{ administrator.id }/edit")
+        expect(page.current_path).to eq("/admin/users/#{administrator.id}/edit")
       end
     end
 
     context 'with logged-out user' do
       it 'failed to access' do
         visit admin_user_path(administrator)
-        expect(page.current_path).not_to eq("/admin/users/#{ administrator.id }")
+        expect(page.current_path).not_to eq("/admin/users/#{administrator.id}")
       end
     end
   end
@@ -66,7 +67,7 @@ RSpec.describe "Admin::Users", type: :system do
       it 'success to access' do
         log_in_as administrator
         visit new_admin_user_path
-        expect(page.current_path).to eq("/admin/users/new")
+        expect(page.current_path).to eq('/admin/users/new')
       end
 
       it 'success to add new user' do
@@ -94,13 +95,13 @@ RSpec.describe "Admin::Users", type: :system do
       it 'success to access' do
         log_in_as administrator
         visit edit_admin_user_path user
-        expect(page.current_path).to eq("/admin/users/#{ user.id }/edit")
+        expect(page.current_path).to eq("/admin/users/#{user.id}/edit")
       end
 
       it 'success to edit user' do
         log_in_as administrator
         visit edit_admin_user_path user
-        expect(page.current_path).to eq("/admin/users/#{ user.id }/edit")
+        expect(page.current_path).to eq("/admin/users/#{user.id}/edit")
         fill_in 'user_name', with: 'test_user1'
         fill_in 'user_password', with: 'test_password1'
         fill_in 'user_password_confirmation', with: 'test_password1'
@@ -113,7 +114,7 @@ RSpec.describe "Admin::Users", type: :system do
     context 'with logged-out user' do
       it 'failed to access' do
         visit edit_admin_user_path user
-        expect(page.current_path).not_to eq("/admin/users/#{ user.id }/edit")
+        expect(page.current_path).not_to eq("/admin/users/#{user.id}/edit")
       end
     end
   end

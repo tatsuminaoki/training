@@ -1,54 +1,58 @@
-class Admin::UsersController < ApplicationController
-  before_action :require_login
+# frozen_string_literal: true
 
-  # GET /admin/users
-  def index
-    @users = User.all.page(params[:page])
-  end
+module Admin
+  class UsersController < ApplicationController
+    before_action :require_login
 
-  # GET /admin/users/new
-  def new
-    @user = User.new
-  end
+    # GET /admin/users
+    def index
+      @users = User.all.page(params[:page])
+    end
 
-  # POST /admin/users
-  def create
-    @user = User.new(user_params)
-    return render :new unless @user.save
-    flash[:success] = 'Success!'
-    redirect_to admin_users_path
-  end
+    # GET /admin/users/new
+    def new
+      @user = User.new
+    end
 
-  # GET /admin/users/:id/edit
-  def edit
-    @user = User.find(params[:id])
-  end
+    # POST /admin/users
+    def create
+      @user = User.new(user_params)
+      return render :new unless @user.save
+      flash[:success] = 'Success!'
+      redirect_to admin_users_path
+    end
 
-  # PATCH /admin/users/:id
-  def update
-    @user = User.find(params[:id])
-    return render :edit unless @user.update(user_params)
-    flash[:success] = 'Success!'
-    redirect_to admin_users_path
-  end
+    # GET /admin/users/:id/edit
+    def edit
+      @user = User.find(params[:id])
+    end
 
-  # GET /admin/users/:id
-  def show
-    @user = User.find(params[:id])
-    @tasks = @user.tasks.page(params[:page])
-  end
+    # PATCH /admin/users/:id
+    def update
+      @user = User.find(params[:id])
+      return render :edit unless @user.update(user_params)
+      flash[:success] = 'Success!'
+      redirect_to admin_users_path
+    end
 
-  # DELETE /admin/users/:id
-  def destroy
-    @user = User.find(params[:id])
-    return :show unless @user.destroy
-    flash[:success] = 'Deleted'
-    redirect_to admin_users_path
-  end
+    # GET /admin/users/:id
+    def show
+      @user = User.find(params[:id])
+      @tasks = @user.tasks.page(params[:page])
+    end
 
-  private
+    # DELETE /admin/users/:id
+    def destroy
+      @user = User.find(params[:id])
+      return :show unless @user.destroy
+      flash[:success] = 'Deleted'
+      redirect_to admin_users_path
+    end
 
-  def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation)
+    private
+
+    def user_params
+      params.require(:user).permit(:name, :password, :password_confirmation)
+    end
   end
 end
