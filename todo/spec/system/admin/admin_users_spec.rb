@@ -76,6 +76,7 @@ RSpec.describe 'Admin::Users', type: :system do
         fill_in 'user_name', with: 'test_user'
         fill_in 'user_password', with: 'test_password'
         fill_in 'user_password_confirmation', with: 'test_password'
+        select '管理者', from: 'user_role'
         click_on '登録'
         expect(page.current_path).to eq('/admin/users')
         expect(page).to have_content 'Success!'
@@ -105,6 +106,7 @@ RSpec.describe 'Admin::Users', type: :system do
         fill_in 'user_name', with: 'test_user1'
         fill_in 'user_password', with: 'test_password1'
         fill_in 'user_password_confirmation', with: 'test_password1'
+        select '管理者', from: 'user_role'
         click_on '更新'
         expect(page.current_path).to eq('/admin/users')
         expect(page).to have_content 'Success!'

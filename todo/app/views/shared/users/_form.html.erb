@@ -14,6 +14,13 @@
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
 
+  <% if logged_in? && current_user.role == "admin" %>
+    <div class="form-group row">
+      <%= f.label :role %>
+      <%= f.select :role, user_roles, {}, class: 'form-control' %>
+    </div>
+  <% end %>
+
   <div class="form-group row">
     <%= f.submit button_name, class: 'btn btn-primary' %>
   </div>
