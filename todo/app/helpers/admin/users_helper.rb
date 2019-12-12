@@ -3,7 +3,7 @@
 module Admin
   module UsersHelper
     def user_roles
-      { '一般' => 'general', '管理者' => 'admin' }
+      { 'general' => '一般', 'admin' => '管理者'}
     end
   end
 end

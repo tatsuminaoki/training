@@ -7,7 +7,7 @@ RSpec.describe 'Admin::Users', type: :system do
   let(:user) { create(:user) }
 
   describe 'when access index' do
-    context 'with logged-in user' do
+    context 'with logged-in administrator' do
       let!(:admin_task) { create(:task, user: administrator) }
       it 'success to show admin users page' do
         log_in_as administrator
@@ -25,6 +25,15 @@ RSpec.describe 'Admin::Users', type: :system do
       end
     end
 
+    context 'with logged-in general user' do
+      it 'redirect to tasks page' do
+        log_in_as user
+        visit admin_users_path
+        expect(page.current_path).to eq('/tasks')
+        expect(page).to have_content('You cannot access this section')
+      end
+    end
+
     context 'with logged-out user' do
       it 'failed to access' do
         visit admin_users_path
@@ -36,7 +45,7 @@ RSpec.describe 'Admin::Users', type: :system do
   describe 'when access show' do
     let!(:task) { create_list(:task, 26, user: administrator) }
 
-    context 'with logged-in user' do
+    context 'with logged-in administrator' do
       it 'success to access' do
         log_in_as administrator
         visit admin_user_path(administrator)
@@ -54,6 +63,15 @@ RSpec.describe 'Admin::Users', type: :system do
       end
     end
 
+    context 'with logged-in general user' do
+      it 'redirect to tasks page' do
+        log_in_as user
+        visit admin_users_path
+        expect(page.current_path).to eq('/tasks')
+        expect(page).to have_content('You cannot access this section')
+      end
+    end
+
     context 'with logged-out user' do
       it 'failed to access' do
         visit admin_user_path(administrator)
@@ -63,7 +81,7 @@ RSpec.describe 'Admin::Users', type: :system do
   end
 
   describe 'when access new' do
-    context 'with logged-in user' do
+    context 'with logged-in administrator' do
       it 'success to access' do
         log_in_as administrator
         visit new_admin_user_path
@@ -83,6 +101,15 @@ RSpec.describe 'Admin::Users', type: :system do
       end
     end
 
+    context 'with logged-in general user' do
+      it 'redirect to tasks page' do
+        log_in_as user
+        visit admin_users_path
+        expect(page.current_path).to eq('/tasks')
+        expect(page).to have_content('You cannot access this section')
+      end
+    end
+
     context 'with logged-out user' do
       it 'failed to access' do
         visit new_admin_user_path
@@ -92,7 +119,7 @@ RSpec.describe 'Admin::Users', type: :system do
   end
 
   describe 'when access edit' do
-    context 'with logged-in user' do
+    context 'with logged-in administrator' do
       it 'success to access' do
         log_in_as administrator
         visit edit_admin_user_path user
@@ -113,6 +140,15 @@ RSpec.describe 'Admin::Users', type: :system do
       end
     end
 
+    context 'with logged-in general user' do
+      it 'redirect to tasks page' do
+        log_in_as user
+        visit admin_users_path
+        expect(page.current_path).to eq('/tasks')
+        expect(page).to have_content('You cannot access this section')
+      end
+    end
+
     context 'with logged-out user' do
       it 'failed to access' do
         visit edit_admin_user_path user
@@ -122,7 +158,7 @@ RSpec.describe 'Admin::Users', type: :system do
   end
 
   describe 'when delete user' do
-    context 'with logged-in user' do
+    context 'with logged-in administrator' do
       it 'success' do
         log_in_as administrator
         visit admin_user_path user

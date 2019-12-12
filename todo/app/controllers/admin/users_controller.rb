@@ -3,6 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :require_login
+    before_action :require_admin_role
 
     # GET /admin/users
     def index
@@ -53,6 +54,12 @@ module Admin
 
     def user_params
       params.require(:user).permit(:name, :password, :password_confirmation, :role)
+    end
+
+    def require_admin_role
+      return if current_user.role == "admin"
+      flash[:error] = 'You cannot access this section'
+      redirect_to tasks_path
     end
   end
 end

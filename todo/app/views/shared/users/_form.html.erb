@@ -17,7 +17,7 @@
   <% if logged_in? && current_user.role == "admin" %>
     <div class="form-group row">
       <%= f.label :role %>
-      <%= f.select :role, user_roles, {}, class: 'form-control' %>
+      <%= f.select :role, user_roles.invert, {}, class: 'form-control' %>
     </div>
   <% end %>
 
