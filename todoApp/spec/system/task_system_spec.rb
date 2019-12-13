@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Task management", :type => :system, js: true do
+RSpec.describe "Task management", type: :system, js: true do
   before do
     Task.create!(title: "rspec Test", description: "rspec Description")
   end
