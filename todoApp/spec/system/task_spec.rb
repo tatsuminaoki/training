@@ -7,7 +7,7 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   scenario 'When I visit the tasks_path it shows me the list of Tasks' do
     visit tasks_path
-    expect(page).to have_content 'Tasks'
+    expect(page).to have_content 'rspec Description'
   end
 
   scenario 'When I click New Task link at tasks_path it enables me to create Tasks' do
