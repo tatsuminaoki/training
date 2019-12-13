@@ -5,12 +5,12 @@ RSpec.describe 'Task management', type: :system, js: true do
     Task.create!(title: 'rspec Test', description: 'rspec Description')
   end
 
-  scenario 'show me the list of Tasks' do
+  scenario 'When I visit the tasks_path it shows me the list of Tasks' do
     visit tasks_path
     expect(page).to have_content 'Tasks'
   end
 
-  scenario 'enables me to create Tasks' do
+  scenario 'When I click New Task link at tasks_path it enables me to create Tasks' do
     visit tasks_path
     click_link 'New Task'
     fill_in 'Title', :with => 'My Task'
@@ -19,7 +19,7 @@ RSpec.describe 'Task management', type: :system, js: true do
     expect(page).to have_content 'Task was successfully created.'
   end
 
-  scenario 'enables me to edit Tasks' do
+  scenario 'When I click Edit link at tasks_path it enables me to edit Tasks' do
     visit tasks_path
     click_link 'Edit'
     fill_in 'Title', :with => 'My Edited Task'
@@ -28,7 +28,7 @@ RSpec.describe 'Task management', type: :system, js: true do
     expect(page).to have_content 'Task was successfully updated.'
   end
 
-  scenario 'enables me to delete Tasks' do
+  scenario 'When I click Destroy link at tasks_path it enables me to delete Tasks' do
     visit tasks_path
     accept_alert do
       click_link 'Destroy'
