@@ -159,13 +159,32 @@ RSpec.describe 'Admin::Users', type: :system do
 
   describe 'when delete user' do
     context 'with logged-in administrator' do
-      it 'success' do
+      let(:unnecessary_administrator) { create(:administrator, name: 'unnecessary_user') }
+
+      it 'success to delete a general user' do
         log_in_as administrator
         visit admin_user_path user
         click_on '削除'
         expect(page.current_path).to eq('/admin/users')
         expect(page).to have_content 'Deleted'
         expect(page).not_to have_content 'test_user'
+      end
+
+      it 'success to delete an administrator' do
+        log_in_as administrator
+        visit admin_user_path unnecessary_administrator
+        click_on '削除'
+        expect(page.current_path).to eq('/admin/users')
+        expect(page).to have_content 'Deleted'
+        expect(page).not_to have_content 'unnecessary_user'
+      end
+
+      it 'failed not to delete all administrators' do
+        log_in_as administrator
+        visit admin_user_path administrator
+        click_on '削除'
+        expect(page.current_path).to eq("/admin/users/#{administrator.id}")
+        expect(page).to have_content 'Delete Failed'
       end
     end
   end

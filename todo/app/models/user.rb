@@ -9,4 +9,15 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
   validates :role, inclusion: { in: roles }
+
+  before_destroy :not_to_delete_all_admin
+
+  private
+
+  def not_to_delete_all_admin
+    return if general?
+    return unless User.admin.count == 1
+    errors.add :base, '最後の管理者のため削除できません'
+    throw :abort
+  end
 end
