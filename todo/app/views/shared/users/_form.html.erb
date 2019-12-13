@@ -14,7 +14,7 @@
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
 
-  <% if logged_in? && current_user.role == "admin" %>
+  <% if logged_in? && current_user.admin? %>
     <div class="form-group row">
       <%= f.label :role %>
       <%= f.select :role, user_roles.invert, {}, class: 'form-control' %>
