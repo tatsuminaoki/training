@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   around_action :switch_locale
+  before_action :return_503, if: :maintenance_mode?
   include SessionsHelper
 
   def switch_locale(&action)
@@ -11,6 +12,18 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     { locale: I18n.locale }
+  end
+
+  def maintenance_mode?
+    ENV['MAINTENANCE_MODE'] == "on"
+  end
+
+  def return_503
+    render(file: Rails.public_path.join("503.html"),
+           content_type: "text/html",
+           layout: false,
+           status: :service_unavailable
+          )
   end
 
   protected
