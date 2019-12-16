@@ -70,5 +70,5 @@ RSpec.configure do |config|
   end
 
   # use helper
-  config.include(SystemHelper, :type => :system)
+  config.include(SystemHelper, type: :system)
 end
