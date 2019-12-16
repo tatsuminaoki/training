@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :site_setting do
-    maintenance { 1 }
+    maintenance { 0 }
   end
 end

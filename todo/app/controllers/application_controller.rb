@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    ENV['MAINTENANCE_MODE'] == 'on'
+    site_setting = SiteSetting.first_or_create
+    site_setting.on?
   end
 
   def return_503

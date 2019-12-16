@@ -7,7 +7,7 @@ RSpec.describe 'maintenance' do
   before(:all) do
     @rake = Rake::Application.new
     Rake.application = @rake
-    Rake.application.rake_require('maintenance', ["#{Rails.root}/lib/tasks"])
+    Rake.application.rake_require('maintenance', [Rails.root.join('lib', 'tasks')])
     Rake::Task.define_task(:environment)
   end
 
@@ -20,7 +20,8 @@ RSpec.describe 'maintenance' do
 
     it 'should success.' do
       @rake[task].invoke
-      expect(ENV['MAINTENANCE_MODE']).to eq 'on'
+      site_setting = SiteSetting.first
+      expect(site_setting.maintenance).to eq 'on'
     end
   end
 
@@ -29,7 +30,8 @@ RSpec.describe 'maintenance' do
 
     it 'should success.' do
       @rake[task].invoke
-      expect(ENV['MAINTENANCE_MODE']).to eq 'off'
+      site_setting = SiteSetting.first
+      expect(site_setting.maintenance).to eq 'off'
     end
   end
 end
