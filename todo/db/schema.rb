@@ -12,7 +12,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_212_045_620) do
+ActiveRecord::Schema.define(version: 20_191_216_060_217) do
+  create_table 'labels', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4', force: :cascade do |t|
+    t.integer 'content_type'
+    t.bigint 'task_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['task_id'], name: 'index_labels_on_task_id'
+  end
+
+  create_table 'site_settings', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4', force: :cascade do |t|
+    t.integer 'maintenance', default: 0, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'tasks', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4', force: :cascade do |t|
     t.string 'title', null: false
     t.text 'description'
@@ -32,5 +46,6 @@ ActiveRecord::Schema.define(version: 20_191_212_045_620) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  add_foreign_key 'labels', 'tasks'
   add_foreign_key 'tasks', 'users'
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'rake'
 
@@ -18,7 +20,7 @@ RSpec.describe 'maintenance' do
 
     it 'should success.' do
       @rake[task].invoke
-      expect(ENV['MAINTENANCE_MODE']).to eq "on"
+      expect(ENV['MAINTENANCE_MODE']).to eq 'on'
     end
   end
 
@@ -27,7 +29,7 @@ RSpec.describe 'maintenance' do
 
     it 'should success.' do
       @rake[task].invoke
-      expect(ENV['MAINTENANCE_MODE']).to eq "off"
+      expect(ENV['MAINTENANCE_MODE']).to eq 'off'
     end
   end
 end

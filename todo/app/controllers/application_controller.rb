@@ -15,14 +15,14 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    ENV['MAINTENANCE_MODE'] == "on"
+    ENV['MAINTENANCE_MODE'] == 'on'
   end
 
   def return_503
-    render(file: Rails.public_path.join("503.html"),
-           content_type: "text/html",
+    render(file: Rails.public_path.join('503.html'),
+           content_type: 'text/html',
            layout: false,
-           status: :service_unavailable
+           status: :service_unavailable,
           )
   end
 
