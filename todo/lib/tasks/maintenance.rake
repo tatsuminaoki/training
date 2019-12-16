@@ -1,0 +1,2 @@
+namespace :maintenance do
+end
