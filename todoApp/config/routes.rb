@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :tasks
+  scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
+    resources :tasks
 
-  root to: "tasks#index"
+    root to: 'tasks#index'
+  end
 end

@@ -1,0 +1,37 @@
+ja:
+  show: '詳細'
+  edit: '修正'
+  destroy: '削除'
+  back: '戻る'
+
+  tasks:
+    new_task: '新タスク'
+    create_task: 'タスク作成'
+    update_task: 'タスク更新'
+
+    index:
+      head_title: 'タスク一覧'
+    new:
+      head_title: 'タスク作成'
+    edit:
+      head_title: 'タスク修正'
+
+    column:
+      title: 'タスク名'
+      description: 'タスク詳細'
+
+  flash_message:
+    create_complete: 'タスク作成を完了しました。'
+    update_complete: 'タスク更新を完了しました。'
+    delete_success: '問題なく削除しました！'
+    delete_fail: '削除が無事に完了できませんでした。もう一度お願いします。'
+    delete_confirm: '本当に削除しますか？'
+
+  activerecord:
+    model:
+      task: 'タスク'
+
+    attributes:
+      task:
+        title: 'タスク名'
+        description: 'タスク詳細'

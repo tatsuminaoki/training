@@ -19,7 +19,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to @task, notice: 'Task was successfully created.'
+      redirect_to @task, notice: t('flash_message.create_complete')
     else
       render :new
     end
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: 'Task was successfully updated.'
+      redirect_to @task, notice: t('flash_message.update_complete')
     else
       render :edit
     end
@@ -35,9 +35,9 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to tasks_url, notice: 'Task was successfully destroyed.'
+      redirect_to tasks_url, notice: t('flash_message.delete_success')
     else
-      redirect_to tasks_url, notice: 'Destroy Failed. Please check again.'
+      redirect_to tasks_url, notice: t('flash_message.delete_fail')
     end
   end
 
