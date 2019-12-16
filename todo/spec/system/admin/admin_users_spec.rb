@@ -184,7 +184,7 @@ RSpec.describe 'Admin::Users', type: :system do
         visit admin_user_path administrator
         click_on '削除'
         expect(page.current_path).to eq("/admin/users/#{administrator.id}")
-        expect(page).to have_content 'Delete Failed'
+        expect(page).to have_content '最後の管理者のため削除できません'
       end
     end
   end

@@ -49,7 +49,7 @@ module Admin
         flash[:success] = 'Deleted'
         redirect_to admin_users_path
       else
-        flash[:error] = 'Delete Failed'
+        flash[:error] = @user.errors.full_messages.join("\n")
         @tasks = @user.tasks.page(params[:page])
         render :show
       end
