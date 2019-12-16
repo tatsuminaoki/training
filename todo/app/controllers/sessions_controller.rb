@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   # POST /sessions/create
   def create
-    user = User.find_by name: login_params[:name].downcase
+    user = User.find_by(name: login_params[:name].downcase)
     if user&.authenticate(login_params[:password])
       log_in user
       redirect_to tasks_path
