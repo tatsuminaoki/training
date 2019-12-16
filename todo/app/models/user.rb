@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  enum role: %i[general admin]
+  enum role: { general: 0, admin: 1 }
 
   has_many :tasks, dependent: :destroy
 
