@@ -17,5 +17,7 @@ module TodoApp
     # the framework and any gems in your application.
     config.i18n.available_locales = [:en, :ja]
     config.i18n.default_locale = :en
+
+    config.time_zone = 'Asia/Tokyo'
   end
 end
