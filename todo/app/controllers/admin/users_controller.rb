@@ -3,6 +3,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :require_login
+    before_action :require_admin_role
 
     # GET /admin/users
     def index
@@ -44,15 +45,26 @@ module Admin
     # DELETE /admin/users/:id
     def destroy
       @user = User.find(params[:id])
-      return :show unless @user.destroy
-      flash[:success] = 'Deleted'
-      redirect_to admin_users_path
+      if @user.destroy
+        flash[:success] = 'Deleted'
+        redirect_to admin_users_path
+      else
+        flash[:error] = @user.errors.full_messages.join("\n")
+        @tasks = @user.tasks.page(params[:page])
+        render :show
+      end
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation)
+      params.require(:user).permit(:name, :password, :password_confirmation, :role)
+    end
+
+    def require_admin_role
+      return if current_user.admin?
+      flash[:error] = 'You cannot access this section'
+      redirect_to tasks_path
     end
   end
 end

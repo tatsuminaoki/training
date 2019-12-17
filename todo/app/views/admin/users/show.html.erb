@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card-body">
+    <%= render partial: 'shared/flash_message' %>
     <h1 class="card-title"><%= @user.name %></h1>
+    <div class="card-body">
+      権限：<%= user_roles[@user.role] %>
+    </div>
     <% if @tasks.any? %>
       <%= paginate @tasks %>
       <table class="table">
