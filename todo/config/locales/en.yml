@@ -35,6 +35,8 @@ en:
       messages:
         past_time: Cannot be in the past
   button:
+    submit: Submit
+    login: Log in
     add: Add
     edit: Update
     search: Search
@@ -42,3 +44,5 @@ en:
     back: Back
     edit: Edit
     delete: Delete
+  errors:
+    wrong_name_or_password: Invalid email/password combination

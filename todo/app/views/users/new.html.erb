@@ -1,0 +1,5 @@
+<h1>ユーザ登録</h1>
+
+<%= render partial: 'shared/error_message', locals: { model: @user } %>
+
+<%= render partial: 'shared/users/form', locals: { url: users_create_path, button_name: t('button.submit') }%>

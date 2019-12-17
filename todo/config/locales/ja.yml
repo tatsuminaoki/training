@@ -6,6 +6,8 @@ ja:
       previous: 前へ
       next: 次へ
   button:
+    submit: 登録
+    login: ログイン
     add: 追加
     edit: 更新
     search: 検索
@@ -13,6 +15,8 @@ ja:
     back: 戻る
     edit: 編集
     delete: 削除
+  errors:
+    wrong_name_or_password: 名前またはユーザ名が誤っています
   activerecord:
     errors:
       messages:
@@ -21,6 +25,11 @@ ja:
       task: タスク
       user: ユーザー
     attributes:
+      user:
+        name: 名前
+        password: パスワード
+        password_confirmation: パスワード確認
+        role: ロール
       task:
         title: タスク名
         description: 詳細

@@ -55,19 +55,19 @@ RSpec.describe Task, type: :model do
 
     context 'find' do
       it 'with a title' do
-        tasks = Task.search({ title: 'タスク２', status: nil }, sort_column)
+        tasks = Task.search({ title: 'タスク２', status: nil }, sort_column, user_id: user.id)
         expect(tasks.size).to eq(1)
         expect(tasks).to include(task2)
       end
 
       it 'with a status' do
-        tasks = Task.search({ title: nil, status: Task.statuses[:doing] }, sort_column)
+        tasks = Task.search({ title: nil, status: Task.statuses[:doing] }, sort_column, user_id: user.id)
         expect(tasks.size).to eq(1)
         expect(tasks).to include(task2)
       end
 
       it 'with no conditions' do
-        tasks = Task.search({ title: nil, status: nil }, sort_column)
+        tasks = Task.search({ title: nil, status: nil }, sort_column, user_id: user.id)
         expect(tasks.size).to eq(2)
         expect(tasks).to include(task1, task2)
       end
@@ -75,12 +75,12 @@ RSpec.describe Task, type: :model do
 
     context 'not find' do
       it 'with a title' do
-        tasks = Task.search({ title: 'タスク３', status: nil }, sort_column)
+        tasks = Task.search({ title: 'タスク３', status: nil }, sort_column, user_id: user.id)
         expect(tasks.size).to eq(0)
       end
 
       it 'with a status' do
-        tasks = Task.search({ title: nil, status: Task.statuses[:done] }, sort_column)
+        tasks = Task.search({ title: nil, status: Task.statuses[:done] }, sort_column, user_id: user.id)
         expect(tasks.size).to eq(0)
       end
     end

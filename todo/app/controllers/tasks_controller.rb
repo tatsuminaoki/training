@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :require_login
+
   # GET /tasks/new
   def new
     @task = Task.new
@@ -8,7 +10,7 @@ class TasksController < ApplicationController
 
   # POST /tasks/create
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     return render :new unless @task.save
     flash[:success] = 'Success!'
     redirect_to tasks_path
@@ -34,13 +36,13 @@ class TasksController < ApplicationController
 
   # GET /tasks/
   def index
-    @tasks = Task.search(where_column, sort_column).page(params[:page])
+    @tasks = Task.search(where_column, sort_column, user_id: current_user.id).page(params[:page])
   end
 
   # DELETE /task/:id
   def destroy
     @task = Task.find(params[:id])
-    return unless @task.destroy
+    return :show unless @task.destroy
     flash[:success] = 'Deleted'
     redirect_to tasks_path
   end
