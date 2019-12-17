@@ -19,5 +19,7 @@ module TodoApp
     config.i18n.default_locale = :en
 
     config.time_zone = 'Asia/Tokyo'
+
+    config.exceptions_app = self.routes
   end
 end
