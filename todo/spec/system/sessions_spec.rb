@@ -8,9 +8,7 @@ RSpec.describe 'Sessions', type: :system do
     context 'with valid attribute' do
       it 'success' do
         visit login_path
-        fill_in 'session_name', with: 'test_user'
-        fill_in 'session_password', with: 'test_password'
-        click_on 'ログイン'
+        log_in_as(user)
         expect(page.current_path).to eq('/tasks')
       end
     end
