@@ -11,12 +11,12 @@ RSpec.describe 'Tasks', type: :system do
     context 'sort' do
       it 'by link' do
         log_in_as user
-        visit tasks_new_path
+        visit new_task_path
         fill_in 'task_title', with: 'first'
         fill_in 'task_due_date', with: Time.zone.local(2021, 1, 1, 0, 0)
         click_button '追加'
 
-        visit tasks_new_path
+        visit new_task_path
         fill_in 'task_title', with: 'second'
         fill_in 'task_due_date', with: Time.zone.local(2020, 1, 1, 0, 0)
         click_button '追加'
@@ -72,8 +72,8 @@ RSpec.describe 'Tasks', type: :system do
     context 'search' do
       it 'by title' do
         log_in_as user
-        visit tasks_show_path(task1)
-        visit tasks_show_path(task2)
+        visit task_path(task1)
+        visit task_path(task2)
         visit tasks_path
 
         fill_in 'title', with: 'タスク２'
@@ -85,8 +85,8 @@ RSpec.describe 'Tasks', type: :system do
 
       it 'by status' do
         log_in_as user
-        visit tasks_show_path(task1)
-        visit tasks_show_path(task2)
+        visit task_path(task1)
+        visit task_path(task2)
         visit tasks_path
         select '着手', from: 'status'
         click_button '検索'
@@ -99,7 +99,7 @@ RSpec.describe 'Tasks', type: :system do
 
   it 'show task detail' do
     log_in_as user
-    visit tasks_show_path(task1)
+    visit task_path(task1)
 
     expect(page).to have_content 'タスク１'
     expect(page).to have_content 'タスク１詳細'
@@ -110,7 +110,7 @@ RSpec.describe 'Tasks', type: :system do
     context 'with valid attributes' do
       it 'fill all items' do
         log_in_as user
-        visit tasks_new_path
+        visit new_task_path
         fill_in 'task_title', with: '新規タスク'
         fill_in 'task_description', with: '新規タスク詳細'
         select '着手', from: 'task_status'
@@ -125,14 +125,14 @@ RSpec.describe 'Tasks', type: :system do
     context 'with invalid attributes' do
       it 'no title' do
         log_in_as user
-        visit tasks_new_path
+        visit new_task_path
         click_button '追加'
         expect(page).to have_content 'タスク名を入力してください'
       end
 
       it 'too long title' do
         log_in_as user
-        visit tasks_new_path
+        visit new_task_path
         fill_in 'task_title', with: 'a' * 251
         click_button '追加'
         expect(page).to have_content 'タスク名は250文字以内で入力してください'
@@ -144,7 +144,7 @@ RSpec.describe 'Tasks', type: :system do
     context 'with valid attributes' do
       it 'fill all items' do
         log_in_as user
-        visit tasks_edit_path(task1)
+        visit edit_task_path(task1)
 
         expect(page).to have_field 'task_title', with: 'タスク１'
         expect(page).to have_field 'task_description', with: 'タスク１詳細'
@@ -168,7 +168,7 @@ RSpec.describe 'Tasks', type: :system do
     context 'with invalid attributes' do
       it 'no title' do
         log_in_as user
-        visit tasks_edit_path(task1)
+        visit edit_task_path(task1)
         fill_in 'task_title', with: ''
         click_button '更新'
         expect(page).to have_content 'タスク名を入力してください'
@@ -176,7 +176,7 @@ RSpec.describe 'Tasks', type: :system do
 
       it 'too long title' do
         log_in_as user
-        visit tasks_edit_path(task1)
+        visit edit_task_path(task1)
         fill_in 'task_title', with: 'a' * 251
         click_button '更新'
         expect(page).to have_content 'タスク名は250文字以内で入力してください'
@@ -186,7 +186,7 @@ RSpec.describe 'Tasks', type: :system do
 
   it 'delete task' do
     log_in_as user
-    visit tasks_show_path(task1)
+    visit task_path(task1)
 
     click_link '削除'
 

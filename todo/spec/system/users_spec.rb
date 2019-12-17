@@ -7,6 +7,8 @@ RSpec.describe 'Users', type: :system do
     context 'success' do
       it 'with valid attribute' do
         visit signup_path
+        # ロールが表示されないことを確認する
+        expect(page).not_to have_content 'ロール'
         fill_in 'user_name', with: 'test_user'
         fill_in 'user_password', with: 'test_password'
         fill_in 'user_password_confirmation', with: 'test_password'

@@ -1,8 +1,6 @@
 <h1>All Tasks</h1>
 
-<% if flash[:success] %>
-  <p class="alert alert-success"><%= flash[:success] %></p>
-<% end %>
+<%= render partial: 'shared/flash_message' %>
 
 <nav class="navbar navbar-light bg-faded rounded">
     <%= form_tag(tasks_path, method: 'get', class: 'form-inline my-2 my-md-0') do %>
@@ -10,7 +8,7 @@
       <%= select_tag(:status, options_for_select(status_text.invert, selected: params[:status]), include_blank: true, class: 'form-control mr-sm-2') %>
       <%= submit_tag(t("button.search"), name: nil, class: 'btn btn-secondary') %>
     <% end %>
-  <%= link_to 'Create New Task', tasks_new_path, class: 'btn btn-primary' %>
+  <%= link_to 'Create New Task', new_task_path, class: 'btn btn-primary' %>
 </nav>
 <ul class="nav justify-content-end">
   <li class="nav-item">
@@ -38,7 +36,7 @@
     <% @tasks.each do |task| %>
     <tr class="row">
       <td class="col">
-        <%= link_to task.title, tasks_show_path(task) %>
+        <%= link_to task.title, task_path(task) %>
       </td>
     </tr>
     <% end %>

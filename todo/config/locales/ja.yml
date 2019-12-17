@@ -29,6 +29,7 @@ ja:
         name: 名前
         password: パスワード
         password_confirmation: パスワード確認
+        role: ロール
       task:
         title: タスク名
         description: 詳細
