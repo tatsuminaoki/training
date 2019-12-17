@@ -1,0 +1,36 @@
+<h1>Users</h1>
+
+<%= render partial: 'shared/flash_message' %>
+
+<nav class="navbar navbar-light bg-faded rounded">
+  <%= link_to 'Add New User', new_admin_user_path , class: 'btn btn-primary' %>
+</nav>
+
+<% if @users.any? %>
+  <%= paginate @users %>
+  <table class="table">
+    <thead>
+    <tr class="row">
+      <th scope="col" class="col-9">
+        <%= t('activerecord.attributes.user.name') %>
+      </th>
+      <th scope="col" class="col-3">
+        タスク数
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr class="row">
+        <td class="col-9">
+          <%= link_to user.name, admin_user_path(user) %>
+        </td>
+        <td class="col-3">
+          <%= user.tasks.size %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @users %>
+<% end %>

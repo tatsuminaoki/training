@@ -13,12 +13,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get edit' do
-    get tasks_edit_url(@task)
+    get edit_task_url(@task)
     assert_response :success
   end
 
   test 'should get show' do
-    get tasks_show_url(@task)
+    get task_url(@task)
     assert_response :success
   end
 
