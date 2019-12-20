@@ -18,6 +18,9 @@ RSpec.describe 'Applications', type: :system do
     it 'returns 200' do
       visit login_path
       expect(page).not_to have_content '503'
+      expect(page).to have_content 'ログイン'
+      expect(page).to have_selector '#session_name'
+      expect(page).to have_selector '#session_password'
     end
   end
 end
