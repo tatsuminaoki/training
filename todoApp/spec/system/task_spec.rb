@@ -15,7 +15,7 @@ RSpec.describe 'Task management', type: :system, js: true do
     expect(old_title).to have_content 'rspec first task'
   end
 
-  scenario 'Task list should be ascending order by due date when user click on ▲ マーク' do
+  scenario 'Task list should be ascending order by due date when user click on ▲ symbol' do
     visit tasks_path
     click_link '▲'
     expect(page).to have_content 'Due Date'
@@ -25,7 +25,7 @@ RSpec.describe 'Task management', type: :system, js: true do
     expect(still_have_time).to have_content 'still have time until deadline'
   end
 
-  scenario 'Task list should be descending order by due date when user click on ▼ マーク' do
+  scenario 'Task list should be descending order by due date when user click on ▼ symbol' do
     visit tasks_path
     click_link '▼'
     expect(page).to have_content 'Due Date'
