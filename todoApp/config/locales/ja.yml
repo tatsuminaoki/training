@@ -22,6 +22,7 @@ ja:
     column:
       title: 'タスク名'
       description: 'タスク詳細'
+      due_date: '終了期限'
 
   flash_message:
     create_complete: 'タスク作成を完了しました。'
@@ -38,3 +39,4 @@ ja:
       task:
         title: 'タスク名'
         description: 'タスク詳細'
+        due_date: '終了期限'

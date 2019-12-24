@@ -22,6 +22,7 @@ en:
     column:
       title: 'Title'
       description: 'Description'
+      due_date: 'Due Date'
 
   flash_message:
     create_complete: 'Task was successfully created.'
@@ -38,3 +39,4 @@ en:
       task:
         title: 'Title'
         description: 'Description'
+        due_date: 'Due Date'
