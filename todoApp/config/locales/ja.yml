@@ -4,6 +4,8 @@ ja:
   destroy: '削除'
   back: '戻る'
   created_at: '作成日時'
+  error_unit: '個'
+  error_message: 'のエーラーが発生したため保存できません。：'
 
   tasks:
     new_task: '新タスク'

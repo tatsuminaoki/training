@@ -4,6 +4,8 @@ en:
   destroy: 'Destroy'
   back: 'Back'
   created_at: 'Created At'
+  error_unit: 'error'
+  error_message: 'prohibited this task from being saved:'
 
   tasks:
     new_task: 'New Task'

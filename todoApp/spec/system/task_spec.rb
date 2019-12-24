@@ -24,6 +24,23 @@ RSpec.describe 'Task management', type: :system, js: true do
     expect(page).to have_content 'Task was successfully created.'
   end
 
+  scenario 'Title must be exist when creates new task.' do
+    visit tasks_path
+    click_link 'New Task'
+    fill_in 'Description', :with => 'My Task Description'
+    click_button 'Create Task'
+    expect(page).to have_content "Title can't be blank"
+  end
+
+  scenario 'Title length must be less than 50 when creates new task' do
+    visit tasks_path
+    click_link 'New Task'
+    fill_in 'Title', :with => 'a' * 51
+    fill_in 'Description', :with => 'My Task Description'
+    click_button 'Create Task'
+    expect(page).to have_content 'Title is too long (maximum is 50 characters)'
+  end
+
   scenario 'When user click Edit link it updates the selected task.' do
     visit tasks_path
     first(:link, 'Edit').click
@@ -31,6 +48,24 @@ RSpec.describe 'Task management', type: :system, js: true do
     fill_in 'Description', :with => 'Edit My Task Description'
     click_button 'Update Task'
     expect(page).to have_content 'Task was successfully updated.'
+  end
+
+  scenario 'Title must be exist when updates task.' do
+    visit tasks_path
+    first(:link, 'Edit').click
+    fill_in 'Title', :with => ''
+    fill_in 'Description', :with => 'Edit My Task Description'
+    click_button 'Update Task'
+    expect(page).to have_content "Title can't be blank"
+  end
+
+  scenario 'Title length must be less than 50 when when updates task.' do
+    visit tasks_path
+    first(:link, 'Edit').click
+    fill_in 'Title', :with => 'a' * 51
+    fill_in 'Description', :with => 'Edit My Task Description'
+    click_button 'Update Task'
+    expect(page).to have_content 'Title is too long (maximum is 50 characters)'
   end
 
   scenario 'When user click Destroy link it deletes the selected task.' do
