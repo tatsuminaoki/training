@@ -30,7 +30,7 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_content 'Task was successfully created.'
     end
 
-    it 'Title must be exist when creates new task.' do
+    it 'ensures Title presence when creates new task.' do
       visit tasks_path
       click_link 'New Task'
       fill_in 'Description', :with => 'My Task Description'
@@ -38,7 +38,7 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_content "Title can't be blank"
     end
 
-    it 'Title length must be less than 50 when creates new task' do
+    it 'ensures Title length must be less than 50 when creates new task' do
       visit tasks_path
       click_link 'New Task'
       fill_in 'Title', :with => 'a' * 51
@@ -56,7 +56,7 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_content 'Task was successfully updated.'
     end
 
-    it 'Title must be exist when updates task.' do
+    it 'ensures Title presence when updates task.' do
       visit tasks_path
       click_link 'Edit'
       fill_in 'Title', :with => ''
@@ -65,7 +65,7 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_content "Title can't be blank"
     end
 
-    it 'Title length must be less than 50 when updates task.' do
+    it 'ensures Title length must be less than 50 when updates task.' do
       visit tasks_path
       click_link 'Edit'
       fill_in 'Title', :with => 'a' * 51
