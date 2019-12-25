@@ -17,10 +17,6 @@ en:
     edit:
       head_title: 'Editing Task'
 
-    column:
-      title: 'Title'
-      description: 'Description'
-
   flash_message:
     create_complete: 'Task was successfully created.'
     update_complete: 'Task was successfully updated.'

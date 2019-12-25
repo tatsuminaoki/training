@@ -17,10 +17,6 @@ ja:
     edit:
       head_title: 'タスク修正'
 
-    column:
-      title: 'タスク名'
-      description: 'タスク詳細'
-
   flash_message:
     create_complete: 'タスク作成を完了しました。'
     update_complete: 'タスク更新を完了しました。'

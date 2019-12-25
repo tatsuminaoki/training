@@ -5,8 +5,8 @@
 <table>
   <thead>
   <tr>
-    <th><%= t('tasks.column.title') %></th>
-    <th><%= t('tasks.column.description') %></th>
+    <th><%= Task.human_attribute_name(:title) %></th>
+    <th><%= Task.human_attribute_name(:description) %></th>
     <th><%= t('created_at') %></th>
     <th colspan="3"></th>
   </tr>
