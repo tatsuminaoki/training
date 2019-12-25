@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Task management', type: :system, js: true do
+RSpec.describe 'Task management', type: :system do
   before do
     %w(first second).each do |nth|
       Task.create!(title: "rspec #{nth} task", description: 'rspec Description')
