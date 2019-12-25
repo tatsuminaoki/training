@@ -1,43 +1,50 @@
 require 'rails_helper'
 
-RSpec.describe 'Task management', type: :system do
-  before do
-    Task.create!(title: 'rspec first task', description: 'rspec Description')
-  end
-
-  scenario 'When user visit the tasks_path it shows the task list order by created recently.' do
-    Task.create!(title: 'rspec second task', description: 'rspec Description')
-    visit tasks_path
-    recent_title = find(:xpath, ".//table/tbody/tr[1]/td[1]").text
-    old_title = find(:xpath, ".//table/tbody/tr[2]/td[1]").text
-    expect(recent_title).to have_content 'rspec second task'
-    expect(old_title).to have_content 'rspec first task'
-  end
-
-  scenario 'When user click New Task link it creates new task.' do
-    visit tasks_path
-    click_link 'New Task'
-    fill_in 'Title', :with => 'My Task'
-    fill_in 'Description', :with => 'My Task Description'
-    click_button 'Create Task'
-    expect(page).to have_content 'Task was successfully created.'
-  end
-
-  scenario 'When user click Edit link it updates the selected task.' do
-    visit tasks_path
-    click_link 'Edit'
-    fill_in 'Title', :with => 'My Edited Task'
-    fill_in 'Description', :with => 'Edit My Task Description'
-    click_button 'Update Task'
-    expect(page).to have_content 'Task was successfully updated.'
-  end
-
-  scenario 'When user click Destroy link it deletes the selected task.' do
-    visit tasks_path
-    accept_alert do
-      click_link 'Destroy'
+RSpec.describe 'Task', type: :system do
+  context 'visit the tasks_path' do
+    before do
+      Task.create!(title: 'rspec first task', description: 'rspec Description')
+      Task.create!(title: 'rspec second task', description: 'rspec Description')
     end
-    expect(page).to have_content 'Task was successfully destroyed.'
+
+    it 'shows the task list order by created recently.' do
+      visit tasks_path
+      recent_title = find(:xpath, ".//table/tbody/tr[1]/td[1]").text
+      old_title = find(:xpath, ".//table/tbody/tr[2]/td[1]").text
+      expect(recent_title).to have_content 'rspec second task'
+      expect(old_title).to have_content 'rspec first task'
+    end
   end
 
+  context 'user click the link' do
+    before do
+      Task.create!(title: 'rspec first task', description: 'rspec Description')
+    end
+
+    it 'creates new task when click New Task' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Title', :with => 'My Task'
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content 'Task was successfully created.'
+    end
+
+    it 'updates the selected task when click Edit' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => 'My Edited Task'
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content 'Task was successfully updated.'
+    end
+
+    it 'deletes the selected task when click Destroy' do
+      visit tasks_path
+      accept_alert do
+        click_link 'Destroy'
+      end
+      expect(page).to have_content 'Task was successfully destroyed.'
+    end
+  end
 end
