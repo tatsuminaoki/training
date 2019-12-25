@@ -2,12 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Task management', type: :system do
   before do
-    %w(first second).each do |nth|
-      Task.create!(title: "rspec #{nth} task", description: 'rspec Description')
-    end
+    Task.create!(title: 'rspec first task', description: 'rspec Description')
   end
 
   scenario 'When user visit the tasks_path it shows the task list order by created recently.' do
+    Task.create!(title: 'rspec second task', description: 'rspec Description')
     visit tasks_path
     recent_title = find(:xpath, ".//table/tbody/tr[1]/td[1]").text
     old_title = find(:xpath, ".//table/tbody/tr[2]/td[1]").text
@@ -26,7 +25,7 @@ RSpec.describe 'Task management', type: :system do
 
   scenario 'When user click Edit link it updates the selected task.' do
     visit tasks_path
-    first(:link, 'Edit').click
+    click_link 'Edit'
     fill_in 'Title', :with => 'My Edited Task'
     fill_in 'Description', :with => 'Edit My Task Description'
     click_button 'Update Task'
@@ -36,7 +35,7 @@ RSpec.describe 'Task management', type: :system do
   scenario 'When user click Destroy link it deletes the selected task.' do
     visit tasks_path
     accept_alert do
-      first(:link, 'Destroy').click
+      click_link 'Destroy'
     end
     expect(page).to have_content 'Task was successfully destroyed.'
   end
