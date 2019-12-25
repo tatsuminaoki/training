@@ -23,6 +23,9 @@ ja:
     delete_fail: '削除が無事に完了できませんでした。もう一度お願いします。'
     delete_confirm: '本当に削除しますか？'
 
+  attributes:
+    created_at: '作成日時'
+
   activerecord:
     model:
       task: 'タスク'
@@ -31,4 +34,3 @@ ja:
       task:
         title: 'タスク名'
         description: 'タスク詳細'
-        created_at: '作成日時'

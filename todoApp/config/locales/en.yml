@@ -23,6 +23,9 @@ en:
     delete_fail: 'Destroy Failed. Please check again.'
     delete_confirm: 'Are you sure?'
 
+  attributes:
+    created_at: 'Created At'
+
   activerecord:
     model:
       task: 'task'
@@ -31,4 +34,3 @@ en:
       task:
         title: 'Title'
         description: 'Description'
-        created_at: 'Created At'
