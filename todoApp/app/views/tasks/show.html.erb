@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong><%= t('tasks.column.status') %> : </strong>
+  <%= @task.status %>
+</p>
+
+<p>
   <strong><%= t('tasks.column.due_date') %> : </strong>
   <%= l(@task.due_date, format: :short) if @task.due_date %>
 </p>

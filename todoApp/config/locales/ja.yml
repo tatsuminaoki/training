@@ -18,10 +18,15 @@ ja:
       head_title: 'タスク作成'
     edit:
       head_title: 'タスク修正'
+    search:
+      title_keyword: 'タイトル・キーワード'
+      current_status: '現状態'
+      search: '検索'
 
     column:
       title: 'タスク名'
       description: 'タスク詳細'
+      status: '進捗'
       due_date: '終了期限'
 
   flash_message:
@@ -39,4 +44,5 @@ ja:
       task:
         title: 'タスク名'
         description: 'タスク詳細'
+        status: '進捗'
         due_date: '終了期限'

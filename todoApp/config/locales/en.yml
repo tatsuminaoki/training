@@ -18,10 +18,15 @@ en:
       head_title: 'New List'
     edit:
       head_title: 'Editing Task'
+    search:
+      title_keyword: 'Title Keyword'
+      current_status: 'Current Status'
+      search: 'Search'
 
     column:
       title: 'Title'
       description: 'Description'
+      status: 'Status'
       due_date: 'Due Date'
 
   flash_message:
@@ -39,4 +44,5 @@ en:
       task:
         title: 'Title'
         description: 'Description'
+        status: 'Status'
         due_date: 'Due Date'
