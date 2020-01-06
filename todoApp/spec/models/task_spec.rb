@@ -1,31 +1,59 @@
 require 'rails_helper'
 
 RSpec.describe Task, :type => :model do
-  context 'When user creates task' do
-    it 'ensures title presence' do
-      task = Task.create(description: 'no title')
-      expect(task).to be_invalid
+  describe 'Title validation when creates' do
+    let(:task) { Task.new(params) }
+    let(:params) { { title: title } }
+    subject { task }
+
+    context 'title not presence' do
+      let(:title) { '' }
+      it {
+        task.save
+        is_expected.to be_invalid
+      }
     end
 
-    it 'ensures title length is less than 50' do
-      task = Task.create(title: 'a' * 51, description: 'simple description')
-      expect(task).to be_invalid
+    context 'title length is more than 50' do
+      let(:title) { 'a' * 51 }
+      it {
+        task.save
+        is_expected.to be_invalid
+      }
+    end
+
+    context 'title presence and length is less than 50' do
+      let(:title) { 'a' * 49 }
+      it {
+        task.save
+        is_expected.to be_valid
+      }
     end
   end
 
-  context 'When user edits task' do
-    it 'ensures title presence' do
-      task = Task.create(title: 'sample title', description: 'sample description')
-      expect(task).to be_valid
-      task.update(title: '')
-      expect(task).to be_invalid
+  describe 'Title validation when edits' do
+    let(:task) { Task.create(title: 'base title') }
+    subject { task }
+
+    context 'title not presence' do
+      it {
+        task.update(title: '')
+        is_expected.to be_invalid
+      }
     end
 
-    it 'ensures title length is less than 50' do
-      task = Task.create(title: 'short title', description: 'short description')
-      expect(task).to be_valid
-      task.update(title: 'a' * 51)
-      expect(task).to be_invalid
+    context 'title length is more than 50' do
+      it {
+        task.update(title: 'a' * 51)
+        is_expected.to be_invalid
+      }
+    end
+
+    context 'title presence and length is less than 50' do
+      it {
+        task.update(title: 'a' * 49)
+        is_expected.to be_valid
+      }
     end
   end
 end
