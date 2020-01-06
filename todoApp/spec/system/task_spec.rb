@@ -24,4 +24,21 @@ RSpec.describe 'Task management', type: :system, js: true do
     end
   end
 
+  context 'When user paginate' do
+    before do
+      1.upto(8){ |k| Task.create!(title: "Title #{k}") }
+    end
+
+    it 'shows paginate links if more than one page' do
+      visit tasks_path
+      expect(page).to have_selector 'nav.pagination'
+    end
+
+    it "ensures paginate working properly" do
+      visit tasks_path
+      click_link 'Last »'
+      expect(page).to have_link '« First'
+    end
+  end
+
 end

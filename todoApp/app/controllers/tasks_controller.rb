@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     @tasks = Task.filter_by_ids_or_all(params[:filtered_ids])
                  .search_result(params[:title_keyword], params[:current_status])
                  .order_by_due_date_or_default(params[:due_date_direction])
+                 .page(params[:page])
   end
 
   def show
