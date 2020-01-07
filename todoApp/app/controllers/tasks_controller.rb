@@ -2,11 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort].blank?
-      @tasks = Task.order({ created_at: :desc })
-    else
-      @tasks = Task.order_by_due_date(params[:sort])
-    end
+    @tasks = Task.order_by_due_date_or_default(params[:due_date_direction])
   end
 
   def show

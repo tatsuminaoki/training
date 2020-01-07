@@ -1,13 +1,11 @@
 class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
 
-  def self.order_by_due_date(direction)
-    if direction == 'due_date_desc'
-      Task.order({ due_date: :desc })
-    elsif direction == 'due_date_asc'
-      Task.order({ due_date: :asc })
+  def self.order_by_due_date_or_default(due_date_direction)
+    if due_date_direction == 'DESC' || due_date_direction == 'ASC'
+      order("due_date #{due_date_direction}")
     else
-      Task.order({ created_at: :desc })
+      order(created_at: :desc)
     end
   end
 end
