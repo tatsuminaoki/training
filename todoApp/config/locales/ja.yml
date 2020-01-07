@@ -18,6 +18,8 @@ ja:
       head_title: 'タスク作成'
     edit:
       head_title: 'タスク修正'
+    show:
+      head_title: 'タスク詳細'
     search:
       title_keyword: 'タイトル・キーワード'
       current_status: '現状態'

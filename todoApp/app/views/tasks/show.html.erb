@@ -1,29 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <%= render 'common/notice' %>
 
-<p>
-  <strong><%= t('tasks.column.title') %> : </strong>
-  <%= @task.title %>
-</p>
+  <h1><%= t('.head_title') %></h1>
 
-<p>
-  <strong><%= t('tasks.column.description') %> : </strong>
-  <%= @task.description %>
-</p>
+  <div class="form-group">
+    <label class="label">
+      <strong><%= t('tasks.column.title') %> : </strong>
+    </label>
+    <%= @task.title %>
+  </div>
 
-<p>
-  <strong><%= t('tasks.column.status') %> : </strong>
-  <%= @task.status %>
-</p>
+  <div class="form-group">
+    <label class="label">
+      <strong><%= t('tasks.column.description') %> : </strong>
+    </label>
+    <%= @task.description %>
+  </div>
 
-<p>
-  <strong><%= t('tasks.column.due_date') %> : </strong>
-  <%= l(@task.due_date, format: :short) if @task.due_date %>
-</p>
+  <div class="form-group">
+    <label class="label">
+      <strong><%= t('tasks.column.status') %> : </strong>
+    </label>
+    <%= @task.status %>
+  </div>
 
-<p>
-  <strong><%= t('tasks.column.created_at') %> : </strong>
-  <%= l(@task.created_at, format: :short) %>
-</p>
+  <div class="form-group">
+    <label class="label">
+      <strong><%= t('tasks.column.due_date') %> : </strong>
+    </label>
+    <%= l(@task.due_date, format: :short) if @task.due_date %>
+  </div>
 
-<%= link_to t('edit'), edit_task_path(@task) %> |
-<%= link_to t('back'), tasks_path %>
+  <div class="form-group">
+    <label class="label">
+      <strong><%= t('tasks.column.created_at') %> : </strong>
+    </label>
+    <%= l(@task.created_at, format: :short) %>
+  </div>
+
+  <%= link_to t('edit'), edit_task_path(@task) %> |
+  <%= link_to t('back'), tasks_path %>
+</div>
