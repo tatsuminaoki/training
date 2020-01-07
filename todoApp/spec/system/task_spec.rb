@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Task', type: :system do
+RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
       Task.create!(title: 'rspec first task', description: 'rspec Description')
@@ -30,6 +30,23 @@ RSpec.describe 'Task', type: :system do
       expect(page).to have_content 'Task was successfully created.'
     end
 
+    it 'ensures Title presence when creates new task.' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content "Title can't be blank"
+    end
+
+    it 'ensures Title length must be less than 50 when creates new task' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Title', :with => 'a' * 51
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content 'Title is too long (maximum is 50 characters)'
+    end
+
     it 'updates the selected task when click Edit' do
       visit tasks_path
       click_link 'Edit'
@@ -37,6 +54,24 @@ RSpec.describe 'Task', type: :system do
       fill_in 'Description', :with => 'Edit My Task Description'
       click_button 'Update Task'
       expect(page).to have_content 'Task was successfully updated.'
+    end
+
+    it 'ensures Title presence when updates task.' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => ''
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content "Title can't be blank"
+    end
+
+    it 'ensures Title length must be less than 50 when updates task.' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => 'a' * 51
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content 'Title is too long (maximum is 50 characters)'
     end
 
     it 'deletes the selected task when click Destroy' do
