@@ -23,7 +23,7 @@ RSpec.describe Task, :type => :model do
     end
 
     context 'title presence and length is less than 50' do
-      let(:title) { 'a' * 49 }
+      let(:title) { 'a' * 50 }
       it {
         task.save
         is_expected.to be_valid
@@ -51,7 +51,7 @@ RSpec.describe Task, :type => :model do
 
     context 'title presence and length is less than 50' do
       it {
-        task.update(title: 'a' * 49)
+        task.update(title: 'a' * 50)
         is_expected.to be_valid
       }
     end
