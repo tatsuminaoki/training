@@ -80,6 +80,5 @@ RSpec.describe Task, :type => :model do
         expect(Task.search_result('title', 'done')).to eq([task4])
       }
     end
-
   end
 end

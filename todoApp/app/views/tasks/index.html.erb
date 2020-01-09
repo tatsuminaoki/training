@@ -10,8 +10,8 @@
     <th><%= Task.human_attribute_name(:description) %></th>
     <th><%= Task.human_attribute_name(:status) %></th>
     <th><%= Task.human_attribute_name(:due_date) %>
-      <%= link_to '▼', controller: :tasks, due_date_direction: :'DESC' %>
-      <%= link_to '▲', controller: :tasks, due_date_direction: :'ASC' %>
+      <%= link_to '▼', controller: :tasks, due_date_direction: :'DESC', :filtered_ids => @tasks.pluck(:id) %>
+      <%= link_to '▲', controller: :tasks, due_date_direction: :'ASC', :filtered_ids => @tasks.pluck(:id) %>
     </th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th colspan="3"></th>

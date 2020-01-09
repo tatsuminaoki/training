@@ -28,5 +28,4 @@ class Task < ApplicationRecord
       order(created_at: :desc)
     end
   end
-
 end
