@@ -3,6 +3,8 @@ ja:
   edit: '修正'
   destroy: '削除'
   back: '戻る'
+  error_unit: '個'
+  error_message: 'のエラーが発生したため保存できません。：'
 
   tasks:
     new_task: '新タスク'
@@ -34,3 +36,4 @@ ja:
       task:
         title: 'タスク名'
         description: 'タスク詳細'
+        due_date: '終了期限'

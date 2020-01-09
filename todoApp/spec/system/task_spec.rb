@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
-      Task.create!(title: 'rspec first task', description: 'rspec Description')
-      Task.create!(title: 'rspec second task', description: 'rspec Description')
+      Task.create!(title: 'rspec first task', description: 'deadline is soon', due_date: 1.day.from_now)
+      Task.create!(title: 'rspec second task', description: 'still have time until deadline', due_date: 3.days.from_now)
     end
 
     it 'shows the task list order by created recently.' do
@@ -13,6 +13,26 @@ RSpec.describe 'Task management', type: :system, js: true do
       old_title = find(:xpath, ".//table/tbody/tr[2]/td[1]").text
       expect(recent_title).to have_content 'rspec second task'
       expect(old_title).to have_content 'rspec first task'
+    end
+
+    it 'should be ascending order by due date when user click on ▲ symbol' do
+      visit tasks_path
+      click_link '▲'
+      expect(page).to have_content 'Due Date'
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      still_have_time = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(urgent_deadline).to have_content 'deadline is soon'
+      expect(still_have_time).to have_content 'still have time until deadline'
+    end
+
+    it 'should be descending order by due date when user click on ▼ symbol' do
+      visit tasks_path
+      click_link '▼'
+      expect(page).to have_content 'Due Date'
+      still_have_time = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(still_have_time).to have_content 'still have time until deadline'
+      expect(urgent_deadline).to have_content 'deadline is soon'
     end
   end
 

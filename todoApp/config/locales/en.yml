@@ -3,6 +3,8 @@ en:
   edit: 'Edit'
   destroy: 'Destroy'
   back: 'Back'
+  error_unit: 'error'
+  error_message: 'prohibited this task from being saved:'
 
   tasks:
     new_task: 'New Task'
@@ -34,3 +36,4 @@ en:
       task:
         title: 'Title'
         description: 'Description'
+        due_date: 'Due Date'
