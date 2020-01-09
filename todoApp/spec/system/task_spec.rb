@@ -121,7 +121,7 @@ RSpec.describe 'Task management', type: :system, js: true do
       select('todo', from: 'Current Status')
       click_button 'Search'
       within_table('task table') do
-      expect(page).to have_no_content 'ongoing'
+        expect(page).to have_no_content 'ongoing'
       end
     end
   end
