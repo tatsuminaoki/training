@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong><%= t('tasks.column.title') %> : </strong>
+  <strong><%= Task.human_attribute_name(:title) %> : </strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong><%= t('tasks.column.description') %> : </strong>
+  <strong><%= Task.human_attribute_name(:description) %> : </strong>
   <%= @task.description %>
 </p>
 
