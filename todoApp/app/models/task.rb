@@ -14,7 +14,6 @@ class Task < ApplicationRecord
   end
 
   def self.search_by_status(current_status)
-    # current_status.presence ? where("status = ?", current_status) : all
     current_status.presence ? where(status: current_status) : all
   end
 
