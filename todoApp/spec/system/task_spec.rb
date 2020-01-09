@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
-      Task.create!(title: 'rspec first task', description: 'deadline is soon', due_date: DateTime.now + 1)
-      Task.create!(title: 'rspec second task', description: 'still have time until deadline', due_date: DateTime.now + 3)
+      Task.create!(title: 'rspec first task', description: 'deadline is soon', due_date: 1.day.from_now)
+      Task.create!(title: 'rspec second task', description: 'still have time until deadline', due_date: 3.days.from_now)
     end
 
     it 'shows the task list order by created recently.' do
