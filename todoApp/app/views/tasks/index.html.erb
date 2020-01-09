@@ -8,8 +8,8 @@
     <th><%= Task.human_attribute_name(:title) %></th>
     <th><%= Task.human_attribute_name(:description) %></th>
     <th><%= Task.human_attribute_name(:due_date) %>
-      <%= link_to '▼', :controller => 'tasks', :due_date_direction => 'DESC' %>
-      <%= link_to '▲', :controller => 'tasks', :due_date_direction => 'ASC' %>
+      <%= link_to '▼', controller: :tasks, due_date_direction: :'DESC' %>
+      <%= link_to '▲', controller: :tasks, due_date_direction: :'ASC' %>
     </th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th colspan="3"></th>
