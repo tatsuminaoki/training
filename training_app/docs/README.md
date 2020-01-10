@@ -145,7 +145,13 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 [画面イメージ](layout.jpg)
 
-Markdown登録ツール
+Markdown登録ツール 
+
+機能: 
+1. ユーザー登録機能
+2. ユーザー一覧
+3. Markdown登録機能
+4. 登録Markdown一覧機能
 
 テーブル: users
 
@@ -164,6 +170,7 @@ Markdown登録ツール
 |------------|------------|
 | id | PK | serial | 
 | name | 名前 | text |
+| body | 内容 | text |
 | created_at | 作成日時 | datetime |
 | updated_at | 更新日時 | datetime |
 
