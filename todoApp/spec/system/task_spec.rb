@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
-      Task.create!(title: 'rspec first task', description: 'deadline is soon', due_date: 1.day.from_now)
-      Task.create!(title: 'rspec second task', description: 'still have time until deadline', due_date: 3.days.from_now)
+      Task.create!(title: 'rspec first task', description: 'first description')
+      Task.create!(title: 'rspec second task', description: 'second description')
     end
 
     it 'shows the task list order by created recently.' do
@@ -85,8 +85,30 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'when user search' do
     before do
-      Task.create!(title: 'first task', description: 'first Description', status: 'todo')
-      Task.create!(title: 'second task', description: 'second Description', status: 'ongoing')
+      Task.create!(title: 'first task', description: 'deadline is soon', status: 'todo', due_date: 1.day.from_now)
+      Task.create!(title: 'second task', description: 'still have time until deadline', status: 'ongoing', due_date: 3.days.from_now)
+    end
+
+    it 'should be ascending order by due date when user search by due_date asc' do
+      visit tasks_path
+      select('ASC', from: 'Due Date')
+      click_button 'Search'
+      expect(page).to have_content 'Due Date'
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      still_have_time = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(urgent_deadline).to have_content 'deadline is soon'
+      expect(still_have_time).to have_content 'still have time until deadline'
+    end
+
+    it 'should be descending order by due date when user search by due_date desc' do
+      visit tasks_path
+      select('DESC', from: 'Due Date')
+      click_button 'Search'
+      expect(page).to have_content 'Due Date'
+      still_have_time = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(still_have_time).to have_content 'still have time until deadline'
+      expect(urgent_deadline).to have_content 'deadline is soon'
     end
 
     it 'only shows searched task list when user search by title' do
