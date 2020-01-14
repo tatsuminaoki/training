@@ -64,9 +64,9 @@ RSpec.describe Task, :type => :model do
     let!(:task4) { Task.create(title: 'title too but done', status: 'done') }
 
     context 'only return searched by title' do
-        it {
-          expect(Task.search_result('I am title', nil)).to eq([task1])
-        }
+      it {
+        expect(Task.search_result('I am title', nil)).to eq([task1])
+      }
     end
 
     context 'only return searched by status' do
