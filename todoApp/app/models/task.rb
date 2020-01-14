@@ -20,6 +20,10 @@ class Task < ApplicationRecord
     current_status.presence ? where("status = ?", current_status) : all
   end
 
+  def self.own_by(user_id)
+    where(user_id: user_id)
+  end
+
   def self.filter_by_ids_or_all(filtered_ids)
     filtered_ids.presence ? where(id: filtered_ids) : all
   end
