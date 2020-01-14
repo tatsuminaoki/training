@@ -20,6 +20,7 @@ ja:
     search:
       title_keyword: 'タイトル・キーワード'
       current_status: '現状態'
+      due_date: '終了期限'
       search: '検索'
 
   flash_message:

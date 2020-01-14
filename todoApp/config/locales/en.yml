@@ -20,6 +20,7 @@ en:
     search:
       title_keyword: 'Title Keyword'
       current_status: 'Current Status'
+      due_date: 'Due Date'
       search: 'Search'
 
   flash_message:
