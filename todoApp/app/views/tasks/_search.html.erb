@@ -1,0 +1,12 @@
+<fieldset>
+  <legend>Search</legend>
+  <%= form_tag(tasks_path, method: :get) do %>
+    <%= label_tag(:title_keyword, t('.title_keyword')) %>:
+    <%= text_field_tag(:title_keyword, params[:title_keyword]) %>
+    <%= label_tag(:current_status, t('.current_status')) %>:
+    <%= select_tag(:current_status, options_for_select(Task.statuses, params[:current_status]), include_blank: 'All') %>
+    <%= label_tag(:due_date_direction, t('.due_date')) %>:
+    <%= select_tag(:due_date_direction, options_for_select(['DESC', 'ASC'], params[:due_date_direction]), include_blank: 'Default') %>
+    <%= submit_tag(t('.search')) %>
+  <% end %>
+</fieldset>

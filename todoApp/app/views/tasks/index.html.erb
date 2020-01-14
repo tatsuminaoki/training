@@ -1,16 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= t('.head_title') %></h1>
+<%= render 'search' %>
 
-<table>
+<table id="task table">
   <thead>
   <tr>
     <th><%= Task.human_attribute_name(:title) %></th>
     <th><%= Task.human_attribute_name(:description) %></th>
-    <th><%= Task.human_attribute_name(:due_date) %>
-      <%= link_to '▼', controller: :tasks, due_date_direction: :'DESC' %>
-      <%= link_to '▲', controller: :tasks, due_date_direction: :'ASC' %>
-    </th>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <th><%= Task.human_attribute_name(:due_date) %></th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th colspan="3"></th>
   </tr>
@@ -21,6 +20,7 @@
     <tr>
       <td><%= task.title %></td>
       <td><%= task.description %></td>
+      <td><%= task.status %></td>
       <td><%= l(task.due_date, format: :short) if task.due_date %></td>
       <td><%= l(task.created_at, format: :short) %></td>
       <td><%= link_to t('show'), task %></td>

@@ -17,6 +17,11 @@ en:
       head_title: 'New List'
     edit:
       head_title: 'Editing Task'
+    search:
+      title_keyword: 'Title Keyword'
+      current_status: 'Current Status'
+      due_date: 'Due Date'
+      search: 'Search'
 
   flash_message:
     create_complete: 'Task was successfully created.'
@@ -36,4 +41,5 @@ en:
       task:
         title: 'Title'
         description: 'Description'
+        status: 'Status'
         due_date: 'Due Date'
