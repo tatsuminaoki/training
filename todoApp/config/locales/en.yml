@@ -3,7 +3,6 @@ en:
   edit: 'Edit'
   destroy: 'Destroy'
   back: 'Back'
-  created_at: 'Created At'
   error_unit: 'error'
   error_message: 'prohibited this task from being saved:'
 
@@ -21,13 +20,8 @@ en:
     search:
       title_keyword: 'Title Keyword'
       current_status: 'Current Status'
-      search: 'Search'
-
-    column:
-      title: 'Title'
-      description: 'Description'
-      status: 'Status'
       due_date: 'Due Date'
+      search: 'Search'
 
   flash_message:
     create_complete: 'Task was successfully created.'
@@ -35,6 +29,9 @@ en:
     delete_success: 'Task was successfully destroyed.'
     delete_fail: 'Destroy Failed. Please check again.'
     delete_confirm: 'Are you sure?'
+
+  attributes:
+    created_at: 'Created At'
 
   activerecord:
     model:
