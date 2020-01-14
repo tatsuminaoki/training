@@ -31,12 +31,20 @@ ja:
       status: '進捗'
       due_date: '終了期限'
 
+  sessions:
+    new:
+      head_title: 'ログイン'
+
   flash_message:
     create_complete: 'タスク作成を完了しました。'
     update_complete: 'タスク更新を完了しました。'
     delete_success: '問題なく削除しました！'
     delete_fail: '削除が無事に完了できませんでした。もう一度お願いします。'
     delete_confirm: '本当に削除しますか？'
+    not_authorized: 'ログインしてください。'
+    login_complete: '正常にログインしました！'
+    logout_complete: '正常にログアウトしました！'
+    login_error: 'メール又はパスワードを再確認してください。'
 
   activerecord:
     model:

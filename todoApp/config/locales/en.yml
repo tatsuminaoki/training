@@ -31,12 +31,20 @@ en:
       status: 'Status'
       due_date: 'Due Date'
 
+  sessions:
+    new:
+      head_title: 'Log In'
+
   flash_message:
     create_complete: 'Task was successfully created.'
     update_complete: 'Task was successfully updated.'
     delete_success: 'Task was successfully destroyed.'
     delete_fail: 'Destroy Failed. Please check again.'
     delete_confirm: 'Are you sure?'
+    not_authorized: 'Not authorized'
+    login_complete: 'Logged in!'
+    logout_complete: 'Logged out!'
+    login_error: 'Email or password is invalid'
 
   activerecord:
     model:
