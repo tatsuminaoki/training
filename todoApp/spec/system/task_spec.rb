@@ -41,4 +41,28 @@ RSpec.describe 'Task management', type: :system, js: true do
     end
   end
 
+  context 'when user access tasks page without login' do
+    it "should be redirected to login page" do
+      visit tasks_path
+      expect(page).to have_current_path '/en/login'
+    end
+  end
+
+  context 'visit the tasks_path' do
+    before do
+      user1 = User.create!(name: 'John', email: 'user1@example.com', password_digest: BCrypt::Password.create('u1password'))
+      user2 = User.create!(name: 'Mary', email: 'user2@example.com', password_digest: BCrypt::Password.create('u2password'))
+      Task.create!(title: 'user1 task', user_id: user1.id)
+      Task.create!(title: 'user2 task', user_id: user2.id)
+    end
+
+    it "shows only logged in user's tasks" do
+      visit login_path
+      fill_in 'Email', with: :'user1@example.com'
+      fill_in 'Password', with: :'u1password'
+      click_button 'Log In'
+      expect(page).to have_current_path '/en/tasks'
+      expect(page).to have_no_content 'user2 task'
+    end
+  end
 end
