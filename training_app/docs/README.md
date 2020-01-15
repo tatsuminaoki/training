@@ -23,6 +23,10 @@
 
 ## 概要
 
+マークダウンの共有ツール
+
+![画面イメージ](layout.jpg)
+
 ### システムの要件
 
 本カリキュラムでは、課題としてタスク管理システムを開発していただきます。
@@ -153,7 +157,7 @@ Markdown登録ツール
 3. Markdown登録機能
 4. 登録Markdown一覧機能
 
-テーブル: users
+テーブル: markdowns
 
 | 物理カラム名 | 論理カラム名 | データ型 | 
 |------------|------------| ------- |
@@ -164,13 +168,13 @@ Markdown登録ツール
 | created_at | 作成日時 | datetime | 
 | updated_at | 更新日時 | datetime |
 
-テーブル: markdowns
+テーブル: users
 
 | 物理カラム名 | 論理カラム名 | 
 |------------|------------|
 | id | PK | serial | 
 | name | 名前 | text |
-| body | 内容 | text |
+| password | パスワード | text |
 | created_at | 作成日時 | datetime |
 | updated_at | 更新日時 | datetime |
 
