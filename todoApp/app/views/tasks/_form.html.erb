@@ -10,8 +10,7 @@
   </ul>
 </div>
 <% end %>
-<%# TODO: 次回のステップでログインしたユーザーを渡すように修正 %>
-<%= form.hidden_field :user_id, :value => 1 %>
+<%= form.hidden_field :user_id, value: current_user.id %>
 
 <div class="form-group">
   <%= form.label :title, class: 'label' %>
