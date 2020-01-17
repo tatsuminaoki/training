@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.search_result(params[:title_keyword], params[:current_status])
                  .order_by_due_date_or_default(params[:due_date_direction])
+                 .page(params[:page])
   end
 
   def show
