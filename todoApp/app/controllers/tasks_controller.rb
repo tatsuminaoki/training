@@ -2,8 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.filter_by_ids_or_all(params[:filtered_ids])
-                 .search_result(params[:title_keyword], params[:current_status])
+    @tasks = Task.search_result(params[:title_keyword], params[:current_status])
                  .order_by_due_date_or_default(params[:due_date_direction])
                  .page(params[:page])
   end
@@ -51,6 +50,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date)
+    params.require(:task).permit(:title, :description, :due_date, :status)
   end
 end

@@ -1,9 +1,13 @@
-<%= form_tag(tasks_path, method: :get) do %>
-  <div class="form-group form-inline">
-    <%= label_tag(:title_keyword, t('.title_keyword')) %>&nbsp:&nbsp
-    <%= text_field_tag(:title_keyword, nil, class: 'form-control') %>&nbsp
-    <%= label_tag(:current_status, t('.current_status')) %>&nbsp:&nbsp
-    <%= select_tag(:current_status, options_for_select(Task.statuses), include_blank: 'All', class: 'form-control') %>&nbsp
-    <%= submit_tag(t('.search'), class: 'btn btn-primary') %>
-  </div>
-<% end %>
+<fieldset>
+  <%= form_tag(tasks_path, method: :get) do %>
+    <div class="form-group form-inline">
+      <%= label_tag(:title_keyword, t('.title_keyword')) %>&nbsp:&nbsp
+      <%= text_field_tag(:title_keyword, params[:title_keyword], class: 'form-control') %>&nbsp
+      <%= label_tag(:current_status, t('.current_status')) %>&nbsp:&nbsp
+      <%= select_tag(:current_status, options_for_select(Task.statuses, params[:current_status]), include_blank: 'All', class: 'form-control') %>&nbsp
+      <%= label_tag(:due_date_direction, t('.due_date')) %>&nbsp:&nbsp
+      <%= select_tag(:due_date_direction, options_for_select(['DESC', 'ASC'], params[:due_date_direction]), include_blank: 'Default', class: 'form-control') %>&nbsp
+      <%= submit_tag(t('.search'), class: 'btn btn-primary') %>
+    </div>
+  <% end %>
+</fieldset>
