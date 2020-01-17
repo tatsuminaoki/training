@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
+      session[:user_id] = @user.id unless session[:user_id]
       redirect_to root_path, notice: "Thank you for signing up!"
     else
       render :new
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
+      session[:user_id] = nil if @user.id == session[:user_id]
       redirect_to users_url, notice: 'create new sentence'
     else
       redirect_to users_url, notice: 'create new sentence'
