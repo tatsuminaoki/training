@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     resources :tasks
-    resources :users
     resources :sessions
+
+    scope :admin do
+      resources :users
+    end
 
     get 'login', to: 'sessions#new', as: 'login'
     get 'logout', to: 'sessions#destroy', as: 'logout'
