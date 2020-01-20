@@ -17,19 +17,14 @@ class Task < ApplicationRecord
   end
 
   def self.search_by_status(current_status)
-    current_status.presence ? where("status = ?", current_status) : all
-  end
-
-  def self.filter_by_ids_or_all(filtered_ids)
-    filtered_ids.presence ? where(id: filtered_ids) : all
+    current_status.presence ? where(status: current_status) : all
   end
 
   def self.order_by_due_date_or_default(due_date_direction)
     if due_date_direction == 'DESC' || due_date_direction == 'ASC'
-      order("due_date #{due_date_direction}")
+      order(due_date: due_date_direction.to_sym)
     else
       order(created_at: :desc)
     end
   end
-
 end
