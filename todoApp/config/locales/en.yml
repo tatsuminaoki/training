@@ -14,9 +14,11 @@ en:
     index:
       head_title: 'Task List'
     new:
-      head_title: 'New List'
+      head_title: 'New Task'
     edit:
       head_title: 'Editing Task'
+    show:
+      head_title: 'Task Detail'
     search:
       title_keyword: 'Title Keyword'
       current_status: 'Current Status'
