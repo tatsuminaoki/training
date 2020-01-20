@@ -1,0 +1,23 @@
+ja:
+  show: Show
+  edit: Edit
+  destroy: Destroy
+  back: Back
+  
+  tasks:
+    index:
+      sure: Are you sure?
+      new: "New Task"
+    new:
+      title: "New Task"
+    edit:
+      title: "Edit Task"
+
+  activerecord:
+    models:
+      task: Task #g
+
+    attributes:
+      task:
+        body: Body #g
+        title: Title  #g
