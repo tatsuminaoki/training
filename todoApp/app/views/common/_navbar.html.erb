@@ -14,9 +14,9 @@
       <div class="col-4 d-flex justify-content-end align-items-center">
         <%= link_to t('to_users_page'), admin_users_path, class: 'btn btn-sm btn-outline-secondary' %>&nbsp|&nbsp
         <% if current_user %>
-          <%= link_to t('login_button'), logout_path, class: 'btn btn-sm btn-outline-secondary' %>
+          <%= link_to t('logout_button'), logout_path, class: 'btn btn-sm btn-outline-secondary' %>
         <% else %>
-          <%= link_to t('logout_button'), login_path, class: 'btn btn-sm btn-outline-secondary' %>
+          <%= link_to t('login_button'), login_path, class: 'btn btn-sm btn-outline-secondary' %>
         <% end %>
       </div>
     </div>
