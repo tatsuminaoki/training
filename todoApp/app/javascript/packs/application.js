@@ -21,5 +21,5 @@ require("jquery-ui")
 import 'bootstrap'
 
 $( document ).on('turbolinks:load', function() {
-  $(".datepicker").datepicker();
+  $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
 })
