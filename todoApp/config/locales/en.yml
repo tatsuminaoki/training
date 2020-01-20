@@ -6,6 +6,13 @@ en:
   created_at: 'Created At'
   error_unit: 'error'
   error_message: 'prohibited this task from being saved:'
+  login_button: 'Log In'
+  logout_button: 'Log Out'
+  login_as: 'Logged in as'
+  guest: 'Guest'
+  to_users_page: 'Users Page'
+  user_num_of_task: 'Number Of Task'
+  show_users_task_list: 'Show Task list'
 
   tasks:
     new_task: 'New Task'
@@ -31,6 +38,19 @@ en:
       status: 'Status'
       due_date: 'Due Date'
 
+  admin:
+    users:
+      new_user: 'New User'
+
+      index:
+        head_title: 'User List'
+      new:
+        head_title: 'New User'
+      edit:
+        head_title: 'Edit User'
+      show:
+        head_title: 'User Detail'
+
   sessions:
     new:
       head_title: 'Log In'
@@ -45,6 +65,8 @@ en:
     login_complete: 'Logged in!'
     logout_complete: 'Logged out!'
     login_error: 'Email or password is invalid'
+    signup_complete: 'Thank you for signing up!'
+    user_update_complete: 'User was successfully updated.'
 
   activerecord:
     model:

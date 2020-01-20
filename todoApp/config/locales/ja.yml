@@ -6,6 +6,13 @@ ja:
   created_at: '作成日時'
   error_unit: '個'
   error_message: 'のエーラーが発生したため保存できません。：'
+  login_button: 'ログイン'
+  logout_button: 'ログアウト'
+  login_as: 'ログインしているユーザー：'
+  guest: 'ゲスト'
+  to_users_page: 'ユーザーページへ'
+  user_num_of_task: 'タスク数'
+  show_users_task_list: 'タスク一覧へ'
 
   tasks:
     new_task: '新タスク'
@@ -31,6 +38,19 @@ ja:
       status: '進捗'
       due_date: '終了期限'
 
+  admin:
+    users:
+      new_user: 'ユーザー登録'
+
+      index:
+        head_title: 'ユーザー一覧'
+      new:
+        head_title: 'ユーザー作成'
+      edit:
+        head_title: 'ユーザー修正'
+      show:
+        head_title: 'ユーザー詳細'
+
   sessions:
     new:
       head_title: 'ログイン'
@@ -45,6 +65,8 @@ ja:
     login_complete: '正常にログインしました！'
     logout_complete: '正常にログアウトしました！'
     login_error: 'メール又はパスワードを再確認してください。'
+    signup_complete: 'サインアップありがとうございます！'
+    user_update_complete: 'ユーザー更新を完了しました。'
 
   activerecord:
     model:
