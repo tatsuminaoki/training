@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
+  before_action :authorize
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id unless session[:user_id]
-      redirect_to root_path, notice: "Thank you for signing up!"
+      redirect_to root_path, notice: t('flash_message.signup_complete')
     else
       render :new
     end
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'create new sentence'
+      redirect_to admin_user_path(@user), notice: t('flash_message.user_update_complete')
     else
       render :edit
     end
@@ -36,9 +37,9 @@ class UsersController < ApplicationController
   def destroy
     if @user.destroy
       session[:user_id] = nil if @user.id == session[:user_id]
-      redirect_to users_url, notice: 'create new sentence'
+      redirect_to admin_users_path, notice: t('flash_message.delete_success')
     else
-      redirect_to users_url, notice: 'create new sentence'
+      redirect_to admin_users_path, notice: t('flash_message.delete_fail')
     end
   end
 
