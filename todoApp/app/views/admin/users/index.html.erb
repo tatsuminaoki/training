@@ -9,7 +9,6 @@
         <th><%= User.human_attribute_name(:name) %></th>
         <th><%= User.human_attribute_name(:email) %></th>
         <th><%= t('user_num_of_task') %></th>
-        <th><%= t('show_users_task_list') %></th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -19,7 +18,6 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= user.tasks.count %></td>
         <td><%= user.tasks.count %></td>
         <td><%= link_to t('show'), admin_user_path(user) %></td>
         <td><%= link_to t('edit'), edit_admin_user_path(user) %></td>

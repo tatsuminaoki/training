@@ -12,7 +12,6 @@ en:
   guest: 'Guest'
   to_users_page: 'Users Page'
   user_num_of_task: 'Number Of Task'
-  show_users_task_list: 'Show Task list'
 
   tasks:
     new_task: 'New Task'

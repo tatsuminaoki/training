@@ -12,7 +12,6 @@ ja:
   guest: 'ゲスト'
   to_users_page: 'ユーザーページへ'
   user_num_of_task: 'タスク数'
-  show_users_task_list: 'タスク一覧へ'
 
   tasks:
     new_task: '新タスク'
