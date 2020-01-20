@@ -8,10 +8,13 @@ ja:
     index:
       sure: 削除してもよろしいでしょうか？
       new: "%{model}の新規登録"
+      destroy: 削除されました
     new:
       title: "%{model}の新規登録"
+      create: 作成されました
     edit:
       title: "%{model}の修正"
+      update: 更新されました
 
   activerecord:
     models:
