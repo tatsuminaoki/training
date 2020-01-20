@@ -6,6 +6,7 @@ ja:
   created_at: '作成日時'
   error_unit: '個'
   error_message: 'のエーラーが発生したため保存できません。：'
+  user_error_message: 'のエーラーが発生したためユーザー情報を保存できません。：'
   login_button: 'ログイン'
   logout_button: 'ログアウト'
   login_as: 'ログインしているユーザー：'
@@ -66,6 +67,7 @@ ja:
     login_error: 'メール又はパスワードを再確認してください。'
     signup_complete: 'サインアップありがとうございます！'
     user_update_complete: 'ユーザー更新を完了しました。'
+    user_delete_success: '問題なく削除しました！'
 
   activerecord:
     model:

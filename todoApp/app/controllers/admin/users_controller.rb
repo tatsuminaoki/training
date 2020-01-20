@@ -37,7 +37,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     if @user.destroy
       session[:user_id] = nil if @user.id == session[:user_id]
-      redirect_to admin_users_path, notice: t('flash_message.delete_success')
+      redirect_to admin_users_path, notice: t('flash_message.user_delete_success')
     else
       redirect_to admin_users_path, notice: t('flash_message.delete_fail')
     end

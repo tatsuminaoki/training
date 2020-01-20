@@ -6,6 +6,7 @@ en:
   created_at: 'Created At'
   error_unit: 'error'
   error_message: 'prohibited this task from being saved:'
+  user_error_message: 'prohibited this user from being saved:'
   login_button: 'Log In'
   logout_button: 'Log Out'
   login_as: 'Logged in as'
@@ -66,6 +67,7 @@ en:
     login_error: 'Email or password is invalid'
     signup_complete: 'Thank you for signing up!'
     user_update_complete: 'User was successfully updated.'
+    user_delete_success: 'User was successfully destroyed.'
 
   activerecord:
     model:
