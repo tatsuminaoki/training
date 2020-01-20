@@ -7,11 +7,14 @@ ja:
   tasks:
     index:
       sure: Are you sure?
-      new: "New Task"
+      new: "New %{model}"
+      destroy: Task was successfully destroyed.
     new:
-      title: "New Task"
+      title: "New %{model}"
+      create: Task was successfully created.
     edit:
-      title: "Edit Task"
+      title: "Update %{model}"
+      update: Task was successfully updated.
 
   activerecord:
     models:
