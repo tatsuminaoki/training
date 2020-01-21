@@ -13,6 +13,7 @@ ja:
   guest: 'ゲスト'
   to_users_page: 'ユーザーページへ'
   user_num_of_task: 'タスク数'
+  permission_denied: '権限がありません！'
 
   tasks:
     new_task: '新タスク'
@@ -79,6 +80,11 @@ ja:
         description: 'タスク詳細'
         status: '進捗'
         due_date: '終了期限'
+
+      user:
+        name: '名前'
+        email: 'メール'
+        role: '役割'
 
   views:
     pagination:

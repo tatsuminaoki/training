@@ -13,6 +13,7 @@ en:
   guest: 'Guest'
   to_users_page: 'Users Page'
   user_num_of_task: 'Number Of Task'
+  permission_denied: 'Permission Denied!'
 
   tasks:
     new_task: 'New Task'
@@ -79,6 +80,11 @@ en:
         description: 'Description'
         status: 'Status'
         due_date: 'Due Date'
+
+      user:
+        name: 'Name'
+        email: 'Email'
+        role: 'Role'
 
   views:
     pagination:
