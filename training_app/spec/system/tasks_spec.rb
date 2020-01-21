@@ -14,10 +14,10 @@ RSpec.describe 'Tasks', type: :system do
     scenario 'Destroy をクリックすると削除される' do
       visit tasks_path
 
-      click_link 'Destroy'
-      page.accept_confirm 'Are you sure?'
+      click_link I18n.t('destroy')
+      page.accept_confirm I18n.t('tasks.index.sure')
 
-      expect(page).to have_content 'Task was successfully destroyed.'
+      expect(page).to have_content I18n.t('tasks.index.destroy')
       expect(Task.count).to eq(0)
     end
   end
@@ -37,10 +37,10 @@ RSpec.describe 'Tasks', type: :system do
     scenario 'タイトルと本文を入力すると登録される' do
       visit new_task_path
 
-      fill_in 'Title', with: 'Hoge'
-      fill_in 'Body', with: 'Foo'
+      fill_in Task.human_attribute_name(:title), with: 'Hoge'
+      fill_in Task.human_attribute_name(:body), with: 'Foo'
 
-      click_on 'Create Task'
+      click_on I18n.t('helpers.submit.create')
 
       task = Task.last
 
@@ -51,12 +51,12 @@ RSpec.describe 'Tasks', type: :system do
     scenario '登録すると #show に遷移する' do
       visit new_task_path
 
-      fill_in 'Title', with: 'Hoge'
-      click_on 'Create Task'
+      fill_in Task.human_attribute_name(:title), with: 'Hoge'
+      click_on I18n.t('helpers.submit.create')
 
       task = Task.last
       expect(page).to have_current_path(task_path(task))
-      expect(page).to have_content 'Task was successfully created.'
+      expect(page).to have_content I18n.t('tasks.new.create')
     end
   end
 
@@ -66,23 +66,23 @@ RSpec.describe 'Tasks', type: :system do
     scenario '登録済のタスクが入力されている' do
       visit edit_task_path(task)
 
-      expect(page).to have_field 'Title', with: 'ABC'
-      expect(page).to have_field 'Body', with: 'DEF'
+      expect(page).to have_field Task.human_attribute_name(:title), with: 'ABC'
+      expect(page).to have_field Task.human_attribute_name(:body), with: 'DEF'
     end
 
     scenario '登録済のタスクが入力されている' do
       visit edit_task_path(task)
 
-      fill_in 'Title', with: 'DEF'
-      fill_in 'Body', with: 'ABC'
+      fill_in Task.human_attribute_name(:title), with: 'DEF'
+      fill_in Task.human_attribute_name(:body), with: 'ABC'
 
-      click_on 'Update Task'
+      click_on I18n.t('helpers.submit.update')
 
       update_task = Task.find(task.id)
 
       expect(update_task.title).to eq('DEF')
       expect(update_task.body).to eq('ABC')
-      expect(page).to have_content 'Task was successfully updated.'
+      expect(page).to have_content I18n.t('tasks.edit.update')
     end
   end
 end

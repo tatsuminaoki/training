@@ -1,0 +1,26 @@
+ja:
+  show: Show
+  edit: Edit
+  destroy: Destroy
+  back: Back
+  
+  tasks:
+    index:
+      sure: Are you sure?
+      new: "New %{model}"
+      destroy: Task was successfully destroyed.
+    new:
+      title: "New %{model}"
+      create: Task was successfully created.
+    edit:
+      title: "Update %{model}"
+      update: Task was successfully updated.
+
+  activerecord:
+    models:
+      task: Task #g
+
+    attributes:
+      task:
+        body: Body #g
+        title: Title  #g

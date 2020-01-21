@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
+  <strong><%= Task.human_attribute_name(:title) %></strong>
   <%= @task.title %>
 </p>
 
 <p>
-  <strong>Body:</strong>
+  <strong><%= Task.human_attribute_name(:body) %></strong>
   <%= @task.body %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('edit'), edit_task_path(@task) %> |
+<%= link_to t('back'), tasks_path %>
