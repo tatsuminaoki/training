@@ -138,4 +138,19 @@ RSpec.describe 'User management', type: :system, js: true do
       expect(num_of_task).to have_content '2'
     end
   end
+
+  context 'access user management page without admin role' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', roles: 'user', password: 'mypassword')
+      visit login_path
+      fill_in 'email', with: 'test@example.com'
+      fill_in 'password', with: 'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'should be access denied' do
+      click_link 'Users Page'
+      expect(page).to have_content 'Permission Denied!'
+    end
+  end
 end

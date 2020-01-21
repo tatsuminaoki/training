@@ -14,4 +14,21 @@ RSpec.describe User, :type => :model do
       }
     end
   end
+
+  describe 'when only one admin user remained' do
+    let!(:admin_user) { User.create(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword') }
+
+    context 'cannot destroy' do
+      it {
+        expect(admin_user.destroy).to be_falsey
+      }
+    end
+
+    context 'cannot change role to normal user' do
+      it {
+        admin_user.update(roles: 'user')
+        expect(admin_user).to be_invalid
+      }
+    end
+  end
 end
