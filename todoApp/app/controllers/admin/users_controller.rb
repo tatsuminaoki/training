@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :authorize
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  access admin: :all, message: I18n.t('permission_denied')
 
   def index
     @users = User.all.page(params[:page])
@@ -50,6 +51,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 end

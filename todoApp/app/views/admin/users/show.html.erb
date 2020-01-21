@@ -17,6 +17,13 @@
     <%= @user.email %>
   </div>
 
+  <div class="form-group">
+    <div class="label">
+      <strong><%= User.human_attribute_name(:role) %> : </strong>
+    </div>
+    <%= @user.role %>
+  </div>
+
   <%= link_to t('edit'), edit_admin_user_path(@user) %> |
   <%= link_to t('back'), admin_users_path %>
 </div>
