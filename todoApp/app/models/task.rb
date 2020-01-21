@@ -1,7 +1,10 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum status: { todo: 0, ongoing: 1, done: 2 }
   validates :title, presence: true, length: { maximum: 50 }
   validates :status, inclusion: { in: statuses }
+  validates :user, presence: true
 
 
   def self.search_result(title_keyword, current_status)
