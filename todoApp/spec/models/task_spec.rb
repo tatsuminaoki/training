@@ -60,7 +60,7 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#searching' do
-    let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
+    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'I am title', status: 'todo', user_id: user1.id) }
     let!(:task2) { Task.create(title: 'still doing', status: 'ongoing', user_id: user1.id) }
     let!(:task3) { Task.create(title: 'already done', status: 'done', user_id: user1.id) }
@@ -86,7 +86,7 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#sorting' do
-    let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
+    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'I am title', due_date: 1.day.from_now, user_id: user1.id) }
     let!(:task2) { Task.create(title: 'still doing', due_date: 3.days.from_now, user_id: user1.id) }
     let!(:task3) { Task.create(title: 'already done', due_date: 2.days.from_now, user_id: user1.id) }

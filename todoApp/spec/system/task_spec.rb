@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
-      user1 = User.create(name: 'John', email: 'test@example.com', password: 'mypassword')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
       Task.create!(title: 'rspec first task', description: 'first description', user_id: user1.id)
       Task.create!(title: 'rspec second task', description: 'second description', user_id: user1.id)
 
@@ -24,7 +24,7 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'user click the link' do
     before do
-      user1 = User.create(name: 'John', email: 'test@example.com', password: 'mypassword')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
       Task.create!(title: 'rspec first task', description: 'rspec Description', user_id: user1.id)
 
       visit login_path
@@ -97,7 +97,7 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'when user search' do
     before do
-      user1 = User.create(name: 'John', email: 'test@example.com', password: 'mypassword')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
       Task.create!(title: 'first task', description: 'deadline is soon', status: 'todo', due_date: 1.day.from_now, user_id: user1.id)
       Task.create!(title: 'second task', description: 'still have time until deadline', status: 'ongoing', due_date: 3.days.from_now, user_id: user1.id)
 
@@ -148,7 +148,7 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'When user paginate' do
     before do
-      user1 = User.create(name: 'John', email: 'test@example.com', password: 'mypassword')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
       1.upto(8){ |k| Task.create!(title: "Title #{k}", user_id: user1.id) }
 
       visit login_path
@@ -178,8 +178,8 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'visit the tasks_path' do
     before do
-      user1 = User.create(name: 'John', email: 'user1@example.com', password: 'u1password')
-      user2 = User.create(name: 'Mary', email: 'user2@example.com', password: 'u2password')
+      user1 = User.create!(name: 'John', email: 'user1@example.com', password: 'u1password')
+      user2 = User.create!(name: 'Mary', email: 'user2@example.com', password: 'u2password')
       Task.create!(title: 'user1 task', user_id: user1.id)
       Task.create!(title: 'user2 task', user_id: user2.id)
 
