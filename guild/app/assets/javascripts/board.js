@@ -193,7 +193,7 @@ const openDeleteModalWindow = id => {
   resetModal()
   $('#modal-body-message').show();
   $('#delete-id').val(id);
-  $('#modal-title').text("Change Task");
+  $('#modal-title').text("Delete Task");
   $('#delete-task').show();
   $('#modal-window').modal('show')
   return;
