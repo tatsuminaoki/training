@@ -7,15 +7,16 @@
   <%= f.search_field :title_cont %>
 
   <%= f.label :status %>
-  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] } -%>
+  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] }, include_blank: true -%>
 
-  <%= f.submit %>
+  <%= f.submit t('helpers.submit.search') %>
 <% end %>
 
 <table>
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td class="task-title"><%= task.title %></td>
+        <td><%= t("activerecord.enums.task.status.#{task.status}") %></td>
         <td><%= link_to t('show'), task %></td>
         <td><%= link_to t('edit'), edit_task_path(task) %></td>
         <td><%= link_to t('destroy'), task, { 

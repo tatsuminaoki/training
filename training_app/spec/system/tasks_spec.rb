@@ -40,6 +40,16 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content I18n.t('tasks.index.destroy')
       expect(Task.count).to eq(1)
     end
+
+    scenario '検索を行うことができる' do
+      visit tasks_path
+
+      fill_in 'q[title_cont]', with: 'A'
+      click_on I18n.t('helpers.submit.search')
+
+      expect(page).to have_content(task1.title)
+      expect(page).to have_no_content(task2.title)
+    end
   end
 
   feature 'タスク詳細' do
