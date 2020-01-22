@@ -12,8 +12,8 @@ end
 
 RSpec.describe 'Tasks', type: :system do
   feature 'タスク一覧' do
-    given!(:task1) { Task.create!(title: 'ABC', body: 'foo') }
-    given!(:task2) { Task.create!(title: 'DEF', body: 'bar') }
+    given!(:task1) { create(:task) }
+    given!(:task2) { create(:task) }
 
     scenario '一覧に表示される' do
       visit tasks_path
@@ -40,10 +40,20 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content I18n.t('tasks.index.destroy')
       expect(Task.count).to eq(1)
     end
+
+    scenario '検索を行うことができる' do
+      visit tasks_path
+
+      fill_in 'q[title_cont]', with: task1.title
+      click_on I18n.t('helpers.submit.search')
+
+      expect(page).to have_content(task1.title)
+      expect(page).to have_no_content(task2.title)
+    end
   end
 
   feature 'タスク詳細' do
-    given!(:task) { Task.create!(title: 'ABC', body: 'hoge') }
+    given!(:task) { create(:task) }
 
     scenario '一覧に表示される' do
       visit task_path(task)
@@ -91,7 +101,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   feature 'タスク更新' do
-    given!(:task) { Task.create(title: 'ABC', body: 'DEF') }
+    given!(:task) { create(:task, title: 'ABC', body: 'DEF') }
 
     scenario '登録済のタスクが入力されている' do
       visit edit_task_path(task)

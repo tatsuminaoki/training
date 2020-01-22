@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_004916) do
+ActiveRecord::Schema.define(version: 2020_01_22_043856) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title", null: false
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2020_01_22_004916) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0, null: false
+    t.index ["status"], name: "index_tasks_on_status"
   end
 
 end

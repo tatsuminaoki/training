@@ -24,3 +24,11 @@ ja:
       task:
         body: 本文 #g
         title: 題名  #g
+        status: 状態
+
+    enums:
+      task:
+        status:
+          todo: 未着手
+          progress: 進行中
+          done: 完了
