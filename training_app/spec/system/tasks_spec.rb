@@ -4,11 +4,23 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
   feature 'タスク一覧' do
-    given!(:task) { Task.create!(title: 'ABC') }
+    given!(:task1) { Task.create!(title: 'ABC') }
+    given!(:task2) { Task.create!(title: 'DEF') }
 
     scenario '一覧に表示される' do
       visit tasks_path
-      expect(page).to have_content(task.title)
+
+      expect(page).to have_content(task1.title)
+      expect(page).to have_content(task2.title)
+    end
+
+    scenario '一覧には作成順の降順で表示される' do
+      visit tasks_path
+
+      titles = all('.task-title')
+
+      expect(titles[0].native.text).to have_content(task2.title)
+      expect(titles[1].native.text).to have_content(task1.title)
     end
 
     scenario 'Destroy をクリックすると削除される' do
