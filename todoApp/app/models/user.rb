@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   has_secure_password
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: true }
-  validates_presence_of :name
+  validates :name, presence: true
 end
