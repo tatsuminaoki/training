@@ -23,7 +23,7 @@
   
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), k] } -%>
+    <%= form.select :status, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), k] } %>
   </div>
 
   <div class="actions">
