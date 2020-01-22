@@ -7,7 +7,7 @@
   <%= f.search_field :title_cont %>
 
   <%= f.label :status %>
-  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] }, include_blank: true -%>
+  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] }, include_blank: true %>
 
   <%= f.submit t('helpers.submit.search') %>
 <% end %>

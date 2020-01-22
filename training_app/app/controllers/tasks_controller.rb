@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     @q = Task.ransack(params[:q])
 
     @tasks = @q
-      .result()
+      .result
       .order(created_at: :desc)
   end
 
