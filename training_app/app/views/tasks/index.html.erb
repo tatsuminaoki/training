@@ -2,6 +2,16 @@
 
 <h1><%= Task.model_name.human -%></h1>
 
+<%= search_form_for(@q) do |f| %>
+  <%= f.label :title %>
+  <%= f.search_field :title_cont %>
+
+  <%= f.label :status %>
+  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] } -%>
+
+  <%= f.submit %>
+<% end %>
+
 <table>
   <thead>
     <tr>

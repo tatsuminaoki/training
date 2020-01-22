@@ -20,6 +20,11 @@
     <%= form.label :body %>
     <%= form.text_area :body %>
   </div>
+  
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] } -%>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
