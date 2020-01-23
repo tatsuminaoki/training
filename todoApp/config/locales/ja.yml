@@ -14,6 +14,7 @@ ja:
   to_users_page: 'ユーザーページへ'
   user_num_of_task: 'タスク数'
   permission_denied: '権限がありません！'
+  labels: 'ラベル'
 
   tasks:
     new_task: '新タスク'
@@ -31,6 +32,7 @@ ja:
     search:
       title_keyword: 'タイトル・キーワード'
       current_status: '現状態'
+      selected_labels: 'ラベル'
       search: '検索'
 
     column:
