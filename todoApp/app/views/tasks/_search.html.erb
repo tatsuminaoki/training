@@ -4,6 +4,8 @@
     <%= text_field_tag(:title_keyword, nil, class: 'form-control') %>&nbsp
     <%= label_tag(:current_status, t('.current_status')) %>&nbsp:&nbsp
     <%= select_tag(:current_status, options_for_select(Task.statuses), include_blank: 'All', class: 'form-control') %>&nbsp
+    <%= label_tag(:selected_labels, 'Selected Labels') %>&nbsp:&nbsp
+    <%= select_tag(:selected_labels, options_from_collection_for_select(Label.all, 'id', 'name', params[:selected_labels]), multiple: true, size: 3, class: 'form-control') %>&nbsp
     <%= submit_tag(t('.search'), class: 'btn btn-primary') %>
   </div>
 <% end %>

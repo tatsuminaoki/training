@@ -14,6 +14,7 @@
           <%= link_to '▼', :controller => 'tasks', :due_date_direction => 'DESC', :filtered_ids => @tasks.pluck(:id) %>
           <%= link_to '▲', :controller => 'tasks', :due_date_direction => 'ASC', :filtered_ids => @tasks.pluck(:id) %>
         </th>
+        <th>Label</th>
         <th><%= t('created_at') %></th>
         <th colspan="3"></th>
       </tr>
@@ -26,6 +27,7 @@
         <td><%= task.description %></td>
         <td><%= task.status %></td>
         <td><%= l(task.due_date, format: :short) if task.due_date %></td>
+        <td><%= task.labels.pluck(:name).join(', ') %></td>
         <td><%= l(task.created_at, format: :short) %></td>
         <td><%= link_to t('show'), task %></td>
         <td><%= link_to t('edit'), edit_task_path(task) %></td>
