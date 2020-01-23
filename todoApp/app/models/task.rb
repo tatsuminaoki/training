@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user, touch: true, validate: true
+  has_many :task_labels
+  has_many :labels, through: :task_labels
 
   enum status: { todo: 0, ongoing: 1, done: 2 }
   validates :title, presence: true, length: { maximum: 50 }
@@ -7,9 +9,10 @@ class Task < ApplicationRecord
   validates_presence_of :user
 
 
-  def self.search_result(title_keyword, current_status)
+  def self.search_result(title_keyword, current_status, selected_labels)
     search_by_title(title_keyword)
         .search_by_status(current_status)
+        .search_by_labels(selected_labels)
   end
 
   def self.search_by_title(title_keyword)
@@ -18,6 +21,15 @@ class Task < ApplicationRecord
 
   def self.search_by_status(current_status)
     current_status.presence ? where("status = ?", current_status) : all
+  end
+
+  def self.search_by_labels(selected_labels)
+    if selected_labels
+      task_ids = TaskLabel.where(label_id: selected_labels).pluck(:task_id)
+      where(id: task_ids)
+    else
+      all
+    end
   end
 
   def self.own_by(user_id)
