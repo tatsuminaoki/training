@@ -16,4 +16,22 @@ describe Task do
       expect(Task.search(params).result.count).to eq(1)
     end
   end
+
+  describe '多言語化ステータス名' do
+    let!(:task1) { create(:task, status: :todo) }
+    let!(:task2) { create(:task, status: :progress) }
+    let!(:task3) { create(:task, status: :done) }
+
+    it '多言語化されたステータス名を取得できる' do
+      status_names = [task1, task2, task3].map(&:status_name)
+      statuses = Hash[
+        %i[todo progress done].map do |sym|
+          [I18n.t("activerecord.enums.task.status.#{sym}"), Task.status_name(sym)]
+        end
+      ]
+
+      expect(statuses.keys).to eq(statuses.values)
+      expect(status_names).to eq(statuses.keys)
+    end
+  end
 end

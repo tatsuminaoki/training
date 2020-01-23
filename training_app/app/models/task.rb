@@ -26,4 +26,12 @@ class Task < ApplicationRecord
     progress: 1,
     done: 2,
   }
+
+  def self.status_name(status)
+    I18n.t("activerecord.enums.task.status.#{status}")
+  end
+
+  def status_name
+    self.class.status_name(self.status)
+  end
 end
