@@ -65,4 +65,65 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_no_content 'user2 task'
     end
   end
+
+  context 'when user working on task with labels' do
+    before do
+      user1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      task1 = Task.create!(title: 'first task', description: 'first', user_id: user1.id)
+      label1 = Label.create!(name: 'first label')
+      Label.create!(name: 'second label')
+      Label.create!(name: 'third label')
+      task1.labels << label1
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'ensures attaching labels to task' do
+      visit tasks_path
+      click_link 'Edit'
+      expect(page).to have_unchecked_field('second label')
+      check 'second label'
+      click_button 'Update Task'
+      expect(page).to have_checked_field('second label', disabled: true)
+    end
+
+    it 'ensures unattaching labels to task' do
+      visit tasks_path
+      click_link 'Edit'
+      expect(page).to have_checked_field('first label')
+      uncheck 'first label'
+      click_button 'Update Task'
+      expect(page).to have_unchecked_field('first label', disabled: true)
+    end
+  end
+
+  context 'when user searching on tasks with labels' do
+    before do
+      user1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      task1 = Task.create!(title: 'first task', description: 'first', user_id: user1.id)
+      task2 = Task.create!(title: 'second task', description: 'second', user_id: user1.id)
+      label1 = Label.create!(name: 'first label')
+      label2 = Label.create!(name: 'second label')
+      label3 = Label.create!(name: 'third label')
+      task1.labels << label1
+      task2.labels << label2
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'should shows only labled tasks' do
+      visit tasks_path
+      select('second label', from: 'Labels')
+      click_button 'Search'
+      within_table('task table') do
+        expect(page).to have_no_content 'first label'
+      end
+    end
+  end
 end
