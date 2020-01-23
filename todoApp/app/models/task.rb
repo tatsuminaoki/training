@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user, touch: true, validate: true
-  has_many :task_labels
+  has_many :task_labels, dependent: :delete_all
   has_many :labels, through: :task_labels
 
   enum status: { todo: 0, ongoing: 1, done: 2 }
