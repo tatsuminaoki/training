@@ -4,15 +4,20 @@
 
 <%= search_form_for(@q) do |f| %>
   <%= f.label :title %>
-  <%= f.search_field :title_cont %>
+  <%= f.search_field :title_cont, class: "form-control" %>
 
   <%= f.label :status %>
-  <%= f.select :status_eq, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), v] }, include_blank: true %>
+  <%= f.select :status_eq, Task.statuses.map { |k, v| [Task.status_name(k), v] }, \
+    { include_blank: true }, class: "custom-select d-block w-100" %>
 
-  <%= f.submit t('helpers.submit.search') %>
+  <%= f.submit t('helpers.submit.search'), class: "btn btn-primary btn-lg" %>
 <% end %>
 
-<table>
+<hr />
+
+<%= paginate @tasks %>
+
+<table class="table table-bordered">
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:title) %></th>
@@ -25,7 +30,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td class="task-title"><%= task.title %></td>
-        <td><%= t("activerecord.enums.task.status.#{task.status}") %></td>
+        <td><%= task.status_name %></td>
         <td><%= link_to t('show'), task %></td>
         <td><%= link_to t('edit'), edit_task_path(task) %></td>
         <td><%= link_to t('destroy'), task, { 

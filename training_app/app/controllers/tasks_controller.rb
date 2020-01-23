@@ -3,6 +3,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
+  ITEM_PER_PAGE = 10
+
   # GET /tasks
   # GET /tasks.json
   def index
@@ -11,6 +13,8 @@ class TasksController < ApplicationController
     @tasks = @q
       .result
       .order(created_at: :desc)
+      .page(params[:page])
+      .per(ITEM_PER_PAGE)
   end
 
   # GET /tasks/1

@@ -13,20 +13,22 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: "form-control" %>
   </div>
   
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), k] } %>
+    <%= form.select :status, Task.statuses.map { |k, v| [t("activerecord.enums.task.status.#{k}"), k] }, {}, class: "custom-select d-block w-100" %>
   </div>
 
+  <hr>
+  
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary btn-lg btn-block" %>
   </div>
 <% end %>
