@@ -12,6 +12,7 @@ class TasksController < ApplicationController
       .result
       .order(created_at: :desc)
       .page(params[:page])
+      .per 1
   end
 
   # GET /tasks/1
