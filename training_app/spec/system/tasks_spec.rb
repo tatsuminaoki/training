@@ -10,16 +10,40 @@ def blank_error_message(attr)
   )
 end
 
+def sign_in_with(user)
+  visit sign_in_path
+  fill_in 'session[name]', with: user.name
+  fill_in 'session[password]', with: 'password'
+  click_on I18n.t('sessions.new.sign_in')
+end
+
 RSpec.describe 'Tasks', type: :system do
   feature 'タスク一覧' do
-    given!(:task1) { create(:task) }
-    given!(:task2) { create(:task) }
+    given!(:user) { create(:user) }
+    background do
+      sign_in_with(user)
+    end
+
+    given!(:task1) { create(:task, user: user) }
+    given!(:task2) { create(:task, user: user) }
 
     scenario '一覧に表示される' do
       visit tasks_path
 
       expect(page).to have_content(task1.title)
       expect(page).to have_content(task2.title)
+    end
+
+    scenario '自分のタスク以外は表示されない' do
+      # 自分以外のタスク作成
+      other = create(:user)
+      other_task = create(:task, user: other)
+
+      visit tasks_path
+
+      expect(page).to have_content(task1.title)
+      expect(page).to have_content(task2.title)
+      expect(page).to have_no_content(other_task.title)
     end
 
     scenario '一覧には作成順の降順で表示される' do
@@ -53,7 +77,12 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   feature 'タスク詳細' do
-    given!(:task) { create(:task) }
+    given!(:user) { create(:user) }
+    background do
+      sign_in_with(user)
+    end
+
+    given!(:task) { create(:task, user: user) }
 
     scenario '一覧に表示される' do
       visit task_path(task)
@@ -64,6 +93,11 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   feature 'タスク新規登録' do
+    given!(:user) { create(:user) }
+    background do
+      sign_in_with(user)
+    end
+
     scenario 'タイトルと本文を入力すると登録される' do
       visit new_task_path
 
@@ -101,7 +135,12 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   feature 'タスク更新' do
-    given!(:task) { create(:task, title: 'ABC', body: 'DEF') }
+    given!(:user) { create(:user) }
+    background do
+      sign_in_with(user)
+    end
+
+    given!(:task) { create(:task, title: 'ABC', body: 'DEF', user: user) }
 
     scenario '登録済のタスクが入力されている' do
       visit edit_task_path(task)

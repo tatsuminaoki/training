@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 
     @tasks = @q
       .result
+      .where(user_id: current_user.id)
       .order(created_at: :desc)
       .page(params[:page])
       .per(ITEM_PER_PAGE)
@@ -37,7 +38,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
+      .tap { |inst| inst.user = current_user }
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: t('tasks.new.create') }
@@ -53,7 +54,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
-      if @task.update(task_params)
+      if @task.tap { |inst| inst.user = current_user }.update(task_params)
         format.html { redirect_to @task, notice: t('tasks.edit.update') }
         format.json { render :show, status: :ok, location: @task }
       else

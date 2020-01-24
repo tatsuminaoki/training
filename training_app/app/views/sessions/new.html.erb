@@ -1,3 +1,5 @@
+<p><%= notice %></p>
+
 <%= form_for(:session, url: sessions_path) do |f| %>
   <div class="field">
     <%= f.label :name %><br>
@@ -10,6 +12,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t('.sign_in') %>
   </div>
 <% end %>

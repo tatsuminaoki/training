@@ -3,6 +3,7 @@ ja:
   edit: 修正
   destroy: 削除
   back: 戻る
+  logout: ログアウト
   
   tasks:
     index:
@@ -17,6 +18,13 @@ ja:
     edit:
       title: "%{model}の修正"
       update: 更新されました
+
+  sessions:
+    new:
+      sign_in: ログイン
+    create:
+      retry: ログインIDかパスワードが違います
+      logged_in: ログインしました
 
   activerecord:
     models:

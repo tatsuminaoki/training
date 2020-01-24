@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :check_authenticate
 
+  private
+
   def check_authenticate
     redirect_to(sign_in_path) if current_user.nil?
   end
