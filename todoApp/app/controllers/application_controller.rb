@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_action :is_maintenance
   before_action :set_locale
   helper_method :current_user
 
@@ -38,5 +39,9 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     { locale: I18n.locale }
+  end
+
+  def is_maintenance
+    redirect_to under_maintenance_path if Maintenance.first.presence and Maintenance.first.maintenance_mode == true
   end
 end
