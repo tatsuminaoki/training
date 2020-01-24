@@ -79,6 +79,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const description = $("#description").val();
     const priority    = $("#priority").val();
     const label       = $("#label").val();
+
     $.ajax({
       url: '/board/api/task',
       type: 'post',
@@ -122,15 +123,17 @@ const getLatestTaskList = () => {
         } else if(task.priority == 3) {
           var priorityColor = 'danger';
         }
-        elTr.append('<th scope="row" ><a href="javascript:openInfoModalWindow(' + task.id + ');">' + task.id + '</a></td>');
+        elTr.append('<th scope="row" ><a id="id-link" href="javascript:openInfoModalWindow(' + task.id + ');">' + task.id + '</a></td>');
         elTr.append("<td>" + task.user_id + "</td>");
         elTr.append("<td>" + master.label[task.label] + "</td>");
-        elTr.append("<td>" + task.subject + "</td>");
+        var elTdSubject = $("<td></td>");
+        elTdSubject.text(task.subject);
+        elTr.append(elTdSubject);
         elTr.append('<td><p class="text-' + priorityColor + '">' + master.priority[task.priority] + '</p></td>');
         elTr.append("<td>" + master.state[task.state] + "</td>");
         elTr.append("<td>" + task.created_at + "</td>");
         elTr.append("<td>" + task.updated_at + "</td>");
-        elTr.append('<td><button type="button" class="btn btn-danger" onClick="javascript:openDeleteModalWindow(' + task.id + ');">Delete</button></td>');
+        elTr.append('<td><button type="button" id="button-delete" class="btn btn-danger" onClick="javascript:openDeleteModalWindow(' + task.id + ');">Delete</button></td>');
         elTaskList.append(elTr);
       });
     },

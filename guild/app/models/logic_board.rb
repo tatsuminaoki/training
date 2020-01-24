@@ -1,7 +1,10 @@
 class LogicBoard
   require 'task'
+  require 'value_objects/state'
+  require 'value_objects/priority'
+  require 'value_objects/label'
 
-  def index(user_id)
+  def self.index(user_id)
     return {
       'task_list'     => Task.where(user_id: user_id),
       'state_list'    => get_state_list,
@@ -10,47 +13,27 @@ class LogicBoard
     }
   end
 
-  def get_task_all(user_id)
-    return {
-      'task_list' => Task.where(user_id: user_id),
-    }
+  def self.get_task_all(user_id)
+    {'task_list' => Task.where(user_id: user_id)}
   end
 
-  def get_task_by_id(user_id, id)
-    return {
-      'task' => Task.find(id),
-    }
+  def self.get_task_by_id(user_id, id)
+    {'task' => Task.find_by_id(id)}
   end
 
-  def get_state_list
-    return {
-      1 => 'Open',
-      2 => 'Doing',
-      3 => 'Done',
-      4 => 'Pending',
-      5 => 'Close'
-    }
+  def self.get_state_list
+    ValueObjects::State.get_list
   end
 
- def get_priority_list
-    return {
-      1 => 'Low',
-      2 => 'Middle',
-      3 => 'High',
-    }
+  def self.get_priority_list
+    ValueObjects::Priority.get_list
   end
 
-  def get_label_list
-    return {
-      1 => 'Bugfix',
-      2 => 'Support',
-      3 => 'Research',
-      4 => 'Implement',
-      5 => 'Other'
-    }
+  def self.get_label_list
+    ValueObjects::Label.get_list
   end
 
-  def create(user_id, params)
+  def self.create(user_id, params)
     task = Task.new(
       user_id:     user_id,
       subject:     params['subject'],
@@ -59,32 +42,24 @@ class LogicBoard
       priority:    params['priority'],
       label:       params['label']
     )
-    return task.save
+    return false unless task.save
+    return task.id
   end
 
-  def update(user_id, params)
+  def self.update(user_id, params)
     task = Task.find_by_id(params['id'])
-    if task.nil?
-      return false
-    end
-    if task.user_id != user_id
-      return false
-    end
+    return false if task.nil? || task.user_id != user_id
     task.subject     = params['subject']
     task.description = params['description']
     task.priority    = params['priority']
+    task.label       = params['label']
     task.state       = params['state']
     return task.save
   end
 
-  def delete(user_id, id)
+  def self.delete(user_id, id)
     task = Task.find_by_id(id)
-    if task.nil?
-      return false
-    end
-    if task.user_id != user_id
-      return false
-    end
+    return false if task.nil? || task.user_id != user_id
     return task.delete
   end
 end
