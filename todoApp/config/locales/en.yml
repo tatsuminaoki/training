@@ -15,6 +15,7 @@ en:
   user_num_of_task: 'Number Of Task'
   permission_denied: 'Permission Denied!'
   labels: 'Labels'
+  under_maintenance: 'Under Maintenance'
 
   tasks:
     new_task: 'New Task'

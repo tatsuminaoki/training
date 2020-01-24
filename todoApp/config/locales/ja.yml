@@ -15,6 +15,7 @@ ja:
   user_num_of_task: 'タスク数'
   permission_denied: '権限がありません！'
   labels: 'ラベル'
+  under_maintenance: 'メインテナンス中です。'
 
   tasks:
     new_task: '新タスク'
