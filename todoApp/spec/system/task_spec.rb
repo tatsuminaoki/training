@@ -198,4 +198,20 @@ RSpec.describe 'Task management', type: :system, js: true do
       expect(page).to have_no_content 'user2 task'
     end
   end
+
+  context 'when logged in user access login page' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it "should be redirected to tasks path" do
+      visit new_session_path
+      expect(page).to have_current_path '/en/tasks'
+    end
+  end
 end
