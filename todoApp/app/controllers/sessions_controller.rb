@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def new
+    redirect_to tasks_path unless current_user.nil?
   end
 
   def create
