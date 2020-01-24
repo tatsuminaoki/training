@@ -9,9 +9,11 @@ ja:
       sure: 削除してもよろしいでしょうか？
       new: "%{model}の新規登録"
       destroy: 削除されました
+
     new:
       title: "%{model}の新規登録"
       create: 作成されました
+
     edit:
       title: "%{model}の修正"
       update: 更新されました
@@ -19,12 +21,20 @@ ja:
   activerecord:
     models:
       task: 仕事  #g
+      user: ユーザー  #g
 
     attributes:
       task:
         body: 本文 #g
         title: 題名  #g
         status: 状態
+        user: :activerecord.models.user  #g
+
+      user:
+        password: パスワード  #g
+        password_digest: パスワードダイジェスト  #g
+        tasks: タスク  #g
+        name: 名前  #g
 
     enums:
       task:
@@ -32,3 +42,5 @@ ja:
           todo: 未着手
           progress: 進行中
           done: 完了
+
+  name: 名前  #g

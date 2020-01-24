@@ -18,23 +18,14 @@
 #  index_tasks_on_user_id  (user_id)
 #
 
-class Task < ApplicationRecord
-  belongs_to :user, optional: true # 既存データがあるので、一時的。次のステップでoptionalを削除
 
-  validates :title, presence: true
-  validates :body, presence: true
+FactoryBot.define do
+  factory :task do
+    sequence(:title) { |n| "title #{n}"}
+    sequence(:body) { |n| "body #{n}"}
 
-  enum status: {
-    todo: 0,
-    progress: 1,
-    done: 2,
-  }
+    status { 0 }
 
-  def self.status_name(status)
-    I18n.t("activerecord.enums.task.status.#{status}")
-  end
-
-  def status_name
-    self.class.status_name(self.status)
+    association :user, factory: :user
   end
 end

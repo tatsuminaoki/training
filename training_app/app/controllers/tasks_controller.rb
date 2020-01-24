@@ -8,7 +8,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @q = Task.ransack(params[:q])
+    @q = Task
+      .preload(:user)
+      .ransack(params[:q])
 
     @tasks = @q
       .result
