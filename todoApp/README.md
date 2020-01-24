@@ -8,3 +8,13 @@ Simple Todo Application by rails.
 - id, created_at, updated_at are omiited.
 
 ![image](docs/images/todoApp_Schema.png)
+
+## Maintenance
+To start maintenance input the rake command below
+> bundle exec rake maintenance:start
+
+To end maintenance input the rake command below
+> bundle exec rake maintenance:end
+
+And you can always check the rake command list by
+> bundle exec rake -T
