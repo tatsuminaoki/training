@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, :type => :model do
+  let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
   describe 'Title validation when creates' do
-    let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let(:task) { Task.new(params) }
     let(:params) { { title: title, user_id: user1.id } }
     subject { task }
@@ -33,7 +33,6 @@ RSpec.describe Task, :type => :model do
   end
 
   describe 'Title validation when edits' do
-    let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let(:task) { Task.create(title: 'base title', user_id: user1.id) }
     subject { task }
 
@@ -60,7 +59,6 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#searching' do
-    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'I am title', status: 'todo', user_id: user1.id) }
     let!(:task2) { Task.create(title: 'still doing', status: 'ongoing', user_id: user1.id) }
     let!(:task3) { Task.create(title: 'already done', status: 'done', user_id: user1.id) }
@@ -86,7 +84,6 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#sorting' do
-    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'I am title', due_date: 1.day.from_now, user_id: user1.id) }
     let!(:task2) { Task.create(title: 'still doing', due_date: 3.days.from_now, user_id: user1.id) }
     let!(:task3) { Task.create(title: 'already done', due_date: 2.days.from_now, user_id: user1.id) }
@@ -111,7 +108,6 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#filtering' do
-    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:user2) { User.create(name: 'Mary', email: 'user2@example.com', password: 'u2password') }
     let!(:task1) { Task.create(title: 'user1 task', user_id: user1.id) }
     let!(:task2) { Task.create(title: 'user2 task', user_id: user2.id) }
