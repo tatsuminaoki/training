@@ -5,7 +5,7 @@ class LogicBoard
   require 'value_objects/label'
 
   def self.index(user_id)
-    return {
+    {
       'task_list'     => Task.where(user_id: user_id),
       'state_list'    => get_state_list,
       'priority_list' => get_priority_list,
