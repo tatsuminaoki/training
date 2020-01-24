@@ -19,7 +19,7 @@
 #
 
 class Task < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true # 既存データがあるので、一時的。次のステップでoptionalを削除
 
   validates :title, presence: true
   validates :body, presence: true
