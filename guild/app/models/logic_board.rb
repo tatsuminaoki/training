@@ -14,7 +14,7 @@ class LogicBoard
   end
 
   def self.get_task_all(user_id)
-    {'task_list' => Task.where(user_id: user_id)}
+    {'task_list' => Task.where(user_id: user_id).order(created_at: "DESC")}
   end
 
   def self.get_task_by_id(user_id, id)
