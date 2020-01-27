@@ -1,0 +1,17 @@
+<div class="container">
+  <%= render 'common/notice' %>
+
+  <h1><%= t('.head_title') %></h1>
+
+  <%= form_tag sessions_path do %>
+  <div class="form-group">
+    <%= label_tag :email, nil, class: 'label' %><br />
+    <%= text_field_tag :email, params[:email], class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password, nil, class: 'label' %><br />
+    <%= password_field_tag :password, nil, class: 'form-control' %>
+  </div>
+  <div class="form-group"><%= submit_tag "Log In", class: 'btn btn-success' %></div>
+  <% end %>
+</div>

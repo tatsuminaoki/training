@@ -3,8 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Task management', type: :system, js: true do
   context 'visit the tasks_path' do
     before do
-      Task.create!(title: 'rspec first task', description: 'first description')
-      Task.create!(title: 'rspec second task', description: 'second description')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'rspec first task', description: 'first description', user_id: user1.id)
+      Task.create!(title: 'rspec second task', description: 'second description', user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it 'shows the task list order by created recently.' do
@@ -18,7 +24,13 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'user click the link' do
     before do
-      Task.create!(title: 'rspec first task', description: 'rspec Description')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'rspec first task', description: 'rspec Description', user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it 'creates new task when click New Task' do
@@ -85,8 +97,14 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'when user search' do
     before do
-      Task.create!(title: 'first task', description: 'deadline is soon', status: 'todo', due_date: 1.day.from_now)
-      Task.create!(title: 'second task', description: 'still have time until deadline', status: 'ongoing', due_date: 3.days.from_now)
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'first task', description: 'deadline is soon', status: 'todo', due_date: 1.day.from_now, user_id: user1.id)
+      Task.create!(title: 'second task', description: 'still have time until deadline', status: 'ongoing', due_date: 3.days.from_now, user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it 'should be ascending order by due date when user search by due_date asc' do
@@ -130,7 +148,13 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'When user paginate' do
     before do
-      1.upto(8){ |k| Task.create!(title: "Title #{k}") }
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      1.upto(8){ |k| Task.create!(title: "Title #{k}", user_id: user1.id) }
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it 'shows paginate links if more than one page' do
@@ -145,4 +169,49 @@ RSpec.describe 'Task management', type: :system, js: true do
     end
   end
 
+  context 'when user access tasks page without login' do
+    it "should be redirected to login page" do
+      visit tasks_path
+      expect(page).to have_current_path '/en/login'
+    end
+  end
+
+  context 'visit the tasks_path' do
+    before do
+      user1 = User.create!(name: 'John', email: 'user1@example.com', password: 'u1password')
+      user2 = User.create!(name: 'Mary', email: 'user2@example.com', password: 'u2password')
+      Task.create!(title: 'user1 task', user_id: user1.id)
+      Task.create!(title: 'user2 task', user_id: user2.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it "shows only logged in user's tasks" do
+      visit login_path
+      fill_in 'Email', with: :'user1@example.com'
+      fill_in 'Password', with: :'u1password'
+      click_button 'Log In'
+      expect(page).to have_current_path '/en/tasks'
+      expect(page).to have_no_content 'user2 task'
+    end
+  end
+
+  context 'when logged in user access login page' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it "should be redirected to tasks path" do
+      visit new_session_path
+      expect(page).to have_current_path '/en/tasks'
+    end
+  end
 end

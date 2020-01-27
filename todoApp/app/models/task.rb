@@ -20,6 +20,10 @@ class Task < ApplicationRecord
     current_status.presence ? where(status: current_status) : all
   end
 
+  def self.own_by(user_id)
+    where(user_id: user_id)
+  end
+
   def self.order_by_due_date_or_default(due_date_direction)
     if due_date_direction == 'DESC' || due_date_direction == 'ASC'
       order(due_date: due_date_direction.to_sym)

@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Task, :type => :model do
+  let(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
   describe 'Title validation when creates' do
     let(:task) { Task.new(params) }
-    let(:params) { { title: title } }
+    let(:params) { { title: title, user_id: user1.id } }
     subject { task }
 
     context 'title not presence' do
@@ -32,7 +33,7 @@ RSpec.describe Task, :type => :model do
   end
 
   describe 'Title validation when edits' do
-    let(:task) { Task.create(title: 'base title') }
+    let(:task) { Task.create(title: 'base title', user_id: user1.id) }
     subject { task }
 
     context 'title not presence' do
@@ -58,10 +59,10 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#searching' do
-    let!(:task1) { Task.create(title: 'I am title', status: 'todo') }
-    let!(:task2) { Task.create(title: 'still doing', status: 'ongoing') }
-    let!(:task3) { Task.create(title: 'already done', status: 'done') }
-    let!(:task4) { Task.create(title: 'title too but done', status: 'done') }
+    let!(:task1) { Task.create(title: 'I am title', status: 'todo', user_id: user1.id) }
+    let!(:task2) { Task.create(title: 'still doing', status: 'ongoing', user_id: user1.id) }
+    let!(:task3) { Task.create(title: 'already done', status: 'done', user_id: user1.id) }
+    let!(:task4) { Task.create(title: 'title too but done', status: 'done', user_id: user1.id) }
 
     context 'only return searched by title' do
       it {
@@ -83,9 +84,9 @@ RSpec.describe Task, :type => :model do
   end
 
   describe '#sorting' do
-    let!(:task1) { Task.create(title: 'I am title', due_date: 1.day.from_now) }
-    let!(:task2) { Task.create(title: 'still doing', due_date: 3.days.from_now) }
-    let!(:task3) { Task.create(title: 'already done', due_date: 2.days.from_now) }
+    let!(:task1) { Task.create(title: 'I am title', due_date: 1.day.from_now, user_id: user1.id) }
+    let!(:task2) { Task.create(title: 'still doing', due_date: 3.days.from_now, user_id: user1.id) }
+    let!(:task3) { Task.create(title: 'already done', due_date: 2.days.from_now, user_id: user1.id) }
 
     context 'should order by created at desc' do
       it {
@@ -102,6 +103,18 @@ RSpec.describe Task, :type => :model do
     context 'should order by due date desc' do
       it {
         expect(Task.order_by_due_date_or_default('DESC')).to eq([task2, task3, task1])
+      }
+    end
+  end
+
+  describe '#filtering' do
+    let!(:user2) { User.create(name: 'Mary', email: 'user2@example.com', password: 'u2password') }
+    let!(:task1) { Task.create(title: 'user1 task', user_id: user1.id) }
+    let!(:task2) { Task.create(title: 'user2 task', user_id: user2.id) }
+
+    context 'only return tasks owned by user' do
+      it {
+        expect(Task.own_by(user1.id)).to eq([task1])
       }
     end
   end

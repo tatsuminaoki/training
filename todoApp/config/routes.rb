@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     resources :tasks
+    resources :users
+    resources :sessions
+
+    get 'login', to: 'sessions#new', as: 'login'
+    get 'logout', to: 'sessions#destroy', as: 'logout'
 
     match '/404', :to => 'errors#not_found', :via => :all
     match '/500', :to => 'errors#internal_server_error', :via => :all

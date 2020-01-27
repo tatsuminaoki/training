@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
+  before_action :authorize
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.includes(:user)
+    @tasks = Task.includes(:user).own_by(current_user.id)
                  .search_result(params[:title_keyword], params[:current_status])
                  .order_by_due_date_or_default(params[:due_date_direction])
                  .page(params[:page])
