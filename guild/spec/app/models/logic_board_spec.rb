@@ -5,9 +5,10 @@ require 'value_objects/priority'
 require 'value_objects/label'
 
 describe LogicBoard , type: :model do
-  let!(:user_id) {1}
   let!(:task_a) { create(:task1) }
-  let!(:expected) {
+  let(:user_id) {1}
+  let(:ng_user_id) {999999}
+  let(:expected) {
     {
       state:    ValueObjects::State.get_list,
       priority: ValueObjects::Priority.get_list,
@@ -19,6 +20,7 @@ describe LogicBoard , type: :model do
     context 'Valid user' do
       it 'task is found' do
         result = LogicBoard.index(user_id)
+        expect(result['task_list'].count).to eq 1
         result['task_list'].each do | task |
           expect(task).to be_an_instance_of(Task)
           expect(task.user_id).to eq user_id
@@ -30,7 +32,6 @@ describe LogicBoard , type: :model do
     end
     context 'Invalid user' do
       it 'Task is not found' do
-        ng_user_id = 999999
         result = LogicBoard.index(ng_user_id)
         expect(result['task_list'].empty?).to eq true
       end
@@ -49,7 +50,6 @@ describe LogicBoard , type: :model do
     end
     context 'Invalid user' do
       it 'Task is not found' do
-        ng_user_id = 999999
         result = LogicBoard.get_task_all(ng_user_id)
         expect(result['task_list'].empty?).to eq true
       end
@@ -67,7 +67,6 @@ describe LogicBoard , type: :model do
     end
     context 'Invalid user' do
       it 'Target task is not found' do
-        ng_user_id = 999999
         ng_task_id = 999999
         result = LogicBoard.get_task_by_id(user_id, ng_task_id)
         expect(result['task']).to be_nil
@@ -94,14 +93,16 @@ describe LogicBoard , type: :model do
   end
 
   describe '#create' do
-    it 'Create correctly' do
-      params = {
+    let(:params) {
+      {
         'subject'     => 'subject by rspec',
         'description' => 'description by rspec',
         'label'       => 2,
         'priority'    => 2,
       }
+    }
 
+    it 'Create correctly' do
       result = LogicBoard.create(user_id, params)
       expect(result.nil?).to be false
       created_task_id = result
@@ -119,17 +120,8 @@ describe LogicBoard , type: :model do
 
   describe '#update' do
     it 'Update correctly' do
-      params_for_create = {
-        'subject'     => 'subject by rspec',
-        'description' => 'description by rspec',
-        'label'       => 2,
-        'priority'    => 2,
-      }
-
-      created_task_id = LogicBoard.create(user_id, params_for_create)
-
       params_for_update = {
-        'id' => created_task_id,
+        'id' => task_a.id,
         'subject'     => 'subject update by rspec',
         'description' => 'description update by rspec',
         'state'       => 2,
@@ -140,7 +132,7 @@ describe LogicBoard , type: :model do
       result = LogicBoard.update(user_id, params_for_update)
       expect(result).to be true
 
-      result = LogicBoard.get_task_by_id(user_id, created_task_id)
+      result = LogicBoard.get_task_by_id(user_id, task_a.id)
       expect(result['task'].nil?).to be false
       expect(result['task']).to be_an_instance_of(Task)
       expect(result['task'].user_id).to eq user_id
@@ -167,17 +159,8 @@ describe LogicBoard , type: :model do
 
   describe '#delete' do
     it 'Delete correctly' do
-      params = {
-        'subject'     => 'subject by rspec',
-        'description' => 'description by rspec',
-        'label'       => 4,
-        'priority'    => 4,
-      }
-
-      created_task_id = LogicBoard.create(user_id, params)
-
-      LogicBoard.delete(user_id, created_task_id)
-      result = LogicBoard.get_task_by_id(user_id, created_task_id)
+      LogicBoard.delete(user_id, task_a.id)
+      result = LogicBoard.get_task_by_id(user_id, task_a.id)
       expect(result['task']).to be_nil
     end
 
