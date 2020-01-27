@@ -10,4 +10,4 @@
 
 require('factory_bot')
 
-FactoryBot.create(:user)
+FactoryBot.create(:user, role: :admin)

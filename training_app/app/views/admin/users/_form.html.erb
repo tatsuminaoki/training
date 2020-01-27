@@ -25,6 +25,11 @@
     <%= form.label :password_confirmation %>
     <%= form.text_field :password_confirmation %>
   </div>
+  
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, Admin::User.roles.keys %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
