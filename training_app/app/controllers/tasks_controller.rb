@@ -38,7 +38,8 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-      .tap { |inst| inst.user = current_user }
+    @task.user = current_user
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: t('tasks.new.create') }
@@ -54,7 +55,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
-      if @task.tap { |inst| inst.user = current_user }.update(task_params)
+      if @task.update(task_params)
         format.html { redirect_to @task, notice: t('tasks.edit.update') }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -78,7 +79,9 @@ class TasksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user
+      .tasks
+      .find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

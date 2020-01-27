@@ -35,7 +35,7 @@ module Admin
 
       respond_to do |format|
         if @admin_user.save
-          format.html { redirect_to @admin_user, notice: 'User was successfully created.' }
+          format.html { redirect_to @admin_user, notice: I18n.t('admin.users.new.create') }
           format.json { render :show, status: :created, location: @admin_user }
         else
           format.html { render :new }
@@ -49,7 +49,7 @@ module Admin
     def update
       respond_to do |format|
         if @admin_user.update(admin_user_params)
-          format.html { redirect_to @admin_user, notice: 'User was successfully updated.' }
+          format.html { redirect_to @admin_user, notice: I18n.t('admin.users.edit.update') }
           format.json { render :show, status: :ok, location: @admin_user }
         else
           format.html { render :edit }
@@ -61,10 +61,16 @@ module Admin
     # DELETE /admin/users/1
     # DELETE /admin/users/1.json
     def destroy
-      @admin_user.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
-        format.json { head :no_content }
+      if @admin_user.destroy
+        respond_to do |format|
+          format.html { redirect_to admin_users_url, notice: I18n.t('admin.users.index.destroy.success') }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to admin_users_url, notice: I18n.t('admin.users.index.destroy.failed') }
+          format.json { head :no_content }
+        end
       end
     end
 

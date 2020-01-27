@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def check_authenticate
-    redirect_to(sign_in_path) if current_user.nil?
+    redirect_to(sign_in_path(redirect_to: request.path)) if current_user.nil?
   end
 
   def current_user

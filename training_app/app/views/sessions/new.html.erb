@@ -1,6 +1,6 @@
 <p><%= notice %></p>
 
-<%= form_for(:session, url: sessions_path) do |f| %>
+<%= form_for(:session, url: sessions_path(redirect_to: params[:redirect_to])) do |f| %>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name, class: "form-control" %>

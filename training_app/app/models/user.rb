@@ -21,13 +21,13 @@ class User < ApplicationRecord
 
   # 管理ユーザーから一般ユーザーに変更する場合、管理ユーザーは他に1人いないといけない
   validate proc {
-    !check_if_can_be_admin_changed? && errors.add(:base, '')
+    !check_if_can_be_admin_changed? && errors.add(:base, I18n.t('errors.messages.check_admin_user_count'))
   }, on: :update, if: -> { self.role_was == 'admin' && self.normal? }
 
   # 削除する場合、管理ユーザーは2名以上いないといけない
   before_destroy do
     unless check_if_can_be_admin_changed?
-      errors.add(:base, '')
+      errors.add(:base, I18n.t('errors.messages.check_admin_user_count'))
       throw(:abort)
     end
   end
@@ -37,11 +37,8 @@ class User < ApplicationRecord
     admin: 1,
   }
 
+  # 管理ユーザーが２名以上いれば、変更可能
   def check_if_can_be_admin_changed?
-    self.class
-      .where(role: :admin)
-      .where.not(id: self.id)
-      .count
-      .positive?
+    self.class.where(role: :admin).count >= 2
   end
 end

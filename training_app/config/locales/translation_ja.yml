@@ -4,19 +4,19 @@ ja:
   destroy: 削除
   back: 戻る
   logout: ログアウト
+  name: 名前  #g
+  
+  scaffold:
+    new: "%{model}の新規登録"
+    sure: 削除してもよろしいでしょうか？
+    edit: "%{model}の修正"
   
   tasks:
     index:
-      sure: 削除してもよろしいでしょうか？
-      new: "%{model}の新規登録"
       destroy: 削除されました
-
     new:
-      title: "%{model}の新規登録"
       create: 作成されました
-
     edit:
-      title: "%{model}の修正"
       update: 更新されました
 
   sessions:
@@ -26,10 +26,25 @@ ja:
       retry: ログインIDかパスワードが違います
       logged_in: ログインしました
 
+  admin:
+    users:
+      index:
+        task_count: タスク数
+        destroy: 
+          success: 削除されました
+          failed: 削除できませんでした
+      new:
+        create: 作成されました
+      edit:
+        update: 更新されました
+      show:
+        task_list: タスク一覧
+
   activerecord:
     models:
       task: 仕事  #g
       user: ユーザー  #g
+      admin/user: ユーザー  #g
 
     attributes:
       task:
@@ -38,11 +53,16 @@ ja:
         status: 状態
         user: :activerecord.models.user  #g
 
-      user:
+      user: &users
         password: パスワード  #g
-        password_digest: パスワードダイジェスト  #g
+        password_digest: パスワード #g
         tasks: タスク  #g
         name: 名前  #g
+        role: 役割  #g
+        password_confirmation: 確認用パスワード
+
+      admin/user: 
+          <<: *users
 
     enums:
       task:
@@ -50,5 +70,7 @@ ja:
           todo: 未着手
           progress: 進行中
           done: 完了
+  errors:
+    messages:
+      check_admin_user_count: 管理者は1名以上必要です
 
-  name: 名前  #g

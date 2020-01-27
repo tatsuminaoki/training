@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :system do
       visit tasks_path
 
       find(".task#{task1.id}-remove-link").click
-      page.accept_confirm I18n.t('tasks.index.sure')
+      page.accept_confirm I18n.t('scaffold.sure')
 
       expect(page).to have_content I18n.t('tasks.index.destroy')
       expect(Task.count).to eq(1)

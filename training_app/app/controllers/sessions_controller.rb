@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:session][:name])
     if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      redirect_to tasks_path, notice: t('.logged_in')
+      authenticate_redirect
     else
       redirect_to sign_in_path, notice: t('.retry')
     end
@@ -22,5 +22,14 @@ class SessionsController < ApplicationController
     reset_session
 
     redirect_to sign_in_path
+  end
+
+  private
+
+  def authenticate_redirect
+    return redirect_to params[:redirect_to], notice: t('.logged_in') \
+      if params[:redirect_to].present?
+
+    redirect_to tasks_path, notice: t('.logged_in')
   end
 end
