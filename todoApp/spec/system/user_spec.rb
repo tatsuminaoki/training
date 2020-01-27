@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User management', type: :system, js: true do
   context 'visit the admin_users_path' do
     before do
-      User.create!(name: 'John', email: 'test@example.com', password_digest: BCrypt::Password.create('mypassword'))
+      User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
       visit login_path
       fill_in 'email', with: 'test@example.com'
       fill_in 'password', with: 'mypassword'
@@ -121,8 +121,8 @@ RSpec.describe 'User management', type: :system, js: true do
 
   context 'when user visit admin_users_path' do
     before do
-      u1 = User.create!(name: 'John', email: 'test@example.com', password_digest: BCrypt::Password.create('mypassword'))
-      u2 = User.create!(name: 'Mary', email: 'test2@example.com', password_digest: BCrypt::Password.create('mypassword2'))
+      u1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      u2 = User.create!(name: 'Mary', email: 'test2@example.com', password: 'mypassword2')
       Task.create!(title: 'user1 task', user_id: u1.id)
       Task.create!(title: 'user1 task2', user_id: u1.id)
       Task.create!(title: 'user2 task', user_id: u2.id)
