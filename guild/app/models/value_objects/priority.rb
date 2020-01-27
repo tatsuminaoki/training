@@ -9,7 +9,7 @@ module ValueObjects
     end
 
     def get_text
-      list =Priority.get_list
+      list = Priority.get_list
       list[@value]
     end
   end

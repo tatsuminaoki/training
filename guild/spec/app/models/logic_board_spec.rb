@@ -15,74 +15,86 @@ describe LogicBoard , type: :model do
     }
   }
 
-  context '#index' do
-    it 'task is found' do
-      result = LogicBoard.index(user_id)
-      result['task_list'].each do | task |
-        expect(task).to be_an_instance_of(Task)
-        expect(task.user_id).to eq user_id
-      end
-      expect(result['state_list']).to eq expected[:state]
-      expect(result['priority_list']).to eq expected[:priority]
-      expect(result['label_list']).to eq expected[:label]
-    end
-    it 'task is not found' do
-      ng_user_id = 999999
-      result = LogicBoard.index(ng_user_id)
-      expect(result['task_list'].empty?).to eq true
-    end
-  end
-
-  context '#get_task_all' do
-    it 'task is found' do
-      result = LogicBoard.get_task_all(user_id)
-      result['task_list'].each do | task |
-        expect(task).to be_an_instance_of(Task)
-        expect(task.user_id).to eq user_id
+  describe '#index' do
+    context 'Valid user' do
+      it 'task is found' do
+        result = LogicBoard.index(user_id)
+        result['task_list'].each do | task |
+          expect(task).to be_an_instance_of(Task)
+          expect(task.user_id).to eq user_id
+        end
+        expect(result['state_list']).to eq expected[:state]
+        expect(result['priority_list']).to eq expected[:priority]
+        expect(result['label_list']).to eq expected[:label]
       end
     end
-    it 'task is not found' do
-      ng_user_id = 999999
-      result = LogicBoard.get_task_all(ng_user_id)
-      expect(result['task_list'].empty?).to eq true
+    context 'Invalid user' do
+      it 'Task is not found' do
+        ng_user_id = 999999
+        result = LogicBoard.index(ng_user_id)
+        expect(result['task_list'].empty?).to eq true
+      end
     end
   end
 
-  context '#get_task_by_id' do
-    it 'task is found' do
-      result = LogicBoard.get_task_by_id(user_id, task_a.id)
-      expect(result['task']).to be_an_instance_of(Task)
-      expect(result['task'].id).to eq task_a.id
-      expect(result['task'].user_id).to eq task_a.user_id
+  describe '#get_task_all' do
+    context 'Valid user' do
+      it 'task is found' do
+        result = LogicBoard.get_task_all(user_id)
+        result['task_list'].each do | task |
+          expect(task).to be_an_instance_of(Task)
+          expect(task.user_id).to eq user_id
+        end
+      end
     end
-    it 'task is not found' do
-      ng_user_id = 999999
-      ng_task_id = 999999
-      result = LogicBoard.get_task_by_id(user_id, ng_task_id)
-      expect(result['task']).to be_nil
+    context 'Invalid user' do
+      it 'Task is not found' do
+        ng_user_id = 999999
+        result = LogicBoard.get_task_all(ng_user_id)
+        expect(result['task_list'].empty?).to eq true
+      end
     end
   end
 
-  context '#get_state_list' do
-    it 'is OK' do
+  describe '#get_task_by_id' do
+    context 'Valid user' do
+      it 'task is found' do
+        result = LogicBoard.get_task_by_id(user_id, task_a.id)
+        expect(result['task']).to be_an_instance_of(Task)
+        expect(result['task'].id).to eq task_a.id
+        expect(result['task'].user_id).to eq task_a.user_id
+      end
+    end
+    context 'Invalid user' do
+      it 'Target task is not found' do
+        ng_user_id = 999999
+        ng_task_id = 999999
+        result = LogicBoard.get_task_by_id(user_id, ng_task_id)
+        expect(result['task']).to be_nil
+      end
+    end
+  end
+
+  describe '#get_state_list' do
+    it 'Respond correctly' do
       expect(LogicBoard.get_state_list).to eq expected[:state]
     end
   end
 
-  context '#get_priority_list' do
-    it 'is OK' do
+  describe '#get_priority_list' do
+    it 'Respond correctly' do
       expect(LogicBoard.get_priority_list).to eq expected[:priority]
     end
   end
 
-  context '#get_label_list' do
-    it 'is OK' do
+  describe '#get_label_list' do
+    it 'Respond correctly' do
       expect(LogicBoard.get_label_list).to eq expected[:label]
     end
   end
 
-  context '#create' do
-    it 'test to create' do
+  describe '#create' do
+    it 'Create correctly' do
       params = {
         'subject'     => 'subject by rspec',
         'description' => 'description by rspec',
@@ -105,8 +117,8 @@ describe LogicBoard , type: :model do
     end
   end
 
-  context '#update' do
-    it 'test to udpate' do
+  describe '#update' do
+    it 'Update correctly' do
       params_for_create = {
         'subject'     => 'subject by rspec',
         'description' => 'description by rspec',
@@ -138,7 +150,7 @@ describe LogicBoard , type: :model do
       expect(result['task'].priority).to eq params_for_update['priority']
     end
 
-    it 'case of not found task ' do
+    it 'Target task is not found' do
       params_for_update = {
         'id'          => 9999999,
         'subject'     => 'subject update by rspec',
@@ -153,8 +165,8 @@ describe LogicBoard , type: :model do
     end
   end
 
-  context '#delete' do
-    it 'test to delete' do
+  describe '#delete' do
+    it 'Delete correctly' do
       params = {
         'subject'     => 'subject by rspec',
         'description' => 'description by rspec',
@@ -169,7 +181,7 @@ describe LogicBoard , type: :model do
       expect(result['task']).to be_nil
     end
 
-    it 'case of not found task ' do
+    it 'Target task is not found' do
       not_exsits_task_id = 9999999
       result = LogicBoard.delete(user_id, not_exsits_task_id)
       expect(result).to be false
