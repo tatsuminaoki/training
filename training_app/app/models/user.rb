@@ -15,4 +15,11 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tasks, dependent: :destroy
+
+  validates :name, uniqueness: true, presence: true
+
+  enum roles: {
+    admin: 0,
+    normal: 1,
+  }
 end
