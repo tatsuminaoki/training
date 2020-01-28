@@ -6,6 +6,8 @@ require 'value_objects/label'
 
 describe LogicBoard , type: :model do
   let!(:task_a) { create(:task1) }
+  let!(:task_b) { create(:task2) }
+  let!(:task_new) { create(:task_new) }
   let(:user_id) {1}
   let(:ng_user_id) {999999}
   let(:expected) {
@@ -18,9 +20,10 @@ describe LogicBoard , type: :model do
 
   describe '#index' do
     context 'Valid user' do
-      it 'task is found' do
+      it 'Task is found' do
         result = LogicBoard.index(user_id)
-        expect(result['task_list'].count).to eq 1
+        expect(result['task_list'].count).to eq 3
+        expect(result['task_list'][0].id).to eq task_new.id
         result['task_list'].each do | task |
           expect(task).to be_an_instance_of(Task)
           expect(task.user_id).to eq user_id
@@ -40,8 +43,10 @@ describe LogicBoard , type: :model do
 
   describe '#get_task_all' do
     context 'Valid user' do
-      it 'task is found' do
+      it 'Task is found' do
         result = LogicBoard.get_task_all(user_id)
+        expect(result['task_list'].count).to eq 3
+        expect(result['task_list'][0].id).to eq task_new.id
         result['task_list'].each do | task |
           expect(task).to be_an_instance_of(Task)
           expect(task.user_id).to eq user_id
@@ -58,7 +63,7 @@ describe LogicBoard , type: :model do
 
   describe '#get_task_by_id' do
     context 'Valid user' do
-      it 'task is found' do
+      it 'Task is found' do
         result = LogicBoard.get_task_by_id(user_id, task_a.id)
         expect(result['task']).to be_an_instance_of(Task)
         expect(result['task'].id).to eq task_a.id
