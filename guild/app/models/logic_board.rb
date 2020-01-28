@@ -42,7 +42,7 @@ class LogicBoard
       priority:    params['priority'],
       label:       params['label']
     )
-    return false unless task.valid? || task.save
+    return false unless task.valid? && task.save
     return task.id
   end
 
