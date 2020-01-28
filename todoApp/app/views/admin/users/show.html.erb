@@ -1,0 +1,22 @@
+<div class="container">
+  <%= render 'common/notice' %>
+
+  <h1><%= t('.head_title') %></h1>
+
+  <div class="form-group">
+    <div class="label">
+      <strong><%= User.human_attribute_name(:name) %> : </strong>
+    </div>
+    <%= @user.name %>
+  </div>
+
+  <div class="form-group">
+    <div class="label">
+      <strong><%= User.human_attribute_name(:email) %> : </strong>
+    </div>
+    <%= @user.email %>
+  </div>
+
+  <%= link_to t('edit'), edit_admin_user_path(@user) %> |
+  <%= link_to t('back'), admin_users_path %>
+</div>
