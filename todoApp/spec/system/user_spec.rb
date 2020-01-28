@@ -10,7 +10,7 @@ RSpec.describe 'User management', type: :system, js: true do
       click_button 'Log In'
     end
 
-    it 'shows user lisk' do
+    it 'shows user list' do
       visit admin_users_path
       expect(page).to have_content 'test@example.com'
     end
