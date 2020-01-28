@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validate :at_least_one_admin_should_be_exist, on: :update, if: -> { roles_changed? && self.role == :user }
 
-  before_destroy :at_least_one_admin_should_be_exist
+  before_destroy :at_least_one_admin_should_be_exist, if: -> { self.role == :admin }
 
   private
 
