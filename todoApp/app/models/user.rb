@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :tasks, dependent: :delete_all
+  has_many :tasks, dependent: :destroy
 
   has_secure_password
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: true }
