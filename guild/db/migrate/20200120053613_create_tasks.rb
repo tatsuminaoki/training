@@ -1,4 +1,4 @@
-class CreateTasks < ActiveRecord::Migration
+class CreateTasks < ActiveRecord::Migration[5.1]
   def change
     create_table "tasks", force: :cascade do |t|
       t.integer  "user_id",     limit: 8,     null: false

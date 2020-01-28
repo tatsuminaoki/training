@@ -3,14 +3,16 @@ mysql: &mysql
   host: 127.0.0.1
   username: root
   password:
-  database: guild
+  database: guild_<%= Rails.env %>
   encoding: utf8mb4
 
 development:
   <<: *mysql
+  database: guild
 
 local:
   <<: *mysql
+  database: guild
 
 test:
   <<: *mysql
