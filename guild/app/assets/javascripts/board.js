@@ -6,6 +6,7 @@ let taskList;
 let master;
 
 window.addEventListener('DOMContentLoaded', function() {
+  //alert(I18n.t('views.message.change_complete'));
   prepare();
   document.getElementById("change-input").onclick = function() {
     resetModal()
@@ -17,7 +18,7 @@ window.addEventListener('DOMContentLoaded', function() {
     $("#state").val(taskDetail.state);
 
     $('#modal-body-input').show();
-    $('#modal-title').text("Change Task");
+    $('#modal-title').text(I18n.t('views.change_task'));
     $('#change-task').show();
     return
   }
@@ -45,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function() {
         getLatestTaskList()
         $('#modal-window').modal('hide')
         $.LoadingOverlay("hide");
-        viewCompleteMessage('updating task complete [id:' + taskDetail.id + ']');
+        viewCompleteMessage(I18n.t('views.message.change_complete') + ' [id:' + taskDetail.id + ']');
         return;
       },
       error: function(data) {
@@ -64,7 +65,7 @@ window.addEventListener('DOMContentLoaded', function() {
         getLatestTaskList()
         $('#modal-window').modal('hide')
         $.LoadingOverlay("hide");
-        viewCompleteMessage('deleting task complete');
+        viewCompleteMessage(I18n.t('views.message.delete_complete'));
       },
       error: function(data) {
         console.log(data)
@@ -96,7 +97,7 @@ window.addEventListener('DOMContentLoaded', function() {
         getLatestTaskList()
         $('#modal-window').modal('hide')
         $.LoadingOverlay("hide");
-        viewCompleteMessage('adding task complete');
+        viewCompleteMessage(I18n.t('views.message.create_complete'));
       },
       error: function(data) {
         console.log(data)
@@ -123,7 +124,7 @@ const getLatestTaskList = () => {
         } else if(task.priority == 3) {
           var priorityColor = 'danger';
         }
-        elTr.append('<th scope="row" ><a id="id-link" href="javascript:openInfoModalWindow(' + task.id + ');">' + task.id + '</a></td>');
+        elTr.append('<th scope="row" ><a id="id-link-' + task.id + '" href="javascript:openInfoModalWindow(' + task.id + ');">' + task.id + '</a></td>');
         elTr.append("<td>" + task.user_id + "</td>");
         elTr.append("<td>" + master.label[task.label] + "</td>");
         var elTdSubject = $("<td></td>");
@@ -133,7 +134,7 @@ const getLatestTaskList = () => {
         elTr.append("<td>" + master.state[task.state] + "</td>");
         elTr.append("<td>" + task.created_at + "</td>");
         elTr.append("<td>" + task.updated_at + "</td>");
-        elTr.append('<td><button type="button" id="button-delete" class="btn btn-danger" onClick="javascript:openDeleteModalWindow(' + task.id + ');">Delete</button></td>');
+        elTr.append('<td><button type="button" id="button-delete-' + task.id + '" class="btn btn-danger" onClick="javascript:openDeleteModalWindow(' + task.id + ');">' + I18n.t('views.delete') + '</button></td>');
         elTaskList.append(elTr);
       });
     },
@@ -161,7 +162,7 @@ const prepare = () => {
 const openAddingeModalWindow = () => {
   resetModal()
   $('#modal-body-input').show();
-  $('#modal-title').text("Add Task");
+  $('#modal-title').text(I18n.t('views.create_task'));
   $('#add-task').show();
   $('#modal-window').modal('show')
   return;
@@ -170,7 +171,7 @@ const openAddingeModalWindow = () => {
 const openInfoModalWindow = id => {
   resetModal()
   $('#modal-body-info').show();
-  $('#modal-title').text("Task detail");
+  $('#modal-title').text(I18n.t('views.task_detail'));
   $('#change-input').show();
   $.ajax({
     url: '/board/api/task/' + id,
@@ -196,7 +197,7 @@ const openDeleteModalWindow = id => {
   resetModal()
   $('#modal-body-message').show();
   $('#delete-id').val(id);
-  $('#modal-title').text("Delete Task");
+  $('#modal-title').text(I18n.t('views.delete_task'));
   $('#delete-task').show();
   $('#modal-window').modal('show')
   return;

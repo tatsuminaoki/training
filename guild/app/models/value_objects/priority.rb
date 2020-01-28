@@ -2,9 +2,9 @@ module ValueObjects
   class Priority < ValueObjects::Base
     def self.get_list
       {
-        1 => 'Low',
-        2 => 'Middle',
-        3 => 'High',
+        1 => I18n.t(:priority)[:low],
+        2 => I18n.t(:priority)[:middle],
+        3 => I18n.t(:priority)[:high],
       }
     end
 

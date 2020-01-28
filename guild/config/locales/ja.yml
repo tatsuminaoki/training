@@ -1,0 +1,60 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ja:
+  views:
+    create: "作成"
+    change: "変更"
+    delete: "削除"
+    close: "閉じる"
+    submit: "送信"
+    username: "ユーザー"
+    label: "ラベル"
+    subject: "題名"
+    description: "説明"
+    priority: "優先度"
+    state: "状態"
+    created_at: "作成日時"
+    updated_at: "最終更新日時"
+    task_detail: "タスク詳細"
+    create_task: "タスク作成"
+    change_task: "タスク変更"
+    delete_task: "タスク削除"
+    message:
+      create_complete: "タスクの作成に成功しました"
+      change_complete: "タスクの変更に成功しました"
+      delete_complete: "タスクの削除に成功しました"
+  state:
+    open: "オープン"
+    doing: "対応中"
+    done: " 対応済"
+    pending: "保留"
+    close: "クローズ"
+  priority:
+    low: "低"
+    middle: "中"
+    high: "高"
+  label:
+    bugfix: "バグ対応"
+    support: "サポート"
+    research: "調査"
+    implement: "実装"
+    other: "その他"
