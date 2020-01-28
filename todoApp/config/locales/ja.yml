@@ -3,10 +3,9 @@ ja:
   edit: '修正'
   destroy: '削除'
   back: '戻る'
-  created_at: '作成日時'
   error_unit: '個'
-  error_message: 'のエーラーが発生したため保存できません。：'
-  user_error_message: 'のエーラーが発生したためユーザー情報を保存できません。：'
+  error_message: 'のエラーが発生したため保存できません。：'
+  user_error_message: 'のエラーが発生したためユーザー情報を保存できません。：'
   login_button: 'ログイン'
   logout_button: 'ログアウト'
   login_as: 'ログインしているユーザー：'
@@ -31,13 +30,8 @@ ja:
     search:
       title_keyword: 'タイトル・キーワード'
       current_status: '現状態'
-      search: '検索'
-
-    column:
-      title: 'タスク名'
-      description: 'タスク詳細'
-      status: '進捗'
       due_date: '終了期限'
+      search: '検索'
 
   admin:
     users:
@@ -69,6 +63,9 @@ ja:
     signup_complete: 'サインアップありがとうございます！'
     user_update_complete: 'ユーザー更新を完了しました。'
     user_delete_success: '問題なく削除しました！'
+
+  attributes:
+    created_at: '作成日時'
 
   activerecord:
     model:

@@ -8,11 +8,11 @@ class User < ApplicationRecord
   ############################################################################################
 
 
-  has_many :tasks, dependent: :delete_all
+  has_many :tasks, dependent: :destroy
 
   has_secure_password
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: true }
-  validates_presence_of :name
+  validates :name, presence: true
   validate :at_least_one_admin_should_be_exist, on: :update, if: -> { roles_changed? && self.role == :user }
 
   before_destroy :at_least_one_admin_should_be_exist
