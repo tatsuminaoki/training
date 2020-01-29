@@ -13,6 +13,7 @@ ja:
   to_users_page: 'ユーザーページへ'
   user_num_of_task: 'タスク数'
   permission_denied: '権限がありません！'
+  need_at_least_one_admin: '管理ユーザは最低限一人必要です。'
 
   tasks:
     new_task: '新タスク'
