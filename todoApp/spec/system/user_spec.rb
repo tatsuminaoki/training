@@ -134,7 +134,7 @@ RSpec.describe 'User management', type: :system, js: true do
       accept_alert do
         click_link 'Destroy', match: :first
       end
-      expect(page).to have_content 'At least one admin should be remain.'
+      expect(page).to have_content 'At least one admin should be remained.'
     end
   end
 
