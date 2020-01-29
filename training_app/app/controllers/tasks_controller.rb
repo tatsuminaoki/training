@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   def index
     @q = Task
       .preload(:user)
+      .eager_load(:labels)
       .ransack(params[:q])
 
     @tasks = @q
@@ -38,30 +39,40 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.user = current_user
 
-    respond_to do |format|
-      if @task.save
+    Task.transaction do
+      @task.user = current_user
+      @task.labels = label_from_params
+      @task.save!
+
+      respond_to do |format|
         format.html { redirect_to @task, notice: t('tasks.new.create') }
         format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::Rollback
+    respond_to do |format|
+      format.html { render :new }
+      format.json { render json: @task.errors, status: :unprocessable_entity }
     end
   end
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
+    Task.transaction do
+      @task.labels = label_from_params
+      @task.update!(task_params)
+
+      respond_to do |format|
         format.html { redirect_to @task, notice: t('tasks.edit.update') }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.json { render :show, status: :created, location: @task }
       end
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::Rollback
+    respond_to do |format|
+      format.html { render :new }
+      format.json { render json: @task.errors, status: :unprocessable_entity }
     end
   end
 
@@ -82,10 +93,20 @@ class TasksController < ApplicationController
     @task = current_user
       .tasks
       .find(params[:id])
+
+    @task.label = @task.labels.map(&:name).join(',')
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:title, :body, :status)
+    params.require(:task).permit(:title, :body, :status, :label)
+  end
+
+  def label_from_params
+    params[:task][:label]
+      &.split(',')
+      &.map(&:strip)
+      &.filter(&:present?)
+      &.map { |name| Label.find_or_initialize_by(name: name) }
   end
 end

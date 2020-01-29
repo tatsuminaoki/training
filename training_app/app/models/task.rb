@@ -21,6 +21,9 @@
 class Task < ApplicationRecord
   belongs_to :user
 
+  has_many :task_labels
+  has_many :labels, through: :task_labels, autosave: false
+
   validates :title, presence: true
   validates :body, presence: true
 
@@ -29,6 +32,8 @@ class Task < ApplicationRecord
     progress: 1,
     done: 2,
   }
+
+  attr_accessor :label
 
   def self.status_name(status)
     I18n.t("activerecord.enums.task.status.#{status}")
