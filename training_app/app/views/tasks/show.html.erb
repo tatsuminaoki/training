@@ -10,5 +10,10 @@
   <%= @task.body %>
 </p>
 
+<p>
+  <strong><%= Task.human_attribute_name(:label) %></strong>
+  <%= @task.labels.map(&:name).join(' ') %>
+</p>
+
 <%= link_to t('edit'), edit_task_path(@task) %> |
 <%= link_to t('back'), tasks_path %>

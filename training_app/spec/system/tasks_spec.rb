@@ -10,7 +10,7 @@ def blank_error_message(attr)
   )
 end
 
-RSpec.describe 'Tasks', type: :system do
+RSpec.describe 'Tasks', type: :system, js: true do
   feature 'タスク一覧' do
     given!(:user) { create(:user) }
     background do
@@ -62,7 +62,7 @@ RSpec.describe 'Tasks', type: :system do
       visit tasks_path
 
       fill_in 'q[title_cont]', with: task1.title
-      click_on I18n.t('helpers.submit.search')
+      click_on I18n.t('search')
 
       expect(page).to have_content(task1.title)
       expect(page).to have_no_content(task2.title)
@@ -102,6 +102,19 @@ RSpec.describe 'Tasks', type: :system do
       task = Task.last
       expect(task.title).to eq('Hoge')
       expect(task.body).to eq('Foo')
+    end
+
+    scenario 'カンマ区切りでラベルを登録できる' do
+      visit new_task_path
+
+      fill_in Task.human_attribute_name(:title), with: 'Hoge'
+      fill_in Task.human_attribute_name(:body), with: 'Foo'
+      fill_in Task.human_attribute_name(:label), with: 'Bar, Baz'
+
+      click_on I18n.t('helpers.submit.create')
+
+      task = Task.last
+      expect(task.labels.map(&:name)).to eq(['Bar', 'Baz'])
     end
 
     scenario '登録すると #show に遷移する' do
@@ -168,6 +181,21 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content blank_error_message(:title)
       expect(page).to have_content blank_error_message(:body)
+    end
+
+    scenario 'ラベルをカンマ区切りで変更できる' do
+      task.labels = [create(:label), create(:label)]
+
+      visit edit_task_path(task)
+
+      fill_in Task.human_attribute_name(:title), with: 'Hoge'
+      fill_in Task.human_attribute_name(:body), with: 'Foo'
+      fill_in Task.human_attribute_name(:label), with: 'Bar, Baz'
+
+      click_on I18n.t('helpers.submit.update')
+
+      update_task = Task.find(task.id)
+      expect(update_task.labels.map(&:name)).to eq(['Bar', 'Baz'])
     end
   end
 end

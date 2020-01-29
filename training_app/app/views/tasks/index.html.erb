@@ -9,8 +9,13 @@
   <%= f.label :status %>
   <%= f.select :status_eq, Task.statuses.map { |k, v| [Task.status_name(k), v] }, \
     { include_blank: true }, class: "custom-select d-block w-100" %>
+  
+  <%= f.label :label %>
+  <%= f.select :task_labels_label_id_in, 
+      Label.all.map { |label| [label.name, label.id] }, 
+      {}, multiple: true, class: "custom-select d-block w-100" %>
 
-  <%= f.submit t('helpers.submit.search'), class: "btn btn-primary btn-lg" %>
+  <%= f.submit t('search'), class: "btn btn-primary btn-lg" %>
 <% end %>
 
 <hr />

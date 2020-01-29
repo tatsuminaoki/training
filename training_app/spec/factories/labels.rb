@@ -18,28 +18,9 @@
 #  index_tasks_on_user_id  (user_id)
 #
 
-class Task < ApplicationRecord
-  belongs_to :user
 
-  has_many :task_labels
-  has_many :labels, through: :task_labels, autosave: false
-
-  validates :title, presence: true
-  validates :body, presence: true
-
-  enum status: {
-    todo: 0,
-    progress: 1,
-    done: 2,
-  }
-
-  attr_accessor :label
-
-  def self.status_name(status)
-    I18n.t("activerecord.enums.task.status.#{status}")
-  end
-
-  def status_name
-    self.class.status_name(self.status)
+FactoryBot.define do
+  factory :label do
+    sequence(:name) { |n| "label_#{n}"}
   end
 end
