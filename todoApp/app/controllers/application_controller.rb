@@ -9,7 +9,20 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize
-    redirect_to login_path, alert: t('flash_message.not_authorized') if current_user.nil?
+    redirect_to login_path, alert: I18n.t('flash_message.not_authorized') if current_user.nil?
+  end
+
+  def after_sign_in_path_for(current_user)
+    current_user.presence ? tasks_path : login_path
+  end
+
+  def authenticate_user!
+    opts[:scope] = :user
+    warden.authenticate!(opts) if !(is_a?(::UserController)) || opts.delete(:force)
+  end
+
+  def warden
+    request.env['warden'] or raise MissingWarden
   end
 
   private

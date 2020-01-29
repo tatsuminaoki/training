@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User management', type: :system, js: true do
   context 'visit the admin_users_path' do
     before do
-      User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
       visit login_path
       fill_in 'email', with: 'test@example.com'
       fill_in 'password', with: 'mypassword'
@@ -109,20 +109,39 @@ RSpec.describe 'User management', type: :system, js: true do
       click_button 'Update User'
       expect(page).to have_content "Password confirmation doesn't match Password"
     end
+  end
+
+  context 'When user deletes' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      User.create!(name: 'Mary', email: 'test2@example.com', roles: 'user', password: 'mypassword2')
+      visit login_path
+      fill_in 'email', with: 'test@example.com'
+      fill_in 'password', with: 'mypassword'
+      click_button 'Log In'
+    end
 
     it 'Deletes the selected user when click Destroy' do
       visit admin_users_path
       accept_alert do
-        click_link 'Destroy'
+        all('a', text: 'Destroy')[1].click
       end
-      expect(page).to have_current_path '/en/login'
+      expect(page).to have_content 'User was successfully destroyed.'
+    end
+
+    it 'cannot deletes only one lefted admin user' do
+      visit admin_users_path
+      accept_alert do
+        click_link 'Destroy', match: :first
+      end
+      expect(page).to have_content 'At least one admin should be remained.'
     end
   end
 
   context 'when user visit admin_users_path' do
     before do
-      u1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
-      u2 = User.create!(name: 'Mary', email: 'test2@example.com', password: 'mypassword2')
+      u1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      u2 = User.create!(name: 'Mary', email: 'test2@example.com', roles: 'user', password: 'mypassword2')
       Task.create!(title: 'user1 task', user_id: u1.id)
       Task.create!(title: 'user1 task2', user_id: u1.id)
       Task.create!(title: 'user2 task', user_id: u2.id)
@@ -136,6 +155,21 @@ RSpec.describe 'User management', type: :system, js: true do
       visit admin_users_path
       num_of_task = find(:xpath, ".//table/tbody/tr[1]/td[3]").text
       expect(num_of_task).to have_content '2'
+    end
+  end
+
+  context 'access user management page without admin role' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', roles: 'user', password: 'mypassword')
+      visit login_path
+      fill_in 'email', with: 'test@example.com'
+      fill_in 'password', with: 'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'should be access denied' do
+      click_link 'Users Page'
+      expect(page).to have_content 'Permission Denied!'
     end
   end
 end

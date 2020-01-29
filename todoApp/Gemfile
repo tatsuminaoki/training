@@ -41,6 +41,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # fablicop is a RuboCop configration gem.
+  gem "fablicop", require: false
 end
 
 group :test do
@@ -57,3 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails-i18n', '~> 6.0'
 # Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 4+
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
+# An authentication library compatible with all Rack-based frameworks
+gem 'warden', '~> 1.2', '>= 1.2.8'
+# If you like the straight forward and effective nature of Strong Parameters and suspect that CanCan might be overkill for your project then you'll love Petergate's easy to use and read action and content based authorizations.
+gem 'petergate', '~> 2.0', '>= 2.0.1'
