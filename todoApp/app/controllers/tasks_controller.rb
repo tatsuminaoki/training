@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.includes(:user).own_by(current_user.id).filter_by_ids_or_all(params[:filtered_ids]).includes(:labels)
+    @tasks = Task.includes(:user).own_by(current_user.id).includes(:labels)
                  .search_result(params[:title_keyword], params[:current_status], params[:selected_labels])
                  .order_by_due_date_or_default(params[:due_date_direction])
                  .page(params[:page])
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to @task, notice: t('flash_message.create_complete')
+      redirect_to @task, notice: I18n.t('flash_message.create_complete')
     else
       render :new
     end
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: t('flash_message.update_complete')
+      redirect_to @task, notice: I18n.t('flash_message.update_complete')
     else
       render :edit
     end
@@ -39,9 +39,9 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to tasks_url, notice: t('flash_message.delete_success')
+      redirect_to tasks_url, notice: I18n.t('flash_message.delete_success')
     else
-      redirect_to tasks_url, notice: t('flash_message.delete_fail')
+      redirect_to tasks_url, notice: I18n.t('flash_message.delete_fail')
     end
   end
 
@@ -52,6 +52,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :due_date, :user_id, label_ids: [])
+    params.require(:task).permit(:title, :description, :due_date, :status, :user_id, label_ids: [])
   end
 end
