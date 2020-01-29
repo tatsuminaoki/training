@@ -1,0 +1,17 @@
+<p><%= notice %></p>
+
+<%= form_for(:session, url: sessions_path(redirect_to: params[:redirect_to])) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('.sign_in') %>
+  </div>
+<% end %>

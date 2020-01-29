@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 
     @tasks = @q
       .result
+      .where(user_id: current_user.id)
       .order(created_at: :desc)
       .page(params[:page])
       .per(ITEM_PER_PAGE)
@@ -37,6 +38,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
 
     respond_to do |format|
       if @task.save
@@ -77,7 +79,9 @@ class TasksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user
+      .tasks
+      .find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

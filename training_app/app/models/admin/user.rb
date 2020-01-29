@@ -12,12 +12,6 @@
 #  updated_at      :datetime         not null
 #
 
-
-FactoryBot.define do
-  factory :user do
-    sequence(:name) { |n| "name_#{n}" }
-    role { 0 }
-    password { "password" }
-    password_confirmation { self.password }
-  end
+module Admin
+  class User < User; end
 end

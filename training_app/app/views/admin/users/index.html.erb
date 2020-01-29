@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= Admin::User.model_name.human %></h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th><%= Admin::User.human_attribute_name(:name) %></th>
+      <th><%= t('.task_count') %></th>
+      <th><%= Admin::User.human_attribute_name(:role) %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_users.each do |admin_user| %>
+      <tr>
+        <td><%= admin_user.name %></td>
+        <td><%= admin_user.tasks.size %></td>
+        <td><%= admin_user.role %></td>
+        <td><%= link_to t('show'), admin_user %></td>
+        <td><%= link_to t('edit'), edit_admin_user_path(admin_user) %></td>
+        <td><%= link_to t('destroy'), admin_user, method: :delete, data: { confirm: t('scaffold.sure') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('scaffold.new', model: Admin::User.model_name.human), new_admin_user_path %>

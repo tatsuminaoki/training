@@ -1,0 +1,6 @@
+<h1><%= t("scaffold.edit", model: Admin::User.model_name.human) %></h1>
+
+<%= render 'form', admin_user: @admin_user %>
+
+<%= link_to t('show'), @admin_user %> |
+<%= link_to t('back'), admin_users_path %>
