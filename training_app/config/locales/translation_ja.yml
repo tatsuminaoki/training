@@ -5,6 +5,7 @@ ja:
   back: 戻る
   logout: ログアウト
   name: 名前  #g
+  search: 検索
   
   scaffold:
     new: "%{model}の新規登録"
@@ -51,6 +52,7 @@ ja:
         body: 本文 #g
         title: 題名  #g
         status: 状態
+        label: ラベル
         user: :activerecord.models.user  #g
 
       user: &users
@@ -63,6 +65,9 @@ ja:
 
       admin/user: 
           <<: *users
+      
+      label:
+        name: ラベル名 
 
     enums:
       task:
