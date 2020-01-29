@@ -15,10 +15,10 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  describe 'when only one admin user remained' do
+  describe '#only one admin left' do
     let!(:admin_user) { User.create(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword') }
 
-    context 'cannot destroy' do
+    context 'cannot destroy the admin user' do
       it {
         expect(admin_user.destroy).to be_falsey
       }
