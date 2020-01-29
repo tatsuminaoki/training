@@ -10,10 +10,10 @@ describe Task do
 
     it '検索を行うことができる' do
       params = { body_cont: 'o' }
-      expect(Task.search(params).result.count).to eq(2)
+      expect(Task.ransack(params).result.count).to eq(2)
 
       params = { status_eq: 2 }
-      expect(Task.search(params).result.count).to eq(1)
+      expect(Task.ransack(params).result.count).to eq(1)
     end
   end
 

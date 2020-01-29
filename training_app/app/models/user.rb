@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
-  validates :name, uniqueness: true, presence: true
+  validates :name, uniqueness: { case_sensitive: true }, presence: true
 
   # 管理ユーザーから一般ユーザーに変更する場合、管理ユーザーは他に1人いないといけない
   validate proc {
