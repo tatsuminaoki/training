@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  summary: MyText
+  discription: MyText
+  due: 2020-01-29 13:08:46
+  priority: 1
+  status: 1
+  label: 1
+  drafter: 1
+  reporter: 1
+  assignee: 1
+
+two:
+  summary: MyText
+  discription: MyText
+  due: 2020-01-29 13:08:46
+  priority: 1
+  status: 1
+  label: 1
+  drafter: 1
+  reporter: 1
+  assignee: 1
