@@ -12,15 +12,15 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to tasks_path, notice: t('flash_message.login_complete')
+      redirect_to tasks_path, notice: I18n.t('flash_message.login_complete')
     else
-      flash[:notice] = t('flash_message.login_error')
+      flash[:notice] = I18n.t('flash_message.login_error')
       render 'new'
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_path, notice: t('flash_message.logout_complete')
+    redirect_to login_path, notice: I18n.t('flash_message.logout_complete')
   end
 end
