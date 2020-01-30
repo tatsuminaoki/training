@@ -133,7 +133,7 @@ RSpec.describe Task, :type => :model do
     end
   end
 
-  describe '#search with labels' do
+  describe '.search with labels' do
     let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'user1 first task', user_id: user1.id) }
     let!(:task2) { Task.create(title: 'user1 second task', user_id: user1.id) }
