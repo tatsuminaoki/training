@@ -13,6 +13,7 @@ ja:
   to_users_page: 'ユーザーページへ'
   user_num_of_task: 'タスク数'
   permission_denied: '権限がありません！'
+  labels: 'ラベル'
   need_at_least_one_admin: '管理ユーザは最低限一人必要です。'
 
   tasks:
@@ -32,6 +33,7 @@ ja:
       title_keyword: 'タイトル・キーワード'
       current_status: '現状態'
       due_date: '終了期限'
+      selected_labels: 'ラベル'
       search: '検索'
 
   admin:

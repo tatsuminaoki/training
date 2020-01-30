@@ -66,19 +66,19 @@ RSpec.describe Task, :type => :model do
 
     context 'only return searched by title' do
       it {
-        expect(Task.search_result('I am title', nil)).to eq([task1])
+        expect(Task.search_result('I am title', nil, nil)).to eq([task1])
       }
     end
 
     context 'only return searched by status' do
       it {
-        expect(Task.search_result(nil, 'ongoing')).to eq([task2])
+        expect(Task.search_result(nil, 'ongoing', nil)).to eq([task2])
       }
     end
 
     context 'only return searched by title and status' do
       it {
-        expect(Task.search_result('title', 'done')).to eq([task4])
+        expect(Task.search_result('title', 'done', nil)).to eq([task4])
       }
     end
   end
@@ -115,6 +115,22 @@ RSpec.describe Task, :type => :model do
     context 'only return tasks owned by user' do
       it {
         expect(Task.own_by(user1.id)).to eq([task1])
+      }
+    end
+  end
+
+  describe '.search with labels' do
+    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
+    let!(:task1) { Task.create(title: 'user1 first task', user_id: user1.id) }
+    let!(:task2) { Task.create(title: 'user1 second task', user_id: user1.id) }
+    let!(:label1) { Label.create!(name: 'first label') }
+    let!(:label2) { Label.create!(name: 'second label') }
+
+    context 'only return searched by labels' do
+      it {
+        task1.labels << label1
+        task2.labels << label2
+        expect(Task.search_by_labels(task2.label_ids)).to eq([task2])
       }
     end
   end

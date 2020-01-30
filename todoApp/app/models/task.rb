@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
 
   enum status: { todo: 0, ongoing: 1, done: 2 }
   validates :title, presence: true, length: { maximum: 50 }
@@ -7,9 +9,14 @@ class Task < ApplicationRecord
   validates :user, presence: true
 
 
-  def self.search_result(title_keyword, current_status)
+  scope :search_by_labels, -> (selected_labels) {
+    where(id: TaskLabel.label_id(selected_labels).pluck(:task_id)) if selected_labels.present?
+  }
+
+  def self.search_result(title_keyword, current_status, selected_labels)
     search_by_title(title_keyword)
         .search_by_status(current_status)
+        .search_by_labels(selected_labels)
   end
 
   def self.search_by_title(title_keyword)

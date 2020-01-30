@@ -13,6 +13,7 @@ en:
   to_users_page: 'Users Page'
   user_num_of_task: 'Number Of Task'
   permission_denied: 'Permission Denied!'
+  labels: 'Labels'
   need_at_least_one_admin: 'At least one admin should be remained.'
 
   tasks:
@@ -32,6 +33,7 @@ en:
       title_keyword: 'Title Keyword'
       current_status: 'Current Status'
       due_date: 'Due Date'
+      selected_labels: 'Labels'
       search: 'Search'
 
   admin:
