@@ -46,6 +46,7 @@ ja:
       task: 仕事  #g
       user: ユーザー  #g
       admin/user: ユーザー  #g
+      admin/maintenance: メンテナンス
 
     attributes:
       task:
@@ -65,6 +66,10 @@ ja:
 
       admin/user: 
           <<: *users
+      
+      admin/maintenance: 
+        start_time: メンテナンス開始時間
+        end_time: メンテナンス終了時間 
       
       label:
         name: ラベル名 
