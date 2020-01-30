@@ -9,6 +9,10 @@ class Task < ApplicationRecord
   validates :user, presence: true
 
 
+  scope :search_by_labels, -> (selected_labels) {
+    where(id: TaskLabel.label_id(selected_labels).pluck(:task_id)) if selected_labels.present?
+  }
+
   def self.search_result(title_keyword, current_status, selected_labels)
     search_by_title(title_keyword)
         .search_by_status(current_status)
@@ -21,15 +25,6 @@ class Task < ApplicationRecord
 
   def self.search_by_status(current_status)
     current_status.presence ? where(status: current_status) : all
-  end
-
-  def self.search_by_labels(selected_labels)
-    if selected_labels
-      task_ids = TaskLabel.where(label_id: selected_labels).pluck(:task_id)
-      where(id: task_ids)
-    else
-      all
-    end
   end
 
   def self.own_by(user_id)
