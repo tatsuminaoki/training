@@ -216,13 +216,14 @@ RSpec.describe 'Task management', type: :system, js: true do
   end
 
   context 'when user working on task with labels' do
+
+    let(:user) { User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword') }
+    let(:task) { Task.create!(title: 'first task', description: 'first', user_id: user.id) }
+    let(:label) { Label.create!(name: 'first label') }
     before do
-      user1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
-      task1 = Task.create!(title: 'first task', description: 'first', user_id: user1.id)
-      label1 = Label.create!(name: 'first label')
       Label.create!(name: 'second label')
       Label.create!(name: 'third label')
-      task1.labels << label1
+      task.labels << label
 
       visit login_path
       fill_in 'Email', with: :'test@example.com'
