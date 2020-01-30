@@ -119,20 +119,6 @@ RSpec.describe Task, :type => :model do
     end
   end
 
-  describe '#labels' do
-    let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
-    let!(:task1) { Task.create(title: 'user1 task', user_id: user1.id) }
-    let!(:label1) { Label.create!(name: 'first label') }
-
-    context 'when task destroyed the task-label assciation also be destroyed' do
-      it {
-        task1.labels << label1
-        Task.find(task1.id).destroy
-        expect(TaskLabel.where(task_id: task1.id)).to eq([])
-      }
-    end
-  end
-
   describe '.search with labels' do
     let!(:user1) { User.create(name: 'John', email: 'user1@example.com', password: 'u1password') }
     let!(:task1) { Task.create(title: 'user1 first task', user_id: user1.id) }
