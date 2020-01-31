@@ -1,10 +1,132 @@
 require 'rails_helper'
 
 RSpec.describe 'Task management', type: :system, js: true do
+  context 'visit the tasks_path' do
+    before do
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'rspec first task', description: 'first description', user_id: user1.id)
+      Task.create!(title: 'rspec second task', description: 'second description', user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'shows the task list order by created recently.' do
+      visit tasks_path
+      recent_title = find(:xpath, ".//table/tbody/tr[1]/td[1]").text
+      old_title = find(:xpath, ".//table/tbody/tr[2]/td[1]").text
+      expect(recent_title).to have_content 'rspec second task'
+      expect(old_title).to have_content 'rspec first task'
+    end
+  end
+
+  context 'user click the link' do
+    before do
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'rspec first task', description: 'rspec Description', user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'creates new task when click New Task' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Title', :with => 'My Task'
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content 'Task was successfully created.'
+    end
+
+    it 'ensures Title presence when creates new task.' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content "Title can't be blank"
+    end
+
+    it 'ensures Title length must be less than 50 when creates new task' do
+      visit tasks_path
+      click_link 'New Task'
+      fill_in 'Title', :with => 'a' * 51
+      fill_in 'Description', :with => 'My Task Description'
+      click_button 'Create Task'
+      expect(page).to have_content 'Title is too long (maximum is 50 characters)'
+    end
+
+    it 'updates the selected task when click Edit' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => 'My Edited Task'
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content 'Task was successfully updated.'
+    end
+
+    it 'ensures Title presence when updates task.' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => ''
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content "Title can't be blank"
+    end
+
+    it 'ensures Title length must be less than 50 when updates task.' do
+      visit tasks_path
+      click_link 'Edit'
+      fill_in 'Title', :with => 'a' * 51
+      fill_in 'Description', :with => 'Edit My Task Description'
+      click_button 'Update Task'
+      expect(page).to have_content 'Title is too long (maximum is 50 characters)'
+    end
+
+    it 'deletes the selected task when click Destroy' do
+      visit tasks_path
+      accept_alert do
+        click_link 'Destroy'
+      end
+      expect(page).to have_content 'Task was successfully destroyed.'
+    end
+  end
+
   context 'when user search' do
     before do
-      Task.create!(title: 'first task', description: 'first Description', status: 'todo')
-      Task.create!(title: 'second task', description: 'second Description', status: 'ongoing')
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      Task.create!(title: 'first task', description: 'deadline is soon', status: 'todo', due_date: 1.day.from_now, user_id: user1.id)
+      Task.create!(title: 'second task', description: 'still have time until deadline', status: 'ongoing', due_date: 3.days.from_now, user_id: user1.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it 'should be ascending order by due date when user search by due_date asc' do
+      visit tasks_path
+      select('ASC', from: 'Due Date')
+      click_button 'Search'
+      expect(page).to have_content 'Due Date'
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      still_have_time = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(urgent_deadline).to have_content 'deadline is soon'
+      expect(still_have_time).to have_content 'still have time until deadline'
+    end
+
+    it 'should be descending order by due date when user search by due_date desc' do
+      visit tasks_path
+      select('DESC', from: 'Due Date')
+      click_button 'Search'
+      expect(page).to have_content 'Due Date'
+      still_have_time = find(:xpath, ".//table/tbody/tr[1]/td[2]").text
+      urgent_deadline = find(:xpath, ".//table/tbody/tr[2]/td[2]").text
+      expect(still_have_time).to have_content 'still have time until deadline'
+      expect(urgent_deadline).to have_content 'deadline is soon'
     end
 
     it 'only shows searched task list when user search by title' do
@@ -26,7 +148,13 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'When user paginate' do
     before do
-      1.upto(8){ |k| Task.create!(title: "Title #{k}") }
+      user1 = User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+      1.upto(8){ |k| Task.create!(title: "Title #{k}", user_id: user1.id) }
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it 'shows paginate links if more than one page' do
@@ -50,10 +178,15 @@ RSpec.describe 'Task management', type: :system, js: true do
 
   context 'visit the tasks_path' do
     before do
-      user1 = User.create!(name: 'John', email: 'user1@example.com', password_digest: BCrypt::Password.create('u1password'))
-      user2 = User.create!(name: 'Mary', email: 'user2@example.com', password_digest: BCrypt::Password.create('u2password'))
+      user1 = User.create!(name: 'John', email: 'user1@example.com', password: 'u1password')
+      user2 = User.create!(name: 'Mary', email: 'user2@example.com', password: 'u2password')
       Task.create!(title: 'user1 task', user_id: user1.id)
       Task.create!(title: 'user2 task', user_id: user2.id)
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
     end
 
     it "shows only logged in user's tasks" do
@@ -66,14 +199,31 @@ RSpec.describe 'Task management', type: :system, js: true do
     end
   end
 
-  context 'when user working on task with labels' do
+  context 'when logged in user access login page' do
     before do
-      user1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
-      task1 = Task.create!(title: 'first task', description: 'first', user_id: user1.id)
-      label1 = Label.create!(name: 'first label')
+      User.create!(name: 'John', email: 'test@example.com', password: 'mypassword')
+
+      visit login_path
+      fill_in 'Email', with: :'test@example.com'
+      fill_in 'Password', with: :'mypassword'
+      click_button 'Log In'
+    end
+
+    it "should be redirected to tasks path" do
+      visit new_session_path
+      expect(page).to have_current_path '/en/tasks'
+    end
+  end
+
+  context 'when user working on task with labels' do
+
+    let(:user) { User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword') }
+    let(:task) { Task.create!(title: 'first task', description: 'first', user_id: user.id) }
+    let(:label) { Label.create!(name: 'first label') }
+    before do
       Label.create!(name: 'second label')
       Label.create!(name: 'third label')
-      task1.labels << label1
+      task.labels << label
 
       visit login_path
       fill_in 'Email', with: :'test@example.com'

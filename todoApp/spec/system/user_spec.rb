@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe 'User management', type: :system, js: true do
   context 'visit the admin_users_path' do
     before do
-      User.create!(name: 'John', email: 'test@example.com', password_digest: BCrypt::Password.create('mypassword'))
+      User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
       visit login_path
       fill_in 'email', with: 'test@example.com'
       fill_in 'password', with: 'mypassword'
       click_button 'Log In'
     end
 
-    it 'shows user lisk' do
+    it 'shows user list' do
       visit admin_users_path
       expect(page).to have_content 'test@example.com'
     end
@@ -109,20 +109,39 @@ RSpec.describe 'User management', type: :system, js: true do
       click_button 'Update User'
       expect(page).to have_content "Password confirmation doesn't match Password"
     end
+  end
+
+  context 'When user deletes' do
+    before do
+      User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      User.create!(name: 'Mary', email: 'test2@example.com', roles: 'user', password: 'mypassword2')
+      visit login_path
+      fill_in 'email', with: 'test@example.com'
+      fill_in 'password', with: 'mypassword'
+      click_button 'Log In'
+    end
 
     it 'Deletes the selected user when click Destroy' do
       visit admin_users_path
       accept_alert do
-        click_link 'Destroy'
+        all('a', text: 'Destroy')[1].click
       end
-      expect(page).to have_current_path '/en/login'
+      expect(page).to have_content 'User was successfully destroyed.'
+    end
+
+    it 'cannot deletes only one lefted admin user' do
+      visit admin_users_path
+      accept_alert do
+        click_link 'Destroy', match: :first
+      end
+      expect(page).to have_content 'At least one admin should be remained.'
     end
   end
 
   context 'when user visit admin_users_path' do
     before do
-      u1 = User.create!(name: 'John', email: 'test@example.com', password_digest: BCrypt::Password.create('mypassword'))
-      u2 = User.create!(name: 'Mary', email: 'test2@example.com', password_digest: BCrypt::Password.create('mypassword2'))
+      u1 = User.create!(name: 'John', email: 'test@example.com', roles: 'admin', password: 'mypassword')
+      u2 = User.create!(name: 'Mary', email: 'test2@example.com', roles: 'user', password: 'mypassword2')
       Task.create!(title: 'user1 task', user_id: u1.id)
       Task.create!(title: 'user1 task2', user_id: u1.id)
       Task.create!(title: 'user2 task', user_id: u2.id)
