@@ -2,15 +2,15 @@
 <p>Find me in app/views/tasks/new.html.erb</p>
 
 <%= form_with(model: @task, local: true) do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :content %>
-  <%= form.text_field :content %>
-  <%= form.label :priority %>
+  <%= form.label :概要 %>
+  <%= form.text_field :summary %>
+  <%= form.label :説明 %>
+  <%= form.text_field :description %>
+  <%= form.label :優先度 %>
   <%= form.text_field :priority %>
-  <%= form.label :status %>
+  <%= form.label :ステータス %>
   <%= form.text_field :status %>
-  <%= form.label :endtime %>
-  <%= form.text_field :endtime %>
+  <%= form.label :期限 %>
+  <%= form.text_field :due %>
   <%= form.submit %>
 <% end %>
