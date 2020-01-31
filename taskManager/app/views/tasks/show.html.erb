@@ -1,2 +1,32 @@
 <h1>Tasks#show</h1>
 <p>Find me in app/views/tasks/show.html.erb</p>
+
+<div>
+  <table>
+    <tr>
+      <td>概要</td>
+      <td><%= @task.summary %></td>
+    </tr>
+    <tr>
+      <td>説明</td>
+      <td><%= @task.description %></td>
+    </tr>
+    <tr>
+      <td>優先度</td>
+      <td><%= @task.priority %></td>
+    </tr>
+    <tr>
+      <td>ステータス</td>
+      <td><%= @task.status %></td>
+    </tr>
+    <tr>
+      <td>期限</td>
+      <td><%= @task.due %></td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <%= link_to "編集", edit_task_path(@task) %>
+  <%= link_to "削除", task_path(@task), method: :delete, data: { confirm: 'このタスクを削除してもよろしいですか？' } %> 
+</div>

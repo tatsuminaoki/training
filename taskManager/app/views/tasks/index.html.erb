@@ -10,14 +10,16 @@
     <th>優先度</th>
     <th>ステータス</th>
     <th>期限</th>
+    <th></th>
   <tr>
 <% @tasks.each do |task| %>
   <tr>
     <th><%= task.summary %></th>
     <th><%= task.description %></th>
     <th><%= task.priority %></th>
+    <th><%= task.status %></th>
     <th><%= task.due %></th>
-    <th></th>
+    <th><%= link_to '詳細', task_path(task.id) %></th>
   <tr>
 <% end %>
 
