@@ -6,7 +6,7 @@ RSpec.describe 'Under Maintenance', type: :system, js: true do
   end
 
   context 'when user visit under maintenance' do
-    it "should be redirected to maintenance page" do
+    it 'should be redirected to maintenance page' do
       visit tasks_path
       expect(page).to have_current_path '/en/under_maintenance'
     end
