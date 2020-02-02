@@ -5,9 +5,27 @@ require 'value_objects/priority'
 require 'value_objects/label'
 
 describe LogicBoard , type: :model do
+
   let!(:task_a) { create(:task1) }
-  let!(:task_b) { create(:task2) }
-  let!(:task_new) { create(:task_new) }
+  let!(:task_b) {
+    create(:task1,
+      id: 2,
+      subject: 'test subject 2nd',
+      description: 'test description 2nd',
+      state: 2,
+      label: 2
+    )
+  }
+  let!(:task_new) {
+    create(:task1,
+      id: 3,
+      subject: 'new test subject',
+      description: 'new test description',
+      state: 3,
+      label: 3,
+      created_at: Time.current.tomorrow,
+      updated_at: Time.current.tomorrow)
+  }
   let(:user_id) {1}
   let(:ng_user_id) {999999}
   let(:expected) {
