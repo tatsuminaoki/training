@@ -42,6 +42,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_maintenance
-    redirect_to under_maintenance_path if Maintenance.first.presence and Maintenance.first.maintenance_mode == true
+    redirect_to under_maintenance_path if Maintenance.last&.maintenance_mode == true
   end
 end
