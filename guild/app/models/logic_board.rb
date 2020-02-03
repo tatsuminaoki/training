@@ -6,15 +6,14 @@ class LogicBoard
 
   def self.index(user_id)
     {
-      'task_list'     => Task.where(user_id: user_id),
       'state_list'    => get_state_list,
       'priority_list' => get_priority_list,
       'label_list'    => get_label_list,
-    }
+    }.merge(get_task_all(user_id))
   end
 
   def self.get_task_all(user_id)
-    {'task_list' => Task.where(user_id: user_id)}
+    {'task_list' => Task.where(user_id: user_id).order(created_at: "DESC")}
   end
 
   def self.get_task_by_id(user_id, id)
