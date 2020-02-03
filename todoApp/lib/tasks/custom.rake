@@ -14,7 +14,7 @@ namespace :maintenance do
 
   desc "Maintenance Mode Off"
   task end: :environment do
-    unless Maintenance.count <= 0
+    if Maintenance.count > 0
       puts 'maintenance end!'
       Maintenance.last.update!(maintenance_mode: false)
     else
