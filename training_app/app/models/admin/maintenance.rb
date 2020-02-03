@@ -53,6 +53,7 @@ module Admin
     end
 
     def self.maintenance?
+      return false unless File.exist?(MAINTENANCE_JSON)
       inst = self.load
       Time.zone.now.between?(inst.start_time, inst.end_time)
     end

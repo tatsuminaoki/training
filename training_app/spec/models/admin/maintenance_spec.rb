@@ -50,6 +50,7 @@ describe Admin::Maintenance do
       allow(Admin::Maintenance::File).to receive(:open).and_return(mock)
       allow(Admin::Maintenance::File).to receive(:exist?).and_return(true)
     end
+
     let!(:valid) {
       Admin::Maintenance.new(start_time: '2019-12-31 00:00:00', end_time: '2020-01-01 12:00:00')
     }
@@ -67,6 +68,13 @@ describe Admin::Maintenance do
     context '現在時刻がメンテナンス外' do
       it 'Falseが返る' do
         allow(Admin::Maintenance::File).to receive(:read).and_return(invalid.to_json)
+        expect(Admin::Maintenance.maintenance?).to be false
+      end
+    end
+
+    context 'メンテナンスのJSONがない場合' do
+      it 'Falseが返る' do
+        allow(Admin::Maintenance::File).to receive(:exist?).and_return(false)
         expect(Admin::Maintenance.maintenance?).to be false
       end
     end
