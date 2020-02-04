@@ -26,13 +26,13 @@ describe LogicMaintenance , type: :model do
     end
   end
 
-  describe '#is_doing' do
+  describe '#doing?' do
     it 'Return true correctly' do
-      expect(described_class.is_doing).to be true
+      expect(described_class.doing?).to be true
     end
     it 'Return false correctly' do
       described_class.register(Time.now.ago(3.days).to_s, Time.now.ago(2.days).to_s)
-      expect(described_class.is_doing).to be false
+      expect(described_class.doing?).to be false
     end
   end
 

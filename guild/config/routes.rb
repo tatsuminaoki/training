@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   put 'board/api/task/:id' => 'board#update'
 
   get  'maintenance/' => 'maintenance#index'
-  get  'maintenance/api/state' => 'maintenance#is_maintenance'
+  get  'maintenance/api/state' => 'maintenance#maintenance?'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
