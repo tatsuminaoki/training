@@ -15,7 +15,9 @@ describe BoardController, type: :request do
       it 'Displayed correctly' do
         create(:maintenance1)
         get '/board/'
+        expect(response).to have_http_status "302"
         expect(response).to redirect_to controller: :maintenance, action: :index
+        expect(response.body).to_not include '<h1>During Maintenance</h1>'
       end
     end
   end
