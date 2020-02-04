@@ -8,29 +8,29 @@
         <div id="modal-body-message" hidden></div>
         <div id="modal-body-info" hidden>
           <div class="form-group">
-            <label for="label"><%= t('views.label') %></label>
+            <label for="label"><%= t('activerecord.attributes.task.label') %></label>
             <p id="info-label"></p>
           </div>
           <div class="form-group">
-            <label for="subject"><%= t('views.subject') %></label>
+            <label for="subject"><%= t('activerecord.attributes.task.subject') %></label>
             <p id="info-subject"></p>
           </div>
           <div class="form-group">
-            <label for="description"><%= t('views.description') %></label>
+            <label for="description"><%= t('activerecord.attributes.task.description') %></label>
             <p id="info-description"></p>
           </div>
           <div class="form-group">
-            <label for="priority"><%= t('views.priority') %></label>
+            <label for="priority"><%= t('activerecord.attributes.task.priority') %></label>
             <p id="info-priority"></p>
           </div>
           <div class="form-group">
-            <label for="state"><%= t('views.state') %></label>
+            <label for="state"><%= t('activerecord.attributes.task.state') %></label>
             <p id="info-state"></p>
           </div>
         </div>
         <div id="modal-body-input" hidden>
           <div class="form-group">
-            <label for="priority"><span class="text-danger">※</span> <%= t('views.label') %></label>
+            <label for="priority"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.label') %></label>
             <select class="form-control" id="label" required>
               <option></option>
               <% @view_params['label_list'].each do | k, v |%>
@@ -39,15 +39,15 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="subject"><span class="text-danger">※</span> <%= t('views.subject') %></label>
+            <label for="subject"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.subject') %></label>
             <input type="text" class="form-control" id="subject" required>
           </div>
           <div class="form-group">
-            <label for="description"><%= t('views.description') %></label>
+            <label for="description"><%= t('activerecord.attributes.task.description') %></label>
             <textarea class="form-control" id="description" rows="10"></textarea>
           </div>
           <div class="form-group">
-            <label for="priority"><span class="text-danger">※</span> <%= t('views.priority') %></label>
+            <label for="priority"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.priority') %></label>
             <select class="form-control" id="priority" required>
               <option></option>
               <% @view_params['priority_list'].each do | k, v |%>
@@ -56,7 +56,7 @@
             </select>
           </div>
           <div class="form-group" id="state-form-group" hidden>
-            <label for="state"><span class="text-danger">※</span> <%= t('views.state') %></label>
+            <label for="state"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.state') %></label>
             <select class="form-control" id="state" required>
               <% @view_params['state_list'].each do | k, v |%>
               <option value="<%= k %>"><%= v %></option>

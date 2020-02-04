@@ -27,11 +27,6 @@ en:
     close: "Close"
     submit: "Submit"
     username: "UserName"
-    label: "Label"
-    subject: "Subject"
-    description: "Description"
-    priority: "Priority"
-    state: "State"
     created_at: "Createion Date Time"
     updated_at: "Updated Date Time"
     task_detail: "Task Detail"
@@ -58,5 +53,3 @@ en:
     research: "Research"
     implement: "Implement"
     other: "Other"
-  views:
-

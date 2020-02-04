@@ -2,16 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
   let!(:task_a) { create(:task1) }
-  let!(:task_b) { create(:task2) }
   describe 'Task board' do
     it 'view top page' do
       visit '/board/'
       expect(page).to have_content 'ID'
-      expect(page).to have_content I18n.t(:views)[:username]
-      expect(page).to have_content I18n.t(:views)[:label]
-      expect(page).to have_content I18n.t(:views)[:subject]
-      expect(page).to have_content I18n.t(:views)[:priority]
-      expect(page).to have_content I18n.t(:views)[:state]
+      expect(page).to have_content 'ユーザー'
+      expect(page).to have_content 'ラベル'
+      expect(page).to have_content '題名'
+      expect(page).to have_content '優先度'
+      expect(page).to have_content '状態'
       expect(page).to have_content task_a.subject
     end
 
