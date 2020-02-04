@@ -14,7 +14,7 @@ class LogicMaintenance
       return false
     end
 
-    maintenance = Maintenance.first;
+    maintenance = Maintenance.first
     if maintenance.nil?
       maintenance = Maintenance.new(
         start_at: start_at,
