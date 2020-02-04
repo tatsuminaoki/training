@@ -13,9 +13,17 @@ class LogicMaintenance
     rescue ArgumentError
       return false
     end
+
     maintenance = Maintenance.first;
-    maintenance.start_at = start_at
-    maintenance.end_at = end_at
+    if maintenance.nil?
+      maintenance = Maintenance.new(
+        start_at: start_at,
+        end_at:   end_at,
+      )
+    else
+      maintenance.start_at = start_at
+      maintenance.end_at = end_at
+    end
     return false unless maintenance.valid?
     return maintenance.save
   end
