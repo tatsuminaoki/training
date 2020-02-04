@@ -23,5 +23,7 @@ module Guild
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.default_timezone = :local
+
+    config.autoload_paths += Dir["#{config.root}/lib"]
   end
 end

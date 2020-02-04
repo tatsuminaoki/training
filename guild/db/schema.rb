@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200120053613) do
+ActiveRecord::Schema.define(version: 20200130083613) do
 
   create_table "logins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.bigint "user_id", null: false
@@ -48,5 +48,5 @@ ActiveRecord::Schema.define(version: 20200120053613) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "logins", "users", name: "fk_user"
+  add_foreign_key "logins", "users", name: "fk_logins_user", on_update: :cascade, on_delete: :cascade
 end
