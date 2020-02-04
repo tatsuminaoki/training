@@ -15,6 +15,7 @@ ja:
   permission_denied: '権限がありません！'
   labels: 'ラベル'
   need_at_least_one_admin: '管理ユーザは最低限一人必要です。'
+  under_maintenance: 'メンテナンス中です。'
 
   tasks:
     new_task: '新タスク'

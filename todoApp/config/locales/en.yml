@@ -15,6 +15,7 @@ en:
   permission_denied: 'Permission Denied!'
   labels: 'Labels'
   need_at_least_one_admin: 'At least one admin should be remained.'
+  under_maintenance: 'Under Maintenance'
 
   tasks:
     new_task: 'New Task'
