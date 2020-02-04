@@ -8,7 +8,7 @@ describe BoardController, type: :request do
       it 'Displayed correctly' do
         get '/board/'
         expect(response).to have_http_status "200"
-        expect(response.body).to include ' <a class="navbar-brand" href="#">Guild</a>'
+        expect(response.body).to include '<a class="navbar-brand" href="#" data-turbolinks="false">Guild</a>'
       end
     end
     context 'During maintenance' do

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action -> { check_maintenance }
 
   def check_maintenance
-    if params['controller'] != 'maintenance' && LogicMaintenance.doing?
+    if controller_name != 'maintenance' && LogicMaintenance.doing?
       redirect_to controller: :maintenance, action: :index
     end
   end
