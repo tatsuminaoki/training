@@ -14,12 +14,14 @@ RSpec.describe Task, type: :model do
             expect(subject.errors[:user_id].count).to eq 0
         end
       end
-      context 'Invalid value' do
+      context 'Nil value' do
+        let(:user_id) { nil }
         it 'User_id is nil' do
-            task = Task.new
-            expect(task).not_to be_valid
-            expect(task.errors[:user_id][0]).to eq "can't be blank"
+            expect(subject).not_to be_valid
+            expect(subject.errors[:user_id][0]).to eq "can't be blank"
         end
+      end
+      context 'Invalid value' do
         let(:user_id) { 'test' }
         it 'User_id is not numerical' do
             expect(subject).not_to be_valid
@@ -53,12 +55,14 @@ RSpec.describe Task, type: :model do
             expect(subject.errors[:state].count).to eq 0
         end
       end
-      context 'Invalid value' do
+      context 'Nil value' do
+        let(:state) { nil }
         it 'State is nil' do
-            task = Task.new
-            expect(task).not_to be_valid
-            expect(task.errors[:state][0]).to eq "can't be blank"
+            expect(subject).not_to be_valid
+            expect(subject.errors[:state][0]).to eq "can't be blank"
         end
+      end
+      context 'Invalid value' do
         let(:state) { ValueObjects::State.get_list.count + 1 }
         it 'State is invalid' do
             expect(subject).not_to be_valid
@@ -76,11 +80,13 @@ RSpec.describe Task, type: :model do
         end
       end
       context 'Invalid value' do
+        let(:priority) { nil }
         it 'Priority is nil' do
-            task = Task.new
-            expect(task).not_to be_valid
-            expect(task.errors[:priority][0]).to eq "can't be blank"
+            expect(subject).not_to be_valid
+            expect(subject.errors[:priority][0]).to eq "can't be blank"
         end
+      end
+      context 'Invalid value' do
         let(:priority) { ValueObjects::Priority.get_list.count + 1 }
         it 'Priority is invalid' do
             expect(subject).not_to be_valid
@@ -97,12 +103,14 @@ RSpec.describe Task, type: :model do
             expect(subject.errors[:label].count).to eq 0
         end
       end
-      context 'Invalid value' do
+      context 'Nil value' do
+        let(:label) { nil }
         it 'Label is nil' do
-            task = Task.new
-            expect(task).not_to be_valid
-            expect(task.errors[:label][0]).to eq "can't be blank"
+            expect(subject).not_to be_valid
+            expect(subject.errors[:label][0]).to eq "can't be blank"
         end
+      end
+      context 'Invalid value' do
         let(:label) { ValueObjects::Label.get_list.count + 1 }
         it 'Label is invalid' do
             expect(subject).not_to be_valid
