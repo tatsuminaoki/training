@@ -1,16 +1,30 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<h1>New Task</h1>
 
 <%= form_with(model: @task, local: true) do |form| %>
-  <%= form.label :概要 %>
-  <%= form.text_field :summary %>
-  <%= form.label :説明 %>
-  <%= form.text_field :description %>
-  <%= form.label :優先度 %>
-  <%= form.text_field :priority %>
-  <%= form.label :ステータス %>
-  <%= form.text_field :status %>
-  <%= form.label :期限 %>
-  <%= form.text_field :due %>
-  <%= form.submit %>
+
+  <div class="field">
+    <%= form.label :Summary %>
+    <%= form.text_field :summary %>
+  </div>
+  <div class="field">
+    <%= form.label :Description %>
+    <%= form.text_field :description %>
+  </div>
+  <div class="field">
+    <%= form.label :Priority %>
+    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'pelase select priority'} %>
+  </div>
+  <div class="field">
+    <%= form.label :Status %>
+    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+  </div>
+  <div class="field">
+    <%= form.label :Due %>
+    <%= form.text_field :due %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>
+
+<%= link_to 'Back', root_path %>

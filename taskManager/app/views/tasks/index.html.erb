@@ -1,27 +1,29 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h1>Task List</h1>
 <% if notice  %>
-  <p><%= notice %></p>
+<p><%= notice %></p>
 <% end %>
+
 <table>
   <tr>
-    <th>概要</th>
-    <th>説明</th>
-    <th>優先度</th>
-    <th>ステータス</th>
-    <th>期限</th>
+    <th>Summary</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Due</th>
     <th></th>
   <tr>
 <% @tasks.each do |task| %>
   <tr>
-    <th><%= task.summary %></th>
-    <th><%= task.description %></th>
-    <th><%= task.priority %></th>
-    <th><%= task.status %></th>
-    <th><%= task.due %></th>
-    <th><%= link_to '詳細', task_path(task.id) %></th>
-  <tr>
+    <td><%= task.summary %></td>
+    <td><%= task.description %></td>
+    <td><%= task.priority %></td>
+    <td><%= task.status %></td>
+    <td><%= task.due %></td>
+    <td><%= link_to 'Detail', task_path(task.id) %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %><td>
+  </tr>
 <% end %>
-
-<%= link_to '起票', new_task_path %>
 </table>
+
+
+<%= link_to 'Draft', new_task_path %>

@@ -5,12 +5,16 @@ class TasksController < ApplicationController
   end
 
   def new
-    @tasks = Task.new
+    @task = Task.new
   end
 
   def create
-    @tasks = Task.create(task_params)
-    redirect_to @task, notice: 'タスクを登録しました'
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to @task, notice: 'Task was successfully created.'
+    else
+      render :new
+    end
   end
 
   def show
@@ -20,13 +24,16 @@ class TasksController < ApplicationController
   end
 
   def update
-    @tasks.update(tasks_params)
-    redirect_to @task, notice: 'タスクを更新しました'
+    if @task.update(task_params)
+      redirect_to @task, notice: 'Task was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @tasks.destroy
-    redirect_to tasks_url notice: 'タスクを削除しました'
+    @task.destroy
+    redirect_to tasks_url notice: 'Task was successfully destroyed.'
   end
 
   def task
@@ -34,7 +41,12 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :priority, :status, :due)
+    params.require(:task).permit(
+      :summary,
+      :description,
+      :priority,
+      :status,
+      :due
+    )
   end
-
 end
