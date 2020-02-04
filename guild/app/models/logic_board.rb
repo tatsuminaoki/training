@@ -54,8 +54,7 @@ class LogicBoard
     task.priority    = params['priority']
     task.label       = params['label']
     task.state       = params['state']
-    return false unless task.valid?
-    return task.save
+    return task.valid? && task.save
   end
 
   def self.delete(user_id, id)
