@@ -1,0 +1,21 @@
+en:
+  activerecord:
+    models:
+      taks: 'Task'
+      maintenance: 'Maintenance'
+    attributes:
+      task:
+        user_id: "UserID"
+        label: "Label"
+        subject: "Subject"
+        description: "Description"
+        priority: "Priority"
+        state: "State"
+    errors:
+      models:
+        maintenance:
+          attributes:
+            start_at:
+              blank: "can't be blank"
+            end_at:
+              blank: "can't be blank"
