@@ -6,10 +6,13 @@ require 'value_objects/label'
 
 describe LogicBoard , type: :model do
 
-  let!(:task_a) { create(:task1) }
+  let!(:user_a) { create(:user1) }
+  let!(:task_a) { create(:task1, user_id: user_a.id) }
+
   let!(:task_b) {
     create(:task1,
       id: 2,
+      user_id: user_a.id,
       subject: 'test subject 2nd',
       description: 'test description 2nd',
       state: 2,
@@ -19,6 +22,7 @@ describe LogicBoard , type: :model do
   let!(:task_new) {
     create(:task1,
       id: 3,
+      user_id: user_a.id,
       subject: 'new test subject',
       description: 'new test description',
       state: 3,
@@ -26,8 +30,8 @@ describe LogicBoard , type: :model do
       created_at: Time.current.tomorrow,
       updated_at: Time.current.tomorrow)
   }
-  let(:user_id) {1}
-  let(:ng_user_id) {999999}
+  let(:user_id) { user_a.id }
+  let(:ng_user_id) { 999999 }
   let(:expected) {
     {
       state:    ValueObjects::State.get_list,

@@ -53,3 +53,6 @@ ja:
     research: "調査"
     implement: "実装"
     other: "その他"
+  authority:
+    member: "メンバー"
+    admin: "管理者"

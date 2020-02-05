@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  belongs_to :user
   validates :user_id, presence: true, numericality: {only_integer: true, greater_than: 0}
   validates :subject, presence: true
   validates :state, presence: true, inclusion: {in: ValueObjects::State.get_list.keys}

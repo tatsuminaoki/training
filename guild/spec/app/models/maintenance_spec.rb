@@ -14,7 +14,7 @@ RSpec.describe Maintenance, type: :model do
         it 'Start_at is nil' do
           maintenance = described_class.new(end_at: Time.now.to_s)
           maintenance.valid?
-          expect(maintenance.errors[:start_at][0]).to eq "can't be blank"
+          expect(maintenance.errors[:start_at][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
     end
@@ -30,7 +30,7 @@ RSpec.describe Maintenance, type: :model do
         it 'End_at is nil' do
           maintenance = described_class.new(start_at: Time.now.to_s)
           maintenance.valid?
-          expect(maintenance.errors[:end_at][0]).to eq "can't be blank"
+          expect(maintenance.errors[:end_at][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
         it 'End_at is older than start_at' do
           maintenance = described_class.new(start_at: Time.now.to_s, end_at: Time.now.yesterday.to_s)

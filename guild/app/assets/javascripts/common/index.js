@@ -20,3 +20,20 @@ if (location.pathname !== "/maintenance") {
     }
   });
 }
+
+const clickActionSignOut = () => {
+  $(this).prop("disabled", true);
+  $.ajax({
+    url: '/logout',
+    type: 'get',
+    success: function(data) {
+      console.log(data)
+      if (data.response.result) {
+        location.href = 'login';
+      }
+    },
+    error: function(data) {
+      console.log(data)
+    }
+  });
+}

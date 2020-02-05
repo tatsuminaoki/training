@@ -53,3 +53,6 @@ en:
     research: "Research"
     implement: "Implement"
     other: "Other"
+  authority:
+    member: "Member"
+    admin: "Administrator"

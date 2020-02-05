@@ -1,9 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task_a) { create(:task1) }
+  let!(:user_a) { create(:user1) }
+  let!(:login_a) { create(:login1, user_id: user_a.id) }
+  let!(:task_a) { create(:task1, user_id: user_a.id) }
   describe 'Task board' do
     it 'view top page' do
+      visit '/login'
+      fill_in 'inputEmail', with: login_a.email
+      fill_in 'inputPassword', with: login_a.password
+      find('#sign-in').click
+
       visit '/board/'
       expect(page).to have_content 'ID'
       expect(page).to have_content 'ユーザー'
@@ -15,6 +22,11 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'add task' do
+      visit '/login'
+      fill_in 'inputEmail', with: login_a.email
+      fill_in 'inputPassword', with: login_a.password
+      find('#sign-in').click
+
       visit '/board/'
       find('#create-button').click
       select I18n.t(:label)[:bugfix], from: 'label'
@@ -26,17 +38,27 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'change task' do
+      visit '/login'
+      fill_in 'inputEmail', with: login_a.email
+      fill_in 'inputPassword', with: login_a.password
+      find('#sign-in').click
+
       visit '/board/'
-      find('#id-link-1').click
+      find('#id-link-' + task_a.id.to_s).click
       find('#change-input').click
       select I18n.t(:label)[:support], from: 'label'
       find('#change-task').click
       expect(page).to have_content I18n.t(:label)[:support]
     end
 
-    it 'change task' do
+    it 'delete task' do
+      visit '/login'
+      fill_in 'inputEmail', with: login_a.email
+      fill_in 'inputPassword', with: login_a.password
+      find('#sign-in').click
+
       visit '/board/'
-      find('#button-delete-1').click
+      find('#button-delete-' + task_a.id.to_s).click
       find('#delete-task').click
       expect(page).to_not have_content task_a.subject
     end

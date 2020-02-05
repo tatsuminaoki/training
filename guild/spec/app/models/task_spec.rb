@@ -18,14 +18,14 @@ RSpec.describe Task, type: :model do
         let(:user_id) { nil }
         it 'User_id is nil' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:user_id][0]).to eq "can't be blank"
+            expect(subject.errors[:user_id][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
       context 'Invalid value' do
         let(:user_id) { 'test' }
         it 'User_id is not numerical' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:user_id][0]).to eq "is not a number"
+            expect(subject.errors[:user_id][0]).to eq I18n.t(:errors)[:messages][:not_a_number]
         end
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Task, type: :model do
         let(:input_subject) { nil }
         it 'Subject is nil' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:subject][0]).to eq "can't be blank"
+            expect(subject.errors[:subject][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
     end
@@ -59,14 +59,14 @@ RSpec.describe Task, type: :model do
         let(:state) { nil }
         it 'State is nil' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:state][0]).to eq "can't be blank"
+            expect(subject.errors[:state][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
       context 'Invalid value' do
         let(:state) { ValueObjects::State.get_list.count + 1 }
         it 'State is invalid' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:state][0]).to eq "is not included in the list"
+            expect(subject.errors[:state][0]).to eq I18n.t(:errors)[:messages][:inclusion]
         end
       end
     end
@@ -83,14 +83,14 @@ RSpec.describe Task, type: :model do
         let(:priority) { nil }
         it 'Priority is nil' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:priority][0]).to eq "can't be blank"
+            expect(subject.errors[:priority][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
       context 'Invalid value' do
         let(:priority) { ValueObjects::Priority.get_list.count + 1 }
         it 'Priority is invalid' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:priority][0]).to eq "is not included in the list"
+            expect(subject.errors[:priority][0]).to eq I18n.t(:errors)[:messages][:inclusion]
         end
       end
     end
@@ -107,14 +107,14 @@ RSpec.describe Task, type: :model do
         let(:label) { nil }
         it 'Label is nil' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:label][0]).to eq "can't be blank"
+            expect(subject.errors[:label][0]).to eq I18n.t(:errors)[:messages][:blank]
         end
       end
       context 'Invalid value' do
         let(:label) { ValueObjects::Label.get_list.count + 1 }
         it 'Label is invalid' do
             expect(subject).not_to be_valid
-            expect(subject.errors[:label][0]).to eq "is not included in the list"
+            expect(subject.errors[:label][0]).to eq I18n.t(:errors)[:messages][:inclusion]
         end
       end
     end

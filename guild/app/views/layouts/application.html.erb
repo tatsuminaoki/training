@@ -3,7 +3,9 @@
 <head>
   <title>Guild</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'bootstrap_and_overrides' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
@@ -11,8 +13,5 @@
     I18n.fallbacks = true;
   </script>
 </head>
-<body>
 <%= yield %>
-
-</body>
 </html>
