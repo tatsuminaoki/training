@@ -1,0 +1,30 @@
+<h1>New Task</h1>
+
+<%= form_with(model: @task, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :Summary %>
+    <%= form.text_field :summary %>
+  </div>
+  <div class="field">
+    <%= form.label :Description %>
+    <%= form.text_field :description %>
+  </div>
+  <div class="field">
+    <%= form.label :Priority %>
+    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'pelase select priority'} %>
+  </div>
+  <div class="field">
+    <%= form.label :Status %>
+    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+  </div>
+  <div class="field">
+    <%= form.label :Due %>
+    <%= form.text_field :due %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', root_path %>

@@ -1,0 +1,29 @@
+<h1>Task List</h1>
+<% if notice  %>
+<p><%= notice %></p>
+<% end %>
+
+<table>
+  <tr>
+    <th>Summary</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Due</th>
+    <th></th>
+  <tr>
+<% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.summary %></td>
+    <td><%= task.description %></td>
+    <td><%= task.priority %></td>
+    <td><%= task.status %></td>
+    <td><%= task.due %></td>
+    <td><%= link_to 'Detail', task_path(task.id) %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %><td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= link_to 'Draft', new_task_path %>
