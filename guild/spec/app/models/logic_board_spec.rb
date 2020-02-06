@@ -110,12 +110,16 @@ describe LogicBoard , type: :model do
         it 'Return task correctly' do
           expect(subject['task_list'].count).to eq 1
           expect(subject['task_list'][0]).to eq task_a
+          expect(subject['limit']).to eq described_class::LIMIT
+          expect(subject['total']).to eq 1
         end
       end
       context 'Invalid codition' do
         let(:state) { task_b.state.to_s }
         it 'Task nothing' do
           expect(subject['task_list'].empty?).to eq true
+          expect(subject['limit']).to eq described_class::LIMIT
+          expect(subject['total']).to eq 0
         end
       end
     end
@@ -123,6 +127,8 @@ describe LogicBoard , type: :model do
       let(:user_id) { ng_user_id }
       it 'Task nothing' do
         expect(subject['task_list']).to be_empty
+        expect(subject['limit']).to eq described_class::LIMIT
+        expect(subject['total']).to eq 0
       end
     end
   end
