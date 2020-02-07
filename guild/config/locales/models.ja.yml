@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      taks: 'タスク'
+      maintenance: 'メンテナンス'
+    attributes:
+      task:
+        user_id: "ユーザーID"
+        label: "ラベル"
+        subject: "題名"
+        description: "説明"
+        priority: "優先度"
+        state: "状態"
+    errors:
+      models:
+        maintenance:
+          attributes:
+            start_at:
+              blank: "can't be blank"
+            end_at:
+              blank: "can't be blank"

@@ -20,4 +20,36 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  views:
+    create: "Create"
+    change: "Change"
+    delete: "Delete"
+    close: "Close"
+    submit: "Submit"
+    username: "UserName"
+    created_at: "Createion Date Time"
+    updated_at: "Updated Date Time"
+    task_detail: "Task Detail"
+    create_task: "Add Task"
+    change_task: "Change Task"
+    delete_task: "Delete Task"
+    message:
+      create_complete: "adding task complete"
+      change_complete: "updating task complete"
+      delete_complete: "deleting task complete"
+  state:
+    open: "Close"
+    doing: "Doing"
+    done: " Done"
+    pending: "Pending"
+    close: "Close"
+  priority:
+    low: "Low"
+    middle: "Middle"
+    high: "High"
+  label:
+    bugfix: "Bugfix"
+    support: "Support"
+    research: "Research"
+    implement: "Implement"
+    other: "Other"

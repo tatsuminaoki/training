@@ -15,3 +15,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree ./common
+//= require i18n
+//= require i18n/translations

@@ -8,29 +8,29 @@
         <div id="modal-body-message" hidden></div>
         <div id="modal-body-info" hidden>
           <div class="form-group">
-            <label for="label">Label</label>
+            <label for="label"><%= t('activerecord.attributes.task.label') %></label>
             <p id="info-label"></p>
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
+            <label for="subject"><%= t('activerecord.attributes.task.subject') %></label>
             <p id="info-subject"></p>
           </div>
           <div class="form-group">
-            <label for="description">Description</label>
+            <label for="description"><%= t('activerecord.attributes.task.description') %></label>
             <p id="info-description"></p>
           </div>
           <div class="form-group">
-            <label for="priority">Priority</label>
+            <label for="priority"><%= t('activerecord.attributes.task.priority') %></label>
             <p id="info-priority"></p>
           </div>
           <div class="form-group">
-            <label for="state">State</label>
+            <label for="state"><%= t('activerecord.attributes.task.state') %></label>
             <p id="info-state"></p>
           </div>
         </div>
         <div id="modal-body-input" hidden>
           <div class="form-group">
-            <label for="priority"><span class="text-danger">※</span> Label</label>
+            <label for="priority"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.label') %></label>
             <select class="form-control" id="label" required>
               <option></option>
               <% @view_params['label_list'].each do | k, v |%>
@@ -39,15 +39,15 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="subject"><span class="text-danger">※</span> Subject</label>
-            <input type="text" class="form-control" id="subject" aria-describedby="emailHelp" required>
+            <label for="subject"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.subject') %></label>
+            <input type="text" class="form-control" id="subject" required>
           </div>
           <div class="form-group">
-            <label for="description">Description</label>
+            <label for="description"><%= t('activerecord.attributes.task.description') %></label>
             <textarea class="form-control" id="description" rows="10"></textarea>
           </div>
           <div class="form-group">
-            <label for="priority"><span class="text-danger">※</span> Priority</label>
+            <label for="priority"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.priority') %></label>
             <select class="form-control" id="priority" required>
               <option></option>
               <% @view_params['priority_list'].each do | k, v |%>
@@ -56,7 +56,7 @@
             </select>
           </div>
           <div class="form-group" id="state-form-group" hidden>
-            <label for="state"><span class="text-danger">※</span> State</label>
+            <label for="state"><span class="text-danger">※</span> <%= t('activerecord.attributes.task.state') %></label>
             <select class="form-control" id="state" required>
               <% @view_params['state_list'].each do | k, v |%>
               <option value="<%= k %>"><%= v %></option>
@@ -66,11 +66,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="add-task" hidden>Submit</button>
-        <button type="button" class="btn btn-primary" id="change-input"hidden>Change</button>
-        <button type="button" class="btn btn-primary" id="change-task" hidden>Submit</button>
-        <button type="button" class="btn btn-danger" id="delete-task" hidden>Submit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('views.close') %></button>
+        <button type="button" class="btn btn-primary" id="add-task" hidden><%= t('views.submit') %></button>
+        <button type="button" class="btn btn-primary" id="change-input"hidden><%= t('views.change') %></button>
+        <button type="button" class="btn btn-primary" id="change-task" hidden><%= t('views.submit') %></button>
+        <button type="button" class="btn btn-danger" id="delete-task" hidden><%= t('views.submit') %></button>
         <input type="hidden" id="delete-id">
       </div>
     </div>

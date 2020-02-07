@@ -2,11 +2,11 @@ module ValueObjects
   class State < ValueObjects::Base
     def self.get_list
       {
-        1 => 'Open',
-        2 => 'Doing',
-        3 => 'Done',
-        4 => 'Pending',
-        5 => 'Close'
+        1 => I18n.t(:state)[:open],
+        2 => I18n.t(:state)[:doing],
+        3 => I18n.t(:state)[:done],
+        4 => I18n.t(:state)[:pending],
+        5 => I18n.t(:state)[:close],
       }
     end
 
