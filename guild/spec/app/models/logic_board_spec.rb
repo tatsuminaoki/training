@@ -122,7 +122,7 @@ describe LogicBoard , type: :model do
     context 'Invalid user' do
       let(:user_id) { ng_user_id }
       it 'Task nothing' do
-        expect(subject['task_list'].empty?).to eq true
+        expect(subject['task_list']).to be_empty
       end
     end
   end
