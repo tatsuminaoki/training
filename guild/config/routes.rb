@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get  'board' => 'board#index'
   get  'board/' => 'board#index'
   get  'board/api/master/all' => 'board#get_master'
-  get  'board/api/task/all' => 'board#get_task_all'
+  get  'board/api/task/all' => 'board#get_all_task'
   get  'board/api/task/:id' => 'board#get_task_by_id', constraints: { id: /\d+/ }
   get  'board/api/task/search' => 'board#get_task_by_conditions'
   post 'board/api/task' => 'board#create'

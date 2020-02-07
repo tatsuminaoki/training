@@ -3,7 +3,7 @@ let taskDetail;
 let taskList;
 let master;
 let conditions = {};
-let pagenation = new Pagenation();
+let pagination = new Pagination();
 
 window.addEventListener('DOMContentLoaded', function() {
   //alert(I18n.t('views.message.change_complete'));
@@ -122,11 +122,11 @@ const getLatestTaskList = (reset = false) => {
       console.log(data)
       taskList = data.response.task_list
       createTaskListElements()
-      pagenation.init({
+      pagination.init({
         total:  data.response.total,
         limit:  data.response.limit,
         apiUrl: '/board/api/task/all',
-        callback: pagenationCallback,
+        callback: paginationCallback,
         queryParams: {conditions: conditions},
       }, reset);
     },
@@ -136,7 +136,7 @@ const getLatestTaskList = (reset = false) => {
   });
 }
 
-const pagenationCallback = data => {
+const paginationCallback = data => {
   console.log(data)
   taskList = data.response.task_list
   createTaskListElements()

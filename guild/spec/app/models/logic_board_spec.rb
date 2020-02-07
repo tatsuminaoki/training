@@ -59,10 +59,10 @@ describe LogicBoard , type: :model do
     end
   end
 
-  describe '#get_task_all' do
+  describe '#get_all_task' do
     context 'Valid user' do
       it 'Task is found' do
-        result = described_class.get_task_all(user_id)
+        result = described_class.get_all_task(user_id)
         expect(result['task_list'].count).to eq 3
         expect(result['task_list'][0].id).to eq task_new.id
         result['task_list'].each do | task |
@@ -73,7 +73,7 @@ describe LogicBoard , type: :model do
     end
     context 'Invalid user' do
       it 'Task is not found' do
-        result = described_class.get_task_all(ng_user_id)
+        result = described_class.get_all_task(ng_user_id)
         expect(result['task_list'].empty?).to eq true
       end
     end

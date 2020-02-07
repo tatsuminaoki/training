@@ -41,7 +41,7 @@ describe BoardController, type: :request do
     end
   end
 
-  describe '#get_task_all' do
+  describe '#get_all_task' do
     context 'Condition used' do
       it 'Displayed correctly' do
         query_string = "?conditions%5Blabel%5D=#{task_b.label}&conditions%5Bstate%5D=#{task_b.state}";

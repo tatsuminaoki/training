@@ -11,16 +11,16 @@ class LogicBoard
       'state_list'    => get_state_list,
       'priority_list' => get_priority_list,
       'label_list'    => get_label_list,
-    }.merge(get_task_all(user_id))
+    }.merge(get_all_task(user_id))
   end
 
-  def self.get_task_all(user_id, page = 1)
+  def self.get_all_task(user_id, page = 1)
     task = Task.where(user_id: user_id).order(created_at: "DESC")
     get_task_response_hash(task, page)
   end
 
   def self.get_task_by_id(user_id, id)
-    {'task' => Task.find_by_id(id)}
+    { 'task' => Task.where(id:id, user_id: user_id) }
   end
 
   def self.get_task_by_search_conditions(user_id, conditions, page = 1)
