@@ -98,29 +98,38 @@ describe LogicBoard , type: :model do
   end
 
   describe '#get_task_by_search_conditions' do
+    let(:label) { task_a.label.to_s }
+    let(:state) { task_a.state.to_s }
+    let(:conditions) { 'label' => label, 'state' => state }
+    subject { described_class.get_task_by_search_conditions(user_id, conditions) }
+
     context 'Valid user' do
-      it 'Valid codition' do
-        conditions = {'label' => task_a.label.to_s, 'state' => task_a.state.to_s}
-        result = described_class.get_task_by_search_conditions(user_id, conditions)
-        expect(result['task_list'].count).to eq 1
-        expect(result['task_list'][0]).to eq task_a
+      context 'Valid codition' do
+        it 'Return task correctly' do
+          result = described_class.get_task_by_search_conditions(user_id, conditions)
+          expect(subject.count).to eq 1
+          expect(subject[0]).to eq task_a
+        end
       end
-      it 'Invalid codition' do
-        conditions = {'label' => task_a.label.to_s, 'state' => task_b.state.to_s}
-        result = described_class.get_task_by_search_conditions(user_id, conditions)
-        expect(result['task_list'].empty?).to eq true
+      context 'Invalid codition' do
+        it 'Task nothing' do
+          result = described_class.get_task_by_search_conditions(user_id, conditions)
+          expect(subject['task_list'].empty?).to eq true
+        end
       end
     end
     context 'Invalid user' do
-      it 'Valid codition' do
-        conditions = {'label' => task_a.label.to_s, 'state' => task_a.state.to_s}
-        result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
-        expect(result['task_list'].empty?).to eq true
+      context 'Valid codition' do
+        it 'Return task correctly' do
+          result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
+          expect(subject['task_list'].empty?).to eq true
+        end
       end
-      it 'Invalid codition' do
-        conditions = {'label' => task_a.label.to_s, 'state' => task_b.state.to_s}
-        result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
-        expect(result['task_list'].empty?).to eq true
+      context 'Invalid codition' do
+        it 'Task nothing' do
+          result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
+          expect(subject['task_list'].empty?).to eq true
+        end
       end
     end
   end

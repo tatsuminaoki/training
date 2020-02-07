@@ -5,7 +5,6 @@ describe BoardController, type: :request do
   let!(:task_a) { create(:task1) }
   let!(:task_b) {
     create(:task1,
-      id: 2,
       subject: 'test subject 2nd',
       description: 'test description 2nd',
       state: 2,
@@ -53,6 +52,7 @@ describe BoardController, type: :request do
         task = response_params['response']['task_list'][0]
         expect(task['id']).to eq task_b.id
         expect(task['user_id']).to eq task_b.user_id
+        expect(task['label']).to eq task_b.label
       end
     end
     context 'Condition not used' do
