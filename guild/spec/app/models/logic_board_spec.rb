@@ -120,17 +120,9 @@ describe LogicBoard , type: :model do
       end
     end
     context 'Invalid user' do
-      context 'Valid codition' do
-        let(:state) { task_b.state.to_s }
-        it 'Return task correctly' do
-          expect(subject['task_list'].empty?).to eq true
-        end
-      end
-      context 'Invalid codition' do
-        let(:state) { task_b.state.to_s }
-        it 'Task nothing' do
-          expect(subject['task_list'].empty?).to eq true
-        end
+      let(:user_id) { ng_user_id }
+      it 'Task nothing' do
+        expect(subject['task_list'].empty?).to eq true
       end
     end
   end
