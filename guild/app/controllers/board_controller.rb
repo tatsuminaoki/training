@@ -7,14 +7,15 @@ class BoardController < ApplicationController
     render
   end
 
-  def get_task_all
+  def get_all_task
+    page = params['page'].blank? ? 1 : params['page']
     if params['conditions'].blank?
       render json: {
-        'response' => LogicBoard.get_task_all(@@user_id)
+        'response' => LogicBoard.get_all_task(@@user_id, page)
       }
     else
       render json: {
-        'response' => LogicBoard.get_task_by_search_conditions(@@user_id, params['conditions'])
+        'response' => LogicBoard.get_task_by_search_conditions(@@user_id, params['conditions'], page)
       }
     end
   end

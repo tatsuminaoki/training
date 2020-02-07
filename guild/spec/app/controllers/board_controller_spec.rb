@@ -41,7 +41,7 @@ describe BoardController, type: :request do
     end
   end
 
-  describe '#get_task_all' do
+  describe '#get_all_task' do
     context 'Condition used' do
       it 'Displayed correctly' do
         query_string = "?conditions%5Blabel%5D=#{task_b.label}&conditions%5Bstate%5D=#{task_b.state}";
@@ -49,6 +49,8 @@ describe BoardController, type: :request do
         expect(response).to have_http_status "200"
         response_params = JSON.parse(response.body)
         expect(response_params['response']['task_list'].count).to eq 1
+        expect(response_params['response']['limit']).to eq LogicBoard::LIMIT
+        expect(response_params['response']['total']).to eq 1
         task = response_params['response']['task_list'][0]
         expect(task['id']).to eq task_b.id
         expect(task['user_id']).to eq task_b.user_id
@@ -61,6 +63,8 @@ describe BoardController, type: :request do
         expect(response).to have_http_status "200"
         response_params = JSON.parse(response.body)
         expect(response_params['response']['task_list'].count).to_not eq 0
+        expect(response_params['response']['limit']).to eq LogicBoard::LIMIT
+        expect(response_params['response']['total']).to eq 2
         task = response_params['response']['task_list'][0]
         expect(task['id']).to eq task_a.id
         expect(task['user_id']).to eq task_a.user_id

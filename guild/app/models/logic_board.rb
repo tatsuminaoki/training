@@ -1,32 +1,31 @@
 class LogicBoard
+  LIMIT = 10
   require 'value_objects/state'
   require 'value_objects/priority'
   require 'value_objects/label'
+
+  LIMIT = 10
 
   def self.index(user_id)
     {
       'state_list'    => get_state_list,
       'priority_list' => get_priority_list,
       'label_list'    => get_label_list,
-    }.merge(get_task_all(user_id))
+    }.merge(get_all_task(user_id))
   end
 
-  def self.get_task_all(user_id)
-    {
-      'task_list' => Task.where(user_id: user_id).order(created_at: "DESC")
-    }
+  def self.get_all_task(user_id, page = 1)
+    task = Task.where(user_id: user_id).order(created_at: "DESC")
+    get_task_response_hash(task, page)
   end
 
   def self.get_task_by_id(user_id, id)
-    {
-      'task' => Task.find_by_id(id)
-    }
+    { 'task' => Task.where(id:id, user_id: user_id) }
   end
 
-  def self.get_task_by_search_conditions(user_id, conditions)
-    {
-      'task_list' => Task.where(getConditionString(user_id, conditions)).order(created_at: "DESC")
-    }
+  def self.get_task_by_search_conditions(user_id, conditions, page = 1)
+    task = Task.where(getConditionString(user_id, conditions)).order(created_at: "DESC")
+    get_task_response_hash(task, page)
   end
 
   def self.get_state_list
@@ -79,5 +78,14 @@ class LogicBoard
         end
       end
       conditionsStr
+  end
+
+  private
+    def self.get_task_response_hash(task, page)
+      {
+        'limit'      => LIMIT,
+        'total'      => task.count,
+        'task_list'  => task.page(page).per(LIMIT)
+      }
     end
 end
