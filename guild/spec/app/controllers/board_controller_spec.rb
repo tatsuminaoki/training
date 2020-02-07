@@ -48,7 +48,7 @@ describe BoardController, type: :request do
         get '/board/api/task/all' + query_string
         expect(response).to have_http_status "200"
         response_params = JSON.parse(response.body)
-        expect(response_params['response']['task_list'].count).to_not eq 0
+        expect(response_params['response']['task_list'].count).to eq 1
         task = response_params['response']['task_list'][0]
         expect(task['id']).to eq task_b.id
         expect(task['user_id']).to eq task_b.user_id
