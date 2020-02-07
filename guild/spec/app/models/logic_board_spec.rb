@@ -100,34 +100,35 @@ describe LogicBoard , type: :model do
   describe '#get_task_by_search_conditions' do
     let(:label) { task_a.label.to_s }
     let(:state) { task_a.state.to_s }
-    let(:conditions) { 'label' => label, 'state' => state }
+    let(:conditions) do
+      { label: label, state: state }
+    end
     subject { described_class.get_task_by_search_conditions(user_id, conditions) }
 
     context 'Valid user' do
       context 'Valid codition' do
         it 'Return task correctly' do
-          result = described_class.get_task_by_search_conditions(user_id, conditions)
-          expect(subject.count).to eq 1
-          expect(subject[0]).to eq task_a
+          expect(subject['task_list'].count).to eq 1
+          expect(subject['task_list'][0]).to eq task_a
         end
       end
       context 'Invalid codition' do
+        let(:state) { task_b.state.to_s }
         it 'Task nothing' do
-          result = described_class.get_task_by_search_conditions(user_id, conditions)
           expect(subject['task_list'].empty?).to eq true
         end
       end
     end
     context 'Invalid user' do
       context 'Valid codition' do
+        let(:state) { task_b.state.to_s }
         it 'Return task correctly' do
-          result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
           expect(subject['task_list'].empty?).to eq true
         end
       end
       context 'Invalid codition' do
+        let(:state) { task_b.state.to_s }
         it 'Task nothing' do
-          result = described_class.get_task_by_search_conditions(ng_user_id, conditions)
           expect(subject['task_list'].empty?).to eq true
         end
       end
