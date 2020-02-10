@@ -36,12 +36,12 @@ class LogicUser
   def self.authenticate(session, email, password)
     result = false
     errors = []
-    login = Login.where(email: email)
+    login = Login.find_by(email: email)
     if login.blank?
       errors.push('email')
     else
-      if login[0].authenticate(password)
-        user = User.find(login[0].user_id)
+      if login.authenticate(password)
+        user = User.find(login.user_id)
         session[:me] = {
           user_id: user.id,
           name: user.name
