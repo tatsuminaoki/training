@@ -15,8 +15,8 @@
     <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'pelase select priority'} %>
   </div>
   <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+    <%= form.label, :status %>
+    <%= form.select :status Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
   </div>
   <div class="field">
     <%= form.label :due %>
