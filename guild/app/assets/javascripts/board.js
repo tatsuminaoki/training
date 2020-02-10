@@ -123,13 +123,13 @@ const getLatestTaskList = (reset = false) => {
       taskList = data.response.task_list
       createTaskListElements()
       if (taskList.length > 0) {
-      pagination.init({
-        total:  data.response.total,
-        limit:  data.response.limit,
-        apiUrl: '/board/api/task/all',
-        callback: paginationCallback,
-        queryParams: {conditions: conditions},
-      }, reset);
+        pagination.init({
+          total:  data.response.total,
+          limit:  data.response.limit,
+          apiUrl: '/board/api/task/all',
+          callback: paginationCallback,
+          queryParams: {conditions: conditions},
+        }, reset);
       }
     },
     error: function(data) {

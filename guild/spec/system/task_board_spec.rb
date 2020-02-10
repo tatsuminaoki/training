@@ -4,13 +4,15 @@ RSpec.describe 'Tasks', type: :system do
   let!(:user_a) { create(:user1) }
   let!(:login_a) { create(:login1, user_id: user_a.id) }
   let!(:task_a) { create(:task1, user_id: user_a.id) }
-  describe 'Task board' do
-    it 'view top page' do
+  before do
       visit '/login'
       fill_in 'inputEmail', with: login_a.email
       fill_in 'inputPassword', with: login_a.password
       find('#sign-in').click
+  end
 
+  describe 'Task board' do
+    it 'view top page' do
       visit '/board/'
       expect(page).to have_content 'ID'
       expect(page).to have_content 'ユーザー'
@@ -22,11 +24,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'add task' do
-      visit '/login'
-      fill_in 'inputEmail', with: login_a.email
-      fill_in 'inputPassword', with: login_a.password
-      find('#sign-in').click
-
       visit '/board/'
       find('#create-button').click
       select I18n.t(:label)[:bugfix], from: 'label'
@@ -38,11 +35,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'change task' do
-      visit '/login'
-      fill_in 'inputEmail', with: login_a.email
-      fill_in 'inputPassword', with: login_a.password
-      find('#sign-in').click
-
       visit '/board/'
       find('#id-link-' + task_a.id.to_s).click
       find('#change-input').click
@@ -52,11 +44,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'delete task' do
-      visit '/login'
-      fill_in 'inputEmail', with: login_a.email
-      fill_in 'inputPassword', with: login_a.password
-      find('#sign-in').click
-
       visit '/board/'
       find('#button-delete-' + task_a.id.to_s).click
       find('#delete-task').click

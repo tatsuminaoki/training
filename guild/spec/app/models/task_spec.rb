@@ -9,7 +9,7 @@ RSpec.describe Task, type: :model do
       let(:user_id) { 1 }
       subject { Task.new(user_id: user_id) }
       context 'Valid value' do
-        it 'Create·correctly' do
+        it 'Create correctly' do
             expect(subject).not_to be_valid
             expect(subject.errors[:user_id].count).to eq 0
         end
@@ -33,7 +33,7 @@ RSpec.describe Task, type: :model do
       let(:input_subject) { 'test' }
       subject { Task.new(subject: input_subject) }
       context 'Valid value' do
-        it 'Create·correctly' do
+        it 'Create correctly' do
             expect(subject).not_to be_valid
             expect(subject.errors[:subject].count).to eq 0
         end
@@ -50,7 +50,7 @@ RSpec.describe Task, type: :model do
       let(:state) { 1 }
       subject { Task.new(state: state) }
       context 'Valid value' do
-        it 'Create·correctly' do
+        it 'Create correctly' do
             expect(subject).not_to be_valid
             expect(subject.errors[:state].count).to eq 0
         end
@@ -74,7 +74,7 @@ RSpec.describe Task, type: :model do
       let(:priority) { 1 }
       subject { Task.new(priority: priority) }
       context 'Valid value' do
-        it 'Create·correctly' do
+        it 'Create correctly' do
             expect(subject).not_to be_valid
             expect(subject.errors[:priority].count).to eq 0
         end
@@ -98,7 +98,7 @@ RSpec.describe Task, type: :model do
       let(:label) { 1 }
       subject { Task.new(label: label) }
       context 'Valid value' do
-        it 'Create·correctly' do
+        it 'Create correctly' do
             expect(subject).not_to be_valid
             expect(subject.errors[:label].count).to eq 0
         end
