@@ -5,7 +5,7 @@ require 'value_objects/label'
 
 RSpec.describe Task, type: :model do
   describe '#create' do
-    describe 'columun:user_id' do
+    describe 'column:user_id' do
       let(:user_id) { 1 }
       subject { Task.new(user_id: user_id) }
       context 'Valid value' do
@@ -29,7 +29,7 @@ RSpec.describe Task, type: :model do
         end
       end
     end
-    describe 'Columun:subject' do
+    describe 'Column:subject' do
       let(:input_subject) { 'test' }
       subject { Task.new(subject: input_subject) }
       context 'Valid value' do
@@ -46,7 +46,7 @@ RSpec.describe Task, type: :model do
         end
       end
     end
-    describe 'Columun:state' do
+    describe 'Column:state' do
       let(:state) { 1 }
       subject { Task.new(state: state) }
       context 'Valid value' do
@@ -70,7 +70,7 @@ RSpec.describe Task, type: :model do
         end
       end
     end
-    describe 'Columun:priority' do
+    describe 'Column:priority' do
       let(:priority) { 1 }
       subject { Task.new(priority: priority) }
       context 'Valid value' do
@@ -94,7 +94,7 @@ RSpec.describe Task, type: :model do
         end
       end
     end
-    describe 'Columun:label' do
+    describe 'Column:label' do
       let(:label) { 1 }
       subject { Task.new(label: label) }
       context 'Valid value' do

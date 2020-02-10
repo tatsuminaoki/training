@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '#create' do
     let(:name) { 'test' }
-    describe 'columun:authority' do
+    describe 'column:authority' do
       let(:authority) { 1 }
       subject { described_class.create(name: name, authority: authority) }
       context 'Valid value' do

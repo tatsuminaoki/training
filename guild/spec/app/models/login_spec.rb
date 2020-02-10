@@ -7,7 +7,7 @@ RSpec.describe Login, type: :model do
     let(:email) { 'rspec@example.com' }
     let(:password) { 'password' }
     subject { described_class.create(user_id: user_id, email: email, password: password) }
-    describe 'columun:user_id' do
+    describe 'column:user_id' do
       context 'Valid value' do
         it 'Create correctly' do
           expect(subject).to be_valid
@@ -29,7 +29,7 @@ RSpec.describe Login, type: :model do
         end
       end
     end
-    describe 'columun:email' do
+    describe 'column:email' do
       context 'Valid value' do
         it 'Create correctly' do
           expect(subject).to be_valid

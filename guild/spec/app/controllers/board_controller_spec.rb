@@ -5,7 +5,7 @@ describe BoardController, type: :request do
   let!(:user_a) { create(:user1) }
   let!(:login_a) { create(:login1, user_id: user_a.id) }
   before do
-      post '/login', params: {'email' => login_a.email, 'password' => login_a.password}
+    post '/login', params: { email: login_a.email, password: login_a.password }
   end
   let!(:task_a) { create(:task1, user_id: user_a.id) }
   let!(:task_b) {
