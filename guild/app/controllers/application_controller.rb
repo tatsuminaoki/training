@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  require 'logic_maintenance'
+  require "logic_maintenance"
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -22,10 +22,10 @@ class ApplicationController < ActionController::Base
 
   private
     def maintenance_page?
-      controller_name == 'maintenance'
+      controller_name == "maintenance"
     end
 
     def login_page?
-      controller_name == 'user' && (action_name == 'login_top' || action_name == 'login')
+      controller_name == "user" && (action_name == "login_top" || action_name == "login")
     end
 end
