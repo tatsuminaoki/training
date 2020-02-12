@@ -1,14 +1,14 @@
 class LogicBoard
   LIMIT = 10
-  require 'value_objects/state'
-  require 'value_objects/priority'
-  require 'value_objects/label'
+  require "value_objects/state"
+  require "value_objects/priority"
+  require "value_objects/label"
 
   def self.index(user_id)
     {
-      'state_list'    => get_state_list,
-      'priority_list' => get_priority_list,
-      'label_list'    => get_label_list,
+      "state_list"    => get_state_list,
+      "priority_list" => get_priority_list,
+      "label_list"    => get_label_list,
     }.merge(get_all_task(user_id))
   end
 
@@ -16,9 +16,9 @@ class LogicBoard
     user = User.find_by_id(user_id)
     if user.nil?
       return {
-        'limit'      => LIMIT,
-        'total'      => 0,
-        'task_list'  => []
+        "limit"      => LIMIT,
+        "total"      => 0,
+        "task_list"  => []
       }
     end
     task = user.tasks.order(created_at: "DESC")
@@ -26,8 +26,7 @@ class LogicBoard
   end
 
   def self.get_task_by_id(user_id, id)
-    {'task' => Task.where(id:id, user_id: user_id).first }
-
+    { "task" => Task.where(id: id, user_id: user_id).first }
   end
 
   def self.get_task_by_search_conditions(user_id, conditions, page = 1)
@@ -50,49 +49,49 @@ class LogicBoard
   def self.create(user_id, params)
     task = Task.new(
       user_id:     user_id,
-      subject:     params['subject'],
-      description: params['description'],
+      subject:     params["subject"],
+      description: params["description"],
       state:       1,
-      priority:    params['priority'],
-      label:       params['label']
+      priority:    params["priority"],
+      label:       params["label"]
     )
     return false unless task.valid? && task.save
-    return task.id
+    task.id
   end
 
   def self.update(user_id, params)
-    task = Task.find_by_id(params['id'])
+    task = Task.find_by_id(params["id"])
     return false if task.nil? || task.user_id != user_id
-    task.subject     = params['subject']
-    task.description = params['description']
-    task.priority    = params['priority']
-    task.label       = params['label']
-    task.state       = params['state']
-    return task.valid? && task.save
+    task.subject     = params["subject"]
+    task.description = params["description"]
+    task.priority    = params["priority"]
+    task.label       = params["label"]
+    task.state       = params["state"]
+    task.valid? && task.save
   end
 
   def self.delete(user_id, id)
     task = Task.find_by_id(id)
     return false if task.nil? || task.user_id != user_id
-    return task.delete
+    task.delete
   end
 
   def self.getConditionString(user_id, conditions)
-      conditionsStr = "user_id = #{user_id}"
-      conditions.each do |column, value|
-        unless value.empty?
-          conditionsStr = conditionsStr + " AND #{column} = #{value}"
-        end
+    conditionsStr = "user_id = #{user_id}"
+    conditions.each do |column, value|
+      unless value.empty?
+        conditionsStr = conditionsStr + " AND #{column} = #{value}"
       end
-      conditionsStr
+    end
+    conditionsStr
   end
 
   private
     def self.get_task_response_hash(task, page)
       {
-        'limit'      => LIMIT,
-        'total'      => task.count,
-        'task_list'  => task.page(page).per(LIMIT)
+        "limit"      => LIMIT,
+        "total"      => task.count,
+        "task_list"  => task.page(page).per(LIMIT)
       }
     end
 end

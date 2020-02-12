@@ -38,7 +38,7 @@ class LogicUser
     errors = []
     login = Login.find_by(email: email)
     if login.blank?
-      errors.push('email')
+      errors.push("email")
     else
       if login.authenticate(password)
         user = User.find(login.user_id)
@@ -48,12 +48,12 @@ class LogicUser
         }
         result = true
       else
-        errors.push('password')
+        errors.push("password")
       end
     end
     {
-      'result' => result,
-      'errors' => errors,
+      "result" => result,
+      "errors" => errors,
     }
   end
 end
