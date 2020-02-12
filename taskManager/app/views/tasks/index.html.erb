@@ -1,16 +1,13 @@
-<h1>Task List</h1>
-<% if notice  %>
-<p><%= notice %></p>
-<% end %>
+<h1><%= t('.title') %></h1>
 
 <table class="table">
   <thead>
   <tr>
-    <th>Summary</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Status</th>
-    <th>Due</th>
+    <th><%= Task.human_attribute_name(:summary) %></th>
+    <th><%= Task.human_attribute_name(:description) %></th>
+    <th><%= Task.human_attribute_name(:priority) %></th>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <th><%= Task.human_attribute_name(:due) %></th>
     <th></th>
   </tr>
   </thead>
@@ -22,11 +19,13 @@
     <td><%= task.priority %></td>
     <td><%= task.status %></td>
     <td><%= task.due %></td>
-    <td><%= link_to 'Detail', task_path(task.id), class:"btn btn-primary" %></td>
-    <td><%= link_to 'Edit', edit_task_path(task), class:"btn btn-primary" %></td>
+    <td>
+      <%= link_to t('action.detail'), task_path(task.id), class:"btn btn-primary" %>
+      <%= link_to t('action.update'), edit_task_path(task), class:"btn btn-primary" %>
+    </td>
   </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Draft', new_task_path, class:"btn btn-primary" %>
+<%= link_to t('action.create'), new_task_path, class:"btn btn-primary" %>
