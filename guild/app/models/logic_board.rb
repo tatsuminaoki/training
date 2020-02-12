@@ -4,8 +4,6 @@ class LogicBoard
   require 'value_objects/priority'
   require 'value_objects/label'
 
-  LIMIT = 10
-
   def self.index(user_id)
     {
       'state_list'    => get_state_list,
@@ -15,12 +13,21 @@ class LogicBoard
   end
 
   def self.get_all_task(user_id, page = 1)
-    task = Task.where(user_id: user_id).order(created_at: "DESC")
+    user = User.find_by_id(user_id)
+    if user.nil?
+      return {
+        'limit'      => LIMIT,
+        'total'      => 0,
+        'task_list'  => []
+      }
+    end
+    task = user.tasks.order(created_at: "DESC")
     get_task_response_hash(task, page)
   end
 
   def self.get_task_by_id(user_id, id)
-    { 'task' => Task.where(id:id, user_id: user_id) }
+    {'task' => Task.where(id:id, user_id: user_id).first }
+
   end
 
   def self.get_task_by_search_conditions(user_id, conditions, page = 1)

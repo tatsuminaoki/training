@@ -1,7 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task_a) { create(:task1) }
+  let!(:user_a) { create(:user1) }
+  let!(:login_a) { create(:login1, user_id: user_a.id) }
+  let!(:task_a) { create(:task1, user_id: user_a.id) }
+  before do
+      visit '/login'
+      fill_in 'inputEmail', with: login_a.email
+      fill_in 'inputPassword', with: login_a.password
+      find('#sign-in').click
+  end
+
   describe 'Task board' do
     it 'view top page' do
       visit '/board/'
@@ -27,16 +36,16 @@ RSpec.describe 'Tasks', type: :system do
 
     it 'change task' do
       visit '/board/'
-      find('#id-link-1').click
+      find('#id-link-' + task_a.id.to_s).click
       find('#change-input').click
       select I18n.t(:label)[:support], from: 'label'
       find('#change-task').click
       expect(page).to have_content I18n.t(:label)[:support]
     end
 
-    it 'change task' do
+    it 'delete task' do
       visit '/board/'
-      find('#button-delete-1').click
+      find('#button-delete-' + task_a.id.to_s).click
       find('#delete-task').click
       expect(page).to_not have_content task_a.subject
     end

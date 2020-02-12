@@ -11,11 +11,4 @@ ja:
         description: "説明"
         priority: "優先度"
         state: "状態"
-    errors:
-      models:
-        maintenance:
-          attributes:
-            start_at:
-              blank: "can't be blank"
-            end_at:
-              blank: "can't be blank"
+

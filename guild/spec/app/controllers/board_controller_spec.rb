@@ -2,9 +2,15 @@ require 'rails_helper'
 require 'logic_board'
 
 describe BoardController, type: :request do
-  let!(:task_a) { create(:task1) }
+  let!(:user_a) { create(:user1) }
+  let!(:login_a) { create(:login1, user_id: user_a.id) }
+  before do
+    post '/login', params: { email: login_a.email, password: login_a.password }
+  end
+  let!(:task_a) { create(:task1, user_id: user_a.id) }
   let!(:task_b) {
     create(:task1,
+      user_id: user_a.id,
       subject: 'test subject 2nd',
       description: 'test description 2nd',
       state: 2,

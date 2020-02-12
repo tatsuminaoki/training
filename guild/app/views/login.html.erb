@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag 'login' %>
+<body class="text-center">
+  <form class="form-signin">
+    <h1>Guild</h1>
+    <h2 class="h3 mb-3 font-weight-normal">Please sign in</h2>
+    <div id="alert-error-email" class="alert alert-danger" role="alert" hidden>invalid email</div>
+    <div id="alert-error-password" class="alert alert-danger" role="alert" hidden>invalid password</div>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <button class="btn btn-lg btn-primary btn-block" id="sign-in" type="button">Sign in</button>
+  </form>
+</body>
+<%= javascript_include_tag 'login' %>

@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 
-#gem 'actionpack', '5.1.5.rc1'
-#gem 'activesupport', '~> 5.1'
 gem 'actionpack'
 gem 'activesupport'
 
-#gem 'rails', '~> 5.1.4'
 gem 'rails'
+gem 'rails-i18n'
 gem 'mysql2', '0.4.10'
+gem 'dalli'
 
 gem 'therubyracer'
 gem 'less-rails', git: 'https://github.com/MustafaZain/less-rails'

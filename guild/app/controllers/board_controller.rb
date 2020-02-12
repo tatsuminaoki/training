@@ -1,9 +1,8 @@
 class BoardController < ApplicationController
   require 'logic_board'
-  @@user_id = 1 # write direct for the moment.
 
   def index
-    @view_params = LogicBoard.index(@@user_id)
+    @view_params = LogicBoard.index(session[:me][:user_id])
     render
   end
 
@@ -11,18 +10,18 @@ class BoardController < ApplicationController
     page = params['page'].blank? ? 1 : params['page']
     if params['conditions'].blank?
       render json: {
-        'response' => LogicBoard.get_all_task(@@user_id, page)
+        'response' => LogicBoard.get_all_task(session[:me][:user_id], page)
       }
     else
       render json: {
-        'response' => LogicBoard.get_task_by_search_conditions(@@user_id, params['conditions'], page)
+        'response' => LogicBoard.get_task_by_search_conditions(session[:me][:user_id], params['conditions'], page)
       }
     end
   end
 
   def get_task_by_id
     render json: {
-      'response' => LogicBoard.get_task_by_id(@@user_id, params['id'])
+      'response' => LogicBoard.get_task_by_id(session[:me][:user_id], params['id'])
     }
   end
 
@@ -38,19 +37,19 @@ class BoardController < ApplicationController
 
   def create
     render json: {
-      'result' => LogicBoard.create(@@user_id, params)
+      'result' => LogicBoard.create(session[:me][:user_id], params)
     }
   end
 
   def update
     render json: {
-      'result' => LogicBoard.update(@@user_id, params)
+      'result' => LogicBoard.update(session[:me][:user_id], params)
     }
   end
 
   def delete
     render json: {
-      'result' => LogicBoard.delete(@@user_id, params['id'])
+      'result' => LogicBoard.delete(session[:me][:user_id], params['id'])
     }
   end
 end
