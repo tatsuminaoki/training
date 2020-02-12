@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MaintenanceController < ApplicationController
   require 'logic_maintenance'
 
@@ -7,7 +9,7 @@ class MaintenanceController < ApplicationController
 
   def maintenance?
     render json: {
-      'response' => LogicMaintenance.doing?
+      'response' => LogicMaintenance.doing?,
     }
   end
 end

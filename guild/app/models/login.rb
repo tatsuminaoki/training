@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Login < ApplicationRecord
   belongs_to :user
   has_secure_password

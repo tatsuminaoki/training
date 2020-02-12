@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LogicMaintenance
   def self.doing?
     maintenance = Maintenance.first
@@ -19,7 +21,7 @@ class LogicMaintenance
     if maintenance.nil?
       maintenance = Maintenance.new(
         start_at: start_at,
-        end_at: end_at
+        end_at: end_at,
       )
     else
       maintenance.start_at = start_at
