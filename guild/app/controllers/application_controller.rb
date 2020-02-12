@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-  require "logic_maintenance"
+  require 'logic_maintenance'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -9,9 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :session_timeout?
 
   def check_maintenance
-    if !maintenance_page? && LogicMaintenance.doing?
-      redirect_to controller: :maintenance, action: :index
-    end
+    redirect_to controller: :maintenance, action: :index if !maintenance_page? && LogicMaintenance.doing?
   end
 
   def session_timeout?
@@ -21,11 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
-    def maintenance_page?
-      controller_name == "maintenance"
-    end
 
-    def login_page?
-      controller_name == "user" && (action_name == "login_top" || action_name == "login")
-    end
+  def maintenance_page?
+    controller_name == 'maintenance'
+  end
+
+  def login_page?
+    controller_name == 'user' && (action_name == 'login_top' || action_name == 'login')
+  end
 end

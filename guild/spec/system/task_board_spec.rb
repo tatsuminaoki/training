@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
@@ -5,10 +7,10 @@ RSpec.describe 'Tasks', type: :system do
   let!(:login_a) { create(:login1, user_id: user_a.id) }
   let!(:task_a) { create(:task1, user_id: user_a.id) }
   before do
-      visit '/login'
-      fill_in 'inputEmail', with: login_a.email
-      fill_in 'inputPassword', with: login_a.password
-      find('#sign-in').click
+    visit '/login'
+    fill_in 'inputEmail', with: login_a.email
+    fill_in 'inputPassword', with: login_a.password
+    find('#sign-in').click
   end
 
   describe 'Task board' do

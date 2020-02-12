@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ValueObjects
   class Base
     def initialize(value)

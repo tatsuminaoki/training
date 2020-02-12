@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ValueObjects
   class Priority < ValueObjects::Base
     def self.get_list
