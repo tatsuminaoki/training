@@ -1,13 +1,13 @@
 class MaintenanceController < ApplicationController
-  require 'logic_maintenance'
+  require "logic_maintenance"
 
   def index
-    render template: 'maintenance', status: 503
+    render template: "maintenance", status: 503
   end
 
   def maintenance?
     render json: {
-      'response' => LogicMaintenance.doing?
+      "response" => LogicMaintenance.doing?
     }
   end
 end

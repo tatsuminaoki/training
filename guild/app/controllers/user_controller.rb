@@ -1,20 +1,20 @@
 class UserController < ApplicationController
-  require 'logic_user'
+  require "logic_user"
 
   def login_top
-    render template: 'login'
+    render template: "login"
   end
 
   def login
     render json: {
-      'response' => LogicUser.authenticate(session, params["email"], params["password"])
+      "response" => LogicUser.authenticate(session, params["email"], params["password"])
     }
   end
 
   def logout
     reset_session
     render json: {
-      'response' => { 'result' => session[:me].blank? }
+      "response" => { "result" => session[:me].blank? }
     }
   end
 end
