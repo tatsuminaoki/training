@@ -9,6 +9,11 @@ class AdminController < ApplicationController
     render
   end
 
+  def users
+    @users = User.all.includes(:login)
+    render
+  end
+
   private
 
   def admin_user?

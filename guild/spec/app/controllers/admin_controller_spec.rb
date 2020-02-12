@@ -11,10 +11,11 @@ describe AdminController, type: :request do
     post '/login', params: { email: login_a.email, password: login_a.password }
   end
   describe '#index' do
+    let(:url) { '/admin' }
     context 'Not during maintenance' do
       context 'Admin user' do
         it 'Displayed correctly' do
-          get '/admin'
+          get url
           expect(response).to have_http_status '200'
           expect(response.body).to include '<div class="container" id="admin-index-content">'
         end
@@ -22,7 +23,7 @@ describe AdminController, type: :request do
       context 'Not admin user' do
         let(:authority) { ValueObjects::Authority::MEMBER }
         it 'Displayed correctly' do
-          get '/admin'
+          get url
           expect(response).to have_http_status '302'
           expect(response).to redirect_to controller: :board, action: :index
         end
@@ -31,7 +32,37 @@ describe AdminController, type: :request do
     context 'During maintenance' do
       it 'Displayed correctly' do
         create(:maintenance1)
-        get '/admin'
+        get url
+        expect(response).to have_http_status '302'
+        expect(response).to redirect_to controller: :maintenance, action: :index
+      end
+    end
+  end
+
+  describe '#users' do
+    let(:url) { '/admin/users' }
+    context 'Not during maintenance' do
+      context 'Admin user' do
+        it 'Displayed correctly' do
+          get url
+          expect(response).to have_http_status '200'
+          expect(response.body).to include '<div class="container" id="admin-users-content">'
+          expect(response.body).to include '<td>' + user_a.name + '</td>'
+        end
+      end
+      context 'Not admin user' do
+        let(:authority) { ValueObjects::Authority::MEMBER }
+        it 'Displayed correctly' do
+          get url
+          expect(response).to have_http_status '302'
+          expect(response).to redirect_to controller: :board, action: :index
+        end
+      end
+    end
+    context 'During maintenance' do
+      it 'Displayed correctly' do
+        create(:maintenance1)
+        get url
         expect(response).to have_http_status '302'
         expect(response).to redirect_to controller: :maintenance, action: :index
       end

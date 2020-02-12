@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get   'logout' => 'user#logout'
 
   get  'admin' => 'admin#index'
+  get  'admin/users' => 'admin#users'
 
   get  'board' => 'board#index'
   get  'board/' => 'board#index'
