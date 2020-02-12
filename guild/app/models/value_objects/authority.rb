@@ -2,6 +2,8 @@
 
 module ValueObjects
   class Authority < ValueObjects::Base
+    MEMBER = 1
+    ADMIN = 2
     def self.get_list
       {
         1 => I18n.t(:authority)[:member],
