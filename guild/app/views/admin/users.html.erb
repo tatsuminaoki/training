@@ -1,0 +1,32 @@
+<!-- Fixed navbar -->
+<%= render :partial => "common/header/admin" %>
+<body>
+  <div class="container" id="admin-users-content">
+    <div id="alert-complete" class="alert alert-success" role="alert" hidden></div>
+    <div id="alert-error" class="alert alert-danger" role="alert" hidden></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">UserName</th>
+          <th scope="col">Email</th>
+          <th scope="col">Type</th>
+          <th scope="col">Createion Date Time</th>
+          <th scope="col">Updated Date Time</th>
+        </tr>
+      </thead>
+      <tbody id="user-list-doby">
+        <% @users.each do | user |%>
+        <tr>
+          <th scope="row"><%= user.id %></th>
+          <td><%= user.name %></td>
+          <td><%= user.login.email %></td>
+          <td><% if user.authority == 1 %>Administrator<% else %>Member<% end %></td>
+          <td><%= user.created_at %></td>
+          <td><%= user.updated_at %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
