@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Tasks', type: :system do
+RSpec.describe 'Tasks', type: :system, js: true  do
 
   let!(:init_task) { Task.create( summary: 'task1', description: 'first task', priority: 1, status: 1 ) }
   before do
@@ -120,9 +120,9 @@ RSpec.describe 'Tasks', type: :system do
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.dismiss
+        expect(page).to have_content 'Edit Task'
       }.to change { Task.count }.by (0)
       expect(current_path).to eq edit_task_path(del_task)
-      expect(page).to have_content 'Edit Task'
       expect(find_field('Summary').value).to eq del_task.summary
       expect(find_field('Description').value).to eq del_task.description
     end
@@ -133,11 +133,9 @@ RSpec.describe 'Tasks', type: :system do
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.accept
-      }.to change { Task.count }.by (0) 
-# -1にしたい。
-# 削除前後で件数が変化なし
+        expect(page).to have_content 'Task List'
+      }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_path
-      expect(page).to have_content 'Task List'
       expect(page).to have_no_content del_task.summary
       expect(page).to have_no_content del_task.description
     end
@@ -173,9 +171,9 @@ RSpec.describe 'Tasks', type: :system do
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.dismiss
+        expect(page).to have_content 'Task Detail'
       }.to change { Task.count }.by (0)
       expect(current_path).to eq task_path(init_task)
-      expect(page).to have_content 'Task Detail'
       expect(page).to have_content init_task.summary
       expect(page).to have_content init_task.description
     end
@@ -186,11 +184,9 @@ RSpec.describe 'Tasks', type: :system do
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.accept
-      }.to change { Task.count }.by (0)
-# -1にしたい。
-# 削除前後で件数が変化なし
+        expect(page).to have_content 'Task List'
+      }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_pathに変更予定
-      expect(page).to have_content 'Task List'
       expect(page).to have_no_content init_task.summary
       expect(page).to have_no_content init_task.description
     end
