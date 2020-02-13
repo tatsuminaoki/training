@@ -129,8 +129,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
 
     it 'is clicked Delete Anchor Link and OK' do
       visit edit_task_path(del_task)
-      click_on 'Delete'
       expect {
+        click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content 'Task List'
