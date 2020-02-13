@@ -9,6 +9,9 @@
     <div id="navbar" class="form-inline collapse navbar-collapse" style="padding-top:8px; padding-left:100px;">
       <button type="button" class="btn btn-success" id='create-button' data-toggle="modal" onClick="javascript:openAddingeModalWindow();"><%= t('views.create') %></button>
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" style="float: right;" id="sign-out" onClick="clickActionSignOut();">Sign out</button>
+      <% if @view_params['is_admin'] %>
+      <a href="/admin" data-turbolinks="false"><img src="<%= image_path('icon_gear.png') %>" class="card-img-top" alt="..." style="float: right;"></a>
+      <% end %>
     </div><!--/.nav-collapse -->
   </div>
 </nav>

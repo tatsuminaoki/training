@@ -2,9 +2,16 @@
 
 class BoardController < ApplicationController
   require 'logic_board'
+  require 'value_objects/authority'
 
   def index
-    @view_params = LogicBoard.index(session[:me][:user_id])
+    user = User.find(session[:me][:user_id])
+    @view_params = {
+      'is_admin'      => user.authority == ValueObjects::Authority::ADMIN,
+      'state_list'    => LogicBoard.get_state_list,
+      'priority_list' => LogicBoard.get_priority_list,
+      'label_list'    => LogicBoard.get_label_list,
+    }
     render
   end
 

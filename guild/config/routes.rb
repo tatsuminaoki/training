@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post  'login'  => 'user#login'
   get   'logout' => 'user#logout'
 
+  get  'admin' => 'admin#index'
+
   get  'board' => 'board#index'
   get  'board/' => 'board#index'
   get  'board/api/master/all' => 'board#get_master'

@@ -6,14 +6,6 @@ class LogicBoard
   require 'value_objects/priority'
   require 'value_objects/label'
 
-  def self.index(user_id)
-    {
-      'state_list'    => get_state_list,
-      'priority_list' => get_priority_list,
-      'label_list'    => get_label_list,
-    }.merge(get_all_task(user_id))
-  end
-
   def self.get_all_task(user_id, page = 1)
     user = User.find_by(id: user_id)
     if user.nil?

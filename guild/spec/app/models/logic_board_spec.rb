@@ -41,29 +41,6 @@ describe LogicBoard, type: :model do
     }
   }
 
-  describe '#index' do
-    context 'Valid user' do
-      it 'Task is found' do
-        result = described_class.index(user_id)
-        expect(result['task_list'].count).to eq 3
-        expect(result['task_list'][0].id).to eq task_new.id
-        result['task_list'].each do |task|
-          expect(task).to be_an_instance_of(Task)
-          expect(task.user_id).to eq user_id
-        end
-        expect(result['state_list']).to eq expected[:state]
-        expect(result['priority_list']).to eq expected[:priority]
-        expect(result['label_list']).to eq expected[:label]
-      end
-    end
-    context 'Invalid user' do
-      it 'Task is not found' do
-        result = described_class.index(ng_user_id)
-        expect(result['task_list'].empty?).to eq true
-      end
-    end
-  end
-
   describe '#get_all_task' do
     context 'Valid user' do
       it 'Task is found' do
