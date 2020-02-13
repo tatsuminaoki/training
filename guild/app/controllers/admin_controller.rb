@@ -22,6 +22,18 @@ class AdminController < ApplicationController
     }
   end
 
+  def delete_user
+    user = User.find_by(id: params['id'])
+    render(json: { 'result' => false, 'error' => 'User not found' }) && return if user.nil?
+    if user.authority == ValueObjects::Authority::ADMIN
+      admin_count = User.where(authority: ValueObjects::Authority::ADMIN).count
+      render(json: { 'result' => false, 'error' => 'Last admin user' }) && return if admin_count == 1
+    end
+    render json: {
+      'result' => user.destroy,
+    }
+  end
+
   private
 
   def admin_user?

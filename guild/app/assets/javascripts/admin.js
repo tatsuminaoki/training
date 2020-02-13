@@ -6,6 +6,7 @@ let targetUser;
 let userList;
 
 const getLatest = () => {
+  $('#alert-error').hide()
   $.ajax({
     url: '/admin/api/user/all',
     type: 'get',
@@ -52,12 +53,44 @@ const clickActionAddUser = () => {
   });
 }
 
+const clickActionDeleteUser = () => {
+  $.ajax({
+    url: '/admin/api/user/' + targetUserId,
+    type: 'delete',
+    success: response => {
+        console.log(response)
+        $.LoadingOverlay("show");
+        if (response.error) {
+          $('#alert-error').show()
+          $('#alert-error').text(response.error)
+        } else {
+          getLatest();
+        }
+        $('#modal-window').modal('hide')
+        $.LoadingOverlay("hide");
+    },
+    error: error => {
+      console.log(error)
+    }
+  });
+}
+
 const openAddingeModalWindow = () => {
   resetModal()
   $('#modal-body-input').show();
   $('#modal-title').text("Add User");
   $('#form-password').show();
   $('#add-user').show();
+  $('#modal-window').modal('show')
+  return;
+}
+
+const openDeleteModalWindow = user_id => {
+  targetUserId = user_id;
+  resetModal()
+  $('#modal-body-message').show();
+  $('#modal-title').text('Delete User');
+  $('#delete-user').show();
   $('#modal-window').modal('show')
   return;
 }
@@ -100,6 +133,7 @@ const createUserListElements = () => {
     }
     elTr.append("<td>" + user.created_at + "</td>");
     elTr.append("<td>" + user.updated_at + "</td>");
+    elTr.append('<td><button type="button" id="button-delete-' + user.id + '" class="btn btn-danger" onClick="javascript:openDeleteModalWindow(' + user.id + ');">Delete</button></td>');
     elUserList.append(elTr);
   });
 }
@@ -122,4 +156,5 @@ const MailCheck = email => {
 
 window.addEventListener('DOMContentLoaded', function() {
   document.getElementById("add-user").onclick = clickActionAddUser;
+  document.getElementById("delete-user").onclick = clickActionDeleteUser;
 });

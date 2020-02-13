@@ -121,4 +121,35 @@ describe AdminController, type: :request do
       end
     end
   end
+
+  describe '#delete_user' do
+    let(:url) { '/admin/api/user' }
+    context 'Valid user' do
+      it 'Returned correctly' do
+        delete url + '/' + user_b.id.to_s
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['result']['id']).to eq user_b.id
+      end
+    end
+    context 'Invalid user' do
+      let(:ng_user_id) { 99_999_999 }
+      it 'Returned error correctly' do
+        delete url + '/' + ng_user_id.to_s
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['result']).to be false
+        expect(response_params['error']).to eq 'User not found'
+      end
+    end
+    context 'Last admin user' do
+      it 'Returned error correctly' do
+        delete url + '/' + user_a.id.to_s
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['result']).to be false
+        expect(response_params['error']).to eq 'Last admin user'
+      end
+    end
+  end
 end
