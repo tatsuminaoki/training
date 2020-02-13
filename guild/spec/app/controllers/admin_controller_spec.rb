@@ -85,9 +85,9 @@ describe AdminController, type: :request do
   end
 
   describe '#all_users' do
-    let(:url) { '/admin/api/user/all' }
+    subject { get '/admin/api/user/all' }
     it 'Returned correctly' do
-      get url
+      subject
       expect(response).to have_http_status '200'
       response_params = JSON.parse(response.body)
       expect(response_params.count).to eq 2
@@ -204,7 +204,7 @@ describe AdminController, type: :request do
     }
     subject { put '/admin/api/user/' + user_id.to_s, params: params }
     context 'Valid params' do
-      it 'Returned correctly' do
+      it 'Returned true correctly' do
         subject
         expect(response).to have_http_status '200'
         response_params = JSON.parse(response.body)
@@ -219,7 +219,7 @@ describe AdminController, type: :request do
           'authority' => User.authorities[:admin],
         }
       }
-      it 'Returned error correctly' do
+      it 'Returned false correctly' do
         subject
         expect(response).to have_http_status '200'
         response_params = JSON.parse(response.body)
