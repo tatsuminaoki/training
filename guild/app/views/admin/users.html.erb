@@ -4,6 +4,13 @@
   <div class="container" id="admin-users-content">
     <div id="alert-complete" class="alert alert-success" role="alert" hidden></div>
     <div id="alert-error" class="alert alert-danger" role="alert" hidden></div>
+    <form class="form-inline">
+    <div class="form-group">
+     <div class="form-group" style="padding:10px;">
+        <button type="button" class="btn btn-success" id='create-button' data-toggle="modal" onClick="javascript:openAddingeModalWindow();">Create</button>
+      </div>
+    </div>
+  </form>
     <table class="table">
       <thead>
         <tr>
@@ -29,4 +36,6 @@
       </tbody>
     </table>
   </div>
+<%= render :partial => "common/modal_window" %>
+<%= javascript_include_tag 'admin' %>
 </body>
