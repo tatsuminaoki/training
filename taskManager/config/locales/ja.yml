@@ -10,10 +10,13 @@ ja:
     create:
       success:  'タスクが登録されました。'
       danger:   'タスクの登録に失敗しました。'
+      confirm:  'タスクを登録します、宜しいですか？'
     update:
       success:  'タスクが更新されました。'
       damger:   'タスクの更新に失敗しました。'
+      confirm:  'タスクを更新します、宜しいですか？'
     remove:
       success:  'タスクが削除されました'
       danger:   'タスクの削除に失敗しました。もう一度お試しください。'
-
+      confirm:  'タスクを削除します、宜しいですか？'
+    selector: '%{item}を選択してください'

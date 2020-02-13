@@ -12,11 +12,11 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, {prompt: 'pelase select priority'} %>
+    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, {prompt: 'pelase select status'} %>
+    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
   </div>
   <div class="field">
     <%= form.label :due %>
