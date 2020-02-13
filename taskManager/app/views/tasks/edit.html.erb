@@ -11,11 +11,11 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'please select priority'} %>
+    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, {prompt: 'please select priority'} %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, {prompt: 'pelase select status'} %>
   </div>
   <div class="field">
     <%= form.label :due %>

@@ -12,11 +12,11 @@
     </tr>
     <tr>
       <td><%= Task.human_attribute_name(:priority) %></td>
-      <td><%= @task.priority %></td>
+      <td><%= t(".priority.#{@task.priority}") %></td>
     </tr>
     <tr>
       <td><%= Task.human_attribute_name(:status) %></td>
-      <td><%= @task.status %></td>
+      <td><%= t(".status.#{@task.status}") %></td>
     </tr>
     <tr>
       <td><%= Task.human_attribute_name(:due) %></td>
