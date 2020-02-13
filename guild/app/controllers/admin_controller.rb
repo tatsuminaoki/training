@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
-  require 'value_objects/authority'
-
   before_action :admin_user?
 
   def index
@@ -12,6 +10,16 @@ class AdminController < ApplicationController
   def users
     @users = User.all.includes(:login)
     render
+  end
+
+  def all_users
+    render layout: false, json: User.all.includes(:login).to_json(include: { login: { only: :email } })
+  end
+
+  def add_user
+    render json: {
+      'response' => LogicUser.create(params['name'], params['email'], params['password'], params['authority']),
+    }
   end
 
   private
