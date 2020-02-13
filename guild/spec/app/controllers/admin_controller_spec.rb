@@ -11,28 +11,28 @@ describe AdminController, type: :request do
     post '/login', params: { email: login_a.email, password: login_a.password }
   end
   describe '#index' do
-    let(:url) { '/admin' }
+    subject { get '/admin' }
     context 'Not during maintenance' do
       context 'Admin user' do
         it 'Displayed correctly' do
-          get url
+          subject
           expect(response).to have_http_status '200'
           expect(response.body).to include '<div class="container" id="admin-index-content">'
         end
       end
       context 'Not admin user' do
         let(:authority) { ValueObjects::Authority::MEMBER }
-        it 'Displayed correctly' do
-          get url
+        it 'Redirect to Top page' do
+          subject
           expect(response).to have_http_status '302'
           expect(response).to redirect_to controller: :board, action: :index
         end
       end
     end
     context 'During maintenance' do
-      it 'Displayed correctly' do
+      it 'Redirect to Maintenance page' do
         create(:maintenance1)
-        get url
+        subject
         expect(response).to have_http_status '302'
         expect(response).to redirect_to controller: :maintenance, action: :index
       end
@@ -40,11 +40,11 @@ describe AdminController, type: :request do
   end
 
   describe '#users' do
-    let(:url) { '/admin/users' }
+    subject { get '/admin/users' }
     context 'Not during maintenance' do
       context 'Admin user' do
         it 'Displayed correctly' do
-          get url
+          subject
           expect(response).to have_http_status '200'
           expect(response.body).to include '<div class="container" id="admin-users-content">'
           expect(response.body).to include '<td>' + user_a.name + '</td>'
@@ -52,17 +52,17 @@ describe AdminController, type: :request do
       end
       context 'Not admin user' do
         let(:authority) { ValueObjects::Authority::MEMBER }
-        it 'Displayed correctly' do
-          get url
+        it 'Redirect to Top page' do
+          subject
           expect(response).to have_http_status '302'
           expect(response).to redirect_to controller: :board, action: :index
         end
       end
     end
     context 'During maintenance' do
-      it 'Displayed correctly' do
+      it 'Redirect to Maintenance page' do
         create(:maintenance1)
-        get url
+        subject
         expect(response).to have_http_status '302'
         expect(response).to redirect_to controller: :maintenance, action: :index
       end
