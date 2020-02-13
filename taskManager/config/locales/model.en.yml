@@ -1,0 +1,42 @@
+status: &status
+  open: Open
+  inprogress: InProgress
+  review: InReview
+  reopen: ReOpen
+  done: Done
+
+priority: &priority
+  highest: Highest
+  higher: Higher
+  middle: Middle
+  lower: Lower
+  lowest: Lowest
+
+en:
+  activerecord:
+    models:
+      task: Task
+
+    attributes:
+      task:
+        summary: Summary
+        description: Description
+        priority: Priority
+        status: Stats
+        due: Due Date
+        created_at: Create Date
+        updated_at: Update Date
+
+  tasks:
+    index:
+      status: *status
+      priority: *priority
+    edit:
+      status: *status
+      priority: *priority
+    new:
+      status: *status
+      priority: *priority
+    show:
+      status: *status
+      priority: *priority
