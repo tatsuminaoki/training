@@ -22,10 +22,21 @@ class AdminController < ApplicationController
     }
   end
 
+  def delete_user
+    user = User.find_by(id: params['id'])
+    return render json: { 'result' => false, 'error' => 'User not found' } if user.nil?
+    if user.admin?
+      return render json: { 'result' => false, 'error' => 'Last admin user' } if User.admin.count == 1
+    end
+    render json: {
+      'result' => user.destroy,
+    }
+  end
+
   private
 
   def admin_user?
     user = User.find(session[:me][:user_id])
-    redirect_to controller: :board, action: :index if user.authority != ValueObjects::Authority::ADMIN
+    redirect_to controller: :board, action: :index unless user.admin?
   end
 end

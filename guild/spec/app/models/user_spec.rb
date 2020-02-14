@@ -22,10 +22,9 @@ RSpec.describe User, type: :model do
         end
       end
       context 'Invalid value' do
-        let(:authority) { ValueObjects::Authority.get_list.count + 1 }
+        let(:authority) { User.authorities.keys.count + 1 }
         it 'Return error correctly' do
-          expect(subject).not_to be_valid
-          expect(subject.errors[:authority][0]).to eq I18n.t(:errors)[:messages][:inclusion]
+          expect { subject }.to raise_error(ArgumentError)
         end
       end
     end
