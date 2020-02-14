@@ -24,10 +24,9 @@ class AdminController < ApplicationController
 
   def delete_user
     user = User.find_by(id: params['id'])
-    render(json: { 'result' => false, 'error' => 'User not found' }) && return if user.nil?
-    if user.authority == ValueObjects::Authority::ADMIN
-      admin_count = User.where(authority: ValueObjects::Authority::ADMIN).count
-      render(json: { 'result' => false, 'error' => 'Last admin user' }) && return if admin_count == 1
+    return render json: { 'result' => false, 'error' => 'User not found' } if user.nil?
+    if user.admin?
+      return render json: { 'result' => false, 'error' => 'Last admin user' } if User.admin.count == 1
     end
     render json: {
       'result' => user.destroy,
@@ -38,6 +37,6 @@ class AdminController < ApplicationController
 
   def admin_user?
     user = User.find(session[:me][:user_id])
-    redirect_to controller: :board, action: :index if user.authority != ValueObjects::Authority::ADMIN
+    redirect_to controller: :board, action: :index unless user.admin?
   end
 end
