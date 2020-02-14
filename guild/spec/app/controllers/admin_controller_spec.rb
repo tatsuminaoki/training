@@ -195,10 +195,12 @@ describe AdminController, type: :request do
 
   describe '#change_user' do
     let(:user_id) { user_b.id }
+    let(:email) { 'rspec@example.com' }
     let(:params) {
       {
         'name'      => 'rspec',
         'email'     => 'rspec@example.com',
+        'email'     => email,
         'authority' => User.authorities[:admin],
       }
     }
@@ -212,13 +214,7 @@ describe AdminController, type: :request do
       end
     end
     context 'Invalid params' do
-      let(:params) {
-        {
-          'name'      => 'rspec',
-          'email'     => 'rspec',
-          'authority' => User.authorities[:admin],
-        }
-      }
+      let(:email) { 'rspec' }
       it 'Returned false correctly' do
         subject
         expect(response).to have_http_status '200'
