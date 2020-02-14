@@ -10,11 +10,21 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'Tests of Layout' do
       visit root_path
       expect(page).to have_content I18n.t('tasks.index.title')
-      expect(page).to have_content test_task1.summary
-      expect(page).to have_content test_task1.description
-      expect(page).to have_content I18n.t('tasks.index.priority.highest')
-      expect(page).to have_content I18n.t('tasks.index.status.open')
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:summary)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:description)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:priority)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:status)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:due)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:created_at)
+      expect(all('thead tr')[0].text).to have_no_content Task.human_attribute_name(:updated_at)
     end
+
+    it 'record is sorted by created_at with desc order' do
+      visit root_path
+      expect(all('tbody tr')[0].text).to have_content test_task3.summary
+      expect(all('tbody tr')[1].text).to have_content test_task2.summary
+      expect(all('tbody tr')[2].text).to have_content test_task1.summary
+    end 
 
     it 'Tests of Click Draft Anchor Link' do
       visit root_path
