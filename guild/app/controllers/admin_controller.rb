@@ -41,7 +41,7 @@ class AdminController < ApplicationController
     ApplicationRecord.transaction do
       user = User.find(params['id'])
       user.name = params['name']
-      user.authority = params['authority']
+      user.authority = params['authority'].to_i
       user.login.email = params['email']
 
       user.login.save!
