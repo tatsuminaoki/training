@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get  'admin/users' => 'admin#users'
   get  'admin/api/user/all' => 'admin#all_users'
   post 'admin/api/user' => 'admin#add_user'
-  delete 'admin/api/user/:id' => 'admin#delete_user'
+  get 'admin/api/user/:id' => 'admin#user', constraints: { id: /\d+/ }
+  delete 'admin/api/user/:id' => 'admin#delete_user', constraints: { id: /\d+/ }
+  put 'admin/api/user/:id' => 'admin#change_user', constraints: { id: /\d+/ }
 
   get  'board' => 'board#index'
   get  'board/' => 'board#index'

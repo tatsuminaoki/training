@@ -6,7 +6,7 @@ describe AdminController, type: :request do
   let(:authority) { User.authorities[:admin] }
   let!(:user_a) { create(:user1, authority: authority) }
   let!(:login_a) { create(:login1, user_id: user_a.id) }
-  let!(:user_b) { create(:user1, authority: ValueObjects::Authority::MEMBER) }
+  let!(:user_b) { create(:user1, authority: User.authorities[:member]) }
   let!(:login_b) { create(:login1, user_id: user_b.id, email: 'login_b@example.com') }
   before do
     post '/login', params: { email: login_a.email, password: login_a.password }
@@ -67,6 +67,20 @@ describe AdminController, type: :request do
         expect(response).to have_http_status '302'
         expect(response).to redirect_to controller: :maintenance, action: :index
       end
+    end
+  end
+
+  describe '#all_users' do
+    subject { get '/admin/api/user/all' }
+    it 'Returned correctly' do
+      subject
+      expect(response).to have_http_status '200'
+      response_params = JSON.parse(response.body)
+      expect(response_params.count).to eq 2
+      expect(response_params[0]['id']).to eq user_a.id
+      expect(response_params[0]['login']['email']).to eq login_a.email
+      expect(response_params[1]['id']).to eq user_b.id
+      expect(response_params[1]['login']['email']).to eq login_b.email
     end
   end
 
@@ -155,5 +169,58 @@ describe AdminController, type: :request do
       end
     end
   end
->>>>>>> cfe2eb838ee7011e00c6fd49b5ad2793c03f4cc6
+
+  describe '#user' do
+    let(:user_id) { user_a.id }
+    subject { get '/admin/api/user/' + user_id.to_s }
+    context 'Valid user' do
+      it 'Returned correctly' do
+        subject
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['id']).to eq user_a.id
+        expect(response_params['login']['email']).to eq login_a.email
+      end
+    end
+    context 'Invalid user' do
+      let(:user_id) { 999_999_999 }
+      it 'Returned null correctly' do
+        subject
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body, quirks_mode: true)
+        expect(response_params).to be_nil
+      end
+    end
+  end
+
+  describe '#change_user' do
+    let(:user_id) { user_b.id }
+    let(:email) { 'rspec@example.com' }
+    let(:params) {
+      {
+        'name'      => 'rspec',
+        'email'     => 'rspec@example.com',
+        'email'     => email,
+        'authority' => User.authorities[:admin],
+      }
+    }
+    subject { put '/admin/api/user/' + user_id.to_s, params: params }
+    context 'Valid params' do
+      it 'Returned true correctly' do
+        subject
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['result']).to be true
+      end
+    end
+    context 'Invalid params' do
+      let(:email) { 'rspec' }
+      it 'Returned false correctly' do
+        subject
+        expect(response).to have_http_status '200'
+        response_params = JSON.parse(response.body)
+        expect(response_params['result']).to be false
+      end
+    end
+  end
 end

@@ -5,12 +5,12 @@
     <div id="alert-complete" class="alert alert-success" role="alert" hidden></div>
     <div id="alert-error" class="alert alert-danger" role="alert" hidden></div>
     <form class="form-inline">
-    <div class="form-group">
-     <div class="form-group" style="padding:10px;">
-        <button type="button" class="btn btn-success" id='create-button' data-toggle="modal" onClick="javascript:openAddingeModalWindow();">Create</button>
+      <div class="form-group">
+        <div class="form-group" style="padding:10px;">
+          <button type="button" class="btn btn-success" id='create-button' data-toggle="modal" onClick="javascript:openAddingeModalWindow();">Create</button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
     <table class="table">
       <thead>
         <tr>
@@ -26,7 +26,7 @@
       <tbody id="user-list-doby">
         <% @users.each do | user |%>
         <tr>
-          <th scope="row"><%= user.id %></th>
+          <th scope="row"><a id="id-link-<%= user.id %>" href="javascript:openChangeModalWindow(<%= user.id %>);"><%= user.id %></a></th>
           <td><%= user.name %></td>
           <td><%= user.login.email %></td>
           <td><% if user.authority == 1 %>Administrator<% else %>Member<% end %></td>

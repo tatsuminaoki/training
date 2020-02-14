@@ -16,6 +16,10 @@ class AdminController < ApplicationController
     render layout: false, json: User.all.includes(:login).to_json(include: { login: { only: :email } })
   end
 
+  def user
+    render layout: false, json: User.find_by(id: params['id']).to_json(include: { login: { only: :email } })
+  end
+
   def add_user
     render json: {
       'response' => LogicUser.create(params['name'], params['email'], params['password'], params['authority']),
@@ -31,6 +35,22 @@ class AdminController < ApplicationController
     render json: {
       'result' => user.destroy,
     }
+  end
+
+  def change_user
+    ApplicationRecord.transaction do
+      user = User.find(params['id'])
+      user.name = params['name']
+      user.authority = params['authority'].to_i
+      user.login.email = params['email']
+
+      user.login.save!
+      user.save!
+      render json: { 'result' => true }
+    end
+  rescue StandardError => e
+    Rails.logger.error(e)
+    render json: { 'result' => false, 'error' => e.message }
   end
 
   private

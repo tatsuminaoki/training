@@ -75,6 +75,36 @@ const clickActionDeleteUser = () => {
   });
 }
 
+const clickActionChangeUser = () => {
+  const name      = $("#name").val();
+  const email     = $("#email").val();
+  const authority = $("#authority").val();
+  if (!MailCheck(email)) {
+    $('#email-error').text('invalid email');
+    return;
+  }
+  $.ajax({
+    url: '/admin/api/user/' + targetUserId,
+    type: 'put',
+    dataType: 'json',
+    data: {
+      name: name,
+      email: email,
+      authority: authority,
+    },
+    success: response => {
+        console.log(response)
+        $.LoadingOverlay("show");
+        getLatest();
+        $('#modal-window').modal('hide')
+        $.LoadingOverlay("hide");
+    },
+    error: error => {
+      console.log(error)
+    }
+  });
+}
+
 const openAddingeModalWindow = () => {
   resetModal()
   $('#modal-body-input').show();
@@ -92,6 +122,28 @@ const openDeleteModalWindow = user_id => {
   $('#modal-title').text('Delete User');
   $('#delete-user').show();
   $('#modal-window').modal('show')
+  return;
+}
+
+const openChangeModalWindow = user_id => {
+  targetUserId = user_id;
+  resetModal()
+  $.ajax({
+    url: '/admin/api/user/' + targetUserId,
+    type: 'get',
+    success: response => {
+      $('#modal-body-input').show();
+      $("#name").val(response.name);
+      $("#email").val(response.login.email);
+      $("#authority").val(response.authority);
+      $('#modal-title').text("Change User");
+      $('#change-user').show();
+      $('#modal-window').modal('show')
+    },
+    error: error => {
+      console.log(error)
+    }
+  });
   return;
 }
 
@@ -121,7 +173,7 @@ const createUserListElements = () => {
   elUserList.empty();
   userList.forEach((user, index, ar) => {
     var elTr = $("<tr></tr>");
-    elTr.append('<th scope="row" ><a id="id-link-' + user.id + '" href="javascript:openChangeModalWindow(' + user.id + ');">' + user.id + '</a></td>');
+    elTr.append('<th scope="row" ><a id="id-link-' + user.id + '" href="javascript:openChangeModalWindow(' + user.id + ');">' + user.id + '</a></th>');
     var elTdName = $("<td></td>");
     elTdName.text(user.name);
     elTr.append(elTdName);
@@ -157,4 +209,5 @@ const MailCheck = email => {
 window.addEventListener('DOMContentLoaded', function() {
   document.getElementById("add-user").onclick = clickActionAddUser;
   document.getElementById("delete-user").onclick = clickActionDeleteUser;
+  document.getElementById("change-user").onclick = clickActionChangeUser;
 });
