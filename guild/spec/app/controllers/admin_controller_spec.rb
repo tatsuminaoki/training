@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'json_expressions/rspec'
 
 describe AdminController, type: :request do
   let(:authority) { User.authorities[:admin] }
@@ -72,9 +71,9 @@ describe AdminController, type: :request do
   end
 
   describe '#all_users' do
-    let(:url) { '/admin/api/user/all' }
+    subject { get '/admin/api/user/all' }
     it 'Returned correctly' do
-      get url
+      subject
       expect(response).to have_http_status '200'
       response_params = JSON.parse(response.body)
       expect(response_params.count).to eq 2
@@ -86,18 +85,18 @@ describe AdminController, type: :request do
   end
 
   describe '#add_user' do
-    let(:url) { '/admin/api/user' }
-    let(:params) {
-      {
-        'name'      => 'rspec',
-        'email'     => 'rspec@example.com',
-        'password'  => 'rspec',
-        'authority' => User.authorities[:member],
-      }
-    }
+    subject { post '/admin/api/user', params: params }
     context 'Valid params' do
+      let(:params) {
+        {
+          'name'      => 'rspec',
+          'email'     => 'rspec@example.com',
+          'password'  => 'rspec',
+          'authority' => User.authorities[:member],
+        }
+      }
       it 'Returned correctly' do
-        post url, params: params
+        subject
         expect(response).to have_http_status '200'
         response_params = JSON.parse(response.body)
         expect(response_params['response']).not_to eq 0
@@ -114,7 +113,7 @@ describe AdminController, type: :request do
         }
       }
       it 'Returned false correctly' do
-        post url, params: params
+        subject
         expect(response).to have_http_status '200'
         response_params = JSON.parse(response.body)
         expect(response_params['response']).to eq false
