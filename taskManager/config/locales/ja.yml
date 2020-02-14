@@ -13,7 +13,7 @@ ja:
       confirm:  'タスクを登録します、宜しいですか？'
     update:
       success:  'タスクが更新されました。'
-      damger:   'タスクの更新に失敗しました。'
+      danger:   'タスクの更新に失敗しました。'
       confirm:  'タスクを更新します、宜しいですか？'
     remove:
       success:  'タスクが削除されました'
