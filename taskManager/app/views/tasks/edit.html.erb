@@ -1,25 +1,35 @@
 <h1><%= t('.title', task_id: @task.id) %></h1>
 <%= form_with(model: @task, local: true) do |form| %>
-
-  <div class="field">
-    <%= form.label :summary %>
-    <%= form.text_field :summary %>
+<%= render 'shared/error_messages', model: form.object %>
+  <div class="form-group row">
+    <%= form.label :summary, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-5">
+      <%= form.text_field :summary %>
+    </div>
   </div>
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+  <div class="form-group row">
+    <%= form.label :description, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-5">
+      <%= form.text_field :description %>
+    </div>
   </div>
-  <div class="field">
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
+  <div class="form-group row">
+    <%= form.label :priority, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-5">
+      <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
+    </div>
   </div>
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
+  <div class="form-group row">
+    <%= form.label :status, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-5">
+      <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
+    </div>
   </div>
-  <div class="field">
-    <%= form.label :due %>
-    <%= form.text_field :due %>
+  <div class="form-group row">
+    <%= form.label :due, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-5">
+      <%= form.text_field :due %>
+    </div>
   </div>
   <div>
     <%= form.submit t('action.update'), class:"btn btn-primary" %>
