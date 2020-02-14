@@ -1,0 +1,31 @@
+<div class="modal-body">
+  <div id="modal-body-message" hidden></div>
+  <div id="modal-body-input" hidden>
+    <div class="form-group">
+      <label for="name"><span class="text-danger">※</span> User name</label>
+      <input type="name" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="email"><span class="text-danger">※</span> Email address</label>
+      <label><span class="text-danger" id="email-error"></span> </label>
+      <input type="email" class="form-control" id="email" placeholder="name@example.com">
+    </div>
+    <div class="form-group" id="form-password">
+      <label for="password"><span class="text-danger">※</span> Password</label>
+      <input type="password" class="form-control" id="password">
+    </div>
+    <div class="form-group">
+      <label for="authority"><span class="text-danger">※</span> Authority</label>
+      <select class="form-control" id="authority" required>
+        <option></option>
+        <option value='1'>Member</option>
+        <option value='2'>Administrator</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('views.close') %></button>
+  <button type="button" class="btn btn-primary" id="add-user" hidden><%= t('views.submit') %></button>
+  <button type="button" class="btn btn-danger" id="delete-user" hidden><%= t('views.submit') %></button>
+</div>
