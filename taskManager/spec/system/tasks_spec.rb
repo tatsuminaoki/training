@@ -2,18 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system, js: true  do
 
-  let!(:init_task) { Task.create( summary: 'task1', description: 'first task', priority: 1, status: 1 ) }
-  before do
-    Task.create( summary: 'task2', description: 'second task', priority: 3, status: 3 )
-    Task.create( summary: 'task3', description: 'third task', priority: 5, status: 5 )
-  end
+  let!(:test_task1) { Task.create( summary: 'task1', description: 'this is 1st task', priority: 1, status: 1 ) }
+  let!(:test_task2) { Task.create( summary: 'task2', description: 'this is 2nd task', priority: 3, status: 3 ) }
+  let!(:test_task3) { Task.create( summary: 'task3', description: 'this is 3rd task', priority: 5, status: 5 ) }
 
   describe 'Task List Page' do
     it 'Tests of Layout' do
       visit root_path
       expect(page).to have_content 'Task List'
-      expect(page).to have_content init_task.summary
-      expect(page).to have_content init_task.description
+      expect(page).to have_content test_task1.summary
+      expect(page).to have_content test_task1.description
       expect(page).to have_content 'highest'
       expect(page).to have_content 'open'
     end
@@ -28,14 +26,14 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'Test of Click Detail Anchor Link' do
       visit root_path
       all('tbody tr')[0].click_link 'Detail'
-      expect(current_path).to eq task_path(init_task)
+      expect(current_path).to eq task_path(test_task1)
       expect(page).to have_content 'Task Detail'
     end
 
     it 'Test of Click Edit Anchor Link' do
       visit root_path
       all('tbody tr')[0].click_link 'Edit'
-      expect(current_path).to eq edit_task_path(init_task)
+      expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
     end
   end
@@ -136,44 +134,44 @@ RSpec.describe 'Tasks', type: :system, js: true  do
   end
 
   describe 'Task Detail Page' do
-    it 'displays init_task settings' do
-      visit task_path(init_task)
+    it 'displays test_task1 settings' do
+      visit task_path(test_task1)
       expect(page).to have_content 'Task Detail'
-      expect(page).to have_content init_task.summary
-      expect(page).to have_content init_task.description
+      expect(page).to have_content test_task1.summary
+      expect(page).to have_content test_task1.description
       expect(page).to have_content 'highest'
       expect(page).to have_content 'open'
     end
 
     it 'is increase when click Edit anchor-link' do
-      visit task_path(init_task)
+      visit task_path(test_task1)
       click_on 'Edit'
-      expect(current_path).to eq edit_task_path(init_task)
+      expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
     end
 
     it 'Test of Click Back Anchor Link' do
-      visit task_path(init_task)
+      visit task_path(test_task1)
       click_on 'Back'
       expect(current_path).to eq root_path
       expect(page).to have_content 'Task List'
     end
 
     it 'is clicked Delete Anchor Link and Cancel' do
-      visit task_path(init_task)
+      visit task_path(test_task1)
       expect {
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
         page.driver.browser.switch_to.alert.dismiss
         expect(page).to have_content 'Task Detail'
       }.to change { Task.count }.by (0)
-      expect(current_path).to eq task_path(init_task)
-      expect(page).to have_content init_task.summary
-      expect(page).to have_content init_task.description
+      expect(current_path).to eq task_path(test_task1)
+      expect(page).to have_content test_task1.summary
+      expect(page).to have_content test_task1.description
     end
 
     it 'is clicked Delete Anchor Link and OK' do
-      visit task_path(init_task)
+      visit task_path(test_task1)
       expect {
         click_on 'Delete'
         expect(page.driver.browser.switch_to.alert.text).to eq 'Are you sure you want to delete this task?'
@@ -181,8 +179,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         expect(page).to have_content 'Task List'
       }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_pathに変更予定
-      expect(page).to have_no_content init_task.summary
-      expect(page).to have_no_content init_task.description
+      expect(page).to have_no_content test_task1.summary
+      expect(page).to have_no_content test_task1.description
     end
   end
 end
