@@ -93,12 +93,6 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       expect {
         fill_in 'Summary', with: edit_task.summary + '_edited'
         fill_in 'Description', with: edit_task.description + '_edited'
-#        within find_field('Priority') do
-#          find("option[value='1']").select_option
-#        end
-#        within find_field('Status') do
-#          find("option[value='2']").select_option
-#        end
         click_on('Update Task')
       }.to change { Task.count }.by(0)
       expect(current_path).to eq task_path(edit_task)
