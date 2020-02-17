@@ -54,10 +54,10 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       all('tbody tr')[0].click_link 'Edit'
       expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
-      expect(page).to have_content 'task1'
-      expect(page).to have_content 'this is 1st task'
-      expect(page).to have_content 'highest'
-      expect(page).to have_content 'open'
+      expect(find_field('Summary').value).to eq 'task1'
+      expect(find_field('Description').value).to eq 'this is 1st task'
+      expect(find_field('Priority').value).to eq 'highest'
+      expect(page).to have_select('Status', selected: 'open')
     end
   end
 
@@ -108,8 +108,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'displays edit_task settings' do
       visit edit_task_path(edit_task)
       expect(page).to have_content 'Edit Task'
-      expect(page).to have_content 'task5_edited'
-      expect(page).to have_content 'this is 5th task_edited'
+      expect(find_field('Summary').value).to eq 'task5'
+      expect(find_field('Description').value).to eq 'this is 5th task'
       expect(find_field('Priority').value).to eq 'lower'
       expect(page).to have_select('Status', selected: 're:open')
       expect(find_field('Due').value).to be_empty
@@ -177,10 +177,10 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       click_on 'Edit'
       expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
-      expect(page).to have_content 'task1'
-      expect(page).to have_content 'this is 1st task'
-      expect(page).to have_content 'highest'
-      expect(page).to have_content 'open'
+      expect(find_field('Summary').value).to eq 'task1'
+      expect(find_field('Description').value).to eq 'this is 1st task'
+      expect(find_field('Priority').value).to eq 'highest'
+      expect(page).to have_select('Status', selected: 'open')
     end
 
     it 'Test of Click Back Anchor Link' do
