@@ -31,6 +31,11 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       click_on 'Draft'
       expect(current_path).to eq new_task_path
       expect(page).to have_content 'New Task'
+      expect(find_field('Summary').value).to be_empty
+      expect(find_field('Description').value).to be_empty
+      expect(find_field('Priority').value).to eq 'middle'
+      expect(page).to have_select('Status', selected: 'pelase select status')
+      expect(find_field('Due').value).to be_empty
     end
 
     it 'Test of Click Detail Anchor Link' do
@@ -38,6 +43,10 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       all('tbody tr')[0].click_link 'Detail'
       expect(current_path).to eq task_path(test_task1)
       expect(page).to have_content 'Task Detail'
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
+      expect(page).to have_content 'highest'
+      expect(page).to have_content 'open'
     end
 
     it 'Test of Click Edit Anchor Link' do
@@ -45,6 +54,10 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       all('tbody tr')[0].click_link 'Edit'
       expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
+      expect(page).to have_content 'highest'
+      expect(page).to have_content 'open'
     end
   end
 
@@ -164,6 +177,10 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       click_on 'Edit'
       expect(current_path).to eq edit_task_path(test_task1)
       expect(page).to have_content 'Edit Task'
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
+      expect(page).to have_content 'highest'
+      expect(page).to have_content 'open'
     end
 
     it 'Test of Click Back Anchor Link' do
