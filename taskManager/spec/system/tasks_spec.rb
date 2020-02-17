@@ -28,7 +28,7 @@ RSpec.describe 'Tasks', type: :system, js: true  do
 
     it 'Tests of Click Draft Anchor Link' do
       visit root_path
-      click_on('Draft')
+      click_on 'Draft'
       expect(current_path).to eq new_task_path
       expect(page).to have_content 'New Task'
     end
@@ -72,7 +72,7 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         within find_field('Status') do
           find("option[value='#{regist_task.status}']").select_option
         end
-        click_on('Create Task')
+        click_on 'Create Task'
       }.to change { Task.count }.by(1)
       expect(current_path).to eq task_path(Task.maximum(:id))
       expect(page).to have_content 'Task Detail'
@@ -101,7 +101,7 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       expect {
         fill_in 'Summary', with: edit_task.summary + '_edited'
         fill_in 'Description', with: edit_task.description + '_edited'
-        click_on('Update Task')
+        click_on 'Update Task'
       }.to change { Task.count }.by(0)
       expect(current_path).to eq task_path(edit_task)
       expect(page).to have_content 'Task Detail'
