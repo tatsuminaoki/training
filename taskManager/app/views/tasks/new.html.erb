@@ -3,23 +3,23 @@
 <%= form_with(model: @task, local: true) do |form| %>
 
   <div class="field">
-    <%= form.label :Summary %>
+    <%= form.label :summary %>
     <%= form.text_field :summary %>
   </div>
   <div class="field">
-    <%= form.label :Description %>
+    <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
   <div class="field">
-    <%= form.label :Priority %>
+    <%= form.label :priority %>
     <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'pelase select priority'} %>
   </div>
   <div class="field">
-    <%= form.label :Status %>
+    <%= form.label :status %>
     <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
   </div>
   <div class="field">
-    <%= form.label :Due %>
+    <%= form.label :due %>
     <%= form.text_field :due %>
   </div>
   <div>

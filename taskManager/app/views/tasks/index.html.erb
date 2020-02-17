@@ -4,6 +4,7 @@
 <% end %>
 
 <table>
+  <thead>
   <tr>
     <th>Summary</th>
     <th>Description</th>
@@ -11,7 +12,9 @@
     <th>Status</th>
     <th>Due</th>
     <th></th>
-  <tr>
+  </tr>
+  </thead>
+  <tbody>
 <% @tasks.each do |task| %>
   <tr>
     <td><%= task.summary %></td>
@@ -20,10 +23,10 @@
     <td><%= task.status %></td>
     <td><%= task.due %></td>
     <td><%= link_to 'Detail', task_path(task.id) %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %><td>
+    <td><%= link_to 'Edit', edit_task_path(task) %></td>
   </tr>
 <% end %>
+  </tbody>
 </table>
-
 
 <%= link_to 'Draft', new_task_path %>
