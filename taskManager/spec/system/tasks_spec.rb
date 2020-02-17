@@ -14,6 +14,16 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       expect(page).to have_content 'this is 1st task'
       expect(page).to have_content 'highest'
       expect(page).to have_content 'open'
+      expect(page).to have_content 'task2'
+      expect(page).to have_content 'this is 2nd task'
+      expect(page).to have_content 'middle'
+      expect(page).to have_content 'review'
+      expect(page).to have_content 'task3'
+      expect(page).to have_content 'this is 3rd task'
+      expect(page).to have_content 'lowest'
+      expect(page).to have_content 'done'
+
+      expect(Task.count).to eq 3
     end
 
     it 'Tests of Click Draft Anchor Link' do
