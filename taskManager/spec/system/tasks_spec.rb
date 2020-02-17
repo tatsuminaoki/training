@@ -49,7 +49,7 @@ RSpec.describe 'Tasks', type: :system, js: true  do
   end
 
   describe 'Task Registration Page' do
-    let(:regist_task) { Task.new( summary: 'task4', description: 'fourth task', priority: 2, status: 2 ) }
+    let(:regist_task) { Task.new( summary: 'task4', description: 'this is 4th task', priority: 2, status: 2 ) }
 
     it 'displays default settings' do
       visit new_task_path
@@ -76,8 +76,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       }.to change { Task.count }.by(1)
       expect(current_path).to eq task_path(Task.maximum(:id))
       expect(page).to have_content 'Task Detail'
-      expect(page).to have_content regist_task.summary
-      expect(page).to have_content regist_task.description
+      expect(page).to have_content 'task4'
+      expect(page).to have_content 'this is 4th task'
     end
 
     it 'Test of Click Back Anchor Link' do
@@ -89,8 +89,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
   end
 
   describe 'Task Editional Page' do
-    let!(:edit_task) { Task.create( summary: 'task5', description: 'fifth task', priority: 4, status: 4 ) }
-    let!(:del_task)  { Task.create( summary: 'task6', description: 'sixth task', priority: 2, status: 5 ) }
+    let!(:edit_task) { Task.create( summary: 'task5', description: 'this is 5th task', priority: 4, status: 4 ) }
+    let!(:del_task)  { Task.create( summary: 'task6', description: 'this is 6th task', priority: 2, status: 5 ) }
 
     it 'displays edit_task settings' do
       visit edit_task_path(edit_task)
@@ -105,8 +105,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       }.to change { Task.count }.by(0)
       expect(current_path).to eq task_path(edit_task)
       expect(page).to have_content 'Task Detail'
-      expect(page).to have_content edit_task.summary + '_edited'
-      expect(page).to have_content edit_task.description + '_edited'
+      expect(page).to have_content 'task5_edited'
+      expect(page).to have_content 'this is 5th task_edited'
     end
 
     it 'is clicked Back Anchor Link' do
@@ -125,8 +125,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         expect(page).to have_content 'Edit Task'
       }.to change { Task.count }.by (0)
       expect(current_path).to eq edit_task_path(del_task)
-      expect(find_field('Summary').value).to eq del_task.summary
-      expect(find_field('Description').value).to eq del_task.description
+      expect(find_field('Summary').value).to eq 'task6'
+      expect(find_field('Description').value).to eq 'this is 6th task'
     end
 
     it 'is clicked Delete Anchor Link and OK' do
@@ -138,8 +138,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         expect(page).to have_content 'Task List'
       }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_path
-      expect(page).to have_no_content del_task.summary
-      expect(page).to have_no_content del_task.description
+      expect(page).to have_no_content 'task6'
+      expect(page).to have_no_content 'this is 6th task'
     end
   end
 
