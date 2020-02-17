@@ -10,8 +10,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'Tests of Layout' do
       visit root_path
       expect(page).to have_content 'Task List'
-      expect(page).to have_content test_task1.summary
-      expect(page).to have_content test_task1.description
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
       expect(page).to have_content 'highest'
       expect(page).to have_content 'open'
     end
@@ -137,8 +137,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'displays test_task1 settings' do
       visit task_path(test_task1)
       expect(page).to have_content 'Task Detail'
-      expect(page).to have_content test_task1.summary
-      expect(page).to have_content test_task1.description
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
       expect(page).to have_content 'highest'
       expect(page).to have_content 'open'
     end
@@ -166,8 +166,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         expect(page).to have_content 'Task Detail'
       }.to change { Task.count }.by (0)
       expect(current_path).to eq task_path(test_task1)
-      expect(page).to have_content test_task1.summary
-      expect(page).to have_content test_task1.description
+      expect(page).to have_content 'task1'
+      expect(page).to have_content 'this is 1st task'
     end
 
     it 'is clicked Delete Anchor Link and OK' do
@@ -179,8 +179,8 @@ RSpec.describe 'Tasks', type: :system, js: true  do
         expect(page).to have_content 'Task List'
       }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_pathに変更予定
-      expect(page).to have_no_content test_task1.summary
-      expect(page).to have_no_content test_task1.description
+      expect(page).to have_no_content 'task1'
+      expect(page).to have_no_content 'this is 1st task'
     end
   end
 end
