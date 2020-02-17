@@ -13,9 +13,10 @@ class Task < ApplicationRecord
     length: { maximum: MAX_LENGTH_DESCRIPTION }
 
   validates :priority,
-    presence: true
+    presence: true,
+    inclusion: { in: self.priorities.keys }
 
   validates :status,
-    presence: true
-
+    presence: true,
+    inclusion: { in: self.statuses.keys }
 end
