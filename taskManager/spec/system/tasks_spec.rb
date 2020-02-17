@@ -94,6 +94,12 @@ RSpec.describe 'Tasks', type: :system, js: true  do
 
     it 'displays edit_task settings' do
       visit edit_task_path(edit_task)
+      expect(page).to have_content 'Edit Task'
+      expect(page).to have_content 'task5_edited'
+      expect(page).to have_content 'this is 5th task_edited'
+      expect(find_field('Priority').value).to eq 'lower'
+      expect(page).to have_select('Status', selected: 're:open')
+      expect(find_field('Due').value).to be_empty
     end
 
     it 'is clicked Submit Button if set up normaly' do
