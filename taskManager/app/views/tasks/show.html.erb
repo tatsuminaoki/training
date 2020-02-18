@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td><%= Task.human_attribute_name(:due) %></td>
-      <td><%= @task.due %></td>
+      <td><%= @task.due ? l(@task.due, format: :long) : nil %></td>
     </tr>
   </table>
 </div>

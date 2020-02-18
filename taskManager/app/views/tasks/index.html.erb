@@ -19,7 +19,7 @@
     <td><%= task.description %></td>
     <td><%= t(".priority.#{task.priority}") %></td>
     <td><%= t(".status.#{task.status}") %></td>
-    <td><%= task.due %></td>
+    <td><%= task.due ? l(task.due, format: :long) : nil %></td>
     <td><%= task.created_at %></td>
     <td>
       <%= link_to t('action.detail'), task_path(task.id), class:"btn btn-primary" %>
