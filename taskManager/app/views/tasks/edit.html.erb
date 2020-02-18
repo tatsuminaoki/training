@@ -1,4 +1,4 @@
-<h1>Edit Task</h1>
+<h1><%= t('.title', task_id: @task.id) %></h1>
 <%= form_with(model: @task, local: true) do |form| %>
 
   <div class="field">
@@ -11,20 +11,19 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'please select priority'} %>
+    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
   </div>
   <div class="field">
     <%= form.label :due %>
     <%= form.text_field :due %>
   </div>
   <div>
-    <%= form.submit %>
+    <%= form.submit t('action.update'), class:"btn btn-primary" %>
+    <%= link_to t('action.remove'), task_path(@task), class:"btn btn-primary", method: :delete, data: { confirm: t('flash.remove.confirm') } %>
+    <%= link_to t('action.back'), root_path, class:"btn btn-primary" %>
   </div>
 <% end %>
-
-<%= link_to 'Delete', task_path(@task), method: :delete, data: { confirm: 'Are you sure you want to delete this task?' } %>
-<%= link_to 'Back', root_path %>

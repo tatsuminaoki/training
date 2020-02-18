@@ -1,0 +1,11 @@
+ja:
+  tasks:
+    index:
+      title: 'タスク一覧'
+    new:
+      title: 'タスク登録'
+    show:
+      title: 'ID:%{task_id}のタスク詳細'
+    edit:
+      title: 'ID:%{task_id}のタスク編集'
+

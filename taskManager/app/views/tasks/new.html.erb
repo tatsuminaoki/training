@@ -1,4 +1,4 @@
-<h1>New Task</h1>
+<h1><%= t('.title')  %></h1>
 
 <%= form_with(model: @task, local: true) do |form| %>
 
@@ -12,19 +12,18 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.to_a, {prompt: 'pelase select priority'} %>
+    <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.to_a, {prompt: 'pelase select status'} %>
+    <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
   </div>
   <div class="field">
     <%= form.label :due %>
     <%= form.text_field :due %>
   </div>
   <div>
-    <%= form.submit %>
+    <%= form.submit t('action.create'), class:"btn btn-primary" %>
+    <%= link_to t('action.back'), root_path, class:"btn btn-primary" %>
   </div>
 <% end %>
-
-<%= link_to 'Back', root_path %>
