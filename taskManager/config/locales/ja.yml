@@ -21,6 +21,11 @@ ja:
       confirm:  'タスクを削除します、宜しいですか？'
     selector: '%{item}を選択してください'
 
+  validate:
+    errors:
+      messages:
+        past_time: 'は過去の日付は指定できません'
+
   date:
     formats:
       default: "%Y-%m-%d"

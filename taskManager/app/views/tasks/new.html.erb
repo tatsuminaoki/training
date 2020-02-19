@@ -30,17 +30,7 @@
   <div class="form-group row">
     <%= form.label :due, class: 'col-sm-2 col-form-label' %>
     <div class="col-sm-5">
-      <%= raw sprintf(
-        form.date_select(
-          :due,
-          prompt: "--",
-          use_month_numbers: true,
-          start_year: Time.now.year,
-          end_year: (Time.now.year + 1),
-          default: Time.now + 1,
-          date_separator: '%s'),
-       '年 ', '月 ') + '日'
-      %>
+      <%= form.date_field :due %>
     </div>
   </div>
   <div>

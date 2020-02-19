@@ -21,6 +21,11 @@ en:
       confirm:  'Are you sure, you want to remove this task?'
     selector: 'Plase select %{item}'
 
+  validate:
+    errors:
+      messages:
+        past_time: 'Can not input past date'
+
   date:
     formats:
       default: "%Y-%m-%d"
