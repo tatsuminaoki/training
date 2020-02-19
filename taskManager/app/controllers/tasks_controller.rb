@@ -1,7 +1,10 @@
 class TasksController < ApplicationController
   before_action :task, only: [:destroy, :show, :edit, :update]
+
+  ORDER = [ 'asc', 'desc' ]
+
   def index
-    @tasks = Task.all.order(id: :desc)
+    @tasks = Task.all.order(sort_position + ' ' + sort_order)
   end
 
   def new
@@ -56,5 +59,15 @@ class TasksController < ApplicationController
       :status,
       :due
     )
+  end
+
+  def sort_position
+    column = params[:position] if params[:position].present?
+    Task.column_names.include?(column) ? column : 'created_at'
+  end
+
+  def sort_order
+    order = params[:order] if params[:order].present?
+    ORDER.include?(order) ? order : 'desc'
   end
 end

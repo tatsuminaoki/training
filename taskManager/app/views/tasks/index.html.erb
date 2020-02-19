@@ -5,10 +5,42 @@
   <tr>
     <th><%= Task.human_attribute_name(:summary) %></th>
     <th><%= Task.human_attribute_name(:description) %></th>
-    <th><%= Task.human_attribute_name(:priority) %></th>
-    <th><%= Task.human_attribute_name(:status) %></th>
-    <th><%= Task.human_attribute_name(:due) %></th>
-    <th><%= Task.human_attribute_name(:created_at) %></th>
+    <th>
+      <%= Task.human_attribute_name(:priority) %>
+      <%= link_to ({position: 'priority', order: 'asc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true" style="transform:rotate(180deg)"></span>
+      <% end %>
+      <%= link_to ({position: 'priority', order: 'desc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      <% end %>
+    </th>
+    <th>
+      <%= Task.human_attribute_name(:status) %>
+      <%= link_to ({position: 'status', order: 'desc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true" style="transform:rotate(180deg)"></span>
+      <% end %>
+      <%= link_to ({position: 'status', order: 'asc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      <% end %>
+    </th>
+    <th>
+      <%= Task.human_attribute_name(:due) %>
+      <%= link_to ({position: 'due', order: 'desc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true" style="transform:rotate(180deg)"></span>
+      <% end %>
+      <%= link_to ({position: 'due', order: 'asc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      <% end %>
+    </th>
+    <th>
+      <%= Task.human_attribute_name(:created_at) %>
+      <%= link_to ({position: 'created_at', order: 'desc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true" style="transform:rotate(180deg)"></span>
+      <% end %>
+      <%= link_to ({position: 'created_at', order: 'asc'}) do %>
+        <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+      <% end %>
+    </th>
     <th></th>
   </tr>
   </thead>
