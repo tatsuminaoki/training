@@ -4,7 +4,6 @@
   <thead>
   <tr>
     <th><%= Task.human_attribute_name(:summary) %></th>
-<!--    <th><%= Task.human_attribute_name(:description) %></th> -->
     <th>
       <%= Task.human_attribute_name(:priority) %>
       <%= link_to ({position: 'priority', order: 'asc'}) do %>
@@ -48,7 +47,6 @@
 <% @tasks.each do |task| %>
   <tr>
     <td><%= task.summary %></td>
-<!--    <td><%= task.description %></td> -->
     <td><%= t(".priority.#{task.priority}") %></td>
     <td><%= t(".status.#{task.status}") %></td>
     <td><%= task.due ? l(task.due, format: :default) : nil %></td>

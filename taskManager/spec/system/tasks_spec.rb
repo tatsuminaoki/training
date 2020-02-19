@@ -11,22 +11,18 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       visit root_path
       expect(page).to have_content I18n.t('tasks.index.title')
       expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:summary)
-      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:description)
       expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:priority)
       expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:status)
       expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:due)
       expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:created_at)
       expect(all('thead tr')[0].text).to have_no_content Task.human_attribute_name(:updated_at)
       expect(page).to have_content 'task1'
-      expect(page).to have_content 'this is 1st task'
       expect(page).to have_content I18n.t('tasks.index.priority.highest')
       expect(page).to have_content I18n.t('tasks.index.status.open')
       expect(page).to have_content 'task2'
-      expect(page).to have_content 'this is 2nd task'
       expect(page).to have_content I18n.t('tasks.index.priority.middle')
       expect(page).to have_content I18n.t('tasks.index.status.review')
       expect(page).to have_content 'task3'
-      expect(page).to have_content 'this is 3rd task'
       expect(page).to have_content I18n.t('tasks.index.priority.lowest')
       expect(page).to have_content I18n.t('tasks.index.status.done')
 
@@ -172,7 +168,6 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_path
       expect(page).to have_no_content 'task6'
-      expect(page).to have_no_content 'this is 6th task'
     end
   end
 
@@ -227,7 +222,6 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       }.to change { Task.count }.by (-1)
       expect(current_path).to eq tasks_path # root_pathに変更予定
       expect(page).to have_no_content 'task1'
-      expect(page).to have_no_content 'this is 1st task'
     end
   end
 end
