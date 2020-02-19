@@ -1,10 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe 'Tasks', type: :system, js: true  do
+RSpec.describe 'Tasks', type: :system  do
 
   let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now) }
   let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1) }
   let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2) }
+
+  # 下記Exceptionが頻発するので暫定対応
+  # Selenium::WebDriver::Error::StaleElementReferenceError:
+  # 参考: https://abicky.net/2019/09/17/062506/
+  def retry_on_stale_element_reference_error(&block)
+    first_try = true
+    begin
+      block.call
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      $stderr.puts "Retry on StaleElementReferenceError"
+      if first_try
+        first_try = false
+        retry
+      end
+      raise
+    end
+  end
 
   describe 'Task List Page' do
     it 'Tests of Layout' do
@@ -34,6 +51,55 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       expect(all('tbody tr')[0].text).to have_content test_task3.summary
       expect(all('tbody tr')[1].text).to have_content test_task2.summary
       expect(all('tbody tr')[2].text).to have_content test_task1.summary
+    end
+
+    it 'when sort by due with order desc' do
+      visit root_path
+      click_link 'due_desc'
+      sleep 1
+      due = page.all('.due')
+      retry_on_stale_element_reference_error do
+        expect(due[0].text).to eq test_task3.due.strftime("%Y/%m/%d")
+        expect(due[1].text).to eq test_task2.due.strftime("%Y/%m/%d")
+        expect(due[2].text).to eq test_task1.due.strftime("%Y/%m/%d")
+      end
+    end
+
+    it 'when sort by due with order asc' do
+      visit root_path
+      click_link 'due_asc'
+      sleep 1
+      retry_on_stale_element_reference_error do
+        due = page.all('.due')
+        expect(due[0].text).to eq test_task1.due.strftime("%Y/%m/%d")
+        expect(due[1].text).to eq test_task2.due.strftime("%Y/%m/%d")
+        expect(due[2].text).to eq test_task3.due.strftime("%Y/%m/%d")
+      end
+    end
+
+    it 'when sort by created_at with order desc' do
+      visit root_path
+      click_link 'created_desc'
+      sleep 1
+      expect(page).to have_content I18n.t('tasks.index.title')
+      retry_on_stale_element_reference_error do
+        created_at = page.all('.created_at')
+        expect(created_at[0].text).to eq test_task3.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        expect(created_at[1].text).to eq test_task2.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        expect(created_at[2].text).to eq test_task1.created_at.strftime("%Y/%m/%d %H:%M:%S")
+      end
+    end
+
+    it 'when sort by created_at with order asc' do
+      visit root_path
+      click_link 'created_asc'
+      sleep 1
+      retry_on_stale_element_reference_error do
+        created_at = page.all('.created_at')
+        expect(created_at[0].text).to eq test_task1.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        expect(created_at[1].text).to eq test_task2.created_at.strftime("%Y/%m/%d %H:%M:%S")
+        expect(created_at[2].text).to eq test_task3.created_at.strftime("%Y/%m/%d %H:%M:%S")
+      end
     end
 
     it 'Tests of Click Draft Anchor Link' do
