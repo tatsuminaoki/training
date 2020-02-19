@@ -63,7 +63,7 @@ class TasksController < ApplicationController
 
   def sort_position
     column = params[:position] if params[:position].present?
-    Task.column_names.include?(column) ? column : 'created_at'
+    Task.column_names.include?(column) ? column : 'id'
   end
 
   def sort_order
