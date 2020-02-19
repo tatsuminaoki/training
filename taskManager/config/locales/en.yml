@@ -28,11 +28,11 @@ en:
 
   date:
     formats:
-      default: "%Y-%m-%d"
-      long: "%Y-%m-%d(%a)"
-      short: "%m-%d"
+      default: "%Y/%m/%d"
+      long: "%Y/%m/%d(%a)"
+      short: "%m/%d"
   time:
     formats:
-      default: "%Y-%m-%d %H:%M:%S"
-      long: "%Y-%m-%d(%a) %H:%M:%S %z"
+      default: "%Y/%m/%d %H:%M:%S"
+      long: "%Y/%m/%d(%a) %H:%M:%S %z"
       short: "%y/%m/%d %H:%M"
