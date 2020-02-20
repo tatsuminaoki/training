@@ -1,36 +1,6 @@
 <h1><%= t('.title', task_id: @task.id) %></h1>
 <%= form_with(model: @task, local: true) do |form| %>
-<%= render 'shared/error_messages', model: form.object %>
-  <div class="form-group row">
-    <%= form.label :summary, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-5">
-      <%= form.text_field :summary %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :description, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-5">
-      <%= form.text_field :description %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :priority, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-5">
-      <%= form.select :priority, Task.priorities.map { |k,v| [t(".priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :status, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-5">
-      <%= form.select :status, Task.statuses.map { |k,v| [t(".status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :due, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-5">
-      <%= form.date_field :due %>
-    </div>
-  </div>
+  <%= render 'form', { form: form } %>
   <div>
     <%= form.submit t('action.update'), class:"btn btn-primary" %>
     <%= link_to t('action.remove'), task_path(@task), class:"btn btn-primary", method: :delete, data: { confirm: t('flash.remove.confirm') } %>

@@ -1,0 +1,42 @@
+<% if form.object.errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <% form.object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <%= form.label :summary, class: 'col-sm-2 col-form-label' %>
+  <div class="col-sm-5">
+    <%= form.text_field :summary %>
+  </div>
+</div>
+<div class="form-group row">
+  <%= form.label :description, class: 'col-sm-2 col-form-label' %>
+  <div class="col-sm-5">
+    <%= form.text_area :description %>
+  </div>
+</div>
+<div class="form-group row">
+  <%= form.label :priority, class: 'col-sm-2 col-form-label' %>
+  <div class="col-sm-5">
+    <%# Todo: model.*.ymlに記述されているpriorityのHashMapをStep12以降で調整 %>
+    <%= form.select :priority, Task.priorities.map { |k,v| [t("tasks.edit.priority.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:priority)) } %>
+  </div>
+</div>
+<div class="form-group row">
+  <%= form.label :status, class: 'col-sm-2 col-form-label' %>
+  <div class="col-sm-5">
+    <%# Todo: model.*.ymlに記述されているstatusのHashMapをStep12以降で調整 %>
+    <%= form.select :status, Task.statuses.map { |k,v| [t("tasks.edit.status.#{k}"),k] }, { prompt: t('flash.selector', item: Task.human_attribute_name(:status)) } %>
+  </div>
+</div>
+<div class="form-group row">
+  <%= form.label :due, class: 'col-sm-2 col-form-label' %>
+  <div class="col-sm-5">
+    <%= form.date_field :due %>
+  </div>
+</div>
