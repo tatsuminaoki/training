@@ -9,7 +9,7 @@ class Task < ApplicationRecord
       .status_is(search_params[:status])
   end
   scope :summary_like, -> (summary) { where('summary LIKE ?', "%#{summary}%") if summary.present? }
-  scope :status_is,    -> (status)  { where(status: status)                   if status.present?  }
+  scope :status_is, -> (status) { where(status: status) if status.present? }
 
   MAX_LENGTH_SUMMARY = 50
   MAX_LENGTH_DESCRIPTION = 255

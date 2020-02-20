@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   ORDER = [ 'asc', 'desc' ]
 
   def index
-    @tasks = Task.search(search_prams).order(sort_position + ' ' + sort_order)
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params).order(sort_position + ' ' + sort_order)
   end
 
   def new
@@ -61,7 +62,7 @@ class TasksController < ApplicationController
     )
   end
 
-  def search_prams
+  def task_search_params
     params.fetch(:search, {}).permit(:summary, :status)
   end
 
