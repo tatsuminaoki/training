@@ -1,7 +1,13 @@
-<table>
-  <% @projects do |project| %>
-    <tr>
-      <td> <% project.name %> </td>
-    </tr>
-  <% end %>
-</table>
+<div style="height: 1000px; width: 100%;">
+  <div style="width: 70%; height: 100%; float: right;">
+    <div>
+      <i class="fas fa-user-lock" style="font-size: 24px; margin: 30px 0px 0px 20px;"></i>
+      <strong>Personal Project</strong>
+    </div>
+    <% @projects.each do |project| %>
+      <button type="button" class="btn btn-success" style="width: 200px; height: 100px; margin: 10px 0px 0px 20px;"><%= project.name %></button>
+    <% end %>
+    <button type="button" class="btn btn-success" style="width: 200px; height: 100px; margin: 10px 0px 0px 20px; background-color: #F1F2F5; border: 0px solid #F1F2F5;"> <font style="color: #1B2B4B;">Create new project</font></button>
+  </div>
+  <%= render 'left_side' %>
+</div>
