@@ -109,9 +109,9 @@ CREATE TABLE TASKS(
   priority CHAR(10) NOT NULL, -- Maganement as ENUM(HIGH, MEDIUM, LOW)
   end_period_at DATETIME NULL,
   event_id INT NOT NULL,
-  creator_name VARCHAR(255) NOT NULL,
-  assignee_name VARCHAR(255) NOT NULL,
-  label_id INT NOT NULL,
+  creator_name VARCHAR(255) NULL,
+  assignee_name VARCHAR(255) NULL,
+  label_id INT NULL,
   description TEXT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,

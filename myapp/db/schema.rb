@@ -10,6 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_02_20_012442) do
 
+  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "sort_number", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_events_on_project_id"
+  end
+
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "project_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_labels_on_project_id"
+  end
+
+  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_projects_on_name"
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "priority", null: false
+    t.datetime "end_period_at"
+    t.string "creator_name"
+    t.string "assignee_name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "event_id", null: false
+    t.bigint "label_id"
+    t.index ["event_id"], name: "index_tasks_on_event_id"
+    t.index ["label_id"], name: "index_tasks_on_label_id"
+  end
+
+  add_foreign_key "events", "projects"
+  add_foreign_key "labels", "projects"
+  add_foreign_key "tasks", "events"
+  add_foreign_key "tasks", "labels"
 end
