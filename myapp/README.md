@@ -3,41 +3,41 @@ https://github.com/Fablic/training/tree/use_docker
 
 ## TMS
 
- This is TMS(Task Management System), it's also created for rails training of rakuma team
+This is TMS(Task Management System), it's also created for rails training of rakuma team
 
- * Ruby version
+* Ruby version
 2.6.5
 
- * Rails version
+* Rails version
 6.0.2.1
 
- * Database
+* Database
 Mysql2
 5.7.29
 
- ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
+## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
 - プロフェクトの一覧ページ
 ![Project index](https://user-images.githubusercontent.com/18366817/74903204-a5a9a580-53eb-11ea-9c71-341ba39146d0.jpg)
 
 
- - タスク一覧ページ
+- タスク一覧ページ
 ![Indexpage](https://user-images.githubusercontent.com/18366817/74700095-ee275e80-5245-11ea-8db0-4a3854fe0393.jpg)
 
- - タスク詳細管理ページ
+- タスク詳細管理ページ
 ![showDetailTask](https://user-images.githubusercontent.com/18366817/74700124-07300f80-5246-11ea-86fa-7903b050d241.jpg)
 
- - ログインページ
+- ログインページ
 ![loginpage](https://user-images.githubusercontent.com/18366817/74700155-14e59500-5246-11ea-8355-119743c6c9a3.jpg)
 
- - ユーザー登録ページ
+- ユーザー登録ページ
 ![Registeruser](https://user-images.githubusercontent.com/18366817/74700174-2038c080-5246-11ea-8a9a-87abcfae025d.jpg)
 
- ## DB設計
+## DB設計
 
- - UML DB
+- UML DB
 ![UMLDB](https://user-images.githubusercontent.com/18366817/74903227-b4905800-53eb-11ea-86a6-65ac279c9538.jpg)
 
- - DB詳細情報
+- DB詳細情報
 ```
 DROP TABLE IF EXISTS TASK_LABELS;
 DROP TABLE IF EXISTS TASKS;
@@ -138,4 +138,3 @@ CREATE TABLE TASK_LABELS(
   FOREIGN KEY (label_id) REFERENCES LABELS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-
