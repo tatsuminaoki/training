@@ -1,4 +1,12 @@
-<%= render 'shared/error_messages', model: form.object %>
+<% if form.object.errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <% form.object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <div class="form-group row">
   <%= form.label :summary, class: 'col-sm-2 col-form-label' %>
