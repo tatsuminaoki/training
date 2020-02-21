@@ -16,8 +16,11 @@
 !/myapp/storage/.keep
 
 /myapp/public/assets
+/myapp/public/packs
 
 /myapp/.byebug_history
 /myapp/config/master.key
 
 /myapp/.idea/*
+
+/myapp/yarn.lock
