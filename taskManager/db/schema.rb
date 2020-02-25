@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_105448) do
+ActiveRecord::Schema.define(version: 2020_02_24_235627) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "summary", null: false
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 2020_02_20_105448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_tasks_on_status"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", limit: 128, null: false
+    t.string "password_digest", null: false
+    t.string "first_name", limit: 20, null: false
+    t.string "last_name", limit: 20, null: false
+    t.integer "role", limit: 1, default: 0, null: false
+    t.integer "invalid_flg", limit: 1, default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
