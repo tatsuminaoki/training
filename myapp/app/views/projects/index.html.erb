@@ -5,9 +5,11 @@
       <strong>Personal Project</strong>
     </div>
     <% @projects.each do |project| %>
-      <button type="button" class="btn btn-success" id="btn-show-project">
-        <%= project.name %>
-      </button>
+      <a href="projects/<%= project.id %>">
+        <button type="button" class="btn btn-success" id="btn-show-project">
+          <%= project.name %>
+        </button>
+      <a>
     <% end %>
     <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">
       Create new project

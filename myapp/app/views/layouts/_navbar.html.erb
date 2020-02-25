@@ -7,7 +7,7 @@
           <i class="fas fa-search" id="fa-search"></i></font>
         </button>
       </form>
-      <a class="navbar-brand">
+      <a href="http://localhost:3001/projects" class="navbar-brand">
         TMS
       </a>
       <ul class="navbar-nav">
@@ -16,5 +16,12 @@
          </li>
       </ul>
     </nav>
+  </div>
+  <div>
+    <h1>
+      <% if flash[:notice] %>
+        <p><%= flash[:notice] %></p>
+      <% end %>
+    </h1>
   </div>
 </header>

@@ -1,18 +1,23 @@
 class ProjectsController < ApplicationController
+  def show
+    @projects = Project.find_by(id: params[:id])
+  end
+
   def index
-    @projects = Project.all
+    @projects = Project.all #TODO ユーザーが所属されているプロジェクのみ絞る
   end
 
   def create
     project = Project.new(create_params)
-    redirect_to controller: 'projects', action: 'show', id: project.id
+    if project.valid?
+      project.create!
+      redirect_to controller: 'projects', action: 'show', id: project.id, notice: 'Success to create project'
+    else
+      redirect_to controller: 'projects', action: 'index', notice: 'Failed to create project'
+    end
   end
 
   def update
-  end
-
-  def show
-    @projects = Project.all
   end
 
   def delete
@@ -21,6 +26,6 @@ class ProjectsController < ApplicationController
   private
 
   def create_params
-    params.permit(:name)
+    params.require(:project).permit(:name)
   end
 end
