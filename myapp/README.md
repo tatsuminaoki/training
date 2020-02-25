@@ -35,7 +35,7 @@ Mysql2
 ## DB設計
 
 - UML DB
-![UMLDB](https://user-images.githubusercontent.com/18366817/74903227-b4905800-53eb-11ea-86a6-65ac279c9538.jpg)
+![UMLDB](https://user-images.githubusercontent.com/18366817/75217971-082fe680-57dc-11ea-8d04-0241e5618aba.jpg)
 
 - DB詳細情報
 ```
