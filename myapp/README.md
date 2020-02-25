@@ -1,3 +1,6 @@
+## Trainingは以下のページを参考に行っております。
+https://github.com/Fablic/training/tree/use_docker
+
 ## TMS
 
 This is TMS(Task Management System), it's also created for rails training of rakuma team
@@ -13,6 +16,10 @@ Mysql2
 5.7.29
 
 ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
+- プロフェクトの一覧ページ
+![Project index](https://user-images.githubusercontent.com/18366817/74903204-a5a9a580-53eb-11ea-9c71-341ba39146d0.jpg)
+
+
 - タスク一覧ページ
 ![Indexpage](https://user-images.githubusercontent.com/18366817/74700095-ee275e80-5245-11ea-8db0-4a3854fe0393.jpg)
 
@@ -28,16 +35,15 @@ Mysql2
 ## DB設計
 
 - UML DB
-![UMLDB](https://user-images.githubusercontent.com/18366817/74795370-1af07a00-5309-11ea-863f-e68357f46627.jpg)
-
-
+![UMLDB](https://user-images.githubusercontent.com/18366817/75217971-082fe680-57dc-11ea-8d04-0241e5618aba.jpg)
 
 - DB詳細情報
 ```
+DROP TABLE IF EXISTS TASK_LABELS;
 DROP TABLE IF EXISTS TASKS;
 DROP TABLE IF EXISTS LABELS;
-DROP TABLE IF EXISTS EVENTS;
-DROP TABLE IF EXISTS USERS_PROJECTS;
+DROP TABLE IF EXISTS GROUPS;
+DROP TABLE IF EXISTS USER_PROJECTS;
 DROP TABLE IF EXISTS USERS;
 DROP TABLE IF EXISTS PROJECTS;
 
@@ -66,8 +72,8 @@ CREATE TABLE PROJECTS(
 
 CREATE INDEX projects_name_idx ON PROJECTS (name);
 
--- create user_projects table, this table is midlle table
-CREATE TABLE USERS_PROJECTS(
+-- create user_projects table, this table is middle table
+CREATE TABLE USER_PROJECTS(
   user_id INT NOT NULL,
   project_id INT NOT NULL,
   created_at DATETIME NOT NULL,
@@ -75,13 +81,13 @@ CREATE TABLE USERS_PROJECTS(
   PRIMARY KEY (user_id, project_id),
   FOREIGN KEY (project_id) REFERENCES PROJECTS(id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- create EVENTS table
-CREATE TABLE EVENTS(
+-- create GROUPS table
+CREATE TABLE GROUPS(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  sort_number INT NOT NULL, -- 画面でEVENTSの表示順番を決める
+  sort_number INT NOT NULL, -- 画面でGROUPSの表示順番を決める
   project_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
@@ -90,7 +96,7 @@ CREATE TABLE EVENTS(
   FOREIGN KEY (project_id) REFERENCES PROJECTS (id) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- create label table
+-- create labels table
 CREATE TABLE LABELS(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
@@ -106,9 +112,9 @@ CREATE TABLE LABELS(
 CREATE TABLE TASKS(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  priority CHAR(10) NOT NULL, -- Maganement as ENUM(HIGH, MEDIUM, LOW)
+  priority INT NOT NULL, -- Maganement as ENUM(HIGH: 1, MIDDLE: 2, LOW: 3)
   end_period_at DATETIME NULL,
-  event_id INT NOT NULL,
+  group_id INT NOT NULL,
   creator_name VARCHAR(255) NULL,
   assignee_name VARCHAR(255) NULL,
   label_id INT NULL,
@@ -117,7 +123,19 @@ CREATE TABLE TASKS(
   updated_at DATETIME NOT NULL,
   PRIMARY KEY (id),
   UNIQUE(id),
-  FOREIGN KEY (event_id) REFERENCES EVENTS (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (group_id) REFERENCES GROUPS (id) ON DELETE RESTRICT ON UPDATE CASCADE,
   FOREIGN KEY (label_id) REFERENCES LABELS (id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- create task_labels table, this table is middle table
+CREATE TABLE TASK_LABELS(
+  task_id INT NOT NULL,
+  label_id INT NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  PRIMARY KEY (task_id, label_id),
+  FOREIGN KEY (task_id) REFERENCES TASKS(id) ON DELETE CASCADE,
+  FOREIGN KEY (label_id) REFERENCES LABELS(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ```

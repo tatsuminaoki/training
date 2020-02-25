@@ -12,13 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2020_02_20_061320) do
 
-  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.integer "sort_number", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_events_on_project_id"
+    t.index ["project_id"], name: "index_groups_on_project_id"
   end
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -47,23 +47,23 @@ ActiveRecord::Schema.define(version: 2020_02_20_061320) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.string "priority", null: false
+    t.integer "priority", null: false
     t.datetime "end_period_at"
     t.string "creator_name"
     t.string "assignee_name"
     t.text "description"
+    t.bigint "group_id", null: false
+    t.bigint "label_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "event_id", null: false
-    t.bigint "label_id"
-    t.index ["event_id"], name: "index_tasks_on_event_id"
+    t.index ["group_id"], name: "index_tasks_on_group_id"
     t.index ["label_id"], name: "index_tasks_on_label_id"
   end
 
-  add_foreign_key "events", "projects"
+  add_foreign_key "groups", "projects"
   add_foreign_key "labels", "projects"
   add_foreign_key "task_labels", "labels"
   add_foreign_key "task_labels", "tasks"
-  add_foreign_key "tasks", "events"
+  add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "labels"
 end
