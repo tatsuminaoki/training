@@ -20,6 +20,7 @@ myapp/docs/img/.DS_Store
 !/myapp/storage/.keep
 
 /myapp/public/assets
+/myapp/public/packs
 
 /myapp/.byebug_history
 /myapp/config/master.key
