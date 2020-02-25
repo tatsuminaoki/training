@@ -1,4 +1,8 @@
 /.bundle
+.DS_Store
+myapp/.DS_Store
+myapp/docs/.DS_Store
+myapp/docs/img/.DS_Store
 
 /db/*.sqlite3
 /db/*.sqlite3-journal
