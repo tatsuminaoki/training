@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   enum role: { general: 0, admin: 1 }
+
+  has_many :tasks
+
   has_secure_password
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -18,4 +21,8 @@ class User < ApplicationRecord
 
   validates :role,
     presence: true
+
+  def view_name
+    self.last_name + ' ' + first_name
+  end
 end

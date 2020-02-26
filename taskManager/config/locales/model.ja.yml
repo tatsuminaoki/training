@@ -22,6 +22,7 @@ ja:
       task:
         summary: 概要
         description: 説明
+        user_name: ユーザ名
         priority: 優先度
         status: ステータス
         due: 期限

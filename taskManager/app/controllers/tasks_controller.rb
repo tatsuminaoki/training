@@ -59,7 +59,8 @@ class TasksController < ApplicationController
       :description,
       :priority,
       :status,
-      :due
+      :due,
+      :user_id
     )
   end
 
