@@ -10,6 +10,13 @@ RSpec.describe 'Tasks', type: :system, js: true  do
     it 'Tests of Layout' do
       visit root_path
       expect(page).to have_content I18n.t('tasks.index.title')
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:summary)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:description)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:priority)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:status)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:due)
+      expect(all('thead tr')[0].text).to have_content Task.human_attribute_name(:created_at)
+      expect(all('thead tr')[0].text).to have_no_content Task.human_attribute_name(:updated_at)
       expect(page).to have_content 'task1'
       expect(page).to have_content 'this is 1st task'
       expect(page).to have_content I18n.t('tasks.index.priority.highest')
@@ -26,6 +33,13 @@ RSpec.describe 'Tasks', type: :system, js: true  do
       expect(Task.count).to eq 3
     end
 
+    it 'record is sorted by created_at with desc order' do
+      visit root_path
+      expect(all('tbody tr')[0].text).to have_content test_task3.summary
+      expect(all('tbody tr')[1].text).to have_content test_task2.summary
+      expect(all('tbody tr')[2].text).to have_content test_task1.summary
+    end 
+
     it 'Tests of Click Draft Anchor Link' do
       visit root_path
       click_on I18n.t('action.create')
@@ -40,24 +54,24 @@ RSpec.describe 'Tasks', type: :system, js: true  do
 
     it 'Test of Click Detail Anchor Link' do
       visit root_path
-      all('tbody tr')[0].click_link I18n.t('action.detail')
-      expect(current_path).to eq task_path(test_task1)
-      expect(page).to have_content I18n.t('tasks.show.title', task_id: test_task1.id)
-      expect(page).to have_content 'task1'
-      expect(page).to have_content 'this is 1st task'
-      expect(page).to have_content I18n.t('tasks.index.priority.highest')
-      expect(page).to have_content I18n.t('tasks.index.status.open')
+      click_link I18n.t('action.detail'), match: :first
+      expect(current_path).to eq task_path(test_task3)
+      expect(page).to have_content I18n.t('tasks.show.title', task_id: test_task3.id)
+      expect(page).to have_content 'task3'
+      expect(page).to have_content 'this is 3rd task'
+      expect(page).to have_content I18n.t('tasks.index.priority.lowest')
+      expect(page).to have_content I18n.t('tasks.index.status.done')
     end
 
     it 'Test of Click Edit Anchor Link' do
       visit root_path
-      all('tbody tr')[0].click_link I18n.t('action.update')
-      expect(current_path).to eq edit_task_path(test_task1)
-      expect(page).to have_content I18n.t('tasks.edit.title', task_id: test_task1.id)
-      expect(find_field(Task.human_attribute_name(:summary)).value).to eq 'task1'
-      expect(find_field(Task.human_attribute_name(:description)).value).to eq 'this is 1st task'
-      expect(page).to have_select(Task.human_attribute_name(:priority), selected: I18n.t('tasks.index.priority.highest'))
-      expect(page).to have_select(Task.human_attribute_name(:status), selected: I18n.t('tasks.index.status.open'))
+      click_link I18n.t('action.update'), match: :first
+      expect(current_path).to eq edit_task_path(test_task3)
+      expect(page).to have_content I18n.t('tasks.edit.title', task_id: test_task3.id)
+      expect(find_field(Task.human_attribute_name(:summary)).value).to eq 'task3'
+      expect(find_field(Task.human_attribute_name(:description)).value).to eq 'this is 3rd task'
+      expect(page).to have_select(Task.human_attribute_name(:priority), selected: I18n.t('tasks.index.priority.lowest'))
+      expect(page).to have_select(Task.human_attribute_name(:status), selected: I18n.t('tasks.index.status.done'))
     end
   end
 
