@@ -21,6 +21,8 @@ services:
       - "3001:3000"
     links:
       - db
+    tty: true
+    stdin_open: true
 
 volumes:
   db-data:

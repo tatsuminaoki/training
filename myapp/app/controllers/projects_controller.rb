@@ -11,9 +11,9 @@ class ProjectsController < ApplicationController
     project = Project.new(create_params)
     if project.valid?
       project.create!
-      redirect_to controller: 'projects', action: 'show', id: project.id, notice: 'Success to create project'
+      redirect_to project_url(project.id), notice: 'Success create project'
     else
-      redirect_to controller: 'projects', action: 'index', notice: 'Failed to create project'
+      redirect_to projects_url, alert: 'Failed create project'
     end
   end
 

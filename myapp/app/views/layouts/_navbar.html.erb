@@ -17,11 +17,9 @@
       </ul>
     </nav>
   </div>
-  <div>
-    <h1>
-      <% if flash[:notice] %>
-        <p><%= flash[:notice] %></p>
-      <% end %>
-    </h1>
+  <div class="notifications">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "flash-notification" %>
+    <% end %>
   </div>
 </header>
