@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TMS  Task Mmanagement System</title>
+    <title class="tms-title">
+      <% if @project.present? %>
+        <%= @project.name %> | TMS
+      <% else %>
+        TMS
+      <% end %>
+    </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

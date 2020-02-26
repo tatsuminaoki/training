@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def show
-    @projects = Project.find_by(id: params[:id])
+    @project = find_project
   end
 
   def index
@@ -8,24 +8,35 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(create_params)
+    project = Project.new(request_params)
     if project.valid?
       project.create!
-      redirect_to project_url(project.id), notice: 'Success create project'
+      redirect_to project_url(project.id), alert: 'Success to create project'
     else
-      redirect_to projects_url, alert: 'Failed create project'
+      redirect_to projects_url, alert: 'Failed to create project'
     end
   end
 
   def update
+    project = find_project
+    project.update(request_params)
+    render status: 200, json: {}
   end
 
-  def delete
+  def destroy
+    project = find_project
+    project_name = project.name
+    project.destroy
+    redirect_to projects_url, alert: "Closed #{project_name} project"
   end
 
   private
 
-  def create_params
+  def find_project
+    @project ||= Project.find_by(id: params[:id])
+  end
+
+  def request_params
     params.require(:project).permit(:name)
   end
 end

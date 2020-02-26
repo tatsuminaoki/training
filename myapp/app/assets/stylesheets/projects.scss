@@ -1,8 +1,10 @@
 .project-index {
   width: 70%;
   height: 100%;
-  float: right;
-  #btn-show-project {
+  form {
+    float: left;
+  }
+  .btn-show-project {
     width: 200px;
     height: 100px;
     margin: 10px 10px 10px 10px;
