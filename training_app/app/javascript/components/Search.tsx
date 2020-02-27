@@ -38,13 +38,13 @@ const Search: React.FC<Props> = (props) => {
     return (
         <div>
             <label>題名</label>
-            <input className="form-control" value={title} onChange={(e) => setTitle(e.target.value) } />
+            <input className="form-control" value={title} onChange={e => setTitle(e.target.value) } />
             
             <label>状態</label>
-            <Select value={status} onChange={v => { console.log(v); setStatus(v) } } options={props.statuses} />
+            <Select value={status} onChange={v => setStatus(v)} options={props.statuses} />
             
             <label>ラベル</label>
-            <Select isMulti={true} value={label} onChange={v => { console.log(v); setLabel(v) } } options={props.labels}/>
+            <Select isMulti={true} value={label} onChange={v => setLabel(v)} options={props.labels}/>
 
             <input 
                 type="submit" 
