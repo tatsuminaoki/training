@@ -19,7 +19,6 @@ Mysql2
 - プロフェクトの一覧ページ
 ![Project index](https://user-images.githubusercontent.com/18366817/74903204-a5a9a580-53eb-11ea-9c71-341ba39146d0.jpg)
 
-
 - タスク一覧ページ
 ![Indexpage](https://user-images.githubusercontent.com/18366817/74700095-ee275e80-5245-11ea-8db0-4a3854fe0393.jpg)
 
@@ -36,6 +35,14 @@ Mysql2
 
 - UML DB
 ![UMLDB](https://user-images.githubusercontent.com/18366817/75217971-082fe680-57dc-11ea-8d04-0241e5618aba.jpg)
+
+- 補足
+Applicationの構成図に伴い、TrainingにはないProjectとGroupsがあります。
+ユーザーはProjectを作成し、そのProjectのstatusをGroupsで管理ますね。
+そして、TaskはGroupの中に所属しておりました。taskのstatusが変更する際に所属しているGroupsが変更されます。
+
+TrainingにはあるStatusというものを代わりにGroupsという名前した理由は
+Statusの汎用性を上げるために名前を変更しました。
 
 - DB詳細情報
 ```
