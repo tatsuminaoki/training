@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
-  ITEM_PER_PAGE = 10
+  ITEM_PER_PAGE = 25
 
   # GET /tasks
   # GET /tasks.json
@@ -19,6 +19,11 @@ class TasksController < ApplicationController
       .order(created_at: :desc)
       .page(params[:page])
       .per(ITEM_PER_PAGE)
+
+    respond_to do |format|
+      format.html { }
+      format.json { render handlers: 'jbuilder' }
+    end
   end
 
   # GET /tasks/1
