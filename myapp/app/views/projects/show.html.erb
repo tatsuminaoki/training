@@ -15,7 +15,15 @@
           <%= group.name %>
           <h5>
         </div>
+        <div>
+        </div>
+        <div class="project-show aad-task-container">
+          <button type="button" class="btn default add-task-button" data-toggle="modal" data-target="#create-task">
+           <i class="fas fa-plus fa-sm"></i> Add a task
+          </button>
+        </div>
       </div>
+      <%= render partial: 'tasks/modal', locals: { group: group } %>
     <% end %>
   </div>
 <div>

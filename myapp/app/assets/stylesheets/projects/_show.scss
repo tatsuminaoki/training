@@ -51,4 +51,14 @@
       font-weight: 900;
     }
   }
+  .aad-task-container {
+    width: 100%;
+    text-align: center;
+    .add-task-button {
+      text-align: left;
+      width: 95%;
+      background-color: #EBECF0;
+      border-color: #EBECF0;
+    }
+  }
 }
