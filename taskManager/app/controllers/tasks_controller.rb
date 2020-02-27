@@ -14,7 +14,7 @@ class TasksController < ApplicationController
       flash[:success] = t('flash.create.success')
       redirect_to @task
     else
-      flash[:danger] = t('flash.create.danger')
+      flash.now[:danger] = t('flash.create.danger')
       render :new
     end
   end
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
       flash[:success] = t('flash.update.success')
       redirect_to @task
     else
-      flash[:danger] = t('flash.update.danger')
+      flash.now[:danger] = t('flash.update.danger')
       render :edit
     end
   end
