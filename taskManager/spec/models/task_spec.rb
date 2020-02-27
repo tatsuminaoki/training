@@ -45,10 +45,11 @@ RSpec.describe Task, type: :model do
 
     describe 'validate status' do
       context 'when valid value' do
-        for i in 1..5
-          let(:status) { i }
+        status = Task.statuses
+        status.each {
+          |k, v| let(:status) { v }
           it { is_expected.to be_valid }
-        end
+        }
       end
 
       context 'when null' do
@@ -59,10 +60,11 @@ RSpec.describe Task, type: :model do
 
     describe 'validate priority' do
       context 'when valid value' do
-        for i in 1..5
-          let(:priority) { i }
+        priority = Task.priorities
+        priority.each {
+          |k, v| let(:priority) { v }
           it { is_expected.to be_valid }
-        end
+        }
       end
 
       context 'when null' do
