@@ -42,7 +42,7 @@
   .group {
     background-color: #EBECF0;
     width: 272px;
-    height: 300px;
+    height: auto;
     float: left;
     margin: 10px 0px 0px 10px;
     border-radius: 10px 10px 10px 10px;
@@ -51,14 +51,25 @@
       font-weight: 900;
     }
   }
-  .aad-task-container {
+  .task-containers {
     width: 100%;
     text-align: center;
+    .show-task-button {
+      text-align: left;
+      width: 95%;
+      background-color: #FFFFFF;
+      border-color: #FFFFFF;
+      margin-top: 5px;
+      box-shadow: 0.5px 0.5px 0.5px gray;
+      color: #1B2B4B;
+    }
     .add-task-button {
       text-align: left;
       width: 95%;
       background-color: #EBECF0;
       border-color: #EBECF0;
+      margin: 5px 5px 5px 5px;
+      color: #8C94A4;
     }
   }
 }

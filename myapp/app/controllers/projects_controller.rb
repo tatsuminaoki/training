@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
+  before_action :find_project, only: [:show, :update, :destroy]
+
   def show
-    @project = find_project
   end
 
   def index
@@ -18,15 +19,13 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    project = find_project
-    project.update(request_params)
+    @project.update(request_params)
     render status: 200, json: {}
   end
 
   def destroy
-    project = find_project
-    project_name = project.name
-    project.destroy
+    project_name = @project.name
+    @project.destroy
     redirect_to projects_url, alert: "Closed #{project_name} project"
   end
 

@@ -1,54 +1,84 @@
 .task-modal-dialog {
-    max-width: 700px !important;
-    border-style: none !important;
-    .task-modal-content {
-      background-color: transparent !important;
-      border: none !important;
-      width: 100%;
-      .task-modal-body {
-        border: none !important;
-        background-color: #F4F5F7;
-        .task-modal-name {
-          width: 700px !important;
-          float: left;
-          .task-modal-name-icon {
-            width: 5%;
-            float: left;
-          }
-          .task-modal-name-input {
-            width: 90%;
-            float: left;
-            input {
-              width: 30%;
-              background-color: #F4F5F7;
-              border-color: #F4F5F7;
-            }
-          }
-          .task-modal-close {
-            width: 5%;
-            color: #45526C !important;
-            float: left;
-          }
-        }
-        .task-modal-description {
-          width: 100%;
-          .task-modal-description-icon {
-            width: 5%;
-            float: left;
-          }
-          .task-modal-description-input {
-            width: 90%;
-            float: left;
-            input {
-              width: 30%;
-              background-color: #F4F5F7;
-              border-color: #F4F5F7;
-            }
-          }
-        }
-      }
-      .task-modal-foot {
-        margin: 5px 0px 0px 0px;
+  max-width: 700px !important;
+  border-style: none !important;
+  .task-modal-content {
+    background-color: #F4F5F7;
+    border: none !important;
+    width: 100%;
+    .task-model-header {
+      .task-modal-close {
+        width: 5%;
+        color: #45526C !important;
+        float: right;
       }
     }
+    .task-modal-body {
+      text-align: left;
+      border: none !important;
+      width: 100%;
+      height: auto;
+      float: left;
+      .task-modal-name {
+        background-color: #F4F5F7;
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+        .task-modal-name-icon {
+          width: 100%;
+          float: left;
+        }
+        .task-modal-name-input {
+          width: 100%;
+          float: left;
+          input {
+            width: 100%;
+            background-color: #F4F5F7;
+            border-color: #F4F5F7;
+          }
+        }
+      }
+      .task-modal-description {
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+        .task-modal-description-icon {
+          width: 100%;
+          float: left;
+        }
+        .task-modal-description-input {
+          width: 100%;
+          float: left;
+          margin-top: 10px;
+          input {
+            width: 100%;
+            background-color: #EBECF0;
+          }
+        }
+      }
+      .task-modal-priority {
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+        .task-modal-priority-icon {
+          width: 100%;
+          float: left;
+        }
+        .task-modal-priority-input {
+          width: 100%;
+          float: left;
+          margin-top: 10px;
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .task-modal-footer {
+      .task-modal-delete-button {
+      }
+      width: 100%;
+      background-color: transparent !important;
+      margin: 5px 0px 0px 0px;
+    }
+  }
 }
