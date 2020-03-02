@@ -9,8 +9,8 @@ window.onload = function () {
     changeSizeChangeNameInput();
 
     $('.change-name-input').on('keypress', function(e){
-      var project_id = Number($('.change-name-input').attr('id'))
-      var enter_key = 13
+      var project_id = Number($('.change-name-input').attr('id'));
+      var enter_key = 13;
       if( e.which == enter_key) {
         $.ajax({
           type: 'PATCH',
@@ -20,6 +20,8 @@ window.onload = function () {
           data: JSON.stringify({name: $('.change-name-input').val()})
         }).done(function(data, textStatus, jqXHR) {
           $('title').html(`${$('.change-name-input').val()}|TMS`);
+          changeSizeChangeNameInput();
+        }).fail(function(data, textStatus, jqXHR) {
           changeSizeChangeNameInput();
         });
       }

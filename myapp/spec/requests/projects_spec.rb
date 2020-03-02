@@ -4,15 +4,19 @@ RSpec.describe "Projects", type: :request do
   describe "POST /projects/:id" do
     context '登録成功' do
       example "Projectが作成されて、デフォルトのGroupsが４つ作成される" do
-        post project_path
-        expect(response).to have_http_status(200)
+        post projects_path, params: { project: {name: 'TEST1'} }
+        expect(Project.count).to eq 1
+        expect(Group.count).to eq 4
+        expect(flash[:alert]).to eq 'Success to create project'
       end
     end
 
-    context '登録失敗' do
-      example "Projectが作成されて、デフォルトのGroupsが４つ作成される" do
-        post project_path
-        expect(response).to have_http_status(200)
+    context '名前が設定されてなくて登録失敗' do
+      example "ProjectとGroupsが作られない" do
+        post projects_path, params: { project: {name: nil} }
+        expect(Project.count).to eq 0
+        expect(Group.count).to eq 0
+        expect(flash[:alert]).to eq 'Failed to create project'
       end
     end
   end
@@ -20,8 +24,22 @@ RSpec.describe "Projects", type: :request do
   describe "PATCH /projects/:id" do
     context '変更成功' do
       example "Projectの名前が変更される" do
-        patch project_path()
-        expect(response).to have_http_status(200)
+        project = create(:project)
+
+        patch project_path(project.id), params: { project: {name: 'test1'} }
+        project.reload
+        expect(project.name).to eq 'test1'
+      end
+    end
+
+    context '変更失敗' do
+      example "Projectが作成されて、デフォルトのGroupsが４つ作成される" do
+        project = create(:project)
+        original_project_name = project.name
+
+        patch project_path(project.id), params: { project: {name: nil} }
+        project.reload
+        expect(project.name).to eq original_project_name
       end
     end
   end
@@ -29,8 +47,24 @@ RSpec.describe "Projects", type: :request do
   describe "DELETE /projects/:id" do
     context '削除成功' do
       example "Projectが削除され、そして紐ついてるGroupsも全部削除される" do
-        delete project_path()
-        expect(response).to have_http_status(200)
+        Project.new(name: 'test').create!
+        project = Project.first
+
+        delete project_path(project.id)
+        expect(Project.count).to eq 0
+        expect(Group.count).to eq 0
+        expect(flash[:alert]).to eq 'Closed test project'
+      end
+    end
+
+    context '削除失敗' do
+      example "ProjectとGroupsは削除されない" do
+        Project.new(name: 'test').create!
+
+        delete project_path(10000)
+        expect(Project.count).to eq 1
+        expect(Group.count).to eq 4
+        expect(response).to have_http_status(500)
       end
     end
   end

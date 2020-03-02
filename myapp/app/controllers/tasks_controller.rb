@@ -13,7 +13,12 @@ class TasksController < ApplicationController
 
   def update
     @task.update(request_params)
-    redirect_to project_url(id: @task.group.project.id), alert: 'Success to update task'
+    if @task.valid?
+      @task.save
+      redirect_to project_url(id: @task.group.project.id), alert: 'Success to update task'
+    else
+      redirect_to project_url(id: @task.group.project.id), alert: 'Failed to update task'
+    end
   end
 
 
@@ -28,7 +33,10 @@ class TasksController < ApplicationController
   private
 
   def find_task
-    @task ||= Task.find_by(id: params[:id])
+    @task ||= Task.find_by!(id: params[:id])
+  rescue ActiveRecord::RecordNotFound
+    # TODO エラーページ追加
+    redirect_to projects_url, status: 500, alert: 'Not found project'
   end
 
   def request_params

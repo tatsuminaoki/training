@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all #TODO ユーザーが所属されているプロジェクのみ絞る
+    @projects = Project.all # TODO ユーザーが所属されているプロジェクのみ絞る
   end
 
   def create
@@ -20,7 +20,12 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update(request_params)
-    render status: 200, json: {}
+    if @project.valid?
+      @project.save
+      render status: 200, json: {}
+    else
+      render status: 400, json: {}
+    end
   end
 
   def destroy
@@ -32,7 +37,10 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project ||= Project.find_by(id: params[:id])
+    @project ||= Project.find_by!(id: params[:id])
+  rescue ActiveRecord::RecordNotFound
+    # TODO エラーページ追加
+    redirect_to projects_url, status: 500, alert: 'Not found project'
   end
 
   def request_params
