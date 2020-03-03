@@ -15,6 +15,40 @@ This is TMS(Task Management System), it's also created for rails training of rak
 Mysql2
 5.7.29
 
+## アプリを起動する方法
+1.dockerを利用しているdockerをbuildします。
+```
+docker-compose up --build
+```
+2.buildが終わったら、localhost:30001で接続を確認してください。railsの画面が出ると成功！
+
+3.cssとjavascriptを反映する
+```
+docker-compose exec api rake assets:precompile
+```
+
+
+## build中のエラー対応
+1.Webpacker::Manifest::MissingEntryErrorが出た場合に以下のコマンドを実行し、改めてdocker-compose up --buildを行なってください。
+
+```
+yarn
+```
+
+2.Your Yarn packages are out of date! Please run 'yarn install --check-files' to update.'が出た場合にyarn.lock fileを削除し、改めてdocker-compose up --buildを行なってください。
+
+```
+rm -rf yarn.lock
+```
+
+## サーバを立ち上げたからエラー対応
+1.Run `npm rebuild node-sass`が出た場合には以下のコマンを実行すればいいです。解決
+
+```
+npm rebuild node-sass
+```
+
+
 ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
 - プロフェクトの一覧ページ
 ![Project index](https://user-images.githubusercontent.com/18366817/74903204-a5a9a580-53eb-11ea-9c71-341ba39146d0.jpg)
