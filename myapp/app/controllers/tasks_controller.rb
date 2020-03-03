@@ -34,9 +34,6 @@ class TasksController < ApplicationController
 
   def find_task
     @task ||= Task.find_by!(id: params[:id])
-  rescue ActiveRecord::RecordNotFound
-    # TODO エラーページ追加
-    redirect_to projects_url, status: 500, alert: I18n.t('error.record_not_found', data: 'task')
   end
 
   def request_params
