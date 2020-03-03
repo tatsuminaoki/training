@@ -9,9 +9,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email])
     if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      redirect_to tasks_path
+      redirect_to tasks_path, notice: t('.logged_in')
     else
-      render 'new'
+      redirect_to sign_in_path, notice: t('.retry')
     end
   end
 

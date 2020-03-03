@@ -6,7 +6,11 @@ class TasksController < ApplicationController
 
   def index
     @search_params = task_search_params
-    @tasks = Task.preload(:user).page(params[:page]).per(PER).search(@search_params).order(sort_position + ' ' + sort_order)
+    @tasks = Task.eager_load(:user)
+      .where('users.id = ?', current_user.id)
+      .page(params[:page]).per(PER)
+      .search(@search_params)
+      .order('tasks.' + sort_position + ' ' + sort_order)
   end
 
   def new
@@ -14,7 +18,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params).tap { |obj| obj.user = current_user }
     if @task.save
       flash[:success] = t('flash.create.success')
       redirect_to @task
@@ -31,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
+    if @task.tap { |obj| obj.user = current_user }.update(task_params)
       flash[:success] = t('flash.update.success')
       redirect_to @task
     else
