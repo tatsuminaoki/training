@@ -10,7 +10,7 @@
           </button>
         </div>
       </div>
-      <%= render partial: 'tasks/modal_content', locals: { task: task } %>
+      <%= render partial: 'tasks/modal_content', locals: { group: task.object.group, task: task } %>
       <div class="modal-footer task-modal-footer">
         <%= task.submit t('tasks.update_task_button'), class:"btn btn-success" %>
         <% end %>

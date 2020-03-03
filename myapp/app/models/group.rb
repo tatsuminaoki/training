@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   belongs_to :project
 
   validates :name, presence: true
+  validates :sort_number, uniqueness: { scope: :project_id }
 
   DEFAULT_GROUP_NAMES = %w(Todo InProgress Review Done)
 

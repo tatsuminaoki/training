@@ -1,7 +1,7 @@
 <div class="modal fade" id="create-task-<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="create-task-label">
   <div class="modal-dialog task-modal-dialog" role="document">
     <div class="modal-content task-modal-content">
-      <%= form_for(Task.new) do |task| %>
+      <%= form_for(group.tasks.new) do |task| %>
         <%= task.hidden_field :group_id, value: group.id %>
         <%= task.hidden_field :project_id, value: group.project.id %>
         <div class="modal-header task-modal-header-new">

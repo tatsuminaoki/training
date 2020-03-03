@@ -17,6 +17,9 @@ ja:
     description: "コメント"
     priority: "優先順位"
     end_period_at: "終了期限"
+    group_name: "グループ名前"
+    creator_name: "作成者"
+    assignee_name: "担当者"
   errors:
   flash:
     success_create: "%{model_name} 作成 成功!!"

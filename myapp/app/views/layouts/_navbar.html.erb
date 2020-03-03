@@ -19,11 +19,14 @@
             LEE
         </div>
         <div class="localize">
-          <%= link_to url_for(locale: :en) do %>
-            English
-          <% end %>
-          <%= link_to url_for(locale: :ja) do %>
-            日本語
+          <% if I18n.locale == :ja %>
+            <%= link_to url_for(locale: :en) do %>
+              English
+            <% end %>
+          <% else %>
+            <%= link_to url_for(locale: :ja) do %>
+              日本語
+            <% end %>
           <% end %>
         <div>
       </div>

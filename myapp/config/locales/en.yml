@@ -16,7 +16,10 @@ en:
     name: "Name"
     description: "Description"
     priority: "Priority"
-    end_period_at: "End Period"
+    end_period_at: "End period"
+    group_name: "Group name"
+    creator_name: "Creator name"
+    assignee_name: "Assignee name"
   errors:
   flash:
     success_create: "Success to create %{model_name}"
