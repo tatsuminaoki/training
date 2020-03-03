@@ -35,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.tap { |obj| obj.user = current_user }.update(task_params)
+    if @task.update(task_params)
       flash[:success] = t('flash.update.success')
       redirect_to @task
     else
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
   end
 
   def task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
@@ -63,8 +63,7 @@ class TasksController < ApplicationController
       :description,
       :priority,
       :status,
-      :due,
-      :user_id
+      :due
     )
   end
 
