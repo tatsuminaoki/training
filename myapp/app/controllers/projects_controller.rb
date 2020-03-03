@@ -38,9 +38,6 @@ class ProjectsController < ApplicationController
 
   def find_project
     @project ||= Project.find_by!(id: params[:id])
-  rescue ActiveRecord::RecordNotFound
-    # TODO エラーページ追加
-    redirect_to projects_url, status: 500, alert: I18n.t('error.record_not_found', data: 'project')
   end
 
   def request_params
