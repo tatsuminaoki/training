@@ -1,10 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe 'Tasks', type: :system  do
+def sign_in_with(user)
+  visit sign_in_path
+  fill_in 'session[email]', with: user.email
+  fill_in 'session[password]', with: 'hoge123'
+  click_on I18n.t('sessions.new.sign_in')
+end
 
-  let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now) }
-  let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1) }
-  let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2) }
+RSpec.describe 'Tasks', type: :system  do
+  let!(:user) { create(:user) }
+  before do
+    sign_in_with(user)
+  end
+  let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now  , user: user) }
+  let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1, user: user) }
+  let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2, user: user) }
 
   # 下記Exceptionが頻発するので暫定対応
   # Selenium::WebDriver::Error::StaleElementReferenceError:
@@ -187,7 +197,7 @@ RSpec.describe 'Tasks', type: :system  do
 
     describe 'pagenation' do
       context 'when there are several pages' do
-        let!(:task) { create_list(:task1, 30) }
+        let!(:task) { create_list(:task1, 30, user: user ) }
         it 'should transrate next page' do
           visit tasks_path
           expect(page).to have_link 2, href: tasks_path(page: 2)
