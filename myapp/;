@@ -9,12 +9,6 @@
     .search_form {
       width: 30%;
       float: left;
-      input {
-        height: calc(1.0em + 0.75rem + 2px);
-      }
-      button {
-        color: #ffffff;
-      }
     }
     .brand-name {
       width: 40%;
@@ -36,13 +30,11 @@
         float: left;
       }
       .localize {
+        color: #ffffff;
         width: 50%;
         float: left;
-        a {
-          color: #ffffff;
-          vertical-align: inherit;
-          text-decoration: none;
-        }
+        vertical-align: inherit;
+        text-decoration: none;
       }
     }
   }

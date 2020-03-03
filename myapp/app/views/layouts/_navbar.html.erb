@@ -1,20 +1,32 @@
 <header>
   <div class="bd-example">
     <nav class="navbar navbar-light" id='navbar'>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0" type="submit">
-          <i class="fas fa-search" id="fa-search"></i></font>
-        </button>
-      </form>
-      <a href="http://localhost:3001/projects" class="navbar-brand">
-        TMS
-      </a>
-      <ul class="navbar-nav">
-         <li>
-           LEE
-         </li>
-      </ul>
+      <div class="search_form">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn my-2 my-sm-0" type="submit">
+            <i class="fas fa-search" id="fa-search"></i></font>
+          </button>
+        </form>
+      </div>
+      <div class="brand-name">
+        <a href="http://localhost:3001/projects">
+          TMS
+        </a>
+      </div>
+      <div class="right-menu">
+        <div class="user-name">
+            LEE
+        </div>
+        <div class="localize">
+          <%= link_to url_for(locale: :en) do %>
+            English
+          <% end %>
+          <%= link_to url_for(locale: :ja) do %>
+            日本語
+          <% end %>
+        <div>
+      </div>
     </nav>
   </div>
   <div class="notifications">

@@ -12,9 +12,9 @@ class ProjectsController < ApplicationController
     project = Project.new(request_params)
     if project.valid?
       project.create!
-      redirect_to project_url(project.id), alert: 'Success to create project'
+      redirect_to project_url(project.id), alert: I18n.t('flash.success_create', model_name: 'project')
     else
-      redirect_to projects_url, alert: 'Failed to create project'
+      redirect_to projects_url, alert: I18n.t('flash.failed_create', model_name: 'project')
     end
   end
 
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
   def destroy
     project_name = @project.name
     @project.destroy
-    redirect_to projects_url, alert: "Closed #{project_name} project"
+    redirect_to projects_url, alert: I18n.t('flash.success_destroy', model_name: 'project')
   end
 
   private
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
     @project ||= Project.find_by!(id: params[:id])
   rescue ActiveRecord::RecordNotFound
     # TODO エラーページ追加
-    redirect_to projects_url, status: 500, alert: 'Not found project'
+    redirect_to projects_url, status: 500, alert: I18n.t('error.record_not_found', data: 'project')
   end
 
   def request_params

@@ -23,7 +23,7 @@
             <%= render partial: 'tasks/modal_task_edit', locals: { task: task } %>
           <% end %>
           <button type="button" class="btn btn-secondary add-task-button" data-toggle="modal" data-target="#create-task-<%= group.id %>">
-           <i class="fas fa-plus fa-sm"></i> Add a task
+            <i class="fas fa-plus fa-sm"></i> <%= t('tasks.add_task') %>
           </button>
         </div>
       </div>

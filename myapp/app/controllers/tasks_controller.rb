@@ -5,9 +5,9 @@ class TasksController < ApplicationController
     task = Task.new(request_params)
     if task.valid?
       task.save
-      redirect_to project_url(id: params[:task][:project_id]), alert: 'Success to create task'
+      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
     else
-      redirect_to project_url(id: params[:task][:project_id]), alert: 'Failed to create task'
+      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.failed_create', model_name: 'task')
     end
   end
 
@@ -15,9 +15,9 @@ class TasksController < ApplicationController
     @task.update(request_params)
     if @task.valid?
       @task.save
-      redirect_to project_url(id: @task.group.project.id), alert: 'Success to update task'
+      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.success_updated', model_name: 'task')
     else
-      redirect_to project_url(id: @task.group.project.id), alert: 'Failed to update task'
+      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.failed_update', model_name: 'task')
     end
   end
 
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     task_name = @task.name
     project_id = @task.group.project.id
     @task.destroy
-    redirect_to project_url(id: project_id), alert: "Deleted #{task_name} task"
+    redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', model_name: 'task')
   end
 
 
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
     @task ||= Task.find_by!(id: params[:id])
   rescue ActiveRecord::RecordNotFound
     # TODO エラーページ追加
-    redirect_to projects_url, status: 500, alert: 'Not found project'
+    redirect_to projects_url, status: 500, alert: I18n.t('error.record_not_found', data: 'task')
   end
 
   def request_params
