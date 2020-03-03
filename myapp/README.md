@@ -20,7 +20,7 @@ Mysql2
 ```
 docker-compose up --build
 ```
-2.buildが終わったら、localhost:30001で接続を確認してください。railsの画面が出ると成功！
+2.buildが終わったら、localhost:30001/projectsで接続を確認してください。projectの一覧画面が出ると成功
 
 3.cssとjavascriptを反映する
 ```
@@ -41,7 +41,7 @@ yarn
 rm -rf yarn.lock
 ```
 
-## サーバを立ち上げたからエラー対応
+## サーバを起動した後のエラー対応
 1.Run `npm rebuild node-sass`が出た場合には以下のコマンを実行すればいいです。解決
 
 ```
