@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  before_action :task, only: [:destroy, :show, :edit, :update]
+  before_action :task, only: %i[destroy show edit update]
 
-  ORDER = [ 'asc', 'desc' ]
+  ORDER = %w[asc desc]
 
   def index
     @tasks = Task.order(sort_position + ' ' + sort_order)
