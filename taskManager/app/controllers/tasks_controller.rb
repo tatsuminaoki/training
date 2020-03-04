@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   ORDER = %w[asc desc]
 
   def index
-    @tasks = Task.order(sort_position + ' ' + sort_order)
+    @tasks = Task.order format('%s %s', sort_position, sort_order)
   end
 
   def new
