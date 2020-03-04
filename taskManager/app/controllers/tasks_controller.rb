@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[destroy show edit update]
 
   ORDER = %w[asc desc]
+  ORDER.freeze
 
   def index
     @tasks = Task.order format('%s %s', sort_position, sort_order)
