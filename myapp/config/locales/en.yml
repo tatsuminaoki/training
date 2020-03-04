@@ -16,6 +16,7 @@ en:
     name: "Name"
     description: "Description"
     priority: "Priority"
+    end_period_at: "End Period"
   errors:
   flash:
     success_create: "Success to create %{model_name}"

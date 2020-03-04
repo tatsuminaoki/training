@@ -67,6 +67,24 @@
           width: 100%;
           float: left;
           margin-top: 10px;
+          select {
+            height: 50px;
+            width: 100%;
+          }
+        }
+      }
+      .task-modal-end-period-at {
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+        .task-modal-end-period-at-icon {
+          width: 100%;
+          float: left;
+        }
+        .task-modal-end-period-at-input {
+          width: 50%;
+          float: left;
+          margin-top: 10px;
           input {
             width: 100%;
           }

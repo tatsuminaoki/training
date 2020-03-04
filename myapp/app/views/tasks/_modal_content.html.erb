@@ -23,7 +23,18 @@
       <%= t('tasks.priority') %>
     </div>
     <div class="task-modal-priority-input">
-      <%= task.select :priority, Task.priorities.keys %>
+      <h6>
+      <%= task.select :priority, Task.priorities.keys, class:"form-control" %>
+      </h6>
+    </div>
+  </div>
+  <div class="task-modal-end-period-at">
+    <div class="task-modal-end-period-at-icon">
+      <i class="far fa-calendar-check fa-lg"></i>
+      <%= t('tasks.end_period_at') %>
+    </div>
+    <div class="task-modal-end-period-at-input datepicker">
+      <%= task.text_field :end_period_at, class:"form-control datepicker" %>
     </div>
   </div>
 </div>

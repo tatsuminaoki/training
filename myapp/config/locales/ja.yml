@@ -16,6 +16,7 @@ ja:
     name: "タイトル"
     description: "コメント"
     priority: "優先順位"
+    end_period_at: "終了期限"
   errors:
   flash:
     success_create: "%{model_name} 作成 成功!!"
