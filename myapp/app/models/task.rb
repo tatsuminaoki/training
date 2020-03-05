@@ -11,5 +11,8 @@ class Task < ApplicationRecord
   private
 
   def verify_end_period_at
+    return if end_period_at.blank? || (Time.current).strftime('%Y/%m/%d') <= end_period_at.strftime('%Y/%m/%d')
+
+    errors.add(:end_period_at, I18n.t('validate.errors.tasks.end_period_at_is_old_than_current'))
   end
 end
