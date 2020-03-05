@@ -1,7 +1,7 @@
 <div class="project-show-whole">
   <div class="project-show-header">
     <div class="project-show project-name">
-      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= @project.name %>>
+      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= sanitize @project.name %>>
     </div>
     <div class="project-show project-dropdown">
       <%= render 'dropdown_show' %>
