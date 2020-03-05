@@ -1,0 +1,20 @@
+.modal-dialog {
+  max-width: 300px !important;
+  border-style: none !important;
+}
+
+.modal-content {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.modal-header {
+  border: none !important;
+  background-color: #181D2B;
+  button {
+    color: #FFFFFF !important;
+  }
+}
+.modal-foot {
+  margin: 5px 0px 0px 0px;
+}

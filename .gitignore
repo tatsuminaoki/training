@@ -26,3 +26,5 @@ myapp/docs/img/.DS_Store
 /myapp/config/master.key
 
 /myapp/.idea/*
+
+/myapp/yarn.lock

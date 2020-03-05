@@ -1,0 +1,18 @@
+<div>
+  <div class="project-index" style="width: 70%; height: 100%; float: right;">
+    <div>
+      <i class="fas fa-user-lock fa-lg" class="fa-user-lock"></i>
+      <strong>Personal Project</strong>
+    </div>
+    <% @projects.each do |project| %>
+      <button type="button" class="btn btn-success" id="btn-show-project">
+        <%= project.name %>
+      </button>
+    <% end %>
+    <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">
+      Create new project
+    </button>
+  </div>
+  <%= render 'left_side' %>
+  <%= render 'modal' %>
+</div>
