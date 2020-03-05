@@ -40,7 +40,7 @@ module Admin
     end
 
     def destroy
-      if @admin_user.destory
+      if @admin_user.destroy
         flash[:success] = t('flash.remove.success')
       else
         flash[:danger] = t('flash.remove.danger')
