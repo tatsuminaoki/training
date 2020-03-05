@@ -7,7 +7,9 @@ class TasksController < ApplicationController
       task.save
       redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
     else
-      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.failed_create', model_name: 'task')
+      flash[:alert] = I18n.t('flash.failed_create', model_name: 'task')
+      redirect_to project_url(id: params[:task][:project_id]), notice: task.errors.full_messages
+
     end
   end
 
@@ -17,7 +19,8 @@ class TasksController < ApplicationController
       @task.save
       redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.success_updated', model_name: 'task')
     else
-      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.failed_update', model_name: 'task')
+      flash[:alert] = I18n.t('flash.failed_update', model_name: 'task')
+      redirect_to project_url(id: @task.group.project.id), notice: @task.errors.full_messages
     end
   end
 
