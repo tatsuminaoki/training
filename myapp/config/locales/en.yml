@@ -17,7 +17,7 @@ en:
     description: "Description"
     priority: "Priority"
     end_period_at: "End period"
-    group_name: "Group name"
+    group_name: "Group"
     creator_name: "Creator name"
     assignee_name: "Assignee name"
   validate:

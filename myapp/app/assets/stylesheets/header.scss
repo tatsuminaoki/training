@@ -3,17 +3,25 @@
 
 .bd-example {
   .navbar-light {
-    background-color: #E7514A;
-    padding: 0rem 1rem !important;
+    background-color: #9CBEFA;
     width: 100% !important;
-    .search_form {
+    .left-function {
       width: 30%;
       float: left;
-      input {
-        height: calc(1.0em + 0.75rem + 2px);
-      }
-      button {
-        color: #ffffff;
+      .search-form {
+        background-color: #FFFFFF;
+        width: 70%;
+        height: 100%;
+        .input-search-form {
+          width: 100%;
+          float: left;
+        }
+        .fa-search {
+          position: absolute;
+          height: 100%;
+          margin-top: -7px;
+          margin-left: -24px;
+        }
       }
     }
     .brand-name {
