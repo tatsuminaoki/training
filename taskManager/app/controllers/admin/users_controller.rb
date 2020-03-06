@@ -1,6 +1,8 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_admin_user, only: %i[show edit update destroy]
+    before_action -> { redirect_to sign_in_path }, unless: -> { current_user.present? }
+    before_action -> { redirect_to tasks_path }, unless: -> { current_user.admin? }
 
     def index
       @admin_users = Admin::User
@@ -55,7 +57,7 @@ module Admin
     end
 
     def admin_user_params
-      params.require(:admin_user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+      params.require(:admin_user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :role)
     end
   end
 end

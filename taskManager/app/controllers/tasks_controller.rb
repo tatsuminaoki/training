@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :task, only: [:destroy, :show, :edit, :update]
+  before_action -> { redirect_to sign_in_path }, unless: -> { current_user.present? }
 
   ORDER = [ 'asc', 'desc' ]
   PER = 5
