@@ -5,9 +5,7 @@
       <strong>Personal Project</strong>
     </div>
     <% @projects.each do |project| %>
-      <button type="button" class="btn btn-success" id="btn-show-project">
-        <%= project.name %>
-      </button>
+      <%= button_to project.name, project_url(project.id), { method: :get, class:"btn btn-success btn-show-project" }%>
     <% end %>
     <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">
       Create new project

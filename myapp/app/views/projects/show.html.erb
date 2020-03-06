@@ -1,0 +1,21 @@
+<div class="project-show-whole">
+  <div class="project-show-header">
+    <div class="project-show project-name">
+      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= sanitize @project.name %>>
+    </div>
+    <div class="project-show project-dropdown">
+      <%= render 'dropdown_show' %>
+    </div>
+  </div>
+  <div class="project-show-body">
+    <% @project.groups.each do |group| %>
+      <div class="project-show group">
+        <div class="project-show group-title">
+          <h5>
+          <%= group.name %>
+          <h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<div>

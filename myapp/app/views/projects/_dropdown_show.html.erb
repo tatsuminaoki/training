@@ -1,0 +1,9 @@
+<div class="dropdown">
+  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <i class="fas fa-dice-three"></i>
+   Show Menu
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <%= button_to 'Close project', project_path, method: :delete, class:"btn btn-success delete-button" %>
+  </div>
+</div>
