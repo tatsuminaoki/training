@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   before do
-    driven_by(:rack_test)
-    @user = create(:user)
+    @user = create(:user, role: "admin")
     @task = create_list(:task1, 10, user_id: @user.id)
     sign_in_with(@user)
   end
@@ -44,10 +43,11 @@ RSpec.describe "Users", type: :system do
   end
 
   context 'when user deletes the other user on user detail page' do
-    let!(:user1) { create(:user) }
+    let!(:user1) { create(:user, role: "admin") }
     it do
       visit admin_user_path(user1.id)
       click_on I18n.t('action.remove')
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content I18n.t('flash.remove.success')
     end
   end

@@ -70,5 +70,4 @@ RSpec.describe User, type: :model do
       expect(user.errors[:last_name]).to be_present
     }
   end
-
 end
