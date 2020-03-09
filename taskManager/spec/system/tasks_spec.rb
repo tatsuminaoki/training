@@ -119,7 +119,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword conteined in all record' do
+      context 'by summary with keyword contained in all record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'task'
@@ -135,7 +135,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword not conteined in any record' do
+      context 'by summary with keyword not contained in any record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'hoge'
