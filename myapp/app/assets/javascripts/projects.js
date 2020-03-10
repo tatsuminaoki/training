@@ -12,16 +12,25 @@ window.onload = function () {
       var project_id = Number($('.change-name-input').attr('id'))
       var enter_key = 13
       if( e.which == enter_key) {
-        $.ajax({
-          type: 'PATCH',
-          url: `/projects/${project_id}`,
-          dataType: 'json',
-          contentType: 'application/json; charset=UTF-8',
-          data: JSON.stringify({name: $('.change-name-input').val()})
-        }).done(function(data, textStatus, jqXHR) {
-          $('title').html(`${$('.change-name-input').val()}|TMS`);
+        var url = `/projects/${project_id}`
+        var data = JSON.stringify({name: $('.change-name-input').val()})
+        fetch(url, {
+          method: 'PATCH',
+          mode: "cors",
+          headers: { "Content-Type": "application/json; charset=UTF-8" },
+          body: data
+        })
+        .then(function(response){
+          if (response.ok) {
+            $('title').html(`${$('.change-name-input').val()}|TMS`);
+            changeSizeChangeNameInput();
+          } else {
+            throw Error(`http ${response.status} error`)
+          }
+        })
+        .catch(function(err) {
           changeSizeChangeNameInput();
-        });
+        })
       }
       else {
         changeSizeChangeNameInput();
@@ -33,5 +42,3 @@ window.onload = function () {
 function changeSizeChangeNameInput() {
   $('.change-name-input').attr('size', $('.change-name-input').val().length+5);
 }
-
-

@@ -1,12 +1,12 @@
 <div class="modal fade" id="create-project" tabindex="-1" role="dialog" aria-labelledby="create-project-label">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog project-modal-dialog" role="document">
     <%= form_for(Project.new) do |project| %>
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content project-modal-content">
+        <div class="modal-header project-modal-header">
           <%= project.text_field :name, class:"form-control", placeholder:"name"%>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
         </div>
-        <div class="modal-foot">
+        <div class="modal-foot project-modal-foot">
           <%= project.submit 'Create project', class:"btn btn-success btn-sm" %>
         </div>
       </div>

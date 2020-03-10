@@ -1,0 +1,22 @@
+<div class="modal fade" id="create-task-<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="create-task-label">
+  <div class="modal-dialog task-modal-dialog" role="document">
+    <div class="modal-content task-modal-content">
+      <%= form_for(Task.new) do |task| %>
+        <%= task.hidden_field :group_id, value: group.id %>
+        <%= task.hidden_field :project_id, value: group.project.id %>
+        <div class="modal-header task-modal-header-new">
+          Create task
+          <div class="task-modal-close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+        </div>
+        <%= render partial: 'tasks/modal_content', locals: { group: group, task: task } %>
+        <div class="modal-footer task-modal-footer">
+          <%= task.submit 'Add a task', class:"btn btn-success btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal fade" id="update-task-<%= task.id %>" tabindex="-1" role="dialog" aria-labelledby="edit-task-label">
+  <div class="modal-dialog task-modal-dialog" role="document">
+    <div class="modal-content task-modal-content">
+      <%= form_for(task) do |task| %>
+      <div class="modal-header task-modal-header-new">
+        Edit task
+        <div class="task-modal-close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+      </div>
+      <%= render partial: 'tasks/modal_content', locals: { task: task } %>
+      <div class="modal-footer task-modal-footer">
+        <%= task.submit 'Update a task', class:"btn btn-success" %>
+        <% end %>
+        <%= button_to 'Delete task', task_path(task.id), method: :delete, class:"btn btn-danger task-modal-delete-button" %>
+      </div>
+    </div>
+  </div>
+</div>
+
