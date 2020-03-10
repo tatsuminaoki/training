@@ -1,3 +1,7 @@
+$(document).on('turbolinks:load', function() {
+  I18n.locale = $('body').data('locale')
+});
+
 $(function(){
   $(".datepicker").datetimepicker({
     format : "YYYY/MM/DD",
@@ -38,7 +42,7 @@ $(function(){
 
 function createATagOfTasks(tasks) {
   if ($.isEmptyObject(tasks)) {
-    $(".search-result-tasks-list").append();
+    $(".search-result-tasks-list").append(I18n.t('search.tasks.no_data'));
   } else {
     $.each(tasks, function( index, value ) {
       create_element_button = document.createElement("BUTTON");
@@ -50,7 +54,7 @@ function createATagOfTasks(tasks) {
 }
 function createATagOfProjects(projects) {
   if ($.isEmptyObject(projects)) {
-    $(".search-result-projects-list").append();
+    $(".search-result-projects-list").append(I18n.t('search.projects.no_data'));
   } else {
     $.each(projects, function( index, value ) {
       create_element_button = document.createElement("BUTTON");
