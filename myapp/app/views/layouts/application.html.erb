@@ -3,10 +3,9 @@
   <head>
     <title class="tms-title">
       <% if @project.present? %>
-        <%= @project.name %> | TMS
-      <% else %>
-        TMS
+        <%= @project.name %> |
       <% end %>
+      TMS
     </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

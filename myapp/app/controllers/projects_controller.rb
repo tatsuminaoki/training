@@ -20,8 +20,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update(request_params)
-    if @project.valid?
-      @project.save
+    if @project.save
       render status: 200, json: {}
     else
       render status: 400, json: {}
@@ -37,7 +36,7 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project ||= Project.find_by!(id: params[:id])
+    @project ||= Project.find(params[:id])
   end
 
   def request_params
