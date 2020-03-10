@@ -3,8 +3,7 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new(request_params)
-    if task.valid?
-      task.save
+    if task.save
       redirect_to project_url(id: params[:task][:project_id]), alert: 'Success to create task'
     else
       redirect_to project_url(id: params[:task][:project_id]), alert: 'Failed to create task'
@@ -13,8 +12,7 @@ class TasksController < ApplicationController
 
   def update
     @task.update(request_params)
-    if @task.valid?
-      @task.save
+    if @task.save
       redirect_to project_url(id: @task.group.project.id), alert: 'Success to update task'
     else
       redirect_to project_url(id: @task.group.project.id), alert: 'Failed to update task'
@@ -25,7 +23,7 @@ class TasksController < ApplicationController
   def destroy
     task_name = @task.name
     project_id = @task.group.project.id
-    @task.destroy
+    @task.destroy!
     redirect_to project_url(id: project_id), alert: "Deleted #{task_name} task"
   end
 
@@ -33,10 +31,10 @@ class TasksController < ApplicationController
   private
 
   def find_task
-    @task ||= Task.find_by!(id: params[:id])
+    @task ||= Task.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     # TODO エラーページ追加
-    redirect_to projects_url, status: 500, alert: 'Not found project'
+    redirect_to projects_url, status: 500, alert: 'Not found task'
   end
 
   def request_params

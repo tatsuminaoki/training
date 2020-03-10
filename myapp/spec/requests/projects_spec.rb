@@ -8,6 +8,7 @@ RSpec.describe 'Projects', type: :request do
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
         expect(flash[:alert]).to eq 'Success to create project'
+        expect(response.status).to eq 302
       end
     end
 
@@ -17,24 +18,24 @@ RSpec.describe 'Projects', type: :request do
         expect(Project.count).to eq 0
         expect(Group.count).to eq 0
         expect(flash[:alert]).to eq 'Failed to create project'
+        expect(response.status).to eq 302
       end
     end
   end
 
   describe 'PATCH /projects/:id' do
+    let(:project) { create(:project) }
     context 'Update success' do
       it 'is changing project name to test1' do
-        project = create(:project)
-
         patch project_path(project.id), params: { project: {name: 'test1'} }
         project.reload
         expect(project.name).to eq 'test1'
+        expect(response).to be_successful
       end
     end
 
     context 'Project updating is failed because, did not put project name' do
       it 'is not change project name' do
-        project = create(:project)
         original_project_name = project.name
 
         patch project_path(project.id), params: { project: {name: nil} }
@@ -54,6 +55,7 @@ RSpec.describe 'Projects', type: :request do
         expect(Project.count).to eq 0
         expect(Group.count).to eq 0
         expect(flash[:alert]).to eq 'Closed test project'
+        expect(response.status).to eq 302
       end
     end
 
@@ -64,7 +66,6 @@ RSpec.describe 'Projects', type: :request do
         delete project_path(10000)
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
-        expect(response).to have_http_status(500)
       end
     end
   end

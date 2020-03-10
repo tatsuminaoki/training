@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     project = Project.new(request_params)
     if project.valid?
       project.create!
-      redirect_to project_url(project.id), alert: 'Success to create project'
+      redirect_to project_url(project.id) ,alert: 'Success to create project'
     else
       redirect_to projects_url, alert: 'Failed to create project'
     end
@@ -20,8 +20,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update(request_params)
-    if @project.valid?
-      @project.save
+    if @project.save
       render status: 200, json: {}
     else
       render status: 400, json: {}
@@ -37,7 +36,7 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project ||= Project.find_by!(id: params[:id])
+    @project ||= Project.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     # TODO エラーページ追加
     redirect_to projects_url, status: 500, alert: 'Not found project'
