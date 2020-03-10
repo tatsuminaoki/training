@@ -32,3 +32,10 @@ ja:
     success_updated: "%{model_name} 更新 成功!!"
     failed_update: "%{model_name} 更新 失敗"
     success_destroy: "%{model_name} 削除 成功!!"
+  search:
+    tasks:
+      title: "タスク"
+      no_data: "タスクを見つかりませんでした"
+    projects:
+      title: "プロジェクト"
+      no_data: "プロジェクトを見つかりませんでした"

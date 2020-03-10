@@ -59,3 +59,41 @@
   text-align: center;
   width: 100%;
 }
+.search-result {
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0px 0px 15px #aaaaaa;
+  background-color: #F4F5F7;
+  position: absolute;
+  z-index: 1;
+  margin-top: 50px;
+  margin-left: 15px;
+  width: 600px;
+  min-height: 142.5px;
+  height: auto;
+  .search-result-tasks{
+    .search-result-tasks-title {
+      color: #616C82;
+      padding: 15px 0px 0px 10px;
+    }
+    .search-result-tasks-list {
+      padding: 15px 0px 15px 15px;
+      min-height: 50px;
+      .search-result-task-view {
+        margin-right: 10px;
+      }
+    }
+  }
+  .search-result-projects{
+    .search-result-projects-title {
+      color: #616C82;
+      padding: 15px 0px 0px 10px;
+    }
+    .search-result-projects-list {
+      padding: 15px 0px 15px 15px;
+      min-height: 50px;
+      .search-result-project-view {
+        margin-right: 10px;
+      }
+    }
+  }
+}

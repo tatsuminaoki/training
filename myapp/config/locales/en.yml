@@ -32,3 +32,11 @@ en:
     success_updated: "Success to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
     success_destroy: "Destroy to create %{model_name}"
+  search:
+    tasks:
+      title: "TASKS"
+      no_data: "No data tasks"
+    projects:
+      title: "PROJECTS"
+      no_data: "No data projects"
+
