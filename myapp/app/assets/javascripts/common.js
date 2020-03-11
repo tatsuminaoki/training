@@ -11,7 +11,17 @@ $(function(){
     }
   });
 
-  $(".input-search-form").on("click", function(event) {
+  $(document).off().on("click", ".input-search-form",function(event) {
+    // search-form hidden when other area click
+    $("body").click(function(e) {
+      if ($(".search-result").has(e.target).length == 0) {
+          $(".search-result").hide();
+          $(".search-result-tasks-list").empty();
+          $(".search-result-projects-list").empty();
+      };
+    });
+
+    $(".search-result").show("swing");
     $(".input-search-form").on("keypress", function(e){
       var query_data = $(".input-search-form").val();
       var enter_key = 13;
@@ -41,24 +51,28 @@ $(function(){
 });
 
 function createATagOfTasks(tasks) {
+  $(".search-result-tasks-list").empty();
   if ($.isEmptyObject(tasks)) {
     $(".search-result-tasks-list").append(I18n.t('search.tasks.no_data'));
   } else {
     $.each(tasks, function( index, value ) {
-      create_element_button = document.createElement("BUTTON");
+      create_element_button = document.createElement("A");
       create_element_button.setAttribute("class", "btn btn-outline-success search-result-task-view");
+      create_element_button.setAttribute("href", `/${I18n.locale}/projects/${value.project_id}`);
       create_element_button.innerHTML = value.name;
       $(".search-result-tasks-list").append(create_element_button);
     });
   }
 }
 function createATagOfProjects(projects) {
+  $(".search-result-projects-list").empty();
   if ($.isEmptyObject(projects)) {
     $(".search-result-projects-list").append(I18n.t('search.projects.no_data'));
   } else {
     $.each(projects, function( index, value ) {
-      create_element_button = document.createElement("BUTTON");
+      create_element_button = document.createElement("A");
       create_element_button.setAttribute("class", "btn btn-outline-primary search-result-project-view");
+      create_element_button.setAttribute("href", `/${I18n.locale}/projects/${value.id}`);
       create_element_button.innerHTML = value.name;
       $(".search-result-projects-list").append(create_element_button);
     });

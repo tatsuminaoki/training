@@ -60,6 +60,7 @@
   width: 100%;
 }
 .search-result {
+  display: none;
   border-radius: 5px 5px 5px 5px;
   box-shadow: 0px 0px 15px #aaaaaa;
   background-color: #F4F5F7;
@@ -76,10 +77,10 @@
       padding: 15px 0px 0px 10px;
     }
     .search-result-tasks-list {
-      padding: 15px 0px 15px 15px;
+      padding: 0px 0px 15px 15px;
       min-height: 50px;
       .search-result-task-view {
-        margin-right: 10px;
+        margin: 10px 10px 0px 0px;
       }
     }
   }
@@ -89,10 +90,10 @@
       padding: 15px 0px 0px 10px;
     }
     .search-result-projects-list {
-      padding: 15px 0px 15px 15px;
+      padding: 0px 0px 15px 15px;
       min-height: 50px;
       .search-result-project-view {
-        margin-right: 10px;
+        margin: 10px 10px 0px 0px;
       }
     }
   }
