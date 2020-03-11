@@ -1,0 +1,37 @@
+<h1>タスクの詳細</h1>
+
+<%= link_to '一覧', tasks_path %>
+
+<table>
+  <tr>
+    <th><%= Task.human_attribute_name(:id) %></th>
+    <td><%= @task.id %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:title) %></th>
+    <td><%= @task.title %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:description) %></th>
+    <td><%= simple_format(h(@task.description), {}, sanitize: false) %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:priority) %></th>
+    <td><%= @task.priority %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <td><%= @task.status %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:created_at) %></th>
+    <td><%= @task.created_at %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:updated_at) %></th>
+    <td><%= @task.updated_at %></td>
+  </tr>
+</table>
+
+<%= link_to '編集', edit_task_path %>
+<%= link_to '削除', task_path(@task), method: :delete, data: {confirm: "タスク「#{@task.title}」を削除します。よろしいですか？"} %>
