@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
+  def routing_error
+    raise ActionController::RoutingError.new(params[:path])
+  end
+
   private
 
   def render_500

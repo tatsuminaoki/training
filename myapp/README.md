@@ -20,7 +20,7 @@ Mysql2
 ```
 docker-compose up --build
 ```
-2.buildが終わったら、localhost:30001/projectsで接続を確認してください。projectの一覧画面が出ると成功
+2.buildが終わったら、localhost:3001/projectsで接続を確認してください。projectの一覧画面が出ると成功
 
 3.cssとjavascriptを反映する
 ```

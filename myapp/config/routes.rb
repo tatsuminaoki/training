@@ -4,4 +4,6 @@ Rails.application.routes.draw do
     resources :projects
     resources :tasks
   end
+
+  get '*path', to: 'application#routing_error', via: :all
 end
