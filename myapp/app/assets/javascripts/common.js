@@ -58,7 +58,7 @@ function createATagOfTasks(tasks) {
     $.each(tasks, function( index, value ) {
       create_element_button = document.createElement("A");
       create_element_button.setAttribute("class", "btn btn-outline-success search-result-task-view");
-      create_element_button.setAttribute("href", `/${I18n.locale}/projects/${value.project_id}`);
+      create_element_button.setAttribute("onclick", 'moveToShowProjectPageAndSendTaskId('+value.project.id+', '+value.id+')');
       create_element_button.innerHTML = `${value.name} in ${value.group.name} on ${value.project.name}`;
       $(".search-result-tasks-list").append(create_element_button);
     });
@@ -78,3 +78,8 @@ function createATagOfProjects(projects) {
     });
   }
 }
+
+function moveToShowProjectPageAndSendTaskId(project_id, task_id) {
+  var url = `/${I18n.locale}/projects/${project_id}?show_task_id=${task_id}`
+  $(location).attr('href', url)
+};

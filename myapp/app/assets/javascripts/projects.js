@@ -30,6 +30,12 @@ window.onload = function () {
       }
     });
   }
+
+  if ($(".trigger-btn-update-task")[0]){
+    task_value = $(".trigger-btn-update-task-input").val()
+    modal_btn_id = `#btn-update-task-${task_value}`;
+    $(modal_btn_id).trigger('click');
+  }
 }
 
 function changeSizeChangeNameInput() {

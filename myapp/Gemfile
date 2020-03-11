@@ -38,6 +38,9 @@ gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'rails-i18n'
 
+# Virtus model
+gem 'virtus'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails'
