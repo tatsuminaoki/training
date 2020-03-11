@@ -59,7 +59,7 @@ function createATagOfTasks(tasks) {
       create_element_button = document.createElement("A");
       create_element_button.setAttribute("class", "btn btn-outline-success search-result-task-view");
       create_element_button.setAttribute("href", `/${I18n.locale}/projects/${value.project_id}`);
-      create_element_button.innerHTML = value.name;
+      create_element_button.innerHTML = `${value.name} in ${value.group.name} on ${value.project.name}`;
       $(".search-result-tasks-list").append(create_element_button);
     });
   }
