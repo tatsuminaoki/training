@@ -15,9 +15,7 @@ class ProjectsController < ApplicationController
       project.create!
       redirect_to project_url(project.id), alert: I18n.t('flash.success_create', model_name: 'project')
     else
-      flash[:alert] = I18n.t('flash.failed_create', model_name: 'project')
-      redirect_to projects_url, notice: project.errors.full_messages
-
+      redirect_to projects_url, alert: I18n.t('flash.failed_create', model_name: 'project')
     end
   end
 

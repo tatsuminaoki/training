@@ -21,7 +21,6 @@ myapp/docs/img/.DS_Store
 
 /myapp/public/assets
 /myapp/public/packs
-/myapp/public/packs-test
 
 /myapp/.byebug_history
 /myapp/config/master.key
