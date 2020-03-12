@@ -27,10 +27,10 @@ RSpec.describe "Tasks", type: :request do
         project = create(:project, :with_group)
         task = create(:task, group: project.groups.first)
 
-        patch task_path(locale: 'en', id: task.id), params: { task: {name: 'test1', description: 'test1', priority: 'high'} }
+        patch task_path(task.id), params: { task: {name: 'test1', description: 'test1', priority: 'high'} }
         task.reload
         expect(task.name).to eq 'test1'
-        expect(flash[:alert]).to eq 'Success to updated task'
+        expect(flash[:alert]).to eq 'Success to update task'
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe "Tasks", type: :request do
         project = create(:project, :with_group)
         task = create(:task, group: project.groups.first)
 
-        patch task_path(locale: 'en', id: task.id), params: { task: {name: nil, description: 'test1', priority: 'high'} }
+        patch task_path(task.id), params: { task: {name: nil, description: 'test1', priority: 'high'} }
         task.reload
         expect(task.name).to eq 'test'
         expect(flash[:alert]).to eq 'Failed to update task'
@@ -53,9 +53,9 @@ RSpec.describe "Tasks", type: :request do
         project = create(:project, :with_group)
         task = create(:task, group: project.groups.first)
 
-        delete task_path(locale: 'en', id: task.id)
+        delete task_path(task.id)
         expect(project.groups.first.tasks.count).to eq 0
-        expect(flash[:alert]).to eq 'Destroy to create task'
+        expect(flash[:alert]).to eq 'Deleted test task'
       end
     end
 
@@ -64,9 +64,9 @@ RSpec.describe "Tasks", type: :request do
         project = create(:project, :with_group)
         task = create(:task, group: project.groups.first)
 
-        delete task_path(locale: 'en', id: 100)
+        delete task_path(100)
         expect(project.groups.first.tasks.count).to eq 1
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(500)
       end
     end
   end

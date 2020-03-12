@@ -29,7 +29,7 @@ en:
   flash:
     success_create: "Success to create %{model_name}"
     failed_create: "Failed to create %{model_name}"
-    success_updated: "Success to updated %{model_name}"
+    success_updated: "Update to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
     success_destroy: "Destroy to create %{model_name}"
   search:

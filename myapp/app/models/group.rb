@@ -3,7 +3,7 @@ class Group < ApplicationRecord
   belongs_to :project
 
   validates :name, presence: true
-  validates :sort_number, presence: true, uniqueness: { scope: :project_id , message: I18n.t('validate.errors.groups.sort_number_and_project_id_unieueness')}
+  validates :sort_number, uniqueness: { scope: :project_id , message: I18n.t('validate.errors.groups.sort_number_and_project_id_unieueness')}
 
   DEFAULT_GROUP_NAMES = %w(Todo InProgress Review Done)
 
