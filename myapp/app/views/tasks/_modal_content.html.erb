@@ -2,7 +2,7 @@
   <div class="task-modal-name">
     <div class="task-modal-name-icon">
       <i class="fas fa-pager fa-lg"></i>
-      Name
+      <%= t('tasks.name') %>
     </div>
     <div class="task-modal-name-input">
       <%= task.text_field :name, class:"form-control", placeholder:"Task name"%>
@@ -11,7 +11,7 @@
   <div class="task-modal-description">
     <div class="task-modal-description-icon">
       <i class="far fa-edit fa-lg"></i>
-      Description
+      <%= t('tasks.description') %>
     </div>
     <div class="task-modal-description-input">
       <%= task.text_area :description, size: "5x2", class:"form-control", placeholder:"Add a more detailed description..."%>
@@ -20,7 +20,7 @@
   <div class="task-modal-priority">
     <div class="task-modal-priority-icon">
       <i class="fas fa-sort fa-lg"></i>
-      Priority
+      <%= t('tasks.priority') %>
     </div>
     <div class="task-modal-priority-input">
       <%= task.select :priority, Task.priorities.keys %>

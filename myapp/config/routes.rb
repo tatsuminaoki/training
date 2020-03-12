@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  scope '(:locale)', locale: /en|ja/ do
+    root 'projects#index'
+    resources :projects
+    resources :tasks
+  end
 
-  resources :projects
-  resources :tasks
+  get '*path', to: 'application#routing_error', via: :all
 end

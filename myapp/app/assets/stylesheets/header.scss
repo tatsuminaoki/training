@@ -1,31 +1,53 @@
 /* header */
 /* navbar */
 
-#navbar {
-  background-color: #E7514A;
-  padding: 0rem 1rem !important;
+.bd-example {
+  .navbar-light {
+    background-color: #E7514A;
+    padding: 0rem 1rem !important;
+    width: 100% !important;
+    .search_form {
+      width: 30%;
+      float: left;
+      input {
+        height: calc(1.0em + 0.75rem + 2px);
+      }
+      button {
+        color: #ffffff;
+      }
+    }
+    .brand-name {
+      width: 40%;
+      text-align: center;
+      float: left;
+      a {
+        color: #ffffff;
+        vertical-align: inherit;
+        text-decoration: none;
+      }
+    }
+    .right-menu {
+      width: 30%;
+      float: left;
+      text-align: right;
+      .user-name {
+        color: #ffffff;
+        width: 50%;
+        float: left;
+      }
+      .localize {
+        width: 50%;
+        float: left;
+        a {
+          color: #ffffff;
+          vertical-align: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
-
-#form-control {
-  height: calc(1.3em + 0.75rem + 2px);
-  margin-left: -25px;
-}
-
-#fa-search {
-  color: #FFFFFF;
-}
-
-a.navbar-brand {
-    vertical-align: inherit;
-    color: #FFFFFF !important;
-    margin-right: 184px;
-}
-
-ul.navbar-nav {
-  color: #FFFFFF;
-}
-
-div.notifications {
+.notifications {
   text-align: center;
   width: 100%;
 }

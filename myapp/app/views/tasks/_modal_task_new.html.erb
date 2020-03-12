@@ -5,7 +5,7 @@
         <%= task.hidden_field :group_id, value: group.id %>
         <%= task.hidden_field :project_id, value: group.project.id %>
         <div class="modal-header task-modal-header-new">
-          Create task
+          <%= t('tasks.create_task') %>
           <div class="task-modal-close">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">x</span>
@@ -14,7 +14,7 @@
         </div>
         <%= render partial: 'tasks/modal_content', locals: { group: group, task: task } %>
         <div class="modal-footer task-modal-footer">
-          <%= task.submit 'Add a task', class:"btn btn-success btn-sm" %>
+          <%= task.submit t('tasks.create_task_button'), class:"btn btn-success btn-sm" %>
         </div>
       <% end %>
     </div>
