@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system  do
 
-  let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now) }
-  let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1) }
-  let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2) }
+  let!(:test_task1) { create(:task1, due: Date.today,     created_at: DateTime.now) }
+  let!(:test_task2) { create(:task2, due: Date.today + 1, created_at: DateTime.now + 1) }
+  let!(:test_task3) { create(:task3, due: Date.today + 2, created_at: DateTime.now + 2) }
 
   # 下記Exceptionが頻発するので暫定対応
   # Selenium::WebDriver::Error::StaleElementReferenceError:
@@ -119,7 +119,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword conteined in all record' do
+      context 'by summary with keyword contained in all record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'task'
@@ -135,7 +135,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword not conteined in any record' do
+      context 'by summary with keyword not contained in any record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'hoge'
