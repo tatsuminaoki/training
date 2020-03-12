@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  PER = 11
   before_action :find_project, only: [:show, :update, :destroy]
 
   def show
@@ -6,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all # TODO ユーザーが所属されているプロジェクのみ絞る
+    @projects = Project.page(params[:page]).per(PER) # TODO ユーザーが所属されているプロジェクのみ絞る
   end
 
   def create

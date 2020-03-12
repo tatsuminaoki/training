@@ -10,6 +10,7 @@
     <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">
       <%= t('projects.create_new_project') %>
     </button>
+    <%= paginate @projects %>
   </div>
   <%= render 'left_side' %>
   <%= render 'modal' %>
