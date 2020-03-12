@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   before do
     driven_by(:rack_test)
-    @user = create(:user)
+    @user = create(:user, role: User.roles[:admin])
     @task = create_list(:task1, 10, user_id: @user.id)
     sign_in_with(@user)
   end
