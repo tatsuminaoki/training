@@ -21,6 +21,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params).tap { |obj| obj.user = current_user }
     if @task.save
+      @task.save_labels(params[:label].split(','))
       flash[:success] = t('flash.create.success')
       redirect_to @task
     else
@@ -30,13 +31,17 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
+    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: @task.id).select(:label_id))
   end
 
   def edit
+    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: params[:id]).select(:label_id))
   end
 
   def update
     if @task.update(task_params)
+      @task.save_labels(params[:label].split(','))
       flash[:success] = t('flash.update.success')
       redirect_to @task
     else
@@ -64,7 +69,8 @@ class TasksController < ApplicationController
       :description,
       :priority,
       :status,
-      :due
+      :due,
+      :label
     )
   end
 
