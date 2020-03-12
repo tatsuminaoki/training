@@ -1,4 +1,7 @@
 class Project < ApplicationRecord
+  paginates_per 11
+
+
   has_many :groups, dependent: :destroy
 
   validates :name, presence: true
