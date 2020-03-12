@@ -15,22 +15,31 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスク「#{task.title}」を登録しました。"
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to tasks_url, notice: "タスク「#{@task.title}」を登録しました。"
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク「#{@task.title}」を更新しました。"
+    if @task.update(task_params)
+      redirect_to tasks_url, notice: "タスク「#{@task.title}」を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @task.destroy!
-    redirect_to tasks_url, notice: "タスク「#{@task.title}」を削除しました。"
+    if @task.destroy
+      redirect_to tasks_url, notice: "タスク「#{@task.title}」を削除しました。"
+    else
+      render :index
+    end
   end
 
   private
