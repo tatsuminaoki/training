@@ -75,7 +75,7 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:summary, :status)
+    params.fetch(:search, {}).permit(:summary, :status, :label)
   end
 
   def sort_position

@@ -8,12 +8,18 @@ class Task < ApplicationRecord
 
   scope :search, -> (search_params) do
     return if search_params.blank?
-
     summary_like(search_params[:summary])
       .status_is(search_params[:status])
+      .from_label(search_params[:label])
   end
+
   scope :summary_like, -> (summary) { where('summary LIKE ?', "%#{summary}%") if summary.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
+  scope :from_label, -> (label_name) {
+    return if label_name.nil?
+    label_id = Label.where('name LIKE ?', "%#{label_name}%").select(:id)
+    where(id: task_ids = TaskLabel.where(label_id: label_id).select(:task_id))
+  }
 
   MAX_LENGTH_SUMMARY = 50
   MAX_LENGTH_DESCRIPTION = 255
