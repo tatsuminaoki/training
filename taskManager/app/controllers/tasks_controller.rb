@@ -2,14 +2,14 @@ class TasksController < ApplicationController
   before_action :task, only: %i[destroy show edit update]
 
   ORDER = %w[asc desc].freeze
-  PER = 5,freeze
+  ROWS_PER_PAGE = 5.freeze
 
   def index
     @search_params = task_search_params
     @tasks = Task.page(params[:page])
-      .per(PER)
+      .per(ROWS_PER_PAGE)
       .search(@search_params)
-      .order format('%s %s', sort_position, sort_order)
+      .order(format('%s %s', sort_position, sort_order))
   end
 
   def new
