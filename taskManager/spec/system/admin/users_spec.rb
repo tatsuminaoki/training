@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :system do
   context 'when open user index page' do
     it do
       visit admin_users_path
-
+      sleep 1
       expect(page).to have_content format('%s %s', @user.last_name, @user.first_name)
       expect(page).to have_content 10
       expect(page).to have_link I18n.t('action.detail'), href: admin_user_path(@user.id)
