@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :task, only: %i[destroy show edit update]
 
   ORDER = %w[asc desc].freeze
-  ROWS_PER_PAGE = 5.freeze
+  ROWS_PER_PAGE = 5
 
   def index
     @search_params = task_search_params
