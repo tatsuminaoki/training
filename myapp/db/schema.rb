@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_061320) do
+ActiveRecord::Schema.define(version: 2020_03_04_064752) do
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_061320) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_groups_on_project_id"
+    t.index ["sort_number", "project_id"], name: "index_groups_on_sort_number_and_project_id", unique: true
   end
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -48,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_061320) do
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.integer "priority", null: false
-    t.datetime "end_period_at"
+    t.date "end_period_at"
     t.string "creator_name"
     t.string "assignee_name"
     t.text "description"

@@ -1,11 +1,8 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
-
-  rescue_from Exception, with: :render_500
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
-
   before_action :set_locale
+
+  include ErrorHandle
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale

@@ -27,7 +27,7 @@ RSpec.describe 'Projects', type: :request do
     let(:project) { create(:project) }
     context 'Update success' do
       it 'is changing project name to test1' do
-        patch project_path(project.id), params: { project: {name: 'test1'} }
+        patch project_path(locale: 'en', id: project.id), params: { project: {name: 'test1'} }
         project.reload
         expect(project.name).to eq 'test1'
         expect(response).to be_successful
@@ -38,7 +38,7 @@ RSpec.describe 'Projects', type: :request do
       it 'is not change project name' do
         original_project_name = project.name
 
-        patch project_path(project.id), params: { project: {name: nil} }
+        patch project_path(locale: 'en', id: project.id), params: { project: {name: nil} }
         project.reload
         expect(project.name).to eq original_project_name
       end
@@ -51,7 +51,7 @@ RSpec.describe 'Projects', type: :request do
         Project.new(name: 'test').create!
         project = Project.first
 
-        delete project_path(project.id)
+        delete project_path(locale: 'en', id: project.id)
         expect(Project.count).to eq 0
         expect(Group.count).to eq 0
         expect(flash[:alert]).to eq 'Closed test project'
@@ -63,9 +63,10 @@ RSpec.describe 'Projects', type: :request do
       it 'is not delete project and reference groups' do
         Project.new(name: 'test').create!
 
-        delete project_path(10000)
+        delete project_path(locale: 'en', id: 10000)
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
+        expect(response).to have_http_status(404)
       end
     end
   end

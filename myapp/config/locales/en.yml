@@ -16,10 +16,19 @@ en:
     name: "Name"
     description: "Description"
     priority: "Priority"
-  errors:
+    end_period_at: "End period"
+    group_name: "Group name"
+    creator_name: "Creator name"
+    assignee_name: "Assignee name"
+  validate:
+    errors:
+      groups:
+        sort_number_and_project_id_unieueness: "Already same sort_number"
+      tasks:
+        end_period_at_is_old_than_current: "End period date is old than current"
   flash:
     success_create: "Success to create %{model_name}"
     failed_create: "Failed to create %{model_name}"
-    success_updated: "Update to updated %{model_name}"
+    success_updated: "Success to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
-    success_destroy: "Destroy to create %{model_name}"
+    success_destroy: "Closed %{target_name} %{model_name}"

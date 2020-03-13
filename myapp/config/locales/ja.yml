@@ -16,7 +16,16 @@ ja:
     name: "タイトル"
     description: "コメント"
     priority: "優先順位"
-  errors:
+    end_period_at: "終了期限"
+    group_name: "グループ名"
+    creator_name: "作成者"
+    assignee_name: "担当者"
+  validate:
+    errors:
+      groups:
+        sort_number_and_project_id_unieueness: "すでに同じsort_numberが存在しています"
+      tasks:
+        end_period_at_is_old_than_current: "終了期限が現在より過去で設定されてます。"
   flash:
     success_create: "%{model_name} 作成 成功!!"
     failed_create: "%{model_name} 作成 失敗"
