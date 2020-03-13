@@ -34,6 +34,7 @@ describe 'タスク管理機能', type: :system do
 
     it 'タスクが新規作成される' do
       expect(page).to have_content '新規タスク'
+      expect(Task.count).to eq 2
     end
   end
 
@@ -58,6 +59,7 @@ describe 'タスク管理機能', type: :system do
 
     it 'タスクが削除される' do
       expect(page).to have_no_content task[:priority]
+      expect(Task.count).to eq 0
     end
   end
 end
