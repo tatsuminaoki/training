@@ -29,7 +29,7 @@ describe 'タスク管理機能', type: :system do
     before do
       visit new_task_path
       fill_in 'task_title', with: '新規タスク'
-      click_button 'Create Task'
+      click_button '登録する'
     end
 
     it 'タスクが新規作成される' do
@@ -42,7 +42,7 @@ describe 'タスク管理機能', type: :system do
     before do
       visit edit_task_path(task)
       fill_in 'task_title', with: '編集した'
-      click_button 'Update Task'
+      click_button '更新する'
     end
 
     it 'タスクが編集される' do
