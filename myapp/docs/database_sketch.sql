@@ -33,11 +33,13 @@ CREATE INDEX projects_name_idx ON PROJECTS (name);
 
 -- create user_projects table, this table is middle table
 CREATE TABLE USER_PROJECTS(
+  id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   project_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  PRIMARY KEY (user_id, project_id),
+  PRIMARY KEY (id),
+  UNIQUE(id)
   FOREIGN KEY (project_id) REFERENCES PROJECTS(id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -90,11 +92,13 @@ CREATE TABLE TASKS(
 
 -- create task_labels table, this table is middle table
 CREATE TABLE TASK_LABELS(
+  id INT NOT NULL AUTO_INCREMENT,
   task_id INT NOT NULL,
   label_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  PRIMARY KEY (task_id, label_id),
+  PRIMARY KEY (id),
+  UNIQUE(id),
   FOREIGN KEY (task_id) REFERENCES TASKS(id) ON DELETE CASCADE,
   FOREIGN KEY (label_id) REFERENCES LABELS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

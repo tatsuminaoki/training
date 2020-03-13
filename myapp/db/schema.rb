@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_152858) do
+ActiveRecord::Schema.define(version: 2020_03_13_040640) do
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -62,10 +62,29 @@ ActiveRecord::Schema.define(version: 2020_03_10_152858) do
     t.index ["name"], name: "index_tasks_on_name"
   end
 
+  create_table "user_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_user_projects_on_project_id"
+    t.index ["user_id"], name: "index_user_projects_on_user_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "nickname", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "groups", "projects"
   add_foreign_key "labels", "projects"
   add_foreign_key "task_labels", "labels"
   add_foreign_key "task_labels", "tasks"
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "labels"
+  add_foreign_key "user_projects", "projects"
+  add_foreign_key "user_projects", "users"
 end
