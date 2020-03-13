@@ -1,6 +1,6 @@
-<h1>タスク一覧</h1>
+<h1><%= t('headline.task.index') %></h1>
 
-<%= link_to '新規登録', new_task_path %>
+<%= link_to t('crud.create'), new_task_path %>
 
 <table>
   <tr>
@@ -12,11 +12,11 @@
   <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.title, task_path(task) %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.status %></td>
+      <td><%= task.human_attribute_enum(:priority) %></td>
+      <td><%= task.human_attribute_enum(:status) %></td>
       <td>
-        <%= link_to '編集', edit_task_path(task) %>
-        <%= link_to '削除', task_path(task), method: :delete, data: {confirm: "タスク「#{task.title}」を削除します。よろしいですか？"} %>
+        <%= link_to t('crud.update'), edit_task_path(task) %>
+        <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', :task => task.title)} %>
       </td>
     </tr>
   <% end %>

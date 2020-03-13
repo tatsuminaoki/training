@@ -4,8 +4,8 @@
   <div><%= f.label :description %></div>
   <div><%= f.text_area :description, rows: 5, id: 'task_description' %></div>
   <div><%= f.label :priority %></div>
-  <div><%= f.select :priority, Task.priorities.keys %></div>
+  <div><%= f.select :priority, Task.enum_options_for_select(:priority) %></div>
   <div><%= f.label :status %></div>
-  <div><%= f.select :status, Task.statuses.keys %></div>
+  <div><%= f.select :status, Task.enum_options_for_select(:status) %></div>
   <%= f.submit %>
 <% end %>

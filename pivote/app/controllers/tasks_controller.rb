@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_url, notice: "タスク「#{@task.title}」を登録しました。"
+      redirect_to tasks_url, notice: t('flash.task.create', :task => @task.title)
     else
       render :new
     end
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_url, notice: "タスク「#{@task.title}」を更新しました。"
+      redirect_to tasks_url, notice: t('flash.task.update', :task => @task.title)
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to tasks_url, notice: "タスク「#{@task.title}」を削除しました。"
+      redirect_to tasks_url, notice: t('flash.task.delete', :task => @task.title)
     else
       render :index
     end

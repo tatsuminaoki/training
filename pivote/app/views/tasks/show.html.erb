@@ -1,6 +1,6 @@
-<h1>タスクの詳細</h1>
+<h1><%= t('headline.task.show') %></h1>
 
-<%= link_to '一覧', tasks_path %>
+<%= link_to t('link.all'), tasks_path %>
 
 <table>
   <tr>
@@ -33,5 +33,5 @@
   </tr>
 </table>
 
-<%= link_to '編集', edit_task_path %>
-<%= link_to '削除', task_path(@task), method: :delete, data: {confirm: "タスク「#{@task.title}」を削除します。よろしいですか？"} %>
+<%= link_to t('crud.update'), edit_task_path %>
+<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', :task => @task.title)} %>
