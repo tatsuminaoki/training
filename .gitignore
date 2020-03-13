@@ -31,3 +31,4 @@ myapp/docs/img/.DS_Store
 /myapp/yarn.lock
 
 /myapp/*.swp
+*.swp

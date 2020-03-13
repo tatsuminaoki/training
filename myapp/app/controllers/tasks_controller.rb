@@ -4,10 +4,10 @@ class TasksController < ApplicationController
   def create
     task = Task.new(request_params)
     if task.save
-      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
+      redirect_to project_url(id: params[:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
     else
       flash[:alert] = I18n.t('flash.failed_create', model_name: 'task')
-      redirect_to project_url(id: params[:task][:project_id]), notice: task.errors.full_messages
+      redirect_to project_url(id: params[:project_id]), notice: task.errors.full_messages
 
     end
   end
