@@ -22,8 +22,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update(request_params)
-    if @project.valid?
-      @project.save
+    if @project.save
       render status: 200, json: {}
     else
       render status: 400, json: {}
@@ -33,13 +32,13 @@ class ProjectsController < ApplicationController
   def destroy
     project_name = @project.name
     @project.destroy
-    redirect_to projects_url, alert: I18n.t('flash.success_destroy', model_name: 'project')
+    redirect_to projects_url, alert: I18n.t('flash.success_destroy', target_name: project_name, model_name: 'project')
   end
 
   private
 
   def find_project
-    @project ||= Project.find_by!(id: params[:id])
+    @project ||= Project.find(params[:id])
   end
 
   def request_params

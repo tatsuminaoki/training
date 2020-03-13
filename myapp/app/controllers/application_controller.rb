@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
-  include ErrorHandle
-
+  skip_before_action :verify_authenticity_token
   before_action :set_locale
+
+  include ErrorHandle
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -9,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { locale: I18n.locale }
+  end
+
+  def routing_error
+    raise ActionController::RoutingError.new(params[:path])
   end
 
   private
@@ -20,5 +25,4 @@ class ApplicationController < ActionController::Base
   def render_404
     render 'errors/error_404', status: :not_found
   end
-
 end
