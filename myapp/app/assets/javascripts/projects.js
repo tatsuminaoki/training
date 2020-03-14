@@ -19,7 +19,7 @@ window.onload = function () {
           contentType: 'application/json; charset=UTF-8',
           data: JSON.stringify({name: $('.change-name-input').val()})
         }).done(function(data, textStatus, jqXHR) {
-          $('title').html(`${$('.change-name-input').val()}|TMS`);
+          $('title').html(`${$('.change-name-input').val()}|TreasureMap`);
           changeSizeChangeNameInput();
         }).fail(function(data, textStatus, jqXHR) {
           changeSizeChangeNameInput();

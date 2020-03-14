@@ -1,10 +1,16 @@
 ## Trainingは以下のページを参考に行っております。
 https://github.com/Fablic/training/tree/use_docker
 
-## TMS
+## TreasureMap
 
-This is TMS(Task Management System), it's also created for rails training of rakuma team
+### What is it?
+- This is TreasureMap, it is Task Management System
 
+### Why
+- Project success is like that found Treasure, so Task Management System is like to Treasure map for that found Tresure
+- Explorer who using service users is make Treasure map via task as done
+
+### Technical Environment
 * Ruby version
 2.6.5
 
@@ -18,7 +24,6 @@ Mysql2
 ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
 - プロフェクトの一覧ページ
 ![Project index](https://user-images.githubusercontent.com/18366817/74903204-a5a9a580-53eb-11ea-9c71-341ba39146d0.jpg)
-
 
 - タスク一覧ページ
 ![Indexpage](https://user-images.githubusercontent.com/18366817/74700095-ee275e80-5245-11ea-8db0-4a3854fe0393.jpg)
@@ -52,7 +57,7 @@ CREATE TABLE USERS(
   id INT NOT NULL AUTO_INCREMENT,
   nickname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  encrypted_password VARCHAR(255) NOT NULL,
+  password_digest VARCHAR(255) NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   PRIMARY KEY (id),
