@@ -16,7 +16,7 @@ class Task < ApplicationRecord
   scope :summary_like, -> (summary) { where('summary LIKE ?', "%#{summary}%") if summary.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
   scope :from_label, -> (label_name) {
-    return if label_name.nil?
+    return if label_name.empty?
     label_id = Label.where('name LIKE ?', "%#{label_name}%").select(:id)
     where(id: task_ids = TaskLabel.where(label_id: label_id).select(:task_id))
   }

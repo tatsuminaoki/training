@@ -12,6 +12,7 @@ RSpec.describe 'Tasks', type: :system  do
   before do
     sign_in_with(user)
   end
+  sleep 2
   let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now  , user: user) }
   let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1, user: user) }
   let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2, user: user) }
@@ -117,7 +118,7 @@ RSpec.describe 'Tasks', type: :system  do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'task1'
-          click_on I18n.t('action.search')
+          click_on I18n.t('action.search.task')
         end
 
         it 'should find task1' do
@@ -133,7 +134,7 @@ RSpec.describe 'Tasks', type: :system  do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'task'
-          click_on I18n.t('action.search')
+          click_on I18n.t('action.search.task')
         end
 
         it 'should find task1, task2, task3' do
@@ -149,7 +150,7 @@ RSpec.describe 'Tasks', type: :system  do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'hoge'
-          click_on I18n.t('action.search')
+          click_on I18n.t('action.search.task')
         end
 
         it 'should not find anything' do
@@ -165,7 +166,7 @@ RSpec.describe 'Tasks', type: :system  do
         before do
           visit tasks_path
           select I18n.t('tasks.index.status.done'), from: "search_status"
-          click_on I18n.t('action.search')
+          click_on I18n.t('action.search.task')
         end
 
         it 'should find task3' do
@@ -182,7 +183,7 @@ RSpec.describe 'Tasks', type: :system  do
         before do
           visit tasks_path
           select I18n.t('tasks.index.status.reopen'), from: "search_status"
-          click_on I18n.t('action.search')
+          click_on I18n.t('action.search.task')
         end
 
         it 'should find task3' do

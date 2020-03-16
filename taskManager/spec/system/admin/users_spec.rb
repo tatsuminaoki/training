@@ -4,13 +4,13 @@ RSpec.describe "Users", type: :system do
   before do
     @user = create(:user, role: User.roles[:admin])
     @task = create_list(:task1, 10, user_id: @user.id)
+    sleep 1
     sign_in_with(@user)
   end
 
   context 'when open user index page' do
     it do
       visit admin_users_path
-      sleep 1
       expect(page).to have_content format('%s %s', @user.last_name, @user.first_name)
       expect(page).to have_content 10
       expect(page).to have_link I18n.t('action.detail'), href: admin_user_path(@user.id)
