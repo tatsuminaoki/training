@@ -34,4 +34,4 @@
 </table>
 
 <%= link_to t('crud.update'), edit_task_path %>
-<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', :task => @task.title)} %>
+<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', task: @task.title)} %>

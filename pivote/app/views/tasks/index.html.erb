@@ -16,7 +16,7 @@
       <td><%= task.human_attribute_enum(:status) %></td>
       <td>
         <%= link_to t('crud.update'), edit_task_path(task) %>
-        <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', :task => task.title)} %>
+        <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', task: task.title)} %>
       </td>
     </tr>
   <% end %>
