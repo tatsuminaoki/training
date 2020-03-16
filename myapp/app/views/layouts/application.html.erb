@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= favicon_link_tag 'teasure-map-icon.png'%>
     <title class="treasure-map-title">
       <% if @project.present? %>
         <%= @project.name %> | TreasureMap
       <% else %>
-       TreasureMap
+        Projects | TreasureMap
       <% end %>
     </title>
     <%= csrf_meta_tags %>

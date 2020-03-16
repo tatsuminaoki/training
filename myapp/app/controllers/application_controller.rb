@@ -5,12 +5,18 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  helper_method :current_user
+
   def set_locale
     I18n.locale = extract_locale || I18n.default_locale
   end
 
   def default_url_options(options = {})
     { locale: I18n.locale }
+  end
+
+  def current_user
+    @current_user = User.first
   end
 
   private
