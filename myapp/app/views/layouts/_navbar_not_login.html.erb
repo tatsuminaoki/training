@@ -1,0 +1,26 @@
+<div class="bd-example-not-login">
+  <nav class="navbar navbar-light" id='navbar'>
+    <div class="brand-name">
+      <i class="fas fa-route fa-lg"></i>
+      <a href="/">
+        TreasureMap
+      </a>
+    </div>
+    <div class="right-menu">
+      <div class="log-in">
+        <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">Log In</button>
+      </div>
+      <div class="localize">
+        <% if I18n.locale == :ja %>
+          <%= link_to url_for(locale: :en) do %>
+            English
+          <% end %>
+        <% else %>
+          <%= link_to url_for(locale: :ja) do %>
+            日本語
+          <% end %>
+        <% end %>
+      <div>
+    </div>
+  </nav>
+</div>

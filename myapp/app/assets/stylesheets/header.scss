@@ -1,7 +1,59 @@
 /* header */
 /* navbar */
 
-.bd-example {
+.bd-example-not-login {
+  .navbar-light {
+    background-color: #9CBEFA;
+    width: 100% !important;
+    .brand-name {
+      font-size: 35px;
+      width: 40%;
+      float: left;
+      .fa-route {
+        color: #FFFFFF;
+      }
+      a {
+        font-weight: bold;
+        color: #FFFFFF;
+        vertical-align: inherit;
+        text-decoration: none;
+      }
+    }
+    .right-menu {
+      width: 15%;
+      float: left;
+      text-align: right;
+      .log-in {
+        width: 70%;
+        color: #FFFFFF;
+        float: left;
+        height: 40px;
+        button {
+          background-color: #9CBEFA;
+          border-color: #9CBEFA;
+          color: #FFFFFF;
+          width: 70%;
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: -5px;
+        }
+      }
+      .localize {
+        width: 30%;
+        height: 100%;
+        padding: 5px;
+        float: left;
+        a {
+          color: #FFFFFF;
+          vertical-align: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.bd-example-loging {
   .navbar-light {
     background-color: #9CBEFA;
     width: 100% !important;
@@ -32,6 +84,8 @@
         color: #ffffff;
       }
       a {
+        font-style: italic;
+        font-family: cursive;
         color: #ffffff;
         vertical-align: inherit;
         text-decoration: none;
@@ -58,6 +112,7 @@
     }
   }
 }
+
 .notifications {
   text-align: center;
   width: 100%;
