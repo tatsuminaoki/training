@@ -1,0 +1,20 @@
+ja:
+  headline:
+    task:
+      index: タスク一覧
+      new: タスクの新規登録
+      show: タスクの詳細
+      edit: タスクの編集
+  crud:
+    create: 登録
+    update: 編集
+    delete: 削除
+  flash:
+    task:
+      create: タスク「%{task}」を登録しました。
+      update: タスク「%{task}」を更新しました。
+      delete: タスク「%{task}」を削除しました。
+  alert:
+    confirm: タスク「%{task}」を削除します。よろしいですか？
+  link:
+    all: 一覧

@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: 名称
+        description: 説明
+        priority: 優先度
+        status: ステータス
+        deadline: 期限
+        created_at: 作成日時
+        updated_at: 更新日時
+      task/priority:
+        low: 低
+        middle: 中
+        high: 高
+      task/status:
+        waiting: 未着手
+        doing: 着手
+        done: 完了

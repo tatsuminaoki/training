@@ -1,5 +1,5 @@
-<h1>タスクの編集</h1>
+<h1><%= t('headline.task.edit') %></h1>
 
-<%= link_to '一覧', tasks_path %>
+<%= link_to t('link.all'), tasks_path %>
 
 <%= render partial: 'form', locals: {task: @task} %>

@@ -30,4 +30,22 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  headline:
+    task:
+      index: All tasks
+      new: Create task
+      show: Task detail
+      edit: Edit task
+  crud:
+    create: Create
+    update: Update
+    delete: Delete
+  flash:
+    task:
+      create: Created 「%{task}」.
+      update: Updated 「%{task}」.
+      delete: Deleted 「%{task}」.
+  alert:
+    confirm: Delete 「%{task}」?
+  link:
+    all: all
