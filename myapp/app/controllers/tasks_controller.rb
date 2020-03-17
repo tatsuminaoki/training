@@ -1,39 +1,36 @@
-class TasksController < ApplicationController
-  before_action :find_task, only: [:update, :destroy]
+# frozen_string_literal: true
 
-  def create
+class TasksController < ApplicationController
+  before_action :find_task, only: %i[update destroy]
+
+  def create # rubocop:disable Metrics/AbcSize
     task = Task.new(request_params)
-    if task.valid?
-      task.save
+    if task.save
       redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
     else
       redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.failed_create', model_name: 'task')
     end
   end
 
-  def update
-    @task.update(request_params)
-    if @task.valid?
-      @task.save
-      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.success_updated', model_name: 'task')
+  def update # rubocop:disable Metrics/AbcSize
+    @find_task.update(request_params)
+    if @find_task.save
+      redirect_to project_url(id: @find_task.group.project.id), alert: I18n.t('flash.success_updated', model_name: 'task')
     else
-      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.failed_update', model_name: 'task')
+      redirect_to project_url(id: @find_task.group.project.id), alert: I18n.t('flash.failed_update', model_name: 'task')
     end
   end
 
-
   def destroy
-    task_name = @task.name
-    project_id = @task.group.project.id
-    @task.destroy
+    project_id = @find_task.group.project.id
+    @find_task.destroy
     redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', model_name: 'task')
   end
-
 
   private
 
   def find_task
-    @task ||= Task.find_by!(id: params[:id])
+    @find_task ||= Task.find_by!(id: params[:id])
   end
 
   def request_params
