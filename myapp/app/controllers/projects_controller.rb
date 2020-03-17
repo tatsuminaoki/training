@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.page(params[:page]) # TODO ユーザーが所属されているプロジェクのみ絞る
+    @page = params[:page]
   end
 
   def create

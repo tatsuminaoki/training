@@ -18,11 +18,11 @@
         </div>
         <div class="localize">
           <% if I18n.locale == :ja %>
-            <%= link_to url_for(locale: :en) do %>
+            <%= link_to url_for(locale: :en,  params: { page: @page } ) do %>
               English
             <% end %>
           <% else %>
-            <%= link_to url_for(locale: :ja) do %>
+            <%= link_to url_for(locale: :ja, params: { page: @page} ) do %>
               日本語
             <% end %>
           <% end %>
