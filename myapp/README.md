@@ -9,7 +9,6 @@ https://github.com/Fablic/training/tree/use_docker
 ### Why
 - Project success is like that found Treasure, so Task Management System is like to Treasure map for that found Tresure
 - Explorer who using service users is make Treasure map via task as done
-- Finally, explorer is found tresure.
 
 ### Technical Environment
 * Ruby version

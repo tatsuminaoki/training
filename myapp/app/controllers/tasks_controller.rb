@@ -21,12 +21,14 @@ class TasksController < ApplicationController
     end
   end
 
+
   def destroy
     task_name = @task.name
     project_id = @task.group.project.id
     @task.destroy
     redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', model_name: 'task')
   end
+
 
   private
 

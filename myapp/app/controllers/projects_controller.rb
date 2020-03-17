@@ -6,13 +6,12 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = current_user.projects.page(params[:page])
+    @projects = Project.page(params[:page]) # TODO ユーザーが所属されているプロジェクのみ絞る
   end
 
   def create
     project = Project.new(request_params)
     if project.valid?
-      project.users << current_user
       project.create!
       redirect_to project_url(project.id), alert: I18n.t('flash.success_create', model_name: 'project')
     else
@@ -39,7 +38,7 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project ||= current_user.projects.find_by!(id: params[:id])
+    @project ||= Project.find_by!(id: params[:id])
   end
 
   def request_params

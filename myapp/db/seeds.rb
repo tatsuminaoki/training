@@ -15,7 +15,7 @@ project_marry.create!
 project_friends = Project.new(name: 'Friends')
 project_friends.create!
 
-project_private = Project.new(name: 'Husband Private')
+project_private = Project.new(name: 'Private')
 project_private.create!
 
 UserProject.new(user: husband, project: project_marry).save
