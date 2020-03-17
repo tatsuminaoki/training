@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   include ErrorHandle
 
   before_action :set_locale
+  before_action :current_user
+  before_action :require_sign_in!
+  helper_method :signed_in?
 
   def set_locale
     I18n.locale = extract_locale || I18n.default_locale
@@ -20,18 +23,19 @@ class ApplicationController < ActionController::Base
     @current_user = user
   end
 
-  def sign_out
-    cookies.delete(:user_remember_token)
+  def current_user
+     remember_token = User.encrypt(cookies[:user_remember_token])
+    @current_user ||= User.find_by(remember_token: remember_token)
+  end
+
+  def signed_in?
+    @current_user.present?
   end
 
   private
 
-  def render_500
-    render 'errors/error_500', status: :internal_server_error
-  end
-
-  def render_404
-    render 'errors/error_404', status: :not_found
+  def require_sign_in!
+    redirect_to login_path unless signed_in?
   end
 
   def extract_locale

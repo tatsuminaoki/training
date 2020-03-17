@@ -8,16 +8,11 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(session_params[:password])
       sign_in(@user)
-      redirect_to root_path
+      redirect_to projects_path
     else
       flash.now[:danger] = t('.flash.invalid_login')
       render 'new'
     end
-  end
-
-  def destroy
-    sign_out
-    redirect_to login_path
   end
 
   private
