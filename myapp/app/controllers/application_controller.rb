@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   private
 
   def require_sign_in!
-    redirect_to login_path unless signed_in?
+    redirect_to root_path unless signed_in?
   end
 
   def extract_locale
