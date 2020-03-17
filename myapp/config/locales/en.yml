@@ -49,4 +49,5 @@ en:
     login_submit: "Log In"
     login_input_email: "Enter email"
     login_input_password: "Enter password"
-
+  logout:
+    logout_submit: "Log Out"

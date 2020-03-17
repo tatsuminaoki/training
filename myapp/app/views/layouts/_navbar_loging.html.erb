@@ -14,7 +14,7 @@
     </div>
     <div class="right-menu">
       <div class="user-name">
-        <%= @current_user.nickname %>
+        <%= render 'layouts/dropdown_show_user_info' %>
       </div>
       <div class="localize">
         <% if I18n.locale == :ja %>

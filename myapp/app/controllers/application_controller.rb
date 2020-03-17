@@ -32,6 +32,11 @@ class ApplicationController < ActionController::Base
     @current_user.present?
   end
 
+  def sign_out
+    @current_user = nil
+    cookies.delete(:user_remember_token)
+  end
+
   private
 
   def require_sign_in!

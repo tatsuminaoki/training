@@ -49,6 +49,8 @@ ja:
     login_submit: "ログイン"
     login_input_email: "メールアドレスを入力"
     login_input_password: "パスワードを入力"
+  logout:
+    logout_submit: "ログアウト"
   views:
     pagination:
       first: "&laquo; 最初"
