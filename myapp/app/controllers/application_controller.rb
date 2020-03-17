@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ErrorHandle
 
+  before_action :verify_authenticity_token
   before_action :set_locale
 
   def set_locale
@@ -9,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { locale: I18n.locale }
+  end
+
+  def routing_error
+    raise ActionController::RoutingError.new(params[:path])
   end
 
   private
