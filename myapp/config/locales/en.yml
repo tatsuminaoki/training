@@ -32,6 +32,7 @@ en:
     success_updated: "Update to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
     success_destroy: "Destroy to create %{model_name}"
+    invalid_login: "メールアドレス or パスワードが間違っています。"
   search:
     tasks:
       title: "TASKS"
@@ -39,4 +40,13 @@ en:
     projects:
       title: "PROJECTS"
       no_data: "No data projects"
+  home:
+    content: "Treasure Map lets you work more collaboratively and get more done."
+    content_sub: "Treasure Map’s projects, lists, and tasks enable you to organize and prioritize your projects in a fun, flexible, and rewarding way."
+    log_in_button: "Log In"
+  login:
+    login_name: "Log in to TreasureMap"
+    login_submit: "Log In"
+    login_input_email: "Enter email"
+    login_input_password: "Enter password"
 

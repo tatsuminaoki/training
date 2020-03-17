@@ -8,7 +8,7 @@
     </div>
     <div class="right-menu">
       <div class="log-in">
-        <button type="button" class="btn btn-success" id="btn-create-project" data-toggle="modal" data-target="#create-project">Log In</button>
+        <%= button_to t('home.log_in_button'), login_path, method: :get, class:"btn btn-success" %>
       </div>
       <div class="localize">
         <% if I18n.locale == :ja %>

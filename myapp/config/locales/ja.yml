@@ -32,6 +32,7 @@ ja:
     success_updated: "%{model_name} 更新 成功!!"
     failed_update: "%{model_name} 更新 失敗"
     success_destroy: "%{model_name} 削除 成功!!"
+    invalid_login: "メールアドレス or パスワードが間違っています。"
   search:
     tasks:
       title: "タスク"
@@ -39,6 +40,15 @@ ja:
     projects:
       title: "プロジェクト"
       no_data: "プロジェクトを見つかりませんでした"
+  home:
+    content: "Treasure Mapを使用すると、より共同で作業を行い、より多くの作業を完了できます"
+    content_sub: "Treasure Mapのプロジェクト、リスト、およびタスクを使用すると、楽しく柔軟でやりがいのある方法でプロジェクトを整理し、優先順位を付けることができます。"
+    log_in_button: "ログイン"
+  login:
+    login_name: "TreasureMapへ ログイン"
+    login_submit: "ログイン"
+    login_input_email: "メールアドレスを入力"
+    login_input_password: "パスワードを入力"
   views:
     pagination:
       first: "&laquo; 最初"

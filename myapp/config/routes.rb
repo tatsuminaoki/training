@@ -5,5 +5,9 @@ Rails.application.routes.draw do
     resources :projects, only: [:show, :index, :create, :update, :destroy]
     resources :tasks, only: [:create, :update, :destroy]
     resources :search, only: [:index]
+
+    get '/login' => 'sessions#new'
+    post '/login' => 'sessions#create'
+    delete '/login' => 'sessions#destroy'
   end
 end

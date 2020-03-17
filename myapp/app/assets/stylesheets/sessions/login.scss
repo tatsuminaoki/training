@@ -1,0 +1,72 @@
+.login {
+  width: 100%;
+  min-height: 800px;
+  background: image-url("login-main-background.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  .localize {
+    text-align: right;
+    width: 100%;
+    padding-right: 50px;
+    float: left;
+    a {
+      vertical-align: inherit;
+      text-decoration: none;
+    }
+  }
+  .login-application-title {
+    color: #9CBEFA;
+    float: left;
+    width: 100%;
+    height: 90px;
+    text-align: center;
+    margin-top: 45px;
+  }
+  .login-form_area{
+    float: left;
+    width: 100%;
+    .login-form {
+      padding: 10px;
+      margin: auto;
+      background-color: #ffffff;
+      min-width: 300px;
+      width: 27%;
+      height: 250px;
+      box-shadow: 1px 1px 5px 0px grey;
+      .login-title {
+        margin-top: 20px;
+        color: #5D687D;
+        text-align: center;
+        font-weight: bold;
+        vertical-align: inherit;
+        text-decoration: none;
+      }
+    }
+    .login-input {
+      width: 100%;
+      .login-input-email {
+        input {
+          background-color: #F8F9FA;
+          margin: 20px 0px 0px 35px;
+          float: left;
+          width: 80%;
+        }
+      }
+      .login-input-password {
+        input {
+          background-color: #F8F9FA;
+          margin: 20px 0px 0px 35px;
+          float: left;
+          width: 80%;
+        }
+      }
+      .login-input-submit {
+        input {
+          margin: 20px 0px 0px 35px;
+          float: left;
+          width: 80%;
+        }
+      }
+    }
+  }
+}

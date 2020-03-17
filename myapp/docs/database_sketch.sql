@@ -12,6 +12,7 @@ CREATE TABLE USERS(
   nickname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password_digest VARCHAR(255) NOT NULL,
+  remember_token VARCHAR(255) NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   PRIMARY KEY (id),

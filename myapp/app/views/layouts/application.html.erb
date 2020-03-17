@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= favicon_link_tag 'teasure-map-icon.png'%>
     <title class="treasure-map-title">
       <% if @project.present? %>
         <%= @project.name %> | TreasureMap
@@ -25,7 +26,7 @@
       </div>
     <% end %>
     <%= render 'layouts/search_result' %>
-    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/header' %>
     <%= yield %>
   </body>
 </html>
