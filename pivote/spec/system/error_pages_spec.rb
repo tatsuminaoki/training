@@ -3,8 +3,12 @@
 require 'rails_helper'
 
 describe 'エラーページ表示機能', type: :system do
-  it '404ページに遷移する' do
-    # 存在しないページにアクセス
+  it '存在しないタスクにアクセスすると、404ページに遷移する' do
+    visit task_path(id: 999_999)
+    expect(page).to have_content 'Not Found'
+  end
+
+  it '存在しないページにアクセスすると、404ページに遷移する' do
     visit '/power!!!'
     expect(page).to have_content 'Not Found'
   end
