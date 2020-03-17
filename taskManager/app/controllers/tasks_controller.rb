@@ -1,16 +1,17 @@
 class TasksController < ApplicationController
-  before_action :task, only: [:destroy, :show, :edit, :update]
+  before_action :task, only: %i[destroy show edit update]
 
-  ORDER = [ 'asc', 'desc' ]
-  PER = 5
+  ORDER = %w[asc desc].freeze
+  ROWS_PER_PAGE = 5
 
   def index
     @search_params = task_search_params
-    @tasks = Task.eager_load(:user)
+    @tasks = Task.preload(:user)
       .where('users.id = ?', current_user.id)
-      .page(params[:page]).per(PER)
+      .page(params[:page])
+      .per(ROWS_PER_PAGE)
       .search(@search_params)
-      .order('tasks.' + sort_position + ' ' + sort_order)
+      .order(format('%s %s', sort_position, sort_order))
   end
 
   def new

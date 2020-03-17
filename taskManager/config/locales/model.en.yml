@@ -22,7 +22,7 @@ en:
       task:
         summary: Summary
         description: Description
-        user_name: User
+        user_name: UserName
         priority: Priority
         status: Stats
         due: Due Date
