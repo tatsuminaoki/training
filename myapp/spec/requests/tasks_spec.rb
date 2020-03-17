@@ -28,17 +28,17 @@ RSpec.describe 'Tasks', type: :request do
     let(:task) { create(:task, group: project.groups.first) }
     context 'Update success' do
       it 'is changing task name to test1' do
-        patch task_path(task.id), params: { task: {name: 'test1', description: 'test1', priority: 'high'} }
+        patch task_path(locale: 'en', id: task.id), params: { task: {name: 'test1', description: 'test1', priority: 'high'} }
         task.reload
         expect(task.name).to eq 'test1'
-        expect(flash[:alert]).to eq 'Success to update task'
+        expect(flash[:alert]).to eq 'Success to updated task'
         expect(response.status).to eq 302
       end
     end
 
     context 'Task creating is failed because, did not put task name' do
       it 'is not change task name' do
-        patch task_path(task.id), params: { task: {name: nil, description: 'test1', priority: 'high'} }
+        patch task_path(locale: 'en', id: task.id), params: { task: {name: nil, description: 'test1', priority: 'high'} }
         task.reload
         expect(task.name).to eq 'test task name'
         expect(flash[:alert]).to eq 'Failed to update task'
@@ -52,9 +52,9 @@ RSpec.describe 'Tasks', type: :request do
     let(:task) { create(:task, group: project.groups.first) }
     context 'Project deleting is success' do
       it 'is deleting taks' do
-        delete task_path(task.id)
+        delete task_path(locale: 'en', id: task.id)
         expect(project.groups.first.tasks.count).to eq 0
-        expect(flash[:alert]).to eq 'Deleted test task name task'
+        expect(flash[:alert]).to eq 'Closed test task name task'
         expect(response.status).to eq 302
       end
     end
@@ -63,9 +63,9 @@ RSpec.describe 'Tasks', type: :request do
       it 'is not delete task' do
         project
         task
-        delete task_path(100)
+        delete task_path(locale: 'en', id: 100)
         expect(project.groups.first.tasks.count).to eq 1
-        expect(response).to have_http_status(500)
+        expect(response).to have_http_status(404)
       end
     end
   end

@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_152858) do
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.integer "priority", null: false
-    t.datetime "end_period_at"
+    t.date "end_period_at"
     t.string "creator_name"
     t.string "assignee_name"
     t.text "description"
