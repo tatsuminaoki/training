@@ -1,0 +1,9 @@
+<div class="user-info">
+  <button class="btn btn-primary log-out-dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <%= @current_user.nickname %>
+  </button>
+  <div class="dropdown-menu log-out-dropdown" aria-labelledby="dropdownMenuButton">
+    <%= button_to t('logout.logout_submit'), logout_path, method: :delete, class:"btn delete-button" %>
+  </div>
+</div>
+

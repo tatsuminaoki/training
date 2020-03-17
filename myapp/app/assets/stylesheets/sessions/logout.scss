@@ -1,0 +1,19 @@
+.user-info {
+  button {
+    background-color: #A2BEF5;
+    border-color: #A2BEF5;
+  }
+  .log-out-dropdown {
+    position: absolute;
+    transform: translate3d(-4px, 38px, 0px);
+    top: 5px;
+    left: 1100px;
+    text-align: center;
+    background-color: #F4F5F7;
+    border-color: #F4F5F7;
+    .delete-button {
+      background-color: #F4F5F7;
+      border-color: #F4F5F7;
+    }
+  }
+}

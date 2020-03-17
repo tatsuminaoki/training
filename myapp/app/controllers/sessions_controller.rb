@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   before_action :set_user, only: [:create]
 
   def new
+    redirect_to projects_path if signed_in?
   end
 
   def create
