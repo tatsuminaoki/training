@@ -35,7 +35,7 @@ ja:
   search:
     tasks:
       title: "タスク"
-      no_data: "タスクを見つかりませんでした"
+      no_data: "タスクが見つかりませんでした"
     projects:
       title: "プロジェクト"
-      no_data: "プロジェクトを見つかりませんでした"
+      no_data: "プロジェクトが見つかりませんでした"
