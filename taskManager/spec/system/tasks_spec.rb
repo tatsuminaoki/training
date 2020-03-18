@@ -1,20 +1,13 @@
 require 'rails_helper'
 
-def sign_in_with(user)
-  visit sign_in_path
-  fill_in 'session[email]', with: user.email
-  fill_in 'session[password]', with: 'hoge123'
-  click_on I18n.t('sessions.new.sign_in')
-end
-
 RSpec.describe 'Tasks', type: :system  do
   let!(:user) { create(:user) }
   before do
     sign_in_with(user)
   end
-  let!(:test_task1) { create(:task1, due: Date.today,   created_at: DateTime.now  , user: user) }
-  let!(:test_task2) { create(:task2, due: Date.today+1, created_at: DateTime.now+1, user: user) }
-  let!(:test_task3) { create(:task3, due: Date.today+2, created_at: DateTime.now+2, user: user) }
+  let!(:test_task1) { create(:task1, due: Date.today,     created_at: DateTime.now,     user: user) }
+  let!(:test_task2) { create(:task2, due: Date.today + 1, created_at: DateTime.now + 1, user: user) }
+  let!(:test_task3) { create(:task3, due: Date.today + 2, created_at: DateTime.now + 2, user: user) }
 
   # 下記Exceptionが頻発するので暫定対応
   # Selenium::WebDriver::Error::StaleElementReferenceError:
@@ -129,7 +122,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword conteined in all record' do
+      context 'by summary with keyword contained in all record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'task'
@@ -145,7 +138,7 @@ RSpec.describe 'Tasks', type: :system  do
         end
       end
 
-      context 'by summary with keyword not conteined in any record' do
+      context 'by summary with keyword not contained in any record' do
         before do
           visit tasks_path
           fill_in Task.human_attribute_name(:summary), with: 'hoge'
