@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     resources :tasks
     resources :search, only: [:index]
   end
+
+  get '*path', to: 'application#routing_error', via: :all
 end

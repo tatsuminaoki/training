@@ -3,23 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  describe 'validates name' do
-    context 'nameが正しく設定されている' do
-      example 'バリデーションが通る' do
+  describe 'Validates' do
+    context 'Name is set correctly' do
+      it 'is validate pass' do
         expect(Project.new(name: 'test').valid?).to eq true
       end
     end
 
-    context 'nameがnil' do
-      example 'バリデーションが通らないし、エラーメッセージを返す' do
+    context 'Name is nil' do
+      it 'is validation no pass and it also show errors message' do
         project = Project.new(name: nil)
         project.valid?
         expect(project.errors.messages[:name]).to eq ["can't be blank"]
       end
     end
 
-    context 'nameが空文字' do
-      example 'バリデーションが通らないし、エラーメッセージを返す' do
+    context 'name is empty' do
+      it 'is validation no pass and it also show errors message' do
         project = Project.new(name: '')
         project.valid?
         expect(project.errors.messages[:name]).to eq ["can't be blank"]
@@ -27,9 +27,9 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe 'method create!' do
-    context 'create!が成功' do
-      example 'projectが作成されて、紐ついてるgroupsも作成される' do
+  describe 'Method create!' do
+    context 'create! is success' do
+      example 'creating 1 project and reference 4 groups' do
         Project.new(name: 'test').create!
 
         expect(Project.count).to eq 1
