@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'
   end
+
+  get '*path', to: 'application#routing_error', via: :all
 end

@@ -36,10 +36,10 @@ ja:
   search:
     tasks:
       title: "タスク"
-      no_data: "タスクを見つかりませんでした"
+      no_data: "タスクが見つかりませんでした"
     projects:
       title: "プロジェクト"
-      no_data: "プロジェクトを見つかりませんでした"
+      no_data: "プロジェクトが見つかりませんでした"
   home:
     content: "Treasure Mapを使用すると、より共同で作業を行い、より多くの作業を完了できます"
     content_sub: "Treasure Mapのプロジェクト、リスト、およびタスクを使用すると、楽しく柔軟でやりがいのある方法でプロジェクトを整理し、優先順位を付けることができます。"

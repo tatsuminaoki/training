@@ -3,21 +3,22 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new(request_params)
-    if task.valid?
-      task.save
-      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
+    if task.save
+      redirect_to project_url(id: params[:project_id]), alert: I18n.t('flash.success_create', model_name: 'task')
     else
-      redirect_to project_url(id: params[:task][:project_id]), alert: I18n.t('flash.failed_create', model_name: 'task')
+      flash[:alert] = I18n.t('flash.failed_create', model_name: 'task')
+      redirect_to project_url(id: params[:project_id]), notice: task.errors.full_messages
+
     end
   end
 
   def update
     @task.update(request_params)
-    if @task.valid?
-      @task.save
+    if @task.save
       redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.success_updated', model_name: 'task')
     else
-      redirect_to project_url(id: @task.group.project.id), alert: I18n.t('flash.failed_update', model_name: 'task')
+      flash[:alert] = I18n.t('flash.failed_update', model_name: 'task')
+      redirect_to project_url(id: @task.group.project.id), notice: @task.errors.full_messages
     end
   end
 
@@ -25,7 +26,7 @@ class TasksController < ApplicationController
     task_name = @task.name
     project_id = @task.group.project.id
     @task.destroy
-    redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', model_name: 'task')
+    redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', target_name: task_name, model_name: 'task')
   end
 
   private

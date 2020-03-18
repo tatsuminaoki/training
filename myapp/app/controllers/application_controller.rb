@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-  skip_before_action :verify_authenticity_token
-
   include ErrorHandle
 
+  before_action :verify_authenticity_token
   before_action :set_locale
   before_action :current_user
   before_action :require_sign_in!
@@ -26,6 +25,10 @@ class ApplicationController < ActionController::Base
   def current_user
      remember_token = User.encrypt(cookies[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
+  end
+
+  def routing_error
+    raise ActionController::RoutingError.new(params[:path])
   end
 
   def signed_in?
