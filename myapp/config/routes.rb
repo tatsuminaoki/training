@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :static, only: [:index]
     resources :projects, only: [:show, :index, :create, :update, :destroy]
     resources :tasks, only: [:create, :update, :destroy]
+    resources :task_labels, only: [:create, :destroy]
     resources :search, only: [:index]
 
     get '/login' => 'sessions#new'

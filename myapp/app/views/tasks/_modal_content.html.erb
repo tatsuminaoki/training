@@ -18,6 +18,9 @@
           <%= t('tasks.label') %>
         </div>
         <div class="task-modal-joined-label-color">
+          <% task.object.labels.each do |label| %>
+            <button type="button" class="btn task-modal-label-list-color-delete" name= "<%= task.object.id %>" id="<%= label.id %>" style="background-color: <%= label.color %>; border-color: <%= label.color %> "></button>
+          <% end %>
         </div>
       </div>
     </div>
@@ -83,7 +86,7 @@
         </div>
         <div class="task-modal-label-list">
           <% task.object.group.project.labels.each do |label| %>
-            <button class="btn task-modal-label-list-color" id="<%= label.id %>" style="background-color: <%= label.color %>; border-color: <%= label.color %> "> <%= label.name %> </button>
+            <button type="button" <%= "disabled" if task.object.labels.pluck(:id).include?(label.id)  %> class="btn task-modal-label-list-color" name= "<%= task.object.id %>" id="<%= label.id %>" style="background-color: <%= label.color %>; border-color: <%= label.color %> "> <%= label.name %> </button>
           <% end %>
         </div>
       </div>

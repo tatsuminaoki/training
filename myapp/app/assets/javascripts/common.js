@@ -63,6 +63,7 @@ function createATagOfTasks(tasks) {
     });
   }
 }
+
 function createATagOfProjects(projects) {
   $(".search-result-projects-list").empty();
   if ($.isEmptyObject(projects)) {
