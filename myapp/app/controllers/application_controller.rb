@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def routing_error
-    raise ActionController::RoutingError.new(params[:path])
+    raise ActionController::RoutingError, params[:path]
   end
 
   private
