@@ -8,6 +8,11 @@ describe Task, type: :model do
       let(:task) { FactoryBot.build(:task, title: title) }
       subject { task }
 
+      context '0文字の場合' do
+        let(:title) { '' }
+        it { is_expected.to be_invalid }
+      end
+
       context '30文字の場合' do
         let(:title) { 'a' * 30 }
         it { is_expected.to be_valid }
