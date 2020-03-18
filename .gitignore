@@ -28,3 +28,5 @@ myapp/docs/img/.DS_Store
 /myapp/.idea/*
 
 /myapp/yarn.lock
+
+/myapp/*.swp
