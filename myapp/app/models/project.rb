@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   def create!
     Project.transaction do
       Group.transaction do
-        self.save!
+        self.save
         Group.create_default_groups(id)
       end
     end

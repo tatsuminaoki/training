@@ -3,7 +3,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
     create_table :tasks do |t|
       t.string :name, null: false
       t.integer :priority, null: false
-      t.datetime :end_period_at, null: true
+      t.date :end_period_at, null: true
       t.string :creator_name, null: true
       t.string :assignee_name, null: true
       t.text :description, null: true
