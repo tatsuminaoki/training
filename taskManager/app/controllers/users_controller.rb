@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user[:role] = 0
     if @user.save
       flash[:success] = t('flash.create.success')
       # TODO: ログイン画面実装後はそちらに遷移させる
