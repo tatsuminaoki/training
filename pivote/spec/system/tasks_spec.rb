@@ -6,22 +6,60 @@ describe 'タスク管理機能', type: :system do
   let(:test_task) { FactoryBot.create(:task) }
 
   describe '一覧表示' do
-    it '作成したタスクが表示される' do
-      test_task
+    before do
+      FactoryBot.create(:task, title: '1st', deadline: Time.zone.now, created_at: Time.zone.now)
+      FactoryBot.create(:task, title: '2nd', deadline: 1.day.ago, created_at: 1.day.ago)
+      FactoryBot.create(:task, title: '3rd', deadline: 2.days.ago, created_at: 2.days.ago)
       visit tasks_path
-      expect(page).to have_content 'テスト'
     end
 
     it '作成日時の降順で表示される' do
-      FactoryBot.create(:task, title: '1st', created_at: Time.zone.now)
-      FactoryBot.create(:task, title: '2nd', created_at: 1.day.ago)
-      FactoryBot.create(:task, title: '3rd', created_at: 2.days.ago)
-      visit tasks_path
-      tds = all('table tr')[1].all('td')
+      trs = all('table tr')
+      tds = trs[1].all('td')
       expect(tds[0]).to have_content '1st'
-      tds = all('table tr')[2].all('td')
+      tds = trs[2].all('td')
       expect(tds[0]).to have_content '2nd'
-      tds = all('table tr')[3].all('td')
+      tds = trs[3].all('td')
+      expect(tds[0]).to have_content '3rd'
+    end
+
+    it '期限のリンクを1回踏むと、降順で表示される' do
+      click_link '期限'
+      # DOMが生成されるまで待つ
+      sleep 0.1
+      trs = all('table tr')
+      tds = trs[1].all('td')
+      expect(tds[0]).to have_content '1st'
+      tds = trs[2].all('td')
+      expect(tds[0]).to have_content '2nd'
+      tds = trs[3].all('td')
+      expect(tds[0]).to have_content '3rd'
+    end
+
+    it '期限のリンクを2回踏むと、昇順で表示される' do
+      click_link '期限'
+      click_link '期限'
+      sleep 0.1
+      trs = all('table tr')
+      tds = trs[1].all('td')
+      expect(tds[0]).to have_content '3rd'
+      tds = trs[2].all('td')
+      expect(tds[0]).to have_content '2nd'
+      tds = trs[3].all('td')
+      expect(tds[0]).to have_content '1st'
+    end
+
+    it '期限のリンクを3回踏むと、作成日時の降順で表示される' do
+      click_link '期限'
+      click_link '期限'
+      click_link '期限'
+      sleep 0.1
+      trs = all('table tr')
+      tds = trs[1].all('td')
+      expect(tds[0]).to have_content '1st'
+      tds = trs[2].all('td')
+      expect(tds[0]).to have_content '2nd'
+      tds = trs[3].all('td')
       expect(tds[0]).to have_content '3rd'
     end
   end
