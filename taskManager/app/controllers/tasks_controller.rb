@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   def index
     @search_params = task_search_params
     @tasks = Task.preload(:user)
-      .where('users.id = ?', current_user.id)
+      .where('user_id = ?', current_user.id)
       .page(params[:page])
       .per(ROWS_PER_PAGE)
       .search(@search_params)
