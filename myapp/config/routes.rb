@@ -4,12 +4,13 @@ Rails.application.routes.draw do
     resources :static, only: [:index]
     resources :projects, only: [:show, :index, :create, :update, :destroy]
     resources :tasks, only: [:create, :update, :destroy]
-    resources :task_labels, only: [:create, :destroy]
+    resources :task_labels, only: [:create]
     resources :search, only: [:index]
 
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'
     delete '/logout' => 'sessions#destroy'
+    delete '/task_labels' => 'task_labels#destroy'
   end
 
   get '*path', to: 'application#routing_error', via: :all

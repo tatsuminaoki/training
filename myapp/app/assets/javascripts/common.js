@@ -55,11 +55,11 @@ function createATagOfTasks(tasks) {
     $(".search-result-tasks-list").append(I18n.t('search.tasks.no_data'));
   } else {
     $.each(tasks, function( index, value ) {
-      create_element_button = document.createElement("A");
-      create_element_button.setAttribute("class", "btn btn-outline-success search-result-task-view");
-      create_element_button.setAttribute("onclick", 'moveToShowProjectPageAndSendTaskId('+value.project.id+', '+value.id+')');
-      create_element_button.innerHTML = `${value.name} in ${value.group.name} on ${value.project.name}`;
-      $(".search-result-tasks-list").append(create_element_button);
+      create_element_a = document.createElement("A");
+      create_element_a.setAttribute("class", "btn btn-outline-success search-result-task-view");
+      create_element_a.setAttribute("onclick", 'moveToShowProjectPageAndSendTaskId('+value.project.id+', '+value.id+')');
+      create_element_a.innerHTML = `${value.name} in ${value.group.name} on ${value.project.name}`;
+      $(".search-result-tasks-list").append(create_element_a);
     });
   }
 }
@@ -70,11 +70,11 @@ function createATagOfProjects(projects) {
     $(".search-result-projects-list").append(I18n.t('search.projects.no_data'));
   } else {
     $.each(projects, function( index, value ) {
-      create_element_button = document.createElement("A");
-      create_element_button.setAttribute("class", "btn btn-outline-primary search-result-project-view");
-      create_element_button.setAttribute("href", `/${I18n.locale}/projects/${value.id}`);
-      create_element_button.innerHTML = value.name;
-      $(".search-result-projects-list").append(create_element_button);
+      create_element_a = document.createElement("A");
+      create_element_a.setAttribute("class", "btn btn-outline-primary search-result-project-view");
+      create_element_a.setAttribute("href", `/${I18n.locale}/projects/${value.id}`);
+      create_element_a.innerHTML = value.name;
+      $(".search-result-projects-list").append(create_element_a);
     });
   }
 }
