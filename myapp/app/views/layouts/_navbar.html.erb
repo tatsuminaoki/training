@@ -1,0 +1,39 @@
+<header>
+  <div class="bd-example">
+    <nav class="navbar navbar-light" id='navbar'>
+      <div class="left-function">
+        <div class="search-form">
+          <input class="form-control input-search-form">
+          <i class="fas fa-search" id="fa-search"></i>
+        </div>
+      </div>
+      <div class="brand-name">
+        <i class="fas fa-route fa-lg"></i>
+        <a href="/projects">
+          TreasureMap
+        </a>
+      </div>
+      <div class="right-menu">
+        <div class="user-name">
+            LEE
+        </div>
+        <div class="localize">
+          <% if I18n.locale == :ja %>
+            <%= link_to url_for(locale: :en,  params: { page: @page } ) do %>
+              English
+            <% end %>
+          <% else %>
+            <%= link_to url_for(locale: :ja, params: { page: @page} ) do %>
+              日本語
+            <% end %>
+          <% end %>
+        <div>
+      </div>
+    </nav>
+  </div>
+  <div class="notifications">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "flash-notification" %>
+    <% end %>
+  </div>
+</header>

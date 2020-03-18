@@ -29,7 +29,6 @@ $(function(){
         var url = `/search?query=${query_data}`
         fetch(url, {
           method: "GET",
-          mode: "cors",
           headers: { "Content-Type": "application/json; charset=UTF-8" },
         })
         .then(
