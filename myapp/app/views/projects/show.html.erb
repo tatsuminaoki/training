@@ -1,7 +1,8 @@
 <div class="project-show-whole">
   <div class="project-show-header">
     <div class="project-show project-name">
-      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= @project.name %>>
+      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= sanitize @project.name %>>
     </div>
     <div class="project-show project-dropdown">
       <%= render 'dropdown_show' %>
@@ -17,7 +18,7 @@
         </div>
         <div class="project-show task-containers">
           <% group.tasks.each do |task| %>
-            <button type="button" id= "btn-update-task-<%= task.id %>"  class="btn btn-secondary show-task-button" data-toggle="modal" data-target="#update-task-<%= task.id %>">
+            <button type="button" id="btn-update-task-<%= task.id %>" class="btn btn-secondary show-task-button" data-toggle="modal" data-target="#update-task-<%= task.id %>">
               <%= task.name %>
             </button>
             <%= render partial: 'tasks/modal_task_edit', locals: { task: task } %>

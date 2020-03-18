@@ -10,4 +10,6 @@ Rails.application.routes.draw do
     post '/login' => 'sessions#create'
     delete '/logout' => 'sessions#destroy'
   end
+
+  get '*path', to: 'application#routing_error', via: :all
 end

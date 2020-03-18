@@ -19,6 +19,7 @@ class Search
         tasks_record["project"] =  task.group.project
         tasks_list_array << tasks_record
       end
+
       tasks_list_array
     end
 
