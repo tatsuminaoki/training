@@ -78,7 +78,7 @@
     <td class="user_name"><%= task.user_id ? task.user.view_name : nil %>
     <td class="priority"><%= t(".priority.#{task.priority}") %></td>
     <td class="status"><%= t(".status.#{task.status}") %></td>
-    <td class="due"><%= task.due ? l(task.due, format: :default) : nil %></td>
+    <td class="due"><%= l(task.due, format: :default) %></td>
     <td class="created_at"><%= l(task.created_at, format: :default) %></td>
     <td>
       <%= link_to t('action.detail'), task_path(task.id), class:"btn btn-primary" %>

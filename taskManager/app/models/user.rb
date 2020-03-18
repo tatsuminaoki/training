@@ -38,6 +38,6 @@ class User < ApplicationRecord
   end
 
   def view_name
-    self.last_name + ' ' + first_name
+    last_name + ' ' + first_name
   end
 end
