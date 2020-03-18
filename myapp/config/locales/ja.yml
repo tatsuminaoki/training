@@ -17,7 +17,7 @@ ja:
     description: "コメント"
     priority: "優先順位"
     end_period_at: "終了期限"
-    group_name: "グループ名"
+    group_name: "グループ"
     creator_name: "作成者"
     assignee_name: "担当者"
   validate:
@@ -32,3 +32,10 @@ ja:
     success_updated: "%{model_name} 更新 成功!!"
     failed_update: "%{model_name} 更新 失敗"
     success_destroy: "%{model_name} 削除 成功!!"
+  search:
+    tasks:
+      title: "タスク"
+      no_data: "タスクが見つかりませんでした"
+    projects:
+      title: "プロジェクト"
+      no_data: "プロジェクトが見つかりませんでした"

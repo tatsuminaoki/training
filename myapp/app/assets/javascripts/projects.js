@@ -13,10 +13,9 @@ window.onload = function () {
       var enter_key = 13
       if( e.which == enter_key) {
         var url = `/projects/${project_id}`
-        var data = JSON.stringify({name: $('.change-name-input').val()})
+        var data = JSON.stringify({ name: $('.change-name-input').val(), authenticity_token: $("#authenticity_token").val() })
         fetch(url, {
           method: 'PATCH',
-          mode: "cors",
           headers: { "Content-Type": "application/json; charset=UTF-8" },
           body: data
         })
@@ -36,6 +35,12 @@ window.onload = function () {
         changeSizeChangeNameInput();
       }
     });
+  }
+
+  if ($(".trigger-btn-update-task")[0]){
+    task_value = $(".trigger-btn-update-task-input").val()
+    modal_btn_id = `#btn-update-task-${task_value}`;
+    $(modal_btn_id).trigger('click');
   }
 }
 

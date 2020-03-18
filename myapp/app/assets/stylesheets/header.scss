@@ -3,17 +3,25 @@
 
 .bd-example {
   .navbar-light {
-    background-color: #E7514A;
-    padding: 0rem 1rem !important;
+    background-color: #9CBEFA;
     width: 100% !important;
-    .search_form {
+    .left-function {
       width: 30%;
       float: left;
-      input {
-        height: calc(1.0em + 0.75rem + 2px);
-      }
-      button {
-        color: #ffffff;
+      .search-form {
+        background-color: #FFFFFF;
+        width: 70%;
+        height: 100%;
+        .input-search-form {
+          width: 100%;
+          float: left;
+        }
+        .fa-search {
+          position: absolute;
+          height: 100%;
+          margin-top: -7px;
+          margin-left: -24px;
+        }
       }
     }
     .brand-name {
@@ -50,4 +58,46 @@
 .notifications {
   text-align: center;
   width: 100%;
+}
+.search-result {
+  display: none;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0px 0px 15px #aaaaaa;
+  background-color: #F4F5F7;
+  position: absolute;
+  z-index: 1;
+  margin-top: 50px;
+  margin-left: 15px;
+  width: 700px;
+  min-height: 142.5px;
+  height: auto;
+  .search-result-tasks{
+    .search-result-tasks-title {
+      color: #616C82;
+      padding: 15px 0px 0px 10px;
+    }
+    .search-result-tasks-list {
+      padding: 0px 0px 15px 15px;
+      min-height: 50px;
+      .search-result-task-view {
+        margin: 10px 10px 0px 0px;
+      }
+    }
+  }
+  .search-result-projects{
+    .search-result-projects-title {
+      color: #616C82;
+      padding: 0px 0px 0px 10px;
+    }
+    .search-result-projects-list {
+      padding: 0px 0px 15px 15px;
+      min-height: 50px;
+      .search-result-project-view {
+        margin: 10px 10px 0px 0px;
+      }
+    }
+  }
+}
+.trigger-btn-update-task {
+  display: none;
 }

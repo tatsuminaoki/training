@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_064752) do
+ActiveRecord::Schema.define(version: 2020_03_10_152858) do
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_064752) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_tasks_on_group_id"
     t.index ["label_id"], name: "index_tasks_on_label_id"
+    t.index ["name"], name: "index_tasks_on_name"
   end
 
   add_foreign_key "groups", "projects"

@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: [:show, :update, :destroy]
 
   def show
+    @show_task_id = params[:show_task_id]
   end
 
   def index
