@@ -1,63 +1,92 @@
 <div class="modal-body task-modal-body">
-  <div class="task-modal-name">
-    <div class="task-modal-name-icon">
-      <i class="fas fa-pager fa-lg"></i>
-      <%= t('tasks.name') %>
-    </div>
-    <div class="task-modal-name-input">
-      <%= task.text_field :name, class:"form-control", placeholder:"Task name"%>
-    </div>
-  </div>
+  <div class="task-modal-form">
+    <div class="task-modal-name-and-label">
 
-  <div class="task-modal-description">
-    <div class="task-modal-description-icon">
-      <i class="far fa-edit fa-lg"></i>
-      <%= t('tasks.description') %>
-    </div>
-    <div class="task-modal-description-input">
-      <%= task.text_area :description, size: "5x2", class:"form-control", placeholder:"Add a more detailed description..."%>
-    </div>
-  </div>
+      <div class="task-modal-name">
+        <div class="task-modal-name-icon">
+          <i class="fas fa-pager fa-lg"></i>
+          <%= t('tasks.name') %>
+        </div>
+        <div class="task-modal-name-input">
+          <%= task.text_field :name, class:"form-control", placeholder:"Task name"%>
+        </div>
+      </div>
 
-  <div class="task-modal-priority">
-    <div class="task-modal-priority-icon">
-      <i class="fas fa-sort fa-lg"></i>
-      <%= t('tasks.priority') %>
+      <div class="task-modal-joined-label">
+        <div class="task-modal-joined-label-icon">
+          <i class="fas fa-tags fa-lg"></i>
+          <%= t('tasks.label') %>
+        </div>
+        <div class="task-modal-joined-label-color">
+        </div>
+      </div>
     </div>
-    <div class="task-modal-priority-input">
-      <h6>
-      <%= task.select :priority, Task.priorities.keys, class:"form-control" %>
-      </h6>
-    </div>
-  </div>
 
-  <div class="task-modal-end-period-at">
-    <div class="task-modal-end-period-at-icon">
-      <i class="far fa-calendar-check fa-lg"></i>
-      <%= t('tasks.end_period_at') %>
+    <div class="task-modal-description">
+      <div class="task-modal-description-icon">
+        <i class="far fa-edit fa-lg"></i>
+        <%= t('tasks.description') %>
+      </div>
+      <div class="task-modal-description-input">
+        <%= task.text_area :description, size: "5x2", class:"form-control", placeholder:"Add a more detailed description..."%>
+      </div>
     </div>
-    <div class="task-modal-end-period-at-input datepicker">
-      <%= task.text_field :end_period_at, class:"form-control datepicker" %>
-    </div>
-  </div>
 
-  <div class="task-modal-creator-name">
-    <div class="task-modal-creator-name-icon">
-      <i class="fas fa-user-edit fa-lg"></i>
-      <%= t('tasks.creator_name') %>
+    <div class="task-modal-priority">
+      <div class="task-modal-priority-icon">
+        <i class="fas fa-sort fa-lg"></i>
+        <%= t('tasks.priority') %>
+      </div>
+      <div class="task-modal-priority-input">
+        <h6>
+        <%= task.select :priority, Task.priorities.keys, class:"form-control" %>
+        </h6>
+      </div>
     </div>
-    <div class="task-modal-creator-name-input">
-      <%= task.text_field :creator_name, class:"form-control" %>
-    </div>
-  </div>
 
-  <div class="task-modal-assignee-name">
-    <div class="task-modal-assignee-name-icon">
-      <i class="fas fa-user-tag fa-lg"></i>
-      <%= t('tasks.assignee_name') %>
+    <div class="task-modal-end-period-at">
+      <div class="task-modal-end-period-at-icon">
+        <i class="far fa-calendar-check fa-lg"></i>
+        <%= t('tasks.end_period_at') %>
+      </div>
+      <div class="task-modal-end-period-at-input datepicker">
+        <%= task.text_field :end_period_at, class:"form-control datepicker" %>
+      </div>
     </div>
-    <div class="task-modal-assignee-name-input">
-      <%= task.text_field :assignee_name, class:"form-control" %>
+
+    <div class="task-modal-creator-name">
+      <div class="task-modal-creator-name-icon">
+        <i class="fas fa-user-edit fa-lg"></i>
+        <%= t('tasks.creator_name') %>
+      </div>
+      <div class="task-modal-creator-name-input">
+        <%= task.text_field :creator_name, class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="task-modal-assignee-name">
+      <div class="task-modal-assignee-name-icon">
+        <i class="fas fa-user-tag fa-lg"></i>
+        <%= t('tasks.assignee_name') %>
+      </div>
+      <div class="task-modal-assignee-name-input">
+        <%= task.text_field :assignee_name, class:"form-control" %>
+      </div>
     </div>
   </div>
+  <% if task.object.name.present? %>
+    <div class="task-modal-label-form">
+      <div class="task-modal-label">
+        <div class="task-modal-label-icon">
+          <i class="fas fa-tags fa-lg"></i>
+          <%= t('tasks.label_list') %>
+        </div>
+        <div class="task-modal-label-list">
+          <% task.object.group.project.labels.each do |label| %>
+            <button class="btn task-modal-label-list-color" id="<%= label.id %>" style="background-color: <%= label.color %>; border-color: <%= label.color %> "> <%= label.name %> </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

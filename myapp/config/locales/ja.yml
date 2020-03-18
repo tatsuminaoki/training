@@ -20,6 +20,8 @@ ja:
     group_name: "グループ"
     creator_name: "作成者"
     assignee_name: "担当者"
+    label: "ラベル"
+    label_list: "ラベル一覧"
   validate:
     errors:
       groups:

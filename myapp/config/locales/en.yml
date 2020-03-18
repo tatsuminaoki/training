@@ -19,7 +19,9 @@ en:
     end_period_at: "End period"
     group_name: "Group"
     creator_name: "Creator name"
-    assignee_name: "Assignee name"
+    assignee_name: "Assignee label: "
+    label: "Labels"
+    label_list: "Labels List"
   validate:
     errors:
       groups:
