@@ -17,5 +17,7 @@
   <div><%= f.select :priority, Task.enum_options_for_select(:priority) %></div>
   <div><%= f.label :status %></div>
   <div><%= f.select :status, Task.enum_options_for_select(:status) %></div>
+  <div><%= f.label :deadline %></div>
+  <div><%= f.date_select :deadline %></div>
   <%= f.submit %>
 <% end %>
