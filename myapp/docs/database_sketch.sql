@@ -74,7 +74,7 @@ CREATE TABLE TASKS(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   priority INT NOT NULL, -- Maganement as ENUM(HIGH: 1, MIDDLE: 2, LOW: 3)
-  end_period_at DATETIME NULL,
+  end_period_at DATE NULL,
   group_id INT NOT NULL,
   creator_name VARCHAR(255) NULL,
   creator_user_id int NULL,

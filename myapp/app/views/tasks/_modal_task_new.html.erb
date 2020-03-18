@@ -3,7 +3,7 @@
     <div class="modal-content task-modal-content">
       <%= form_for(group.tasks.new) do |task| %>
         <%= task.hidden_field :group_id, value: group.id %>
-        <%= task.hidden_field :project_id, value: group.project.id %>
+        <%= hidden_field_tag 'project_id', group.project.id %>
         <div class="modal-header task-modal-header-new">
           <%= t('tasks.create_task') %>
           <div class="task-modal-close">
