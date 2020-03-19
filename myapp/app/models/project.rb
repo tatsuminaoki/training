@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
   paginates_per 11
-
 
   has_many :groups, dependent: :destroy
 

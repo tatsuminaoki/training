@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
@@ -43,7 +45,7 @@ RSpec.describe Group, type: :model do
           group_1 = Group.new(name: 'test1 group', sort_number: 1, project: project)
           group_2 = Group.new(name: 'test1 group', sort_number: 1, project: project)
           group_2.valid?
-          expect(group_2.errors.messages[:sort_number]).to eq ["Already same sort_number"]
+          expect(group_2.errors.messages[:sort_number]).to eq ['Already same sort_number']
         end
       end
     end
