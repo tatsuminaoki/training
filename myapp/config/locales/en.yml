@@ -32,7 +32,7 @@ en:
     success_updated: "Success to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
     success_destroy: "Destroy to create %{model_name}"
-    invalid_login: "メールアドレス or パスワードが間違っています。"
+    invalid_login: "Email or password is not correct"
   search:
     tasks:
       title: "TASKS"
