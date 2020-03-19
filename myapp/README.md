@@ -34,7 +34,6 @@ docker-compose up --build
 docker-compose exec api rake assets:precompile
 ```
 
-
 ## build中のエラー対応
 1.Webpacker::Manifest::MissingEntryErrorが出た場合に以下のコマンドを実行し、改めてdocker-compose up --buildを行なってください。
 
@@ -55,6 +54,12 @@ rm -rf yarn.lock
 npm rebuild node-sass
 ```
 
+## Maintenance
+ To start maintenance input the rake command below
+ > bundle exec rake maintenance:start
+
+ To end maintenance input the rake command below
+ > bundle exec rake maintenance:end
 
 ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
 - プロフェクトの一覧ページ

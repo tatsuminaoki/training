@@ -1,7 +1,7 @@
 module ErrorHandle
   extend ActiveSupport::Concern
   included do
-    # rescue_from Exception, with: :render_500
+    rescue_from Exception, with: :render_500
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError, with: :render_404
 
@@ -11,6 +11,10 @@ module ErrorHandle
 
     def render_404
       render 'errors/error_404', status: :not_found
+    end
+
+    def render_503
+      render 'errors/error_503', status: :service_unavailable
     end
   end
 end

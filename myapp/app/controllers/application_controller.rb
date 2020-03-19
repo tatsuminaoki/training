@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ErrorHandle
 
+  before_action :maintenance_page, if: :maintenance?
   before_action :verify_authenticity_token
   before_action :set_locale
   before_action :current_user
@@ -41,6 +42,14 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def maintenance?
+    File.exist? 'tmp/maintenance.yml'
+  end
+
+  def maintenance_page
+    render_503
+  end
 
   def require_sign_in!
     redirect_to root_path unless signed_in?
