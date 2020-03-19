@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
   describe 'POST /projects/:id' do
     context 'Project creating is success' do
       it 'is creating 1 project and 4 Groups' do
-        post projects_path, params: { project: {name: 'TEST1'} }
+        post projects_path, params: { project: { name: 'TEST1' } }
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
         expect(flash[:alert]).to eq 'Success to create project'
@@ -14,7 +16,7 @@ RSpec.describe 'Projects', type: :request do
 
     context 'Project creating is failed because, did not put project name' do
       it 'is not create project and groups' do
-        post projects_path, params: { project: {name: nil} }
+        post projects_path, params: { project: { name: nil } }
         expect(Project.count).to eq 0
         expect(Group.count).to eq 0
         expect(flash[:alert]).to eq 'Failed to create project'
@@ -27,7 +29,7 @@ RSpec.describe 'Projects', type: :request do
     let(:project) { create(:project) }
     context 'Update success' do
       it 'is changing project name to test1' do
-        patch project_path(locale: 'en', id: project.id), params: { project: {name: 'test1'} }
+        patch project_path(locale: 'en', id: project.id), params: { project: { name: 'test1' } }
         project.reload
         expect(project.name).to eq 'test1'
         expect(response).to be_successful
@@ -38,7 +40,7 @@ RSpec.describe 'Projects', type: :request do
       it 'is not change project name' do
         original_project_name = project.name
 
-        patch project_path(locale: 'en', id: project.id), params: { project: {name: nil} }
+        patch project_path(locale: 'en', id: project.id), params: { project: { name: nil } }
         project.reload
         expect(project.name).to eq original_project_name
       end
@@ -63,7 +65,7 @@ RSpec.describe 'Projects', type: :request do
       it 'is not delete project and reference groups' do
         Project.new(name: 'test').create!
 
-        delete project_path(locale: 'en', id: 10000)
+        delete project_path(locale: 'en', id: 10_000)
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
         expect(response).to have_http_status(404)
