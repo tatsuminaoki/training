@@ -4,7 +4,12 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    # ソートするカラムのリンクを踏む度に、「desc → asc → デフォルト(作成日時の降順) → desc …」と並び変わる
+    if !params[:sort_column] || params[:direction] == 'asc'
+      @tasks = Task.all.order(created_at: :desc)
+    else
+      sort_tasks
+    end
   end
 
   def show
@@ -44,8 +49,14 @@ class TasksController < ApplicationController
 
   private
 
+  def sort_tasks
+    @sorted_column = params[:sort_column]
+    @direction = params[:direction] ? 'asc' : 'desc'
+    @tasks = Task.all.order(@sorted_column.to_s + ' ' + @direction)
+  end
+
   def task_params
-    params.require(:task).permit(:title, :description, :priority, :status)
+    params.require(:task).permit(:title, :description, :priority, :status, :deadline)
   end
 
   def find_task

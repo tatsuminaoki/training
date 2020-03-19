@@ -24,12 +24,16 @@
     <td><%= @task.human_attribute_enum(:status) %></td>
   </tr>
   <tr>
+    <th><%= Task.human_attribute_name(:deadline) %></th>
+    <td><%= @task.format_deadline %></td>
+  </tr>
+  <tr>
     <th><%= Task.human_attribute_name(:created_at) %></th>
-    <td><%= @task.created_at %></td>
+    <td><%= l @task.created_at %></td>
   </tr>
   <tr>
     <th><%= Task.human_attribute_name(:updated_at) %></th>
-    <td><%= @task.updated_at %></td>
+    <td><%= l @task.updated_at %></td>
   </tr>
 </table>
 

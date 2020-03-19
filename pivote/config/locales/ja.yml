@@ -18,3 +18,7 @@ ja:
     confirm: タスク「%{task}」を削除します。よろしいですか？
   link:
     all: 一覧
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      date: "%Y/%m/%d"
