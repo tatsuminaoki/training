@@ -6,16 +6,16 @@
   background-repeat: no-repeat;
   background-size: 100%;
   float: left;
-  text-align: center;
   .title {
+    text-align: center;
     width: 100%;
     color: #ffffff;
     margin-top: 100px;
   }
   .comment {
-    width: 55%;
+    text-align: center;
     height: 600px;
-    margin: 20px 0px 0px 300px;
+    margin: 20px 0px 0px 0px;
     color: #ffffff;
   }
 }

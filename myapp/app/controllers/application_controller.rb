@@ -44,7 +44,8 @@ class ApplicationController < ActionController::Base
   private
 
   def maintenance?
-    File.exist? 'tmp/maintenance.yml'
+    data = open('config/maintenance.yml', 'r') { |f| YAML.load(f) }
+    data["maintenance_mode"]
   end
 
   def maintenance_page
