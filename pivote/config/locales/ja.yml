@@ -9,6 +9,9 @@ ja:
     create: 登録
     update: 編集
     delete: 削除
+  button:
+    search: 検索
+    reset: リセット
   flash:
     task:
       create: タスク「%{task}」を登録しました。

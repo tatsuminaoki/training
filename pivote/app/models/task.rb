@@ -5,8 +5,14 @@ class Task < ApplicationRecord
   validates :description, length: { maximum: 1000 }
 
   # 間に差込で追加したいという要望に応えられるよう、値を10の倍数としている
-  enum priority: { high: 10, middle: 20, low: 30 }
-  enum status: { waiting: 10, doing: 20, done: 30 }
+  enum priority: { low: 10, middle: 20, high: 30 }
+  enum status: { done: 10, doing: 20, waiting: 30 }
+
+  scope :search_with_priority, -> (priority) { where(priority: priority) }
+  scope :search_with_status, -> (status) { where(status: status) }
+  scope :match_with_title, -> (title) { where(:title.to_s + ' LIKE ?', "%#{title}%") }
+  scope :by_default, -> { order(created_at: :desc) }
+  scope :by_custom, -> (column, direction) { order(column + ' ' + direction) }
 
   def format_deadline
     I18n.l self.deadline, format: :date if self.deadline
