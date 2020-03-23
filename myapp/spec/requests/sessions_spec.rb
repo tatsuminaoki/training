@@ -13,7 +13,7 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     context 'email is not correct' do
-      it 'is login is failed,  not register remember_token of cookies' do
+      it 'could not login,  not register remember_token of cookies' do
         post login_path, params: { session: { email: 'failed', passowrd: 'test_user' } }
         expect(cookies[:user_remember_token]).to eq nil
         expect(flash[:alert]).to eq 'Email or password is not correct'
@@ -21,7 +21,7 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     context 'password is not correct' do
-      it 'is login is failed, not register remember_token of cookies' do
+      it 'could not login, not register remember_token of cookies' do
         post login_path, params: { session: { email: 'test_user@treasuremap.com', passowrd: 'failed' } }
         expect(cookies[:user_remember_token]).to eq nil
         expect(flash[:alert]).to eq 'Email or password is not correct'

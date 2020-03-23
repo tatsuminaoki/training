@@ -6,6 +6,7 @@ en:
     show_menu: "Show Menu"
     close_project: "Close project"
   groups:
+    title: "Group"
   tasks:
     add_task: "Add a Task"
     edit_task: "Edit task"
@@ -19,7 +20,6 @@ en:
     description-placeholder: "Add a more detailed description..."
     priority: "Priority"
     end_period_at: "End period"
-    group_name: "Group"
     creator_name: "Creator name"
     assignee_name: "Assignee label: "
     label: "Labels"
