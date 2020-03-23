@@ -26,9 +26,9 @@
 <table>
   <tr>
     <th><%= Task.human_attribute_name(:title) %></th>
-    <th><%= link_to Task.human_attribute_name(:priority) + sort_icon(:priority, @search_form), tasks_path(search: @search_form.attributes, 'search[sort_column]' => :priority, 'search[direction]' => @search_form.direction) %></th>
-    <th><%= link_to Task.human_attribute_name(:status) + sort_icon(:status, @search_form), tasks_path(search: @search_form.attributes, 'search[sort_column]' => :status, 'search[direction]' => @search_form.direction) %></th>
-    <th><%= link_to Task.human_attribute_name(:deadline) + sort_icon(:deadline, @search_form), tasks_path(search: @search_form.attributes, 'search[sort_column]' => :deadline, 'search[direction]' => @search_form.direction) %></th>
+    <th><%= link_to Task.human_attribute_name(:priority) + sort_icon(:priority, @search_form), tasks_path(search: sort_params(@search_form.attributes, :priority)) %></th>
+    <th><%= link_to Task.human_attribute_name(:status) + sort_icon(:status, @search_form), tasks_path(search: sort_params(@search_form.attributes, :status)) %></th>
+    <th><%= link_to Task.human_attribute_name(:deadline) + sort_icon(:deadline, @search_form), tasks_path(search: sort_params(@search_form.attributes, :deadline)) %></th>
     <th></th>
   </tr>
   <% @tasks.each do |task| %>

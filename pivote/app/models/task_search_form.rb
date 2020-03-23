@@ -19,12 +19,9 @@ class TaskSearchForm
   end
 
   def sort(scope)
-    # ソートするカラムのリンクを踏む度に、「desc → asc → デフォルト(作成日時の降順) → desc …」と並び変わる
-    if !sort_column || direction == 'asc'
-      self.direction = nil
+    if sort_column.blank?
       scope.by_default
     else
-      self.direction = direction.present? ? 'asc' : 'desc'
       scope.by_custom(sort_column, direction)
     end
   end
