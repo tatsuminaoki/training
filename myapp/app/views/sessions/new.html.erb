@@ -24,7 +24,7 @@
       <div class="login-input">
         <%= form_for :session, url: login_path do |f| %>
           <div class="login-input-email">
-            <%= f.text_field :mail, class:"form-control", placeholder: t('login.login_input_email')  %>
+            <%= f.text_field :email, class:"form-control", placeholder: t('login.login_input_email')  %>
           </div>
           <div class="login-input-password">
             <%= f.password_field :password, class:"form-control", placeholder: t('login.login_input_password')  %>
