@@ -23,12 +23,12 @@ class SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by!(email: session_params[:mail])
+    @user = User.find_by!(email: session_params[:email])
   rescue
     redirect_to login_path, alert: I18n.t('.flash.invalid_login')
   end
 
   def session_params
-    params.require(:session).permit(:mail, :password)
+    params.require(:session).permit(:email, :password)
   end
 end
