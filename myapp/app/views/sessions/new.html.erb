@@ -23,10 +23,15 @@
       <div class="login-title">
         <%= t('login.login_name') %>
       </div>
+      <div class="notifications">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: "flash-notification" %>
+        <% end %>
+      </div>
       <div class="login-input">
         <%= form_for :session, url: login_path do |f| %>
           <div class="login-input-email">
-            <%= f.text_field :mail, class:"form-control", placeholder: t('login.login_input_email')  %>
+            <%= f.text_field :email, class:"form-control", placeholder: t('login.login_input_email')  %>
           </div>
           <div class="login-input-password">
             <%= f.password_field :password, class:"form-control", placeholder: t('login.login_input_password')  %>
