@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   belongs_to :group
   has_many :task_labels, dependent: :destroy

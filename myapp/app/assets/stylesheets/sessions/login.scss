@@ -41,30 +41,33 @@
         vertical-align: inherit;
         text-decoration: none;
       }
-    }
-    .login-input {
-      width: 100%;
-      .login-input-email {
-        input {
-          background-color: #F8F9FA;
-          margin: 20px 0px 0px 35px;
-          float: left;
-          width: 80%;
-        }
+      .notifications {
+        color: red;
       }
-      .login-input-password {
-        input {
-          background-color: #F8F9FA;
-          margin: 20px 0px 0px 35px;
-          float: left;
-          width: 80%;
+      .login-input {
+        width: 100%;
+        .login-input-email {
+          input {
+            background-color: #F8F9FA;
+            margin: 20px 0px 0px 35px;
+            float: left;
+            width: 80%;
+          }
         }
-      }
-      .login-input-submit {
-        input {
-          margin: 20px 0px 0px 35px;
-          float: left;
-          width: 80%;
+        .login-input-password {
+          input {
+            background-color: #F8F9FA;
+            margin: 20px 0px 0px 35px;
+            float: left;
+            width: 80%;
+          }
+        }
+        .login-input-submit {
+          input {
+            margin: 20px 0px 0px 35px;
+            float: left;
+            width: 80%;
+          }
         }
       }
     }
