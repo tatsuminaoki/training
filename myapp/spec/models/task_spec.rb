@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
@@ -52,7 +54,7 @@ RSpec.describe Task, type: :model do
           project = create(:project, :with_group)
           task = Task.new(name: nil, description: 'test1', priority: 'high', group: project.groups.first, end_period_at: Time.current - 2.days)
           task.valid?
-          expect(task.errors.messages[:end_period_at]).to eq ["End period date is old than current"]
+          expect(task.errors.messages[:end_period_at]).to eq ['End period date is old than current']
         end
       end
     end
