@@ -8,7 +8,7 @@ RSpec.describe 'Tasks', type: :request do
 
     context 'Task creating is success' do
       it 'is created task' do
-        post tasks_path, params: { task: { name: 'test1', description: 'test1', priority: 'high', group_id: project.groups.first.id, project_id: project.id } }
+        post tasks_path, params: { task: {name: 'test1', description: 'test1', priority: 'high', group_id: project.groups.first.id}, project_id: project.id }
         expect(Task.count).to eq 1
         expect(flash[:alert]).to eq 'Success to create task'
         expect(response.status).to eq 302
@@ -17,7 +17,7 @@ RSpec.describe 'Tasks', type: :request do
 
     context 'Task creating is failed because, did not put task name' do
       it 'is not create task' do
-        post tasks_path, params: { task: { name: nil, description: 'test1', priority: 'high', group_id: project.groups.first.id, project_id: project.id } }
+        post tasks_path, params: { task: {name: nil, description: 'test1', priority: 'high', group_id: project.groups.first.id}, project_id: project.id }
         expect(Task.count).to eq 0
         expect(flash[:alert]).to eq 'Failed to create task'
         expect(response.status).to eq 302
@@ -56,7 +56,7 @@ RSpec.describe 'Tasks', type: :request do
       it 'is deleting taks' do
         delete task_path(locale: 'en', id: task.id)
         expect(project.groups.first.tasks.count).to eq 0
-        expect(flash[:alert]).to eq 'Closed test task name task'
+        expect(flash[:alert]).to eq 'Success to destroy task'
         expect(response.status).to eq 302
       end
     end

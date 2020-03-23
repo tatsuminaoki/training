@@ -31,7 +31,7 @@ en:
     failed_create: "Failed to create %{model_name}"
     success_updated: "Success to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
-    success_destroy: "Destroy to create %{model_name}"
+    success_destroy: "Success to destroy %{model_name}"
   search:
     tasks:
       title: "TASKS"
