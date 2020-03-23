@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project ||= current_user.projects.find_by!(id: params[:id])
+    @find_project ||= current_user.projects.find_by!(id: params[:id])
   end
 
   def request_params
