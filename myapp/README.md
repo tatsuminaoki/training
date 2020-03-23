@@ -1,10 +1,17 @@
 ## Trainingは以下のページを参考に行っております。
 https://github.com/Fablic/training/tree/use_docker
 
-## TMS
+## TreasureMap
 
-This is TMS(Task Management System), it's also created for rails training of rakuma team
+### What is it?
+- This is TreasureMap, it is Task Management System
 
+### Why
+- Project success is like that found Treasure, so Task Management System is like to Treasure map for that found Tresure
+- Explorer who using service users is make Treasure map via task as done
+- Finally, explorer is found tresure.
+
+### Technical Environment
 * Ruby version
 2.6.5
 
@@ -93,7 +100,7 @@ CREATE TABLE USERS(
   id INT NOT NULL AUTO_INCREMENT,
   nickname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  encrypted_password VARCHAR(255) NOT NULL,
+  password_digest VARCHAR(255) NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   PRIMARY KEY (id),
@@ -115,11 +122,13 @@ CREATE INDEX projects_name_idx ON PROJECTS (name);
 
 -- create user_projects table, this table is middle table
 CREATE TABLE USER_PROJECTS(
+  id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
   project_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  PRIMARY KEY (user_id, project_id),
+  PRIMARY KEY (id),
+  UNIQUE(id)
   FOREIGN KEY (project_id) REFERENCES PROJECTS(id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -157,7 +166,9 @@ CREATE TABLE TASKS(
   end_period_at DATE NULL,
   group_id INT NOT NULL,
   creator_name VARCHAR(255) NULL,
+  creator_user_id int NULL,
   assignee_name VARCHAR(255) NULL,
+  assignee_user_id int NULL,
   label_id INT NULL,
   description TEXT NULL,
   created_at DATETIME NOT NULL,
@@ -170,13 +181,14 @@ CREATE TABLE TASKS(
 
 -- create task_labels table, this table is middle table
 CREATE TABLE TASK_LABELS(
+  id INT NOT NULL AUTO_INCREMENT,
   task_id INT NOT NULL,
   label_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  PRIMARY KEY (task_id, label_id),
+  PRIMARY KEY (id),
+  UNIQUE(id),
   FOREIGN KEY (task_id) REFERENCES TASKS(id) ON DELETE CASCADE,
   FOREIGN KEY (label_id) REFERENCES LABELS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 ```
