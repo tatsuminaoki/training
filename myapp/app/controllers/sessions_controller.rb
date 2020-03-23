@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-  skip_before_action :require_sign_in!, only: [:new, :create]
+  skip_before_action :require_sign_in!, only: %i[new create]
   before_action :set_user, only: [:create]
 
   def new
@@ -24,7 +26,7 @@ class SessionsController < ApplicationController
 
   def set_user
     @user = User.find_by!(email: session_params[:email])
-  rescue
+  rescue StandardError
     redirect_to login_path, alert: I18n.t('.flash.invalid_login')
   end
 

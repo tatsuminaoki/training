@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
   private
 
   def maintenance?
-    data = open('config/maintenance.yml', 'r') { |f| YAML.load(f) }
-    data["maintenance_mode"]
+    data = open('config/maintenance.yml', 'r') { |f| YAML.safe_load(f) }
+    data['maintenance_mode']
   end
 
   def maintenance_page

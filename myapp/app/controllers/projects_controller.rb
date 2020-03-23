@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     @page = params[:page]
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     project = Project.new(request_params)
     if project.valid?
       project.users << current_user

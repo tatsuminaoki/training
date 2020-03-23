@@ -3,7 +3,7 @@
 class Search
   include Virtus.model
   class << self
-    def find_by_name(query)
+    def search_project_and_task(query)
       projects_list = Project.ransack(name_cont_any: query[:name].split).result
       tasks_list = Task.ransack(name_cont_any: query[:name].split).result
       tasks_list = adding_project_and_group_to_task(tasks_list)
