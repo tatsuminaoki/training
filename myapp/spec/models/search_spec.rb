@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Search, type: :model do
@@ -7,7 +9,7 @@ RSpec.describe Search, type: :model do
       context 'query is matching with data' do
         it 'is get project and task' do
           create(:task, group: project.groups.first, name: 'TEST1')
-          projects_list, tasks_List = Search.find_by_name('TEST1')
+          projects_list, tasks_List = Search.find_by(name: 'TEST1')
           expect(projects_list.count).to eq 1
           expect(tasks_List.count).to eq 1
         end
@@ -16,7 +18,7 @@ RSpec.describe Search, type: :model do
       context 'query is not matching with data' do
         it 'could not get project and task' do
           create(:task, group: project.groups.first, name: 'TEST1')
-          projects_list, tasks_List = Search.find_by_name('TEST2')
+          projects_list, tasks_List = Search.find_by(name: 'TEST2')
           expect(projects_list.count).to eq 0
           expect(tasks_List.count).to eq 0
         end
@@ -26,7 +28,7 @@ RSpec.describe Search, type: :model do
     context 'Just data of project is exists' do
       it 'is get project' do
         create(:project, :with_group, name: 'TEST1')
-        projects_list, tasks_List = Search.find_by_name('TEST1')
+        projects_list, tasks_List = Search.find_by(name: 'TEST1')
         expect(projects_list.count).to eq 1
         expect(tasks_List.count).to eq 0
       end
@@ -36,7 +38,7 @@ RSpec.describe Search, type: :model do
       let(:project) { create(:project, :with_group, name: 'TEST2') }
       it 'is get task' do
         create(:task, group: project.groups.first, name: 'TEST1')
-        projects_list, tasks_List = Search.find_by_name('TEST1')
+        projects_list, tasks_List = Search.find_by(name: 'TEST1')
         expect(projects_list.count).to eq 0
         expect(tasks_List.count).to eq 1
       end
@@ -44,7 +46,7 @@ RSpec.describe Search, type: :model do
 
     context 'both data of project and task is not exists' do
       it 'could not get both data ' do
-        projects_list, tasks_List = Search.find_by_name('TEST1')
+        projects_list, tasks_List = Search.find_by(name: 'TEST1')
         expect(projects_list.count).to eq 0
         expect(tasks_List.count).to eq 0
       end

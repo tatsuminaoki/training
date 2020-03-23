@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :request do
@@ -28,7 +30,7 @@ RSpec.describe 'Tasks', type: :request do
     let(:task) { create(:task, group: project.groups.first) }
     context 'Update success' do
       it 'is changing task name to test1' do
-        patch task_path(locale: 'en', id: task.id), params: { task: {name: 'test1', description: 'test1', priority: 'high'} }
+        patch task_path(locale: 'en', id: task.id), params: { task: { name: 'test1', description: 'test1', priority: 'high' } }
         task.reload
         expect(task.name).to eq 'test1'
         expect(flash[:alert]).to eq 'Success to updated task'
@@ -38,7 +40,7 @@ RSpec.describe 'Tasks', type: :request do
 
     context 'Task creating is failed because, did not put task name' do
       it 'is not change task name' do
-        patch task_path(locale: 'en', id: task.id), params: { task: {name: nil, description: 'test1', priority: 'high'} }
+        patch task_path(locale: 'en', id: task.id), params: { task: { name: nil, description: 'test1', priority: 'high' } }
         task.reload
         expect(task.name).to eq 'test task name'
         expect(flash[:alert]).to eq 'Failed to update task'
