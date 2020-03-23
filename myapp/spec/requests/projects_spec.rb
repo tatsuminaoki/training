@@ -4,9 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
   describe 'POST /projects/:id' do
+    let!(:current_user) { create(:user) }
+    before  { sign_in(current_user) }
     context 'Project creating is success' do
-      let!(:current_user) { create(:user) }
       it 'is creating 1 project and 4 Groups' do
+
         post projects_path, params: { project: { name: 'TEST1' } }
         expect(Project.count).to eq 1
         expect(Group.count).to eq 4
@@ -30,6 +32,8 @@ RSpec.describe 'Projects', type: :request do
     let!(:current_user) { create(:user) }
     let(:project) { create(:project) }
     let!(:user_project) { create(:user_project, user: current_user, project: project) }
+
+    before  { sign_in(current_user) }
     context 'Update success' do
       it 'is changing project name to test1' do
         patch project_path(locale: 'en', id: project.id), params: { project: { name: 'test1' } }
@@ -54,6 +58,8 @@ RSpec.describe 'Projects', type: :request do
     let!(:current_user) { create(:user) }
     let(:project) { create(:project) }
     let!(:user_project) { create(:user_project, user: current_user, project: project) }
+
+    before  { sign_in(current_user) }
     context 'Project deleting is success' do
       it 'is deleting project and reference groups' do
         delete project_path(locale: 'en', id: project.id)
