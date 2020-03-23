@@ -11,8 +11,7 @@ class SessionsController < ApplicationController
       sign_in(@user)
       redirect_to projects_path
     else
-      flash.now[:danger] = t('.flash.invalid_login')
-      render 'new'
+      redirect_to login_path, alert: I18n.t('.flash.invalid_login')
     end
   end
 
@@ -26,8 +25,7 @@ class SessionsController < ApplicationController
   def set_user
     @user = User.find_by!(email: session_params[:mail])
   rescue
-    flash.now[:danger] = t('.flash.invalid_login')
-    render action: 'new'
+    redirect_to login_path, alert: I18n.t('.flash.invalid_login')
   end
 
   def session_params

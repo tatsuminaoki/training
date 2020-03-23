@@ -23,6 +23,11 @@
       <div class="login-title">
         <%= t('login.login_name') %>
       </div>
+      <div class="notifications">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: "flash-notification" %>
+        <% end %>
+      </div>
       <div class="login-input">
         <%= form_for :session, url: login_path do |f| %>
           <div class="login-input-email">
