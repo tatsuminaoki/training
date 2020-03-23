@@ -5,7 +5,7 @@
       <input class="btn btn-success project show-project-name change-name-input" id=<%= @find_project.id %> value=<%= sanitize @find_project.name %>>
     </div>
     <div class="project-show project-dropdown">
-      <%= render partial: 'dropdown_show', locals: { project: @project } %>
+      <%= render partial: 'dropdown_show', locals: { project: @find_project } %>
     </div>
   </div>
   <div class="project-show-body">

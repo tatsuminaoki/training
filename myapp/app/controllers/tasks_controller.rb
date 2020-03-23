@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :find_task, only: %i[update destroy register_label remove_label]
+  before_action :find_task, only: %i[update destroy]
 
   def create # rubocop:disable Metrics/AbcSize
     task = Task.new(request_params)
@@ -28,23 +28,6 @@ class TasksController < ApplicationController
     project_id = @find_task.group.project.id
     @find_task.destroy
     redirect_to project_url(id: project_id), alert: I18n.t('flash.success_destroy', model_name: 'task')
-  end
-
-  def register_label
-    @task.labels << Label.find_by!(id: params[:task][:label_id])
-    if @task.save
-      render status: 200, json: { task: @task, labels: @task.labels }
-    else
-      render status: 400, json: {}
-    end
-  end
-
-  def remove_label
-    if find_task.labels.delete(params[:label_id])
-      render status: 200, json: { task: find_task, labels: params[:label_id] }
-    else
-      render status: 400, json: {}
-    end
   end
 
   private
