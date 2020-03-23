@@ -2,14 +2,14 @@
   <div class="project-show-header">
     <div class="project-show project-name">
       <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
-      <input class="btn btn-success project show-project-name change-name-input" id=<%= @project.id %> value=<%= sanitize @project.name %>>
+      <input class="btn btn-success project show-project-name change-name-input" id=<%= @find_project.id %> value=<%= sanitize @find_project.name %>>
     </div>
     <div class="project-show project-dropdown">
       <%= render partial: 'dropdown_show', locals: { project: @project } %>
     </div>
   </div>
   <div class="project-show-body">
-    <% @project.groups.order(:sort_number).each do |group| %>
+    <% @find_project.groups.order(:sort_number).each do |group| %>
       <div class="project-show group">
         <div class="project-show group-title">
           <h5>

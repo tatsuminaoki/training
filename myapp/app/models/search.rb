@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class Search
   include Virtus.model
   class << self
-    def search(query, current_user)
-        projects_list = current_user.projects.ransack(name_cont_any: query.split).result
-        tasks_list = Task.where(group_id: find_all_group_ids_to_which_current_user(current_user)).ransack(name_cont_any: query.split).result
-        tasks_list = adding_project_and_group_to_task(tasks_list)
+    def find_by_name(query)
+      projects_list = Project.ransack(name_cont_any: query[:name].split).result
+      tasks_list = Task.ransack(name_cont_any: query[:name].split).result
+      tasks_list = adding_project_and_group_to_task(tasks_list)
 
-        return projects_list, tasks_list
+      [projects_list, tasks_list]
     end
 
     private
@@ -15,8 +17,8 @@ class Search
       tasks_list_array = []
       tasks_list.map do |task|
         tasks_record = task.as_json
-        tasks_record["group"] =  task.group
-        tasks_record["project"] =  task.group.project
+        tasks_record['group'] = task.group
+        tasks_record['project'] = task.group.project
         tasks_list_array << tasks_record
       end
 

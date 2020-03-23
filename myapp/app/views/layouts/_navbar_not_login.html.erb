@@ -24,3 +24,8 @@
     </div>
   </nav>
 </div>
+<div class="notifications">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: "flash-notification" %>
+  <% end %>
+</div>
