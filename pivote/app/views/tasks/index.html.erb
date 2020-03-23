@@ -23,6 +23,11 @@
 
 <%= link_to t('crud.create'), new_task_path %>
 
+<div>
+  <%= paginate @tasks %>
+  <%= page_entries_info @tasks %>
+</div>
+
 <table>
   <tr>
     <th><%= Task.human_attribute_name(:title) %></th>

@@ -199,6 +199,31 @@ describe 'タスク管理機能', type: :system do
     end
   end
 
+  describe 'ページネーション' do
+    before do
+      (1..100).each { |i|
+        FactoryBot.create(:task, title: "ページネーションタスク#{i}", created_at: i.days.ago)
+      }
+      visit tasks_path
+    end
+
+    context '「2」のリンクを踏んだとき' do
+      it '21番目のタスクが表示される' do
+        click_link '2'
+        expect(page).to have_content 'ページネーションタスク21'
+        expect(page).to have_no_content 'ページネーションタスク20'
+      end
+    end
+
+    context '「最後」のリンクを踏んだとき' do
+      it '100番目のタスクが表示される' do
+        click_link '最後 »'
+        expect(page).to have_content 'ページネーションタスク100'
+        expect(page).to have_no_content 'ページネーションタスク80'
+      end
+    end
+  end
+
   describe '詳細表示' do
     before do
       visit task_path(single_task)
