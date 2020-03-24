@@ -1,41 +1,45 @@
 <h1><%= t('headline.task.show') %></h1>
 
-<%= link_to t('link.all'), tasks_path %>
+<div class="nav justify-content-end">
+  <%= link_to t('link.all'), tasks_path, class: 'nav-link' %>
+</div>
 
-<table>
-  <tr>
-    <th><%= Task.human_attribute_name(:id) %></th>
-    <td><%= @task.id %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:title) %></th>
-    <td><%= @task.title %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:description) %></th>
-    <td><%= simple_format(h(@task.description), {}, sanitize: false) %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:priority) %></th>
-    <td><%= @task.human_attribute_enum(:priority) %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:status) %></th>
-    <td><%= @task.human_attribute_enum(:status) %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:deadline) %></th>
-    <td><%= @task.format_deadline %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:created_at) %></th>
-    <td><%= l @task.created_at %></td>
-  </tr>
-  <tr>
-    <th><%= Task.human_attribute_name(:updated_at) %></th>
-    <td><%= l @task.updated_at %></td>
-  </tr>
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <th><%= Task.human_attribute_name(:id) %></th>
+      <td><%= @task.id %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <td><%= @task.title %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:description) %></th>
+      <td><%= simple_format(h(@task.description), {}, sanitize: false) %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:priority) %></th>
+      <td><%= @task.human_attribute_enum(:priority) %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:status) %></th>
+      <td><%= @task.human_attribute_enum(:status) %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:deadline) %></th>
+      <td><%= @task.format_deadline %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
+      <td><%= l @task.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:updated_at) %></th>
+      <td><%= l @task.updated_at %></td>
+    </tr>
+  </tbody>
 </table>
 
-<%= link_to t('crud.update'), edit_task_path %>
-<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', task: @task.title)} %>
+<%= link_to t('crud.update'), edit_task_path, class: 'btn btn-primary mr-3' %>
+<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', task: @task.title)}, class: 'btn btn-danger' %>

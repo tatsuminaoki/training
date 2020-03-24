@@ -1,5 +1,7 @@
 <h1><%= t('headline.task.new') %></h1>
 
-<%= link_to t('link.all'), tasks_path %>
+<div class="nav justify-content-end">
+  <%= link_to t('link.all'), tasks_path, class: 'nav-link' %>
+</div>
 
 <%= render partial: 'form', locals: {task: @task} %>
