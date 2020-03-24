@@ -19,10 +19,10 @@
   <div class="form-inline">
   <%= f.submit t('button.search'), class: 'btn btn-secondary' %>
 <% end %>
-  <%= form_with url: tasks_path, method: :get, local: true do |f| %>
-    <%= f.submit t('button.reset'), class: 'btn btn-secondary ml-3' %>
-  <% end %>
-</div>
+<%= form_with url: tasks_path, method: :get, local: true do |f| %>
+  <%= f.submit t('button.reset'), class: 'btn btn-secondary ml-3' %>
+<% end %>
+  </div>
 <hr>
 
 <%= link_to t('crud.create'), new_task_path, class: 'btn btn-primary mb-3' %>
