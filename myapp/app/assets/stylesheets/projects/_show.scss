@@ -26,10 +26,12 @@
       left: -8px !important;
       background-color: #F4F5F7;
       text-align: center;
+      .edit-label-button {
+        width: 90%;
+      }
       .delete-button {
-        background-color: #F4F5F7;
-        border-color: #F4F5F7;
-        color: #000000;
+        margin-top: 10px;
+        width: 90%;
       }
     }
   }

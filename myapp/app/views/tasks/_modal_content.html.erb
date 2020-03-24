@@ -8,7 +8,7 @@
           <%= t('tasks.name') %>
         </div>
         <div class="task-modal-name-input">
-          <%= task.text_field :name, class:"form-control", placeholder:"Task name"%>
+          <%= task.text_field :name, class:"form-control", placeholder: t('tasks.name-placeholder') %>
         </div>
       </div>
 
@@ -31,7 +31,7 @@
         <%= t('tasks.description') %>
       </div>
       <div class="task-modal-description-input">
-        <%= task.text_area :description, size: "5x2", class:"form-control", placeholder:"Add a more detailed description..."%>
+        <%= task.text_area :description, size: "5x2", class:"form-control", placeholder: t('tasks.description-placeholder') %>
       </div>
     </div>
 
@@ -43,6 +43,18 @@
       <div class="task-modal-priority-input">
         <h6>
         <%= task.select :priority, Task.priorities.keys, class:"form-control" %>
+        </h6>
+      </div>
+    </div>
+
+    <div class="task-modal-group">
+      <div class="task-modal-group-icon">
+        <i class="fas fa-layer-group fa-lg"></i>
+        <%= t('groups.title') %>
+      </div>
+      <div class="task-modal-group-input">
+        <h6>
+        <%= task.select :group_id, group.project.groups.pluck(:name, :id), class:"form-control" %>
         </h6>
       </div>
     </div>

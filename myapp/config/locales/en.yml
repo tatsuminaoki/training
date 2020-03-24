@@ -6,6 +6,7 @@ en:
     show_menu: "Show Menu"
     close_project: "Close project"
   groups:
+    title: "Group"
   tasks:
     add_task: "Add a Task"
     edit_task: "Edit task"
@@ -14,14 +15,18 @@ en:
     delete_task_button: "Delete a task"
     create_task_button: "Add a task"
     name: "Name"
+    name-placeholder: "Add task name"
     description: "Description"
+    description-placeholder: "Add a more detailed description..."
     priority: "Priority"
     end_period_at: "End period"
-    group_name: "Group"
     creator_name: "Creator name"
     assignee_name: "Assignee label: "
     label: "Labels"
     label_list: "Labels List"
+  labels:
+    edit_labels: "Edit labels"
+    update_label_button: "Update"
   validate:
     errors:
       groups:

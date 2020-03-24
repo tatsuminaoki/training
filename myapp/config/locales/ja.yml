@@ -6,6 +6,7 @@ ja:
     show_menu: "メニュー"
     close_project: "プロジェクト削除"
   groups:
+    title: "グループ"
   tasks:
     add_task: "タスク追加"
     edit_task: "タスク変更"
@@ -14,14 +15,18 @@ ja:
     delete_task_button: "タスク削除"
     create_task_button: "タスク追加"
     name: "タイトル"
+    name-placeholder: "タスク名前追加"
     description: "コメント"
+    description-placeholder: "詳細な説明を追加..."
     priority: "優先順位"
     end_period_at: "終了期限"
-    group_name: "グループ"
     creator_name: "作成者"
     assignee_name: "担当者"
     label: "ラベル"
     label_list: "ラベル一覧"
+  labels:
+    edit_labels: "ラベル編集"
+    update_label_button: "更新"
   validate:
     errors:
       groups:

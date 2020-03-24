@@ -18,7 +18,7 @@ RSpec.describe 'Projects', type: :request do
     end
 
     context 'Project creating is failed because, did not put project name' do
-      it 'is not create project and groups' do
+      it 'could not create project and groups' do
         post projects_path, params: { project: { name: nil } }
         expect(Project.count).to eq 0
         expect(Group.count).to eq 0
@@ -44,7 +44,7 @@ RSpec.describe 'Projects', type: :request do
     end
 
     context 'Project updating is failed because, did not put project name' do
-      it 'is not change project name' do
+      it 'could not change project name' do
         original_project_name = project.name
 
         patch project_path(locale: 'en', id: project.id), params: { project: { name: nil } }

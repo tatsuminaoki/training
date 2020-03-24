@@ -18,7 +18,7 @@ RSpec.describe 'Tasks', type: :request do
     end
 
     context 'Task creating is failed because, did not put task name' do
-      it 'is not create task' do
+      it 'could not create task' do
         post tasks_path, params: { task: {name: nil, description: 'test1', priority: 'high', group_id: project.groups.first.id}, project_id: project.id }
         expect(Task.count).to eq 0
         expect(flash[:alert]).to eq 'Failed to create task'
@@ -44,7 +44,7 @@ RSpec.describe 'Tasks', type: :request do
     end
 
     context 'Task creating is failed because, did not put task name' do
-      it 'is not change task name' do
+      it 'could not change task name' do
         patch task_path(locale: 'en', id: task.id), params: { task: { name: nil, description: 'test1', priority: 'high' } }
         task.reload
         expect(task.name).to eq 'test task name'
@@ -70,7 +70,7 @@ RSpec.describe 'Tasks', type: :request do
     end
 
     context 'Task deleting is failed, because task id is not correct' do
-      it 'is not delete task' do
+      it 'could not delete task' do
         project
         task
         delete task_path(locale: 'en', id: 100)

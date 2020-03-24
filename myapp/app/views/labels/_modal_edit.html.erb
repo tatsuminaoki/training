@@ -1,0 +1,32 @@
+<div class="modal fade" id="edit-labels"  tabindex="-1" role="dialog" aria-labelledby="edit-labels">
+  <div class="modal-dialog labels-modal-dialog" role="document">
+    <div class="modal-content labels-modal-content">
+      <div class="modal-header labels-modal-header">
+        <%= t('labels.edit_labels') %>
+        <div class="task-modal-close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body labels-modal-body">
+        <% labels.each do |label| %>
+          <div class= "label-edit-form-div">
+            <%= form_for(label) do |label| %>
+                <div class="label-name">
+                  <%= label.text_field :name, class:"form-control" %>
+                </div>
+                <div class="label-color">
+                  <%= label.text_field :color, class: "form-control", style: "background-color: #{label.object.color};" %>
+                </div>
+                <div class="label-update-button">
+                  <%= label.submit t('labels.update_label_button'), class:"btn btn-success" %>
+                </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

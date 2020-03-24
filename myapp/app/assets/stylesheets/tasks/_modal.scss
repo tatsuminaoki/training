@@ -6,7 +6,7 @@
     background-color: #F4F5F7;
     border: none !important;
     width: 100%;
-    .task-model-header {
+    .task-modal-header {
       .task-modal-close {
         width: 5%;
         color: #45526C !important;
@@ -85,6 +85,7 @@
             }
           }
         }
+
         .task-modal-priority {
           width: 100%;
           float: left;
@@ -103,6 +104,26 @@
             }
           }
         }
+
+        .task-modal-group {
+          width: 100%;
+          float: left;
+          margin-top: 10px;
+          .task-modal-group-icon {
+            width: 100%;
+            float: left;
+          }
+          .task-modal-group-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            select {
+              height: 50px;
+              width: 100%;
+            }
+          }
+        }
+
         .task-modal-end-period-at {
           width: 100%;
           float: left;

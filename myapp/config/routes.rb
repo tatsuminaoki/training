@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :static, only: [:index]
     resources :projects, only: [:show, :index, :create, :update, :destroy]
     resources :tasks, only: [:create, :update, :destroy]
+    resources :labels, only: [:update]
     resources :task_labels, only: [:create]
     resources :search, only: [:index]
 
