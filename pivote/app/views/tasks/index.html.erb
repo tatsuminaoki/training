@@ -2,51 +2,60 @@
 
 <hr>
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
-  <div>
+  <div class="form-inline mb-3">
+  <div class="form-group form-inline mr-4">
     <%= f.label Task.human_attribute_name(:priority) + '：' %>
-    <%= f.select 'search[priority]', Task.enum_options_for_select(:priority), { include_blank: true, selected: @search_form.priority } %>
+    <%= f.select 'search[priority]', Task.enum_options_for_select(:priority), { include_blank: true, selected: @search_form.priority }, { class: 'form-control' } %>
   </div>
-  <div>
+  <div class="form-group form-inline">
     <%= f.label Task.human_attribute_name(:status) + '：' %>
-    <%= f.select 'search[status]', Task.enum_options_for_select(:status), { include_blank: true, selected: @search_form.status } %>
+    <%= f.select 'search[status]', Task.enum_options_for_select(:status), { include_blank: true, selected: @search_form.status }, { class: 'form-control' } %>
   </div>
-  <div>
+  </div>
+  <div class="form-group form-inline">
     <%= f.label Task.human_attribute_name(:title) + '：' %>
-    <%= f.text_field 'search[title]', value: @search_form.title %>
+    <%= f.text_field 'search[title]', value: @search_form.title, class: 'form-control' %>
   </div>
-  <%= f.submit t('button.search') %>
+  <div class="form-inline">
+  <%= f.submit t('button.search'), class: 'btn btn-secondary' %>
 <% end %>
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
-  <%= f.submit t('button.reset') %>
+  <%= f.submit t('button.reset'), class: 'btn btn-secondary ml-3' %>
 <% end %>
+  </div>
 <hr>
 
-<%= link_to t('crud.create'), new_task_path %>
+<%= link_to t('crud.create'), new_task_path, class: 'btn btn-primary mb-3' %>
 
-<div>
+<div class="mb-3">
   <%= paginate @tasks %>
   <%= page_entries_info @tasks %>
 </div>
 
-<table>
-  <tr>
-    <th><%= Task.human_attribute_name(:title) %></th>
-    <th><%= link_to Task.human_attribute_name(:priority) + sort_icon(:priority, @search_form), tasks_path(search: sort_params(@search_form.attributes, :priority)) %></th>
-    <th><%= link_to Task.human_attribute_name(:status) + sort_icon(:status, @search_form), tasks_path(search: sort_params(@search_form.attributes, :status)) %></th>
-    <th><%= link_to Task.human_attribute_name(:deadline) + sort_icon(:deadline, @search_form), tasks_path(search: sort_params(@search_form.attributes, :deadline)) %></th>
-    <th></th>
-  </tr>
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= link_to task.title, task_path(task) %></td>
-      <td><%= task.human_attribute_enum(:priority) %></td>
-      <td><%= task.human_attribute_enum(:status) %></td>
-      <td><%= task.format_deadline %></td>
-      <td>
-        <%= link_to t('crud.update'), edit_task_path(task) %>
-        <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', task: task.title)} %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th><%= Task.human_attribute_name(:title) %></th>
+        <th><%= link_to Task.human_attribute_name(:priority) + sort_icon(:priority, @search_form), tasks_path(search: sort_params(@search_form.attributes, :priority)) %></th>
+        <th><%= link_to Task.human_attribute_name(:status) + sort_icon(:status, @search_form), tasks_path(search: sort_params(@search_form.attributes, :status)) %></th>
+        <th><%= link_to Task.human_attribute_name(:deadline) + sort_icon(:deadline, @search_form), tasks_path(search: sort_params(@search_form.attributes, :deadline)) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.title, task_path(task) %></td>
+          <td><%= task.human_attribute_enum(:priority) %></td>
+          <td><%= task.human_attribute_enum(:status) %></td>
+          <td><%= task.format_deadline %></td>
+          <td>
+            <%= link_to t('crud.update'), edit_task_path(task), class: 'btn btn-primary mr-3' %>
+            <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', task: task.title)}, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

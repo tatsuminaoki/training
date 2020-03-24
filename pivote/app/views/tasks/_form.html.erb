@@ -9,15 +9,29 @@
 <% end %>
 
 <%= form_with model: task, local: true do |f| %>
-  <div><%= f.label :title %></div>
-  <div><%= f.text_field :title, id: 'task_title' %></div>
-  <div><%= f.label :description %></div>
-  <div><%= f.text_area :description, rows: 5, id: 'task_description' %></div>
-  <div><%= f.label :priority %></div>
-  <div><%= f.select :priority, Task.enum_options_for_select(:priority) %></div>
-  <div><%= f.label :status %></div>
-  <div><%= f.select :status, Task.enum_options_for_select(:status) %></div>
-  <div><%= f.label :deadline %></div>
-  <div><%= f.date_select :deadline %></div>
-  <%= f.submit %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', id: 'task_title' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 5, class: 'form-control', id: 'task_description' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :priority %>
+    <div class="col-md-2">
+      <%= f.select :priority, Task.enum_options_for_select(:priority), {}, { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :status %>
+    <div class="col-md-2">
+      <%= f.select :status, Task.enum_options_for_select(:status), {}, { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :deadline %>
+    <div><%= f.date_select :deadline, {}, { class: 'form-control bootstrap-date' } %></div>
+  </div>
+  <%= f.submit nil, class: 'btn btn-primary' %>
 <% end %>
