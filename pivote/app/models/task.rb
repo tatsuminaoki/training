@@ -8,11 +8,10 @@ class Task < ApplicationRecord
   enum priority: { low: 10, middle: 20, high: 30 }
   enum status: { done: 10, doing: 20, waiting: 30 }
 
-  scope :search_with_priority, -> (priority) { where(priority: priority) }
-  scope :search_with_status, -> (status) { where(status: status) }
-  scope :match_with_title, -> (title) { where(:title.to_s + ' LIKE ?', "%#{title}%") }
-  scope :by_default, -> { order(created_at: :desc) }
-  scope :by_custom, -> (column, direction) { order(column + ' ' + direction) }
+  scope :search_with_priority, -> (priority) { where(priority: priority) if priority.present? }
+  scope :search_with_status, -> (status) { where(status: status) if status.present? }
+  scope :match_with_title, -> (title) { where(:title.to_s + ' LIKE ?', "%#{title}%") if title.present? }
+  scope :sort_by_column, ->(column, sort) { order((column.presence || 'created_at').to_sym => (sort.presence || 'desc').to_sym) }
 
   def format_deadline
     I18n.l self.deadline, format: :date if self.deadline
