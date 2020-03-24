@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(version: 2020_03_14_015455) do
   end
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "project_id"
+    t.string "name"
+    t.string "color", default: "#B4BAC4", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_labels_on_project_id"

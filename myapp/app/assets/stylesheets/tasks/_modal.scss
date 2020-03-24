@@ -1,11 +1,12 @@
 .task-modal-dialog {
   max-width: 700px !important;
+  width: auto;
   border-style: none !important;
   .task-modal-content {
     background-color: #F4F5F7;
     border: none !important;
     width: 100%;
-    .task-model-header {
+    .task-modal-header {
       .task-modal-close {
         width: 5%;
         color: #45526C !important;
@@ -18,109 +19,185 @@
       width: 100%;
       height: auto;
       float: left;
-      .task-modal-name {
-        background-color: #F4F5F7;
-        width: 100%;
+      .task-modal-form {
+        width: 80%;
         float: left;
-        margin-top: 10px;
-        .task-modal-name-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-name-input {
-          width: 100%;
-          float: left;
-          input {
-            width: 100%;
-            background-color: #F4F5F7;
-            border-color: #F4F5F7;
+
+        .task-modal-name-and-label {
+           background-color: #F4F5F7;
+           width: 100%;
+           float: left;
+           margin-top: 10px;
+          .task-modal-name {
+            width: 65%;
+            float: left;
+            .task-modal-name-icon {
+              width: 100%;
+              float: left;
+            }
+            .task-modal-name-input {
+              width: 100%;
+              float: left;
+              input {
+                width: 100%;
+                background-color: #F4F5F7;
+                border-color: #F4F5F7;
+              }
+            }
+          }
+
+          .task-modal-joined-label {
+            width: 35%;
+            float: left;
+            .task-modal-joined-label-icon {
+              margin-left: 15px;
+              width: 100%;
+              float: left;
+            }
+            .task-modal-joined-label-color {
+              margin-left: 15px;
+              width: 100%;
+              float: left;
+              .task-modal-label-list-color-delete {
+                margin: 10px 8px 0px 0px;
+                width: 30%;
+                float: left;
+              }
+            }
           }
         }
-      }
-      .task-modal-description {
-        width: 100%;
-        float: left;
-        margin-top: 10px;
-        .task-modal-description-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-description-input {
+
+        .task-modal-description {
           width: 100%;
           float: left;
           margin-top: 10px;
-          input {
+          .task-modal-description-icon {
             width: 100%;
-            background-color: #EBECF0;
+            float: left;
+          }
+          .task-modal-description-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            input {
+              width: 100%;
+              background-color: #EBECF0;
+            }
           }
         }
-      }
-      .task-modal-priority {
-        width: 100%;
-        float: left;
-        margin-top: 10px;
-        .task-modal-priority-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-priority-input {
+
+        .task-modal-priority {
           width: 100%;
           float: left;
           margin-top: 10px;
-          select {
-            height: 50px;
+          .task-modal-priority-icon {
             width: 100%;
+            float: left;
+          }
+          .task-modal-priority-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            select {
+              height: 50px;
+              width: 100%;
+            }
           }
         }
-      }
-      .task-modal-end-period-at {
-        width: 100%;
-        float: left;
-        margin-top: 10px;
-        .task-modal-end-period-at-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-end-period-at-input {
+
+        .task-modal-group {
           width: 100%;
           float: left;
           margin-top: 10px;
-          input {
+          .task-modal-group-icon {
             width: 100%;
+            float: left;
+          }
+          .task-modal-group-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            select {
+              height: 50px;
+              width: 100%;
+            }
           }
         }
-      }
-      .task-modal-creator-name {
-        width: 100%;
-        float: left;
-        margin-top: 10px;
-        .task-modal-creator-name-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-creator-name-input {
+
+        .task-modal-end-period-at {
           width: 100%;
           float: left;
           margin-top: 10px;
-          input {
+          .task-modal-end-period-at-icon {
             width: 100%;
+            float: left;
+          }
+          .task-modal-end-period-at-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            input {
+              width: 100%;
+            }
           }
         }
-      }
-      .task-modal-assignee-name {
-        width: 100%;
-        float: left;
-        margin-top: 10px;
-        .task-modal-assignee-name-icon {
-          width: 100%;
-          float: left;
-        }
-        .task-modal-assignee-name-input {
+        .task-modal-creator-name {
           width: 100%;
           float: left;
           margin-top: 10px;
-          input {
+          .task-modal-creator-name-icon {
             width: 100%;
+            float: left;
+          }
+          .task-modal-creator-name-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            input {
+              width: 100%;
+            }
+          }
+        }
+        .task-modal-assignee-name {
+          width: 100%;
+          float: left;
+          margin-top: 10px;
+          .task-modal-assignee-name-icon {
+            width: 100%;
+            float: left;
+          }
+          .task-modal-assignee-name-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .task-modal-label-form {
+        .task-modal-label {
+          width: 20%;
+          float: left;
+          margin-top: 10px;
+          .task-modal-label-icon {
+            margin-left: 15px;
+            width: 100%;
+            float: left;
+          }
+          .task-modal-label-list {
+            width: 100%;
+            float: left;
+            margin-left: 15px;
+            margin-top: 10px;
+            .task-modal-label-list-color {
+              color: #ffffff;
+              height: 30px;
+              width: 120%;
+              text-align: left;
+              margin-top: 10px;
+            }
           }
         }
       }

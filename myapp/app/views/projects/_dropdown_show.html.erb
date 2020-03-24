@@ -4,6 +4,14 @@
    <%= t('projects.show_menu') %>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <%= button_to t('projects.close_project'), project_path, method: :delete, class:"btn delete-button" %>
+    <div class="edit-label">
+      <button type="button" class="btn btn-success edit-label-button" data-toggle="modal" data-target="#edit-labels">
+        <%= t('labels.edit_labels') %>
+      </button>
+    </div>
+    <div class="close-project">
+      <%= button_to t('projects.close_project'), project_path, method: :delete, class:"btn btn-secondary delete-button" %>
+    </div>
   </div>
+  <%= render partial: 'labels/modal_edit', locals: { labels: project.labels } %>
 </div>

@@ -1,4 +1,6 @@
 UserProject.delete_all
+TaskLabel.delete_all
+Label.delete_all
 Task.delete_all
 Group.delete_all
 User.delete_all
