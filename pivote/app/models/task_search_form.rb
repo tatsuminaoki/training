@@ -11,14 +11,9 @@ class TaskSearchForm
   attribute :direction, :string
 
   def search
-    scope = Task.all
-    scope = scope.search_with_priority(priority)
-    scope = scope.search_with_status(status)
-    scope = scope.match_with_title(title)
-    sort(scope)
-  end
-
-  def sort(scope)
-    scope.sort_by_column(sort_column, direction)
+    Task.search_with_priority(priority)
+        .search_with_status(status)
+        .match_with_title(title)
+        .sort_by_column(sort_column, direction)
   end
 end
