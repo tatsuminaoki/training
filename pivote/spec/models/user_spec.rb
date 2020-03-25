@@ -55,6 +55,31 @@ RSpec.describe User, type: :model do
       let(:email) { 'admin@example.com' }
       it { is_expected.to be_invalid }
     end
+
+    context '@が存在しない' do
+      let(:email) { 'email' }
+      it { is_expected.to be_invalid }
+    end
+
+    context '@の前に文字が存在しない' do
+      let(:email) { '@example.com' }
+      it { is_expected.to be_invalid }
+    end
+
+    context '@の後に文字が存在しない' do
+      let(:email) { 'admin@' }
+      it { is_expected.to be_invalid }
+    end
+
+    context '@の後に「.」が存在しない' do
+      let(:email) { 'admin@example' }
+      it { is_expected.to be_invalid }
+    end
+
+    context '@の後に「.」の後に文字が存在しない' do
+      let(:email) { 'admin@example.' }
+      it { is_expected.to be_invalid }
+    end
   end
 
   describe 'パスワード' do
