@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_in(user)
-    remember_token = UserLoginManager.create!(user_id: user.id, ip: request)
+    remember_token = UserLoginManager.create!(user_id: user.id, request: request)
     cookies.permanent[:user_remember_token] = remember_token
     @current_user = user
   end
