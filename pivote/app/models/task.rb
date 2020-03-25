@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :description, length: { maximum: 1000 }
 
+  belongs_to :user
+
   # 間に差込で追加したいという要望に応えられるよう、値を10の倍数としている
   enum priority: { low: 10, middle: 20, high: 30 }
   enum status: { done: 10, doing: 20, waiting: 30 }
