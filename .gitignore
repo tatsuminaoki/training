@@ -13,6 +13,8 @@ myapp/docs/img/.DS_Store
 /myapp/tmp/*
 /myapp/tmp/.keep
 
+/myapp/test
+
 /myapp/node_modules
 /myapp/yarn-error.log
 
