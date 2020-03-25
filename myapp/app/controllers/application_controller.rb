@@ -25,7 +25,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-     remember_token = User.encrypt(cookies[:user_remember_token])
+    return @current_user = nil if cookies[:user_remember_token].blank?
+
+    remember_token = User.encrypt(cookies[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
 
