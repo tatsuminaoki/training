@@ -18,15 +18,14 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_in(user)
-    remember_token = User.new_remember_token
+    remember_token = UserLoginManager.create!(user_id: user.id, ip: request)
     cookies.permanent[:user_remember_token] = remember_token
-    user.update!(remember_token: User.encrypt(remember_token))
     @current_user = user
   end
 
   def current_user
-    remember_token = User.encrypt(cookies[:user_remember_token])
-    @current_user ||= User.find_by(remember_token: remember_token)
+    return @current_user = nil if cookies[:user_remember_token].blank?
+    @current_user ||= UserLoginManager.auth(remember_token: cookies[:user_remember_token], request: request)
   end
 
   def routing_error
