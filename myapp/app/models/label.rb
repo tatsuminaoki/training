@@ -19,7 +19,7 @@ class Label < ApplicationRecord
   def self.create_default_label(id)
     recorder = []
     DEFAULT_COLOR.each do |color|
-      recorder << { color: name, project_id: id, created_at: DateTime.current, updated_at: DateTime.current }
+      recorder << { color: color, project_id: id, created_at: DateTime.current, updated_at: DateTime.current }
     end
     Label.insert_all!(recorder)
   end

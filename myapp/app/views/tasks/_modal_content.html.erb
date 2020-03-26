@@ -25,16 +25,6 @@
       </div>
     </div>
 
-    <div class="task-modal-description">
-      <div class="task-modal-description-icon">
-        <i class="far fa-edit fa-lg"></i>
-        <%= t('tasks.description') %>
-      </div>
-      <div class="task-modal-description-input">
-        <%= task.text_area :description, size: "5x2", class:"form-control", placeholder: t('tasks.description-placeholder') %>
-      </div>
-    </div>
-
     <div class="task-modal-priority">
       <div class="task-modal-priority-icon">
         <i class="fas fa-sort fa-lg"></i>
@@ -86,6 +76,16 @@
       </div>
       <div class="task-modal-assignee-name-input">
         <%= task.text_field :assignee_name, class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="task-modal-description">
+      <div class="task-modal-description-icon">
+        <i class="far fa-edit fa-lg"></i>
+        <%= t('tasks.description') %>
+      </div>
+      <div class="task-modal-description-input">
+        <%= task.rich_text_area :description, size: "5x2", class:"form-control description", placeholder: t('tasks.description-placeholder') %>
       </div>
     </div>
   </div>

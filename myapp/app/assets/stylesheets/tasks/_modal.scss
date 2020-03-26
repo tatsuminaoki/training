@@ -67,25 +67,6 @@
           }
         }
 
-        .task-modal-description {
-          width: 100%;
-          float: left;
-          margin-top: 10px;
-          .task-modal-description-icon {
-            width: 100%;
-            float: left;
-          }
-          .task-modal-description-input {
-            width: 100%;
-            float: left;
-            margin-top: 10px;
-            input {
-              width: 100%;
-              background-color: #EBECF0;
-            }
-          }
-        }
-
         .task-modal-priority {
           width: 100%;
           float: left;
@@ -172,6 +153,47 @@
             margin-top: 10px;
             input {
               width: 100%;
+            }
+          }
+        }
+
+        .task-modal-description {
+          width: 100%;
+          float: left;
+          margin-top: 10px;
+          .task-modal-description-icon {
+            width: 100%;
+            float: left;
+          }
+          .task-modal-description-input {
+            width: 100%;
+            float: left;
+            margin-top: 10px;
+            .trix-button-row {
+              width: 100%;
+              .trix-active {
+                display: none;
+              }
+              .trix-button--icon-decrease-nesting-level {
+                display: none;
+              }
+              .trix-button--icon-increase-nesting-level {
+                display: none;
+              }
+              .trix-button-group-spacer {
+                display: none;
+              }
+              .trix-button--icon-code {
+                display: none;
+              }
+              .trix-button--icon-quote {
+                display: none;
+              }
+            }
+            .description {
+              width: 100%;
+              min-height: 80px;
+              height: 100%;
             }
           }
         }
