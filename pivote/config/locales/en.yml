@@ -55,6 +55,7 @@ en:
       logout: Logged out.
   alert:
     confirm: Delete 「%{task}」?
+    login_error: error
   link:
     all: all
     tasks: tasks

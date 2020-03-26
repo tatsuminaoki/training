@@ -24,6 +24,7 @@ ja:
       logout: ログアウトしました。
   alert:
     confirm: タスク「%{task}」を削除します。よろしいですか？
+    login_error: メールアドレス、またはパスワードが正しくありません。
   link:
     all: 一覧
     tasks: タスク一覧
