@@ -3,6 +3,15 @@
 require 'rails_helper'
 
 describe 'エラーページ表示機能', type: :system do
+  let(:user) { FactoryBot.create(:user) }
+
+  before do
+    visit login_path
+    fill_in 'session_email', with: user.email
+    fill_in 'session_password', with: user.password
+    click_button 'ログイン'
+  end
+
   it '存在しないタスクにアクセスすると、404ページに遷移する' do
     visit task_path(id: 999_999)
     expect(page).to have_content 'Not Found'

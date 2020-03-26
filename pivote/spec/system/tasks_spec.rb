@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
   let(:user_a) { FactoryBot.create(:user, name: 'Aさん', email: 'a@example.com') }
-  let(:single_task) { FactoryBot.create(:task) }
+  let(:single_task) { FactoryBot.create(:task, user: user_a) }
   let(:tasks_1) {
     FactoryBot.create(:task, title: task1_title, priority: :high, status: :waiting, deadline: Time.zone.now, created_at: Time.zone.now, user: user_a)
     FactoryBot.create(:task, title: task2_title, priority: :middle, status: :doing, deadline: 1.day.ago, created_at: 1.day.ago, user: user_a)
@@ -27,6 +27,13 @@ describe 'タスク管理機能', type: :system do
   let(:task4_i) { page.body.index(task4_title) }
   let(:task5_i) { page.body.index(task5_title) }
   let(:task6_i) { page.body.index(task6_title) }
+
+  before do
+    visit login_path
+    fill_in 'session_email', with: user_a.email
+    fill_in 'session_password', with: user_a.password
+    click_button 'ログイン'
+  end
 
   describe 'ソート機能' do
     before do
@@ -222,6 +229,18 @@ describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'ページネーションタスク100'
         expect(page).to have_no_content 'ページネーションタスク80'
       end
+    end
+  end
+
+  describe '一覧表示' do
+    before do
+      user_b = FactoryBot.create(:user, name: 'Bさん', email: 'b@example.com')
+      FactoryBot.create(:task, title: 'Bさんのタスク', user: user_b)
+      visit tasks_path
+    end
+
+    it 'Bさんのタスクは表示されない' do
+      expect(page).to have_no_content 'Bさんのタスク'
     end
   end
 
