@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
+  let(:user_a) { FactoryBot.create(:user, name: 'Aさん', email: 'a@example.com') }
   let(:single_task) { FactoryBot.create(:task) }
   let(:tasks_1) {
-    FactoryBot.create(:task, title: task1_title, priority: :high, status: :waiting, deadline: Time.zone.now, created_at: Time.zone.now)
-    FactoryBot.create(:task, title: task2_title, priority: :middle, status: :doing, deadline: 1.day.ago, created_at: 1.day.ago)
-    FactoryBot.create(:task, title: task3_title, priority: :low, status: :done, deadline: 2.days.ago, created_at: 2.days.ago)
+    FactoryBot.create(:task, title: task1_title, priority: :high, status: :waiting, deadline: Time.zone.now, created_at: Time.zone.now, user: user_a)
+    FactoryBot.create(:task, title: task2_title, priority: :middle, status: :doing, deadline: 1.day.ago, created_at: 1.day.ago, user: user_a)
+    FactoryBot.create(:task, title: task3_title, priority: :low, status: :done, deadline: 2.days.ago, created_at: 2.days.ago, user: user_a)
   }
   let(:task1_title) { '1st' }
   let(:task2_title) { '2nd' }
@@ -16,9 +17,9 @@ describe 'タスク管理機能', type: :system do
   let(:task2_i) { page.body.index(task2_title) }
   let(:task3_i) { page.body.index(task3_title) }
   let(:tasks_2) {
-    FactoryBot.create(:task, title: task4_title, priority: :high, status: :done, deadline: 4.days.ago, created_at: 4.days.ago)
-    FactoryBot.create(:task, title: task5_title, priority: :middle, status: :doing, deadline: 5.days.ago, created_at: 5.days.ago)
-    FactoryBot.create(:task, title: task6_title, priority: :low, status: :waiting, deadline: 6.days.ago, created_at: 6.days.ago)
+    FactoryBot.create(:task, title: task4_title, priority: :high, status: :done, deadline: 4.days.ago, created_at: 4.days.ago, user: user_a)
+    FactoryBot.create(:task, title: task5_title, priority: :middle, status: :doing, deadline: 5.days.ago, created_at: 5.days.ago, user: user_a)
+    FactoryBot.create(:task, title: task6_title, priority: :low, status: :waiting, deadline: 6.days.ago, created_at: 6.days.ago, user: user_a)
   }
   let(:task4_title) { '4th' }
   let(:task5_title) { '5th' }
@@ -202,7 +203,7 @@ describe 'タスク管理機能', type: :system do
   describe 'ページネーション' do
     before do
       (1..100).each { |i|
-        FactoryBot.create(:task, title: "ページネーションタスク#{i}", created_at: i.days.ago)
+        FactoryBot.create(:task, title: "ページネーションタスク#{i}", created_at: i.days.ago, user: user_a)
       }
       visit tasks_path
     end
