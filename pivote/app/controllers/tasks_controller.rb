@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @search_form = TaskSearchForm.new(search_params)
-    @tasks = @search_form.search.page(params[:page])
+    @tasks = @search_form.search(current_user.tasks).page(params[:page])
   end
 
   def show
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params.merge(user_id: current_user.id))
     if @task.save
       redirect_to tasks_url, notice: t('flash.task.create', task: @task.title)
     else
@@ -54,6 +54,6 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 end

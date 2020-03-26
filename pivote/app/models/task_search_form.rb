@@ -10,8 +10,8 @@ class TaskSearchForm
   attribute :sort_column, :string
   attribute :direction, :string
 
-  def search
-    Task.search_with_priority(priority)
+  def search(user_tasks)
+    user_tasks.search_with_priority(priority)
         .search_with_status(status)
         .match_with_title(title)
         .sort_by_column(sort_column, direction)

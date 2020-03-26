@@ -5,6 +5,8 @@ ja:
       new: タスクの新規登録
       show: タスクの詳細
       edit: タスクの編集
+    session:
+      new: ログイン
   crud:
     create: 登録
     update: 編集
@@ -12,15 +14,22 @@ ja:
   button:
     search: 検索
     reset: リセット
+    login: ログイン
   flash:
     task:
       create: タスク「%{task}」を登録しました。
       update: タスク「%{task}」を更新しました。
       delete: タスク「%{task}」を削除しました。
+      login: ログインしました。
+      logout: ログアウトしました。
   alert:
     confirm: タスク「%{task}」を削除します。よろしいですか？
+    login_error: メールアドレス、またはパスワードが正しくありません。
   link:
     all: 一覧
+    tasks: タスク一覧
+    login: ログイン
+    logout: ログアウト
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
