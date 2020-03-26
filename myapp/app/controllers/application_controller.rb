@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out
+    UserLoginManager.auth_delete(remember_token: cookies[:user_remember_token])
     @current_user = nil
     cookies.delete(:user_remember_token)
   end
