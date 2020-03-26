@@ -28,11 +28,21 @@ describe 'タスク管理機能', type: :system do
   let(:task5_i) { page.body.index(task5_title) }
   let(:task6_i) { page.body.index(task6_title) }
 
-  before do
-    visit login_path
-    fill_in 'session_email', with: user_a.email
-    fill_in 'session_password', with: user_a.password
-    click_button 'ログイン'
+  before do |example|
+    unless example.metadata[:skip_before]
+      visit login_path
+      fill_in 'session_email', with: user_a.email
+      fill_in 'session_password', with: user_a.password
+      click_button 'ログイン'
+    end
+  end
+
+  context 'ログインしていない場合' do
+    it 'ログインページに戻される', :skip_before do
+      visit tasks_path
+      expect(page).to have_content User.human_attribute_name(:password)
+      expect(page).to have_no_content I18n.t('headline.task.index')
+    end
   end
 
   describe 'ソート機能' do
