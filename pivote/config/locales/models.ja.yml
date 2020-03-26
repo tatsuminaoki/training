@@ -19,3 +19,8 @@ ja:
         waiting: 未着手
         doing: 着手
         done: 完了
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        is_admin: 管理者

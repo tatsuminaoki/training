@@ -36,6 +36,8 @@ en:
       new: Create task
       show: Task detail
       edit: Edit task
+    session:
+      new: Login
   crud:
     create: Create
     update: Update
@@ -43,15 +45,21 @@ en:
   button:
     search: Search
     reset: Reset
+    login: Login
   flash:
     task:
       create: Created 「%{task}」.
       update: Updated 「%{task}」.
       delete: Deleted 「%{task}」.
+      login: Logged in.
+      logout: Logged out.
   alert:
     confirm: Delete 「%{task}」?
   link:
     all: all
+    tasks: tasks
+    login: login
+    logout: logout
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
