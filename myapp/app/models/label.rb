@@ -17,8 +17,10 @@ class Label < ApplicationRecord
   validates :color, presence: true
 
   def self.create_default_label(id)
+    recorder = []
     DEFAULT_COLOR.each do |color|
-      Label.new(color: color, project_id: id).save
+      recorder << { color: name, project_id: id, created_at: DateTime.current, updated_at: DateTime.current }
     end
+    Label.insert_all!(recorder)
   end
 end
