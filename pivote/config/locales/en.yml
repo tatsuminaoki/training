@@ -28,7 +28,7 @@ en:
     login: Logged in.
     logout: Logged out.
   alert:
-    confirm: Delete 「%{task}」?
+    confirm: Delete 「%{target}」?
     login_error: error
   link:
     all: all
