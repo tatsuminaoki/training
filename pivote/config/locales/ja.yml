@@ -12,6 +12,7 @@ ja:
       new: ユーザーの新規登録
       show: ユーザーの詳細
       edit: ユーザーの編集
+      tasks: 「%{name}」のタスク一覧
   crud:
     create: 登録
     update: 編集

@@ -12,6 +12,7 @@ en:
       new: Create user
       show: User detail
       edit: Edit user
+      tasks: 「%{name}」 tasks
   crud:
     create: Create
     update: Update

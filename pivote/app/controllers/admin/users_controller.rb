@@ -44,6 +44,11 @@ module Admin
       end
     end
 
+    def tasks
+      @user = User.find(params[:user_id])
+      @tasks = @user.tasks.page(params[:page])
+    end
+
     private
 
     def require_admin
