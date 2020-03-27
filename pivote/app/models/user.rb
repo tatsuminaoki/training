@@ -9,5 +9,27 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true, length: { minimum: 4 }
 
+  validate :validate_admin_for_update, on: :update
+  before_destroy :validate_admin_for_destroy
+
   has_many :tasks, dependent: :destroy
+
+  private
+
+  def validate_admin
+    if User.where(is_admin: true).count == 1
+      errors.add(:base, I18n.t('alert.admin_error'))
+      throw :abort
+    end
+  end
+
+  def validate_admin_for_destroy
+    return unless is_admin
+    validate_admin
+  end
+
+  def validate_admin_for_update
+    return if is_admin
+    validate_admin
+  end
 end

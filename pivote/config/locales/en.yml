@@ -30,6 +30,7 @@ en:
   alert:
     confirm: Delete 「%{target}」?
     login_error: error
+    admin_error: error
   link:
     all: all
     tasks: tasks

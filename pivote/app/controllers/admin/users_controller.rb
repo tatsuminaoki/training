@@ -40,7 +40,7 @@ module Admin
       if @user.destroy
         redirect_to admin_users_url, notice: t('flash.delete', target: @user.name)
       else
-        render :index
+        render :show
       end
     end
 

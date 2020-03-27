@@ -30,6 +30,7 @@ ja:
   alert:
     confirm: 「%{target}」を削除します。よろしいですか？
     login_error: メールアドレス、またはパスワードが正しくありません。
+    admin_error: 管理者が存在しなくなるため実行できません。
   link:
     all: 一覧
     tasks: タスク一覧
