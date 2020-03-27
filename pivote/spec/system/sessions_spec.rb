@@ -18,7 +18,7 @@ describe 'ログイン機能', type: :system do
       let(:password) { user.password }
 
       it 'ログインできる' do
-        expect(page).to have_content I18n.t('flash.task.login')
+        expect(page).to have_content I18n.t('flash.login')
       end
     end
 
@@ -52,7 +52,7 @@ describe 'ログイン機能', type: :system do
 
       it 'ログアウトできる' do
         click_link I18n.t('link.logout')
-        expect(page).to have_content I18n.t('flash.task.logout')
+        expect(page).to have_content I18n.t('flash.logout')
       end
     end
   end

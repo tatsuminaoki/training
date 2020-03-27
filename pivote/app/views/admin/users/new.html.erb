@@ -1,2 +1,7 @@
-<h1>Admin::Users#new</h1>
-<p>Find me in app/views/admin/users/new.html.erb</p>
+<h1><%= t('headline.user.new') %></h1>
+
+<div class="nav justify-content-end">
+  <%= link_to t('link.all'), admin_users_path, class: 'nav-link' %>
+</div>
+
+<%= render partial: 'form', locals: { user: @user } %>

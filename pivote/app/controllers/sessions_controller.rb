@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      redirect_to root_url, notice: t('flash.task.login')
+      redirect_to root_url, notice: t('flash.login')
     else
       @error = true
       render :new
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, notice: t('flash.task.logout')
+    redirect_to root_url, notice: t('flash.logout')
   end
 
   private

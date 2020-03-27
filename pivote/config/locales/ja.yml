@@ -7,6 +7,11 @@ ja:
       edit: タスクの編集
     session:
       new: ログイン
+    user:
+      index: ユーザー一覧
+      new: ユーザーの新規登録
+      show: ユーザーの詳細
+      edit: ユーザーの編集
   crud:
     create: 登録
     update: 編集
@@ -16,20 +21,22 @@ ja:
     reset: リセット
     login: ログイン
   flash:
-    task:
-      create: タスク「%{task}」を登録しました。
-      update: タスク「%{task}」を更新しました。
-      delete: タスク「%{task}」を削除しました。
-      login: ログインしました。
-      logout: ログアウトしました。
+    create: 「%{target}」を登録しました。
+    update: 「%{target}」を更新しました。
+    delete: 「%{target}」を削除しました。
+    login: ログインしました。
+    logout: ログアウトしました。
   alert:
-    confirm: タスク「%{task}」を削除します。よろしいですか？
+    confirm: 「%{target}」を削除します。よろしいですか？
     login_error: メールアドレス、またはパスワードが正しくありません。
   link:
     all: 一覧
     tasks: タスク一覧
+    users: ユーザー一覧
     login: ログイン
     logout: ログアウト
+  column:
+    number_of_tasks: タスク数
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
