@@ -34,7 +34,7 @@ class User < ApplicationRecord
   }, on: :update, if: -> { self.role_was == 'admin' && self.general? }
 
   def check_exist_two_admin?
-    self.class.where(role: :admin).count >= 2
+    User.where(role: :admin).count >= 2
   end
 
   def view_name

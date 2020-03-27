@@ -1,0 +1,109 @@
+# order_request_id 出品購入IP一致確認用のクエリ
+# 下記と同じ
+# https://redash.fril.jp/queries/6141/source?p_order_request_ids=66919048
+pre_query_6141 = '''
+select
+order_requests.id as aaa,
+order_requests.item_id,
+items.user_id as seller_id,
+seller_info.created_at as '出品者登録日',
+order_requests.user_id as buyer_id,
+buyer_info.created_at as '購入者登録日',
+items.created_at as '出品日',
+order_requests.created_at as '購入申請日',
+replace(replace(replace(replace(replace("
+select
+  'aaa' as order_id,
+  ip,
+  'YYYYYY' as seller,
+  'ZZZZZZ' as buyer,
+  group_concat(unique(
+    CASE WHEN user_id='YYYYYY' THEN '一致'
+     ELSE '' END
+    ), ''
+  ) as match,
+  group_concat(unique(user_id)) user_ids
+  
+from
+(select * from
+    TABLE_DATE_RANGE([stellar-fx-826:analysis.app_weblog_],
+      TIMESTAMP('2019-09-13'),
+      TIMESTAMP(CURRENT_DATE())),
+    TABLE_DATE_RANGE([stellar-fx-826:analysis.weblog_],
+      TIMESTAMP('2019-09-13'),
+      TIMESTAMP(CURRENT_DATE())))
+where ip in (
+  select ip FROM
+  (select * from
+      TABLE_DATE_RANGE([stellar-fx-826:analysis.app_weblog_],
+        TIMESTAMP('2019-XX-XX'),
+        TIMESTAMP('2019-XX-XX')),
+      TABLE_DATE_RANGE([stellar-fx-826:analysis.weblog_],
+        TIMESTAMP('2019-XX-XX'),
+        TIMESTAMP('2019-XX-XX')))
+  where
+  user_id in ('ZZZZZZ')
+  and
+  user_agent in (
+    SELECT user_agent FROM
+      TABLE_DATE_RANGE([stellar-fx-826:analysis.app_weblog_],
+        TIMESTAMP('2019-XX-XX'),
+        TIMESTAMP('2019-XX-XX')),
+      TABLE_DATE_RANGE([stellar-fx-826:analysis.weblog_],
+        TIMESTAMP('2019-YY-YY'),
+        TIMESTAMP('2019-YY-YY'))
+    where
+    user_id in ('ZZZZZZ')
+    and
+    (
+      controller = 'v2/purchases'
+      and
+      action = 'direct_payment'
+    )
+    or
+    (
+      controller = 'registrations'
+      and
+      action = 'finish'
+    )
+    group by user_agent
+  )
+  group by ip
+)
+group by ip", "ZZZZZZ", buyer_info.id),
+"YYYYYY", items.user_id),
+"2019-XX-XX", date_format(order_requests.created_at, '%Y-%m-%d')),
+"2019-YY-YY", date_format(buyer_info.created_at, '%Y-%m-%d')),
+"aaa", order_requests.id) as 'RID乗っ取り調査用SQL'
+from order_requests
+inner join items on items.id = order_requests.item_id
+left join users as buyer_info on buyer_info.id = order_requests.user_id
+left join users as seller_info on seller_info.id = items.user_id
+where order_requests.id in ({{{ order_request_ids }}})
+order by order_requests.id;
+'''
+
+result_6141 = execute_query('Fril DB', pre_query_6141)['rows']
+
+result = {}
+
+# 6141のqueryから取得したRID乗っ取り調査用SQLを実行
+for row in result_6141:
+    bigquery_result = execute_query('BigQuery', row[u'RID乗っ取り調査用SQL'])['rows']
+
+    for row2 in bigquery_result:
+        add_result_row(result, {
+            'order_id': row2['order_id'],
+            'ip': row2['ip'],
+            'seller': row2['seller'],
+            'buyer': row2['buyer'],
+            'match': row2['match'],
+            'user_ids': row2['user_ids']
+        })
+
+add_result_column(result, 'order_id', '', 'integer')
+add_result_column(result, 'ip', '', 'string')
+add_result_column(result, 'seller', '', 'integer')
+add_result_column(result, 'buyer', '', 'integer')
+add_result_column(result, 'match', '', 'string')
+add_result_column(result, 'user_ids', '', 'string')
