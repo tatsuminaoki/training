@@ -17,10 +17,9 @@ class User < ApplicationRecord
   private
 
   def validate_admin
-    if User.where(is_admin: true).count == 1
-      errors.add(:base, I18n.t('alert.admin_error'))
-      throw :abort
-    end
+    return if User.where(is_admin: true).count != 1
+    errors.add(:base, I18n.t('alert.admin_error'))
+    throw :abort
   end
 
   def validate_admin_for_destroy
