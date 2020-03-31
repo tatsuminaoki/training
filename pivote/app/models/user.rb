@@ -17,7 +17,7 @@ class User < ApplicationRecord
   private
 
   def validate_admin
-    return if User.where(is_admin: true).count != 1
+    return if 1 < User.where(is_admin: true).count
     errors.add(:base, I18n.t('alert.admin_error'))
     throw :abort
   end
