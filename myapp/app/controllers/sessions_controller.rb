@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   before_action :set_user, only: [:create]
 
   def new
+    redirect_to projects_path if signed_in?
   end
 
   def create
@@ -10,9 +11,13 @@ class SessionsController < ApplicationController
       sign_in(@user)
       redirect_to projects_path
     else
-      flash.now[:danger] = t('.flash.invalid_login')
-      render 'new'
+      redirect_to login_path, alert: I18n.t('.flash.invalid_login')
     end
+  end
+
+  def destroy
+    sign_out
+    redirect_to root_path
   end
 
   private
@@ -20,8 +25,7 @@ class SessionsController < ApplicationController
   def set_user
     @user = User.find_by!(email: session_params[:email])
   rescue
-    flash.now[:danger] = t('.flash.invalid_login')
-    render action: 'new'
+    redirect_to login_path, alert: I18n.t('.flash.invalid_login')
   end
 
   def session_params

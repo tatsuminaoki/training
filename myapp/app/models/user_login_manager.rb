@@ -27,6 +27,11 @@ class UserLoginManager < ApplicationRecord
       nil
     end
 
+    def auth_delete(remember_token:)
+      remember_token = encrypt(remember_token)
+      UserLoginManager.find_by(remember_token: remember_token).delete
+    end
+
     private
 
     def encrypt(token)

@@ -8,13 +8,13 @@
     </div>
     <div class="brand-name">
       <i class="fas fa-route fa-lg"></i>
-      <a href="http://localhost:3001/projects">
+      <a href="/<%= I18n.locale %>/projects">
         TreasureMap
       </a>
     </div>
     <div class="right-menu">
       <div class="user-name">
-        <%= @current_user.nickname %>
+        <%= render 'layouts/dropdown_show_user_info' %>
       </div>
       <div class="localize">
         <% if I18n.locale == :ja %>

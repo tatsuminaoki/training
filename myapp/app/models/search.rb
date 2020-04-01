@@ -21,7 +21,12 @@ class Search
         tasks_record['project'] = task.group.project
         tasks_list_array << tasks_record
       end
+
       tasks_list_array
+    end
+
+    def find_all_group_ids_to_which_current_user(current_user)
+      Group.where(project_id: current_user.projects.pluck(:id)).pluck(:id)
     end
   end
 end

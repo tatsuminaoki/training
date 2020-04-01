@@ -13,13 +13,20 @@
   <div class="login-application-title">
     <h1>
       <i class="fas fa-route fa-lg"></i>
-      TreasureMap
+      <a href="/<%= I18n.locale %>">
+        TreasureMap
+      </a>
     </h1>
   </div>
   <div class="login-form_area">
     <div class="login-form">
       <div class="login-title">
         <%= t('login.login_name') %>
+      </div>
+      <div class="notifications">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: "flash-notification" %>
+        <% end %>
       </div>
       <div class="login-input">
         <%= form_for :session, url: login_path do |f| %>

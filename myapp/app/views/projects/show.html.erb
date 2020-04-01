@@ -5,7 +5,7 @@
       <input class="btn btn-success project show-project-name change-name-input" id=<%= @find_project.id %> value=<%= sanitize @find_project.name %>>
     </div>
     <div class="project-show project-dropdown">
-      <%= render 'dropdown_show' %>
+      <%= render partial: 'dropdown_show', locals: { project: @find_project } %>
     </div>
   </div>
   <div class="project-show-body">
@@ -18,9 +18,18 @@
         </div>
         <div class="project-show task-containers">
           <% group.tasks.each do |task| %>
-            <button type="button" id="btn-update-task-<%= task.id %>" class="btn btn-secondary show-task-button" data-toggle="modal" data-target="#update-task-<%= task.id %>">
-              <%= task.name %>
-            </button>
+            <div class="task-containers-task-label">
+              <div class="task-containers-label task-containers-label-of-task-<%= task.id %>">
+                <% task.labels.each do |label| %>
+                  <div class="btn task-containers-label-of-task show-<%= task.id %>-<%= label.id %>" style="background-color: <%= label.color %>; border-color: <%= label.color %> "></div>
+                <% end%>
+              </div>
+              <div class="task-containers-task-name">
+                <button type="button" id="btn-update-task-<%= task.id %>" class="btn btn-primary show-task-button" data-toggle="modal" data-target="#update-task-<%= task.id %>">
+                  <%= task.name %>
+                </button>
+              </div>
+            </div>
             <%= render partial: 'tasks/modal_task_edit', locals: { task: task } %>
           <% end %>
           <button type="button" class="btn btn-secondary add-task-button" data-toggle="modal" data-target="#create-task-<%= group.id %>">
