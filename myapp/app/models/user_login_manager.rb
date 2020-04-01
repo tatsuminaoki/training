@@ -5,7 +5,7 @@ class UserLoginManager < ApplicationRecord
 
   class << self
 
-    def create!(user_id:, request:)
+    def remember_token_after_create(user_id:, request:)
       remember_token  = new_remember_token
       user_login_manager = UserLoginManager.new(
         remember_token: encrypt(remember_token),

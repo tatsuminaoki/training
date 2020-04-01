@@ -9,14 +9,14 @@ RSpec.describe 'Sessions', type: :request do
     let!(:current_user) { create(:user) }
     context 'email and password is correct' do
       it 'is login success and register remember_token of cookies' do
-        post login_path, params: { session: { email: 'test_user@treasuremap.com', passowrd: 'test_user' } }, headers: headers
-        expect(cookies[:user_remember_token]).to eq current_user.remember_token
+        post login_path, params: { session: { email: 'test_user@treasuremap.com', password: 'test_user' } }, headers: headers
+        expect(Digest::SHA256.hexdigest(cookies[:user_remember_token])).to eq current_user.user_login_managers.first.remember_token
       end
     end
 
     context 'email is not correct' do
       it 'could not login,  not register remember_token of cookies' do
-        post login_path, params: { session: { email: 'failed', passowrd: 'test_user' } }
+        post login_path, params: { session: { email: 'failed', password: 'test_user' } }
         expect(cookies[:user_remember_token]).to eq nil
         expect(flash[:alert]).to eq 'Email or password is not correct'
       end
@@ -24,7 +24,7 @@ RSpec.describe 'Sessions', type: :request do
 
     context 'password is not correct' do
       it 'could not login, not register remember_token of cookies' do
-        post login_path, params: { session: { email: 'test_user@treasuremap.com', passowrd: 'failed' } }
+        post login_path, params: { session: { email: 'test_user@treasuremap.com', password: 'failed' } }
         expect(cookies[:user_remember_token]).to eq nil
         expect(flash[:alert]).to eq 'Email or password is not correct'
       end

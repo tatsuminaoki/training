@@ -17,8 +17,8 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
-  def sign_in(user)
-    remember_token = UserLoginManager.create!(user_id: user.id, request: request)
+ def sign_in(user)
+    remember_token = UserLoginManager.remember_token_after_create(user_id: user.id, request: request)
     cookies.permanent[:user_remember_token] = remember_token
     @current_user = user
   end
