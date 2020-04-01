@@ -42,4 +42,4 @@
 </table>
 
 <%= link_to t('crud.update'), edit_task_path, class: 'btn btn-primary mr-3' %>
-<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', task: @task.title)}, class: 'btn btn-danger' %>
+<%= link_to t('crud.delete'), task_path(@task), method: :delete, data: {confirm: t('alert.confirm', target: @task.title)}, class: 'btn btn-danger' %>

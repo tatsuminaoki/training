@@ -6,6 +6,9 @@ inherit_gem:
     # uncomment if use rspec cops
     # - "config/rspec.yml"
 
+Style/YodaCondition:
+  Enabled: false
+
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:

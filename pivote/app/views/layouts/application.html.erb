@@ -15,6 +15,9 @@
       <ul class="navbar-nav ml-auto">
         <% if current_user %>
           <li class="nav-item"><%= link_to t('link.tasks'), tasks_path, class: 'nav-link' %></li>
+          <% if current_user.is_admin %>
+            <li class="nav-item"><%= link_to t('link.users'), admin_users_path, class: 'nav-link' %></li>
+          <% end %>
           <li class="nav-item"><%= link_to t('link.logout'), logout_path, method: :delete, class: 'nav-link' %></li>
         <% else %>
           <li class="nav-item"><%= link_to t('link.login'), login_path %></li>
