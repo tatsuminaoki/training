@@ -32,7 +32,7 @@
     </tr>
     <tr>
       <th><%= User.human_attribute_name(:is_admin) %></th>
-      <td><%= @user.is_admin ? '○' : '×' %></td>
+      <td><%= admin_icon(@user.is_admin) %></td>
     </tr>
     <tr>
       <th><%= User.human_attribute_name(:created_at) %></th>
