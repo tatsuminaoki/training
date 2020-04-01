@@ -13,6 +13,10 @@ ja:
       show: ユーザーの詳細
       edit: ユーザーの編集
       tasks: 「%{name}」のタスク一覧
+    label:
+      index: ラベル一覧
+      new: ラベルの新規登録
+      edit: ラベルの編集
   crud:
     create: 登録
     update: 編集
@@ -35,6 +39,7 @@ ja:
     all: 一覧
     tasks: タスク一覧
     users: ユーザー一覧
+    labels: ラベル一覧
     login: ログイン
     logout: ログアウト
   column:

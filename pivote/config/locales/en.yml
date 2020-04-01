@@ -13,6 +13,10 @@ en:
       show: User detail
       edit: Edit user
       tasks: 「%{name}」 tasks
+    label:
+      index: All labels
+      new: Create label
+      edit: Edit label
   crud:
     create: Create
     update: Update
@@ -35,6 +39,7 @@ en:
     all: all
     tasks: tasks
     users: users
+    labels: labels
     login: login
     logout: logout
   column:

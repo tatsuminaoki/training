@@ -1,0 +1,7 @@
+<h1><%= t('headline.label.edit') %>></h1>
+
+<div class="nav justify-content-end">
+  <%= link_to t('link.all'), labels_path, class: 'nav-link' %>
+</div>
+
+<%= render partial: 'form', locals: { label: @label } %>

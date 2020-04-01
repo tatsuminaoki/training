@@ -1,0 +1,38 @@
+<h1><%= t('headline.label.index') %></h1>
+
+<div class="nav justify-content-end">
+  <%= link_to t('link.tasks'), tasks_path, class: 'nav-link' %>
+</div>
+
+<%= link_to t('crud.create'), new_label_path, class: 'btn btn-primary mb-3' %>
+
+<div class="mb-3">
+  <%= paginate @labels %>
+  <%= page_entries_info @labels %>
+</div>
+
+<table class="table table-hover">
+  <thead class="thead-default">
+    <tr>
+      <th><%= Label.human_attribute_name(:id) %></th>
+      <th><%= Label.human_attribute_name(:name) %></th>
+      <th><%= Label.human_attribute_name(:updated_at) %></th>
+      <th><%= Label.human_attribute_name(:created_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.id %></td>
+        <td><%= label.name %></td>
+        <td><%= l label.updated_at %></td>
+        <td><%= l label.created_at %></td>
+        <td>
+          <%= link_to t('crud.update'), edit_label_path(label), class: 'btn btn-primary mr-3' %>
+          <%= link_to t('crud.delete'), label_path(label), method: :delete, data: {confirm: t('alert.confirm', target: label.name)}, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

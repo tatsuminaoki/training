@@ -27,3 +27,7 @@ ja:
         is_admin: 管理者
         created_at: 作成日時
         updated_at: 更新日時
+      label:
+        name: 名前
+        created_at: 作成日時
+        updated_at: 更新日時

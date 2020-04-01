@@ -25,6 +25,10 @@
   </div>
 <hr>
 
+<div class="nav justify-content-end">
+  <%= link_to t('link.labels'), labels_path, class: 'nav-link' %>
+</div>
+
 <%= link_to t('crud.create'), new_task_path, class: 'btn btn-primary mb-3' %>
 
 <div class="mb-3">
