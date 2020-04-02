@@ -1,0 +1,76 @@
+/* navbar */
+
+.bd-example-not-login {
+  .navbar-light {
+    background-color: #9CBEFA;
+    width: 100% !important;
+    .brand-name {
+      font-size: 35px;
+      width: 40%;
+      float: left;
+      .fa-route {
+        color: #FFFFFF;
+      }
+      a {
+        color: #FFFFFF;
+        font-weight: bold;
+        vertical-align: inherit;
+        text-decoration: none;
+      }
+    }
+    .right-menu {
+      width: 15%;
+      float: left;
+      text-align: right;
+      .log-in {
+        width: 70%;
+        color: #FFFFFF;
+        float: left;
+        height: 40px;
+        input {
+          background-color: #9CBEFA;
+          border-color: #9CBEFA;
+          color: #FFFFFF;
+          width: 70%;
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: -5px;
+        }
+      }
+      .localize {
+        width: 30%;
+        height: 100%;
+        padding: 5px;
+        float: left;
+        a {
+          color: #FFFFFF;
+          vertical-align: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.main {
+  background-color: #9CBEFA;
+  width: 100%;
+  height: 800px;
+  color: #ffffff;
+  .main-content {
+    h1 {
+      font-size: 3.0rem;
+      font-family: inherit;
+    }
+    float: left;
+    padding: 70px 10px 10px 170px;
+    width: 50%;
+    height: 100%;
+  }
+  .main-image {
+    padding: 40px 10px 10px 5px;
+    float: left;
+    width: 50%;
+    height: 100%;
+  }
+}

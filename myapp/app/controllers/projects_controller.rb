@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     @page = params[:page]
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     project = Project.new(request_params)
     if project.valid?
       project.users << current_user
@@ -21,13 +21,11 @@ class ProjectsController < ApplicationController
     else
       flash[:alert] = I18n.t('flash.failed_create', model_name: 'project')
       redirect_to projects_url, notice: project.errors.full_messages
-
     end
   end
 
   def update
-    @find_project.update(request_params)
-    if @find_project.save
+    if  @find_project.update(request_params)
       render status: 200, json: {}
     else
       render status: 400, json: {}

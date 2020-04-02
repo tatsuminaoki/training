@@ -14,5 +14,9 @@ module ErrorHandle
     def render_404
       render 'errors/error_404', status: :not_found
     end
+
+    def render_503
+      render 'errors/error_503', status: :service_unavailable
+    end
   end
 end

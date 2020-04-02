@@ -1,7 +1,5 @@
 /* header */
-/* navbar */
-
-.bd-example {
+.bd-example-loging {
   .navbar-light {
     background-color: #9CBEFA;
     width: 100% !important;
@@ -49,6 +47,7 @@
       .localize {
         width: 50%;
         float: left;
+        margin-top: 5px;
         a {
           color: #ffffff;
           vertical-align: inherit;
@@ -58,6 +57,7 @@
     }
   }
 }
+
 .notifications {
   text-align: center;
   width: 100%;

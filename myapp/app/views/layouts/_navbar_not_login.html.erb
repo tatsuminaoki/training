@@ -1,0 +1,31 @@
+<div class="bd-example-not-login">
+  <nav class="navbar navbar-light" id='navbar'>
+    <div class="brand-name">
+      <i class="fas fa-route fa-lg"></i>
+      <a href="/<%= I18n.locale %>">
+        TreasureMap
+      </a>
+    </div>
+    <div class="right-menu">
+      <div class="log-in">
+        <%= button_to t('home.log_in_button'), login_path, method: :get, class:"btn btn-success" %>
+      </div>
+      <div class="localize">
+        <% if I18n.locale == :ja %>
+          <%= link_to url_for(locale: :en) do %>
+            English
+          <% end %>
+        <% else %>
+          <%= link_to url_for(locale: :ja) do %>
+            日本語
+          <% end %>
+        <% end %>
+      <div>
+    </div>
+  </nav>
+</div>
+<div class="notifications">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: "flash-notification" %>
+  <% end %>
+</div>

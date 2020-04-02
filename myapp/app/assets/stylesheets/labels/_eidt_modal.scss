@@ -1,0 +1,41 @@
+.labels-modal-dialog {
+  max-width: 400px !important;
+  border-style: none !important;
+  .labels-modal-content {
+    background-color: #F4F5F7;
+    border: none !important;
+    width: 100%;
+    .labels-modal-header {
+      .task-modal-close {
+        width: 5%;
+        color: #45526C !important;
+        float: right;
+      }
+    }
+    .labels-modal-body {
+      width: 100%;
+      .label-edit-form-div {
+        width: 100%;
+        height: 35px;
+        margin-top: 10px;
+        .label-name {
+          width: 45%;
+          float: left;
+        }
+        .label-color {
+          margin-left: 5px;
+          width: 30%;
+          float: left;
+        }
+        .label-update-button {
+          margin-left: 5px;
+          width: 22%;
+          float: left;
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

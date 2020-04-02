@@ -34,7 +34,6 @@ docker-compose up --build
 docker-compose exec api rake assets:precompile
 ```
 
-
 ## build中のエラー対応
 1.Webpacker::Manifest::MissingEntryErrorが出た場合に以下のコマンドを実行し、改めてdocker-compose up --buildを行なってください。
 
@@ -55,6 +54,12 @@ rm -rf yarn.lock
 npm rebuild node-sass
 ```
 
+## Maintenance
+ To start maintenance input the rake command below
+ > bundle exec rake maintenance:start
+
+ To end maintenance input the rake command below
+ > bundle exec rake maintenance:end
 
 ## アプリケーションスケッチ(基本、Trelloをベンチマーキング)
 - プロフェクトの一覧ページ
@@ -92,6 +97,7 @@ DROP TABLE IF EXISTS TASKS;
 DROP TABLE IF EXISTS LABELS;
 DROP TABLE IF EXISTS GROUPS;
 DROP TABLE IF EXISTS USER_PROJECTS;
+DROP TABLE IF EXISTS USER_LOGIN_MANAGERS;
 DROP TABLE IF EXISTS USERS;
 DROP TABLE IF EXISTS PROJECTS;
 
@@ -106,6 +112,20 @@ CREATE TABLE USERS(
   PRIMARY KEY (id),
   UNIQUE(id),
   UNIQUE(email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- create user_login_managers table
+CREATE TABLE USER_LOGIN_MANAGERS(
+  id INT NOT NULL AUTO_INCREMENT,
+  remember_token VARCHAR(255) NOT NULL,
+  browser VARCHAR(255) NOT NULL,
+  ip VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE(id)
+  FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- create projects table
@@ -150,6 +170,7 @@ CREATE TABLE GROUPS(
 CREATE TABLE LABELS(
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  color: VARCHAR(255) NOT NULL DEFAULT '#B4BAC4',
   project_id INT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
@@ -191,4 +212,6 @@ CREATE TABLE TASK_LABELS(
   FOREIGN KEY (task_id) REFERENCES TASKS(id) ON DELETE CASCADE,
   FOREIGN KEY (label_id) REFERENCES LABELS(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 ```

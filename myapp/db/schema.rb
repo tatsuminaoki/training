@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_14_015455) do
+ActiveRecord::Schema.define(version: 2020_03_25_145218) do
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(version: 2020_03_14_015455) do
   end
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "project_id"
+    t.string "name"
+    t.string "color", default: "#B4BAC4", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_labels_on_project_id"
@@ -62,6 +63,16 @@ ActiveRecord::Schema.define(version: 2020_03_14_015455) do
     t.index ["name"], name: "index_tasks_on_name"
   end
 
+  create_table "user_login_managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "remember_token"
+    t.string "browser"
+    t.string "ip"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_login_managers_on_user_id"
+  end
+
   create_table "user_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
@@ -86,6 +97,7 @@ ActiveRecord::Schema.define(version: 2020_03_14_015455) do
   add_foreign_key "task_labels", "tasks"
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "labels"
+  add_foreign_key "user_login_managers", "users"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
 end

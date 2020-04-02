@@ -6,6 +6,7 @@ ja:
     show_menu: "メニュー"
     close_project: "プロジェクト削除"
   groups:
+    title: "グループ"
   tasks:
     add_task: "タスク追加"
     edit_task: "タスク変更"
@@ -14,12 +15,18 @@ ja:
     delete_task_button: "タスク削除"
     create_task_button: "タスク追加"
     name: "タイトル"
+    name-placeholder: "タスク名前追加"
     description: "コメント"
+    description-placeholder: "詳細な説明を追加..."
     priority: "優先順位"
     end_period_at: "終了期限"
-    group_name: "グループ"
     creator_name: "作成者"
     assignee_name: "担当者"
+    label: "ラベル"
+    label_list: "ラベル一覧"
+  labels:
+    edit_labels: "ラベル編集"
+    update_label_button: "更新"
   validate:
     errors:
       groups:
@@ -32,6 +39,7 @@ ja:
     success_updated: "%{model_name} 更新 成功!!"
     failed_update: "%{model_name} 更新 失敗"
     success_destroy: "%{model_name} 削除 成功!!"
+    invalid_login: "メールアドレス or パスワードが間違っています。"
   search:
     tasks:
       title: "タスク"
@@ -39,6 +47,17 @@ ja:
     projects:
       title: "プロジェクト"
       no_data: "プロジェクトが見つかりませんでした"
+  home:
+    content: "Treasure Mapを使用すると、より共同で作業を行い、より多くの作業を完了できます"
+    content_sub: "Treasure Mapのプロジェクト、リスト、およびタスクを使用すると、楽しく柔軟でやりがいのある方法でプロジェクトを整理し、優先順位を付けることができます。"
+    log_in_button: "ログイン"
+  login:
+    login_name: "TreasureMapへ ログイン"
+    login_submit: "ログイン"
+    login_input_email: "メールアドレスを入力"
+    login_input_password: "パスワードを入力"
+  logout:
+    logout_submit: "ログアウト"
   views:
     pagination:
       first: "&laquo; 最初"
@@ -46,3 +65,13 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "&hellip;"
+  errors:
+    not_found:
+      title: "ページが見つかりません。"
+      comment: "このページは非公開の場合があります。 誰かがあなたにこのリンクを提供した場合、彼らはあなたのボードまたはチームのいずれかにあなたを招待する必要があるかもしれません。"
+    internal_server:
+      title: "おっと！ 500内部サーバーエラー"
+      comment: "ご不便をおかけして申し訳ありませんが、問題の解決に取り組んでいます。"
+    maintenance:
+      title:  "おっと！ 503エラー！ サービスが利用できないか、システムがメンテナンスです"
+      comment: "Treasure Mapは新しいサービスに脱皮しています!!"

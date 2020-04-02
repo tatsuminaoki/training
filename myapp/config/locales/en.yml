@@ -6,6 +6,7 @@ en:
     show_menu: "Show Menu"
     close_project: "Close project"
   groups:
+    title: "Group"
   tasks:
     add_task: "Add a Task"
     edit_task: "Edit task"
@@ -14,12 +15,18 @@ en:
     delete_task_button: "Delete a task"
     create_task_button: "Add a task"
     name: "Name"
+    name-placeholder: "Add task name"
     description: "Description"
+    description-placeholder: "Add a more detailed description..."
     priority: "Priority"
     end_period_at: "End period"
-    group_name: "Group"
     creator_name: "Creator name"
-    assignee_name: "Assignee name"
+    assignee_name: "Assignee label: "
+    label: "Labels"
+    label_list: "Labels List"
+  labels:
+    edit_labels: "Edit labels"
+    update_label_button: "Update"
   validate:
     errors:
       groups:
@@ -32,6 +39,7 @@ en:
     success_updated: "Success to updated %{model_name}"
     failed_update: "Failed to update %{model_name}"
     success_destroy: "Success to destroy %{model_name}"
+    invalid_login: "Email or password is not correct"
   search:
     tasks:
       title: "TASKS"
@@ -39,3 +47,24 @@ en:
     projects:
       title: "PROJECTS"
       no_data: "No data projects"
+  home:
+    content: "Treasure Map lets you work more collaboratively and get more done."
+    content_sub: "Treasure Map’s projects, lists, and tasks enable you to organize and prioritize your projects in a fun, flexible, and rewarding way."
+    log_in_button: "Log In"
+  login:
+    login_name: "Log in to TreasureMap"
+    login_submit: "Log In"
+    login_input_email: "Enter email"
+    login_input_password: "Enter password"
+  logout:
+    logout_submit: "Log Out"
+  errors:
+    not_found:
+      title: "Page not found."
+      comment: "This page may be private. If someone gave you this link, they may need to invite you to one of their boards or teams."
+    internal_server:
+      title: "Oops ! 500 Internal Server Error"
+      comment: " We are working to solve the problem, sorry for the inconvenience."
+    maintenance:
+      title: "Opps ! 503 error ! Our service unavailable or system is maintenance"
+      comment: "Treasure Map is molting to new service !!"

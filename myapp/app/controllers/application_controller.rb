@@ -3,11 +3,12 @@
 class ApplicationController < ActionController::Base
   include ErrorHandle
 
+  before_action :maintenance_page, if: :maintenance?
   before_action :verify_authenticity_token
   before_action :set_locale
-
-  helper_method :current_user
-  include ErrorHandle
+  before_action :current_user
+  before_action :require_sign_in!
+  helper_method :signed_in?
 
   def set_locale
     I18n.locale = extract_locale || I18n.default_locale
@@ -17,22 +18,46 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
+ def sign_in(user)
+    remember_token = UserLoginManager.remember_token_after_create(user_id: user.id, request: request)
+    cookies.permanent[:user_remember_token] = remember_token
+    @current_user = user
+  end
+
   def current_user
-    @current_user = User.first
+    return @current_user = nil if cookies[:user_remember_token].blank?
+    @current_user ||= UserLoginManager.auth(remember_token: cookies[:user_remember_token], request: request)
   end
 
   def routing_error
     raise ActionController::RoutingError, params[:path]
   end
 
-  private
-
-  def render_500
-    render 'errors/error_500', status: :internal_server_error
+  def signed_in?
+    @current_user.present?
   end
 
-  def render_404
-    render 'errors/error_404', status: :not_found
+  def sign_out
+    UserLoginManager.auth_delete(remember_token: cookies[:user_remember_token])
+    @current_user = nil
+    cookies.delete(:user_remember_token)
+  end
+
+  private
+
+  def maintenance?
+    return false unless  File.exist? 'config/maintenance.yml'
+
+    data = open('config/maintenance.yml', 'r') { |f| YAML.safe_load(f) }
+    data['maintenance_mode']
+  end
+
+  def maintenance_page
+    render_503
+  end
+
+  def require_sign_in!
+    redirect_to root_path unless signed_in?
   end
 
   def extract_locale
