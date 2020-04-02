@@ -13,6 +13,10 @@
   </div>
   </div>
   <div class="form-group form-inline">
+    <%= f.label t('activerecord.models.label') + '：' %>
+    <%= f.collection_select 'search[label]', current_user.labels.order(id: :desc), :id, :name, { include_blank: true, selected: @search_form.label }, { class: 'form-control' } %>
+  </div>
+  <div class="form-group form-inline">
     <%= f.label Task.human_attribute_name(:title) + '：' %>
     <%= f.text_field 'search[title]', value: @search_form.title, class: 'form-control' %>
   </div>
@@ -43,6 +47,7 @@
       <th><%= link_to Task.human_attribute_name(:priority) + sort_icon(:priority, @search_form), tasks_path(search: sort_params(@search_form.attributes, :priority)) %></th>
       <th><%= link_to Task.human_attribute_name(:status) + sort_icon(:status, @search_form), tasks_path(search: sort_params(@search_form.attributes, :status)) %></th>
       <th><%= link_to Task.human_attribute_name(:deadline) + sort_icon(:deadline, @search_form), tasks_path(search: sort_params(@search_form.attributes, :deadline)) %></th>
+      <th><%= t('activerecord.models.label') %></th>
       <th></th>
     </tr>
   </thead>
@@ -53,6 +58,11 @@
         <td><%= task.human_attribute_enum(:priority) %></td>
         <td><%= task.human_attribute_enum(:status) %></td>
         <td><%= task.format_deadline %></td>
+        <td>
+          <% task.task_labels.each do |task_label| %>
+            <p><%= task_label.label.name %></p>
+          <% end %>
+        </td>
         <td>
           <%= link_to t('crud.update'), edit_task_path(task), class: 'btn btn-primary mr-3' %>
           <%= link_to t('crud.delete'), task_path(task), method: :delete, data: {confirm: t('alert.confirm', target: task.title)}, class: 'btn btn-danger' %>

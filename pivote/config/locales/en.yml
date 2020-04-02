@@ -35,6 +35,7 @@ en:
     confirm: Delete 「%{target}」?
     login_error: error
     admin_error: error
+    duplicate_label: duplicate label
   link:
     all: all
     tasks: tasks

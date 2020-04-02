@@ -35,6 +35,8 @@ ja:
     confirm: 「%{target}」を削除します。よろしいですか？
     login_error: メールアドレス、またはパスワードが正しくありません。
     admin_error: 管理者が存在しなくなるため実行できません。
+    label_error: ラベルの登録に失敗しました。
+    duplicate_label: ラベルが重複しています。
   link:
     all: 一覧
     tasks: タスク一覧

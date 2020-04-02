@@ -33,5 +33,13 @@
     <%= f.label :deadline %>
     <div><%= f.date_select :deadline, {}, { class: 'form-control bootstrap-date' } %></div>
   </div>
+  <%= f.fields_for :task_labels do |tl| %>
+    <div class="form-group">
+      <%= tl.label :label_id, t('activerecord.models.label') %>
+      <div class="col-md-5">
+        <%= tl.collection_select :label_id, current_user.labels.order(id: :desc), :id, :name, { include_blank: '未選択' }, { class: 'form-control' } %>
+      </div>
+    </div>
+  <% end %>
   <%= f.submit nil, class: 'btn btn-primary' %>
 <% end %>

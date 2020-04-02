@@ -13,6 +13,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    3.times { @task.task_labels.build }
   end
 
   def create
@@ -25,6 +26,9 @@ class TasksController < ApplicationController
   end
 
   def edit
+    until @task.task_labels.size >= 3
+      @task.task_labels.build
+    end
   end
 
   def update
@@ -46,11 +50,11 @@ class TasksController < ApplicationController
   private
 
   def search_params
-    params.require(:search).permit(:title, :priority, :status, :sort_column, :direction) unless params[:search].nil?
+    params.require(:search).permit(:title, :priority, :status, :sort_column, :direction, :label) unless params[:search].nil?
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :priority, :status, :deadline)
+    params.require(:task).permit(:title, :description, :priority, :status, :deadline, task_labels_attributes: %i[id task_id label_id _destroy])
   end
 
   def find_task
