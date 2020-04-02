@@ -33,11 +33,13 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
-    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: @task.id).select(:label_id))
+    label_ids = TaskLabel.where(task_id: @task.id).select(:label_id)
+    @labels = Label.where(id: label_ids)
   end
 
   def edit
-    @labels = Label.where(id: label_ids = TaskLabel.where(task_id: params[:id]).select(:label_id))
+    label_ids = TaskLabel.where(task_id: params[:id]).select(:label_id)
+    @labels = Label.where(id: label_ids)
   end
 
   def update
