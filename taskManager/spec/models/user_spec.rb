@@ -111,9 +111,10 @@ RSpec.describe User, type: :model do
       let!(:user2) { create(:user, role: :general) }
 
       it 'admin user can not turn into general user' do
-        user1.role = :admin
-        user1.save
-
+        user1.role = :general
+        expect{
+          user1.save!
+        }.to raise_error(ActiveRecord::RecordInvalid)
         expect(User.where(role: :admin).count).to eq(1)
       end
     end
