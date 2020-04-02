@@ -8,15 +8,16 @@ class Label < ApplicationRecord
   PURPLE = '#B87DDA'.freeze
   BLUE = '#3278BA'.freeze
 
+  DEFAULT_COLOR = [GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE]
+
   belongs_to :project
   has_many :task_labels, dependent: :destroy
   has_many :tasks, through: :task_labels
 
   validates :color, presence: true
 
-  DEFAULT_COLOR = [GREEN, YELLOW, ORANGE, RED, PURPLE, BLUE]
   def self.create_default_label(id)
-    DEFAULT_COLOR.each_with_index do |color, index|
+    DEFAULT_COLOR.each do |color|
       Label.new(color: color, project_id: id).save
     end
   end

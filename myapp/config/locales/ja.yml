@@ -65,3 +65,13 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "&hellip;"
+  errors:
+    not_found:
+      title: "ページが見つかりません。"
+      comment: "このページは非公開の場合があります。 誰かがあなたにこのリンクを提供した場合、彼らはあなたのボードまたはチームのいずれかにあなたを招待する必要があるかもしれません。"
+    internal_server:
+      title: "おっと！ 500内部サーバーエラー"
+      comment: "ご不便をおかけして申し訳ありませんが、問題の解決に取り組んでいます。"
+    maintenance:
+      title:  "おっと！ 503エラー！ サービスが利用できないか、システムがメンテナンスです"
+      comment: "Treasure Mapは新しいサービスに脱皮しています!!"

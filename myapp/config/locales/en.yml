@@ -58,3 +58,13 @@ en:
     login_input_password: "Enter password"
   logout:
     logout_submit: "Log Out"
+  errors:
+    not_found:
+      title: "Page not found."
+      comment: "This page may be private. If someone gave you this link, they may need to invite you to one of their boards or teams."
+    internal_server:
+      title: "Oops ! 500 Internal Server Error"
+      comment: " We are working to solve the problem, sorry for the inconvenience."
+    maintenance:
+      title: "Opps ! 503 error ! Our service unavailable or system is maintenance"
+      comment: "Treasure Map is molting to new service !!"
