@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @search_form = TaskSearchForm.new(search_params)
-    @tasks = @search_form.search(current_user.tasks).page(params[:page])
+    @tasks = @search_form.search(current_user.tasks.includes(:labels)).page(params[:page])
   end
 
   def show
@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.includes(:labels).find(params[:id])
   end
 
   def build_task_labels
