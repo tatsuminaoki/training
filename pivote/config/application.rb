@@ -14,6 +14,7 @@ module Pivote
     config.i18n.default_locale = :ja
     # 複数のロケールファイルが読み込まれるようにpathを通す
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.autoload_paths += Dir["#{config.root}/lib"]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
