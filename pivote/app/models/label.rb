@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Label < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 15 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 15 }
 
   belongs_to :user
   has_many :task_labels, dependent: :destroy

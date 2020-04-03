@@ -21,20 +21,20 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_url, notice: t('flash.create', target: @task.title)
     else
+      build_task_labels
       render :new
     end
   end
 
   def edit
-    until @task.task_labels.size >= 3
-      @task.task_labels.build
-    end
+    build_task_labels
   end
 
   def update
     if @task.update(task_params)
       redirect_to tasks_url, notice: t('flash.update', target: @task.title)
     else
+      build_task_labels
       render :edit
     end
   end
@@ -59,5 +59,11 @@ class TasksController < ApplicationController
 
   def find_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def build_task_labels
+    until @task.task_labels.size >= 3
+      @task.task_labels.build
+    end
   end
 end
