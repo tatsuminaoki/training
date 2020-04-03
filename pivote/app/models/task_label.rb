@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskLabel < ApplicationRecord
   validates :task_id, uniqueness: { scope: [:label_id] }
 

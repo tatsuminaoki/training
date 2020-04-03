@@ -62,8 +62,6 @@ class TasksController < ApplicationController
   end
 
   def build_task_labels
-    until @task.task_labels.size >= 3
-      @task.task_labels.build
-    end
+    @task.task_labels.build until @task.task_labels.size >= 3
   end
 end

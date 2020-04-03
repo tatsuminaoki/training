@@ -6,7 +6,7 @@ class Task < ApplicationRecord
 
   belongs_to :user
   has_many :task_labels, dependent: :destroy
-  has_many :labels, :through => :task_labels
+  has_many :labels, through: :task_labels
   accepts_nested_attributes_for :task_labels, reject_if: :reject_task_label, allow_destroy: true
   validate :task_label_be_unique
 
@@ -40,7 +40,7 @@ class Task < ApplicationRecord
   def reject_task_label(attributes)
     exists = attributes[:id].present?
     empty = attributes[:label_id].blank?
-    attributes.merge!(_destroy: 1) if exists && empty
+    attributes[:_destroy] = 1 if exists && empty
     !exists && empty
   end
 end
