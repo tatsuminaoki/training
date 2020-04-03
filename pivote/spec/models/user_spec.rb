@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '名前' do
-    let(:user) { FactoryBot.build(:user, name: name) }
+    let(:user) { FactoryBot.build(:user, name: name, email: 'user@example.com') }
     subject { user }
 
     context 'nil' do
@@ -83,7 +83,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'パスワード' do
-    let(:user) { FactoryBot.build(:user, password: password) }
+    let(:user) { FactoryBot.build(:user, password: password, email: 'user@example.com') }
     subject { user }
 
     context 'nil' do

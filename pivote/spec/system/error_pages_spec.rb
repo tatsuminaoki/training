@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'エラーページ表示機能', type: :system do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, email: 'error@example.com') }
 
   before do
     visit login_path

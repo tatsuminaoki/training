@@ -6,6 +6,5 @@ FactoryBot.define do
     description { 'テストです' }
     priority { 10 }
     status { 10 }
-    user
   end
 end

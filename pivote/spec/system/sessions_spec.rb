@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'ログイン機能', type: :system do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, email: 'session@example.com') }
 
   describe 'ログイン' do
     before do
