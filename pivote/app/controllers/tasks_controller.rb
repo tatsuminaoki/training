@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
   before_action :my_labels, only: %i[index new create edit update]
 
+  # 設定できるラベルの数
+  LABEL_NUMBER = 3
+
   def index
     @search_form = TaskSearchForm.new(search_params)
     @tasks = @search_form.search(current_user.tasks.includes(:labels)).page(params[:page])
@@ -14,7 +17,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    3.times { @task.task_labels.build }
+    LABEL_NUMBER.times { @task.task_labels.build }
   end
 
   def create
@@ -67,6 +70,6 @@ class TasksController < ApplicationController
   end
 
   def build_task_labels
-    @task.task_labels.build until @task.task_labels.size >= 3
+    @task.task_labels.build until @task.task_labels.size >= LABEL_NUMBER
   end
 end
