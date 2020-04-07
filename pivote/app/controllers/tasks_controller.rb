@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
+  before_action :my_labels, only: %i[index new create edit update]
 
   def index
     @search_form = TaskSearchForm.new(search_params)
@@ -59,6 +60,10 @@ class TasksController < ApplicationController
 
   def find_task
     @task = current_user.tasks.includes(:labels).find(params[:id])
+  end
+
+  def my_labels
+    @labels = current_user.labels.order_by_id_desc
   end
 
   def build_task_labels

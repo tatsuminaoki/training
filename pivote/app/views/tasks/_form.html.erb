@@ -37,7 +37,7 @@
     <div class="form-group">
       <%= tl.label :label_id, t('activerecord.models.label') %>
       <div class="col-md-5">
-        <%= tl.collection_select :label_id, current_user.labels.order(id: :desc), :id, :name, { include_blank: true }, { class: 'form-control' } %>
+        <%= tl.collection_select :label_id, @labels, :id, :name, { include_blank: true }, { class: 'form-control' } %>
       </div>
     </div>
   <% end %>
