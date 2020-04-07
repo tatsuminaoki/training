@@ -65,7 +65,7 @@
         <td><%= task.human_attribute_enum(:status) %></td>
         <td><%= task.format_deadline %></td>
         <td>
-          <% task.task_labels.order(:label_id).each do |task_label| %>
+          <% task.task_labels.each do |task_label| %>
             <p><%= task_label.label.name %></p>
           <% end %>
         </td>
