@@ -2,6 +2,8 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザー
+      label: ラベル
     attributes:
       task:
         title: 名称
@@ -9,8 +11,6 @@ ja:
         priority: 優先度
         status: ステータス
         deadline: 期限
-        created_at: 作成日時
-        updated_at: 更新日時
       task/priority:
         low: 低
         middle: 中
@@ -19,11 +19,16 @@ ja:
         waiting: 未着手
         doing: 着手
         done: 完了
+      task/task_labels:
+        task_id: ラベル
       user:
         name: 名前
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード(確認)
         is_admin: 管理者
-        created_at: 作成日時
-        updated_at: 更新日時
+      label:
+        name: 名前
+  attributes:
+    created_at: 作成日時
+    updated_at: 更新日時

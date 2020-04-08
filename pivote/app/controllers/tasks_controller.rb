@@ -2,10 +2,14 @@
 
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
+  before_action :my_labels, only: %i[index new create edit update]
+
+  # 設定できるラベルの数
+  LABEL_NUMBER = 3
 
   def index
     @search_form = TaskSearchForm.new(search_params)
-    @tasks = @search_form.search(current_user.tasks).page(params[:page])
+    @tasks = @search_form.search(current_user.tasks.includes(:labels)).page(params[:page])
   end
 
   def show
@@ -13,6 +17,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    LABEL_NUMBER.times { @task.task_labels.build }
   end
 
   def create
@@ -20,17 +25,20 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_url, notice: t('flash.create', target: @task.title)
     else
+      build_task_labels
       render :new
     end
   end
 
   def edit
+    build_task_labels
   end
 
   def update
     if @task.update(task_params)
       redirect_to tasks_url, notice: t('flash.update', target: @task.title)
     else
+      build_task_labels
       render :edit
     end
   end
@@ -46,14 +54,22 @@ class TasksController < ApplicationController
   private
 
   def search_params
-    params.require(:search).permit(:title, :priority, :status, :sort_column, :direction) unless params[:search].nil?
+    params.require(:search).permit(:title, :priority, :status, :sort_column, :direction, :label) unless params[:search].nil?
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :priority, :status, :deadline)
+    params.require(:task).permit(:title, :description, :priority, :status, :deadline, task_labels_attributes: %i[id task_id label_id _destroy])
   end
 
   def find_task
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.includes(:labels).find(params[:id])
+  end
+
+  def my_labels
+    @labels = current_user.labels.order_by_id_desc
+  end
+
+  def build_task_labels
+    @task.task_labels.build until @task.task_labels.size >= LABEL_NUMBER
   end
 end

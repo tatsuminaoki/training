@@ -31,6 +31,14 @@
       <td><%= @task.format_deadline %></td>
     </tr>
     <tr>
+      <th><%= t('activerecord.models.label') %></th>
+      <td>
+        <% @task.task_labels.each do |task_label| %>
+          <p><%= task_label.label.name %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
       <th><%= Task.human_attribute_name(:created_at) %></th>
       <td><%= l @task.created_at %></td>
     </tr>

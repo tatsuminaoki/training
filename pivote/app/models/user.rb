@@ -13,6 +13,7 @@ class User < ApplicationRecord
   before_destroy :validate_admin_for_destroy
 
   has_many :tasks, dependent: :destroy
+  has_many :labels, dependent: :destroy
 
   private
 

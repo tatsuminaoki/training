@@ -5,25 +5,49 @@ require 'rails_helper'
 describe 'タスク管理機能', type: :system do
   let(:user_a) { FactoryBot.create(:user, name: 'Aさん', email: 'a@example.com') }
   let(:single_task) { FactoryBot.create(:task, user: user_a) }
-  let(:tasks_1) {
-    FactoryBot.create(:task, title: task1_title, priority: :high, status: :waiting, deadline: Time.zone.now, created_at: Time.zone.now, user: user_a)
-    FactoryBot.create(:task, title: task2_title, priority: :middle, status: :doing, deadline: 1.day.ago, created_at: 1.day.ago, user: user_a)
-    FactoryBot.create(:task, title: task3_title, priority: :low, status: :done, deadline: 2.days.ago, created_at: 2.days.ago, user: user_a)
+  let(:label1) { FactoryBot.create(:label, name: 'label_1', user: user_a) }
+  let(:label2) { FactoryBot.create(:label, name: 'label_2', user: user_a) }
+  let(:label3) { FactoryBot.create(:label, name: 'label_3', user: user_a) }
+  let(:labels) {
+    label1
+    label2
+    label3
   }
+  let(:single_task_label_1) { FactoryBot.create(:task_label, task: single_task, label: label1) }
+  let(:single_task_label_2) { FactoryBot.create(:task_label, task: single_task, label: label2) }
+
+  let(:task1) { FactoryBot.create(:task, title: task1_title, priority: :high, status: :waiting, deadline: Time.zone.now, created_at: Time.zone.now, user: user_a) }
+  let(:task2) { FactoryBot.create(:task, title: task2_title, priority: :middle, status: :doing, deadline: 1.day.ago, created_at: 1.day.ago, user: user_a) }
+  let(:task3) { FactoryBot.create(:task, title: task3_title, priority: :low, status: :done, deadline: 2.days.ago, created_at: 2.days.ago, user: user_a) }
+  let(:task_label1) { FactoryBot.create(:task_label, task: task1, label: label1) }
+  let(:task_label2) { FactoryBot.create(:task_label, task: task2, label: label2) }
+  let(:task_label3) { FactoryBot.create(:task_label, task: task3, label: label3) }
   let(:task1_title) { '1st' }
   let(:task2_title) { '2nd' }
   let(:task3_title) { '3rd' }
+  let(:tasks_1) {
+    task_label1
+    task_label2
+    task_label3
+  }
   let(:task1_i) { page.body.index(task1_title) }
   let(:task2_i) { page.body.index(task2_title) }
   let(:task3_i) { page.body.index(task3_title) }
-  let(:tasks_2) {
-    FactoryBot.create(:task, title: task4_title, priority: :high, status: :done, deadline: 4.days.ago, created_at: 4.days.ago, user: user_a)
-    FactoryBot.create(:task, title: task5_title, priority: :middle, status: :doing, deadline: 5.days.ago, created_at: 5.days.ago, user: user_a)
-    FactoryBot.create(:task, title: task6_title, priority: :low, status: :waiting, deadline: 6.days.ago, created_at: 6.days.ago, user: user_a)
-  }
+
+  let(:task4) { FactoryBot.create(:task, title: task4_title, priority: :high, status: :done, deadline: 4.days.ago, created_at: 4.days.ago, user: user_a) }
+  let(:task5) { FactoryBot.create(:task, title: task5_title, priority: :middle, status: :doing, deadline: 5.days.ago, created_at: 5.days.ago, user: user_a) }
+  let(:task6) { FactoryBot.create(:task, title: task6_title, priority: :low, status: :waiting, deadline: 6.days.ago, created_at: 6.days.ago, user: user_a) }
+  let(:task_label4) { FactoryBot.create(:task_label, task: task4, label: label2) }
+  let(:task_label5) { FactoryBot.create(:task_label, task: task5, label: label3) }
+  let(:task_label6) { FactoryBot.create(:task_label, task: task6, label: label1) }
   let(:task4_title) { '4th' }
   let(:task5_title) { '5th' }
   let(:task6_title) { '6th' }
+  let(:tasks_2) {
+    task_label4
+    task_label5
+    task_label6
+  }
   let(:task4_i) { page.body.index(task4_title) }
   let(:task5_i) { page.body.index(task5_title) }
   let(:task6_i) { page.body.index(task6_title) }
@@ -61,6 +85,7 @@ describe 'タスク管理機能', type: :system do
       context '優先度のリンクを2回踏んだとき' do
         it '優先度の昇順で表示される' do
           click_link '優先度'
+          sleep 0.1
           click_link '優先度'
           sleep 0.1
           expect(task3_i).to be < task2_i
@@ -71,7 +96,9 @@ describe 'タスク管理機能', type: :system do
       context '優先度のリンクを3回踏んだとき' do
         it '作成日時の降順で表示される' do
           click_link '優先度'
+          sleep 0.1
           click_link '優先度'
+          sleep 0.1
           click_link '優先度'
           sleep 0.1
           expect(task1_i).to be < task2_i
@@ -91,6 +118,7 @@ describe 'タスク管理機能', type: :system do
       context 'ステータスのリンクを2回踏んだとき' do
         it 'ステータスの昇順で表示される' do
           click_link 'ステータス'
+          sleep 0.1
           click_link 'ステータス'
           sleep 0.1
           expect(task3_i).to be < task2_i
@@ -101,7 +129,9 @@ describe 'タスク管理機能', type: :system do
       context 'ステータスのリンクを3回踏んだとき' do
         it '作成日時の降順で表示される' do
           click_link 'ステータス'
+          sleep 0.1
           click_link 'ステータス'
+          sleep 0.1
           click_link 'ステータス'
           sleep 0.1
           expect(task1_i).to be < task2_i
@@ -121,6 +151,7 @@ describe 'タスク管理機能', type: :system do
       context '期限のリンクを2回踏んだとき' do
         it '期限の昇順で表示される' do
           click_link '期限'
+          sleep 0.1
           click_link '期限'
           sleep 0.1
           expect(task3_i).to be < task2_i
@@ -131,7 +162,9 @@ describe 'タスク管理機能', type: :system do
       context '期限のリンクを3回踏んだとき' do
         it '作成日時の降順で表示される' do
           click_link '期限'
+          sleep 0.1
           click_link '期限'
+          sleep 0.1
           click_link '期限'
           sleep 0.1
           expect(task1_i).to be < task2_i
@@ -163,6 +196,16 @@ describe 'タスク管理機能', type: :system do
           click_button '検索'
           expect(page).to have_content task2_title
           expect(page).to have_no_content task1_title
+          expect(page).to have_no_content task3_title
+        end
+      end
+
+      context 'ラベルで検索したとき' do
+        it '選択したラベルのタスクが表示される' do
+          select 'label_1', from: 'search[label]'
+          click_button '検索'
+          expect(page).to have_content task1_title
+          expect(page).to have_no_content task2_title
           expect(page).to have_no_content task3_title
         end
       end
@@ -204,6 +247,36 @@ describe 'タスク管理機能', type: :system do
           click_button '検索'
           expect(page).to have_content task5_title
           expect(page).to have_no_content task2_title
+        end
+      end
+
+      context '優先度とラベルで検索したとき' do
+        it '選択した優先度とラベルのタスクが表示される' do
+          select '低', from: 'search[priority]'
+          select 'label_1', from: 'search[label]'
+          click_button '検索'
+          expect(page).to have_content task6_title
+          expect(page).to have_no_content task3_title
+        end
+      end
+
+      context 'ステータスとラベルで検索したとき' do
+        it '選択したステータスとラベルのタスクが表示される' do
+          select '完了', from: 'search[status]'
+          select 'label_2', from: 'search[label]'
+          click_button '検索'
+          expect(page).to have_content task4_title
+          expect(page).to have_no_content task3_title
+        end
+      end
+
+      context 'ラベルと名称で検索したとき' do
+        it '選択したラベルと名称のタスクが表示される' do
+          select 'label_2', from: 'search[label]'
+          fill_in 'search[title]', with: task2_title
+          click_button '検索'
+          expect(page).to have_content task2_title
+          expect(page).to have_no_content task4_title
         end
       end
     end
@@ -257,26 +330,80 @@ describe 'タスク管理機能', type: :system do
 
     describe '新規作成' do
       before do
+        labels
         visit new_task_path
         fill_in 'task_title', with: '新規タスク'
-        click_button '登録する'
       end
 
-      it 'タスクが新規作成される' do
-        expect(page).to have_content '新規タスク'
-        expect(Task.count).to eq 1
+      context 'ラベルを重複せずに選択した場合' do
+        before do
+          select 'label_1', from: 'task[task_labels_attributes][0][label_id]'
+          select 'label_2', from: 'task[task_labels_attributes][1][label_id]'
+          select 'label_3', from: 'task[task_labels_attributes][2][label_id]'
+          click_button '登録する'
+        end
+
+        it 'タスクが新規作成される' do
+          expect(page).to have_content '新規タスク'
+          tds = page.all('td')
+          expect(tds[4]).to have_content 'label_1'
+          expect(tds[4]).to have_content 'label_2'
+          expect(tds[4]).to have_content 'label_3'
+          expect(Task.count).to eq 1
+          expect(TaskLabel.count).to eq 3
+        end
+      end
+
+      context 'ラベルを重複して選択した場合' do
+        before do
+          select 'label_1', from: 'task[task_labels_attributes][0][label_id]'
+          select 'label_1', from: 'task[task_labels_attributes][1][label_id]'
+          select 'label_2', from: 'task[task_labels_attributes][2][label_id]'
+          click_button '登録する'
+        end
+
+        it 'エラーが発生する' do
+          expect(page).to have_content I18n.t('alert.duplicate_label')
+          expect(Task.count).to eq 0
+        end
       end
     end
 
     describe '編集' do
       before do
+        labels
+        single_task_label_1
+        single_task_label_2
         visit edit_task_path(single_task)
-        fill_in 'task_title', with: '編集した'
-        click_button '更新する'
       end
 
-      it 'タスクが編集される' do
+      it '名称が編集される' do
+        fill_in 'task_title', with: '編集した'
+        click_button '更新する'
         expect(page).to have_content '編集した'
+      end
+
+      it 'ラベルを追加できる' do
+        select 'label_3', from: 'task[task_labels_attributes][2][label_id]'
+        click_button '更新する'
+        expect(page).to have_content 'label_3'
+        expect(TaskLabel.count).to eq 3
+      end
+
+      it 'ラベルをはずすことができる' do
+        select '', from: 'task[task_labels_attributes][0][label_id]'
+        click_button '更新する'
+        tds = page.all('td')
+        expect(tds[4]).to_not have_content 'label_1'
+        expect(tds[4]).to have_content 'label_2'
+        expect(TaskLabel.count).to eq 1
+      end
+
+      it 'ラベルを重複して選択するとエラーが発生する' do
+        select 'label_1', from: 'task[task_labels_attributes][1][label_id]'
+        click_button '更新する'
+        expect(page).to have_content I18n.t('alert.duplicate_label')
+        expect(TaskLabel.count).to eq 2
       end
     end
 

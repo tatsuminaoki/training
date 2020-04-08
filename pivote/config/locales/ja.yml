@@ -13,6 +13,10 @@ ja:
       show: ユーザーの詳細
       edit: ユーザーの編集
       tasks: 「%{name}」のタスク一覧
+    label:
+      index: ラベル一覧
+      new: ラベルの新規登録
+      edit: ラベルの編集
   crud:
     create: 登録
     update: 編集
@@ -31,10 +35,13 @@ ja:
     confirm: 「%{target}」を削除します。よろしいですか？
     login_error: メールアドレス、またはパスワードが正しくありません。
     admin_error: 管理者が存在しなくなるため実行できません。
+    label_error: ラベルの登録に失敗しました。
+    duplicate_label: ラベルが重複しています。
   link:
     all: 一覧
     tasks: タスク一覧
     users: ユーザー一覧
+    labels: ラベル一覧
     login: ログイン
     logout: ログアウト
   column:

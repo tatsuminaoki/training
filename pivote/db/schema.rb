@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_24_121433) do
+ActiveRecord::Schema.define(version: 2020_03_31_014058) do
+
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_labels_on_name", unique: true
+    t.index ["user_id"], name: "index_labels_on_user_id"
+  end
+
+  create_table "task_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "task_id"
+    t.bigint "label_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_task_labels_on_label_id"
+    t.index ["task_id", "label_id"], name: "index_task_labels_on_task_id_and_label_id", unique: true
+    t.index ["task_id"], name: "index_task_labels_on_task_id"
+  end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", limit: 30, null: false
@@ -23,12 +42,11 @@ ActiveRecord::Schema.define(version: 2020_03_24_121433) do
     t.bigint "user_id"
     t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["status"], name: "index_tasks_on_status"
-    t.index ["title"], name: "index_tasks_on_title"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 30, null: false
     t.string "email", null: false
     t.string "password_digest", null: false
     t.boolean "is_admin", default: false, null: false
@@ -37,5 +55,8 @@ ActiveRecord::Schema.define(version: 2020_03_24_121433) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "labels", "users"
+  add_foreign_key "task_labels", "labels"
+  add_foreign_key "task_labels", "tasks"
   add_foreign_key "tasks", "users"
 end

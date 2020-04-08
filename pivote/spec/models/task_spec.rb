@@ -3,9 +3,11 @@
 require 'rails_helper'
 
 describe Task, type: :model do
+  let(:user) { FactoryBot.create(:user, email: 'task@example.com') }
+
   describe 'バリデーション' do
     describe '名称' do
-      let(:task) { FactoryBot.build(:task, title: title) }
+      let(:task) { FactoryBot.build(:task, title: title, user: user) }
       subject { task }
 
       context '0文字の場合' do
@@ -25,7 +27,7 @@ describe Task, type: :model do
     end
 
     describe '説明' do
-      let(:task) { FactoryBot.build(:task, description: description) }
+      let(:task) { FactoryBot.build(:task, description: description, user: user) }
       subject { task }
 
       context '1000文字の場合' do

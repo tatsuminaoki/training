@@ -15,6 +15,7 @@
       <ul class="navbar-nav ml-auto">
         <% if current_user %>
           <li class="nav-item"><%= link_to t('link.tasks'), tasks_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to t('link.labels'), labels_path, class: 'nav-link' %></li>
           <% if current_user.is_admin %>
             <li class="nav-item"><%= link_to t('link.users'), admin_users_path, class: 'nav-link' %></li>
           <% end %>
