@@ -10,7 +10,6 @@ class TasksController < ApplicationController
     else
       flash[:alert] = I18n.t('flash.failed_create', model_name: 'task')
       redirect_to project_url(id: params[:project_id]), notice: task.errors.full_messages
-
     end
   end
 
