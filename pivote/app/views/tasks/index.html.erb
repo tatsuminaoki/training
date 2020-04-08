@@ -4,20 +4,20 @@
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
   <div class="form-inline mb-3">
     <div class="form-group form-inline mr-4">
-      <%= f.label Task.human_attribute_name(:priority) + '：' %>
+      <%= f.label Task.human_attribute_name(:priority) %>：
       <%= f.select 'search[priority]', Task.enum_options_for_select(:priority), { include_blank: true, selected: @search_form.priority }, { class: 'form-control' } %>
     </div>
     <div class="form-group form-inline mr-4">
-      <%= f.label Task.human_attribute_name(:status) + '：' %>
+      <%= f.label Task.human_attribute_name(:status) %>：
       <%= f.select 'search[status]', Task.enum_options_for_select(:status), { include_blank: true, selected: @search_form.status }, { class: 'form-control' } %>
     </div>
     <div class="form-group form-inline">
-      <%= f.label t('activerecord.models.label') + '：' %>
-      <%= f.collection_select 'search[label]', current_user.labels.order(id: :desc), :id, :name, { include_blank: true, selected: @search_form.label }, { class: 'form-control' } %>
+      <%= f.label t('activerecord.models.label') %>：
+      <%= f.collection_select 'search[label]', @labels, :id, :name, { include_blank: true, selected: @search_form.label }, { class: 'form-control' } %>
     </div>
   </div>
   <div class="form-group form-inline">
-    <%= f.label Task.human_attribute_name(:title) + '：' %>
+    <%= f.label Task.human_attribute_name(:title) %>：
     <%= f.text_field 'search[title]', value: @search_form.title, class: 'form-control' %>
   </div>
   <div class="form-inline">
@@ -65,7 +65,7 @@
         <td><%= task.human_attribute_enum(:status) %></td>
         <td><%= task.format_deadline %></td>
         <td>
-          <% task.task_labels.order(:label_id).each do |task_label| %>
+          <% task.task_labels.each do |task_label| %>
             <p><%= task_label.label.name %></p>
           <% end %>
         </td>

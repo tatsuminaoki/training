@@ -33,6 +33,7 @@ describe 'ユーザー管理機能', type: :system do
     describe 'タスク一覧表示' do
       it '作成したタスクが表示される' do
         admin_task
+        visit admin_users_path
         click_link '1'
         expect(page).to have_content 'xxxxx'
       end
