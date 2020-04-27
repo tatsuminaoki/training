@@ -3,6 +3,6 @@
 <h2><%= @task.title %></h2>
 <p><%= @task.memo %></p>
 
-<%= link_to 'Back', '/tasks' %>
+<%= link_to 'Back', tasks_path %>
 <%= link_to 'Edit', edit_task_path(@task) %>
-<%= link_to 'delete', task_path(@task), method: :delete, data: { confirm: '消しますか？' } %>
+<%= link_to 'Delete', task_path(@task), method: :delete, data: { confirm: '消しますか？' } %>

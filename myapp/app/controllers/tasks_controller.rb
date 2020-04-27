@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     @task = Task.create(task_params)
 
     if @task.save
-      redirect_to '/tasks'
+      redirect_to tasks_path
     else
       render 'new'
     end
