@@ -11,9 +11,10 @@ class TasksController < ApplicationController
     @task = Task.create(task_params)
 
     if @task.save
+      flash[:success] = 'Taskは正常に作成されました'
       redirect_to tasks_path
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -29,9 +30,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
+      flash[:success] = 'Taskは正常に更新されました'
       redirect_to task_path(@task)
     else
-      render 'edit'
+      render :edit
     end
   end
 
@@ -39,6 +41,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @task.destroy
+    flash[:success] = 'Taskは正常に削除されました'
     redirect_to tasks_path
   end
 
