@@ -1,0 +1,13 @@
+<%= form_for(task) do |f| %>                                                                                                                                        
+  <div>
+    <div>
+      <div><%= f.label :title %></div>
+      <div><%= f.text_field :title %></div>
+    </div>
+    <div>
+      <div><%= f.label :memo %></div>
+      <div><%= f.text_area :memo %></div>
+    </div>
+    <div><%= f.submit %></div>
+  <div>
+<% end %>

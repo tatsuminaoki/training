@@ -1,0 +1,19 @@
+<h1>Task一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Task名</th>
+      <th>memo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |t| %>
+      <tr>
+        <td><%= link_to t.title, t %></td>
+        <td><%= t.memo %><td/>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Task', new_task_path %>
