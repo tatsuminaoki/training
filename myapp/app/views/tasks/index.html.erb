@@ -1,9 +1,9 @@
-<h1>Task一覧</h1>
+<h1><%= t('tasks.index.title') %></h1>
 <table>
   <thead>
     <tr>
-      <th>Task名</th>
-      <th>memo</th>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= Task.human_attribute_name(:memo) %></th>
     </tr>
   </thead>
   <tbody>
