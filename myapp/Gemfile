@@ -34,10 +34,10 @@ group :development, :test do
 
   #Rspec
   gem 'rspec-rails', '~> 4.0.0'
-
   gem 'capybara', '>= 2.15'
-
   gem 'selenium-webdriver'
+
+  gem 'rails-i18n', '~> 6.0.0' # For 6.0.0 or higher
 end
 
 group :development do
@@ -48,7 +48,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-byebug'
-  gem 'rails-i18n', '~> 6.0.0' # For 6.0.0 or higher
 end
 
 group :test do

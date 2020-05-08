@@ -2,15 +2,17 @@
 <table>
   <thead>
     <tr>
-      <th><%= Task.human_attribute_name(:title) %></th>
-      <th><%= Task.human_attribute_name(:memo) %></th>
+      <th><%= link_to Task.human_attribute_name(:title), sort_tasks_path(title: @title_num) %></th>
+      <th><%= link_to Task.human_attribute_name(:memo), sort_tasks_path(memo: @memo_num) %></th>
+      <th><%= link_to Task.human_attribute_name(:created_at), sort_tasks_path(created_at: @created_at_num) %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |t| %>
-      <tr>
+      <tr class='task'>
         <td><%= link_to t.title, t %></td>
         <td><%= t.memo %><td/>
+        <td><%= l t.created_at, format: :short %></td>
       </tr>
     <% end %>
   </tbody>
