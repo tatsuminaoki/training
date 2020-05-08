@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
-  before_action :task_val , only: [:index, :sort]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(params[:sort])
   end
 
   def new
@@ -11,7 +10,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create(task_params)
-
     if @task.save
       redirect_to tasks_path, notice: 'Taskは正常に作成されました'
     else
@@ -44,49 +42,9 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: 'Taskは正常に削除されました'
   end
 
-  def sort
-    if params[:created_at].present?
-      @created_at_num = params[:created_at].to_i
-      if @created_at_num == 0
-        @tasks = Task.order(created_at: :DESC)
-        @created_at_num = 1
-      else
-        @tasks = Task.order(created_at: :ASC)
-        @created_at_num = 0
-      end
-    elsif params[:title].present?
-      @title_num = params[:title].to_i
-      if @title_num == 0
-        @tasks = Task.order(title: :DESC)
-        @title_num = 1
-      else
-        @tasks = Task.order(title: :ASC)
-        @title_num = 0
-      end
-    elsif params[:memo].present?
-      @memo_num = params[:memo].to_i
-      if @memo_num == 0
-        @tasks = Task.order(memo: :DESC)
-        @memo_num = 1
-      else
-        @tasks = Task.order(memo: :ASC)
-        @memo_num = 0
-      end
-    else
-      @tasks = Task.all
-    end
-    render :index
-  end
-
   private
     def task_params
       params.require(:task).permit(:title, :memo)
     end
     
-    def task_val
-      @created_at_num = 0
-      @title_num = 0
-      @memo_num = 0
-    end
-
 end

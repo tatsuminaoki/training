@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   unless Rails.env.development?
-    rescue_from Exception, with: :rescue500
+    rescue_from StandardError, with: :rescue500
+    rescue_from RuntimeError, with: :rescue500
     rescue_from ActionController::RoutingError, with: :rescue404
     rescue_from ActiveRecord::RecordNotFound, with: :rescue404
   end

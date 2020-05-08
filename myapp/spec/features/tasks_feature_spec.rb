@@ -18,7 +18,7 @@ describe "task system", type: :feature do
     end
 
     it 'sort' do
-      visit '/tasks/sort?created_at=0'
+      visit '/tasks?sort=created_at+desc'
       task_array = all('.task')
         expect(task_array[0]).to have_content task4.title
         expect(task_array[1]).to have_content task3.title

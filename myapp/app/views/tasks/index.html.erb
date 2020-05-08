@@ -2,9 +2,9 @@
 <table>
   <thead>
     <tr>
-      <th><%= link_to Task.human_attribute_name(:title), sort_tasks_path(title: @title_num) %></th>
-      <th><%= link_to Task.human_attribute_name(:memo), sort_tasks_path(memo: @memo_num) %></th>
-      <th><%= link_to Task.human_attribute_name(:created_at), sort_tasks_path(created_at: @created_at_num) %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:title), 'title') %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo') %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at') %></th>
     </tr>
   </thead>
   <tbody>
