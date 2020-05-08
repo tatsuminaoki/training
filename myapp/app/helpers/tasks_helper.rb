@@ -1,5 +1,5 @@
 module TasksHelper
-  def tasks_sort(n, val)
-    request.fullpath.include?('desc') ? link_to(n, sort: val) : link_to(n, sort: "#{val} desc")
+  def tasks_sort(column_name, val)
+    request.fullpath.include?('desc') ? link_to(column_name, sort: val) : link_to(column_name, sort: "#{val} desc")
   end
 end
