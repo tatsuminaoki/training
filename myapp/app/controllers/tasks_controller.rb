@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
+  ALLOWED_NAME = %w(title memo created_at
+                    title\ desc memo\ desc created_at\ desc).freeze
 
   def index
-    @tasks = Task.all.order(params[:sort])
+    p ALLOWED_NAME
+    sort = params[:sort] if ALLOWED_NAME.include?(params[:sort])
+    @tasks = Task.all.order(sort)
+    p sort
   end
 
   def new
