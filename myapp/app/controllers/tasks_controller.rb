@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
+  ALLOWED_NAME = %w(title memo created_at
+                    title\ desc memo\ desc created_at\ desc).freeze
+
   def index
-    @tasks = Task.all
+    sort = params[:sort] if ALLOWED_NAME.include?(params[:sort])
+    @tasks = Task.all.order(sort)
   end
 
   def new
@@ -9,7 +13,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create(task_params)
-
     if @task.save
       redirect_to tasks_path, notice: 'Taskは正常に作成されました'
     else
@@ -46,4 +49,5 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :memo)
     end
+    
 end
