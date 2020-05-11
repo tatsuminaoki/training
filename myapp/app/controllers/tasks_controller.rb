@@ -3,10 +3,8 @@ class TasksController < ApplicationController
                     title\ desc memo\ desc created_at\ desc).freeze
 
   def index
-    p ALLOWED_NAME
     sort = params[:sort] if ALLOWED_NAME.include?(params[:sort])
     @tasks = Task.all.order(sort)
-    p sort
   end
 
   def new
