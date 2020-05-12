@@ -1,13 +1,16 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :get_stauses, only: [:new, :edit]
 
   def index
     @tasks = if sort_column == 'due_at'
-               Task.all.order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
-             else
-               Task.all.order(sort_column + ' ' + sort_direction)
-             end
+      Task.all.order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+    elsif sort_column == 'status_id'
+      Task.joins(:status).includes(:status).order('statuses.rate ' + sort_direction)
+    else
+      Task.all.order(sort_column + ' ' + sort_direction)
+    end
   end
 
   def new
@@ -56,8 +59,12 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def get_stauses
+    @statuses = Status.all.order(rate: :asc)
+  end
+
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status_id)
   end
 
   def sort_direction
