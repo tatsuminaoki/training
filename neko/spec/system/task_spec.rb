@@ -20,10 +20,10 @@ describe 'task', type: :system do
       it 'should be success' do
         visit new_task_path
 
-        fill_in 'Name', with: 'huga'
-        fill_in 'Description', with: 'fuga'
+        fill_in '名前', with: 'huga'
+        fill_in '説明', with: 'fuga'
 
-        click_on 'Create Task'
+        click_on '登録する'
         expect(page).to have_content 'タスクを作成しました'
       end
     end
@@ -34,10 +34,10 @@ describe 'task', type: :system do
       it 'should be success' do
         visit edit_task_path(task.id)
 
-        fill_in 'Name', with: 'hogehoge'
-        fill_in 'Description', with: 'fugaguga'
+        fill_in '名前', with: 'hogehoge'
+        fill_in '説明', with: 'fugaguga'
 
-        click_on 'Update Task'
+        click_on '更新する'
         expect(page).to have_content 'タスクを更新しました'
       end
     end
@@ -62,12 +62,12 @@ describe 'task', type: :system do
 
         # confirm dialog
         page.dismiss_confirm do
-          click_on 'Delete'
+          click_on '削除'
           expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
         end
 
         page.accept_confirm do
-          click_on 'Delete'
+          click_on '削除'
         end
 
         expect(page).to have_content 'タスクを削除しました'
