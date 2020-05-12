@@ -3,11 +3,7 @@ require 'capybara/rspec'
 
 describe "Task", type: :feature do
 
-let!(:task) {create(:task)}
-let!(:task1) {create(:task)}
-let!(:task2) {create(:task)}
-let!(:task3) {create(:task)}
-let!(:task4) {create(:task)}
+let!(:tasks) {create_list(:task, 5)}
  
   describe "#index" do
     context 'when opning index' do
@@ -24,11 +20,11 @@ let!(:task4) {create(:task)}
       it 'tasks are sorted in descending order' do
         visit '/tasks?sort=created_at+desc'
         task_array = all('.task')
-          expect(task_array[0]).to have_content task4.title
-          expect(task_array[1]).to have_content task3.title
-          expect(task_array[2]).to have_content task2.title
-          expect(task_array[3]).to have_content task1.title
-          expect(task_array[4]).to have_content task.title
+          expect(task_array[0]).to have_content tasks[4].title
+          expect(task_array[1]).to have_content tasks[3].title
+          expect(task_array[2]).to have_content tasks[2].title
+          expect(task_array[3]).to have_content tasks[1].title
+          expect(task_array[4]).to have_content tasks[0].title
       end
     end
   end
@@ -50,7 +46,7 @@ let!(:task4) {create(:task)}
   describe "#edit" do
     context 'when editing @task' do
       it 'task are updated' do
-        visit edit_task_path(task)
+        visit edit_task_path(tasks[0])
 
         fill_in 'Title', with: 'test'
         fill_in 'Memo', with: 'testtest'
@@ -64,7 +60,7 @@ let!(:task4) {create(:task)}
   describe "#show" do
     context 'when opning @task' do
       it 'returns @task' do
-        visit task_path(task)
+        visit task_path(tasks[0])
 
         expect(page).to have_content 'Task詳細'
         expect(page).to have_content 'hoge'
@@ -76,7 +72,7 @@ let!(:task4) {create(:task)}
   describe "#delete" do
     context 'when @task is deleted' do
       it 'redirect_to index' do
-        visit task_path(task)
+        visit task_path(tasks[0])
 
         click_on 'Delete'
         expect(page).to have_content 'Taskは正常に削除されました'
