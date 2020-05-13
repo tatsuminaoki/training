@@ -1,13 +1,13 @@
 # ER図
-![ER](./ER_figure.png)
+![ER](./ER.png)
 
 # テーブル定義
 
 ## users
-![ER](./users.png)
+![users](./users.png)
 
 ## tasks
-![ER](./tasks.png)
+![tasks](./tasks.png)
 
 ## labels
-![ER](./labels.png)
+![labels](./labels.png)
